@@ -1,0 +1,14 @@
+D:\projects\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
+D:\projects\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
+D:\projects\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
+D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
