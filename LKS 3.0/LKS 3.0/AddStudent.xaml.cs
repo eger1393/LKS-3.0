@@ -10,27 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LKS_3._0
 {
 	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
+	/// Логика взаимодействия для AddStudent.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class AddStudent : Window
 	{
-		public MainWindow()
+		public AddStudent()
 		{
 			InitializeComponent();
-			AddStudent test = new AddStudent();
-			test.Visibility = Visibility.Visible;
-			test.Activate();
 		}
 
-		private void button_Click(object sender, RoutedEventArgs e)
+		private void FirstNameTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-
+			if (e.Text == "1")
+			{
+				e.Handled = true;
+			}
 		}
 	}
 }

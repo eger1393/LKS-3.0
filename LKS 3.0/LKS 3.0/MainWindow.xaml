@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        WindowState="Maximized"
+        Title="MainWindow" Height="424.142" Width="826.202">
     <Grid Margin="0,0,-262,-78">
-        
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="31" Margin="204,85,0,0" VerticalAlignment="Top" Width="46" Click="button_Click"/>
+
     </Grid>
 </Window>
