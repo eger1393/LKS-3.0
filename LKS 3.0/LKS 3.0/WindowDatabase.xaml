@@ -1,0 +1,83 @@
+﻿<Window x:Name="W_Data" x:Class="LKS_3._0.WindowDatabase"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0"
+        mc:Ignorable="d"
+        Title="WindowDatabase" Height="900" Width="1440" WindowState="Maximized">
+
+    <Grid x:Name="Main_Grid" Panel.ZIndex ="0" Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.25*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="StudentsGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto">
+            <DataGrid.Items>
+                <local:Student FIO="Мещеряков Антон Сергеевич" Group="3ВТИ-3ДБ-039" Kurs="3" />
+                <local:Student FIO="Балыко Егор" Group="3ВТИ-3ДБ-039" Kurs="3" />
+                <local:Student FIO="Алешин Роман" Group="3ВТИ-3ДБ-039" Kurs="3" />
+            </DataGrid.Items>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FIO}" Width="250" />
+                <DataGridTextColumn Header="Группа" Binding="{Binding Path = Group}" Width="150" />
+                <DataGridTextColumn Header="Курс" Binding="{Binding Path=Kurs}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+           
+            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента:" FontSize="13"></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="По взводу:" FontSize="12"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="2" FontSize="12"></ComboBox>
+            <Label Grid.Column="0" Grid.Row="3" Content="По группе:" FontSize="12"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="4" FontSize="12"></ComboBox>
+            <Label Grid.Column="0" Grid.Row="5" Content="По должности:" FontSize="12"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="6" FontSize="12"></ComboBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент" FontSize="10"></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="ФИО" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="2" Content="ВЗВОД" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="3" Content="ГРУППА" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="4" Content="ДОЛЖНОСТЬ" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="5" Content="ТЕЛЕФОН" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="6" Content="NONAME" FontSize="12"></Label>
+            
+            <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
+
+        </Grid>
+
+    </Grid>
+
+</Window>
