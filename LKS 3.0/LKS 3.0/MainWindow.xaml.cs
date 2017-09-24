@@ -15,14 +15,61 @@ using System.Windows.Shapes;
 
 namespace LKS_3._0
 {
+   
 	/// <summary>
 	/// Логика взаимодействия для MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+        const string pass = "111";
+        public MainWindow()
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void RB_Admin_Checked(object sender, RoutedEventArgs e)
+        {
+            L_Pass.Visibility = Visibility.Visible;
+            PB_Password.Visibility = Visibility.Visible;
+        }
+
+        private void RB_User_Checked(object sender, RoutedEventArgs e)
+        {
+            L_Pass.Visibility = Visibility.Hidden;
+            PB_Password.Visibility = Visibility.Hidden;
+            PB_Password.Password = "";
+        }
+
+        private void B_Input_Click(object sender, RoutedEventArgs e)
+        {
+            if(RB_User.IsChecked == true)
+            {
+                MessageBox.Show("Вход как студент");
+                WindowDatabase Window_Data = new WindowDatabase(false);
+                Window_Data.Show();
+
+                Close();
+            }
+            else if(RB_Admin.IsChecked == true)
+            {
+                if (PB_Password.Password == pass)
+                {
+                    MessageBox.Show("Успешно!");
+                    WindowDatabase Window_Data = new WindowDatabase(true);
+                    Window_Data.Show();
+
+                    Close();
+                }
+                else 
+                {
+                    MessageBox.Show("В доступе отказано!");
+                    PB_Password.Password = "";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите вариант входа");
+            }
+        }
+    }
 }
