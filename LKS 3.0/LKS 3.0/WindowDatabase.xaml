@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
         Title="WindowDatabase" Height="900" Width="1440" WindowState="Maximized">
-
     <Grid x:Name="Main_Grid" Panel.ZIndex ="0" Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -17,20 +16,10 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="StudentsGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto">
-            <DataGrid.Items>
-                <local:Student FIO="Мещеряков Антон Сергеевич" Group="3ВТИ-3ДБ-039" Kurs="3" />
-                <local:Student FIO="Балыко Егор" Group="3ВТИ-3ДБ-039" Kurs="3" />
-                <local:Student FIO="Алешин Роман" Group="3ВТИ-3ДБ-039" Kurs="3" />
-            </DataGrid.Items>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FIO}" Width="250" />
-                <DataGridTextColumn Header="Группа" Binding="{Binding Path = Group}" Width="150" />
-                <DataGridTextColumn Header="Курс" Binding="{Binding Path=Kurs}" />
-            </DataGrid.Columns>
+        <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" Loaded="StudentsGrid_Loaded" ColumnWidth="Auto">
         </DataGrid>
-
+        
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
