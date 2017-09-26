@@ -5,20 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="AddStudent" Height="498.833" Width="623.5">
-    <Grid Margin="0,0,-8,-20">
+        Title="AddStudent" Height="600" Width="700">
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="22*"/>
-            <ColumnDefinition Width="411*"/>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.25*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="FirstNameLabel" Content="Имя" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label x:Name="MidleNameLabel" Content="Фамилия" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label x:Name="LastNameLabel" Content="Отчество" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label x:Name="MobailPhoneLabel" Content="Мобильный номер" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="FirstNameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="94,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="64" UndoLimit="20" PreviewTextInput="FirstNameTextBox_PreviewTextInput"/>
-        <TextBox x:Name="MibleNameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="94,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="64"/>
-        <TextBox x:Name="LastNameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="94,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="64"/>
-        <TextBox x:Name="MobailPhoneTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="94,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="64"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Имя" HorizontalAlignment="Left" Width="40"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Фамилия"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Отчество"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Взвод"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Год поступления в МАИ"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Год окончания МАИ"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Студенческая группа"/>
+        <Label Grid.Column="0" Grid.Row="7" Content="Факультет"/>
+        <Label Grid.Column="0" Grid.Row="8" Content="Название специальности"/>
+        <Label Grid.Column="0" Grid.Row="9" Content="Условия обучения в вузе"/>
+        <Label Grid.Column="0" Grid.Row="10" Content="Средний бал в зачетной книжке"/>
 
+        <TextBox x:Name="TbFName" Grid.Column="0" Grid.Row="0"  Text="" HorizontalAlignment="Right" Width="160" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"  />
+        <TextBox x:Name="TbMName" Grid.Column="0" Grid.Row="1"  Text="" HorizontalAlignment="Right" Width="160" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+        <TextBox x:Name="TbLName" Grid.Column="0" Grid.Row="2"  Text="" HorizontalAlignment="Right" Width="160" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+        <ComboBox x:Name="CbTroop" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Width="160" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+            <ListBoxItem Content="410"/>
+            <ListBoxItem Content="509"/>
+            <ListBoxItem Content="901"/>
+            <ListBoxItem Content="409"/>
+        </ComboBox>
+        <TextBox x:Name="TbYearOfRecepit" Grid.Column="0" Grid.Row="4"  Text="" HorizontalAlignment="Right" Width="160" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" />
+        <TextBox x:Name="TbYearOfEnd" Grid.Column="0" Grid.Row="5"  Text="" HorizontalAlignment="Right" Width="160" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" />
+        <ComboBox x:Name="CbGroup" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Width="160" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+            <ListBoxItem Content="410"/>
+            <ListBoxItem Content="509"/>
+            <ListBoxItem Content="901"/>
+            <ListBoxItem Content="409"/>
+        </ComboBox>
+        <ComboBox x:Name="CbFacility" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Width="160" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+            <ListBoxItem Content="1"/>
+            <ListBoxItem Content="2"/>
+            <ListBoxItem Content="3"/>
+            <ListBoxItem Content="4"/>
+        </ComboBox>
+        <ComboBox x:Name="CbSpeciality" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right" Width="160" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+            <ListBoxItem Content="Бук"/>
+            <ListBoxItem Content="Тор"/>
+            <ListBoxItem Content="Оса"/>
+            <ListBoxItem Content="Тополь"/>
+        </ComboBox>
+        <ComboBox x:Name="CbConditions" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" Width="160" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+            <ListBoxItem Content="Бюджетное"/>
+            <ListBoxItem Content="Платное"/>
+        </ComboBox>
+        <TextBox x:Name="TbAverageScore" Grid.Column="0" Grid.Row="10"  Text="" HorizontalAlignment="Right" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" MaxLength="5" Width="50" PreviewTextInput="TbAverageScore_PreviewTextInput"  />
     </Grid>
 </Window>

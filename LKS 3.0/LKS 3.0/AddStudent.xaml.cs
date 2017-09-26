@@ -24,11 +24,37 @@ namespace LKS_3._0
 			InitializeComponent();
 		}
 
-		private void FirstNameTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		//
+		// фильтрация ввода
+		//
+
+		private void TbOnlyLetter_PreviewTextInput(object sender, TextCompositionEventArgs e) //
 		{
-			if (e.Text == "1")
+			if (!char.IsLetter(e.Text.ToString()[0]))
 			{
 				e.Handled = true;
+			}
+		}
+		
+		private void TbOnlyDigit_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!char.IsDigit(e.Text.ToString()[0]))
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void TbAverageScore_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+
+			if (!char.IsDigit(e.Text.ToString()[0]))
+			{
+				//если какойто из символов разделителе встречается в строке и если строка пуста gecnf, то не добавляем новый разделитель
+				if ((e.Text == "," || e.Text == ".") && (((TextBox)sender).Text.IndexOf(',') != -1 || ((TextBox)sender).Text.IndexOf('.') != -1)
+					|| ((TextBox)sender).Text.Length == 0)
+				{
+					e.Handled = true;
+				}
 			}
 		}
 	}
