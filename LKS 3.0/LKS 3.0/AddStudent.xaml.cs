@@ -25,7 +25,7 @@ namespace LKS_3._0
 		}
 
 		//
-		// фильтрация ввода
+		// блок фильтрация ввода
 		//
 
 		private void TbOnlyLetter_PreviewTextInput(object sender, TextCompositionEventArgs e) //
@@ -57,5 +57,74 @@ namespace LKS_3._0
 				}
 			}
 		}
+
+		private void TbMobailPhone_PreviewKeyDown(object sender, KeyEventArgs e) // обработка нажатияя клавишь при вводе номера мобильника
+		{
+			TextBox obj = (TextBox)sender;
+			int [] arr = { 8, 12, 15};
+			if (e.Key == Key.Delete || e.Key == Key.Back)
+			{
+				if (obj.Text.Length == 3)
+				{
+					e.Handled = true;
+				}
+				foreach(int i in arr)
+				{
+					if (obj.Text.Length == i)
+					{
+						obj.Text = obj.Text.Remove(i - 2);
+						e.Handled = true;
+						obj.SelectionStart = obj.Text.Length;
+					}
+				}
+			}
+		}
+
+		private void TbMobailPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!char.IsDigit(e.Text.ToString()[0]))
+			{
+				e.Handled = true;
+			}
+
+			TextBox obj = (TextBox)sender;
+			if (obj.Text.Length == 5)
+			{
+				obj.Text += e.Text + ")";
+				obj.SelectionStart = obj.Text.Length;
+				e.Handled = true;
+			}
+
+			if (obj.Text.Length == 9 || obj.Text.Length == 12)
+			{
+				obj.Text += e.Text + "-";
+				obj.SelectionStart = obj.Text.Length;
+				e.Handled = true;
+			}
+
+			if(obj.Text.Length < 3)
+			{
+				obj.Text = "+7(";
+				obj.SelectionStart = obj.Text.Length;
+				e.Handled = true;
+			}
+		}
+
+		private void TbMobailPhone_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if (((TextBox)sender).Text.Length == 3)
+			{
+				((TextBox)sender).Text = "";
+            }
+		}
+
+		private void TbMobailPhone_GotFocus(object sender, RoutedEventArgs e)
+		{
+			if (((TextBox)sender).Text.Length == 0)
+			{
+				((TextBox)sender).Text = "+7(";
+				((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
+            }
+        }
 	}
 }
