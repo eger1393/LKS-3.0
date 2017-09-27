@@ -44,7 +44,7 @@ namespace LKS_3._0
         {
             if(RB_User.IsChecked == true)
             {
-                MessageBox.Show("Вход как студент");
+                MessageBox.Show("Вход как студент!");
                 WindowDatabase Window_Data = new WindowDatabase(false);
                 Window_Data.Show();
 

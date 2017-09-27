@@ -18,7 +18,7 @@ namespace LKS_3._0
     /// <summary>
     /// Логика взаимодействия для WindowDatabase.xaml
     /// </summary>
-
+   
 
     public partial class WindowDatabase : Window
     {
@@ -54,10 +54,10 @@ namespace LKS_3._0
         private void StudentsGrid_Loaded(object sender, RoutedEventArgs e)
         {
             List<Student> Data_Student = new List<Student>(3);
-            Data_Student.Add(new Student("Мещеряков А.С.", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Балыко Е.Н", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Алешин Р.А", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Голтвянский К.С", "3ВТИ-3ДБ-037", 3));
+            Data_Student.Add(new Student("Мещеряков","Антон","Сергеевич","3ВТИ-3ДБ-039","410","+7(985)191-84-48",Student.Student_Rank.Студент));
+            Data_Student.Add(new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48", Student.Student_Rank.Командир_взвода));
+            Data_Student.Add(new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13", Student.Student_Rank.Журналист));
+            
 
 
 
@@ -92,33 +92,105 @@ namespace LKS_3._0
             show_student((Student)StudentsGrid.SelectedItem);
         }
 
-        private void show_student(Student obj)
+        private void show_student(Student temp)
         {
-            Label_FIO.Content = obj.ФИО;
-            Label_vzvod.Content = obj.Взвод;
-            //Label_rang.Content = obj.Должность;
-            //Label_phone.Content = obj.Телефон;
+            if (temp != null)
+            {
+                Label_FIO.Content = temp.FirstName + " " + temp.MiddleName + " " + temp.LastName;
+                Label_vzvod.Content = temp.Troop;
+                Label_rang.Content = temp.Rank;
+                Label_phone.Content = temp.MobilePhone;
+            }
+            else
+            {
+                Label_FIO.Content = "";
+                Label_vzvod.Content = "";
+                Label_rang.Content = "";
+                Label_phone.Content = "";
+            }
         }
 
     }
 
     public partial class Student
     {
-        public Student()
+        public enum Student_Rank
         {
-
+            Командир_взвода = 1,
+            Заместитель_КВ,
+            КО1,
+            КО2,
+            КО3,
+            Журналист,
+            Заместитель_журналиста,
+            Студент
         }
-        public Student(string fio, string group, int vzvod)
+        public Student() // Конструктор по умолчанию
         {
-            this.ФИО = fio;
-            this.Группа = group;
-            this.Взвод = vzvod;
+            FirstName = "";
+            MiddleName = "";
+            LastName = "";
+            MobilePhone = "";
+            HomePhone = "";
+            Group = "";
+            SpecialityName = "";
+            Rank = 0;
+            Nationality = 0;
+            Citizenship = "";
         }
-        public string ФИО { get; set; }
-        public string Группа { get; set; }
-        public int Взвод { get; set; }
 
-        public string Добавить_поле {get; set;}
+        public Student(string F_name, string M_name, string L_name, string group, string troop,string phone, Student_Rank rang)
+        {
+            this.FirstName = F_name;
+            this.MiddleName = M_name;
+            this.LastName = L_name;
+            this.Group = group;
+            this.Troop = troop;
+            this.MobilePhone = phone;
+            this.Rank = rang;
+        }
+
+        
+        public string FirstName // Имя
+        { get; set; }
+
+        public string MiddleName // Фамилия
+        { get; set; }
+
+        public string LastName // Отчество
+        { get; set; }
+
+        public string Troop // Отчество
+        { get; set; }
+
+        public string MobilePhone // Номер моильного телефона
+        { get; set; }
+
+        string HomePhone // Номер домашнего телефона
+        { get; set; }
+
+        public string Group
+        { get; set; } // Группа студента
+
+        // TODO добавить перечесление специальностей после уточнения(?), перечисление званий, национальностей
+
+        // возможно извенить поле на целочисленное и исспользовать перечисление
+        string SpecialityName
+        { get; set; } // Название специальности
+
+        public Student_Rank Rank // Звание студента (перечисление)
+        { get; set; }
+
+        ushort Nationality // Национальность (перечисление)
+        { get; set; }
+
+        string Citizenship // Гражданство
+        { get; set; }
+
+        //public string Добавить_поле { get; set; }
+    
+
+       
     }
 
 }
