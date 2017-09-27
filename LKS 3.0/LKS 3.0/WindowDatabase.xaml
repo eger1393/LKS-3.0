@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" Loaded="StudentsGrid_Loaded" ColumnWidth="Auto">
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" Loaded="StudentsGrid_Loaded" ColumnWidth="Auto" SelectionChanged="StudentsGrid_SelectionChanged">
         </DataGrid>
         
         <Grid Grid.Column="0" Grid.Row="1">
@@ -26,18 +26,21 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
            
-            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента:" FontSize="13"></Label>
-            <Label Grid.Column="0" Grid.Row="1" Content="По взводу:" FontSize="12"></Label>
-            <ComboBox Grid.Column="0" Grid.Row="2" FontSize="12"></ComboBox>
-            <Label Grid.Column="0" Grid.Row="3" Content="По группе:" FontSize="12"></Label>
+            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента:" FontSize="15"></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="По:" FontSize="15"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="2" FontSize="15">
+                <ComboBoxItem Content="Взводу"/>
+                <ComboBoxItem Content="Группе"/>
+                <ComboBoxItem Content="Должности"/>
+            </ComboBox>
+            <TextBox Grid.Column="0" Grid.Row= "3" Margin="0,5,0,0" Text="Поиск..." FontSize="21.333"/>
+
+            <!--<Label Grid.Column="0" Grid.Row="3" Content="По группе:" FontSize="12"></Label>
             <ComboBox Grid.Column="0" Grid.Row="4" FontSize="12"></ComboBox>
             <Label Grid.Column="0" Grid.Row="5" Content="По должности:" FontSize="12"></Label>
-            <ComboBox Grid.Column="0" Grid.Row="6" FontSize="12"></ComboBox>
+            <ComboBox Grid.Column="0" Grid.Row="6" FontSize="12"></ComboBox>-->
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
@@ -47,8 +50,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -56,12 +58,11 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент" FontSize="10"></Label>
-            <Label Grid.Column="0" Grid.Row="1" Content="ФИО" FontSize="12"></Label>
-            <Label Grid.Column="0" Grid.Row="2" Content="ВЗВОД" FontSize="12"></Label>
-            <Label Grid.Column="0" Grid.Row="3" Content="ГРУППА" FontSize="12"></Label>
-            <Label Grid.Column="0" Grid.Row="4" Content="ДОЛЖНОСТЬ" FontSize="12"></Label>
-            <Label Grid.Column="0" Grid.Row="5" Content="ТЕЛЕФОН" FontSize="12"></Label>
-            <Label Grid.Column="0" Grid.Row="6" Content="NONAME" FontSize="12"></Label>
+            <Label x:Name="Label_FIO" Grid.Column="0" Grid.Row="1" Content="ФИО" FontSize="12"></Label>
+            <Label x:Name="Label_vzvod" Grid.Column="0" Grid.Row="2" Content="ВЗВОД" FontSize="12"></Label>
+            <Label x:Name="Label_rang" Grid.Column="0" Grid.Row="3" Content="ДОЛЖНОСТЬ" FontSize="12"></Label>
+            <Label x:Name="Label_phone" Grid.Column="0" Grid.Row="4" Content="ТЕЛЕФОН" FontSize="12"></Label>
+       
             
             <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
 

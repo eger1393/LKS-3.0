@@ -55,9 +55,9 @@ namespace LKS_3._0
         {
             List<Student> Data_Student = new List<Student>(3);
             Data_Student.Add(new Student("Мещеряков А.С.", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Балыко Е.", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Алешин Р.", "3ВТИ-3ДБ-039", 3));
-            Data_Student.Add(new Student("Голтвянский К.", "3ВТИ-3ДБ-037", 3));
+            Data_Student.Add(new Student("Балыко Е.Н", "3ВТИ-3ДБ-039", 3));
+            Data_Student.Add(new Student("Алешин Р.А", "3ВТИ-3ДБ-039", 3));
+            Data_Student.Add(new Student("Голтвянский К.С", "3ВТИ-3ДБ-037", 3));
 
 
 
@@ -86,6 +86,20 @@ namespace LKS_3._0
 
             StudentsGrid.ItemsSource = Data_Student;
         }
+
+        private void StudentsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            show_student((Student)StudentsGrid.SelectedItem);
+        }
+
+        private void show_student(Student obj)
+        {
+            Label_FIO.Content = obj.ФИО;
+            Label_vzvod.Content = obj.Взвод;
+            //Label_rang.Content = obj.Должность;
+            //Label_phone.Content = obj.Телефон;
+        }
+
     }
 
     public partial class Student
@@ -94,15 +108,17 @@ namespace LKS_3._0
         {
 
         }
-        public Student(string fio, string group, int kurs)
+        public Student(string fio, string group, int vzvod)
         {
             this.ФИО = fio;
             this.Группа = group;
-            this.Курс = kurs;
+            this.Взвод = vzvod;
         }
         public string ФИО { get; set; }
         public string Группа { get; set; }
-        public int Курс { get; set; }
+        public int Взвод { get; set; }
+
+        public string Добавить_поле {get; set;}
     }
 
 }

@@ -27,3 +27,18 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Deb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
