@@ -57,8 +57,8 @@ namespace LKS_3._0
             Data_Student.Add(new Student("Мещеряков","Антон","Сергеевич","3ВТИ-3ДБ-039","410","+7(985)191-84-48",Student.Student_Rank.Студент));
             Data_Student.Add(new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48", Student.Student_Rank.Командир_взвода));
             Data_Student.Add(new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13", Student.Student_Rank.Журналист));
-            
 
+            StudentsGrid.ItemsSource = Data_Student;
 
 
             //Collection<DataGridTextColumn> D_Column = new Collection<DataGridTextColumn>();
@@ -84,7 +84,7 @@ namespace LKS_3._0
 
             //StudentsGrid.DataContext = D_Column;
 
-            StudentsGrid.ItemsSource = Data_Student;
+
         }
 
         private void StudentsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
