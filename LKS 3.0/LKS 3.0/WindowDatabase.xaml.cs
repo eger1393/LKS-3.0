@@ -19,21 +19,6 @@ namespace LKS_3._0
     /// <summary>
     /// Логика взаимодействия для WindowDatabase.xaml
     /// </summary>
-    [System.AttributeUsage(AttributeTargets.All)] //, Inherited = false, AllowMultiple = true)
-    sealed class RusNameAttribute : Attribute
-    {
-        readonly string positionalString;
-
-        public RusNameAttribute(string RusName)
-        {
-            this.positionalString = RusName;
-        }
-
-        public string PositionalString
-        {
-            get { return positionalString; }
-        }
-    }
 
     public partial class WindowDatabase : Window
     {
@@ -62,15 +47,6 @@ namespace LKS_3._0
                 StudentsGrid.IsReadOnly = true;
             }
 
-            Type t = typeof(Student);
-            PropertyInfo[] m = t.GetProperties();
-            foreach (PropertyInfo el in m)
-            {
-                label111.Content += ("|" + el.Name + "+" + el.Attributes);
-            }
-        
-
-
         }
 
         private void StudentsGrid_Loaded(object sender, RoutedEventArgs e)
@@ -80,19 +56,21 @@ namespace LKS_3._0
             Data_Student.Add(new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48", Student.Student_Rank.Командир_взвода));
             Data_Student.Add(new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13", Student.Student_Rank.Журналист));
 
-            //int length = 7;
-    
-            //for (int i = 0; i <= length; i++)
-            //{
-                DataGridTextColumn obj = new DataGridTextColumn();
-                obj.Header = "Фамилия";
-                Binding myNewBindDef = new Binding("FirstName");
-                obj.Binding = myNewBindDef;
-                StudentsGrid.Columns.Add(obj);
-            //}
+            Type T = typeof(Student);
+            PropertyInfo[] Property_Arr = T.GetProperties();
+            foreach (PropertyInfo el in Property_Arr)
+            {
+                RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
 
+                DataGridTextColumn temp_column = new DataGridTextColumn();
+                    temp_column.Header = temp_attribute.Get_RussianTittle;
+
+                Binding myNewBindDef = new Binding(el.Name);
+                    temp_column.Binding = myNewBindDef;
+
+                StudentsGrid.Columns.Add(temp_column);
+            }
             StudentsGrid.ItemsSource = Data_Student;
-
         }
 
         private void StudentsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,7 +97,21 @@ namespace LKS_3._0
         }
 
     }
+    [System.AttributeUsage(AttributeTargets.All)] //, Inherited = false, AllowMultiple = true)
+    public partial class RusNameAttribute : Attribute
+    {
+        readonly string RussianTittle;
 
+        public RusNameAttribute(string RusName)
+        {
+            this.RussianTittle = RusName;
+        }
+
+        public string Get_RussianTittle
+        {
+            get { return RussianTittle; }
+        }
+    }
     public partial class Student
     {
         public enum Student_Rank
@@ -159,27 +151,30 @@ namespace LKS_3._0
         }
 
 
-        [RusNameAttribute("Фамилия")]
-        public string MiddleName // Имя
+        [RusName("Фамилия")]
+        public string MiddleName // Фамилия
         { get; set; }
 
-        public string FirstName // Фамилия
+        [RusName("Имя")]
+        public string FirstName // Имя
         { get; set; }
-
+        [RusName("Отчество")]
         public string LastName // Отчество
         { get; set; }
-
-        public string Troop // Отчество
+        [RusName("Взвод")]
+        public string Troop // Взвод
         { get; set; }
-
+        [RusName("Телефон")]
         public string MobilePhone // Номер моильного телефона
         { get; set; }
 
-        string HomePhone // Номер домашнего телефона
-        { get; set; }
-
+        [RusName("Группа")]
         public string Group
         { get; set; } // Группа студента
+
+        string HomePhone // Номер домашнего телефона
+        { get; set; }
+       
 
         // TODO добавить перечесление специальностей после уточнения(?), перечисление званий, национальностей
 
@@ -187,6 +182,7 @@ namespace LKS_3._0
         string SpecialityName
         { get; set; } // Название специальности
 
+        [RusName("Звание")]
         public Student_Rank Rank // Звание студента (перечисление)
         { get; set; }
 
