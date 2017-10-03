@@ -12,13 +12,28 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace LKS_3._0
 {
     /// <summary>
     /// Логика взаимодействия для WindowDatabase.xaml
     /// </summary>
-   
+    [System.AttributeUsage(AttributeTargets.All)] //, Inherited = false, AllowMultiple = true)
+    sealed class RusNameAttribute : Attribute
+    {
+        readonly string positionalString;
+
+        public RusNameAttribute(string RusName)
+        {
+            this.positionalString = RusName;
+        }
+
+        public string PositionalString
+        {
+            get { return positionalString; }
+        }
+    }
 
     public partial class WindowDatabase : Window
     {
@@ -27,6 +42,7 @@ namespace LKS_3._0
         public WindowDatabase()
         {
             InitializeComponent();
+            
         }
 
         public WindowDatabase(bool flag)
@@ -46,7 +62,13 @@ namespace LKS_3._0
                 StudentsGrid.IsReadOnly = true;
             }
 
-
+            Type t = typeof(Student);
+            PropertyInfo[] m = t.GetProperties();
+            foreach (PropertyInfo el in m)
+            {
+                label111.Content += ("|" + el.Name + "+" + el.Attributes);
+            }
+        
 
 
         }
@@ -58,32 +80,18 @@ namespace LKS_3._0
             Data_Student.Add(new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48", Student.Student_Rank.Командир_взвода));
             Data_Student.Add(new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13", Student.Student_Rank.Журналист));
 
+            //int length = 7;
+    
+            //for (int i = 0; i <= length; i++)
+            //{
+                DataGridTextColumn obj = new DataGridTextColumn();
+                obj.Header = "Фамилия";
+                Binding myNewBindDef = new Binding("FirstName");
+                obj.Binding = myNewBindDef;
+                StudentsGrid.Columns.Add(obj);
+            //}
+
             StudentsGrid.ItemsSource = Data_Student;
-
-
-            //Collection<DataGridTextColumn> D_Column = new Collection<DataGridTextColumn>();
-
-
-            //DataGridTextColumn obj = new DataGridTextColumn();
-            //Binding myNewBindDef = new Binding("ФИО");
-            //myNewBindDef.Source = TryFindResource("student");
-            //obj.Binding = myNewBindDef;
-            //D_Column.Add(obj);
-
-            //obj = new DataGridTextColumn();
-            //Binding myNewBindDef2 = new Binding("Группа");
-            //myNewBindDef2.Source = TryFindResource("student");
-            //obj.Binding = myNewBindDef2;
-            //D_Column.Add(obj);
-
-            //obj = new DataGridTextColumn();
-            //Binding myNewBindDef3 = new Binding("Курс");
-            //myNewBindDef3.Source = TryFindResource("student");
-            //obj.Binding = myNewBindDef3;
-            //D_Column.Add(obj);
-
-            //StudentsGrid.DataContext = D_Column;
-
 
         }
 
@@ -96,7 +104,7 @@ namespace LKS_3._0
         {
             if (temp != null)
             {
-                Label_FIO.Content = temp.FirstName + " " + temp.MiddleName + " " + temp.LastName;
+                Label_FIO.Content = temp.MiddleName + " " + temp.FirstName + " " + temp.LastName;
                 Label_vzvod.Content = temp.Troop;
                 Label_rang.Content = temp.Rank;
                 Label_phone.Content = temp.MobilePhone;
@@ -127,8 +135,8 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-            FirstName = "";
             MiddleName = "";
+            FirstName = "";
             LastName = "";
             MobilePhone = "";
             HomePhone = "";
@@ -139,10 +147,10 @@ namespace LKS_3._0
             Citizenship = "";
         }
 
-        public Student(string F_name, string M_name, string L_name, string group, string troop,string phone, Student_Rank rang)
+        public Student(string M_name, string F_name, string L_name, string group, string troop,string phone, Student_Rank rang)
         {
-            this.FirstName = F_name;
             this.MiddleName = M_name;
+            this.FirstName = F_name;
             this.LastName = L_name;
             this.Group = group;
             this.Troop = troop;
@@ -150,11 +158,12 @@ namespace LKS_3._0
             this.Rank = rang;
         }
 
-        
-        public string FirstName // Имя
+
+        [RusNameAttribute("Фамилия")]
+        public string MiddleName // Имя
         { get; set; }
 
-        public string MiddleName // Фамилия
+        public string FirstName // Фамилия
         { get; set; }
 
         public string LastName // Отчество

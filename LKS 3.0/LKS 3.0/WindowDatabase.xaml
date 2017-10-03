@@ -68,6 +68,7 @@
             <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
 
         </Grid>
+        <Label x:Name="label111" Content="" HorizontalAlignment="Left" Margin="188,10,0,0" VerticalAlignment="Top" Grid.Row="1" Width="509" Height="90"/>
 
     </Grid>
 
