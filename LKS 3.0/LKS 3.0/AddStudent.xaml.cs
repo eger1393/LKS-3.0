@@ -58,6 +58,7 @@ namespace LKS_3._0
 			}
 		}
 
+		// обработка ввода моббильного телефона( всякие красивости)
 		private void TbMobailPhone_PreviewKeyDown(object sender, KeyEventArgs e) // обработка нажатияя клавишь при вводе номера мобильника
 		{
 			TextBox obj = (TextBox)sender;
@@ -126,5 +127,16 @@ namespace LKS_3._0
 				((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
             }
         }
+		// Конец блока обработки ввода мобильника
+
+		// Обработка ввода домашнего телефона, разрешены символы ( ) - + и все цифры
+		private void TbHomePhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!(char.IsDigit(e.Text.ToString()[0]) || e.Text.ToString()[0] == '(' || e.Text.ToString()[0] == ')'
+				|| e.Text.ToString()[0] == '+' || e.Text.ToString()[0] == '-' || e.Text.ToString()[0] == ' '))
+			{
+				e.Handled = true;
+			}
+		}
 	}
 }
