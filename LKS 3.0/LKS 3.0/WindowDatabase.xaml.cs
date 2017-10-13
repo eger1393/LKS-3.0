@@ -28,10 +28,6 @@ namespace LKS_3._0
     {
         
         enum ProgramMode { Admin, Student }
-        public WindowDatabase()
-        {
-            InitializeComponent();
-        }
         public WindowDatabase(bool flag)
         {
             InitializeComponent();
@@ -49,10 +45,12 @@ namespace LKS_3._0
                 StudentsGrid.IsReadOnly = true;
             }
 
-            Binding_columns();
+            
 
             DataContext = new ApplicationViewModel();
-      
+
+            Binding_columns();
+
         }
 
         private void Binding_columns()
@@ -62,14 +60,17 @@ namespace LKS_3._0
             foreach (PropertyInfo el in Property_Arr)
             {
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+                if (temp_attribute != null)
+                {
+                    DataGridTextColumn temp_column = new DataGridTextColumn();
+                    temp_column.Header = temp_attribute.Get_RussianTittle;
 
-                DataGridTextColumn temp_column = new DataGridTextColumn();
-                temp_column.Header = temp_attribute.Get_RussianTittle;
+                    Binding myNewBindDef = new Binding(el.Name);
+                    temp_column.Binding = myNewBindDef;
 
-                Binding myNewBindDef = new Binding(el.Name);
-                temp_column.Binding = myNewBindDef;
-
-                StudentsGrid.Columns.Add(temp_column);
+                    StudentsGrid.Columns.Add(temp_column);
+                }
+                
             }
         }
     }

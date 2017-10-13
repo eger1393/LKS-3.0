@@ -21,22 +21,18 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-            //ID = 0;
-            MiddleName = "";
-            FirstName = "";
-            LastName = "";
-            MobilePhone = "";
-            //HomePhone = "";
-            Group = "";
-            //SpecialityName = "";
-            //Rank = 0;
-            //Nationality = 0;
-            //Citizenship = "";
+            Id = 3;
+            MiddleName = "111";
+            FirstName = "111";
+            LastName = "111";
+            Group = "111";
+            Troop = "111";
+            MobilePhone = "111";
+
         }
 
-        public Student(/*int ID,*/ string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)
+        public Student(string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)
         {
-            //this.ID = ID;
             this.MiddleName = M_name;
             this.FirstName = F_name;
             this.LastName = L_name;
@@ -46,13 +42,11 @@ namespace LKS_3._0
             //this.Rank = rang;
         }
 
-        //public int ID
-        //{ get; set; }
+        public int Id { get; set; }
 
         [RusName("Фамилия")]
         public string MiddleName // Фамилия
         { get; set; }
-
         [RusName("Имя")]
         public string FirstName // Имя
         { get; set; }
@@ -62,16 +56,12 @@ namespace LKS_3._0
         [RusName("Взвод")]
         public string Troop // Взвод
         { get; set; }
-
         [RusName("Группа")]
         public string Group
         { get; set; } // Группа студента
-
         [RusName("Телефон")]
         public string MobilePhone // Номер моильного телефона
         { get; set; }
-
-
 
         //[RusName("Звание")]
         //public Student_Rank Rank // Звание студента (перечисление)

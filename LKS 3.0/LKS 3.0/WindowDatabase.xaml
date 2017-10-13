@@ -29,8 +29,19 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента:" FontSize="21.333"></Label>
-            <Label Grid.Column="0" Grid.Row="1" Content="По:" FontSize="21.333" HorizontalAlignment="Center"></Label>
+            <Button x:Name="AddButton" Grid.Row ="0" Grid.Column="0" Command="{Binding AddCommand}" FontSize="24" BorderBrush="#FFC91818" Foreground="#FFFB0808">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background> Добавить студента</Button>
+            
+            <!--<Button x:Name="Button" Grid.Row ="1" Grid.Column="0" Content="SAVE" FontSize="24"  Command="{Binding SaveCommand}" />-->
+            
+            <Label Grid.Column="0" Grid.Row="1" Content="Поиск студента по:" FontSize="21.333" HorizontalAlignment="Center"></Label>
             <ComboBox Grid.Column="0" Grid.Row="2" FontSize="15">
                 <ComboBoxItem Content="Фамилии"/>
                 <ComboBoxItem Content="Взводу"/>
@@ -59,7 +70,7 @@
                 <ColumnDefinition Width="0.3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент:" FontSize="18.667"></Label>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент:" FontSize="24" HorizontalAlignment="Center"></Label>
             <Label x:Name="Label_FIO" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}" FontSize="21.333"></Label>
             <Label x:Name="Label_vzvod" Grid.Column="0" Grid.Row="2" Content="{Binding Troop}" FontSize="21.333"></Label>
             <Label x:Name="Label_group" Grid.Column="0" Grid.Row="3" Content="{Binding Group}" FontSize="21.333"></Label>
@@ -69,6 +80,7 @@
             <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
 
         </Grid>
+        
 
     </Grid>
 
