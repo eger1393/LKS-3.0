@@ -12,21 +12,6 @@ D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
 D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
 D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.g.cs
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.baml
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
@@ -52,3 +37,27 @@ C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.x
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Students.db
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb

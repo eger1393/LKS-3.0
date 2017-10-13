@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
         Title="WindowDatabase" Height="900" Width="1440" WindowState="Maximized">
+    
     <Grid x:Name="Main_Grid" Panel.ZIndex ="0" Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -17,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" Loaded="StudentsGrid_Loaded" ColumnWidth="Auto" SelectionChanged="StudentsGrid_SelectionChanged" AutoGenerateColumns="False">
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False">
         </DataGrid>
 
         <Grid Grid.Column="0" Grid.Row="1">
@@ -44,7 +45,7 @@
             <ComboBox Grid.Column="0" Grid.Row="6" FontSize="12"></ComboBox>-->
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -59,10 +60,10 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент:" FontSize="18.667"></Label>
-            <Label x:Name="Label_FIO" Grid.Column="0" Grid.Row="1" Content="ФИО" FontSize="21.333"></Label>
-            <Label x:Name="Label_vzvod" Grid.Column="0" Grid.Row="2" Content="ВЗВОД" FontSize="21.333"></Label>
-            <Label x:Name="Label_rang" Grid.Column="0" Grid.Row="3" Content="ДОЛЖНОСТЬ" FontSize="21.333"></Label>
-            <Label x:Name="Label_phone" Grid.Column="0" Grid.Row="4" Content="ТЕЛЕФОН" FontSize="21.333"></Label>
+            <Label x:Name="Label_FIO" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}" FontSize="21.333"></Label>
+            <Label x:Name="Label_vzvod" Grid.Column="0" Grid.Row="2" Content="{Binding Troop}" FontSize="21.333"></Label>
+            <Label x:Name="Label_group" Grid.Column="0" Grid.Row="3" Content="{Binding Group}" FontSize="21.333"></Label>
+            <Label x:Name="Label_phone" Grid.Column="0" Grid.Row="4" Content="{Binding MobilePhone}" FontSize="21.333"></Label>
 
 
             <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
