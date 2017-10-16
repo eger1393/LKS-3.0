@@ -55,8 +55,8 @@ namespace LKS_3._0
                   (addCommand = new RelayCommand(obj =>
                   {
                       Student temp_student = new Student();
-                      DataBase.Students.Add(temp_student);
-                      DataBase.SaveChanges();
+                          DataBase.Students.Add(temp_student);
+                          DataBase.SaveChanges();
                       SelectedStudent = temp_student;
                   }));
             }
@@ -78,9 +78,10 @@ namespace LKS_3._0
         {
             DataBase = new ApplicationContext();
 
-            DataBase.Students.Load();
+                DataBase.Students.Load();
 
-            Students = DataBase.Students.Local.ToBindingList();
+                Students = DataBase.Students.Local.ToBindingList();
+
 
             //Students = new ObservableCollection<Student>
             //{
