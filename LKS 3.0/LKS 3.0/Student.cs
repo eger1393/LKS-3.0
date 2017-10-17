@@ -21,13 +21,7 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-            MiddleName = "111";
-            FirstName = "111";
-            LastName = "111";
-            Group = "111";
-            Troop = "111";
-            MobilePhone = "111";
-
+           
         }
 
         public Student(string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)

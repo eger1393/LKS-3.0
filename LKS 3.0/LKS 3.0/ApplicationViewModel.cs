@@ -56,10 +56,12 @@ namespace LKS_3._0
                   {
                       Student temp_student = new Student();
 					  AddStudent addStudentWindow = new AddStudent(temp_student);
-					  addStudentWindow.Show();
+                      addStudentWindow.ShowDialog();
+
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
-                      SelectedStudent = temp_student;
+                          SelectedStudent = temp_student;
+                      
                   }));
             }
         }
