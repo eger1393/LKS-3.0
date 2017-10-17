@@ -21,7 +21,6 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-            Id = 3;
             MiddleName = "111";
             FirstName = "111";
             LastName = "111";

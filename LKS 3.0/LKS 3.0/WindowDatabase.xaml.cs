@@ -12,11 +12,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using System.Reflection;
 using System.Data.SQLite;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
 
 namespace LKS_3._0
 {
@@ -44,6 +45,7 @@ namespace LKS_3._0
                 ProgMode = ProgramMode.Student;
                 StudentsGrid.IsReadOnly = true;
             }
+
 
             
 
