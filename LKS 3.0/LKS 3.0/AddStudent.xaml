@@ -1,0 +1,229 @@
+﻿<Window x:Class="LKS_3._0.AddStudent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0"
+        mc:Ignorable="d"
+        Title="AddStudent" Height="600" Width="700">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Информация о студенте">
+                <Grid Margin="0,0,0,34">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Фамилия"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Имя" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="Отчество"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Взвод"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Год поступления в МАИ"/>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Год окончания МАИ"/>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Год поступления на ВК"/>
+                    <Label Grid.Column="0" Grid.Row="7" Content="Год окончания ВК"/>
+
+
+                    <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Факультет"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Название специальности"/>
+                    <Label Grid.Column="2" Grid.Row="3" Content="Условия обучения в вузе"/>
+                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
+                    <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
+                    <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
+                    <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
+
+                    <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"/>
+                    <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"  />
+                    <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"/>
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="410"/>
+                        <ListBoxItem Content="509"/>
+                        <ListBoxItem Content="901"/>
+                        <ListBoxItem Content="409"/>
+                    </ComboBox>
+                    <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbYearOfRecepitMD" Grid.Column="1" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+
+                    <ComboBox x:Name="CbGroup" Grid.Column="3" Grid.Row="0" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="410"/>
+                        <ListBoxItem Content="509"/>
+                        <ListBoxItem Content="901"/>
+                        <ListBoxItem Content="409"/>
+                    </ComboBox>
+                    <ComboBox x:Name="CbFacility" Grid.Column="3" Grid.Row="1" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="1"/>
+                        <ListBoxItem Content="2"/>
+                        <ListBoxItem Content="3"/>
+                        <ListBoxItem Content="4"/>
+                    </ComboBox>
+                    <ComboBox x:Name="CbSpeciality" Grid.Column="3" Grid.Row="2" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="Бук"/>
+                        <ListBoxItem Content="Тор"/>
+                        <ListBoxItem Content="Оса"/>
+                        <ListBoxItem Content="Тополь"/>
+                    </ComboBox>
+                    <ComboBox x:Name="CbConditions" Grid.Column="3" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="Бюджетное"/>
+                        <ListBoxItem Content="Платное"/>
+                    </ComboBox>
+                    <TextBox x:Name="TbAverageScore" Grid.Column="3" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="2"/>
+                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="3" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbDigitOrLetter_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbDataOrderAdmision" Grid.Column="3" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Личные данные">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Дата рождения"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Место рождния"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Национальность"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Гражданство"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон"/>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Сотовый телефон"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
+                    <TextBlock Grid.Column="2" Grid.Row="3" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
+                    <Label Grid.Column="2" Grid.Row="5" Content="Школа"/>
+
+                    <TextBox x:Name="TbDateOfBirth" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="1" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbHomePhone_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbMobailPhone" Grid.Column="4" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
+                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbSchool" Grid.Column="4" Grid.Row="5" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="4" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="6">
+                        <StackPanel >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Content="Группа крови" />
+                                <Label Grid.Column="0" Grid.Row="1" Content="Вес (см)" />
+                                <Label Grid.Column="0" Grid.Row="2" Content="Размер одежды" />
+                                <Label Grid.Column="2" Grid.Row="0" Content="Размер обуви" />
+                                <Label Grid.Column="2" Grid.Row="1" Content="Размер головного убора" />
+                                <Label Grid.Column="2" Grid.Row="2" Content="Размер противогаза" />
+
+                                <ComboBox x:Name="BloodType" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                    <ListBoxItem Content="1 положительная" />
+                                    <ListBoxItem Content="1 отрицательная" />
+                                    <ListBoxItem Content="2 положительная" />
+                                    <ListBoxItem Content="2 отрицательная" />
+                                    <ListBoxItem Content="3 положительная" />
+                                    <ListBoxItem Content="3 отрицательная" />
+                                    <ListBoxItem Content="4 положительная" />
+                                    <ListBoxItem Content="4 отрицательная" />
+                                    <ListBoxItem Content="незнаю" />
+                                </ComboBox>
+                                <TextBox x:Name="Weight" Grid.Column="1" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                    <ListBoxItem Content="S" />
+                                    <ListBoxItem Content="M" />
+                                    <ListBoxItem Content="L" />
+                                    <ListBoxItem Content="XL" />
+                                    <ListBoxItem Content="XXL" />
+                                </ComboBox>
+                                <TextBox x:Name="ShoeSize" Grid.Column="3" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <TextBox x:Name="HeadgearSize" Grid.Column="3" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <ComboBox x:Name="GasMaskSize" Grid.Column="3" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                    <ListBoxItem Content="1" />
+                                    <ListBoxItem Content="2" />
+                                    <ListBoxItem Content="3" />
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Родственники">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn ClipboardContentBinding="{x:Null}" Header="Степень родства">
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Фамилия"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Имя"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Отчество"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Дата рождения"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Состояние здоровья"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Адрес места жительства"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Адрес места регистрации"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Фотография">
+                <Grid>
+                    <Image x:Name="Photo" Margin="10,5,444,267"/>
+                    <Button x:Name="UploadPhoto" Content="Загрузить фотографию" HorizontalAlignment="Left" Height="44" Margin="23,306,0,0" VerticalAlignment="Top" Width="189" Click="UploadPhoto_Click"/>
+
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+        <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
+        <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
+
+    </Grid>
+
+</Window>

@@ -25,6 +25,15 @@ namespace LKS_3._0
         public MainWindow()
 		{
 			InitializeComponent();
+			AddStudent test = new AddStudent();
+			test.Visibility = Visibility.Visible;
+			test.Activate();
+			Close();
+		}
+
+		private void button_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 
         private void RB_Admin_Checked(object sender, RoutedEventArgs e)
