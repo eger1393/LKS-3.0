@@ -52,10 +52,10 @@
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"  />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"/>
                     <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="410"/>
-                        <ListBoxItem Content="509"/>
-                        <ListBoxItem Content="901"/>
-                        <ListBoxItem Content="409"/>
+                        <ComboBoxItem Content="410"/>
+                        <ComboBoxItem Content="509"/>
+                        <ComboBoxItem Content="901"/>
+                        <ComboBoxItem Content="409"/>
                     </ComboBox>
                     <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
                     <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
@@ -63,10 +63,10 @@
                     <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
 
                     <ComboBox x:Name="CbGroup" Grid.Column="3" Grid.Row="0" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="410"/>
-                        <ListBoxItem Content="509"/>
-                        <ListBoxItem Content="901"/>
-                        <ListBoxItem Content="409"/>
+                        <TextBlock Text="3ВТИ-3ДБ-039"/>
+                        <TextBlock Text="3ВТИ-3ДБ-038"/>
+                        <TextBlock Text="3ВТИ-3ДБ-037"/>
+                        <TextBlock Text="3ВТИ-3ДБ-036"/>
                     </ComboBox>
                     <ComboBox x:Name="CbFacility" Grid.Column="3" Grid.Row="1" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>
@@ -126,7 +126,7 @@
                     <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
                     <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
                     <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbHomePhone_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbMobailPhone" Grid.Column="4" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
+                    <TextBox x:Name="TbMobilePhone" Grid.Column="4" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
                     <TextBox x:Name="TbPlaceOfResidence" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
                     <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
                     <TextBox x:Name="TbSchool" Grid.Column="4" Grid.Row="5" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
@@ -221,7 +221,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
+        <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Save_Click"/>
         <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
 
     </Grid>

@@ -55,6 +55,8 @@ namespace LKS_3._0
                   (addCommand = new RelayCommand(obj =>
                   {
                       Student temp_student = new Student();
+					  AddStudent addStudentWindow = new AddStudent(temp_student);
+					  addStudentWindow.Show();
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                       SelectedStudent = temp_student;

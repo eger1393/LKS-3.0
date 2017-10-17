@@ -19,9 +19,12 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class AddStudent : Window
 	{
-		public AddStudent()
+		private Student addedStudent;
+
+		public AddStudent(Student temp)
 		{
 			InitializeComponent();
+			addedStudent = temp;
 		}
 
 		//
@@ -167,6 +170,19 @@ namespace LKS_3._0
 				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото
 			}
 
+		}
+
+		private void Save_Click(object sender, RoutedEventArgs e)
+		{
+			addedStudent.FirstName = TbFName.Text;
+			addedStudent.MiddleName = TbMName.Text;
+			addedStudent.LastName = TbLName.Text;
+
+			addedStudent.Group = CbGroup.Text;
+			addedStudent.Troop = CbTroop.Text;
+			addedStudent.MobilePhone = TbMobilePhone.Text;
+
+			Close();
 		}
 	}
 }
