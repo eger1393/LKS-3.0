@@ -35,7 +35,15 @@ namespace LKS_3._0
 				e.Handled = true;
 			}
 		}
-		
+
+		private void TbDigitOrLetter_PreviewTextInput(object sender, TextCompositionEventArgs e) //
+		{
+			if (!(char.IsDigit(e.Text.ToString()[0]) || char.IsLetter(e.Text.ToString()[0])))
+			{
+				e.Handled = true;
+			}
+		}
+
 		private void TbOnlyDigit_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
 			if (!char.IsDigit(e.Text.ToString()[0]))
@@ -43,6 +51,7 @@ namespace LKS_3._0
 				e.Handled = true;
 			}
 		}
+
 
 		private void TbAverageScore_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
@@ -55,6 +64,15 @@ namespace LKS_3._0
 				{
 					e.Handled = true;
 				}
+			}
+		}
+
+		// Обработка ввода даты
+		private void TbDate_PreviewTextInput(object sender, TextCompositionEventArgs e) //
+		{
+			if (!(char.IsDigit(e.Text.ToString()[0]) || e.Text.ToString()[0] =='.'))
+			{
+				e.Handled = true;
 			}
 		}
 
@@ -137,6 +155,18 @@ namespace LKS_3._0
 			{
 				e.Handled = true;
 			}
+		}
+
+		private void UploadPhoto_Click(object sender, RoutedEventArgs e)
+		{
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Image files (*.jpg,*.png)|*.jpg; *.png"; // добавили фильтер
+			if (dlg.ShowDialog() == true) // запустили окно
+			{
+				System.IO.FileStream streamOpenImage = new System.IO.FileStream(dlg.FileName, System.IO.FileMode.Open); // создали новый вайловый поток
+				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото
+			}
+
 		}
 	}
 }
