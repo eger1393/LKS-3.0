@@ -11,7 +11,7 @@ namespace LKS_3._0
     {
         public ApplicationContext() : base("DefaultConnection")
         {
-            string sPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName), "DataBaseStudents.db");
+            
         }
         public DbSet<Student> Students { get; set; }
     }

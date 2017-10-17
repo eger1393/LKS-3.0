@@ -15,10 +15,10 @@ namespace LKS_3._0
 {
     public class ApplicationViewModel : INotifyPropertyChanged
     {
-        ApplicationContext DataBase;
+        public ApplicationContext DataBase;
 
         RelayCommand addCommand;
-        //RelayCommand saveCommand;
+        RelayCommand createReportCommand;
         //RelayCommand editCommand;
         //RelayCommand deleteCommand;
 
@@ -58,22 +58,23 @@ namespace LKS_3._0
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                       SelectedStudent = temp_student;
+                      //new GeneratedClass().CreatePackage(".\\Output.docx");
                   }));
             }
         }
 
-        //public RelayCommand SaveCommand
-        //{
-        //    get
-        //    {
-        //        return saveCommand ??
-        //          (saveCommand = new RelayCommand(obj =>
-        //          {
-        //              DataBase.SaveChanges();
-        //              DataBase.Dispose();
-        //          }));
-        //    }
-        //}
+        public RelayCommand CreateReportCommand
+        {
+            get
+            {
+                return createReportCommand ??
+                  (createReportCommand = new RelayCommand(obj =>
+                  {
+                      CreateReport CR_Window = new CreateReport(this);
+                      CR_Window.Show();
+                  }));
+            }
+        }
         public ApplicationViewModel()
         {
             DataBase = new ApplicationContext();

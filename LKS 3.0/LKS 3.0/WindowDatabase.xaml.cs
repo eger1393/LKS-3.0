@@ -46,9 +46,7 @@ namespace LKS_3._0
                 StudentsGrid.IsReadOnly = true;
             }
 
-
-            
-
+           
             DataContext = new ApplicationViewModel();
 
             Binding_columns();
