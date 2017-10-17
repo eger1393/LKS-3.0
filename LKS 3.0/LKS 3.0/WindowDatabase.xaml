@@ -18,8 +18,8 @@
         </Grid.ColumnDefinitions>
         
         <Menu Height="25" VerticalAlignment="Top">
-            <MenuItem Header="File">
-                <Button Content="Exit" />
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход"></MenuItem>
             </MenuItem>
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>

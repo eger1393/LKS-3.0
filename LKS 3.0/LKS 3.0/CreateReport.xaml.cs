@@ -35,7 +35,13 @@ namespace LKS_3._0
 
         private void Troop_CR_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CR_listBox.ItemsSource = VM_CreateReport.DataBase.Students.Local.Where(u => u.Troop == Troop_CR_comboBox.SelectedValue.ToString());
+            CR_listBox.ItemsSource = VM_CreateReport.DataBase.Students.Local.Where(u => u.Troop == Troop_CR_comboBox.SelectedValue.ToString()).Select(u => u.MiddleName);
+        }
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+            string[] keys = { "Мещеряков", "Антон", "Сергеевич", "28.02.1998", "г.Москва" };
+            new GeneratedClass().CreatePackage(".\\LKS.docx",keys);
         }
     }
 }

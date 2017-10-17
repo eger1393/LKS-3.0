@@ -59,7 +59,7 @@ namespace LKS_3._0
         public string Group
         { get; set; } // Группа студента
         [RusName("Телефон")]
-        public string MobilePhone // Номер моильного телефона
+        public string MobilePhone // Номер мобильного телефона
         { get; set; }
 
         //[RusName("Звание")]

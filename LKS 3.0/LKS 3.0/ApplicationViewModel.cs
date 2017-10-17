@@ -58,7 +58,6 @@ namespace LKS_3._0
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                       SelectedStudent = temp_student;
-                      //new GeneratedClass().CreatePackage(".\\Output.docx");
                   }));
             }
         }

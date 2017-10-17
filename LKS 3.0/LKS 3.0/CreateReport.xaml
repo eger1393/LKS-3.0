@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Создание отчета" Height="400" Width="600">
+        Title="Создание отчета" Height="414" Width="630">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.3
+                           *"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -19,11 +20,13 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="Введите дополнительную информацию:" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" BorderThickness="1" BorderBrush="Red" Width="296"/>
-        <Label Grid.Column="1" Grid.Row="0" Content="Выберите взвод:" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" BorderThickness="1" BorderBrush="Red" Width="296"/>
-        <TextBlock Grid.Column="0" Grid.Row ="1" Grid.RowSpan="4" Text="ТЕКСТ" Background="#FFF0F0F0"/>
-        <ComboBox Grid.Column="1" Grid.Row="1" x:Name="Troop_CR_comboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="296" SelectionChanged="Troop_CR_comboBox_SelectionChanged"/>
-        <ListBox x:Name="CR_listBox" Grid.Column="1" HorizontalAlignment="Left" Height="297" Margin="10,10,0,0" Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Top" Width="276"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Введите дополнительную информацию:" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" BorderThickness="1" BorderBrush="Red" Width="276" Margin="10,2,10,1" Height="28"/>
+        <Label Grid.Column="1" Grid.Row="0" Content="Выберите взвод:" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" BorderThickness="1" BorderBrush="Red" Width="281" Margin="5,2,10,1" Height="28"/>
+        <TextBox Grid.Column="0" Grid.Row ="1" Grid.RowSpan="4" Text="ТЕКСТ" Background="#FFF0F0F0" Margin="0,10,0,13"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" x:Name="Troop_CR_comboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="281" SelectionChanged="Troop_CR_comboBox_SelectionChanged" BorderThickness="1" Margin="5,2,10,0" Height="19"/>
+        <ListBox x:Name="CR_listBox" Grid.Column="1" HorizontalAlignment="Left" Height="245" Margin="10,10,0,0" Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Top" Width="276"/>
+        
+        <Button x:Name="Create" Content="Создать" Grid.Column="1" HorizontalAlignment="Left" Margin="100,46,0,38" Grid.Row="4" Width="90" Click="Create_Click"/>
 
 
     </Grid>

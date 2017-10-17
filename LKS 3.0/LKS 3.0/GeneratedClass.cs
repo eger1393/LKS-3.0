@@ -19,22 +19,22 @@ namespace LKS_3._0
     public class GeneratedClass
     {
         // Creates a WordprocessingDocument.
-        public void CreatePackage(string filePath)
+        public void CreatePackage(string filePath, params string[] array_key)
         {
             using (WordprocessingDocument package = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {
-                CreateParts(package);
+                CreateParts(package, array_key);
             }
         }
 
         // Adds child parts and generates content of the specified part.
-        private void CreateParts(WordprocessingDocument document)
+        private void CreateParts(WordprocessingDocument document, params string[] array_key)
         {
             ExtendedFilePropertiesPart extendedFilePropertiesPart1 = document.AddNewPart<ExtendedFilePropertiesPart>("rId3");
             GenerateExtendedFilePropertiesPart1Content(extendedFilePropertiesPart1);
 
             MainDocumentPart mainDocumentPart1 = document.AddMainDocumentPart();
-            GenerateMainDocumentPart1Content(mainDocumentPart1);
+            GenerateMainDocumentPart1Content(mainDocumentPart1,array_key);
 
             DocumentSettingsPart documentSettingsPart1 = mainDocumentPart1.AddNewPart<DocumentSettingsPart>("rId3");
             GenerateDocumentSettingsPart1Content(documentSettingsPart1);
@@ -152,7 +152,7 @@ namespace LKS_3._0
         }
 
         // Generates content of mainDocumentPart1.
-        private void GenerateMainDocumentPart1Content(MainDocumentPart mainDocumentPart1)
+        private void GenerateMainDocumentPart1Content(MainDocumentPart mainDocumentPart1, params string[] array_key)
         {
             Document document1 = new Document() { MCAttributes = new MarkupCompatibilityAttributes() { Ignorable = "w14 w15 w16se wp14" } };
             document1.AddNamespaceDeclaration("wpc", "http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas");
@@ -771,7 +771,7 @@ namespace LKS_3._0
             runProperties7.Append(fontSizeComplexScript10);
             runProperties7.Append(languages6);
             Text text14 = new Text();
-            text14.Text = "#surname";
+            text14.Text = array_key[0];
 
             run14.Append(runProperties7);
             run14.Append(text14);
@@ -1050,7 +1050,7 @@ namespace LKS_3._0
             runProperties10.Append(fontSizeComplexScript15);
             runProperties10.Append(languages10);
             Text text19 = new Text();
-            text19.Text = "#name";
+            text19.Text = array_key[1];
 
             run19.Append(runProperties10);
             run19.Append(text19);
@@ -1158,7 +1158,7 @@ namespace LKS_3._0
             runProperties11.Append(fontSizeComplexScript17);
             runProperties11.Append(languages12);
             Text text21 = new Text();
-            text21.Text = "#oname";
+            text21.Text = array_key[2];
 
             run21.Append(runProperties11);
             run21.Append(text21);
@@ -1411,7 +1411,7 @@ namespace LKS_3._0
             runProperties13.Append(fontSizeComplexScript22);
             runProperties13.Append(languages14);
             Text text24 = new Text();
-            text24.Text = "#birthday";
+            text24.Text = array_key[3];
 
             run24.Append(runProperties13);
             run24.Append(text24);
@@ -1666,7 +1666,7 @@ namespace LKS_3._0
             runProperties15.Append(fontSizeComplexScript26);
             runProperties15.Append(languages17);
             Text text28 = new Text();
-            text28.Text = "#bplace";
+            text28.Text = array_key[4];
 
             run28.Append(runProperties15);
             run28.Append(text28);
