@@ -11,10 +11,11 @@
             <TabItem Header="Информация о студенте">
                 <Grid Margin="0,0,0,34">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="170*"/>
+                        <ColumnDefinition Width="34*"/>
+                        <ColumnDefinition Width="137*"/>
+                        <ColumnDefinition Width="170*"/>
+                        <ColumnDefinition Width="171*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -39,64 +40,66 @@
                     <Label Grid.Column="0" Grid.Row="7" Content="Год окончания ВК"/>
 
 
-                    <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
-                    <Label Grid.Column="2" Grid.Row="1" Content="Факультет"/>
-                    <Label Grid.Column="2" Grid.Row="2" Content="Название специальности"/>
-                    <Label Grid.Column="2" Grid.Row="3" Content="Условия обучения в вузе"/>
-                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
-                    <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
-                    <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
-                    <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Студенческая группа"/>
+                    <Label Grid.Column="3" Grid.Row="1" Content="Факультет"/>
+                    <Label Grid.Column="3" Grid.Row="2" Content="Название специальности"/>
+                    <Label Grid.Column="3" Grid.Row="3" Content="Условия обучения в вузе"/>
+                    <Label Grid.Column="3" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
+                    <Label Grid.Column="3" Grid.Row="5" Content="№ приказа о приеме" />
+                    <Label Grid.Column="3" Grid.Row="6" Content="Дата приказа" />
+                    <Label Grid.Column="3" Grid.Row="7" Content="Военкомат"/>
 
-                    <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"/>
-                    <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"  />
-                    <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2"/>
-                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"  />
+                    <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="410"/>
                         <ComboBoxItem Content="509"/>
                         <ComboBoxItem Content="901"/>
                         <ComboBoxItem Content="409"/>
                     </ComboBox>
-                    <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
-                    <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
-                    <TextBox x:Name="TbYearOfRecepitMD" Grid.Column="1" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
-                    <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TbYearOfRecepitMD" Grid.Column="1" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
 
-                    <ComboBox x:Name="CbGroup" Grid.Column="3" Grid.Row="0" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="0" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <TextBlock Text="3ВТИ-3ДБ-039"/>
                         <TextBlock Text="3ВТИ-3ДБ-038"/>
                         <TextBlock Text="3ВТИ-3ДБ-037"/>
                         <TextBlock Text="3ВТИ-3ДБ-036"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbFacility" Grid.Column="3" Grid.Row="1" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="1" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>
                         <ListBoxItem Content="2"/>
                         <ListBoxItem Content="3"/>
                         <ListBoxItem Content="4"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbSpeciality" Grid.Column="3" Grid.Row="2" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="2" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бук"/>
                         <ListBoxItem Content="Тор"/>
                         <ListBoxItem Content="Оса"/>
                         <ListBoxItem Content="Тополь"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbConditions" Grid.Column="3" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бюджетное"/>
                         <ListBoxItem Content="Платное"/>
                     </ComboBox>
-                    <TextBox x:Name="TbAverageScore" Grid.Column="3" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="2"/>
-                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="3" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbDigitOrLetter_PreviewTextInput" MaxLength="4" Margin="2"/>
-                    <TextBox x:Name="TbDataOrderAdmision" Grid.Column="3" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="0,2,2,2"/>
+                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbDigitOrLetter_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
 
                 </Grid>
             </TabItem>
             <TabItem Header="Личные данные">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="72*"/>
+                        <ColumnDefinition Width="82*"/>
+                        <ColumnDefinition Width="171*" />
+                        <ColumnDefinition Width="170*" />
+                        <ColumnDefinition Width="171*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -111,26 +114,26 @@
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Дата рождения"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Место рождния"/>
-                    <Label Grid.Column="0" Grid.Row="2" Content="Национальность"/>
-                    <Label Grid.Column="0" Grid.Row="3" Content="Гражданство"/>
-                    <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон"/>
-                    <Label Grid.Column="2" Grid.Row="0" Content="Сотовый телефон"/>
-                    <TextBlock Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
-                    <TextBlock Grid.Column="2" Grid.Row="3" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
-                    <Label Grid.Column="2" Grid.Row="5" Content="Школа"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Дата рождения" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Место рождния" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Национальность" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Гражданство" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Сотовый телефон"/>
+                    <TextBlock Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
+                    <TextBlock Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
+                    <Label Grid.Column="4" Grid.Row="5" Content="Школа"/>
 
-                    <TextBox x:Name="TbDateOfBirth" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="1" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbHomePhone_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbMobilePhone" Grid.Column="4" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
-                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbSchool" Grid.Column="4" Grid.Row="5" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="4" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="6">
+                    <TextBox x:Name="TbDateOfBirth" Grid.Column="3" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="3" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbNationality" Grid.Column="3" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbCitizenship" Grid.Column="3" Grid.Row="3" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbHomePhone" Grid.Column="3" Grid.Row="4" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbHomePhone_PreviewTextInput" Margin="2"/>
+                    <TextBox x:Name="TbMobilePhone" Grid.Column="5" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
+                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="5" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <TextBox x:Name="TbSchool" Grid.Column="5" Grid.Row="5" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
+                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="6" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="6">
                         <StackPanel >
                             <Grid>
                                 <Grid.ColumnDefinitions>

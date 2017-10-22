@@ -19,18 +19,33 @@ namespace LKS_3._0
 
         RelayCommand addCommand;
         RelayCommand createReportCommand;
-        //RelayCommand editCommand;
-        //RelayCommand deleteCommand;
+        RelayCommand findCommand;
+        RelayCommand deleteCommand;
+        RelayCommand saveChangeCommand;
 
         IEnumerable<Student> students;
 
         private Student selectedStudent;
-
+        private string findText;
+       public string FindText
+        {
+            get { return findText; }
+            set
+            {
+                if (value == "")
+                {
+                    Students = DataBase.Students.Local.ToBindingList();
+                }
+                findText = value;
+                OnPropertyChanged("FindText");
+            }
+        }
         public IEnumerable<Student> Students
         {
             get { return students; }
             set
             {
+               
                 students = value;
                 OnPropertyChanged("Students");
             }
@@ -56,12 +71,26 @@ namespace LKS_3._0
                   {
                       Student temp_student = new Student();
 					  AddStudent addStudentWindow = new AddStudent(temp_student);
-                      addStudentWindow.ShowDialog();
-
+                      if (addStudentWindow.ShowDialog() == true)
+                      {
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                           SelectedStudent = temp_student;
-                      
+                      }                     
+                  }));
+            }
+        }
+
+        public RelayCommand SaveChangeCommand
+        {
+            get
+            {
+                return saveChangeCommand ??
+                  (saveChangeCommand = new RelayCommand(selectStudent =>
+                  {
+                      Student temp_stud = selectedStudent as Student;
+                      DataBase.Students.Local.Insert(temp_stud.Id, temp_stud);
+                      DataBase.SaveChanges();
                   }));
             }
         }
@@ -78,13 +107,71 @@ namespace LKS_3._0
                   }));
             }
         }
+
+
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ??
+                    (deleteCommand = new RelayCommand(selectedItem =>
+                    {
+                        // если ни одного объекта не выделено, выходим
+                        if (selectedItem == null) return;
+                        // получаем выделенный объект
+                        Student student = selectedStudent as Student;
+                        DataBase.Students.Remove(student);
+                        DataBase.SaveChanges();
+                    }, (obj) => students.Count() > 0));
+            }
+        }
+
+        public RelayCommand FindCommand
+        {
+            get
+            {
+               
+               
+                    return findCommand ??
+                                        (findCommand = new RelayCommand(select =>
+                                        {
+                                            switch ((int)select)
+                                            {
+                                                case 0:
+                                                    {
+                                                        Students = DataBase.Students.Local.Where(u => u.MiddleName == FindText);
+                                                        break;
+                                                    }
+                                                case 1:
+                                                    {
+                                                        Students = DataBase.Students.Local.Where(u => u.Troop == FindText);
+                                                        break;
+                                                    }
+                                                case 2:
+                                                    {
+                                                        Students = DataBase.Students.Local.Where(u => u.Group == FindText);
+                                                        break;
+                                                    }
+                                                case 3:
+                                                    {
+                                                        Students = DataBase.Students.Local.Where(u => u.Rank == FindText);
+                                                        break;
+                                                    }
+                                                default:
+                                                    break;
+                                            }
+                                        }, (obj) => FindText != ""));
+                
+                
+            }
+        }
         public ApplicationViewModel()
         {
             DataBase = new ApplicationContext();
 
-                DataBase.Students.Load();
+            DataBase.Students.Load();
 
-                Students = DataBase.Students.Local.ToBindingList();
+            Students = DataBase.Students.Local.ToBindingList();
 
 
             //Students = new ObservableCollection<Student>
@@ -92,7 +179,7 @@ namespace LKS_3._0
             //   new Student("Мещеряков", "Антон", "Сергеевич", "3ВТИ-3ДБ-039", "410", "+7(985)191-84-48"),
             //   new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48"),
             //   new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13")
-            // };           
+            // };
         }
 
 

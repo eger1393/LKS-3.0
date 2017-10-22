@@ -162,27 +162,54 @@ namespace LKS_3._0
 
 		private void UploadPhoto_Click(object sender, RoutedEventArgs e)
 		{
+      
 			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Image files (*.jpg,*.png)|*.jpg; *.png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				System.IO.FileStream streamOpenImage = new System.IO.FileStream(dlg.FileName, System.IO.FileMode.Open); // создали новый вайловый поток
+				System.IO.FileStream streamOpenImage = new System.IO.FileStream(dlg.FileName, System.IO.FileMode.Open); // создали новый файловый поток
 				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото
+              
 			}
 
 		}
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
+            //addedStudent.PathPhoto.Source = Photo.Source;
 			addedStudent.FirstName = TbFName.Text;
 			addedStudent.MiddleName = TbMName.Text;
 			addedStudent.LastName = TbLName.Text;
+            addedStudent.Troop = CbTroop.Text;
+            addedStudent.YearOfAddMAI = Convert.ToInt32(TbYearOfRecepit.Text);
+            addedStudent.YearOfEndMAI = Convert.ToInt32(TbYearOfEnd.Text);
+            addedStudent.YearOfAddVK = Convert.ToInt32(TbYearOfRecepitMD);
+            addedStudent.YearOfEndVK = Convert.ToInt32(TbYearOfEndMD);
 
-			addedStudent.Group = CbGroup.Text;
-			addedStudent.Troop = CbTroop.Text;
-			addedStudent.MobilePhone = TbMobilePhone.Text;
+            addedStudent.Group = CbGroup.Text;
+            addedStudent.Faculty = CbFacility.Text;
+            addedStudent.SpecialityName = CbSpeciality.Text;
+            addedStudent.ConditionsOfEducation = CbConditions.Text;
+            addedStudent.AvarageScore = TbAverageScore.Text;
+            addedStudent.NumberOfOrder = TbNumberOrderAdmision.Text;
+            addedStudent.DateOfOrder = TbDataOrderAdmision.Text;
+            addedStudent.Rectal = "Военкомат";
 
-			Close();
+            addedStudent.Birthday = TbDateOfBirth.Text;
+            addedStudent.PlaceBirthday = TbPlaceOfBirth.Text;
+            addedStudent.Nationality = TbNationality.Text;
+            addedStudent.Citizenship = TbCitizenship.Text;
+            addedStudent.HomePhone = TbHomePhone.Text;
+            addedStudent.MobilePhone = TbMobilePhone.Text;
+            addedStudent.PlaceOfResidence = TbPlaceOfResidence.Text;
+            addedStudent.PlaceOfRegestration = TbPlaceOfRegestration.Text;
+            addedStudent.School = TbSchool.Text;
+            addedStudent.Rank = "Никто";
+
+
+            DialogResult = true;
+
+            Close();
 		}
 	}
 }

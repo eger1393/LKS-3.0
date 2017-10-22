@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace LKS_3._0
 {
@@ -21,7 +23,7 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-           
+          
         }
 
         public Student(string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)
@@ -32,10 +34,11 @@ namespace LKS_3._0
             this.Group = group;
             this.Troop = troop;
             this.MobilePhone = phone;
-            //this.Rank = rang;
         }
 
         public int Id { get; set; }
+
+        //public Image PathPhoto;
 
         [RusName("Фамилия")]
         public string MiddleName // Фамилия
@@ -49,35 +52,90 @@ namespace LKS_3._0
         [RusName("Взвод")]
         public string Troop // Взвод
         { get; set; }
+        [RusName("Год поступления в МАИ")]
+        public int YearOfAddMAI
+        {
+            get; set;
+        }
+        [RusName("Год окончания МАИ")]
+        public int YearOfEndMAI
+        {
+            get; set;
+        }
+        [RusName("Год поступления на ВК")]
+        public int YearOfAddVK
+        {
+            get; set;
+        }
+        [RusName("Год окончания ВК")]
+        public int YearOfEndVK
+        {
+            get; set;
+        }
+
+
+
         [RusName("Группа")]
         public string Group
         { get; set; } // Группа студента
-        [RusName("Телефон")]
-        public string MobilePhone // Номер мобильного телефона
+        [RusName("Факультет")]
+        public string Faculty
+        { get; set; } // факультет
+        [RusName("Специальность в ВУЗе")]
+        public string SpecialityName
+        { get; set; } // Название специальности
+        [RusName("Условия обучения в ВУЗе")]
+        public string ConditionsOfEducation
+        { get; set; } // условия обучения
+        [RusName("Средний балл в зач.книжке")]
+        public string AvarageScore
+        { get; set; } // средний балл
+        [RusName("№ приказа о приеме")]
+        public string NumberOfOrder
+        { get; set; } // номер приказа
+        [RusName("Дата приказа")]
+        public string DateOfOrder
+        { get; set; }
+        [RusName("Военкомат")]
+        public string Rectal
         { get; set; }
 
-        //[RusName("Звание")]
-        //public Student_Rank Rank // Звание студента (перечисление)
-        //{ get; set; }
-
-        //string HomePhone // Номер домашнего телефона
-        //{ get; set; }
 
 
-        //// TODO добавить перечесление специальностей после уточнения(?), перечисление званий, национальностей
+        [RusName("Дата рождения")]
+        public string Birthday // Номер мобильного телефона
+        { get; set; }
+        [RusName("Место рождения")]
+        public string PlaceBirthday // Номер мобильного телефона
+        { get; set; }
+        [RusName("Национальность")]
+        public string Nationality // национальность (перечисление)
+        { get; set; }
+        [RusName("Гражданство")]
+        public string Citizenship // Гражданство
+        { get; set; }
+        [RusName("Дом.телефон")]
+        public string HomePhone // Номер домашнего телефона
+        { get; set; }
+        [RusName("Мобильный телефон")]
+        public string MobilePhone 
+        { get; set; }
 
-        //// возможно извенить поле на целочисленное и исспользовать перечисление
-        //string SpecialityName
-        //{ get; set; } // Название специальности
-
-
-
-        //ushort Nationality // Национальность (перечисление)
-        //{ get; set; }
-
-        //string Citizenship // Гражданство
-        //{ get; set; }
-
-        //public string Добавить_поле { get; set; }
+        [RusName("Адрес проживания")]
+        public string PlaceOfResidence
+        { get; set; }
+        [RusName("Адрес прописки")]
+        public string PlaceOfRegestration
+        { get; set; }
+        [RusName("Школа")]
+        public string School
+        { get; set; }
+        [RusName("Звание")]
+        public string Rank // Звание студента (перечисление)
+        { get; set; }
+        
+        
+        
+        
     }
 }

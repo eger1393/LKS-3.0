@@ -4,10 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="WindowDatabase" Height="900" Width="1440" WindowState="Maximized">
-    
-    <Grid x:Name="Main_Grid" Panel.ZIndex ="0" Background="LightGray">
+
+    <Window.Resources>
+        <Style x:Key="Default">
+            <Setter Property="Control.FontFamily" Value="Times New Roman" />
+            <Setter Property="Control.FontSize" Value="22" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="Main_Grid" Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="0.35*"></RowDefinition>
@@ -16,19 +24,28 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <Menu Height="25" VerticalAlignment="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход"></MenuItem>
+
+        <Menu Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
+            </MenuItem>
+            <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
             </MenuItem>
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
         </Menu>
-        
+
         <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
     RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="CellEditEnding">
+                    <i:InvokeCommandAction 
+                Command="{Binding SaveChangeCommand}"
+                CommandParameter="{Binding SelectedStudent}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
+
 
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -38,35 +55,30 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button x:Name="AddButton" Grid.Row ="0" Grid.Column="0" Command="{Binding AddCommand}" FontSize="24" BorderBrush="#FFC91818" Foreground="#FFFB0808">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background> Добавить студента</Button>
-            
+
+
             <!--<Button x:Name="Button" Grid.Row ="1" Grid.Column="0" Content="SAVE" FontSize="24"  Command="{Binding SaveCommand}" />-->
-            
-            <Label Grid.Column="0" Grid.Row="1" Content="Поиск студента по:" FontSize="21.333" HorizontalAlignment="Center"></Label>
-            <ComboBox Grid.Column="0" Grid.Row="2" FontSize="15">
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента по:" FontSize="29.333" HorizontalAlignment="Center" Margin="226,0"></Label>
+            <ComboBox x:Name="FindBox" Grid.Column="0" Grid.Row="1" FontSize="35">
                 <ComboBoxItem Content="Фамилии"/>
                 <ComboBoxItem Content="Взводу"/>
                 <ComboBoxItem Content="Группе"/>
                 <ComboBoxItem Content="Должности"/>
             </ComboBox>
-            <TextBox x:Name="Text_Box_Find" Grid.Column="0" Grid.Row= "3" Margin="0,5,0,0" Text="Поиск..." FontSize="21.333"/>
 
-            <!--<Label Grid.Column="0" Grid.Row="3" Content="По группе:" FontSize="12"></Label>
-            <ComboBox Grid.Column="0" Grid.Row="4" FontSize="12"></ComboBox>
-            <Label Grid.Column="0" Grid.Row="5" Content="По должности:" FontSize="12"></Label>
-            <ComboBox Grid.Column="0" Grid.Row="6" FontSize="12"></ComboBox>-->
+            <TextBox x:Name="Text_Box_Find" Grid.Column="0" Grid.Row= "2" Margin="0,5,0,0" FontSize="35" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}">
+
+            </TextBox>
+
+            <Button Content="Поиск!" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="32" Command="{Binding FindCommand}" CommandParameter="{Binding ElementName=FindBox, Path=SelectedIndex}" IsDefault="True"/>
+
+
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
+        <Grid  Style="{StaticResource Default}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -76,20 +88,29 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный студент:" FontSize="24" HorizontalAlignment="Center"></Label>
-            <Label x:Name="Label_FIO" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}" FontSize="21.333"></Label>
-            <Label x:Name="Label_vzvod" Grid.Column="0" Grid.Row="2" Content="{Binding Troop}" FontSize="21.333"></Label>
-            <Label x:Name="Label_group" Grid.Column="0" Grid.Row="3" Content="{Binding Group}" FontSize="21.333"></Label>
-            <Label x:Name="Label_phone" Grid.Column="0" Grid.Row="4" Content="{Binding MobilePhone}" FontSize="21.333"></Label>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="26" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}"/>
+            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Content="{Binding FirstName}"/>
+            <Label x:Name="Label_O" Grid.Column="2" Grid.Row="1" Content="{Binding LastName}"/>
+            <Label x:Name="Label_vzvod" Grid.Row="2" Content="{Binding Troop}" Grid.ColumnSpan="3" Margin="92,0,0,37.333" Grid.RowSpan="2"/>
+            <Label x:Name="Label_rank" Grid.Row="3" Content="{Binding Rank}" Grid.ColumnSpan="3" Margin="115,0.333,0,37" Grid.RowSpan="2"/>
+            <Label x:Name="Label_group" Grid.Row="4" Content="{Binding Group}" Grid.ColumnSpan="3" Margin="103,0.667,0,0"/>
+            <Label x:Name="Label_phone" Grid.Row="5" Content="{Binding MobilePhone}" Grid.ColumnSpan="3" Margin="164,0,0,-0.333"/>
 
-
-            <Image x:Name="Photo_Student" Grid.Column="1" Grid.RowSpan="7" HorizontalAlignment="Left" Height="175"  Grid.Row="0" VerticalAlignment="Top" Width="165"/>
+           
+            <Image x:Name="Photo_Student" Source="{Binding}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left" Height="226"  Grid.Row="0" VerticalAlignment="Top" Width="179"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" />
+            <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left"/>
 
         </Grid>
-        
+
 
     </Grid>
 
