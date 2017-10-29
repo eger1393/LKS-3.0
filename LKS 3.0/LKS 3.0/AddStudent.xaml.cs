@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,7 +11,11 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.IO;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace LKS_3._0
 {
@@ -19,6 +24,7 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class AddStudent : Window
 	{
+        
 		private Student addedStudent;
 
 		public AddStudent(Student temp)
@@ -167,12 +173,13 @@ namespace LKS_3._0
 			dlg.Filter = "Image files (*.jpg,*.png)|*.jpg; *.png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				System.IO.FileStream streamOpenImage = new System.IO.FileStream(dlg.FileName, System.IO.FileMode.Open); // создали новый файловый поток
-				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото
-              
-			}
+				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
+				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото  
+            }
 
-		}
+            
+
+        }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{

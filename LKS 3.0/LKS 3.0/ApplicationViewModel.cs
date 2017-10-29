@@ -15,6 +15,8 @@ namespace LKS_3._0
 {
     public class ApplicationViewModel : INotifyPropertyChanged
     {
+        ProgramMode progMode;
+
         public ApplicationContext DataBase;
 
         RelayCommand addCommand;
@@ -22,6 +24,7 @@ namespace LKS_3._0
         RelayCommand findCommand;
         RelayCommand deleteCommand;
         RelayCommand saveChangeCommand;
+        RelayCommand checkPassCommand;
 
         IEnumerable<Student> students;
 
@@ -81,6 +84,21 @@ namespace LKS_3._0
             }
         }
 
+        public RelayCommand CheckPassword
+        {
+            get
+            {
+                return checkPassCommand ??
+                    (checkPassCommand = new RelayCommand(obj =>
+                    {
+                        CheckPass Check_Pass = new CheckPass();
+                    if (Check_Pass.ShowDialog() == true)
+                        {
+                            
+                        }       
+                    },(obj) => (progMode == ProgramMode.Admin)));
+            }
+        }
         public RelayCommand SaveChangeCommand
         {
             get
@@ -165,8 +183,10 @@ namespace LKS_3._0
                 
             }
         }
-        public ApplicationViewModel()
+        public ApplicationViewModel(ProgramMode _progMode)
         {
+            progMode = _progMode;
+
             DataBase = new ApplicationContext();
 
             DataBase.Students.Load();
