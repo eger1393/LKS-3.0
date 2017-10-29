@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace LKS_3._0
 {
@@ -21,16 +24,20 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        const string pass = "111";
         public MainWindow()
 		{
 			InitializeComponent();
-		}
+            using (FileStream fstream = File.Open(@".\FinTl.txt", FileMode.OpenOrCreate,FileAccess.Read))
+            {
+                // преобразуем строку в байты
+                byte[] array = new byte[fstream.Length];
+                // считываем данные
+                fstream.Read(array, 0, array.Length);
+                // декодируем байты в строку
+                Pass.Value = System.Text.Encoding.Default.GetString(array);
+               }
 
-		private void button_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
+        }
 
         private void RB_Admin_Checked(object sender, RoutedEventArgs e)
         {
@@ -57,7 +64,7 @@ namespace LKS_3._0
             }
             else if(RB_Admin.IsChecked == true)
             {
-                if (PB_Password.Password == pass)
+                if (PB_Password.Password == Pass.Value)
                 {
                     MessageBox.Show("Успешно!");
                     WindowDatabase Window_Data = new WindowDatabase(true);
