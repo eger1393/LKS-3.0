@@ -11,7 +11,7 @@
     <Window.Resources>
         <Style x:Key="Default">
             <Setter Property="Control.FontFamily" Value="Times New Roman" />
-            <Setter Property="Control.FontSize" Value="22" />
+            <Setter Property="Control.FontSize" Value="18" />
         </Style>
     </Window.Resources>
 
@@ -62,8 +62,8 @@
 
             <!--<Button x:Name="Button" Grid.Row ="1" Grid.Column="0" Content="SAVE" FontSize="24"  Command="{Binding SaveCommand}" />-->
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента по:" FontSize="29.333" HorizontalAlignment="Center" Margin="226,0"></Label>
-            <ComboBox x:Name="FindBox" Grid.Column="0" Grid.Row="1" FontSize="35">
+            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента по:" FontSize="29.333" HorizontalAlignment="Center" Margin="140,0,175,0" Width="401" HorizontalContentAlignment="Center"></Label>
+            <ComboBox x:Name="FindBox" Grid.Column="0" Grid.Row="1" FontSize="25">
                 <ComboBoxItem Content="Фамилии"/>
                 <ComboBoxItem Content="Взводу"/>
                 <ComboBoxItem Content="Группе"/>
@@ -96,7 +96,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="26" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Content="{Binding FirstName}"/>
             <Label x:Name="Label_O" Grid.Column="2" Grid.Row="1" Content="{Binding LastName}"/>
@@ -105,7 +105,7 @@
             <Label x:Name="Label_group" Grid.Row="4" Content="{Binding Group}" Grid.ColumnSpan="3" Margin="103,0.667,0,0"/>
             <Label x:Name="Label_phone" Grid.Row="5" Content="{Binding MobilePhone}" Grid.ColumnSpan="3" Margin="164,0,0,-0.333"/>
 
-           
+
             <Image x:Name="Photo_Student" Source="{Binding}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left" Height="226"  Grid.Row="0" VerticalAlignment="Top" Width="179"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" />

@@ -3,12 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:myns="clr-namespace:DataBinding"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
+        
         Title="AddStudent" Height="600" Width="700">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Информация о студенте">
+            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3">
                 <Grid Margin="0,0,0,34">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*"/>
@@ -49,57 +60,100 @@
                     <Label Grid.Column="3" Grid.Row="6" Content="Дата приказа" />
                     <Label Grid.Column="3" Grid.Row="7" Content="Военкомат"/>
 
-                    <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"  />
-                    <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" Margin="2" Grid.ColumnSpan="2"/>
-                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
+                    <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
+                    <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                    <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="410"/>
                         <ComboBoxItem Content="509"/>
                         <ComboBoxItem Content="901"/>
                         <ComboBoxItem Content="409"/>
                     </ComboBox>
-                    <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TbYearOfRecepitMD" Grid.Column="1" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
+                        <TextBox.Text>
+                            <Binding Path="YearOfAddMAI" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1950" max="2100"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="TbYearOfEnd" Grid.Column="1" Grid.Row="5" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
+                        <TextBox.Text>
+                            <Binding Path="YearOfEndMAI" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1950" max="2100"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="TbYearOfRecepitMD" Grid.Column="1" Grid.Row="6" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
+                        <TextBox.Text>
+                            <Binding Path="YearOfAddVK" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1950" max="2100"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="TbYearOfEndMD" Grid.Column="1" Grid.Row="7" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
+                        <TextBox.Text>
+                            <Binding Path="YearOfEndVK" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1950" max="2100"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
-                    <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="0" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="0" Text="{Binding Group}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <TextBlock Text="3ВТИ-3ДБ-039"/>
                         <TextBlock Text="3ВТИ-3ДБ-038"/>
                         <TextBlock Text="3ВТИ-3ДБ-037"/>
                         <TextBlock Text="3ВТИ-3ДБ-036"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="1" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="1" Text="{Binding Faculty}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>
                         <ListBoxItem Content="2"/>
                         <ListBoxItem Content="3"/>
                         <ListBoxItem Content="4"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="2" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="2" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бук"/>
                         <ListBoxItem Content="Тор"/>
                         <ListBoxItem Content="Оса"/>
                         <ListBoxItem Content="Тополь"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="3" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="3" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бюджетное"/>
                         <ListBoxItem Content="Платное"/>
                     </ComboBox>
-                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="0,2,2,2"/>
-                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbDigitOrLetter_PreviewTextInput" MaxLength="4" Margin="2"/>
-                    <TextBox x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4" Margin="2"/>
+                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="0,2,2,2">
+                        <TextBox.Text>
+                            <Binding Path="AvarageScore" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1" max="5"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
 
                 </Grid>
             </TabItem>
             <TabItem Header="Личные данные">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16*" />
-                        <ColumnDefinition Width="72*"/>
-                        <ColumnDefinition Width="82*"/>
-                        <ColumnDefinition Width="171*" />
-                        <ColumnDefinition Width="170*" />
-                        <ColumnDefinition Width="171*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -119,21 +173,21 @@
                     <Label Grid.Column="0" Grid.Row="2" Content="Национальность" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="3" Content="Гражданство" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон" Grid.ColumnSpan="3"/>
-                    <Label Grid.Column="4" Grid.Row="0" Content="Сотовый телефон"/>
-                    <TextBlock Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
-                    <TextBlock Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
-                    <Label Grid.Column="4" Grid.Row="5" Content="Школа"/>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Сотовый телефон"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
+                    <TextBlock Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
+                    <Label Grid.Column="2" Grid.Row="4" Content="Школа"/>
 
-                    <TextBox x:Name="TbDateOfBirth" Grid.Column="3" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="3" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbNationality" Grid.Column="3" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbCitizenship" Grid.Column="3" Grid.Row="3" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbOnlyLetter_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbHomePhone" Grid.Column="3" Grid.Row="4" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbHomePhone_PreviewTextInput" Margin="2"/>
-                    <TextBox x:Name="TbMobilePhone" Grid.Column="5" Grid.Row="0" Text="" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus" Margin="2" />
-                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="5" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <TextBox x:Name="TbSchool" Grid.Column="5" Grid.Row="5" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2"/>
-                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="6" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="6">
+                    <DatePicker x:Name="TbDateOfBirth" Grid.Column="1" Grid.Row="0" Text="{Binding Birthday, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding PlaceBirthday}"/>
+                    <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Nationality}" PreviewTextInput="TbOnlyLetter_PreviewTextInput"/>
+                    <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding Citizenship}"  />
+                    <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding HomePhone }" PreviewTextInput="TbHomePhone_PreviewTextInput"/>
+                    <TextBox x:Name="TbMobilePhone" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="1" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
+                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}"/>
+                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="6" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="7">
                         <StackPanel >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -168,7 +222,7 @@
                                     <ListBoxItem Content="4 отрицательная" />
                                     <ListBoxItem Content="незнаю" />
                                 </ComboBox>
-                                <TextBox x:Name="Weight" Grid.Column="1" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <TextBox x:Name="Weight" Grid.Column="1" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
                                 <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
                                     <ListBoxItem Content="S" />
                                     <ListBoxItem Content="M" />
@@ -176,8 +230,8 @@
                                     <ListBoxItem Content="XL" />
                                     <ListBoxItem Content="XXL" />
                                 </ComboBox>
-                                <TextBox x:Name="ShoeSize" Grid.Column="3" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
-                                <TextBox x:Name="HeadgearSize" Grid.Column="3" Grid.Row="1" FontSize="14" FontFamily="Times New Roman" TextAlignment="Left" Margin="2" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <TextBox x:Name="ShoeSize" Grid.Column="3" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
+                                <TextBox x:Name="HeadgearSize" Grid.Column="3" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
                                 <ComboBox x:Name="GasMaskSize" Grid.Column="3" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
                                     <ListBoxItem Content="1" />
                                     <ListBoxItem Content="2" />
@@ -191,6 +245,7 @@
             <TabItem Header="Родственники">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0.8*"/>
                         <RowDefinition/>
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
@@ -199,20 +254,52 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
-                        <DataGrid.Columns>
-                            <DataGridComboBoxColumn ClipboardContentBinding="{x:Null}" Header="Степень родства">
-                            </DataGridComboBoxColumn>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Фамилия"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Имя"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Отчество"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Дата рождения"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Состояние здоровья"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Адрес места жительства"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Адрес места регистрации"/>
-                        </DataGrid.Columns>
+                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Степень родства" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Девичья фамлия" />
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Дата рождения" />
 
-                    </DataGrid>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Состояние здоровья" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="Почтовый индекс,адрес места жительства" TextWrapping="Wrap" Padding="5"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Text="Почтовый индекс,адрес места регистрации" TextWrapping="Wrap" Padding="5"/>
+                        <TextBlock Grid.Row="5" Grid.Column="2" Text="Мобильный телефон" />
+
+                        <ComboBox x:Name="ComboBoxRelationDegree" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                            <ListBoxItem Content="Мать" />
+                            <ListBoxItem Content="Отец" />
+                            <ListBoxItem Content="Отчим" />
+                            <ListBoxItem Content="Мачеха" />
+                            <ListBoxItem Content="Брат" />
+                            <ListBoxItem Content="Сестра" />
+                            <ListBoxItem Content="Жена" />
+                            <ListBoxItem Content="Сын" />
+                            <ListBoxItem Content="Дочь" />
+                        </ComboBox>
+                        <TextBox x:Name="TbRelativeMName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
+                        <TextBox x:Name="TbRelativeFName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                        <TextBox x:Name="TbRelativeLName" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                        <TextBox x:Name="TbRelativeMidenName" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
+
+
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Фотография">

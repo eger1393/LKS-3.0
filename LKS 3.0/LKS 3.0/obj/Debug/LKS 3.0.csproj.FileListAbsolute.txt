@@ -41,7 +41,6 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
@@ -108,3 +107,18 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Deb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\de\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\en\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\es\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\it\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache

@@ -27,10 +27,13 @@ namespace LKS_3._0
         
 		private Student addedStudent;
 
+		private BitmapFrame ImageBitmapFrame;
+
 		public AddStudent(Student temp)
 		{
 			InitializeComponent();
 			addedStudent = temp;
+			DataContext = addedStudent;
 		}
 
 		//
@@ -170,53 +173,80 @@ namespace LKS_3._0
 		{
       
 			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
-			dlg.Filter = "Image files (*.jpg,*.png)|*.jpg; *.png"; // добавили фильтер
+			dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
-				Photo.Source = BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото  
-            }
-
-            
-
+				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля
+				// я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
+				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
+				
+			}
+			
         }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
             //addedStudent.PathPhoto.Source = Photo.Source;
-			addedStudent.FirstName = TbFName.Text;
-			addedStudent.MiddleName = TbMName.Text;
-			addedStudent.LastName = TbLName.Text;
-            addedStudent.Troop = CbTroop.Text;
-            addedStudent.YearOfAddMAI = Convert.ToInt32(TbYearOfRecepit.Text);
-            addedStudent.YearOfEndMAI = Convert.ToInt32(TbYearOfEnd.Text);
-            addedStudent.YearOfAddVK = Convert.ToInt32(TbYearOfRecepitMD);
-            addedStudent.YearOfEndVK = Convert.ToInt32(TbYearOfEndMD);
+			//addedStudent.FirstName = TbFName.Text;
+			//addedStudent.MiddleName = TbMName.Text;
+			//addedStudent.LastName = TbLName.Text;
+			//addedStudent.Troop = CbTroop.Text;
+			//addedStudent.YearOfAddMAI = Convert.ToInt32(TbYearOfRecepit.Text);
+			//addedStudent.YearOfEndMAI = Convert.ToInt32(TbYearOfEnd.Text);
+			//addedStudent.YearOfAddVK = Convert.ToInt32(TbYearOfRecepitMD);
+			//addedStudent.YearOfEndVK = Convert.ToInt32(TbYearOfEndMD);
 
-            addedStudent.Group = CbGroup.Text;
-            addedStudent.Faculty = CbFacility.Text;
-            addedStudent.SpecialityName = CbSpeciality.Text;
-            addedStudent.ConditionsOfEducation = CbConditions.Text;
-            addedStudent.AvarageScore = TbAverageScore.Text;
-            addedStudent.NumberOfOrder = TbNumberOrderAdmision.Text;
-            addedStudent.DateOfOrder = TbDataOrderAdmision.Text;
+			//addedStudent.YearOfAddMAI = TbYearOfRecepit.Text;
+			//addedStudent.YearOfEndMAI = TbYearOfEnd.Text;
+			//addedStudent.YearOfAddVK = TbYearOfRecepitMD.Text;
+			//addedStudent.YearOfEndVK = TbYearOfEndMD.Text;
+
+			//addedStudent.Group = CbGroup.Text;
+   //         addedStudent.Faculty = CbFacility.Text;
+   //         addedStudent.SpecialityName = CbSpeciality.Text;
+   //         addedStudent.ConditionsOfEducation = CbConditions.Text;
+   //         addedStudent.AvarageScore = TbAverageScore.Text;
+   //         addedStudent.NumberOfOrder = TbNumberOrderAdmision.Text;
+           // addedStudent.DateOfOrder = TbDataOrderAdmision.Text;
             addedStudent.Rectal = "Военкомат";
 
-            addedStudent.Birthday = TbDateOfBirth.Text;
-            addedStudent.PlaceBirthday = TbPlaceOfBirth.Text;
-            addedStudent.Nationality = TbNationality.Text;
-            addedStudent.Citizenship = TbCitizenship.Text;
-            addedStudent.HomePhone = TbHomePhone.Text;
-            addedStudent.MobilePhone = TbMobilePhone.Text;
-            addedStudent.PlaceOfResidence = TbPlaceOfResidence.Text;
-            addedStudent.PlaceOfRegestration = TbPlaceOfRegestration.Text;
-            addedStudent.School = TbSchool.Text;
+            //addedStudent.Birthday = TbDateOfBirth.Text;
+			//addedStudent.PlaceBirthday = TbPlaceOfBirth.Text;
+			//addedStudent.Nationality = TbNationality.Text;
+			//addedStudent.Citizenship = TbCitizenship.Text;
+			//addedStudent.HomePhone = TbHomePhone.Text;
+			//addedStudent.MobilePhone = TbMobilePhone.Text;
+			//addedStudent.PlaceOfResidence = TbPlaceOfResidence.Text;
+			//addedStudent.PlaceOfRegestration = TbPlaceOfRegestration.Text;
+			//addedStudent.School = TbSchool.Text;
             addedStudent.Rank = "Никто";
+			if (ImageBitmapFrame != null)
+			{
+				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
+				jpegBitmapEncoder.QualityLevel = 100;
+				//BitmapImage tt = Photo.Source as BitmapImage;
+				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
+				string fileName = @".\Image\" + addedStudent.Id + ".jpg";
+				if (File.Exists(fileName))
+					File.Delete(fileName);
+				FileStream fileStream = new FileStream(fileName, FileMode.CreateNew);
+				jpegBitmapEncoder.Save(fileStream);
+				fileStream.Close();
+			}
 
-
-            DialogResult = true;
+			DialogResult = true;
 
             Close();
 		}
+
+		private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if( Convert.ToInt32(((TextBox)sender).Text) >= 2100 || Convert.ToInt32(((TextBox)sender).Text) <= 1950)
+			{
+				((TextBox)sender).Text = "Erros";
+            }
+		}
+
 	}
 }
