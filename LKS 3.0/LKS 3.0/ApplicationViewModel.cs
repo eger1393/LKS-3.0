@@ -29,6 +29,7 @@ namespace LKS_3._0
 
         IEnumerable<Student> students;
 
+        IEnumerable<string> list_Troop;
         private Student selectedStudent;
         private string findText;
        public string FindText
@@ -74,7 +75,8 @@ namespace LKS_3._0
                   (addCommand = new RelayCommand(obj =>
                   {
                       Student temp_student = new Student();
-					  AddStudent addStudentWindow = new AddStudent(temp_student);
+                      list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
+                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop);
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
@@ -96,8 +98,8 @@ namespace LKS_3._0
                       if (selectedItem == null) return;
                       // получаем выделенный объект
                       Student temp_student = selectedItem as Student;
-
-                      AddStudent addStudentWindow = new AddStudent(temp_student);
+                      list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
+                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop);
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
@@ -220,6 +222,7 @@ namespace LKS_3._0
 
             Students = DataBase.Students.Local.ToBindingList();
 
+            
 
             //Students = new ObservableCollection<Student>
             //{

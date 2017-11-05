@@ -29,9 +29,11 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp)
+		public AddStudent(Student temp, IEnumerable<string> list_Troop)
 		{
+
 			InitializeComponent();
+            CbTroop.ItemsSource = list_Troop;
 			addedStudent = temp;
 			DataContext = addedStudent;
 		}
