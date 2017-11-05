@@ -39,12 +39,12 @@ namespace LKS_3._0
             if (flag)
             {
                 ProgMode = ProgramMode.Admin;
-                StudentsGrid.IsReadOnly = false;
+                
             }
             else
             {
                 ProgMode = ProgramMode.Student;
-                StudentsGrid.IsReadOnly = true;
+               
             }
 
            

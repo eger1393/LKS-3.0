@@ -221,6 +221,7 @@ namespace LKS_3._0
 			//addedStudent.PlaceOfRegestration = TbPlaceOfRegestration.Text;
 			//addedStudent.School = TbSchool.Text;
             addedStudent.Rank = "Никто";
+
 			if (ImageBitmapFrame != null)
 			{
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();

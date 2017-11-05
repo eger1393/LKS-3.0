@@ -39,13 +39,23 @@
         </Menu>
 
         <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
-    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Default}">
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Default}" IsReadOnly="True">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <Button Content="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedStudent}" Background="{x:Null}" BorderBrush="White"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="CellEditEnding">
                     <i:InvokeCommandAction 
                 Command="{Binding SaveChangeCommand}"
                 CommandParameter="{Binding SelectedStudent}" />
                 </i:EventTrigger>
+                <!--<i:EventTrigger EventName="MouseRigthButtonDown">
+                    <i:InvokeCommandAction 
+                Command="{Binding EditCommand}"
+                CommandParameter="{Binding SelectedStudent}" />
+                </i:EventTrigger>-->
             </i:Interaction.Triggers>
         </DataGrid>
 
@@ -105,7 +115,7 @@
             <Label x:Name="Label_group" Grid.Row="4" Content="{Binding Group}" Grid.ColumnSpan="3" Margin="103,0.667,0,0"/>
             <Label x:Name="Label_phone" Grid.Row="5" Content="{Binding MobilePhone}" Grid.ColumnSpan="3" Margin="164,0,0,-0.333"/>
 
-           
+
             <!--<Image x:Name="Photo_Student" Source="{Binding}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left" Height="226"  Grid.Row="0" VerticalAlignment="Top" Width="179"/>-->
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" />

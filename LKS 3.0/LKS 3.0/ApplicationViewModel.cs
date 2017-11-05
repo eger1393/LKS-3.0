@@ -22,6 +22,7 @@ namespace LKS_3._0
         RelayCommand addCommand;
         RelayCommand createReportCommand;
         RelayCommand findCommand;
+        RelayCommand editCommand;
         RelayCommand deleteCommand;
         RelayCommand saveChangeCommand;
         RelayCommand checkPassCommand;
@@ -82,6 +83,32 @@ namespace LKS_3._0
                       }                     
                   }));
             }
+        }
+
+
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                      if (selectedItem == null) return;
+                      // получаем выделенный объект
+                      Student temp_student = selectedItem as Student;
+
+                      AddStudent addStudentWindow = new AddStudent(temp_student);
+                      if (addStudentWindow.ShowDialog() == true)
+                      {
+                          DataBase.Students.Add(temp_student);
+                          DataBase.Entry(temp_student).State = EntityState.Modified;
+                          DataBase.SaveChanges();
+                          SelectedStudent = temp_student;
+
+
+                      }
+                  }));
+                  }
         }
 
         public RelayCommand CheckPassword
