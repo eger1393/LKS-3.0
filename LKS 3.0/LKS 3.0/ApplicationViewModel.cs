@@ -108,9 +108,9 @@ namespace LKS_3._0
                           SelectedStudent = temp_student;
 
 
-                      }
+                      }                     
                   }));
-                  }
+            }
         }
 
         public RelayCommand CheckPassword
@@ -222,7 +222,7 @@ namespace LKS_3._0
 
             Students = DataBase.Students.Local.ToBindingList();
 
-            
+
 
             //Students = new ObservableCollection<Student>
             //{

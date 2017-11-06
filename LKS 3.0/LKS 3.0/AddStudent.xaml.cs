@@ -182,10 +182,9 @@ namespace LKS_3._0
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля
 				// я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
 				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
-				
-			}
-			
-        }
+              
+
+		}
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -238,7 +237,7 @@ namespace LKS_3._0
 				fileStream.Close();
 			}
 
-			DialogResult = true;
+            DialogResult = true;
 
             Close();
 		}
