@@ -19,7 +19,7 @@
     </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3">
+            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3" DataContext="{Binding AddedStudent}">
                 <Grid Margin="-5,5,5,29">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*"/>
