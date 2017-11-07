@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Interop;
@@ -29,11 +30,12 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp, IEnumerable<string> list_Troop)
+		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal)
 		{
 
 			InitializeComponent();
             CbTroop.ItemsSource = list_Troop;
+            CbRectal.ItemsSource = list_Rectal;
 			addedStudent = temp;
 			DataContext = addedStudent;
 		}
@@ -179,9 +181,8 @@ namespace LKS_3._0
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
-				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля
-																																		 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
-				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
+				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
+                Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 
 			}
 
@@ -189,39 +190,6 @@ namespace LKS_3._0
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-            //addedStudent.PathPhoto.Source = Photo.Source;
-			//addedStudent.FirstName = TbFName.Text;
-			//addedStudent.MiddleName = TbMName.Text;
-			//addedStudent.LastName = TbLName.Text;
-			//addedStudent.Troop = CbTroop.Text;
-			//addedStudent.YearOfAddMAI = Convert.ToInt32(TbYearOfRecepit.Text);
-			//addedStudent.YearOfEndMAI = Convert.ToInt32(TbYearOfEnd.Text);
-			//addedStudent.YearOfAddVK = Convert.ToInt32(TbYearOfRecepitMD);
-			//addedStudent.YearOfEndVK = Convert.ToInt32(TbYearOfEndMD);
-
-			//addedStudent.YearOfAddMAI = TbYearOfRecepit.Text;
-			//addedStudent.YearOfEndMAI = TbYearOfEnd.Text;
-			//addedStudent.YearOfAddVK = TbYearOfRecepitMD.Text;
-			//addedStudent.YearOfEndVK = TbYearOfEndMD.Text;
-
-			//addedStudent.Group = CbGroup.Text;
-   //         addedStudent.Faculty = CbFacility.Text;
-   //         addedStudent.SpecialityName = CbSpeciality.Text;
-   //         addedStudent.ConditionsOfEducation = CbConditions.Text;
-   //         addedStudent.AvarageScore = TbAverageScore.Text;
-   //         addedStudent.NumberOfOrder = TbNumberOrderAdmision.Text;
-           // addedStudent.DateOfOrder = TbDataOrderAdmision.Text;
-            addedStudent.Rectal = "Военкомат";
-
-            //addedStudent.Birthday = TbDateOfBirth.Text;
-			//addedStudent.PlaceBirthday = TbPlaceOfBirth.Text;
-			//addedStudent.Nationality = TbNationality.Text;
-			//addedStudent.Citizenship = TbCitizenship.Text;
-			//addedStudent.HomePhone = TbHomePhone.Text;
-			//addedStudent.MobilePhone = TbMobilePhone.Text;
-			//addedStudent.PlaceOfResidence = TbPlaceOfResidence.Text;
-			//addedStudent.PlaceOfRegestration = TbPlaceOfRegestration.Text;
-			//addedStudent.School = TbSchool.Text;
             addedStudent.Rank = "Никто";
 
 			if (ImageBitmapFrame != null)
@@ -230,13 +198,13 @@ namespace LKS_3._0
 				jpegBitmapEncoder.QualityLevel = 100;
 				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				string ImagePath = @".\Image\" + addedStudent.Id + ".jpg";
+				string ImagePath = AppDomain.CurrentDomain.BaseDirectory + @".\Image\" + addedStudent.Id + ".jpg";
 				if (File.Exists(ImagePath))
 					File.Delete(ImagePath);
-				FileStream fileStream = new FileStream(addedStudent.ImagePath, FileMode.CreateNew);
+				FileStream fileStream = new FileStream(ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);
 				fileStream.Close();
-				addedStudent.ImagePath = "Image\\" + addedStudent.Id + ".jpg";
+				addedStudent.ImagePath = AppDomain.CurrentDomain.BaseDirectory + "Image\\" + addedStudent.Id + ".jpg";
 			}
 
 			DialogResult = true;
@@ -244,11 +212,26 @@ namespace LKS_3._0
             Close();
 		}
 
-		private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
+        //private Image ResizePicture(Image img)
+        //{
+        //    int iDestWidth = 198;
+        //    int iDestHeight = 255;
+
+        //    Bitmap bmp = new Bitmap(iDestWidth, iDestHeight);
+        //    Graphics gr = Graphics.FromImage((Image)bmp);
+
+        //    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
+        //    gr.DrawImage(img, 0, 0, iDestWidth, iDestHeight);
+        //    gr.Dispose();
+        //    return (Image)bmp;
+        //}
+
+        private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
 		{
 			if( Convert.ToInt32(((TextBox)sender).Text) >= 2100 || Convert.ToInt32(((TextBox)sender).Text) <= 1950)
 			{
-				((TextBox)sender).Text = "Erros";
+				((TextBox)sender).Text = "Error";
             }
 		}
 

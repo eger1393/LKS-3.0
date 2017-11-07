@@ -30,6 +30,7 @@ namespace LKS_3._0
         IEnumerable<Student> students;
 
         IEnumerable<string> list_Troop;
+        IEnumerable<string> list_Rectal;
         private Student selectedStudent;
         private string findText;
        public string FindText
@@ -76,7 +77,9 @@ namespace LKS_3._0
                   {
                       Student temp_student = new Student();
                       list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop);
+                      list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
+                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal);
+
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
@@ -99,7 +102,8 @@ namespace LKS_3._0
                       // получаем выделенный объект
                       Student temp_student = selectedItem as Student;
                       list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop);
+                      list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
+                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal);
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
