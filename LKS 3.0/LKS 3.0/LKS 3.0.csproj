@@ -102,6 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="AddStudentViewModel.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="ApplicationViewModel.cs" />
     <Compile Include="CheckPass.xaml.cs">

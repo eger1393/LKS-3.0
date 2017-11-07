@@ -252,7 +252,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relative}"/>
                     <Grid Grid.Row="1" Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
