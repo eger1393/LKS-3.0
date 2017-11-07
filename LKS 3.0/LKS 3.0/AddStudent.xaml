@@ -300,7 +300,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relativs}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
+                    <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relativs}" SelectedItem="{Binding SelectedRelative}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
                                Height="Auto" ColumnWidth="Auto" IsReadOnly="True" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" />
                     <Grid Grid.Row="1" Grid.ColumnSpan="3" DataContext="{Binding SelectedRelative}">
                         <Grid.ColumnDefinitions>
@@ -329,7 +329,7 @@
                         <TextBlock Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Text="Почтовый индекс,адрес места регистрации" TextWrapping="Wrap" Padding="5"/>
                         <TextBlock Grid.Row="5" Grid.Column="2" Text="Мобильный телефон" />
 
-                        <ComboBox x:Name="ComboBoxRelationDegree" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                        <ComboBox x:Name="ComboBoxRelationDegree" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding RelationDegree}">
                             <ListBoxItem Content="Мать" />
                             <ListBoxItem Content="Отец" />
                             <ListBoxItem Content="Отчим" />
@@ -340,13 +340,13 @@
                             <ListBoxItem Content="Сын" />
                             <ListBoxItem Content="Дочь" />
                         </ComboBox>
-                        <TextBox x:Name="TbRelativeMName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
-                        <TextBox x:Name="TbRelativeFName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
-                        <TextBox x:Name="TbRelativeLName" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
-                        <TextBox x:Name="TbRelativeMidenName" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
-                        <DatePicker x:Name="TbRelativeDateOfBirth" Grid.Column="1" Grid.Row="5" Text="{Binding Birthday, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                        <TextBox x:Name="TbRelativeMName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
+                        <TextBox x:Name="TbRelativeFName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding FirstName}"  PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                        <TextBox x:Name="TbRelativeLName" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
+                        <TextBox x:Name="TbRelativeMidenName" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding MaidenName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
+                        <DatePicker x:Name="TbRelativeDateOfBirth" Grid.Column="1" Grid.Row="5" Text="{Binding Birthday, StringFormat=\{0:d\}}"/>
 
-                        <ComboBox x:Name="ComboBoxRelatibeHealthStaatus" Grid.Column="3" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                        <ComboBox x:Name="ComboBoxRelatibeHealthStaatus" Grid.Column="3" Grid.Row="0"  FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding HealthStatus}">
                             <ListBoxItem Content="Здоров" />
                             <ListBoxItem Content="Инвалид 1 группы" />
                             <ListBoxItem Content="Инвалид 2 группы" />
@@ -355,7 +355,6 @@
                         <TextBox x:Name="TbRelativePlaceOfResidence" Grid.Column="3" Grid.Row="1" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
                         <TextBox x:Name="TbRelativePlaceOfRegestration" Grid.Column="3" Grid.Row="3" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
                         <TextBox x:Name="TbRelativeMobilePhone" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="1" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
-
                     </Grid>
                 </Grid>
             </TabItem>
