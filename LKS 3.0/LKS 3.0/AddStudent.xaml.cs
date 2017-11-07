@@ -173,19 +173,19 @@ namespace LKS_3._0
 
 		private void UploadPhoto_Click(object sender, RoutedEventArgs e)
 		{
-      
+
 			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля
-				// я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
+																																		 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
 				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
-				
+
 			}
-			
-        }
+
+		}
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -230,12 +230,13 @@ namespace LKS_3._0
 				jpegBitmapEncoder.QualityLevel = 100;
 				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				string fileName = @".\Image\" + addedStudent.Id + ".jpg";
-				if (File.Exists(fileName))
-					File.Delete(fileName);
-				FileStream fileStream = new FileStream(fileName, FileMode.CreateNew);
+				string ImagePath = @".\Image\" + addedStudent.Id + ".jpg";
+				if (File.Exists(ImagePath))
+					File.Delete(ImagePath);
+				FileStream fileStream = new FileStream(addedStudent.ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);
 				fileStream.Close();
+				addedStudent.ImagePath = "Image\\" + addedStudent.Id + ".jpg";
 			}
 
 			DialogResult = true;
