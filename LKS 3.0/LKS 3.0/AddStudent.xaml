@@ -19,8 +19,8 @@
     </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3" DataContext="{Binding AddedStudent}">
-                <Grid Margin="0,0,0,34">
+            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3">
+                <Grid Margin="-5,5,5,29">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*"/>
                         <ColumnDefinition Width="34*"/>
@@ -143,10 +143,11 @@
                     <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
                     <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
-                <Grid>
+            <TabItem Header="Личные данные">
+                <Grid Margin="0,-18,0,18">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*"/>
@@ -154,6 +155,15 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
@@ -189,10 +199,11 @@
                         <StackPanel >
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="43*" />
+                                    <ColumnDefinition Width="125*"/>
+                                    <ColumnDefinition Width="167*" />
+                                    <ColumnDefinition Width="168*" />
+                                    <ColumnDefinition Width="167*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25"/>
@@ -202,14 +213,14 @@
                                     <RowDefinition Height="25"/>
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Column="0" Grid.Row="0" Content="Группа крови" />
-                                <Label Grid.Column="0" Grid.Row="1" Content="Вес (см)" />
-                                <Label Grid.Column="0" Grid.Row="2" Content="Размер одежды" />
-                                <Label Grid.Column="2" Grid.Row="0" Content="Размер обуви" />
-                                <Label Grid.Column="2" Grid.Row="1" Content="Размер головного убора" />
-                                <Label Grid.Column="2" Grid.Row="2" Content="Размер противогаза" />
+                                <Label Grid.Column="0" Grid.Row="0" Content="Группа крови" Grid.ColumnSpan="2" />
+                                <Label Grid.Column="0" Grid.Row="1" Content="Вес (см)" Grid.ColumnSpan="2" />
+                                <Label Grid.Column="0" Grid.Row="2" Content="Размер одежды" Grid.ColumnSpan="2" />
+                                <Label Grid.Column="3" Grid.Row="0" Content="Размер обуви" />
+                                <Label Grid.Column="3" Grid.Row="1" Content="Размер головного убора" />
+                                <Label Grid.Column="3" Grid.Row="2" Content="Размер противогаза" />
 
-                                <ComboBox x:Name="BloodType" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <ComboBox x:Name="BloodType" Grid.Column="2" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
                                     <ListBoxItem Content="1 положительная" />
                                     <ListBoxItem Content="1 отрицательная" />
                                     <ListBoxItem Content="2 положительная" />
@@ -220,17 +231,17 @@
                                     <ListBoxItem Content="4 отрицательная" />
                                     <ListBoxItem Content="незнаю" />
                                 </ComboBox>
-                                <TextBox x:Name="Weight" Grid.Column="1" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
-                                <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <TextBox x:Name="Weight" Grid.Column="2" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
+                                <ComboBox x:Name="ClothingSize" Grid.Column="2" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
                                     <ListBoxItem Content="S" />
                                     <ListBoxItem Content="M" />
                                     <ListBoxItem Content="L" />
                                     <ListBoxItem Content="XL" />
                                     <ListBoxItem Content="XXL" />
                                 </ComboBox>
-                                <TextBox x:Name="ShoeSize" Grid.Column="3" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
-                                <TextBox x:Name="HeadgearSize" Grid.Column="3" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" />
-                                <ComboBox x:Name="GasMaskSize" Grid.Column="3" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <TextBox x:Name="ShoeSize" Grid.Column="4" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
+                                <TextBox x:Name="HeadgearSize" Grid.Column="4" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
+                                <ComboBox x:Name="GasMaskSize" Grid.Column="4" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
                                     <ListBoxItem Content="1" />
                                     <ListBoxItem Content="2" />
                                     <ListBoxItem Content="3" />
@@ -238,6 +249,42 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
+                    <GroupBox x:Name="groupBox_Skills" Grid.RowSpan="3" VerticalAlignment="Top" Grid.Row="12" Header="Личные навыки" HorizontalAlignment="Left" Margin="0,10,0,-31" Height="99" Width="680" Grid.ColumnSpan="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="64*"/>
+                                <ColumnDefinition Width="159*"/>
+                                <ColumnDefinition Width="222*"/>
+                                <ColumnDefinition Width="223*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+                            <CheckBox x:Name="checkBox_1" Content="Языки программирования(С#, C++)" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding Skill_1}"/>
+                            <CheckBox x:Name="checkBox_2" Content="Microsoft Office" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding Skill_2}"/>
+                            <CheckBox x:Name="checkBox_3" Content="Настройка локальных сетей" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="2" IsChecked="{Binding Skill_3}"/>
+                            <CheckBox x:Name="checkBox_4" Content="Электроника, электротехника" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" IsChecked="{Binding Skill_4}"/>
+                            <CheckBox x:Name="checkBox_5" Content="Adobe Photoshop (и подобные)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" IsChecked="{Binding Skill_5}"/>
+                            <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" IsChecked="{Binding Skill_6}"/>
+                        </Grid>
+                    </GroupBox>
+                    <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Margin="10,2,0,0" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
+                    <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <ListBoxItem Content="Английский" />
+                        <ListBoxItem Content="Немецкий" />
+                        <ListBoxItem Content="Французский" />
+                        <ListBoxItem Content="Испанский" />
+                        <ListBoxItem Content="Итальянский" />
+                    </ComboBox>
+                    <Label x:Name="label_language_rank" Content="Степень:" Margin="91,10,0,0" Grid.Row="17" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="70" Grid.RowSpan="2"/>
+                    <ComboBox x:Name="comboBox_language_rank" HorizontalAlignment="Left" Margin="0,11,0,0" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2">
+                        <ListBoxItem Content="Свободный" />
+                        <ListBoxItem Content="Читаю тех. литературу" />
+                        <ListBoxItem Content="Читаю со словарем" />
+                        <ListBoxItem Content="Начальный" />
+                    </ComboBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Родственники">
