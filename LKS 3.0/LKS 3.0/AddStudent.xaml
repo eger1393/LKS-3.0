@@ -64,7 +64,7 @@
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
-                       
+
                     </ComboBox>
                     <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
                         <TextBox.Text>

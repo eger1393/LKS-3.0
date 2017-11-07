@@ -183,7 +183,7 @@ namespace LKS_3._0
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
-				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
+                Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 
 
 		}
@@ -235,7 +235,7 @@ namespace LKS_3._0
         //    return (Image)bmp;
         //}
 
-		private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
+        private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
 		{
 			if( Convert.ToInt32(((TextBox)sender).Text) >= 2100 || Convert.ToInt32(((TextBox)sender).Text) <= 1950)
 			{
