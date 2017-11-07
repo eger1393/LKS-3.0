@@ -39,6 +39,29 @@ namespace LKS_3._0
 			
 			viewModel.AddedStudent = temp;
 			DataContext = viewModel;
+			Binding_columns();
+		}
+
+		//TODO точно такаяже функция используется в WindowDatabase
+		private void Binding_columns()
+		{
+			Type T = typeof(Relative);
+			PropertyInfo[] Property_Arr = T.GetProperties();
+			foreach (PropertyInfo el in Property_Arr)
+			{
+				RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+				if (temp_attribute != null)
+				{
+					DataGridTextColumn temp_column = new DataGridTextColumn();
+					temp_column.Header = temp_attribute.Get_RussianTittle;
+
+					Binding myNewBindDef = new Binding(el.Name);
+					temp_column.Binding = myNewBindDef;
+
+					RelativeDataGrid.Columns.Add(temp_column);
+				}
+
+			}
 		}
 
 		//

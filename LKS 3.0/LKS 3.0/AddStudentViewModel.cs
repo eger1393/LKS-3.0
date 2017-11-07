@@ -15,6 +15,16 @@ namespace LKS_3._0
 		private Relative selectedRelative; // Выбранный родственник
 		public IEnumerable<Relative> relativs; // Коллекция родственников
 
+		public IEnumerable<Relative> Relativs
+		{
+			get { return relativs; }
+			set
+			{
+
+				relativs = value;
+				OnPropertyChanged();
+			}
+		}
 		public Student AddedStudent
 		{
 			get
@@ -24,6 +34,7 @@ namespace LKS_3._0
 			set
 			{
 				addedStudent = value;
+				OnPropertyChanged();
 			}
 		}
 
@@ -36,6 +47,7 @@ namespace LKS_3._0
 			set
 			{
 				selectedRelative = value;
+				OnPropertyChanged();
 			}
 		}
 		public event PropertyChangedEventHandler PropertyChanged;
