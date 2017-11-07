@@ -35,10 +35,10 @@
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Редактировать">
-                <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
-                </MenuItem>
-                <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
-                </MenuItem>
+            <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
+            </MenuItem>
+            <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
+            </MenuItem>
             </MenuItem>
             <MenuItem Header="Правка">
                 <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
@@ -88,7 +88,7 @@
             </ComboBox>
 
             <ComboBox x:Name="CB_Box_Find" Grid.Column="0" Grid.Row= "2" Margin="0,5,0,0" FontSize="35" ItemsSource ="{Binding FindItemsSource, Mode=TwoWay, NotifyOnSourceUpdated=True}" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"  IsEditable="True" IsSynchronizedWithCurrentItem="True">
-                
+
             </ComboBox>
 
             <Button Content="Поиск!" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="32" Command="{Binding FindCommand}" CommandParameter="{Binding ElementName=FindBox, Path=SelectedIndex}" IsDefault="True"/>

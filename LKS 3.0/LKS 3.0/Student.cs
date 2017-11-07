@@ -12,32 +12,32 @@ namespace LKS_3._0
 {
     public class Student:INotifyPropertyChanged
     {
-        private string middleName,
-            firstName,
-            lastName,
-            troop,
-            group,
-            faculty,
-            specialityName,
-            conditionsOfEducation,
-            numberOfOrder,
-            dateOfOrder,
-            avarageScore,
-            rectal,
-            birthday,
-            placeBirthday,
-            nationality,
-            citizenship,
-            homePhone,
-            mobilePhone,
-            placeOfResidence,
-            placeOfRegestration,
-            school,
-            rank,
-            //private int 
-            yearOfAddMAI,
-            yearOfEndMAI,
-            yearOfAddVK,
+		private string middleName,
+			firstName,
+			lastName,
+			troop,
+			group,
+			faculty,
+			specialityName,
+			conditionsOfEducation,
+			numberOfOrder,
+			dateOfOrder,
+			avarageScore,
+			rectal,
+			birthday,
+			placeBirthday,
+			nationality,
+			citizenship,
+			homePhone,
+			mobilePhone,
+			placeOfResidence,
+			placeOfRegestration,
+			school,
+			rank,
+		//private int 
+			yearOfAddMAI,
+			yearOfEndMAI,
+			yearOfAddVK,
             yearOfEndVK,
             blood_type,
             growth,
@@ -66,7 +66,7 @@ namespace LKS_3._0
         //       MiddleName, FirstName, LastName);
         //}
 
-        public enum Student_Rank
+		public enum Student_Rank
         {
             Командир_взвода = 1,
             Заместитель_КВ,
@@ -157,7 +157,7 @@ namespace LKS_3._0
         [RusName("Группа")]
         public string Group
         {
-			get
+            get
 			{
 				return group;
 			}
@@ -169,8 +169,8 @@ namespace LKS_3._0
 		} // Группа студента
         [RusName("Факультет")]
         public string Faculty // факультет
-		{
-			get
+        {
+            get
 			{
 				return faculty;
 			}
@@ -179,11 +179,11 @@ namespace LKS_3._0
 				faculty = value;
 				OnPropertyChanged("Faculty");
 			}
-		} 
+        }
         [RusName("Специальность в ВУЗе")]
         public string SpecialityName // Название специальности
-		{
-			get
+        {
+            get
 			{
 				return specialityName;
 			}
@@ -192,11 +192,11 @@ namespace LKS_3._0
 				specialityName = value;
 				OnPropertyChanged("SpecialityName");
 			}
-		} 
+        }
         [RusName("Условия обучения в ВУЗе")]
         public string ConditionsOfEducation // условия обучения
-		{
-			get
+        {
+            get
 			{
 				return conditionsOfEducation;
 			}
@@ -205,10 +205,10 @@ namespace LKS_3._0
 				conditionsOfEducation = value;
 				OnPropertyChanged("ConditionsOfEduction"); 
 			}
-		} 
+        }
         [RusName("Средний балл в зач.книжке")]
         public string AvarageScore // средний балл
-		{
+        {
 			get
 			{
 				return avarageScore;
@@ -221,57 +221,57 @@ namespace LKS_3._0
 		}
         [RusName("Год поступления в МАИ")]
         public string YearOfAddMAI
-        {
-            get
-            {
+		{
+			get
+			{
                 return yearOfAddMAI;
-            }
-            set
-            {
+			}
+			set
+			{
                 yearOfAddMAI = value;
                 OnPropertyChanged("YearOfAddMAI");
-            }
+			}
 
-        }
+		} 
         [RusName("Год окончания МАИ")]
         public string YearOfEndMAI
-        {
-            get
-            {
+		{
+			get
+			{
                 return yearOfEndMAI;
-            }
-            set
-            {
+			}
+			set
+			{
                 yearOfEndMAI = value;
                 OnPropertyChanged("YearOfEndMAI");
-            }
-        }
+			}
+		} 
         [RusName("Год поступления на ВК")]
         public string YearOfAddVK
-        {
-            get
-            {
+		{
+			get
+			{
                 return yearOfAddVK;
-            }
-            set
-            {
+			}
+			set
+			{
                 yearOfAddVK = value;
                 OnPropertyChanged("YearOfAddVK");
-            }
-        }
+			}
+		} 
         [RusName("Год окончания ВК")]
         public string YearOfEndVK
-        {
-            get
-            {
+		{
+			get
+			{
                 return yearOfEndVK;
-            }
-            set
-            {
+			}
+			set
+			{
                 yearOfEndVK = value;
                 OnPropertyChanged("YearOfEndVK");
-            }
-        }
+			}
+		} 
         [RusName("№ приказа о приеме")]
         public string NumberOfOrder // номер приказа
 		{
@@ -586,9 +586,9 @@ namespace LKS_3._0
             set
             {
                 cap_size = value;
-            }
-        }
-
+			}
+		}
+        
         public string MaskSize
         {
             get
@@ -600,7 +600,7 @@ namespace LKS_3._0
                 mask_size = value;
             }
         }
-
+        
         public string ForeignLanguage
         {
             get
@@ -612,7 +612,7 @@ namespace LKS_3._0
                 foreignLanguage = value;
             }
         }
-
+        
         public string LanguageRank
         {
             get
