@@ -193,7 +193,14 @@ namespace LKS_3._0
 		{
             viewModel.AddedStudent.Rank = "Никто";
 
-			if (ImageBitmapFrame != null)
+            //viewModel.AddedStudent.Skill_1 = (bool)checkBox_1.IsChecked;
+            //viewModel.AddedStudent.Skill_2 = (bool)checkBox_2.IsChecked;
+            //viewModel.AddedStudent.Skill_3 = (bool)checkBox_3.IsChecked;
+            //viewModel.AddedStudent.Skill_4 = (bool)checkBox_4.IsChecked;
+            //viewModel.AddedStudent.Skill_5 = (bool)checkBox_5.IsChecked;
+            //viewModel.AddedStudent.Skill_6 = (bool)checkBox_6.IsChecked;
+
+            if (ImageBitmapFrame != null)
 			{
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
 				jpegBitmapEncoder.QualityLevel = 100;
