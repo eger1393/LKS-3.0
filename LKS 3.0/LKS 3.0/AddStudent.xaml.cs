@@ -182,9 +182,9 @@ namespace LKS_3._0
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля
 				// я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
 				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
-              
-
-		}
+				
+			
+        }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -229,15 +229,16 @@ namespace LKS_3._0
 				jpegBitmapEncoder.QualityLevel = 100;
 				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				string fileName = @".\Image\" + addedStudent.Id + ".jpg";
-				if (File.Exists(fileName))
-					File.Delete(fileName);
-				FileStream fileStream = new FileStream(fileName, FileMode.CreateNew);
+				string ImagePath = @".\Image\" + addedStudent.Id + ".jpg";
+				if (File.Exists(ImagePath))
+					File.Delete(ImagePath);
+				FileStream fileStream = new FileStream(addedStudent.ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);
 				fileStream.Close();
+				addedStudent.ImagePath = "Image\\" + addedStudent.Id + ".jpg";
 			}
 
-            DialogResult = true;
+			DialogResult = true;
 
             Close();
 		}

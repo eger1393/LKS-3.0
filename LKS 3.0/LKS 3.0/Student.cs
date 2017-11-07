@@ -40,7 +40,9 @@ namespace LKS_3._0
 			yearOfAddVK,
 			yearOfEndVK;
 
-        public enum Student_Rank
+		private string imagePath;
+
+		public enum Student_Rank
         {
             Командир_взвода = 1,
             Заместитель_КВ,
@@ -53,7 +55,7 @@ namespace LKS_3._0
         }
         public Student() // Конструктор по умолчанию
         {
-          
+			
         }
 
         public Student(string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)
@@ -73,7 +75,7 @@ namespace LKS_3._0
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 
-        public int Id { get; set; }
+		public int Id { get; set; }
 
         //public Image PathPhoto;
 
@@ -135,7 +137,7 @@ namespace LKS_3._0
             get
 			{
 				return yearOfAddMAI;
-        }
+			}
 			set
 			{
 				yearOfAddMAI = value;
@@ -149,7 +151,7 @@ namespace LKS_3._0
             get
 			{
 				return yearOfEndMAI;
-        }
+			}
 			set
 			{
 				yearOfEndMAI = value;
@@ -162,7 +164,7 @@ namespace LKS_3._0
             get
 			{
 				return yearOfAddVK;
-        }
+			}
 			set
 			{
 				yearOfAddVK = value;
@@ -175,7 +177,7 @@ namespace LKS_3._0
             get
 			{
 				return yearOfEndVK;
-        }
+			}
 			set
 			{
 				yearOfEndVK = value;
@@ -416,15 +418,20 @@ namespace LKS_3._0
 			set
 			{
 				rank = value;
-				OnPropertyChanged("Rank");
 			}
 		}
         
-  //      public BitmapFrame ImageBitmapFrame
-		//{
-		//	get;
-		//	set;
-		//}
+		public string ImagePath
+		{
+			get
+			{
+				return imagePath;
+			}
+			set
+			{
+				imagePath = value;
+			}
+		}
         
         
     }
