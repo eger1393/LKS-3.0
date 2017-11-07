@@ -100,13 +100,13 @@
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Content="{Binding FirstName}"/>
             <Label x:Name="Label_O" Grid.Column="2" Grid.Row="1" Content="{Binding LastName}"/>
-            <Label x:Name="Label_vzvod" Grid.Row="2" Content="{Binding Troop}" Grid.ColumnSpan="3" Margin="92,0,0,37.333" Grid.RowSpan="2"/>
+            <Label x:Name="Label_vzvod" Grid.Row="2" Content="{Binding Troop}" Grid.ColumnSpan="3" Margin="92,5.333,0,32" Grid.RowSpan="2"/>
             <Label x:Name="Label_rank" Grid.Row="3" Content="{Binding Rank}" Grid.ColumnSpan="3" Margin="115,0.333,0,37" Grid.RowSpan="2"/>
             <Label x:Name="Label_group" Grid.Row="4" Content="{Binding Group}" Grid.ColumnSpan="3" Margin="103,0.667,0,0"/>
             <Label x:Name="Label_phone" Grid.Row="5" Content="{Binding MobilePhone}" Grid.ColumnSpan="3" Margin="164,0,0,-0.333"/>
 
 
-            <Image x:Name="Photo_Student" Source="{Binding}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left" Height="226"  Grid.Row="0" VerticalAlignment="Top" Width="179"/>
+            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left" Height="226"  Grid.Row="0" VerticalAlignment="Top" Width="179"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" />
             <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left"/>

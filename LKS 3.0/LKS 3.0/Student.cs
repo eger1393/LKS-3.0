@@ -40,6 +40,8 @@ namespace LKS_3._0
 			yearOfAddVK,
 			yearOfEndVK;
 
+		private string imagePath;
+
 		public enum Student_Rank
         {
             Командир_взвода = 1,
@@ -416,16 +418,21 @@ namespace LKS_3._0
 			set
 			{
 				rank = value;
-				OnPropertyChanged("Rank");
 			}
 		}
-        
-  //      public BitmapFrame ImageBitmapFrame
-		//{
-		//	get;
-		//	set;
-		//}
-        
-        
-    }
+
+		public string ImagePath
+		{
+			get
+			{
+				return imagePath;
+			}
+			set
+			{
+				imagePath = value;
+			}
+		}
+
+
+	}
 }
