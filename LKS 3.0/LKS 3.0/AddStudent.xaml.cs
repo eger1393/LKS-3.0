@@ -26,7 +26,7 @@ namespace LKS_3._0
 	public partial class AddStudent : Window
 	{
         
-		private Student addedStudent;
+		private AddStudentViewModel viewModel = new AddStudentViewModel();
 
 		private BitmapFrame ImageBitmapFrame;
 
@@ -36,8 +36,9 @@ namespace LKS_3._0
 			InitializeComponent();
             CbTroop.ItemsSource = list_Troop;
             CbRectal.ItemsSource = list_Rectal;
-			addedStudent = temp;
-			DataContext = addedStudent;
+			
+			viewModel.AddedStudent = temp;
+			DataContext = viewModel;
 		}
 
 		//
@@ -190,7 +191,7 @@ namespace LKS_3._0
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-            addedStudent.Rank = "Никто";
+            viewModel.AddedStudent.Rank = "Никто";
 
 			if (ImageBitmapFrame != null)
 			{
@@ -198,13 +199,13 @@ namespace LKS_3._0
 				jpegBitmapEncoder.QualityLevel = 100;
 				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				string ImagePath = AppDomain.CurrentDomain.BaseDirectory + @".\Image\" + addedStudent.Id + ".jpg";
+				string ImagePath = AppDomain.CurrentDomain.BaseDirectory + @".\Image\" + viewModel.AddedStudent.Id + ".jpg";
 				if (File.Exists(ImagePath))
 					File.Delete(ImagePath);
 				FileStream fileStream = new FileStream(ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);
 				fileStream.Close();
-				addedStudent.ImagePath = AppDomain.CurrentDomain.BaseDirectory + "Image\\" + addedStudent.Id + ".jpg";
+				viewModel.AddedStudent.ImagePath = AppDomain.CurrentDomain.BaseDirectory + "Image\\" + viewModel.AddedStudent.Id + ".jpg";
 			}
 
 			DialogResult = true;

@@ -19,7 +19,7 @@
     </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3">
+            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3" DataContext="{Binding AddedStudent}">
                 <Grid Margin="0,0,0,34">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*"/>
@@ -145,7 +145,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные">
+            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

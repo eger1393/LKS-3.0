@@ -11,9 +11,33 @@ namespace LKS_3._0
 {
 	class AddStudentViewModel:INotifyPropertyChanged
 	{
-		private Student adddedStudent; // Добавляемый студент
+		private Student addedStudent; // Добавляемый студент
+		private Relative selectedRelative; // Выбранный родственник
+		public IEnumerable<Relative> relativs; // Коллекция родственников
 
+		public Student AddedStudent
+		{
+			get
+			{
+				return addedStudent;
+			}
+			set
+			{
+				addedStudent = value;
+			}
+		}
 
+		public Relative SelectedRelative
+		{
+			get
+			{
+				return selectedRelative;
+			}
+			set
+			{
+				selectedRelative = value;
+			}
+		}
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
