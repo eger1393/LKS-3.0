@@ -58,7 +58,7 @@ namespace LKS_3._0
             skill_6 = false;
 
 
-        private string imagePath;
+		private string imagePath;
 
         //public override string ToString()
         //{
@@ -218,7 +218,7 @@ namespace LKS_3._0
 				avarageScore = value;
 				OnPropertyChanged("AvarageScore");
 			}
-		}
+			}
         [RusName("Год поступления в МАИ")]
         public string YearOfAddMAI
 		{
@@ -624,5 +624,5 @@ namespace LKS_3._0
                languageRank = value;
             }
         }
-    }
+	}
 }
