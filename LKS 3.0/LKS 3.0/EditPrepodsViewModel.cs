@@ -16,9 +16,15 @@ namespace LKS_3._0
 {
     class EditPrepodsViewModel : INotifyPropertyChanged
     {
+        public ApplicationContext DataBasePr;
+
         public EditPrepodsViewModel()
         {
-           
+            DataBasePr = new ApplicationContext();
+
+            DataBasePr.Prepods.Load();
+
+            Prepods = DataBasePr.Prepods.Local.ToBindingList();
         }
 
         private Prepod selectedPrepod; // Выбранный препод
@@ -63,8 +69,11 @@ namespace LKS_3._0
                       AddPrepod addPrepodWindow = new AddPrepod(temp_prepod);
 
                       if (addPrepodWindow.ShowDialog() == true)
-                      { 
-
+                      {
+                          DataBasePr.Prepods.Add(temp_prepod);
+                          DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
+                          DataBasePr.SaveChanges();
+                          SelectedPrepod = temp_prepod;
                       }
                   }));
             }
@@ -78,13 +87,13 @@ namespace LKS_3._0
                   (addCommand = new RelayCommand(obj =>
                   {
                       Prepod temp_prepod = new Prepod();
-                      //list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                      //list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
                       AddPrepod addPrepodWindow = new AddPrepod(temp_prepod);
 
                       if (addPrepodWindow.ShowDialog() == true)
                       {
-                        
+                          DataBasePr.Prepods.Add(temp_prepod);
+                          DataBasePr.SaveChanges();
+                          SelectedPrepod = temp_prepod;
                       }
                   }));
             }

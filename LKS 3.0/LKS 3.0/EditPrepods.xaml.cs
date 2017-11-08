@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -20,17 +21,14 @@ namespace LKS_3._0
     /// </summary>
     public partial class EditPrepods : Window
     {
-        EditPrepodsViewModel ViewModel = new EditPrepodsViewModel();
-
-        public EditPrepods(IEnumerable<Prepod> main_prepods)
+        public EditPrepods()
         {
             InitializeComponent();
 
             Binding_columns();
 
-            DataContext = ViewModel;
+            DataContext = new EditPrepodsViewModel();
 
-            ViewModel.Prepods = main_prepods;
         }
 
         private void Binding_columns()
@@ -52,6 +50,12 @@ namespace LKS_3._0
                 }
 
             }
+        }
+
+        private void button_OK_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
         }
     }
 }

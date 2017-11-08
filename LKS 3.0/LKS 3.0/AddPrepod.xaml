@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Редактирование" Height="300" Width="300">
+        Title="Редактирование" Height="303.39" Width="308.475">
     <StackPanel>
         <Label x:Name="label" Content="Фамилия"/>
         <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding FirstName}"/>
@@ -17,7 +17,7 @@
         <TextBox x:Name="textBox3" Height="23" TextWrapping="Wrap" Text="{Binding Coolness}"/>
         <Label x:Name="label4" Content="Дополнительно"/>
         <TextBox x:Name="textBox4" Height="23" TextWrapping="Wrap" Text="{Binding AdditionalInfo}"/>
-        <Button x:Name="button" Content="Ok" Click="button_Click"/>
+        <Button x:Name="button" Content="Ok" Click="button_Click" Margin="5"/>
 
 
     </StackPanel>

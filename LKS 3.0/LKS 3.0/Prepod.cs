@@ -10,10 +10,10 @@ namespace LKS_3._0
     {
         public Prepod()
         {
-            FirstName = "Иванов";
-            MiddleName = "Иван";
-            LastName = "Иванович";
-            Coolness = "Полковник";
+            FirstName = "";
+            MiddleName = "";
+            LastName = "";
+            Coolness = "";
         }
        
         public int ID
