@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -26,9 +27,9 @@
             </MenuItem>
         </Menu>
         
-        <Button x:Name="button_OK" Content="Сохранить" Grid.Row="1" Margin="0,76,0,-10"/>
+        <Button x:Name="button_OK" Content="Сохранить" Grid.Row="2" Click="button_OK_Click" Margin="10,10,10,0"/>
         
-        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Margin="0,25" Grid.RowSpan="2" IsReadOnly="True" >
+        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" IsReadOnly="True" Margin="0,25,0,0" >
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <Button Content="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedPrepod}" Background="{x:Null}" BorderBrush="White"/>
