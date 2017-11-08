@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\App.xaml
-681382242
+8731498227
 
-24928967838
+28118991807
 21543195034
-AddStudent.xaml;CheckPass.xaml;CreateReport.xaml;MainWindow.xaml;TroopChange.xaml;WindowDatabase.xaml;
+AddPrepod.xaml;AddStudent.xaml;CheckPass.xaml;CreateReport.xaml;EditPrepods.xaml;MainWindow.xaml;TroopChange.xaml;WindowDatabase.xaml;
 
-True
+False
 

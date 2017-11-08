@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
         
-        Title="AddStudent" Height="600" Width="700">
+        Title="Добавление нового студента" Height="600" Width="700">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Times New Roman"/>

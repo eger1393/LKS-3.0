@@ -60,7 +60,13 @@ namespace LKS_3._0
 
         private string imagePath;
 
-		public enum Student_Rank
+        //public override string ToString()
+        //{
+        //    return String.Format("{0} {1} {2}",
+        //       MiddleName, FirstName, LastName);
+        //}
+
+        public enum Student_Rank
         {
             Командир_взвода = 1,
             Заместитель_КВ,
@@ -147,59 +153,7 @@ namespace LKS_3._0
 				OnPropertyChanged("Troop");
 			}
 		}
-        [RusName("Год поступления в МАИ")]
-        public string YearOfAddMAI
-        {
-            get
-			{
-				return yearOfAddMAI;
-			}
-			set
-			{
-				yearOfAddMAI = value;
-				OnPropertyChanged("YearOfAddMAI");
-			}
-
-        }
-        [RusName("Год окончания МАИ")]
-        public string YearOfEndMAI
-        {
-            get
-			{
-				return yearOfEndMAI;
-			}
-			set
-			{
-				yearOfEndMAI = value;
-				OnPropertyChanged("YearOfEndMAI");
-			}
-        }
-        [RusName("Год поступления на ВК")]
-        public string YearOfAddVK
-        {
-            get
-			{
-				return yearOfAddVK;
-			}
-			set
-			{
-				yearOfAddVK = value;
-				OnPropertyChanged("YearOfAddVK");
-			}
-        }
-        [RusName("Год окончания ВК")]
-        public string YearOfEndVK
-        {
-            get
-			{
-				return yearOfEndVK;
-			}
-			set
-			{
-				yearOfEndVK = value;
-				OnPropertyChanged("YearOfEndVK");
-			}
-        }
+      
         [RusName("Группа")]
         public string Group
         {
@@ -264,7 +218,60 @@ namespace LKS_3._0
 				avarageScore = value;
 				OnPropertyChanged("AvarageScore");
 			}
-		} 
+		}
+        [RusName("Год поступления в МАИ")]
+        public string YearOfAddMAI
+        {
+            get
+            {
+                return yearOfAddMAI;
+            }
+            set
+            {
+                yearOfAddMAI = value;
+                OnPropertyChanged("YearOfAddMAI");
+            }
+
+        }
+        [RusName("Год окончания МАИ")]
+        public string YearOfEndMAI
+        {
+            get
+            {
+                return yearOfEndMAI;
+            }
+            set
+            {
+                yearOfEndMAI = value;
+                OnPropertyChanged("YearOfEndMAI");
+            }
+        }
+        [RusName("Год поступления на ВК")]
+        public string YearOfAddVK
+        {
+            get
+            {
+                return yearOfAddVK;
+            }
+            set
+            {
+                yearOfAddVK = value;
+                OnPropertyChanged("YearOfAddVK");
+            }
+        }
+        [RusName("Год окончания ВК")]
+        public string YearOfEndVK
+        {
+            get
+            {
+                return yearOfEndVK;
+            }
+            set
+            {
+                yearOfEndVK = value;
+                OnPropertyChanged("YearOfEndVK");
+            }
+        }
         [RusName("№ приказа о приеме")]
         public string NumberOfOrder // номер приказа
 		{

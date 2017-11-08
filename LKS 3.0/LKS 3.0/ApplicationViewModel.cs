@@ -27,9 +27,10 @@ namespace LKS_3._0
         RelayCommand deleteCommand;
         RelayCommand saveChangeCommand;
         RelayCommand checkPassCommand;
+        RelayCommand editPrepodsCommand;
 
         IEnumerable<Student> students;
-
+        IEnumerable<Prepod> prepods;
         IEnumerable<string> list_Troop;
         IEnumerable<string> list_Rectal;
         IEnumerable<string> findItemsSource;
@@ -110,6 +111,16 @@ namespace LKS_3._0
             }
         }
 
+        public IEnumerable<Prepod> Prepods
+        {
+            get { return prepods; }
+            set
+            {
+
+                prepods = value;
+            }
+        }
+
         public Student SelectedStudent
         {
             get { return selectedStudent; }
@@ -120,7 +131,23 @@ namespace LKS_3._0
             }
         }
 
-       
+        public RelayCommand EditPrepodsCommand
+        {
+            get
+            {
+                return editPrepodsCommand ??
+                 (editPrepodsCommand = new RelayCommand(obj =>
+                 {
+                     
+                     EditPrepods EditPrepodsWindow = new EditPrepods(Prepods);
+
+                     if (EditPrepodsWindow.ShowDialog() == true)
+                     {
+                         
+                     }
+                 }));
+            }
+        }
         public RelayCommand AddCommand
         {
             get
@@ -138,7 +165,7 @@ namespace LKS_3._0
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                           SelectedStudent = temp_student;
-                      }                     
+                      }
                   }));
             }
         }
@@ -288,7 +315,11 @@ namespace LKS_3._0
 
             DataBase.Students.Load();
 
+            DataBase.Prepods.Load();
+
             Students = DataBase.Students.Local.ToBindingList();
+
+            Prepods = DataBase.Prepods.Local.ToBindingList();
 
 
 

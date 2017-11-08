@@ -1,0 +1,40 @@
+﻿<Window x:Class="LKS_3._0.EditPrepods"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0"
+        mc:Ignorable="d"
+        Title="Преподаватели" ResizeMode="CanResizeWithGrip" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Height="241" Width="417">
+
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="192" Width="407">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <Menu x:Name="Main_Menu" Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Редактировать">
+                <MenuItem Header="Добавить преподавателя" Command="{Binding AddCommand}">
+                </MenuItem>
+                <MenuItem Header="Удалить преподавателя" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=PrepodGrid, Path=SelectedItem}">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        
+        <Button x:Name="button_OK" Content="Сохранить" Grid.Row="1" Margin="0,76,0,-10"/>
+        
+        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Margin="0,25" Grid.RowSpan="2" IsReadOnly="True" >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <Button Content="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedPrepod}" Background="{x:Null}" BorderBrush="White"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+
+</Window>

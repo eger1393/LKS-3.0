@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="WindowDatabase" Height="900" Width="1440" WindowState="Maximized" Closing="W_Data_Closing">
+        Title="База данных ВК" Height="900" Width="1440" WindowState="Maximized" Closing="W_Data_Closing">
 
     <Window.Resources>
         <Style x:Key="Default">
@@ -34,10 +34,17 @@
             <MenuItem Header="Настройки">
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
+            <MenuItem Header="Редактировать">
+                <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
+                </MenuItem>
+                <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
+                </MenuItem>
             </MenuItem>
-            <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
+            <MenuItem Header="Правка">
+                <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
+                </MenuItem>
             </MenuItem>
+            
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
