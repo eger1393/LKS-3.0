@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Data.Entity;
+using System.Windows;
 
 namespace LKS_3._0
 {
@@ -32,6 +33,7 @@ namespace LKS_3._0
         IEnumerable<string> list_Troop;
         IEnumerable<string> list_Rectal;
         IEnumerable<string> findItemsSource;
+
         private Student selectedStudent;
         private string findText;
         private int selectIndexFind;
@@ -215,17 +217,28 @@ namespace LKS_3._0
         {
             get
             {
-                return deleteCommand ??
-                    (deleteCommand = new RelayCommand(selectedItem =>
-                    {
-                        // если ни одного объекта не выделено, выходим
-                        if (selectedItem == null) return;
-                        // получаем выделенный объект
-                        Student student = selectedStudent as Student;
-                        DataBase.Students.Remove(student);
-                        DataBase.SaveChanges();
-                    }, (obj) => students.Count() > 0));
-            }
+                    return deleteCommand ??
+                     (deleteCommand = new RelayCommand(selectedItem =>
+                     {
+                         // если ни одного объекта не выделено, выходим
+                         if (selectedItem == null) return;
+
+                         MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
+                         if (res.ToString() == "Yes")
+                         {
+                             Student student = selectedStudent as Student;
+                             DataBase.Students.Remove(student);
+                             DataBase.SaveChanges();
+                         }
+                         else if(res.ToString() == "No")
+                         {
+                             deleteCommand = null;
+                             return;
+                         }
+                        
+                     }, (obj) => students.Count() > 0));
+                }
+            
         }
 
         public RelayCommand FindCommand
