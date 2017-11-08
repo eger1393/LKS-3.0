@@ -140,7 +140,7 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
-                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,1,2,25" Grid.RowSpan="2"/>
                     <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
 
@@ -263,12 +263,12 @@
                                 <RowDefinition Height="*"/>
 
                             </Grid.RowDefinitions>
-                            <CheckBox x:Name="checkBox_1" Content="Языки программирования(С#, C++)" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding Skill_1}"/>
-                            <CheckBox x:Name="checkBox_2" Content="Microsoft Office" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding Skill_2}"/>
-                            <CheckBox x:Name="checkBox_3" Content="Настройка локальных сетей" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="2" IsChecked="{Binding Skill_3}"/>
-                            <CheckBox x:Name="checkBox_4" Content="Электроника, электротехника" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" IsChecked="{Binding Skill_4}"/>
-                            <CheckBox x:Name="checkBox_5" Content="Adobe Photoshop (и подобные)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" IsChecked="{Binding Skill_5}"/>
-                            <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" IsChecked="{Binding Skill_6}"/>
+                            <CheckBox x:Name="checkBox_1" Content="Языки программирования(С#, C++)" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding Skill1}"/>
+                            <CheckBox x:Name="checkBox_2" Content="Microsoft Office" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding Skill2}"/>
+                            <CheckBox x:Name="checkBox_3" Content="Настройка локальных сетей" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="2" IsChecked="{Binding Skill3}"/>
+                            <CheckBox x:Name="checkBox_4" Content="Электроника, электротехника" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" IsChecked="{Binding Skill4}"/>
+                            <CheckBox x:Name="checkBox_5" Content="Adobe Photoshop (и подобные)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" IsChecked="{Binding Skill5}"/>
+                            <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" IsChecked="{Binding Skill6}"/>
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Margin="10,2,0,0" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>

@@ -47,13 +47,13 @@ namespace LKS_3._0
             mask_size;
 
 
-        //private bool
-        //    skill_1 = false,
-        //    skill_2 = false,
-        //    skill_3 = false,
-        //    skill_4 = false,
-        //    skill_5 = false,
-        //    skill_6 = false;
+        private bool
+            skill_1 = false,
+            skill_2 = false,
+            skill_3 = false,
+            skill_4 = false,
+            skill_5 = false,
+            skill_6 = false;
 
 
         private string imagePath;
@@ -449,72 +449,76 @@ namespace LKS_3._0
 		}
 
 
-        //public bool Skill_1
-        //{
-        //    get
-        //    {
-        //        return (sk_1 == 1) ? true : false;
-        //    }
-        //    set
-        //    {
-        //        sk_1 = (value) ? 1 : 0;
-        //    }
-        //}
-        //public int sk_1
-        //{
-        //    get;
-        //    set;
-        //}
+        public bool Skill1
+        {
+            get
+            {
+                return skill_1;
+            }
+            set
+            {
+                skill_1 = value;
+            }
+        }
 
-        
+        public bool Skill2
+        {
+            get
+            {
+                return skill_2;
+            }
+            set
+            {
+                skill_2 = value;
+            }
+        }
 
-        //public bool Skill_3
-        //{
-        //    get
-        //    {
-        //        return skill_3;
-        //    }
-        //    set
-        //    {
-        //        skill_3 = value;
-        //    }
-        //}
+        public bool Skill3
+        {
+            get
+            {
+                return skill_3;
+            }
+            set
+            {
+                skill_3 = value;
+            }
+        }
+        public bool Skill4
+        {
+            get
+            {
+                return skill_4;
+            }
+            set
+            {
+                skill_4 = value;
+            }
+        }
 
-        //public int Skill_4
-        //{
-        //    get
-        //    {
-        //        return skill_4;
-        //    }
-        //    set
-        //    {
-        //        skill_4 = value;
-        //    }
-        //}
+        public bool Skill5
+        {
+            get
+            {
+                return skill_5;
+            }
+            set
+            {
+                skill_5 = value;
+            }
+        }
 
-        //public int Skill_5
-        //{
-        //    get
-        //    {
-        //        return Convert.ToInt32(skill_5);
-        //    }
-        //    set
-        //    {
-        //        skill_5 = value;
-        //    }
-        //}
-
-        //public int Skill_6
-        //{
-        //    get
-        //    {
-        //        return skill_6;
-        //    }
-        //    set
-        //    {
-        //        skill_6 = value;
-        //    }
-        //}
+        public bool Skill6
+        {
+            get
+            {
+                return skill_6;
+            }
+            set
+            {
+                skill_6 = value;
+            }
+        }
 
         public string BloodType
         {
