@@ -87,7 +87,7 @@ namespace LKS_3._0
             }
         }
 
-        public string FindText
+       public string FindText
         {
             get { return findText; }
             set
@@ -143,7 +143,7 @@ namespace LKS_3._0
 
                      if (EditPrepodsWindow.ShowDialog() == true)
                      {
-                         
+       
                      }
                  }));
             }
@@ -165,7 +165,7 @@ namespace LKS_3._0
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                           SelectedStudent = temp_student;
-                      }
+                      }                     
                   }));
             }
         }
@@ -192,9 +192,9 @@ namespace LKS_3._0
                           SelectedStudent = temp_student;
 
 
-                      }                     
+                      }
                   }));
-            }
+                  }
         }
 
         public RelayCommand CheckPassword
@@ -244,18 +244,18 @@ namespace LKS_3._0
         {
             get
             {
-                    return deleteCommand ??
-                     (deleteCommand = new RelayCommand(selectedItem =>
-                     {
-                         // если ни одного объекта не выделено, выходим
-                         if (selectedItem == null) return;
+                return deleteCommand ??
+                    (deleteCommand = new RelayCommand(selectedItem =>
+                    {
+                        // если ни одного объекта не выделено, выходим
+                        if (selectedItem == null) return;
 
                          MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
                          if (res.ToString() == "Yes")
                          {
-                             Student student = selectedStudent as Student;
-                             DataBase.Students.Remove(student);
-                             DataBase.SaveChanges();
+                        Student student = selectedStudent as Student;
+                        DataBase.Students.Remove(student);
+                        DataBase.SaveChanges();
                          }
                          else if(res.ToString() == "No")
                          {
@@ -263,8 +263,8 @@ namespace LKS_3._0
                              return;
                          }
                         
-                     }, (obj) => students.Count() > 0));
-                }
+                    }, (obj) => students.Count() > 0));
+            }
             
         }
 
@@ -321,7 +321,7 @@ namespace LKS_3._0
 
             Prepods = DataBase.Prepods.Local.ToBindingList();
 
-
+            
 
             //Students = new ObservableCollection<Student>
             //{

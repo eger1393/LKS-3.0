@@ -64,7 +64,7 @@
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
-
+                       
                     </ComboBox>
                     <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
                         <TextBox.Text>
@@ -140,14 +140,14 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
-                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,1,2,25" Grid.RowSpan="2"/>
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
                     <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" Margin="-2,0,-2,-3">
-                <Grid>
+            <TabItem Header="Личные данные">
+                <Grid Margin="0,-18,0,18">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*" />
                         <ColumnDefinition Width="171*"/>
