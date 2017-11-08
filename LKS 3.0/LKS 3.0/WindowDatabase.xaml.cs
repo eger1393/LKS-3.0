@@ -74,7 +74,15 @@ namespace LKS_3._0
             }
         }
 
-       
+        private void W_Data_Closing(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
+
+        private void FindBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
     }
   
 }

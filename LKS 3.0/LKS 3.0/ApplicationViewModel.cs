@@ -31,9 +31,60 @@ namespace LKS_3._0
 
         IEnumerable<string> list_Troop;
         IEnumerable<string> list_Rectal;
+        IEnumerable<string> findItemsSource;
         private Student selectedStudent;
         private string findText;
-       public string FindText
+        private int selectIndexFind;
+
+        public IEnumerable<string> FindItemsSource
+        {
+            get { return findItemsSource;  }
+            set
+            {
+                findItemsSource = value;
+            }
+
+        }
+        public int SelectIndexFind
+        {
+            get
+            {
+                return selectIndexFind;
+            }
+
+            set
+            {
+                switch (value)
+                {
+                    case 0:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+                            break;
+                        }
+                    case 1:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Troop).Distinct();
+                            break;
+                        }
+                    case 2:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Group).Distinct();
+                            break;
+                        }
+                    case 3:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+                            break;
+                        }
+                    default:
+                        break;
+                }
+
+                selectIndexFind = value;
+            }
+        }
+
+        public string FindText
         {
             get { return findText; }
             set
