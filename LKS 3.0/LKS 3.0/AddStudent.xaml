@@ -271,16 +271,16 @@
                             <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" IsChecked="{Binding Skill6}"/>
                         </Grid>
                     </GroupBox>
-                    <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Margin="10,2,0,0" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
-                    <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
+                    <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left"  Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding ForeignLanguage}">
                         <ListBoxItem Content="Английский" />
                         <ListBoxItem Content="Немецкий" />
                         <ListBoxItem Content="Французский" />
                         <ListBoxItem Content="Испанский" />
                         <ListBoxItem Content="Итальянский" />
                     </ComboBox>
-                    <Label x:Name="label_language_rank" Content="Степень:" Margin="91,10,0,0" Grid.Row="17" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="70" Grid.RowSpan="2"/>
-                    <ComboBox x:Name="comboBox_language_rank" HorizontalAlignment="Left" Margin="0,11,0,0" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2">
+                    <Label x:Name="label_language_rank" Content="Степень:"  Grid.Row="16" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="70" Grid.RowSpan="2" Margin="90,25,0,0"/>
+                    <ComboBox x:Name="comboBox_language_rank" HorizontalAlignment="Left" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" Text="{Binding LanguageRank}">
                         <ListBoxItem Content="Свободный" />
                         <ListBoxItem Content="Читаю тех. литературу" />
                         <ListBoxItem Content="Читаю со словарем" />

@@ -44,7 +44,9 @@ namespace LKS_3._0
             clothing_size,
             shoe_size,
             cap_size,
-            mask_size;
+            mask_size,
+            foreignLanguage,
+            languageRank;
 
 
         private bool
@@ -591,5 +593,29 @@ namespace LKS_3._0
                 mask_size = value;
             }
         }
-	}
+
+        public string ForeignLanguage
+        {
+            get
+            {
+                return foreignLanguage;
+            }
+            set
+            {
+                foreignLanguage = value;
+            }
+        }
+
+        public string LanguageRank
+        {
+            get
+            {
+                return languageRank;
+            }
+            set
+            {
+               languageRank = value;
+            }
+        }
+    }
 }
