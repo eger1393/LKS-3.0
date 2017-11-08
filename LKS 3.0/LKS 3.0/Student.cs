@@ -12,33 +12,40 @@ namespace LKS_3._0
 {
     public class Student:INotifyPropertyChanged
     {
-		private string middleName,
-			firstName,
-			lastName,
-			troop,
-			group,
-			faculty,
-			specialityName,
-			conditionsOfEducation,
-			numberOfOrder,
-			dateOfOrder,
-			avarageScore,
-			rectal,
-			birthday,
-			placeBirthday,
-			nationality,
-			citizenship,
-			homePhone,
-			mobilePhone,
-			placeOfResidence,
-			placeOfRegestration,
-			school,
-			rank,
-		//private int 
-			yearOfAddMAI,
-			yearOfEndMAI,
-			yearOfAddVK,
-			yearOfEndVK;
+        private string middleName,
+            firstName,
+            lastName,
+            troop,
+            group,
+            faculty,
+            specialityName,
+            conditionsOfEducation,
+            numberOfOrder,
+            dateOfOrder,
+            avarageScore,
+            rectal,
+            birthday,
+            placeBirthday,
+            nationality,
+            citizenship,
+            homePhone,
+            mobilePhone,
+            placeOfResidence,
+            placeOfRegestration,
+            school,
+            rank,
+            //private int 
+            yearOfAddMAI,
+            yearOfEndMAI,
+            yearOfAddVK,
+            yearOfEndVK,
+            blood_type,
+            growth,
+            clothing_size,
+            shoe_size,
+            cap_size,
+            mask_size;
+
 
         //private bool
         //    skill_1 = false,
@@ -49,7 +56,7 @@ namespace LKS_3._0
         //    skill_6 = false;
 
 
-		private string imagePath;
+        private string imagePath;
 
 		public enum Student_Rank
         {
@@ -85,8 +92,6 @@ namespace LKS_3._0
 		}
 
 		public int Id { get; set; }
-
-        //public Image PathPhoto;
 
         [RusName("Фамилия")]
         public string MiddleName // Фамилия
@@ -510,5 +515,77 @@ namespace LKS_3._0
         //        skill_6 = value;
         //    }
         //}
+
+        public string BloodType
+        {
+            get
+            {
+                return blood_type;
+            }
+            set
+            {
+                blood_type = value;
+            }
+        }
+
+        public string Growth
+        {
+            get
+            {
+                return growth;
+            }
+            set
+            {
+                growth = value;
+            }
+        }
+
+        public string ClothihgSize
+        {
+            get
+            {
+                return clothing_size;
+            }
+            set
+            {
+                clothing_size = value;
+            }
+        }
+
+        public string ShoeSize
+        {
+            get
+            {
+                return shoe_size;
+            }
+            set
+            {
+                shoe_size = value;
+            }
+        }
+
+        public string CapSize
+        {
+            get
+            {
+                return cap_size;
+            }
+            set
+            {
+                cap_size = value;
+            }
+        }
+
+        public string MaskSize
+        {
+            get
+            {
+                return mask_size;
+            }
+            set
+            {
+                mask_size = value;
+            }
+        }
 	}
 }

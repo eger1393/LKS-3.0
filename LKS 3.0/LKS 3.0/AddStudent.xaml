@@ -146,13 +146,14 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные">
-                <Grid Margin="0,-18,0,18">
+            <TabItem Header="Личные данные" Margin="-2,0,-2,-3">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="170*" />
+                        <ColumnDefinition Width="171*"/>
+                        <ColumnDefinition Width="170*"/>
+                        <ColumnDefinition Width="171*" />
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -192,10 +193,10 @@
                     <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding Citizenship}"  />
                     <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding HomePhone }" PreviewTextInput="TbHomePhone_PreviewTextInput"/>
                     <TextBox x:Name="TbMobilePhone" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="1" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
-                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}"/>
-                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="6" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="7">
+                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2" Grid.ColumnSpan="1"/>
+                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2" Grid.ColumnSpan="1"/>
+                    <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}" Grid.ColumnSpan="1"/>
+                    <GroupBox x:Name="groupBox1" Grid.ColumnSpan="4" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="7">
                         <StackPanel >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -214,13 +215,13 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Column="0" Grid.Row="0" Content="Группа крови" Grid.ColumnSpan="2" />
-                                <Label Grid.Column="0" Grid.Row="1" Content="Вес (см)" Grid.ColumnSpan="2" />
+                                <Label Grid.Column="0" Grid.Row="1" Content="Рост (см)" Grid.ColumnSpan="2" />
                                 <Label Grid.Column="0" Grid.Row="2" Content="Размер одежды" Grid.ColumnSpan="2" />
                                 <Label Grid.Column="3" Grid.Row="0" Content="Размер обуви" />
                                 <Label Grid.Column="3" Grid.Row="1" Content="Размер головного убора" />
                                 <Label Grid.Column="3" Grid.Row="2" Content="Размер противогаза" />
 
-                                <ComboBox x:Name="BloodType" Grid.Column="2" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <ComboBox x:Name="BloodType" Grid.Column="2" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding BloodType}" IsEditable="True" IsSynchronizedWithCurrentItem="True">
                                     <ListBoxItem Content="1 положительная" />
                                     <ListBoxItem Content="1 отрицательная" />
                                     <ListBoxItem Content="2 положительная" />
@@ -231,17 +232,17 @@
                                     <ListBoxItem Content="4 отрицательная" />
                                     <ListBoxItem Content="незнаю" />
                                 </ComboBox>
-                                <TextBox x:Name="Weight" Grid.Column="2" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
-                                <ComboBox x:Name="ClothingSize" Grid.Column="2" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <TextBox x:Name="Growth" Grid.Column="2" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding Growth}"/>
+                                <ComboBox x:Name="ClothingSize" Grid.Column="2" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2"  Text="{Binding ClothihgSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
                                     <ListBoxItem Content="S" />
                                     <ListBoxItem Content="M" />
                                     <ListBoxItem Content="L" />
                                     <ListBoxItem Content="XL" />
                                     <ListBoxItem Content="XXL" />
                                 </ComboBox>
-                                <TextBox x:Name="ShoeSize" Grid.Column="4" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
-                                <TextBox x:Name="HeadgearSize" Grid.Column="4" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" />
-                                <ComboBox x:Name="GasMaskSize" Grid.Column="4" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2">
+                                <TextBox x:Name="ShoeSize" Grid.Column="4" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding ShoeSize}" />
+                                <TextBox x:Name="HeadgearSize" Grid.Column="4" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding CapSize}"/>
+                                <ComboBox x:Name="GasMaskSize" Grid.Column="4" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding MaskSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True">
                                     <ListBoxItem Content="1" />
                                     <ListBoxItem Content="2" />
                                     <ListBoxItem Content="3" />
@@ -249,7 +250,7 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox x:Name="groupBox_Skills" Grid.RowSpan="3" VerticalAlignment="Top" Grid.Row="12" Header="Личные навыки" HorizontalAlignment="Left" Margin="0,10,0,-31" Height="99" Width="680" Grid.ColumnSpan="4">
+                    <GroupBox x:Name="groupBox_Skills" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="12" Header="Личные навыки" HorizontalAlignment="Left" Margin="0,10,0,0" Height="99" Width="680" Grid.ColumnSpan="4">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="64*"/>
@@ -287,7 +288,7 @@
                     </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Родственники">
+            <TabItem Header="Родственники" Margin="-2,0,-2,-3">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.8*"/>
@@ -347,7 +348,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Фотография">
+            <TabItem Header="Фотография" Margin="2,0,-6,-3">
                 <Grid>
                     <Image x:Name="Photo" Margin="10,5,444,267"/>
                     <Button x:Name="UploadPhoto" Content="Загрузить фотографию" HorizontalAlignment="Left" Height="44" Margin="23,306,0,0" VerticalAlignment="Top" Width="189" Click="UploadPhoto_Click"/>
