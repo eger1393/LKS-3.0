@@ -14,7 +14,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="TextAlignment" Value="Left"/>
             <Setter Property="Margin" Value="2"/>
-            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="Grid.ColumnSpan" Value="1"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -51,19 +51,19 @@
                     <Label Grid.Column="0" Grid.Row="7" Content="Год окончания ВК"/>
 
 
-                    <Label Grid.Column="3" Grid.Row="0" Content="Студенческая группа"/>
-                    <Label Grid.Column="3" Grid.Row="1" Content="Факультет"/>
-                    <Label Grid.Column="3" Grid.Row="2" Content="Название специальности"/>
-                    <Label Grid.Column="3" Grid.Row="3" Content="Условия обучения в вузе"/>
-                    <Label Grid.Column="3" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
-                    <Label Grid.Column="3" Grid.Row="5" Content="№ приказа о приеме" />
-                    <Label Grid.Column="3" Grid.Row="6" Content="Дата приказа" />
-                    <Label Grid.Column="3" Grid.Row="7" Content="Военкомат"/>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Факультет"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Название специальности"/>
+                    <Label Grid.Column="2" Grid.Row="3" Content="Условия обучения в вузе"/>
+                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
+                    <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
+                    <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
+                    <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
 
                     <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
-                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="2">
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="1">
 
                     </ComboBox>
                     <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
@@ -129,7 +129,7 @@
                         <ListBoxItem Content="Бюджетное"/>
                         <ListBoxItem Content="Платное"/>
                     </ComboBox>
-                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="0,2,2,2">
+                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="2">
                         <TextBox.Text>
                             <Binding Path="AvarageScore" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
@@ -200,11 +200,10 @@
                         <StackPanel >
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="43*" />
-                                    <ColumnDefinition Width="125*"/>
-                                    <ColumnDefinition Width="167*" />
-                                    <ColumnDefinition Width="168*" />
-                                    <ColumnDefinition Width="167*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25"/>
@@ -253,10 +252,9 @@
                     <GroupBox x:Name="groupBox_Skills" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="12" Header="Личные навыки" HorizontalAlignment="Left" Margin="0,10,0,0" Height="99" Width="680" Grid.ColumnSpan="4">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="64*"/>
-                                <ColumnDefinition Width="159*"/>
-                                <ColumnDefinition Width="222*"/>
-                                <ColumnDefinition Width="223*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -292,6 +290,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.2*"/>
                         <RowDefinition/>
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
@@ -302,7 +301,10 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relativs}" SelectedItem="{Binding SelectedRelative}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
                                Height="Auto" ColumnWidth="Auto" IsReadOnly="True" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" />
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3" DataContext="{Binding SelectedRelative}">
+                    <Button x:Name="BRelativeAdd" Grid.Row="1" Grid.Column="0" Command="{Binding AddRelative}" Content="Сохранить1" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Button x:Name="BRelativeEdit" Grid.Row="1" Grid.Column="1" Command="{Binding AddRelative}" Content="Редактировать" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Button x:Name="BRelativeDelete" Grid.Row="1" Grid.Column="2" Command="{Binding AddRelative}" Content="Удалить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3" DataContext="{Binding AddedRelative}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />

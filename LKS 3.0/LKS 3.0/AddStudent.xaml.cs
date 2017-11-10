@@ -186,8 +186,8 @@ namespace LKS_3._0
                 Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 
 
+			}
 		}
-        }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -200,7 +200,7 @@ namespace LKS_3._0
             //viewModel.AddedStudent.Skill_5 = (bool)checkBox_5.IsChecked;
             //viewModel.AddedStudent.Skill_6 = (bool)checkBox_6.IsChecked;
 
-			if (ImageBitmapFrame != null)
+            if (ImageBitmapFrame != null)
 			{
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
 				jpegBitmapEncoder.QualityLevel = 100;

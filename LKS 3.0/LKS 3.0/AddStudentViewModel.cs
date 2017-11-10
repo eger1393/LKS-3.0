@@ -12,15 +12,33 @@ namespace LKS_3._0
 	class AddStudentViewModel:INotifyPropertyChanged
 	{
 		private Student addedStudent; // Добавляемый студент
-		private Relative selectedRelative; // Выбранный родственник
-		public IEnumerable<Relative> relativs; // Коллекция родственников
+		private Relative selectedRelative, // Выбранный родственник
+			addedRelative; // Добавляемы родственник
+		public List<Relative> relativs; // Коллекция родственников
 
-		public IEnumerable<Relative> Relativs
+		RelayCommand addRelative;
+
+
+		public RelayCommand AddRelative
+		{
+			get
+			{
+				return addRelative ??
+				  (addRelative = new RelayCommand(obj =>
+				  {
+
+					  relativs.Add(addedRelative);
+					  selectedRelative = relativs.Last();
+					  addedRelative = new Relative();
+				  }));
+			}
+			
+		}
+		public List<Relative> Relativs
 		{
 			get { return relativs; }
 			set
 			{
-
 				relativs = value;
 				OnPropertyChanged();
 			}
@@ -47,6 +65,18 @@ namespace LKS_3._0
 			set
 			{
 				selectedRelative = value;
+				OnPropertyChanged();
+			}
+		}
+		public Relative AddedRelative
+		{
+			get
+			{
+				return addedRelative;
+			}
+			set
+			{
+				addedRelative = value;
 				OnPropertyChanged();
 			}
 		}
