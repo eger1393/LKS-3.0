@@ -21,10 +21,6 @@ namespace LKS_3._0
 			relationDegree, // степень родства
 			healthStatus; // состояние здоровья
 
-		Relative()
-		{
-
-		}
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{

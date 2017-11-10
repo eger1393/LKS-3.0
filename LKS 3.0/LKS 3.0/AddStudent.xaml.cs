@@ -38,6 +38,8 @@ namespace LKS_3._0
             CbRectal.ItemsSource = list_Rectal;
 			
 			viewModel.AddedStudent = temp;
+			viewModel.AddedRelative = new Relative(); //??
+			viewModel.Relativs = new List<Relative>();
 			DataContext = viewModel;
 			Binding_columns();
 		}
