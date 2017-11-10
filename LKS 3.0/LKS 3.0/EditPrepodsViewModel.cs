@@ -18,9 +18,9 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBasePr;
 
-        public EditPrepodsViewModel()
+        public EditPrepodsViewModel(ref ApplicationContext temp_database)
         {
-            DataBasePr = new ApplicationContext();
+            DataBasePr = temp_database;
 
             DataBasePr.Prepods.Load();
 
@@ -32,6 +32,7 @@ namespace LKS_3._0
 
         RelayCommand editCommand;
         RelayCommand addCommand;
+        RelayCommand deleteCommand;
 
         public IEnumerable<Prepod> Prepods
         {
@@ -97,6 +98,34 @@ namespace LKS_3._0
                       }
                   }));
             }
+        }
+
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ??
+                    (deleteCommand = new RelayCommand(selectedItem =>
+                    {
+                        // если ни одного объекта не выделено, выходим
+                        if (selectedItem == null) return;
+
+                        MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
+                        if (res.ToString() == "Yes")
+                        {
+                            Prepod prepod = selectedPrepod as Prepod;
+                            DataBasePr.Prepods.Remove(prepod);
+                            DataBasePr.SaveChanges();
+                        }
+                        else if (res.ToString() == "No")
+                        {
+                            deleteCommand = null;
+                            return;
+                        }
+
+                    }, (obj) => Prepods.Count() > 0));
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

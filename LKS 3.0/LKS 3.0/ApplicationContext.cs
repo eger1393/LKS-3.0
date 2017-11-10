@@ -14,6 +14,8 @@ namespace LKS_3._0
             
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Relative> Relatives { get; set; }
         public DbSet<Prepod> Prepods { get; set; }
+        
     }
 }

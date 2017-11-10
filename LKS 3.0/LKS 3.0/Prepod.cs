@@ -16,7 +16,7 @@ namespace LKS_3._0
             Coolness = "";
         }
        
-        public int ID
+        public int Id
         { get; set; }
 
         [RusName("Фамилия")]

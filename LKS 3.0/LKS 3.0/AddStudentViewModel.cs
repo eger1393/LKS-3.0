@@ -5,19 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Data.Entity;
 
 namespace LKS_3._0
 {
-	class AddStudentViewModel:INotifyPropertyChanged
+	class AddStudentViewModel : INotifyPropertyChanged
 	{
-		private Student addedStudent; // Добавляемый студент
+        public ApplicationContext DataBaseR;
+
+        public AddStudentViewModel(ref ApplicationContext temp_database)
+        {
+            DataBaseR = temp_database;
+
+            DataBaseR.Relatives.Load();
+
+            Relatives = DataBaseR.Relatives.Local.ToBindingList();
+        }
+
+     
+
+        private Student addedStudent; // Добавляемый студент
 		private Relative selectedRelative, // Выбранный родственник
 			addedRelative; // Добавляемы родственник
-		public List<Relative> relativs; // Коллекция родственников
+		public IEnumerable<Relative> relatives; // Коллекция родственников
 
 		RelayCommand addRelative;
 
+        
 
 		public RelayCommand AddRelative
 		{
@@ -27,19 +41,19 @@ namespace LKS_3._0
 				  (addRelative = new RelayCommand(obj =>
 				  {
 
-					  relativs.Add(addedRelative);
-					  selectedRelative = relativs.Last();
+					  relatives.Add(addedRelative);
+					  selectedRelative = relatives.Last();
 					  addedRelative = new Relative();
 				  }));
 			}
 			
 		}
-		public List<Relative> Relativs
+		public IEnumerable<Relative> Relatives
 		{
-			get { return relativs; }
+			get { return relatives; }
 			set
 			{
-				relativs = value;
+				relatives = value;
 				OnPropertyChanged();
 			}
 		}
