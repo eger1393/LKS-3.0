@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Data.Entity;
+using System.Windows;
 
 namespace LKS_3._0
 {
@@ -26,13 +27,65 @@ namespace LKS_3._0
         RelayCommand deleteCommand;
         RelayCommand saveChangeCommand;
         RelayCommand checkPassCommand;
+        RelayCommand editPrepodsCommand;
 
         IEnumerable<Student> students;
-
         IEnumerable<string> list_Troop;
         IEnumerable<string> list_Rectal;
+        IEnumerable<string> findItemsSource;
+
         private Student selectedStudent;
         private string findText;
+        private int selectIndexFind;
+
+        public IEnumerable<string> FindItemsSource
+        {
+            get { return findItemsSource;  }
+            set
+            {
+                findItemsSource = value;
+            }
+
+        }
+        public int SelectIndexFind
+        {
+            get
+            {
+                return selectIndexFind;
+            }
+
+            set
+            {
+                switch (value)
+                {
+                    case 0:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+                            break;
+                        }
+                    case 1:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Troop).Distinct();
+                            break;
+                        }
+                    case 2:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Group).Distinct();
+                            break;
+                        }
+                    case 3:
+                        {
+                            FindItemsSource = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+                            break;
+                        }
+                    default:
+                        break;
+                }
+
+                selectIndexFind = value;
+            }
+        }
+
        public string FindText
         {
             get { return findText; }
@@ -57,6 +110,7 @@ namespace LKS_3._0
             }
         }
 
+
         public Student SelectedStudent
         {
             get { return selectedStudent; }
@@ -67,7 +121,22 @@ namespace LKS_3._0
             }
         }
 
-       
+        public RelayCommand EditPrepodsCommand
+        {
+            get
+            {
+                return editPrepodsCommand ??
+                 (editPrepodsCommand = new RelayCommand(obj =>
+                 {
+
+                     
+                     EditPrepods EditPrepodsWindow = new EditPrepods();
+
+                     EditPrepodsWindow.ShowDialog();
+                   
+                 }));
+            }
+        }
         public RelayCommand AddCommand
         {
             get
@@ -169,12 +238,23 @@ namespace LKS_3._0
                     {
                         // если ни одного объекта не выделено, выходим
                         if (selectedItem == null) return;
-                        // получаем выделенный объект
+
+                         MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
+                         if (res.ToString() == "Yes")
+                         {
                         Student student = selectedStudent as Student;
                         DataBase.Students.Remove(student);
                         DataBase.SaveChanges();
+                         }
+                         else if(res.ToString() == "No")
+                         {
+                             deleteCommand = null;
+                             return;
+                         }
+                        
                     }, (obj) => students.Count() > 0));
             }
+            
         }
 
         public RelayCommand FindCommand
@@ -225,6 +305,8 @@ namespace LKS_3._0
             DataBase.Students.Load();
 
             Students = DataBase.Students.Local.ToBindingList();
+
+            
 
             
 

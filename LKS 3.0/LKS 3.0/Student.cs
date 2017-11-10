@@ -12,44 +12,59 @@ namespace LKS_3._0
 {
     public class Student:INotifyPropertyChanged
     {
-        private string middleName,
-            firstName,
-            lastName,
-            troop,
-            group,
-            faculty,
-            specialityName,
-            conditionsOfEducation,
-            numberOfOrder,
-            dateOfOrder,
-            avarageScore,
-            rectal,
-            birthday,
-            placeBirthday,
-            nationality,
-            citizenship,
-            homePhone,
-            mobilePhone,
-            placeOfResidence,
-            placeOfRegestration,
-            school,
-            rank,
-            //private int 
-            yearOfAddMAI,
-            yearOfEndMAI,
-            yearOfAddVK,
-            yearOfEndVK;
+		private string middleName,
+			firstName,
+			lastName,
+			troop,
+			group,
+			faculty,
+			specialityName,
+			conditionsOfEducation,
+			numberOfOrder,
+			dateOfOrder,
+			avarageScore,
+			rectal,
+			birthday,
+			placeBirthday,
+			nationality,
+			citizenship,
+			homePhone,
+			mobilePhone,
+			placeOfResidence,
+			placeOfRegestration,
+			school,
+			rank,
+		//private int 
+			yearOfAddMAI,
+			yearOfEndMAI,
+			yearOfAddVK,
+            yearOfEndVK,
+            blood_type,
+            growth,
+            clothing_size,
+            shoe_size,
+            cap_size,
+            mask_size,
+            foreignLanguage,
+            languageRank;
 
-        //private bool
-        //    skill_1 = false,
-        //    skill_2 = false,
-        //    skill_3 = false,
-        //    skill_4 = false,
-        //    skill_5 = false,
-        //    skill_6 = false;
+
+        private bool
+            skill_1 = false,
+            skill_2 = false,
+            skill_3 = false,
+            skill_4 = false,
+            skill_5 = false,
+            skill_6 = false;
 
 
         private string imagePath;
+
+        //public override string ToString()
+        //{
+        //    return String.Format("{0} {1} {2}",
+        //       MiddleName, FirstName, LastName);
+        //}
 
 		public enum Student_Rank
         {
@@ -85,8 +100,6 @@ namespace LKS_3._0
 		}
 
 		public int Id { get; set; }
-
-        //public Image PathPhoto;
 
         [RusName("Фамилия")]
         public string MiddleName // Фамилия
@@ -140,63 +153,11 @@ namespace LKS_3._0
 				OnPropertyChanged("Troop");
 			}
 		}
-        [RusName("Год поступления в МАИ")]
-        public string YearOfAddMAI
-        {
-            get
-			{
-				return yearOfAddMAI;
-			}
-			set
-			{
-				yearOfAddMAI = value;
-				OnPropertyChanged("YearOfAddMAI");
-			}
-
-        }
-        [RusName("Год окончания МАИ")]
-        public string YearOfEndMAI
-        {
-            get
-			{
-				return yearOfEndMAI;
-			}
-			set
-			{
-				yearOfEndMAI = value;
-				OnPropertyChanged("YearOfEndMAI");
-			}
-        }
-        [RusName("Год поступления на ВК")]
-        public string YearOfAddVK
-        {
-            get
-			{
-				return yearOfAddVK;
-			}
-			set
-			{
-				yearOfAddVK = value;
-				OnPropertyChanged("YearOfAddVK");
-			}
-        }
-        [RusName("Год окончания ВК")]
-        public string YearOfEndVK
-        {
-            get
-			{
-				return yearOfEndVK;
-			}
-			set
-			{
-				yearOfEndVK = value;
-				OnPropertyChanged("YearOfEndVK");
-			}
-        }
+      
         [RusName("Группа")]
         public string Group
         {
-			get
+            get
 			{
 				return group;
 			}
@@ -208,8 +169,8 @@ namespace LKS_3._0
 		} // Группа студента
         [RusName("Факультет")]
         public string Faculty // факультет
-		{
-			get
+        {
+            get
 			{
 				return faculty;
 			}
@@ -218,11 +179,11 @@ namespace LKS_3._0
 				faculty = value;
 				OnPropertyChanged("Faculty");
 			}
-		} 
+        }
         [RusName("Специальность в ВУЗе")]
         public string SpecialityName // Название специальности
-		{
-			get
+        {
+            get
 			{
 				return specialityName;
 			}
@@ -231,11 +192,11 @@ namespace LKS_3._0
 				specialityName = value;
 				OnPropertyChanged("SpecialityName");
 			}
-		} 
+        }
         [RusName("Условия обучения в ВУЗе")]
         public string ConditionsOfEducation // условия обучения
-		{
-			get
+        {
+            get
 			{
 				return conditionsOfEducation;
 			}
@@ -244,10 +205,10 @@ namespace LKS_3._0
 				conditionsOfEducation = value;
 				OnPropertyChanged("ConditionsOfEduction"); 
 			}
-		} 
+        }
         [RusName("Средний балл в зач.книжке")]
         public string AvarageScore // средний балл
-		{
+        {
 			get
 			{
 				return avarageScore;
@@ -256,6 +217,59 @@ namespace LKS_3._0
 			{
 				avarageScore = value;
 				OnPropertyChanged("AvarageScore");
+			}
+		}
+        [RusName("Год поступления в МАИ")]
+        public string YearOfAddMAI
+		{
+			get
+			{
+                return yearOfAddMAI;
+			}
+			set
+			{
+                yearOfAddMAI = value;
+                OnPropertyChanged("YearOfAddMAI");
+			}
+
+		} 
+        [RusName("Год окончания МАИ")]
+        public string YearOfEndMAI
+		{
+			get
+			{
+                return yearOfEndMAI;
+			}
+			set
+			{
+                yearOfEndMAI = value;
+                OnPropertyChanged("YearOfEndMAI");
+			}
+		} 
+        [RusName("Год поступления на ВК")]
+        public string YearOfAddVK
+		{
+			get
+			{
+                return yearOfAddVK;
+			}
+			set
+			{
+                yearOfAddVK = value;
+                OnPropertyChanged("YearOfAddVK");
+			}
+		} 
+        [RusName("Год окончания ВК")]
+        public string YearOfEndVK
+		{
+			get
+			{
+                return yearOfEndVK;
+			}
+			set
+			{
+                yearOfEndVK = value;
+                OnPropertyChanged("YearOfEndVK");
 			}
 		} 
         [RusName("№ приказа о приеме")]
@@ -431,7 +445,7 @@ namespace LKS_3._0
 		}
 
 
-        public string ImagePath
+		public string ImagePath
 		{
 			get
 			{
@@ -444,71 +458,171 @@ namespace LKS_3._0
 		}
 
 
-        //public bool Skill_1
-        //{
-        //    get
-        //    {
-        //        return (sk_1 == 1) ? true : false;
-        //    }
-        //    set
-        //    {
-        //        sk_1 = (value) ? 1 : 0;
-        //    }
-        //}
-        //public int sk_1
-        //{
-        //    get;
-        //    set;
-        //}
+        public bool Skill1
+        {
+            get
+            {
+                return skill_1;
+            }
+            set
+            {
+                skill_1 = value;
+            }
+        }
 
+        public bool Skill2
+        {
+            get
+            {
+                return skill_2;
+            }
+            set
+            {
+                skill_2 = value;
+            }
+        }
+
+        public bool Skill3
+        {
+            get
+            {
+                return skill_3;
+            }
+            set
+            {
+                skill_3 = value;
+            }
+        }
+        public bool Skill4
+        {
+            get
+            {
+                return skill_4;
+            }
+            set
+            {
+                skill_4 = value;
+            }
+        }
+
+        public bool Skill5
+        {
+            get
+            {
+                return skill_5;
+            }
+            set
+            {
+                skill_5 = value;
+            }
+        }
+
+        public bool Skill6
+        {
+            get
+            {
+                return skill_6;
+            }
+            set
+            {
+                skill_6 = value;
+            }
+        }
+
+        public string BloodType
+        {
+            get
+            {
+                return blood_type;
+            }
+            set
+            {
+                blood_type = value;
+            }
+        }
+
+        public string Growth
+        {
+            get
+            {
+                return growth;
+            }
+            set
+            {
+                growth = value;
+            }
+        }
+
+        public string ClothihgSize
+        {
+            get
+            {
+                return clothing_size;
+            }
+            set
+            {
+                clothing_size = value;
+            }
+        }
+
+        public string ShoeSize
+        {
+            get
+            {
+                return shoe_size;
+            }
+            set
+            {
+                shoe_size = value;
+            }
+        }
+
+        public string CapSize
+        {
+            get
+            {
+                return cap_size;
+            }
+            set
+            {
+                cap_size = value;
+			}
+		}
         
-
-        //public bool Skill_3
-        //{
-        //    get
-        //    {
-        //        return skill_3;
-        //    }
-        //    set
-        //    {
-        //        skill_3 = value;
-        //    }
-        //}
-
-        //public int Skill_4
-        //{
-        //    get
-        //    {
-        //        return skill_4;
-        //    }
-        //    set
-        //    {
-        //        skill_4 = value;
-        //    }
-        //}
-
-        //public int Skill_5
-        //{
-        //    get
-        //    {
-        //        return Convert.ToInt32(skill_5);
-        //    }
-        //    set
-        //    {
-        //        skill_5 = value;
-        //    }
-        //}
-
-        //public int Skill_6
-        //{
-        //    get
-        //    {
-        //        return skill_6;
-        //    }
-        //    set
-        //    {
-        //        skill_6 = value;
-        //    }
-        //}
+        public string MaskSize
+        {
+            get
+            {
+                return mask_size;
+            }
+            set
+            {
+                mask_size = value;
+            }
+        }
+        
+        public string ForeignLanguage
+        {
+            get
+            {
+                return foreignLanguage;
+            }
+            set
+            {
+                foreignLanguage = value;
+            }
+        }
+        
+        public string LanguageRank
+        {
+            get
+            {
+                return languageRank;
+            }
+            set
+            {
+               languageRank = value;
+            }
+        }
     }
 }
