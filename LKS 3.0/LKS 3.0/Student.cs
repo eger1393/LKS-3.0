@@ -60,13 +60,20 @@ namespace LKS_3._0
 
 		private string imagePath;
 
-        //public override string ToString()
-        //{
-        //    return String.Format("{0} {1} {2}",
-        //       MiddleName, FirstName, LastName);
-        //}
+        public override string ToString()
+        {
+            return String.Format("{0} {1} {2}",
+               MiddleName, FirstName, LastName);
+        }
 
-		public enum Student_Rank
+         public string str_FIO
+        {
+            get
+            {
+                return ToString();
+            }
+        }
+        public enum Student_Rank
         {
             Командир_взвода = 1,
             Заместитель_КВ,
@@ -153,7 +160,18 @@ namespace LKS_3._0
 				OnPropertyChanged("Troop");
 			}
 		}
-      
+        [RusName("Должность")]
+        public string Rank // Звание студента (перечисление)
+        {
+            get
+            {
+                return rank;
+            }
+            set
+            {
+                rank = value;
+            }
+        }
         [RusName("Группа")]
         public string Group
         {
@@ -431,18 +449,7 @@ namespace LKS_3._0
 				OnPropertyChanged("School");
 			}
 		}
-        [RusName("Звание")]
-        public string Rank // Звание студента (перечисление)
-        {
-			get
-			{
-				return rank;
-			}
-			set
-			{
-				rank = value;
-			}
-		}
+      
 
 
 		public string ImagePath

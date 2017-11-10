@@ -44,7 +44,7 @@
                 <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
                 </MenuItem>
             </MenuItem>
-            
+
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
@@ -113,20 +113,20 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
-            <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}"/>
-            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Content="{Binding FirstName}"/>
-            <Label x:Name="Label_O" Grid.Column="2" Grid.Row="1" Content="{Binding LastName}"/>
+            <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
+            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
+
             <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1" Content="{Binding Troop}" Margin="2" />
             <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Content="{Binding Rank}" Margin="2"/>
             <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding Group}" Margin="2"/>
             <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Content="{Binding MobilePhone}" Margin="2"/>
 
 
-            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left"   Grid.Row="0" VerticalAlignment="Top" Stretch="UniformToFill" Width="198" Height="255" Margin="2" />
+            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="6" Grid.Row="0" Height="214" Margin="0,0,10,0"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left" Margin="2"/>
-                <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left" Margin="2"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left" Margin="2"/>
 
         </Grid>
 

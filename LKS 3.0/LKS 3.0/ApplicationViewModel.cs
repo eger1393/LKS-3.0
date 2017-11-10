@@ -173,7 +173,7 @@ namespace LKS_3._0
                       Student temp_student = selectedItem as Student;
                       list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
                       list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
-                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal, ref DataBase);
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);

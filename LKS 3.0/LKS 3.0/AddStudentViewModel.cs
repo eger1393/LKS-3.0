@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Data.Entity;
+using System.Windows;
 
 namespace LKS_3._0
 {
@@ -19,17 +20,19 @@ namespace LKS_3._0
 
             DataBaseR.Relatives.Load();
 
-            Relatives = DataBaseR.Relatives.Local.ToBindingList();
+            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+
+            AddedRelative = new Relative();
         }
 
      
 
         private Student addedStudent; // Добавляемый студент
 		private Relative selectedRelative, // Выбранный родственник
-			addedRelative; // Добавляемы родственник
-		public IEnumerable<Relative> relatives; // Коллекция родственников
+			addedRelative; // Добавляемый родственник
+		private IEnumerable<Relative> relatives; // Коллекция родственников
 
-		RelayCommand addRelative;
+        RelayCommand addRelativeCommand, editRelativeCommand, deleteRelativeCommand;
 
         
 
@@ -37,18 +40,72 @@ namespace LKS_3._0
 		{
 			get
 			{
-				return addRelative ??
-				  (addRelative = new RelayCommand(obj =>
+				return addRelativeCommand ??
+				  (addRelativeCommand = new RelayCommand((add_relative) =>
 				  {
+                      if (add_relative == null) return;
+                      // получаем выделенный объект
+                      Relative temp_relative = add_relative as Relative;
 
-					  relatives.Add(addedRelative);
-					  selectedRelative = relatives.Last();
-					  addedRelative = new Relative();
-				  }));
+                      temp_relative.IdStudent = addedStudent.Id;
+                      DataBaseR.Relatives.Add(temp_relative);
+                      DataBaseR.SaveChanges();
+                      SelectedRelative = Relatives.Last();
+					  AddedRelative = new Relative();
+                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                  }));
 			}
 			
 		}
-		public IEnumerable<Relative> Relatives
+
+        public RelayCommand EditRelative
+        {
+            get
+            {
+                return editRelativeCommand ??
+                  (editRelativeCommand = new RelayCommand((selectedItem) =>
+                  {
+                      if (selectedItem == null) return;
+                      // получаем выделенный объект
+                      Relative temp_relative = selectedItem as Relative;
+                      AddedRelative = temp_relative;
+
+                      DataBaseR.Relatives.Remove(temp_relative);
+                      DataBaseR.SaveChanges();
+                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                  }));
+            }
+        }
+
+        public RelayCommand DeleteRelative
+        {
+            get
+            {
+                return deleteRelativeCommand ??
+                    (deleteRelativeCommand = new RelayCommand(selectedItem =>
+                    {
+                        // если ни одного объекта не выделено, выходим
+                        if (selectedItem == null) return;
+
+                        MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить родственника?", "Внимание!", MessageBoxButton.YesNo);
+                        if (res.ToString() == "Yes")
+                        {
+                            Relative temp_relative = selectedItem as Relative;
+                            DataBaseR.Relatives.Remove(temp_relative);
+                            DataBaseR.SaveChanges();
+                            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                        }
+                        else if (res.ToString() == "No")
+                        {
+                            deleteRelativeCommand = null;
+                            return;
+                        }
+
+                    }, (obj) => Relatives.Count() > 0));
+            }
+
+        }
+        public IEnumerable<Relative> Relatives
 		{
 			get { return relatives; }
 			set
