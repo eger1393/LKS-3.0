@@ -60,6 +60,10 @@ namespace LKS_3._0
 
 		private string imagePath;
 
+        public static int _count;
+
+        private int ID;
+
         public override string ToString()
         {
             return String.Format("{0} {1} {2}",
@@ -106,7 +110,21 @@ namespace LKS_3._0
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 
-		public int Id { get; set; }
+
+
+
+
+		public int Id
+        {
+            get
+            {
+                return ID;
+            }
+            set
+            {
+                ID = value;
+            }
+        }
 
         [RusName("Фамилия")]
         public string MiddleName // Фамилия

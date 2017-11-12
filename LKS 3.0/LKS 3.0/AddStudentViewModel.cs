@@ -20,6 +20,8 @@ namespace LKS_3._0
 
             DataBaseR.Relatives.Load();
 
+            Relative._count = DataBaseR.Relatives.Count();
+
             Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
 
             AddedRelative = new Relative();
@@ -48,11 +50,19 @@ namespace LKS_3._0
                       // получаем выделенный объект
                       Relative temp_relative = add_relative as Relative;
 
+                      Relative._count++;
+
                       temp_relative.IdStudent = addedStudent.Id;
+                      temp_relative.Id = Relative._count;
+
                       DataBaseR.Relatives.Add(temp_relative);
+
                       DataBaseR.SaveChanges();
+
                       SelectedRelative = Relatives.Last();
+
 					  AddedRelative = new Relative();
+
                       Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
                   }));
 			}
@@ -94,6 +104,7 @@ namespace LKS_3._0
                             Relative temp_relative = selectedItem as Relative;
                             DataBaseR.Relatives.Remove(temp_relative);
                             DataBaseR.SaveChanges();
+                            Relative._count--;
                             Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
                         }
                         else if (res.ToString() == "No")

@@ -8,6 +8,23 @@ namespace LKS_3._0
 {
     public partial class Prepod
     {
+        public static int _count;
+
+        private int ID;
+
+       
+       
+        public int Id
+        {
+            get
+            {
+                return ID;
+            }
+            set
+            {
+                ID = value;
+            }
+        }
         public Prepod()
         {
             FirstName = "";
@@ -15,10 +32,6 @@ namespace LKS_3._0
             LastName = "";
             Coolness = "";
         }
-       
-        public int Id
-        { get; set; }
-
         [RusName("Фамилия")]
         public string FirstName
         { get; set; }

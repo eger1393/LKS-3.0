@@ -383,6 +383,7 @@ namespace LKS_3._0
                         Student student = selectedStudent as Student;
                         DataBase.Students.Remove(student);
                         DataBase.SaveChanges();
+                            Student._count--;
                          }
                          else if(res.ToString() == "No")
                          {
@@ -425,6 +426,12 @@ namespace LKS_3._0
             DataBase.Students.Load();
 
             Students = DataBase.Students.Local.ToBindingList();
+
+            Student._count = Students.Count();
+
+            
+
+   
 
             Update_List();
 
