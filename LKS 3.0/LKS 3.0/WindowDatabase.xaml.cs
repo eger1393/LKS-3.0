@@ -47,10 +47,10 @@ namespace LKS_3._0
                
             }
 
-           
             DataContext = new ApplicationViewModel(ProgMode);
 
             Binding_columns();
+            
         }
 
         private void Binding_columns()

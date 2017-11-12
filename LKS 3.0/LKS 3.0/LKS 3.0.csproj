@@ -129,6 +129,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="RusNameAttribute.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="Troop.cs" />
     <Compile Include="TroopChange.xaml.cs">
       <DependentUpon>TroopChange.xaml</DependentUpon>
     </Compile>

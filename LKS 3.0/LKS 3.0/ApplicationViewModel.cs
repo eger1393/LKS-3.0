@@ -30,6 +30,7 @@ namespace LKS_3._0
             editPrepodsCommand;
 
         private Student selectedStudent;
+        private Troop selectedTroop;
         IEnumerable<Student> students;
         private IEnumerable<string> list_Troop, 
             list_Rectal, 
@@ -39,8 +40,7 @@ namespace LKS_3._0
             findItemsSource;
 
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
-        private string findText;
-        private int selectIndexFind;
+
 
         public string SelectedValueFind_T
         {
@@ -159,68 +159,14 @@ namespace LKS_3._0
         }
 
 
-
-        public IEnumerable<string> FindItemsSource
-        {
-            get { return findItemsSource;  }
-            set
-            {
-                findItemsSource = value;
-            }
-
-        }
-        public int SelectIndexFind
+        public string SelectTroopNumber
         {
             get
             {
-                return selectIndexFind;
-            }
-
-            set
-            {
-                switch (value)
-                {
-                    case 0:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
-                            break;
-                        }
-                    case 1:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                            break;
-                        }
-                    case 2:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Group).Distinct();
-                            break;
-                        }
-                    case 3:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Rank).Distinct();
-                            break;
-                        }
-                    default:
-                        break;
-                }
-
-                selectIndexFind = value;
+                return selectedTroop.NumberTroop;
             }
         }
-
-       public string FindText
-        {
-            get { return findText; }
-            set
-            {
-                if (value == "")
-                {
-                    Students = DataBase.Students.Local.ToBindingList();
-                }
-                findText = value;
-                OnPropertyChanged("FindText");
-            }
-        }
+  
         public IEnumerable<Student> Students
         {
             get { return students; }
@@ -427,22 +373,28 @@ namespace LKS_3._0
 
             Students = DataBase.Students.Local.ToBindingList();
 
-            Student._count = Students.Count();
-
-            
-
-   
+            Student._count = DataBase.Students.Count();
 
             Update_List();
 
+            TroopChange window_TC = new TroopChange(ref DataBase);
             
+            if(window_TC.ShowDialog() == true)
+            {
+                selectedTroop = window_TC.troop_change();
+                window_TC.Close();
+                if(selectedTroop.StaffCount == 0)
+                {
+                    MessageBox.Show("Новый взвод №"+ selectedTroop.NumberTroop +"создан!", "Внимание!");
+                }
+                else
+                {
+                    Students = DataBase.Students.Local.Where(u => u.Troop == selectedTroop.NumberTroop);
+                }
+                
+            }
 
-            //Students = new ObservableCollection<Student>
-            //{
-            //   new Student("Мещеряков", "Антон", "Сергеевич", "3ВТИ-3ДБ-039", "410", "+7(985)191-84-48"),
-            //   new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48"),
-            //   new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13")
-            // };
+            
         }
 
 

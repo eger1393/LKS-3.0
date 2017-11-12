@@ -24,7 +24,6 @@ namespace LKS_3._0
 
             DataBasePr.Prepods.Load();
 
-
             Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
             Prepod._count = Prepods.Count();

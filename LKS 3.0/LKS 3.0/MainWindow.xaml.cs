@@ -57,7 +57,6 @@ namespace LKS_3._0
             if(RB_User.IsChecked == true)
             {
                 MessageBox.Show("Вход как студент!");
-                TroopChange window_s = new TroopChange();
                 WindowDatabase Window_Data = new WindowDatabase(false);
                 Window_Data.Show();
 
@@ -69,7 +68,6 @@ namespace LKS_3._0
                 {
                     MessageBox.Show("Успешно!");
                     WindowDatabase Window_Data = new WindowDatabase(true);
-                    TroopChange window_s = new TroopChange();
                     Window_Data.Show();
 
                     Close();
