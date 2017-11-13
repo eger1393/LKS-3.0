@@ -17,7 +17,7 @@ namespace LKS_3._0
 	{
 		 private List<string> commandArray = new List<string>()
 		{
-			"$FName$",
+			"$FName$", 
 			"$MName$",
 			"$LName$",
 			"$Troop$",

@@ -12,7 +12,7 @@ namespace LKS_3._0
 		public string command;
 		public TableCommand(int x, int y, string command)
 		{
-			this.x = x;
+			this.x = x; 
 			this.y = y;
 			this.command = command;
 		}

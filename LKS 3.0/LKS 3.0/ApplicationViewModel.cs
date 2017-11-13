@@ -20,16 +20,18 @@ namespace LKS_3._0
 
         public ApplicationContext DataBase;
 
-        private RelayCommand addCommand, 
-            createReportCommand, 
-            findCommand, 
-            editCommand, 
-            deleteCommand, 
-            saveChangeCommand, 
-            checkPassCommand, 
-            editPrepodsCommand;
+		private RelayCommand addCommand,
+			createReportCommand,
+			findCommand,
+			editCommand,
+			deleteCommand,
+			saveChangeCommand,
+			checkPassCommand,
+			editPrepodsCommand,
+			openTemplate;
 
-        private Student selectedStudent;
+
+		private Student selectedStudent;
         private Troop selectedTroop;
         IEnumerable<Student> students;
         private IEnumerable<string> list_Troop, 
