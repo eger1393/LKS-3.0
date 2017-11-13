@@ -46,7 +46,8 @@ namespace LKS_3._0
             cap_size,
             mask_size,
             foreignLanguage,
-            languageRank;
+            languageRank,
+            status;
 
 
         private bool
@@ -92,7 +93,12 @@ namespace LKS_3._0
         {
 			
         }
-
+        public Student(string TroopName) // Конструктор по умолчанию
+        {
+            Troop = TroopName;
+            Rank = "Отсутствует";
+            Status = "Обучается";
+        }
         public Student(string M_name, string F_name, string L_name, string group, string troop, string phone) //, Student_Rank rang)
         {
             this.MiddleName = M_name;
@@ -647,6 +653,18 @@ namespace LKS_3._0
             set
             {
                languageRank = value;
+            }
+        }
+
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
             }
         }
     }

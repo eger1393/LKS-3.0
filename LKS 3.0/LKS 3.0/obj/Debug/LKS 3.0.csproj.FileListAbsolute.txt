@@ -135,3 +135,4 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache

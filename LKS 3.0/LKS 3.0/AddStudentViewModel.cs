@@ -26,6 +26,8 @@ namespace LKS_3._0
 
             AddedRelative = new Relative();
 
+            
+
         }
 
      

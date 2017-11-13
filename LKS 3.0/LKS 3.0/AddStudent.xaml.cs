@@ -30,11 +30,13 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, ref ApplicationContext temp_DataBase)
+		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, IEnumerable<string> list_Group, ref ApplicationContext temp_DataBase)
 		{
 			InitializeComponent();
 
             CbTroop.ItemsSource = list_Troop;
+            
+            CbGroup.ItemsSource = list_Group;
 
             CbRectal.ItemsSource = list_Rectal;
 
@@ -219,8 +221,13 @@ namespace LKS_3._0
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-            viewModel.AddedStudent.Rank = "Никто";
-
+            if(viewModel.AddedStudent.Id == 0)
+            {
+                Student._count++;
+                viewModel.AddedStudent.Id = Student._count;
+            }
+            
+            
             //viewModel.AddedStudent.Skill_1 = (bool)checkBox_1.IsChecked;
             //viewModel.AddedStudent.Skill_2 = (bool)checkBox_2.IsChecked;
             //viewModel.AddedStudent.Skill_3 = (bool)checkBox_3.IsChecked;
@@ -271,5 +278,11 @@ namespace LKS_3._0
             }
 		}
 
-	}
+        private void Cnacel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+
+            Close();
+        }
+    }
 }

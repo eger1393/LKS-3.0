@@ -20,18 +20,24 @@ namespace LKS_3._0
 
         public ApplicationContext DataBase;
 
-		private RelayCommand addCommand,
-			createReportCommand,
-			findCommand,
-			editCommand,
-			deleteCommand,
-			saveChangeCommand,
-			checkPassCommand,
-			editPrepodsCommand,
-			openTemplate;
+        private RelayCommand addCommand,
+            createReportCommand,
+            findCommand,
+            editCommand,
+            deleteCommand,
+            saveChangeCommand,
+            checkPassCommand,
+            editPrepodsCommand,
+            openTemplate,
+            showTraineesCommand,
+            showDetachedCommand,
+            showNaSboriCommand,
+            showPastSboriCommand,
+            showAllCommand,
+            troopCheck;
 
 
-		private Student selectedStudent;
+        private Student selectedStudent;
         private Troop selectedTroop;
         IEnumerable<Student> students;
         private IEnumerable<string> list_Troop, 
@@ -193,16 +199,101 @@ namespace LKS_3._0
 
         private void Update_List()
         {
-            List_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
-            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
-            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct();
 
+            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
+
+            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+
+            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
 
             List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
             
             
             
+        }
+        public RelayCommand ShowAllCommand
+        {
+            get
+            {
+                return showAllCommand ??
+                 (showAllCommand = new RelayCommand(obj =>
+                 {
+                     Students = DataBase.Students.Local.ToBindingList();
+                 }));
+            }
+        }
+        public RelayCommand ShowTraineesCommand
+        {
+            get
+            {
+                return showTraineesCommand ??
+                 (showTraineesCommand = new RelayCommand(obj =>
+                 {
+                     if(selectedTroop.NumberTroop !=  null)
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Обучается");
+                     }
+                     else
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Обучается");
+                     }
+                 }));
+            }
+        }
+        public RelayCommand ShowDetachedCommand
+        {
+            get
+            {
+                return showDetachedCommand ??
+                 (showDetachedCommand = new RelayCommand(obj =>
+                 {
+                     if (selectedTroop.NumberTroop != null)
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Отстранен");
+                     }
+                     else
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Отстранен");
+                     }
+                 }));
+            }
+        }
+        public RelayCommand ShowNaSboriCommand
+        {
+            get
+            {
+                return showNaSboriCommand ??
+                 (showNaSboriCommand = new RelayCommand(obj =>
+                 {
+                     if (selectedTroop.NumberTroop != null)
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "На сборах");
+                     }
+                     else
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Status == "На сборах");
+                     }
+                 }));
+            }
+        }
+        public RelayCommand ShowPastSboriCommand
+        {
+            get
+            {
+                return showPastSboriCommand ??
+                 (showPastSboriCommand = new RelayCommand(obj =>
+                 {
+                     if (selectedTroop.NumberTroop != null)
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Прошел сборы");
+                     }
+                     else
+                     {
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Прошел сборы");
+                     }
+                 }));
+            }
         }
         public RelayCommand EditPrepodsCommand
         {
@@ -228,11 +319,11 @@ namespace LKS_3._0
                 return addCommand ??
                   (addCommand = new RelayCommand(obj =>
                   {
-                      Student temp_student = new Student();
+                      Student temp_student = new Student(SelectTroopNumber);
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
@@ -258,15 +349,14 @@ namespace LKS_3._0
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, ref DataBase);
+
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
                           DataBase.Entry(temp_student).State = EntityState.Modified;
                           DataBase.SaveChanges();
                           SelectedStudent = temp_student;
-
-
                       }                     
                   }));
             }
@@ -319,27 +409,27 @@ namespace LKS_3._0
         {
             get
             {
-                    return deleteCommand ??
-                     (deleteCommand = new RelayCommand(selectedItem =>
-                     {
+                return deleteCommand ??
+                 (deleteCommand = new RelayCommand(selectedItem =>
+                 {
                          // если ни одного объекта не выделено, выходим
                          if (selectedItem == null) return;
 
-                         MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
-                         if (res.ToString() == "Yes")
-                         {
-                             Student student = selectedStudent as Student;
-                             DataBase.Students.Remove(student);
-                             DataBase.SaveChanges();
-                            Student._count--;
-                         }
-                         else if(res.ToString() == "No")
-                         {
-                             deleteCommand = null;
-                             return;
-                         }
-                        
-                     }, (obj) => students.Count() > 0));
+                     MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
+                     if (res.ToString() == "Yes")
+                     {
+                         Student student = selectedStudent as Student;
+                         DataBase.Students.Remove(student);
+                         DataBase.SaveChanges();
+                         Student._count--;
+                     }
+                     else if (res.ToString() == "No")
+                     {
+                         deleteCommand = null;
+                         return;
+                     }
+
+                 }, (obj) => students.Count() > 0 && progMode == ProgramMode.Admin));
                 }
             
         }
@@ -378,7 +468,34 @@ namespace LKS_3._0
 			}
 		}
 
-		public ApplicationViewModel(ProgramMode _progMode)
+        public RelayCommand СheckTroop
+        {
+            get
+            {
+                return troopCheck ??
+                    (troopCheck = new RelayCommand(obj =>
+                    {
+                        TroopChange window_TC = new TroopChange(ref DataBase);
+
+                        if (window_TC.ShowDialog() == true)
+                        {
+                            selectedTroop = window_TC.troop_change();
+                            window_TC.Close();
+                            if (selectedTroop.StaffCount == 0)
+                            {
+                                MessageBox.Show("Новый взвод №" + SelectTroopNumber + "создан!", "Внимание!");
+                                Students = null;
+                            }
+                            else
+                            {
+                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber);
+                            }
+
+                        }
+                    }));
+            }
+        }
+        public ApplicationViewModel(ProgramMode _progMode)
         {
             progMode = _progMode;
 
@@ -386,28 +503,32 @@ namespace LKS_3._0
 
             DataBase.Students.Load();
 
+            DataBase.Troops.Load();
+
             Students = DataBase.Students.Local.ToBindingList();
 
             Student._count = DataBase.Students.Count();
 
+            selectedTroop = new Troop();
+
             Update_List();
 
-            TroopChange window_TC = new TroopChange(ref DataBase);
+            //TroopChange window_TC = new TroopChange(ref DataBase);
 
-            if(window_TC.ShowDialog() == true)
-            {
-                selectedTroop = window_TC.troop_change();
-                window_TC.Close();
-                if(selectedTroop.StaffCount == 0)
-                {
-                    MessageBox.Show("Новый взвод №"+ selectedTroop.NumberTroop +"создан!", "Внимание!");
-                }
-                else
-                {
-                    Students = DataBase.Students.Local.Where(u => u.Troop == selectedTroop.NumberTroop);
-                }
+            //if(window_TC.ShowDialog() == true)
+            //{
+            //    selectedTroop = window_TC.troop_change();
+            //    window_TC.Close();
+            //    if(selectedTroop.StaffCount == 0)
+            //    {
+            //        MessageBox.Show("Новый взвод №"+ selectedTroop.NumberTroop +"создан!", "Внимание!");
+            //    }
+            //    else
+            //    {
+            //        Students = DataBase.Students.Local.Where(u => u.Troop == selectedTroop.NumberTroop);
+            //    }
 
-            }
+            //}
 
 
         }

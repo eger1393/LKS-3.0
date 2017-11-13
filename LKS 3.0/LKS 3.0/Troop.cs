@@ -22,7 +22,7 @@ namespace LKS_3._0
 
         private int ID, ID_RP, ID_PC, staffCount;
 
-        Troop()
+        public Troop()
         {
             StaffCount = 0;
         }

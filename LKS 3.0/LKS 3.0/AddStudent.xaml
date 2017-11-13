@@ -49,6 +49,7 @@
                     <Label Grid.Column="0" Grid.Row="5" Content="Год окончания МАИ"/>
                     <Label Grid.Column="0" Grid.Row="6" Content="Год поступления на ВК"/>
                     <Label Grid.Column="0" Grid.Row="7" Content="Год окончания ВК"/>
+                    <Label Grid.Column="0" Grid.Row="8" Content="Cтатус студента"/>
 
 
                     <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
@@ -59,6 +60,7 @@
                     <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
                     <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
                     <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
+                    <Label Grid.Column="2" Grid.Row="8" Content="Должность во взводе"/>
 
                     <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
@@ -106,12 +108,23 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-
+                    <ComboBox x:Name="CbStatus" Grid.Column="1" Grid.Row="8" Text="{Binding Status}" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="Обучается"/>
+                        <ListBoxItem Content="Отстранен"/>
+                        <ListBoxItem Content="На сборах"/>
+                        <ListBoxItem Content="Прошел сборы"/>
+                    </ComboBox>
+                    <ComboBox x:Name="CbRank" Grid.Column="4" Grid.Row="8" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
+                        <ListBoxItem Content="КО"/>
+                        <ListBoxItem Content="КО1"/>
+                        <ListBoxItem Content="КО2"/>
+                        <ListBoxItem Content="КО3"/>
+                        <ListBoxItem Content="Журналист"/>
+                        <ListBoxItem Content="Зам. журналиста"/>
+                        <ListBoxItem Content="Секретчик"/>
+                        <ListBoxItem Content="Отсутствует"/>
+                    </ComboBox>
                     <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="0" Text="{Binding Group}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <TextBlock Text="3ВТИ-3ДБ-039"/>
-                        <TextBlock Text="3ВТИ-3ДБ-038"/>
-                        <TextBlock Text="3ВТИ-3ДБ-037"/>
-                        <TextBlock Text="3ВТИ-3ДБ-036"/>
                     </ComboBox>
                     <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="1" Text="{Binding Faculty}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>
@@ -120,9 +133,9 @@
                         <ListBoxItem Content="4"/>
                     </ComboBox>
                     <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="2" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="Бук"/>
-                        <ListBoxItem Content="Тор"/>
-                        <ListBoxItem Content="Оса"/>
+                        <ListBoxItem Content="БУК"/>
+                        <ListBoxItem Content="ТОР"/>
+                        <ListBoxItem Content="ОСА"/>
                         <ListBoxItem Content="Тополь"/>
                     </ComboBox>
                     <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="3" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
@@ -370,7 +383,7 @@
 
         </TabControl>
         <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Save_Click"/>
-        <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
+        <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Cnacel_Click"/>
 
     </Grid>
 
