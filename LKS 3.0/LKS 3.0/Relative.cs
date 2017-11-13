@@ -8,9 +8,24 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
-	class Relative:INotifyPropertyChanged
+	public partial class Relative:INotifyPropertyChanged
 	{
-		private string middleName, // Фамилия
+        public static int _count;
+
+        private int ID;
+
+        public int Id
+        {
+            get
+            {
+                return ID;
+            }
+            set
+            {
+                ID = value;
+            }
+        }
+        private string middleName, // Фамилия
 			firstName, // Имя
 			lastName, // Отчество
 			maidenName, // Девичья фамилия
@@ -28,7 +43,11 @@ namespace LKS_3._0
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 
-		[RusName("Фамилия")]
+        public int IdStudent
+        { get; set; }
+
+
+        [RusName("Фамилия")]
 		public string MiddleName // Фамилия
 		{
 			get

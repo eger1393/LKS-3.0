@@ -20,92 +20,159 @@ namespace LKS_3._0
 
         public ApplicationContext DataBase;
 
-        RelayCommand addCommand;
-        RelayCommand createReportCommand;
-        RelayCommand findCommand;
-        RelayCommand editCommand;
-        RelayCommand deleteCommand;
-        RelayCommand saveChangeCommand;
-        RelayCommand checkPassCommand;
-        RelayCommand editPrepodsCommand;
-		RelayCommand openTemplate;
-
-        IEnumerable<Student> students;
-        IEnumerable<string> list_Troop;
-        IEnumerable<string> list_Rectal;
-        IEnumerable<string> findItemsSource;
+        private RelayCommand addCommand, 
+            createReportCommand, 
+            findCommand, 
+            editCommand, 
+            deleteCommand, 
+            saveChangeCommand, 
+            checkPassCommand, 
+            editPrepodsCommand;
 
         private Student selectedStudent;
-        private string findText;
-        private int selectIndexFind;
+        private Troop selectedTroop;
+        IEnumerable<Student> students;
+        private IEnumerable<string> list_Troop, 
+            list_Rectal, 
+            list_Mname, 
+            list_Rank, 
+            list_Group, 
+            findItemsSource;
 
-        public IEnumerable<string> FindItemsSource
-        {
-            get { return findItemsSource;  }
-            set
-            {
-                findItemsSource = value;
-            }
+        private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
 
-        }
-        public int SelectIndexFind
+
+        public string SelectedValueFind_T
         {
             get
             {
-                return selectIndexFind;
+                return ValueFind_T;
             }
-
             set
             {
-                switch (value)
+               if (value == null)
                 {
-                    case 0:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
-                            break;
-                        }
-                    case 1:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                            break;
-                        }
-                    case 2:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Group).Distinct();
-                            break;
-                        }
-                    case 3:
-                        {
-                            FindItemsSource = DataBase.Students.Local.Select(u => u.Rank).Distinct();
-                            break;
-                        }
-                    default:
-                        break;
-                }
-
-                selectIndexFind = value;
+                    Students = DataBase.Students.Local.ToBindingList();
             }
-        }
 
-       public string FindText
+                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct();
+
+                ValueFind_T = value;
+        }
+        }
+        public string SelectedValueFind_G
         {
-            get { return findText; }
+            get
+            {
+                return ValueFind_G;
+            }
             set
             {
-                if (value == "")
+                if (value == null)
                 {
                     Students = DataBase.Students.Local.ToBindingList();
                 }
-                findText = value;
-                OnPropertyChanged("FindText");
+                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct();
+                ValueFind_G = value;
             }
         }
+        public string SelectedValueFind_M
+                        {
+            get
+            {
+                return ValueFind_M;
+                        }
+            set
+                        {
+                if (value == null)
+                {
+                    Students = DataBase.Students.Local.ToBindingList();
+                        }
+                ValueFind_M = value;
+            }
+        }
+        public string SelectedValueFind_R
+                        {
+            get
+            {
+                return ValueFind_R;
+                        }
+            set
+                        {
+                if (value == null)
+                {
+                    Students = DataBase.Students.Local.ToBindingList();
+                        }
+                ValueFind_R = value;
+                }
+        }
+
+        public IEnumerable<string> List_Troop
+        {
+            get { return list_Troop; }
+            set
+            {
+                list_Troop= value;
+                OnPropertyChanged();
+            }
+
+        }
+        public IEnumerable<string> List_Rectal
+        {
+            get { return list_Rectal; }
+            set
+            {
+                list_Rectal = value;
+                OnPropertyChanged();
+            }
+
+        }
+        public IEnumerable<string> List_Mname
+        {
+            get { return list_Mname;  }
+            set
+            {
+                list_Mname = value;
+                OnPropertyChanged();
+            }
+
+        }
+        public IEnumerable<string> List_Rank
+        {
+            get { return list_Rank; }
+            set
+                {
+                list_Rank = value;
+                OnPropertyChanged();
+            }
+
+        }
+        public IEnumerable<string> List_Group
+        {
+            get { return list_Group; }
+            set
+            {
+                list_Group = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+               
+        public string SelectTroopNumber
+        {
+            get
+            {
+                return selectedTroop.NumberTroop;
+            }
+        }
+
         public IEnumerable<Student> Students
         {
             get { return students; }
             set
             {
-               
+
                 students = value;
                 OnPropertyChanged("Students");
             }
@@ -122,6 +189,19 @@ namespace LKS_3._0
             }
         }
 
+        private void Update_List()
+        {
+            List_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
+            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
+            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+
+
+            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
+            
+            
+            
+        }
         public RelayCommand EditPrepodsCommand
         {
             get
@@ -129,12 +209,13 @@ namespace LKS_3._0
                 return editPrepodsCommand ??
                  (editPrepodsCommand = new RelayCommand(obj =>
                  {
-
                      
-                     EditPrepods EditPrepodsWindow = new EditPrepods();
-
+                     
+                     EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase);
+               
                      EditPrepodsWindow.ShowDialog();
-                   
+
+                         
                  }));
             }
         }
@@ -146,16 +227,17 @@ namespace LKS_3._0
                   (addCommand = new RelayCommand(obj =>
                   {
                       Student temp_student = new Student();
-                      list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                      list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
-                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal);
+
+                      Update_List();
+
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
                           DataBase.SaveChanges();
                           SelectedStudent = temp_student;
-                      }                     
+                      }
                   }));
             }
         }
@@ -171,9 +253,10 @@ namespace LKS_3._0
                       if (selectedItem == null) return;
                       // получаем выделенный объект
                       Student temp_student = selectedItem as Student;
-                      list_Troop = DataBase.Students.Local.Select(u => u.Troop).Distinct();
-                      list_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
-                      AddStudent addStudentWindow = new AddStudent(temp_student, list_Troop, list_Rectal);
+
+                      Update_List();
+
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, ref DataBase);
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
@@ -182,9 +265,9 @@ namespace LKS_3._0
                           SelectedStudent = temp_student;
 
 
-                      }
+                      }                     
                   }));
-                  }
+            }
         }
 
         public RelayCommand CheckPassword
@@ -234,18 +317,19 @@ namespace LKS_3._0
         {
             get
             {
-                return deleteCommand ??
-                    (deleteCommand = new RelayCommand(selectedItem =>
-                    {
-                        // если ни одного объекта не выделено, выходим
-                        if (selectedItem == null) return;
+                    return deleteCommand ??
+                     (deleteCommand = new RelayCommand(selectedItem =>
+                     {
+                         // если ни одного объекта не выделено, выходим
+                         if (selectedItem == null) return;
 
                          MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
                          if (res.ToString() == "Yes")
                          {
-                        Student student = selectedStudent as Student;
-                        DataBase.Students.Remove(student);
-                        DataBase.SaveChanges();
+                             Student student = selectedStudent as Student;
+                             DataBase.Students.Remove(student);
+                             DataBase.SaveChanges();
+                            Student._count--;
                          }
                          else if(res.ToString() == "No")
                          {
@@ -253,8 +337,8 @@ namespace LKS_3._0
                              return;
                          }
                         
-                    }, (obj) => students.Count() > 0));
-            }
+                     }, (obj) => students.Count() > 0));
+                }
             
         }
 
@@ -267,32 +351,14 @@ namespace LKS_3._0
                     return findCommand ??
                                         (findCommand = new RelayCommand(select =>
                                         {
-                                            switch ((int)select)
-                                            {
-                                                case 0:
+                                            
+
+                                        Students = DataBase.Students.Local.Where(u => u.Troop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M);
+                                            if(Students.Count() == 0)
                                                     {
-                                                        Students = DataBase.Students.Local.Where(u => u.MiddleName == FindText);
-                                                        break;
-                                                    }
-                                                case 1:
-                                                    {
-                                                        Students = DataBase.Students.Local.Where(u => u.Troop == FindText);
-                                                        break;
-                                                    }
-                                                case 2:
-                                                    {
-                                                        Students = DataBase.Students.Local.Where(u => u.Group == FindText);
-                                                        break;
-                                                    }
-                                                case 3:
-                                                    {
-                                                        Students = DataBase.Students.Local.Where(u => u.Rank == FindText);
-                                                        break;
-                                                    }
-                                                default:
-                                                    break;
+                                                MessageBox.Show("Ни один студент не найден!", "Ошибка!");
                                             }
-                                        }, (obj) => FindText != ""));
+                                        }, (obj) => SelectedValueFind_G != null || SelectedValueFind_T != null || SelectedValueFind_M != null || SelectedValueFind_R != null));
                 
                 
             }
@@ -320,16 +386,28 @@ namespace LKS_3._0
 
             Students = DataBase.Students.Local.ToBindingList();
 
-            
+            Student._count = DataBase.Students.Count();
 
-            
+            Update_List();
 
-            //Students = new ObservableCollection<Student>
-            //{
-            //   new Student("Мещеряков", "Антон", "Сергеевич", "3ВТИ-3ДБ-039", "410", "+7(985)191-84-48"),
-            //   new Student("Голвянский", "Кирилл", "Сергеевич", "3ВТИ-3ДБ-037", "410", "+7(985)222-84-48"),
-            //   new Student("Алешин", "Роман", "Анатольевич", "3ВТИ-3ДБ-039", "410", "+7(988)123-22-13")
-            // };
+            TroopChange window_TC = new TroopChange(ref DataBase);
+
+            if(window_TC.ShowDialog() == true)
+            {
+                selectedTroop = window_TC.troop_change();
+                window_TC.Close();
+                if(selectedTroop.StaffCount == 0)
+                {
+                    MessageBox.Show("Новый взвод №"+ selectedTroop.NumberTroop +"создан!", "Внимание!");
+                }
+                else
+                {
+                    Students = DataBase.Students.Local.Where(u => u.Troop == selectedTroop.NumberTroop);
+                }
+
+            }
+
+
         }
 
 

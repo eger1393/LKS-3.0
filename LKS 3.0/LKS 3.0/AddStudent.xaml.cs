@@ -25,22 +25,25 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class AddStudent : Window
 	{
-        
-		private AddStudentViewModel viewModel = new AddStudentViewModel();
+
+        private AddStudentViewModel viewModel;
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal)
+		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, ref ApplicationContext temp_DataBase)
 		{
-
 			InitializeComponent();
+
             CbTroop.ItemsSource = list_Troop;
+
             CbRectal.ItemsSource = list_Rectal;
-			
+
+            viewModel = new AddStudentViewModel(ref temp_DataBase);
+
 			viewModel.AddedStudent = temp;
-			viewModel.AddedRelative = new Relative(); //??
-			viewModel.Relativs = new List<Relative>();
-			DataContext = viewModel;
+
+            DataContext = viewModel;
+
 			Binding_columns();
 		}
 
@@ -225,7 +228,7 @@ namespace LKS_3._0
             //viewModel.AddedStudent.Skill_5 = (bool)checkBox_5.IsChecked;
             //viewModel.AddedStudent.Skill_6 = (bool)checkBox_6.IsChecked;
 
-			if (ImageBitmapFrame != null)
+            if (ImageBitmapFrame != null)
 			{
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
 				jpegBitmapEncoder.QualityLevel = 100;

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using System.Data.Entity;
+using System.Windows;
 
 namespace LKS_3._0
 {
@@ -19,9 +19,40 @@ namespace LKS_3._0
     /// </summary>
     public partial class TroopChange : Window
     {
-        public TroopChange()
+        ApplicationContext temp_database;
+        Troop t_troop;
+        IEnumerable<string> ListTroop;
+        public TroopChange(ref ApplicationContext database)
         {
             InitializeComponent();
+
+            temp_database = database;
+
+            temp_database.Troops.Load();
+
+            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop);
+
+            CbTroop.ItemsSource = ListTroop;
+        }
+
+        private void OK_Button_Click(object sender, RoutedEventArgs e)
+        {
+            t_troop = temp_database.Troops.Local.Where(u => u.NumberTroop == CbTroop.Text).First();
+            DialogResult = true;
+        }
+        public Troop troop_change()
+        {
+            return t_troop;
+        }
+
+        private void Create_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Troop._count++;
+            t_troop = new Troop(TB_TroopName.Text);
+            t_troop.Id = Troop._count;
+            temp_database.Troops.Add(t_troop);
+            temp_database.SaveChanges();
+            DialogResult = true;
         }
     }
 }

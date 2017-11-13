@@ -22,6 +22,7 @@
             <TabItem Header="Информация о студенте" Margin="0,0,-4,-3" DataContext="{Binding AddedStudent}">
                 <Grid Margin="-5,5,5,29">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.1*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -52,9 +53,9 @@
 
                     <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
                     <Label Grid.Column="2" Grid.Row="1" Content="Факультет"/>
-                    <Label Grid.Column="2" Grid.Row="2" Content="Название специальности"/>
-                    <Label Grid.Column="2" Grid.Row="3" Content="Условия обучения в вузе"/>
-                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2" Margin="0,0,148,0"/>
+                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Content="Название специальности"/>
+                    <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Content="Условия обучения в вузе"/>
+                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2"/>
                     <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
                     <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
                     <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
@@ -139,14 +140,14 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
-                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,0,0,0"/>
                     <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
-                <Grid Margin="0,-18,0,18">
+            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}" Margin="-2,0,-2,-3">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*" />
                         <ColumnDefinition Width="171*"/>
@@ -215,11 +216,11 @@
                                 <Label Grid.Column="0" Grid.Row="0" Content="Группа крови" Grid.ColumnSpan="2" />
                                 <Label Grid.Column="0" Grid.Row="1" Content="Рост (см)" Grid.ColumnSpan="2" />
                                 <Label Grid.Column="0" Grid.Row="2" Content="Размер одежды" Grid.ColumnSpan="2" />
-                                <Label Grid.Column="3" Grid.Row="0" Content="Размер обуви" />
-                                <Label Grid.Column="3" Grid.Row="1" Content="Размер головного убора" />
-                                <Label Grid.Column="3" Grid.Row="2" Content="Размер противогаза" />
+                                <Label Grid.Column="2" Grid.Row="0" Content="Размер обуви" />
+                                <Label Grid.Column="2" Grid.Row="1" Content="Размер головного убора" />
+                                <Label Grid.Column="2" Grid.Row="2" Content="Размер противогаза" />
 
-                                <ComboBox x:Name="BloodType" Grid.Column="2" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding BloodType}" IsEditable="True" IsSynchronizedWithCurrentItem="True">
+                                <ComboBox x:Name="BloodType" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding BloodType}" IsEditable="True" IsSynchronizedWithCurrentItem="True">
                                     <ListBoxItem Content="1 положительная" />
                                     <ListBoxItem Content="1 отрицательная" />
                                     <ListBoxItem Content="2 положительная" />
@@ -230,8 +231,8 @@
                                     <ListBoxItem Content="4 отрицательная" />
                                     <ListBoxItem Content="незнаю" />
                                 </ComboBox>
-                                <TextBox x:Name="Growth" Grid.Column="2" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding Growth}"/>
-                                <ComboBox x:Name="ClothingSize" Grid.Column="2" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2"  Text="{Binding ClothihgSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
+                                <TextBox x:Name="Growth" Grid.Column="1" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding Growth}"/>
+                                <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2"  Text="{Binding ClothihgSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
                                     <ListBoxItem Content="S" />
                                     <ListBoxItem Content="M" />
                                     <ListBoxItem Content="L" />
@@ -263,9 +264,9 @@
                             <CheckBox x:Name="checkBox_1" Content="Языки программирования(С#, C++)" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" IsChecked="{Binding Skill1}"/>
                             <CheckBox x:Name="checkBox_2" Content="Microsoft Office" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" IsChecked="{Binding Skill2}"/>
                             <CheckBox x:Name="checkBox_3" Content="Настройка локальных сетей" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="2" IsChecked="{Binding Skill3}"/>
-                            <CheckBox x:Name="checkBox_4" Content="Электроника, электротехника" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" IsChecked="{Binding Skill4}"/>
-                            <CheckBox x:Name="checkBox_5" Content="Adobe Photoshop (и подобные)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" IsChecked="{Binding Skill5}"/>
-                            <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" IsChecked="{Binding Skill6}"/>
+                            <CheckBox x:Name="checkBox_4" Content="Электроника, электротехника" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" IsChecked="{Binding Skill4}"/>
+                            <CheckBox x:Name="checkBox_5" Content="Adobe Photoshop (и подобные)" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="1" IsChecked="{Binding Skill5}"/>
+                            <CheckBox x:Name="checkBox_6" Content="Другие навыки" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" IsChecked="{Binding Skill6}"/>
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
@@ -285,7 +286,7 @@
                     </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Родственники" Margin="-2,0,-2,-3">
+            <TabItem Header="Родственники" Margin="-1,0,-3,-3">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.8*"/>
@@ -298,12 +299,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relativs}" SelectedItem="{Binding SelectedRelative}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
+                    <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relatives}" SelectedItem="{Binding SelectedRelative}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
                                Height="Auto" ColumnWidth="Auto" IsReadOnly="True" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" />
-                    <Button x:Name="BRelativeAdd" Grid.Row="1" Grid.Column="0" Command="{Binding AddRelative}" Content="Сохранить1" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
-                    <Button x:Name="BRelativeEdit" Grid.Row="1" Grid.Column="1" Command="{Binding AddRelative}" Content="Редактировать" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
-                    <Button x:Name="BRelativeDelete" Grid.Row="1" Grid.Column="2" Command="{Binding AddRelative}" Content="Удалить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
-                    <Grid Grid.Row="2" Grid.ColumnSpan="3" DataContext="{Binding AddedRelative}">
+                    <Button x:Name="BRelativeAdd" Grid.Row="1" Grid.Column="0" Command="{Binding AddRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding AddedRelative}" Content="Добавить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Button x:Name="BRelativeEdit" Grid.Row="1" Grid.Column="1" Command="{Binding EditRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Content="Редактировать" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Button x:Name="BRelativeDelete" Grid.Row="1" Grid.Column="2" Command="{Binding DeleteRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Content="Удалить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3" DataContext="{Binding AddedRelative, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />

@@ -18,6 +18,10 @@
             <Setter Property="Control.FontFamily" Value="Times New Roman" />
             <Setter Property="Control.FontSize" Value="18" />
         </Style>
+        <Style x:Key="FindStyle">
+            <Setter Property="Control.FontFamily" Value="Times New Roman" />
+            <Setter Property="Control.FontSize" Value="13" />
+        </Style>
     </Window.Resources>
 
     <Grid x:Name="Main_Grid" Background="LightGray">
@@ -69,36 +73,48 @@
             </i:Interaction.Triggers>
         </DataGrid>
 
-
-        <Grid Grid.Column="0" Grid.Row="1">
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Поиск" FontSize="24">
+            <Grid Style="{DynamicResource FindStyle}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="По взводу:"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+                <ComboBox x:Name="TroopFindBox"  SelectedValue="{Binding SelectedValueFind_T, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Troop, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" IsEditable="True">
 
+                </ComboBox>
+                <Label Content="По группе:"  HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="2"/>
+                <ComboBox x:Name="GroupFindBox"  SelectedValue="{Binding SelectedValueFind_G, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" IsEditable="True">
 
+                </ComboBox>
+                <Label Content="По фамилии:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="4" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="FnameFindBox" SelectedValue="{Binding SelectedValueFind_M, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Mname, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" IsEditable="True">
 
-            <!--<Button x:Name="Button" Grid.Row ="1" Grid.Column="0" Content="SAVE" FontSize="24"  Command="{Binding SaveCommand}" />-->
+                </ComboBox>
+                <Label Content="По должности:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="6" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="RankFindBox" SelectedValue="{Binding SelectedValueFind_R, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Rank, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" IsEditable="True" >
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Поиск студента по:" FontSize="29.333" HorizontalAlignment="Center" Margin="140,0,175,0" Width="401" HorizontalContentAlignment="Center"></Label>
-            <ComboBox x:Name="FindBox" Grid.Column="0" Grid.Row="1" FontSize="25" SelectionChanged="FindBox_SelectionChanged" SelectedIndex="{Binding SelectIndexFind}" >
-                <ComboBoxItem Content="Фамилии"/>
-                <ComboBoxItem Content="Взводу"/>
-                <ComboBoxItem Content="Группе"/>
-                <ComboBoxItem Content="Должности"/>
             </ComboBox>
 
-            <ComboBox x:Name="CB_Box_Find" Grid.Column="0" Grid.Row= "2" Margin="0,5,0,0" FontSize="35" ItemsSource ="{Binding FindItemsSource, Mode=TwoWay, NotifyOnSourceUpdated=True}" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"  IsEditable="True" IsSynchronizedWithCurrentItem="True">
+                <!--<ComboBox x:Name="CB_Box_Find" Grid.Row="4" Grid.Column="1" ItemsSource ="{Binding FindItemsSource, Mode=TwoWay, NotifyOnSourceUpdated=True}" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"  IsEditable="True" IsSynchronizedWithCurrentItem="True">
                 
-            </ComboBox>
+                </ComboBox>-->
 
-            <Button Content="Поиск!" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="32" Command="{Binding FindCommand}" CommandParameter="{Binding ElementName=FindBox, Path=SelectedIndex}" IsDefault="True"/>
+                <Button Content="Поиск!" Command="{Binding FindCommand}" IsDefault="True" Grid.Row="3" Grid.RowSpan ="2" Grid.Column="1" FontSize="24"  HorizontalContentAlignment="Center"/>
 
 
         </Grid>
-
+        </GroupBox>
         <Grid  Style="{StaticResource Default}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
@@ -115,21 +131,23 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
-            <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="{Binding MiddleName}"/>
-            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Content="{Binding FirstName}"/>
-            <Label x:Name="Label_O" Grid.Column="2" Grid.Row="1" Content="{Binding LastName}"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold"/>
+            <Label x:Name="Label_Troop" Grid.Column="4" Grid.Row="0" Content="{Binding Troop}"/>
+            <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
+            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
+
             <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1" Content="{Binding Troop}" Margin="2" />
             <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Content="{Binding Rank}" Margin="2"/>
             <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding Group}" Margin="2"/>
             <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Content="{Binding MobilePhone}" Margin="2"/>
 
 
-            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="6" HorizontalAlignment="Left"   Grid.Row="0" VerticalAlignment="Top" Stretch="UniformToFill" Width="198" Height="255" Margin="2" />
+            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="5" Grid.Row="1" Margin="0,0,10,1"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left" Margin="2"/>
-                <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left" Margin="2"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left" Margin="2"/>
 
         </Grid>
 
