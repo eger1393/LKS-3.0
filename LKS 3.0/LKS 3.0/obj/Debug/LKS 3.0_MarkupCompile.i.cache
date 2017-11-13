@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\
 LKS_3._0
 none
 false
 DEBUG;TRACE
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\App.xaml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\App.xaml
 8731498227
 
-28118991807
-21543195034
+30-1227252941
+24-567267094
 AddPrepod.xaml;AddStudent.xaml;CheckPass.xaml;CreateReport.xaml;EditPrepods.xaml;MainWindow.xaml;TroopChange.xaml;WindowDatabase.xaml;
 
-True
+False
 

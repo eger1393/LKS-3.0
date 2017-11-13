@@ -48,6 +48,9 @@
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
+
+            <MenuItem Header="Шаблоны" Command="{Binding OpenTemplate}"/>
+
         </Menu>
 
         <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"

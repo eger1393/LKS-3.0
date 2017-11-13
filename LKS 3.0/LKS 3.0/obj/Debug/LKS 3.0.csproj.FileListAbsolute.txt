@@ -79,7 +79,6 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interac
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.baml
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
@@ -131,3 +130,10 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Deb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.g.cs
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.CSharp.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache

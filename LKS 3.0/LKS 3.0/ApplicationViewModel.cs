@@ -28,6 +28,7 @@ namespace LKS_3._0
         RelayCommand saveChangeCommand;
         RelayCommand checkPassCommand;
         RelayCommand editPrepodsCommand;
+		RelayCommand openTemplate;
 
         IEnumerable<Student> students;
         IEnumerable<string> list_Troop;
@@ -296,7 +297,20 @@ namespace LKS_3._0
                 
             }
         }
-        public ApplicationViewModel(ProgramMode _progMode)
+
+		public RelayCommand OpenTemplate
+		{
+			get
+			{
+				return openTemplate ??
+					(openTemplate = new RelayCommand(obj =>
+					{
+						Templates temp = new Templates(students);
+					}));
+			}
+		}
+
+		public ApplicationViewModel(ProgramMode _progMode)
         {
             progMode = _progMode;
 

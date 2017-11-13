@@ -211,7 +211,7 @@ namespace LKS_3._0
 				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 				
 			
-        }
+			}
         }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
