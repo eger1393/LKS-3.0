@@ -39,16 +39,16 @@
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Редактировать">
-            <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
-            </MenuItem>
-            <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
-            </MenuItem>
+                <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
+                </MenuItem>
+                <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Правка">
                 <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
                 </MenuItem>
             </MenuItem>
-
+            
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
@@ -72,7 +72,7 @@
 
         <GroupBox Grid.Column="0" Grid.Row="1" Header="Поиск" FontSize="24">
             <Grid Style="{DynamicResource FindStyle}">
-                <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -81,7 +81,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -101,16 +101,16 @@
                 <Label Content="По должности:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="6" HorizontalAlignment="Left"/>
                 <ComboBox x:Name="RankFindBox" SelectedValue="{Binding SelectedValueFind_R, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Rank, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" IsEditable="True" >
 
-                </ComboBox>
+            </ComboBox>
 
                 <!--<ComboBox x:Name="CB_Box_Find" Grid.Row="4" Grid.Column="1" ItemsSource ="{Binding FindItemsSource, Mode=TwoWay, NotifyOnSourceUpdated=True}" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"  IsEditable="True" IsSynchronizedWithCurrentItem="True">
-
+                
                 </ComboBox>-->
 
                 <Button Content="Поиск!" Command="{Binding FindCommand}" IsDefault="True" Grid.Row="3" Grid.RowSpan ="2" Grid.Column="1" FontSize="24"  HorizontalContentAlignment="Center"/>
 
 
-            </Grid>
+        </Grid>
         </GroupBox>
         <Grid  Style="{StaticResource Default}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
             <Grid.RowDefinitions>

@@ -140,14 +140,14 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
-                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,1,2,25" Grid.RowSpan="2"/>
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
                     <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" Margin="-2,0,-2,-3">
-                <Grid>
+            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
+                <Grid Margin="0,-18,0,18">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*" />
                         <ColumnDefinition Width="171*"/>
@@ -188,14 +188,14 @@
                     <Label Grid.Column="2" Grid.Row="4" Content="Школа"/>
 
                     <DatePicker x:Name="TbDateOfBirth" Grid.Column="1" Grid.Row="0" Text="{Binding Birthday, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding PlaceBirthday}"/>
-                    <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Nationality}" PreviewTextInput="TbOnlyLetter_PreviewTextInput"/>
-                    <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding Citizenship}"  />
-                    <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding HomePhone }" PreviewTextInput="TbHomePhone_PreviewTextInput"/>
-                    <TextBox x:Name="TbMobilePhone" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="1" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
-                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2" Grid.ColumnSpan="1"/>
-                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2" Grid.ColumnSpan="1"/>
-                    <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}" Grid.ColumnSpan="1"/>
+                    <TextBox x:Name="TbPlaceOfBirth" Grid.Column="1" Grid.Row="1" Text="{Binding PlaceBirthday}"/>
+                    <TextBox x:Name="TbNationality" Grid.Column="1" Grid.Row="2" Text="{Binding Nationality}" PreviewTextInput="TbOnlyLetter_PreviewTextInput"/>
+                    <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" Text="{Binding Citizenship}"  />
+                    <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" Text="{Binding HomePhone }" PreviewTextInput="TbHomePhone_PreviewTextInput"/>
+                    <TextBox x:Name="TbMobilePhone" Grid.Column="1" Grid.Row="5" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
+                    <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}"/>
                     <GroupBox x:Name="groupBox1" Grid.ColumnSpan="4" Header="Биометрия" HorizontalAlignment="Stretch" Grid.RowSpan="5" VerticalAlignment="Top" Grid.Row="7">
                         <StackPanel >
                             <Grid>

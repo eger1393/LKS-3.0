@@ -21,7 +21,7 @@ namespace LKS_3._0
         public EditPrepodsViewModel(ref ApplicationContext temp_database)
         {
             DataBasePr = temp_database;
-
+           
             DataBasePr.Prepods.Load();
 
             Prepods = DataBasePr.Prepods.Local.ToBindingList();
@@ -72,7 +72,7 @@ namespace LKS_3._0
                       AddPrepod addPrepodWindow = new AddPrepod(temp_prepod);
 
                       if (addPrepodWindow.ShowDialog() == true)
-                      {
+                      { 
                           DataBasePr.Prepods.Add(temp_prepod);
                           DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
                           DataBasePr.SaveChanges();
@@ -123,7 +123,7 @@ namespace LKS_3._0
                         {
                             deleteCommand = null;
                             return;
-                        }
+                      }
 
                     }, (obj) => Prepods.Count() > 0));
             }

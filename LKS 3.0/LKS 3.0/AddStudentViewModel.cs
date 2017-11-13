@@ -30,7 +30,7 @@ namespace LKS_3._0
 
      
 
-        private Student addedStudent; // Добавляемый студент
+		private Student addedStudent; // Добавляемый студент
 		private Relative selectedRelative, // Выбранный родственник
 			addedRelative; // Добавляемый родственник
 		private IEnumerable<Relative> relatives; // Коллекция родственников

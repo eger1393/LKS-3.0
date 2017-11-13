@@ -38,7 +38,32 @@ namespace LKS_3._0
             CbRectal.ItemsSource = list_Rectal;
 			
 			viewModel.AddedStudent = temp;
-            DataContext = viewModel.AddedStudent;
+			viewModel.AddedRelative = new Relative(); //??
+			viewModel.Relativs = new List<Relative>();
+			DataContext = viewModel;
+			Binding_columns();
+		}
+
+		//TODO точно такаяже функция используется в WindowDatabase
+		private void Binding_columns()
+		{
+			Type T = typeof(Relative);
+			PropertyInfo[] Property_Arr = T.GetProperties();
+			foreach (PropertyInfo el in Property_Arr)
+			{
+				RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+				if (temp_attribute != null)
+				{
+					DataGridTextColumn temp_column = new DataGridTextColumn();
+					temp_column.Header = temp_attribute.Get_RussianTittle;
+
+					Binding myNewBindDef = new Binding(el.Name);
+					temp_column.Binding = myNewBindDef;
+
+					RelativeDataGrid.Columns.Add(temp_column);
+				}
+
+			}
 		}
 
 		//
@@ -174,20 +199,20 @@ namespace LKS_3._0
 			}
 		}
 
-		private void UploadPhoto_Click(object sender, RoutedEventArgs e)
-		{
+        private void UploadPhoto_Click(object sender, RoutedEventArgs e)
+        {
 
-			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
-			dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
-			if (dlg.ShowDialog() == true) // запустили окно
-			{
-				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
-				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
+            dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
+            if (dlg.ShowDialog() == true) // запустили окно
+            {
+                FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
+                ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
                 Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 
 
-			}
-		}
+            }
+        }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -235,7 +260,7 @@ namespace LKS_3._0
         //    return (Image)bmp;
         //}
 
-        private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
+		private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
 		{
 			if( Convert.ToInt32(((TextBox)sender).Text) >= 2100 || Convert.ToInt32(((TextBox)sender).Text) <= 1950)
 			{
