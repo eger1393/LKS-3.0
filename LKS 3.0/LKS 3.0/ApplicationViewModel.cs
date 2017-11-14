@@ -40,12 +40,12 @@ namespace LKS_3._0
         private Student selectedStudent;
         private Troop selectedTroop;
         IEnumerable<Student> students;
-        private IEnumerable<string> list_Troop, 
-            list_Rectal, 
-            list_Mname, 
-            list_Rank, 
-            list_Group, 
-            findItemsSource;
+        private IEnumerable<string> list_Troop,
+            list_Rectal,
+            list_Mname,
+            list_Rank,
+            list_Group; 
+            //findItemsSource;
 
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
 
@@ -484,7 +484,7 @@ namespace LKS_3._0
                             if (selectedTroop.StaffCount == 0)
                             {
                                 MessageBox.Show("Новый взвод №" + SelectTroopNumber + "создан!", "Внимание!");
-                                Students = null;
+                                Students = new IEnumerable<Student>();
                             }
                             else
                             {

@@ -35,7 +35,6 @@ C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLit
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DataBaseStudents.db
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
@@ -136,3 +135,31 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResourc
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.baml
