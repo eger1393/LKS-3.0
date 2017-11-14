@@ -592,7 +592,7 @@ namespace LKS_3._0
 
             foreach (Troop item in Troops)
             {
-                item.ListStudents = DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList();
+                item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
             }
 
         }
