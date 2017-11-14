@@ -17,8 +17,8 @@ namespace LKS_3._0
     class EditPrepodsViewModel : INotifyPropertyChanged
     {
         public ApplicationContext DataBasePr;
-
-        public EditPrepodsViewModel(ref ApplicationContext temp_database)
+        public Troop Select_Troop;
+        public EditPrepodsViewModel(ref ApplicationContext temp_database, ref Troop selected_troop)
         {
             DataBasePr = temp_database;
            
@@ -27,6 +27,8 @@ namespace LKS_3._0
             Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
             Prepod._count = Prepods.Count();
+
+            Select_Troop = selected_troop;
         }
 
         private Prepod selectedPrepod; // Выбранный препод
@@ -35,6 +37,7 @@ namespace LKS_3._0
         RelayCommand editCommand;
         RelayCommand addCommand;
         RelayCommand deleteCommand;
+        RelayCommand setRPCommand;
 
         public IEnumerable<Prepod> Prepods
         {
@@ -43,6 +46,7 @@ namespace LKS_3._0
             {
 
                 prepods = value;
+                OnPropertyChanged();
             }
         }
 
@@ -55,6 +59,34 @@ namespace LKS_3._0
             set
             {
                selectedPrepod = value;
+               OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand SetRPCommand
+        {
+            get
+            {
+                return setRPCommand ??
+                  (setRPCommand = new RelayCommand((selectedItem) =>
+                  {
+                      if (selectedItem == null) return;
+                      // получаем выделенный объект
+
+                      if(Select_Troop.NumberTroop != null)
+                      {
+                          Prepod temp_prepod = selectedItem as Prepod;
+                          Select_Troop.Id_RP = temp_prepod.Id;
+                          Select_Troop.responsiblePrepod = temp_prepod;
+                          DataBasePr.SaveChanges();
+                          MessageBox.Show("Преподаватель назначен!", "Успешно!");
+                      }
+                      else
+                      {
+                          MessageBox.Show("Взвод не выбран!", "Ошибка!");
+                      }
+
+                  }));
             }
         }
 

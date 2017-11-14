@@ -106,7 +106,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="ViewModel\CreateReportViewModel.cs" />
+    <Compile Include="ViewModel\NewSboriViewModel.cs" />
     <Compile Include="View\AddPrepod.xaml.cs">
       <DependentUpon>AddPrepod.xaml</DependentUpon>
     </Compile>
@@ -132,6 +132,9 @@
     <Compile Include="Model\TableCommand.cs" />
     <Compile Include="Model\Templates.cs" />
     <Compile Include="Model\Troop.cs" />
+    <Compile Include="View\NewSbori.xaml.cs">
+      <DependentUpon>NewSbori.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TroopChange.xaml.cs">
       <DependentUpon>TroopChange.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\NewSbori.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TroopChange.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

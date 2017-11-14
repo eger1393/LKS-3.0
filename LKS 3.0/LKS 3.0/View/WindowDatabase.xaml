@@ -55,14 +55,17 @@
                 </Grid>
 
                 <MenuItem Header="Все" Command="{Binding ShowAllCommand}" IsCheckable="True"/>
-                <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
+         
+                    <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="Отстраненные" Command="{Binding ShowDetachedCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="На сборах" Command="{Binding ShowNaSboriCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="Прошедшие сборы" Command="{Binding ShowPastSboriCommand}" IsCheckable="True">
-                     </MenuItem>
+                    </MenuItem>
+      
+               
 
             </MenuItem>
             <MenuItem Header="Добавить/Удалить">
@@ -71,8 +74,8 @@
                 <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Правка">
-                <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
+            <MenuItem Header="Преподаватели">
+                <MenuItem Header="Редактировать" Command="{Binding EditPrepodsCommand}">
                 </MenuItem>
             </MenuItem>
 
@@ -81,6 +84,8 @@
             </MenuItem>
 
             <MenuItem Header="Шаблоны" Command="{Binding OpenTemplate}"/>
+
+            <MenuItem Header="Сборы" Command="{Binding NewSboriCommand}"/>
 
         </Menu>
 

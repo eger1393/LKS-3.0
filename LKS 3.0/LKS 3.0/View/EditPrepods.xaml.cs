@@ -21,13 +21,13 @@ namespace LKS_3._0
     /// </summary>
     public partial class EditPrepods : Window
     {
-        public EditPrepods(ref ApplicationContext temp_database)
+        public EditPrepods(ref ApplicationContext temp_database, ref Troop selected_troop)
         {
             InitializeComponent();
 
             Binding_columns();
 
-            DataContext = new EditPrepodsViewModel(ref temp_database);
+            DataContext = new EditPrepodsViewModel(ref temp_database, ref selected_troop);
 
         }
 
@@ -37,6 +37,10 @@ namespace LKS_3._0
             PropertyInfo[] Property_Arr = T.GetProperties();
             foreach (PropertyInfo el in Property_Arr)
             {
+                //DataGridTextColumn _temp = new DataGridTextColumn();
+                //_temp.Header = "№ Взвода";
+                //PrepodGrid.Columns.Add(_temp);
+
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
                 if (temp_attribute != null)
                 {
@@ -47,6 +51,8 @@ namespace LKS_3._0
                     temp_column.Binding = myNewBindDef;
 
                     PrepodGrid.Columns.Add(temp_column);
+
+                    
                 }
 
             }
@@ -56,6 +62,16 @@ namespace LKS_3._0
         {
             DialogResult = true;
             Close();
+        }
+
+        private void button_Set_Click(object sender, RoutedEventArgs e)
+        {
+  
+        }
+
+        private void PrepodGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+     
         }
     }
 }
