@@ -55,17 +55,17 @@
                 </Grid>
 
                 <MenuItem Header="Все" Command="{Binding ShowAllCommand}" IsCheckable="True"/>
-         
-                    <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
-                    </MenuItem>
-                    <MenuItem Header="Отстраненные" Command="{Binding ShowDetachedCommand}" IsCheckable="True">
-                    </MenuItem>
-                    <MenuItem Header="На сборах" Command="{Binding ShowNaSboriCommand}" IsCheckable="True">
-                    </MenuItem>
-                    <MenuItem Header="Прошедшие сборы" Command="{Binding ShowPastSboriCommand}" IsCheckable="True">
-                    </MenuItem>
-      
-               
+
+                <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
+                </MenuItem>
+                <MenuItem Header="Отстраненные" Command="{Binding ShowDetachedCommand}" IsCheckable="True">
+                </MenuItem>
+                <MenuItem Header="На сборах" Command="{Binding ShowNaSboriCommand}" IsCheckable="True">
+                </MenuItem>
+                <MenuItem Header="Прошедшие сборы" Command="{Binding ShowPastSboriCommand}" IsCheckable="True">
+                </MenuItem>
+
+
 
             </MenuItem>
             <MenuItem Header="Добавить/Удалить">
@@ -121,20 +121,20 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="По взводу:"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+                <Label Content="По взводу:"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="0" MinHeight="25" MinWidth="70"/>
                 <ComboBox x:Name="TroopFindBox"  SelectedValue="{Binding SelectedValueFind_T, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Troop, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" IsEditable="True">
 
                 </ComboBox>
-                <Label Content="По группе:"  HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="2"/>
-                <ComboBox x:Name="GroupFindBox"  SelectedValue="{Binding SelectedValueFind_G, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" IsEditable="True">
+                <Label Content="По группе:"  HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="2" MinHeight="25" MinWidth="70"/>
+                <ComboBox x:Name="GroupFindBox"  SelectedValue="{Binding SelectedValueFind_G, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinHeight="25" MinWidth="350" ItemsSource ="{Binding List_Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" IsEditable="True">
 
                 </ComboBox>
-                <Label Content="По фамилии:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="4" HorizontalAlignment="Left"/>
-                <ComboBox x:Name="FnameFindBox" SelectedValue="{Binding SelectedValueFind_M, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Mname, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" IsEditable="True">
+                <Label Content="По фамилии:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="4" HorizontalAlignment="Left" MinHeight="25" MinWidth="70"/>
+                <ComboBox x:Name="FnameFindBox" SelectedValue="{Binding SelectedValueFind_M, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MinHeight="25" MinWidth="350" ItemsSource ="{Binding List_Mname, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" IsEditable="True">
 
                 </ComboBox>
-                <Label Content="По должности:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="6" HorizontalAlignment="Left"/>
-                <ComboBox x:Name="RankFindBox" SelectedValue="{Binding SelectedValueFind_R, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource ="{Binding List_Rank, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" IsEditable="True" >
+                <Label Content="По должности:" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="6" HorizontalAlignment="Left" MinHeight="25" MinWidth="70"/>
+                <ComboBox x:Name="RankFindBox" SelectedValue="{Binding SelectedValueFind_R, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MinHeight="25" MinWidth="350" ItemsSource ="{Binding List_Rank, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" IsEditable="True" >
 
                 </ComboBox>
 
@@ -163,9 +163,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="2" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" FontWeight="Bold"/>
+            <Label Grid.Column="1" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" FontWeight="Bold" MinWidth="180" Grid.ColumnSpan="2" Margin="73,0,0,0" HorizontalAlignment="Left"/>
             <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold"/>
-            <Label x:Name="Label_Troop" Grid.Column="4" Grid.Row="0" Content="{Binding Troop}"/>
+            <Label x:Name="Label_Troop" Grid.Column="2" Grid.Row="0" Content="{Binding Troop}" Grid.ColumnSpan="2" Margin="102,0,77,0"/>
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
 

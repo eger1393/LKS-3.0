@@ -16,12 +16,10 @@ C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.confi
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.g.cs
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.baml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
@@ -135,14 +133,7 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResourc
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.g.cs
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.g.cs
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.dll
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.dll
@@ -157,9 +148,19 @@ C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
-C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.g.cs
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.baml
+C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.baml
