@@ -34,8 +34,7 @@ namespace LKS_3._0
 				//Troop_CR_comboBox.ItemsSource = VM.DataBase.Students.Local.Select(u => u.Troop).Distinct();
 			LBList.ItemsSource = VM.Students;
 			LBSelectedList.ItemsSource = VM.SelectedStudents;
-			//LBList.SelectedItem
-			//fileName = "";
+			
 
 
 		}
