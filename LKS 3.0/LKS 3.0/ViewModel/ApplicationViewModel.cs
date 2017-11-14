@@ -61,7 +61,7 @@ namespace LKS_3._0
                if (value == null)
                 {
                     Students = DataBase.Students.Local.ToBindingList();
-                }
+            }
 
                 List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct() as List<string>;
 
@@ -208,9 +208,9 @@ namespace LKS_3._0
             List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct() as List<string>;
 
             List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct() as List<string>;
-
-
-
+            
+            
+            
         }
         public RelayCommand ShowAllCommand
         {

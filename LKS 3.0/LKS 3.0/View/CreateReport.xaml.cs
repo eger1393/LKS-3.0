@@ -40,7 +40,7 @@ namespace LKS_3._0
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

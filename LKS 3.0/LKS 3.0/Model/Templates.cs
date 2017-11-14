@@ -20,10 +20,11 @@ namespace LKS_3._0
 		Student selectedStudent;
 
 
+
 		public Templates(IEnumerable<Student> students)
 		{
 			this.students = students;
-			
+						
 			selectedStudent = students.ElementAt(1);
 			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx"; // добавили фильтер
