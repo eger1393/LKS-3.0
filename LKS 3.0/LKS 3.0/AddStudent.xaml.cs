@@ -30,7 +30,7 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, IEnumerable<string> list_Group, ref ApplicationContext temp_DataBase)
+		public AddStudent(Student temp, List<string> list_Troop, List<string> list_Rectal, List<string> list_Group, ref ApplicationContext temp_DataBase)
 		{
 			InitializeComponent();
 

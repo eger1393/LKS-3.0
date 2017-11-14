@@ -39,8 +39,8 @@ namespace LKS_3._0
 
         private Student selectedStudent;
         private Troop selectedTroop;
-        IEnumerable<Student> students;
-        private IEnumerable<string> list_Troop,
+        BindingList<Student> students;
+        private List<string> list_Troop,
             list_Rectal,
             list_Mname,
             list_Rank,
@@ -61,9 +61,9 @@ namespace LKS_3._0
                if (value == null)
                 {
                     Students = DataBase.Students.Local.ToBindingList();
-            }
+                }
 
-                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct();
+                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct() as List<string>;
 
                 ValueFind_T = value;
         }
@@ -80,7 +80,7 @@ namespace LKS_3._0
                 {
                     Students = DataBase.Students.Local.ToBindingList();
                 }
-                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct();
+                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct() as List<string>;
                 ValueFind_G = value;
             }
         }
@@ -115,7 +115,7 @@ namespace LKS_3._0
                 }
         }
 
-        public IEnumerable<string> List_Troop
+        public List<string> List_Troop
         {
             get { return list_Troop; }
             set
@@ -125,7 +125,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Rectal
+        public List<string> List_Rectal
         {
             get { return list_Rectal; }
             set
@@ -135,7 +135,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Mname
+        public List<string> List_Mname
         {
             get { return list_Mname;  }
             set
@@ -145,7 +145,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Rank
+        public List<string> List_Rank
         {
             get { return list_Rank; }
             set
@@ -155,7 +155,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Group
+        public List<string> List_Group
         {
             get { return list_Group; }
             set
@@ -175,7 +175,7 @@ namespace LKS_3._0
             }
         }
 
-        public IEnumerable<Student> Students
+        public BindingList<Student> Students
         {
             get { return students; }
             set
@@ -199,18 +199,18 @@ namespace LKS_3._0
 
         private void Update_List()
         {
-            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct();
+            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct() as List<string>;
 
-            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
+            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct() as List<string>;
 
-            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct() as List<string>;
 
-            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct() as List<string>;
 
-            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
-            
-            
-            
+            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct() as List<string>;
+
+
+
         }
         public RelayCommand ShowAllCommand
         {
@@ -232,11 +232,11 @@ namespace LKS_3._0
                  {
                      if(selectedTroop.NumberTroop !=  null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Обучается");
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Обучается") as BindingList<Student>;
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Обучается");
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Обучается") as BindingList<Student>;
                      }
                  }));
             }
@@ -250,11 +250,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Отстранен");
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Отстранен") as BindingList<Student>;
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Отстранен");
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Отстранен") as BindingList<Student>;
                      }
                  }));
             }
@@ -268,11 +268,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "На сборах");
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "На сборах") as BindingList<Student>;
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "На сборах");
+                         Students = DataBase.Students.Local.Where(u => u.Status == "На сборах") as BindingList<Student>;
                      }
                  }));
             }
@@ -286,11 +286,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Прошел сборы");
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Прошел сборы") as BindingList<Student>;
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Прошел сборы");
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Прошел сборы") as BindingList<Student>;
                      }
                  }));
             }
@@ -445,8 +445,8 @@ namespace LKS_3._0
                                         {
                                             
 
-                                        Students = DataBase.Students.Local.Where(u => u.Troop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M);
-                                            if(Students.Count() == 0)
+                                        Students = DataBase.Students.Local.Where(u => u.Troop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M) as BindingList<Student>;
+                                            if (Students.Count() == 0)
                                                     {
                                                 MessageBox.Show("Ни один студент не найден!", "Ошибка!");
                                             }
@@ -484,11 +484,11 @@ namespace LKS_3._0
                             if (selectedTroop.StaffCount == 0)
                             {
                                 MessageBox.Show("Новый взвод №" + SelectTroopNumber + "создан!", "Внимание!");
-                                Students = new IEnumerable<Student>();
+                                //Students = new IEnumerable<Student>();
                             }
                             else
                             {
-                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber);
+                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber) as BindingList<Student>;
                             }
 
                         }

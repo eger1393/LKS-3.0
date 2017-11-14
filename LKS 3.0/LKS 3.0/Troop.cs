@@ -18,6 +18,8 @@ namespace LKS_3._0
 
         private Student platoonCommander;
 
+        private BindingList<Student> ListStudents;
+
         private bool SboriTroop;
 
         private int ID, ID_RP, ID_PC, staffCount;

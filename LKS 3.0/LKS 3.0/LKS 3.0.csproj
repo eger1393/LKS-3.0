@@ -122,7 +122,6 @@
       <DependentUpon>EditPrepods.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditPrepodsViewModel.cs" />
-    <Compile Include="GeneratedClass.cs" />
     <Compile Include="Pass.cs" />
     <Compile Include="Prepod.cs" />
     <Compile Include="Relative.cs" />

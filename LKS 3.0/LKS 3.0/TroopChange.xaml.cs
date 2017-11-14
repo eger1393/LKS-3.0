@@ -21,7 +21,7 @@ namespace LKS_3._0
     {
         ApplicationContext temp_database;
         Troop t_troop;
-        IEnumerable<string> ListTroop;
+        BindingList<string> ListTroop;
         public TroopChange(ref ApplicationContext database)
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace LKS_3._0
 
             temp_database.Troops.Load();
 
-            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop);
+            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop) as BindingList<string>;
 
             CbTroop.ItemsSource = ListTroop;
         }

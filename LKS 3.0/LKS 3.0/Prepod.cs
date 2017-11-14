@@ -12,7 +12,7 @@ namespace LKS_3._0
 
         private int ID;
 
-       
+        private Troop TroopName;
        
         public int Id
         {

@@ -30,13 +30,13 @@ namespace LKS_3._0
         }
 
         private Prepod selectedPrepod; // Выбранный препод
-        public IEnumerable<Prepod> prepods; // Коллекция преподов
+        public BindingList<Prepod> prepods; // Коллекция преподов
 
         RelayCommand editCommand;
         RelayCommand addCommand;
         RelayCommand deleteCommand;
 
-        public IEnumerable<Prepod> Prepods
+        public BindingList<Prepod> Prepods
         {
             get { return prepods; }
             set

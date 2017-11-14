@@ -58,12 +58,14 @@ namespace LKS_3._0
             skill_5 = false,
             skill_6 = false;
 
+        private BindingList<Relative> ListRelatives;
 
         private string imagePath;
 
         public static int _count;
 
         private int ID;
+
 
         public override string ToString()
         {
