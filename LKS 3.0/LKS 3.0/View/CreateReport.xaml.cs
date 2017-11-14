@@ -40,8 +40,7 @@ namespace LKS_3._0
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            string[] keys = { "Мещеряков", "Антон", "Сергеевич", "28.02.1998", "г.Москва" };
-            new GeneratedClass().CreatePackage(".\\LKS.docx",keys);
+
         }
     }
 }
