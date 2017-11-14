@@ -15,51 +15,9 @@ namespace LKS_3._0
 
 	class Templates
 	{
-		 private List<string> commandArray = new List<string>()
-		{
-			"$FName$", 
-			"$MName$",
-			"$LName$",
-			"$Troop$",
-			"$Group$"
-		};
-		//private static Dictionary<string, string> commandArray = new Dictionary<string, string>()
-
+		
 		IEnumerable<Student> students;
 		Student selectedStudent;
-		//public Templates(IEnumerable<Student> students)
-		//{
-		//	this.students = students;
-
-		//	Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
-		//	dlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx"; // добавили фильтер
-		//	if (dlg.ShowDialog() == true) // запустили окно
-		//	{
-		//		Word._Application oWord = new Word.Application(); // WINWORD.EXE 
-
-
-		//		Word.Document oDoc = oWord.Documents.Add(dlg.FileName);
-
-
-
-
-
-
-		//		//oDoc.Bookmarks["FName"].Range.Text = students.ElementAt(1).FirstName;
-		//		//oDoc.Bookmarks["MName"].Range.Text = students.ElementAt(1).MiddleName;
-		//		//Microsoft.Win32.SaveFileDialog saveDlg = new Microsoft.Win32.SaveFileDialog();
-		//		//saveDlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx";
-		//		//if (saveDlg.ShowDialog() == true)
-		//		//{
-		//		//	oDoc.SaveAs(FileName: saveDlg.FileName);
-		//		//}
-
-		//		oDoc.SaveAs(FileName: @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx");
-
-		//		oDoc.Close();
-		//		oWord.Quit();
-		//	}
-		//}
 
 
 		public Templates(IEnumerable<Student> students)
@@ -71,8 +29,7 @@ namespace LKS_3._0
 			dlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				//File.Delete(@".\Templates\123.docx");
-				//File.Copy(dlg.FileName, @".\Templates\123.docx");
+				
 
 				Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
 				Word.Document doc = appDoc.Documents.Open(dlg.FileName, ReadOnly: false); // открыли документ
@@ -84,9 +41,9 @@ namespace LKS_3._0
 					if (range.Text == "$NTbl$") // если встретили начало таблицы 
 					{
 						Word.Table selectedTable = null;
-						for (int i = 1; i <= doc.Tables.Count; i++) // ищем среди всех таблиц нужную 
+						for (int i = 1; i <= doc.Tables.Count; i++) 
 						{
-							Word.Range item = doc.Tables[i].Range; // надо переделать сейчас работатет не правильно
+							Word.Range item = doc.Tables[i].Range; 
 							if (item.Find.Execute("$NTbl$", ReplaceWith: "", Forward: true))
 							{
 								selectedTable = doc.Tables[i];
@@ -96,17 +53,7 @@ namespace LKS_3._0
 						if (selectedTable != null) // нужная таблица найдена
 						{
 							List<TableCommand> tableCommand = new List<TableCommand>();
-
-							//Word.Range findRange = selectedTable.Range;
-							//while (findRange.Find.Execute("$?{1;20}$", MatchWildcards: true, Forward: true))
-							//{
-
-							//	System.Windows.MessageBox.Show(findRange.Text);
-
-							//	findRange.Text = "";
-							//	//findRange = item.Range;
-							//}
-
+							
 
 							foreach (Word.Row rowItem in selectedTable.Rows) // Проходим все ячейки таблицы
 							{
@@ -125,38 +72,32 @@ namespace LKS_3._0
 												cellItem.Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
 											cellItem.Range.Text = cellItem.Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
 
-											//System.Windows.MessageBox.Show(cellItem.Range.Text);
-
-											//firstIndex = ++lastIndex;
+											
 										}
 
 									} while (firstIndex != -1);
 
-									//Word.Range findRange = selectedTable.Cell(cellItem.RowIndex, cellItem.ColumnIndex).Range;
-									//System.Windows.MessageBox.Show(findRange.Text);
-									//findRange.Find.Wrap = Microsoft.Office.Interop.Word.WdFindWrap.wdFindStop
-									//while(findRange.Find.Execute("$?{1;20}$",Wrap: Word.WdFindWrap.wdFindStop, MatchWildcards: true, Replace: Word.WdReplace.wdReplaceNone))
-									//	System.Windows.MessageBox.Show(findRange.Text + "   Ячейка: " + cellItem.Range.Text);
-									//findRange = item.Range;
+									
 
 								}
 							}
 							//
+								
+							selectedTable.Rows[tableCommand[0].y].Delete();
+								
 							
 							foreach (Student studentItem in students)
 							{
-								if(studentItem == students.First())
-								{
-									selectedTable.Rows[tableCommand[0].y].Delete();
-								}
 								selectedStudent = studentItem; // переделать
 								selectedTable.Rows.Add();
+								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
 								foreach(TableCommand item in tableCommand)
 								{
-									selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
+									//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
+									selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+									//selectedTable.Cell.
 								}
 							}
-							//selectedTable.Rows[tableCommand[0].y].Delete();
 						}
 					}
 					else
@@ -167,9 +108,7 @@ namespace LKS_3._0
 					}
 				}
 
-				//appDoc.Selection.Find.Execute("$*$", MatchWildcards: true, Forward: true);
-				//appDoc.Selection.Text = "11234";
-				//System.Windows.MessageBox.Show(appDoc.Selection.Text);
+				
 				doc.SaveAs(@"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx");
 				doc.Close();
 				appDoc.Quit();
@@ -179,30 +118,134 @@ namespace LKS_3._0
 
 		private string findCommand(string command)
 		{
-			if(command == commandArray[0])
+
+			List<string> commandArray = new List<string>()
+			{
+				"$FName$",
+				"$MName$",
+				"$LName$",
+				"$Troop$",
+				"$Group$",
+
+			};
+			if (command.ToUpper() == "$FNAME$") 
 			{
 				return selectedStudent.FirstName;
 			}
 
-			if (command == commandArray[1])
+			if (command.ToUpper() == "$MNAME$")
 			{
 				return selectedStudent.MiddleName;
 			}
 
-			if (command == commandArray[2])
+			if (command.ToUpper() == "$LNAME$")
 			{
 				return selectedStudent.LastName;
 			}
 
-			if (command == commandArray[3])
+			if (command.ToUpper() == "$FACULTY$")
+			{
+				return selectedStudent.Faculty;
+			}
+
+			if (command.ToUpper() == "$SPNAME$")
+			{
+				return selectedStudent.SpecialityName;
+			}
+
+			if (command.ToUpper() == "$CONDEDUC$")
+			{
+				return selectedStudent.ConditionsOfEducation;
+			}
+
+			if (command.ToUpper() == "$$AVERSCORE")
+			{
+				return selectedStudent.AvarageScore;
+			}
+
+			if (command.ToUpper() == "$ADDMAI$")
+			{
+				return selectedStudent.YearOfAddMAI;
+			}
+
+			if (command.ToUpper() == "$ENDMAI$")
+			{
+				return selectedStudent.YearOfEndMAI;
+			}
+
+			if (command.ToUpper() == "$ADDMIL$")
+			{
+				return selectedStudent.YearOfAddVK;
+			}
+
+			if (command.ToUpper() == "$ENDMIL$")
+			{
+				return selectedStudent.YearOfEndVK;
+			}
+
+			if (command.ToUpper() == "$NUMORDER$")
+			{
+				return selectedStudent.NumberOfOrder;
+			}
+
+			if (command.ToUpper() == "$DATEORDER$")
+			{
+				return selectedStudent.DateOfOrder;
+			}
+
+			if (command.ToUpper() == "$RECTAL$")
+			{
+				return selectedStudent.Rectal;
+			}
+
+			if (command.ToUpper() == "$BIRTHDAY$")
+			{
+				return selectedStudent.Birthday;
+			}
+
+			if (command.ToUpper() == "$PLACEBIRTH$")
+			{
+				return selectedStudent.PlaceBirthday;
+			}
+
+			if (command.ToUpper() == "$NATION$")
+			{
+				return selectedStudent.Nationality;
+			}
+
+			if (command.ToUpper() == "$HOMEPRONE$")
+			{
+				return selectedStudent.HomePhone;
+			}
+
+			if (command.ToUpper() == "$MOBPHONE$")
+			{
+				return selectedStudent.MobilePhone;
+			}
+
+			if (command.ToUpper() == "$PLACERESID$")
+			{
+				return selectedStudent.PlaceOfResidence;
+			}
+
+			if (command.ToUpper() == "$PLACEREGISTR$")
+			{
+				return selectedStudent.PlaceOfRegestration;
+			}
+
+			if (command.ToUpper() == "$SCHOOL$")
+			{
+				return selectedStudent.School;
+			}
+
+			
+
+
+			if (command.ToUpper() == "$TROOP$")
 			{
 				return selectedStudent.Troop;
 			}
 
-			if (command == commandArray[4])
-			{
-				return selectedStudent.Group;
-			}
 
 			return null;
 		}
