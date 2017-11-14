@@ -474,7 +474,7 @@ namespace LKS_3._0
                 return createReportCommand ??
                   (createReportCommand = new RelayCommand(obj =>
                   {
-                      CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(new BindingList<Student>(Students.ToList<Student>())));
+                      CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(Students, Troops, null));
                       CR_Window.Show();
                   }));
             }
@@ -547,7 +547,7 @@ namespace LKS_3._0
 				return openTemplate ??
 					(openTemplate = new RelayCommand(obj =>
 					{
-						Templates temp = new Templates(students);
+						//Templates temp = new Templates(students,);
 					}));
 			}
 		}

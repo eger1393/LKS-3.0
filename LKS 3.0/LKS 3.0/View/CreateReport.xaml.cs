@@ -21,6 +21,7 @@ namespace LKS_3._0
     public partial class CreateReport : Window
     {
 		ViewModel.CreateReportViewModel createReportViewModel;
+		//string fileName;
 
 		public CreateReport(ViewModel.CreateReportViewModel VM)
         {
@@ -34,23 +35,27 @@ namespace LKS_3._0
 			LBList.ItemsSource = VM.Students;
 			LBSelectedList.ItemsSource = VM.SelectedStudents;
 			//LBList.SelectedItem
+			//fileName = "";
 
-        }
 
-        
+		}
 
-        
 
-		
+
+
+
+
 
 		private void bSelectTemplate_Click(object sender, RoutedEventArgs e)
 		{
-
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx"; // добавили фильтер
+			if (dlg.ShowDialog() == true) // запустили окно
+			{
+				lSelectedTemplate.Content = "Загруженный шаблон: " + dlg.FileName;
+			    createReportViewModel.FileName = dlg.FileName;
+			}
 		}
 
-		private void bStatr_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
 	}
 }
