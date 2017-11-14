@@ -109,26 +109,12 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivit
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.g.cs
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddPrepod.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\AddStudent.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.baml
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\WindowDatabase.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.Cache
@@ -163,3 +149,18 @@ C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CheckPass.baml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\CreateReport.baml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\EditPrepods.baml
 C:\Users\HomePC\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\TroopChange.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.baml

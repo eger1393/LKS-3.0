@@ -20,27 +20,37 @@ namespace LKS_3._0
     /// </summary>
     public partial class CreateReport : Window
     {
-        ApplicationViewModel VM_CreateReport;
-        public CreateReport(ApplicationViewModel VM)
+		ViewModel.CreateReportViewModel createReportViewModel;
+
+		public CreateReport(ViewModel.CreateReportViewModel VM)
         {
             InitializeComponent();
 
-            DataContext = VM;
+			createReportViewModel = VM;
+            DataContext = createReportViewModel;
 
-            VM_CreateReport = VM;
-
-            Troop_CR_comboBox.ItemsSource = VM.DataBase.Students.Local.Select(u => u.Troop).Distinct();
-
-        }
-
-        private void Troop_CR_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CR_listBox.ItemsSource = VM_CreateReport.DataBase.Students.Local.Where(u => u.Troop == Troop_CR_comboBox.SelectedValue.ToString()).Select(u => u.MiddleName);
-        }
-
-        private void Create_Click(object sender, RoutedEventArgs e)
-        {
+			
+				//Troop_CR_comboBox.ItemsSource = VM.DataBase.Students.Local.Select(u => u.Troop).Distinct();
+			LBList.ItemsSource = VM.Students;
+			LBSelectedList.ItemsSource = VM.SelectedStudents;
+			//LBList.SelectedItem
 
         }
-    }
+
+        
+
+        
+
+		
+
+		private void bSelectTemplate_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void bStatr_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }

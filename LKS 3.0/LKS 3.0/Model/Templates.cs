@@ -120,15 +120,6 @@ namespace LKS_3._0
 		private string findCommand(string command)
 		{
 
-			List<string> commandArray = new List<string>()
-			{
-				"$FName$",
-				"$MName$",
-				"$LName$",
-				"$Troop$",
-				"$Group$",
-
-			};
 			if (command.ToUpper() == "$FNAME$") 
 			{
 				return selectedStudent.FirstName;
