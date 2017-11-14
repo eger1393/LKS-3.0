@@ -474,7 +474,7 @@ namespace LKS_3._0
                 return createReportCommand ??
                   (createReportCommand = new RelayCommand(obj =>
                   {
-                      CreateReport CR_Window = new CreateReport(this);
+                      CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(new BindingList<Student>(Students.ToList<Student>())));
                       CR_Window.Show();
                   }));
             }
