@@ -55,6 +55,7 @@ namespace LKS_3._0
                       Relative._count++;
 
                       temp_relative.IdStudent = addedStudent.Id;
+
                       temp_relative.Id = Relative._count;
 
                       DataBaseR.Relatives.Add(temp_relative);

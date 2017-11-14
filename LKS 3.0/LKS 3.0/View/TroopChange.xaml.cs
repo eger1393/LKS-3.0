@@ -21,16 +21,14 @@ namespace LKS_3._0
     {
         ApplicationContext temp_database;
         Troop t_troop;
-        BindingList<string> ListTroop;
+        IEnumerable<string> ListTroop;
         public TroopChange(ref ApplicationContext database)
         {
             InitializeComponent();
 
             temp_database = database;
 
-            temp_database.Troops.Load();
-
-            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop) as BindingList<string>;
+            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop);
 
             CbTroop.ItemsSource = ListTroop;
         }
@@ -50,6 +48,7 @@ namespace LKS_3._0
             Troop._count++;
             t_troop = new Troop(TB_TroopName.Text);
             t_troop.Id = Troop._count;
+            MessageBox.Show("Новый взвод №" + t_troop.NumberTroop + "создан!", "Внимание!");
             temp_database.Troops.Add(t_troop);
             temp_database.SaveChanges();
             DialogResult = true;

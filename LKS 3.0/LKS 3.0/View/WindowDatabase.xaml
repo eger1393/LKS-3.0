@@ -55,14 +55,17 @@
                 </Grid>
 
                 <MenuItem Header="Все" Command="{Binding ShowAllCommand}" IsCheckable="True"/>
-                <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
+                <StackPanel>
+                    <MenuItem Header="Обучающиеся" Command="{Binding ShowTraineesCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="Отстраненные" Command="{Binding ShowDetachedCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="На сборах" Command="{Binding ShowNaSboriCommand}" IsCheckable="True">
                     </MenuItem>
                     <MenuItem Header="Прошедшие сборы" Command="{Binding ShowPastSboriCommand}" IsCheckable="True">
-                     </MenuItem>
+                    </MenuItem>
+                </StackPanel>
+               
 
             </MenuItem>
             <MenuItem Header="Добавить/Удалить">

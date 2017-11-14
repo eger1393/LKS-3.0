@@ -38,9 +38,14 @@ namespace LKS_3._0
 
 
         private Student selectedStudent;
+
         private Troop selectedTroop;
-        BindingList<Student> students;
-        private List<string> list_Troop,
+
+        IEnumerable<Student> students;
+
+        IEnumerable<Troop> troops;
+
+        private IEnumerable<string> list_Troop,
             list_Rectal,
             list_Mname,
             list_Rank,
@@ -115,7 +120,7 @@ namespace LKS_3._0
                 }
         }
 
-        public List<string> List_Troop
+        public IEnumerable<string> List_Troop
         {
             get { return list_Troop; }
             set
@@ -125,7 +130,7 @@ namespace LKS_3._0
             }
 
         }
-        public List<string> List_Rectal
+        public IEnumerable<string> List_Rectal
         {
             get { return list_Rectal; }
             set
@@ -135,7 +140,7 @@ namespace LKS_3._0
             }
 
         }
-        public List<string> List_Mname
+        public IEnumerable<string> List_Mname
         {
             get { return list_Mname;  }
             set
@@ -145,7 +150,7 @@ namespace LKS_3._0
             }
 
         }
-        public List<string> List_Rank
+        public IEnumerable<string> List_Rank
         {
             get { return list_Rank; }
             set
@@ -155,7 +160,7 @@ namespace LKS_3._0
             }
 
         }
-        public List<string> List_Group
+        public IEnumerable<string> List_Group
         {
             get { return list_Group; }
             set
@@ -165,27 +170,6 @@ namespace LKS_3._0
             }
 
         }
-
-               
-        public string SelectTroopNumber
-        {
-            get
-            {
-                return selectedTroop.NumberTroop;
-            }
-        }
-
-        public BindingList<Student> Students
-        {
-            get { return students; }
-            set
-            {
-
-                students = value;
-                OnPropertyChanged("Students");
-            }
-        }
-
 
         public Student SelectedStudent
         {
@@ -197,21 +181,52 @@ namespace LKS_3._0
             }
         }
 
+        public string SelectTroopNumber
+        {
+            get
+            {
+                return selectedTroop.NumberTroop;
+            }
+        }
+
+        public IEnumerable<Student> Students
+        {
+            get { return students; }
+            set
+            {
+
+                students = value;
+                OnPropertyChanged("Students");
+            }
+        }
+
+        public IEnumerable<Troop> Troops
+        {
+            get { return troops; }
+            set
+            {
+
+                troops = value;
+                OnPropertyChanged("Students");
+            }
+        }
+
         private void Update_List()
         {
-            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct() as List<string>;
+            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct();
 
-            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct() as List<string>;
+            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
 
-            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct() as List<string>;
+            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
 
-            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct() as List<string>;
+            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
 
-            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct() as List<string>;
+            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
             
             
             
         }
+
         public RelayCommand ShowAllCommand
         {
             get
@@ -232,11 +247,11 @@ namespace LKS_3._0
                  {
                      if(selectedTroop.NumberTroop !=  null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Обучается") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Обучается");
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Обучается") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Обучается");
                      }
                  }));
             }
@@ -250,11 +265,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Отстранен") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Отстранен");
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Отстранен") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Отстранен");
                      }
                  }));
             }
@@ -268,11 +283,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "На сборах") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "На сборах");
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "На сборах") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Status == "На сборах");
                      }
                  }));
             }
@@ -286,11 +301,11 @@ namespace LKS_3._0
                  {
                      if (selectedTroop.NumberTroop != null)
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Прошел сборы") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber).Where(u => u.Status == "Прошел сборы");
                      }
                      else
                      {
-                         Students = DataBase.Students.Local.Where(u => u.Status == "Прошел сборы") as BindingList<Student>;
+                         Students = DataBase.Students.Local.Where(u => u.Status == "Прошел сборы");
                      }
                  }));
             }
@@ -334,8 +349,6 @@ namespace LKS_3._0
                   }));
             }
         }
-
-
         public RelayCommand EditCommand
         {
             get
@@ -361,7 +374,6 @@ namespace LKS_3._0
                   }));
             }
         }
-
         public RelayCommand CheckPassword
         {
             get
@@ -390,7 +402,6 @@ namespace LKS_3._0
                   }));
             }
         }
-
         public RelayCommand CreateReportCommand
         {
             get
@@ -403,8 +414,6 @@ namespace LKS_3._0
                   }));
             }
         }
-
-
         public RelayCommand DeleteCommand
         {
             get
@@ -433,7 +442,6 @@ namespace LKS_3._0
                 }
             
         }
-
         public RelayCommand FindCommand
         {
             get
@@ -445,7 +453,7 @@ namespace LKS_3._0
                                         {
                                             
 
-                                        Students = DataBase.Students.Local.Where(u => u.Troop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M) as BindingList<Student>;
+                                        Students = DataBase.Students.Local.Where(u => u.Troop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M);
                                             if (Students.Count() == 0)
                                                     {
                                                 MessageBox.Show("Ни один студент не найден!", "Ошибка!");
@@ -455,7 +463,6 @@ namespace LKS_3._0
                 
             }
         }
-
 		public RelayCommand OpenTemplate
 		{
 			get
@@ -467,7 +474,6 @@ namespace LKS_3._0
 					}));
 			}
 		}
-
         public RelayCommand СheckTroop
         {
             get
@@ -483,53 +489,38 @@ namespace LKS_3._0
                             window_TC.Close();
                             if (selectedTroop.StaffCount == 0)
                             {
-                                MessageBox.Show("Новый взвод №" + SelectTroopNumber + "создан!", "Внимание!");
-                                //Students = new IEnumerable<Student>();
+                                
+                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber);
                             }
                             else
                             {
-                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber) as BindingList<Student>;
+                                Students = DataBase.Students.Local.Where(u => u.Troop == SelectTroopNumber);
                             }
 
                         }
                     }));
             }
         }
+
         public ApplicationViewModel(ProgramMode _progMode)
         {
             progMode = _progMode;
 
             DataBase = new ApplicationContext();
 
+            selectedTroop = new Troop();
+
             DataBase.Students.Load();
+
+            Student._count = DataBase.Students.Count();
 
             DataBase.Troops.Load();
 
             Students = DataBase.Students.Local.ToBindingList();
 
-            Student._count = DataBase.Students.Count();
-
-            selectedTroop = new Troop();
+            Troops = DataBase.Troops.Local.ToBindingList();
 
             Update_List();
-
-            //TroopChange window_TC = new TroopChange(ref DataBase);
-
-            //if(window_TC.ShowDialog() == true)
-            //{
-            //    selectedTroop = window_TC.troop_change();
-            //    window_TC.Close();
-            //    if(selectedTroop.StaffCount == 0)
-            //    {
-            //        MessageBox.Show("Новый взвод №"+ selectedTroop.NumberTroop +"создан!", "Внимание!");
-            //    }
-            //    else
-            //    {
-            //        Students = DataBase.Students.Local.Where(u => u.Troop == selectedTroop.NumberTroop);
-            //    }
-
-            //}
-
 
         }
 
