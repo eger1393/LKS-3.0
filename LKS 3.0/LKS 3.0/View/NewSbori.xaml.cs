@@ -20,6 +20,7 @@ namespace LKS_3._0.View
     public partial class NewSbori : Window
     {
         ApplicationContext DataBaseSb;
+
         public NewSbori(ref ApplicationContext temp_DataBase, IEnumerable<string> List_Troop)
         {
             InitializeComponent();

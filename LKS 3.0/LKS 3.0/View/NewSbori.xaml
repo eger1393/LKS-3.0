@@ -24,9 +24,9 @@
             <ColumnDefinition Width="109*"></ColumnDefinition>
             <ColumnDefinition Width="110*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="LBCurrent"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox x:Name="LBSbori"  Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15">
+        <ListBox x:Name="LBCurrent"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentsTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <ListBox x:Name="LBSbori"  ItemsSource="{Binding ListStudentsTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" />
+        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15" SelectedIndex="0">
             <ListBoxItem Content="1" />
             <ListBoxItem Content="2" />
             <ListBoxItem Content="3" />
@@ -35,7 +35,7 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
-                Command="{Binding UpdateSboriGridCommand}"
+                Command="{Binding UpdateSboriGridCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                 CommandParameter="{Binding ElementName=comboBoxSbori, Path=SelectedValue}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -44,7 +44,7 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
-                Command="{Binding UpdateCurrentGridCommand}"
+                Command="{Binding UpdateCurrentGridCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                 CommandParameter="{Binding ElementName=comboBoxCurrent, Path=SelectedValue}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
