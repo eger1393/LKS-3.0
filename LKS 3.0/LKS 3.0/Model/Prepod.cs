@@ -54,16 +54,15 @@ namespace LKS_3._0
 
         public override string ToString()
         {
-            var ranks = new Dictionary<string, string>()
-            {
-                { "полковник", "п-к" },
-                { "подполковник", "п/п-к" },
-                { "капитан", "к-н" },
-                { "лейтенант", "л-т" },
-            };
+            //var ranks = new Dictionary<string, string>()
+            //{
+            //    { "полковник", "п-к" },
+            //    { "подполковник", "п/п-к" },
+            //    { "капитан", "к-н" },
+            //    { "лейтенант", "л-т" },
+            //};
 
-            return String.Format("{0} {1} {2}.{3}.",
-                ranks[Coolness], LastName, FirstName[0], MiddleName[0]);
+            return Coolness + " " + FirstName + " " + MiddleName[0] + ". " + LastName[0]+ ". ";
         }
     }
 }

@@ -14,11 +14,11 @@ namespace LKS_3._0
 
         private string numberTroop;
 
-        private Prepod responsiblePrepod;
+        public Prepod responsiblePrepod;
 
-        private Student platoonCommander;
+        public Student platoonCommander;
 
-        private BindingList<Student> ListStudents;
+        public List<Student> ListStudents;
 
         private bool SboriTroop;
 
@@ -27,11 +27,13 @@ namespace LKS_3._0
         public Troop()
         {
             StaffCount = 0;
+            ListStudents = new List<Student>();
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
             StaffCount = 0;
+            ListStudents = new List<Student>();
             //ID_RP = responsiblePrepod.Id;
             //ID_PC = platoonCommander.Id;
         }
