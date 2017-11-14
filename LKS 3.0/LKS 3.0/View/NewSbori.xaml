@@ -24,10 +24,23 @@
             <ColumnDefinition Width="109*"></ColumnDefinition>
             <ColumnDefinition Width="110*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="dataGridCurrent" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentsTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox x:Name="dataGridSbori" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentsTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15"/>
-        <ComboBox x:Name="comboBoxCurrent" Grid.Column="1" Margin="3,40,5,15">
+        <ListBox x:Name="LBCurrent"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <ListBox x:Name="LBSbori"  Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15">
+            <ListBoxItem Content="1" />
+            <ListBoxItem Content="2" />
+            <ListBoxItem Content="3" />
+            <ListBoxItem Content="4" />
+            <ListBoxItem Content="5" />
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction 
+                Command="{Binding UpdateSboriGridCommand}"
+                CommandParameter="{Binding ElementName=comboBoxSbori, Path=SelectedValue}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+                <ComboBox x:Name="comboBoxCurrent" Grid.Column="1" Margin="3,40,5,15">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
@@ -46,6 +59,8 @@
         <ComboBox x:Name="comboBoxPrepods" Grid.Column="5"  Grid.Row="5" VerticalAlignment="Center" Margin="5,29,5,30"/>
         <Button x:Name="button2_Copy" Content="Готово" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Bottom" Margin="20,0,20,5"/>
         <Button x:Name="button3_Copy" Content="Отмена" Grid.Column="5" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Bottom" Margin="18,0,18,5"/>
+        <Button x:Name="buttonSetSbori" Grid.ColumnSpan="2" Content="&gt;&gt;&gt;" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="25,50" FontSize="18.667" Command="{Binding SetSboriCommand}" CommandParameter="{Binding ElementName=LBCurrent, Path=SelectedItem}" />
+        <Button x:Name="buttonReturnCurrent" Grid.ColumnSpan="2" Content="&lt;&lt;&lt;" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Margin="25,62,25,39" FontSize="18.667" />
 
     </Grid>
 </Window>
