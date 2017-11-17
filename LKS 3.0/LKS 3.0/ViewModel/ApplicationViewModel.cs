@@ -55,6 +55,7 @@ namespace LKS_3._0
 
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
 
+        private string selectTroopNumber;
 
         public string SelectedValueFind_T
         {
@@ -196,7 +197,12 @@ namespace LKS_3._0
         {
             get
             {
-                return selectedTroop.NumberTroop;
+                return selectTroopNumber;
+            }
+            set
+            {
+                selectTroopNumber = value;
+                OnPropertyChanged();
             }
         }
 
@@ -567,6 +573,8 @@ namespace LKS_3._0
                             window_TC.Close();
 
                             Students = new BindingList<Student>(selectedTroop.ListStudents);
+
+                            SelectTroopNumber = selectedTroop.NumberTroop;
 
                         }
                     }));
