@@ -75,11 +75,31 @@ namespace LKS_3._0
 
                       if(Select_Troop.NumberTroop != null)
                       {
+
+
+                      if (Select_Troop.Id_RP != 0)
+                          {
+                              MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
+
+                              if (res.ToString() == "No")
+                              {
+                                  return;
+                              }
+                             
+                          }
+
+
                           Prepod temp_prepod = selectedItem as Prepod;
                           Select_Troop.Id_RP = temp_prepod.Id;
                           Select_Troop.responsiblePrepod = temp_prepod;
+                          temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
+                       
                           DataBasePr.SaveChanges();
+                          
                           MessageBox.Show("Преподаватель назначен!", "Успешно!");
+                          Prepods = DataBasePr.Prepods.Local.ToBindingList();
+
+
                       }
                       else
                       {

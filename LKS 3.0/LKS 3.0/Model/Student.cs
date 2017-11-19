@@ -58,7 +58,7 @@ namespace LKS_3._0
             skill_5 = false,
             skill_6 = false;
 
-        private IEnumerable<Relative> ListRelatives;
+        public BindingList<Relative> ListRelatives;
 
         private string imagePath;
 

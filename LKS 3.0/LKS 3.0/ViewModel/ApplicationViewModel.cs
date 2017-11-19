@@ -57,6 +57,8 @@ namespace LKS_3._0
 
         private string selectTroopNumber;
 
+        private string currentPrepod;
+
         public string SelectedValueFind_T
         {
             get
@@ -361,7 +363,10 @@ namespace LKS_3._0
                      
                      EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, ref selectedTroop);
                
-                     EditPrepodsWindow.ShowDialog();
+                    if( EditPrepodsWindow.ShowDialog() == true)
+                     {
+                         CurrentPrepod = DataBase.Prepods.Local.Where(u => u.Id == SelectedTroop.Id_RP).First().ToString();
+                     }
 
                          
                  }));
@@ -581,6 +586,20 @@ namespace LKS_3._0
             }
         }
 
+        public string CurrentPrepod
+        {
+            get
+            {
+                return currentPrepod;
+            }
+
+            set
+            {
+                currentPrepod = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void Load_DB()
         {
 
@@ -594,6 +613,8 @@ namespace LKS_3._0
 
             DataBase.Troops.Load();
 
+            DataBase.Relatives.Load();
+
             Students = DataBase.Students.Local.ToBindingList();
 
             Troops = DataBase.Troops.Local.ToBindingList();
@@ -603,6 +624,11 @@ namespace LKS_3._0
                 item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
             }
 
+            foreach (Student item in Students)
+            {
+                item.ListRelatives = new BindingList<Relative>(DataBase.Relatives.Local.Where(u => u.IdStudent == item.Id).ToList());
+
+            }
         }
         public ApplicationViewModel(ProgramMode _progMode)
         {

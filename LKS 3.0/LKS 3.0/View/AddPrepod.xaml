@@ -15,8 +15,6 @@
         <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="{Binding LastName}"/>
         <Label x:Name="label3" Content="Звание"/>
         <TextBox x:Name="textBox3" Height="23" TextWrapping="Wrap" Text="{Binding Coolness}"/>
-        <Label x:Name="label4" Content="Дополнительно"/>
-        <TextBox x:Name="textBox4" Height="23" TextWrapping="Wrap" Text="{Binding AdditionalInfo}"/>
         <Button x:Name="button" Content="Ok" Click="button_Click" Margin="10"/>
 
 

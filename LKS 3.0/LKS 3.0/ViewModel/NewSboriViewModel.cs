@@ -291,7 +291,7 @@ namespace LKS_3._0.ViewModel
             get
             {
                 return setSboriCommand ??
-                (setSboriCommand = new RelayCommand(obj =>
+                (setSboriCommand = new RelayCommand( obj =>
                 {
                     if (obj == null)
                     {
@@ -299,9 +299,13 @@ namespace LKS_3._0.ViewModel
                         return;
                     }
 
-                    Student temp = obj as Student;
-                    Select_TroopSbori.ListStudents.Add(temp);
-                    ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
+                    //Student _temp = obj as Student;
+                    //foreach (object item in _temp)
+                    //{
+                    //    Student temp = item as Student;
+                    //    Select_TroopSbori.ListStudents.Add(temp);
+                    //}
+                    //ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
                 }));
             }
         }

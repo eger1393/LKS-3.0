@@ -39,7 +39,7 @@
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Вид">
-                <Grid Width="250">
+                <Grid Width="278" Height="23">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -50,8 +50,7 @@
                     </ListBoxItem>
                     <ListBoxItem MaxHeight="30" MaxWidth="50" Grid.Column="1" Content="{Binding SelectTroopNumber, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
                     </ListBoxItem>
-                    <Button  Grid.Column="2" MinHeight="30" MinWidth="115" Content="Cменить" Command="{Binding СheckTroop}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" Width="111">
-                    </Button>
+                    <Button  Grid.Column="2" Content="Cменить" Command="{Binding СheckTroop}"/>
                 </Grid>
 
                 <MenuItem Header="Все" Command="{Binding ShowAllCommand}" IsCheckable="True"/>
@@ -160,9 +159,10 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="1" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" FontWeight="Bold" MinWidth="180" Grid.ColumnSpan="2" Margin="73,0,0,0" HorizontalAlignment="Left"/>
-            <Label Grid.Column="0" Grid.Row="0" Content="Выделенный студент:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold"/>
-            <Label x:Name="Label_Troop" Grid.Column="2" Grid.Row="0" Content="{Binding Troop}" Grid.ColumnSpan="2" Margin="102,0,77,0"/>
+            <Label Grid.Column="1" Grid.Row="0" Content="Отв. преподаватель:" FontSize="20" FontWeight="Bold" MinWidth="180" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="95,0,0,0"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold"/>
+            <Label x:Name="Label_Prepod" Grid.Column="1" Grid.Row="0" Content="{Binding Troop}" Margin="0,0,89,0"/>
+            <Label x:Name="Label_Troop" Grid.Column="2" Grid.Row="0"  Grid.ColumnSpan="2" Margin="112,0,0,0"/>
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
 

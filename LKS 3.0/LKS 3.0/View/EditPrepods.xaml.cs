@@ -37,9 +37,7 @@ namespace LKS_3._0
             PropertyInfo[] Property_Arr = T.GetProperties();
             foreach (PropertyInfo el in Property_Arr)
             {
-                //DataGridTextColumn _temp = new DataGridTextColumn();
-                //_temp.Header = "№ Взвода";
-                //PrepodGrid.Columns.Add(_temp);
+               
 
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
                 if (temp_attribute != null)
@@ -54,7 +52,6 @@ namespace LKS_3._0
 
                     
                 }
-
             }
         }
 
@@ -69,9 +66,5 @@ namespace LKS_3._0
   
         }
 
-        private void PrepodGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-     
-        }
     }
 }

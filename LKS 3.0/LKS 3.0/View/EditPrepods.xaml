@@ -33,8 +33,8 @@
         <Button Content="Назначить ответственным за взвод" Grid.Row="2" Grid.Column="0" Margin="10,25,10,10" FontSize="14.667" Command="{Binding SetRPCommand}" CommandParameter="{Binding ElementName=PrepodGrid, Path=SelectedItem}"></Button>
         
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="2" Grid.Column="1" Click="button_OK_Click" Margin="10,25,10,10" FontSize="14.667"/>
-        
-        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" IsReadOnly="True" Margin="0,25,0,0" LoadingRow="PrepodGrid_LoadingRow" >
+
+        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" IsReadOnly="True" Margin="0,25,0,0" >
             <!--<DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background">

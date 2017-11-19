@@ -38,9 +38,17 @@ namespace LKS_3._0
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            t_troop = _Troops.Where(u => u.NumberTroop == CbTroop.Text).First();
+            if(CbTroop.Text != "")
+            {
+                t_troop = _Troops.Where(u => u.NumberTroop == CbTroop.Text).First();
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Выберите взвод!", "Внимание!");
+            }
 
-            DialogResult = true;
+            
         }
         public Troop troop_change()
         {
