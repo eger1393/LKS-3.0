@@ -60,6 +60,8 @@ namespace LKS_3._0
 
         public BindingList<Relative> ListRelatives;
 
+        private string numSboriTroop;
+
         private string imagePath;
 
         public static int _count;
@@ -667,6 +669,20 @@ namespace LKS_3._0
             set
             {
                 status = value;
+            }
+        }
+
+        public string NumSboriTroop
+        {
+            get
+            {
+                return numSboriTroop;
+            }
+
+            set
+            {
+                numSboriTroop = value;
+                OnPropertyChanged();
             }
         }
     }

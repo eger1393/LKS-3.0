@@ -25,9 +25,9 @@ namespace LKS_3._0
         {
             InitializeComponent();
 
-            Binding_columns();
-
             DataContext = new EditPrepodsViewModel(ref temp_database, ref selected_troop);
+
+            Binding_columns();
 
         }
 
@@ -66,5 +66,9 @@ namespace LKS_3._0
   
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace LKS_3._0
 
         public BindingList<Student> ListStudents;
 
-        private bool SboriTroop;
+        private bool sboriTroop;
 
         private int ID, ID_RP, ID_PC, staffCount;
 
@@ -28,14 +28,16 @@ namespace LKS_3._0
         {
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
+            ID_RP = 0;
+            ID_PC = 0;
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
-            //ID_RP = responsiblePrepod.Id;
-            //ID_PC = platoonCommander.Id;
+            ID_RP = 0;
+            ID_PC = 0;
         }
         public int Id
         {
@@ -99,7 +101,20 @@ namespace LKS_3._0
             }
         }
 
-       
+        public bool SboriTroop
+        {
+            get
+            {
+                return sboriTroop;
+            }
+
+            set
+            {
+                sboriTroop = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

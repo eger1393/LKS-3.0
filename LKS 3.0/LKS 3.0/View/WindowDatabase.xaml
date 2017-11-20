@@ -46,8 +46,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
-                    <ListBoxItem Grid.Column="0" Content="Взвод №">
-                    </ListBoxItem>
+                    <ListBoxItem Grid.Column="0" Content="Взвод №"/>
                     <ListBoxItem MaxHeight="30" MaxWidth="50" Grid.Column="1" Content="{Binding SelectTroopNumber,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True,Mode=TwoWay}">
                     </ListBoxItem>
                     <Button  Grid.Column="2" Content="Cменить" Command="{Binding СheckTroop}" Click="Button_Click"/>

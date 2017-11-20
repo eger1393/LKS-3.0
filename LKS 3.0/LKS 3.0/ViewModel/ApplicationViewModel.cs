@@ -347,7 +347,10 @@ namespace LKS_3._0
 
                      View.NewSbori NewSboriWindow = new View.NewSbori (ref DataBase, List_Troop);
 
-                     NewSboriWindow.ShowDialog();
+                     if(NewSboriWindow.ShowDialog() == true)
+                     {
+                         DataBase.SaveChanges();
+                     }
 
 
                  }));
@@ -363,11 +366,8 @@ namespace LKS_3._0
                      
                      
                      EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, ref selectedTroop);
-               
-                    if( EditPrepodsWindow.ShowDialog() == true)
-                     {
-                       //  CurrentPrepod = DataBase.Prepods.Local.Where(u => u.Id == SelectedTroop.Id_RP).First().ToString();
-                     }
+
+                     EditPrepodsWindow.ShowDialog();
 
                          
                  }));
@@ -430,6 +430,8 @@ namespace LKS_3._0
                           DataBase.Entry(temp_student).State = EntityState.Modified;
                           DataBase.SaveChanges();
 
+
+                          //TO DO 
                           if (SelectedTroop.NumberTroop != null)
                           {
                               int i = SelectedTroop.ListStudents.IndexOf(temp_student);
@@ -616,13 +618,30 @@ namespace LKS_3._0
 
             DataBase.Relatives.Load();
 
+            DataBase.Prepods.Load();
+
             Students = DataBase.Students.Local.ToBindingList();
 
             Troops = DataBase.Troops.Local.ToBindingList();
 
             foreach (Troop item in Troops)
             {
-                item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                if (item.Id_RP != 0)
+                {
+                    item.responsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
+                }
+
+                if (item.SboriTroop)
+                {
+                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
+                }              
+                else
+                {
+                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                }
+               
+                    
+
             }
 
             foreach (Student item in Students)

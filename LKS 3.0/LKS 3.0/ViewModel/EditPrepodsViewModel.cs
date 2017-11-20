@@ -20,9 +20,7 @@ namespace LKS_3._0
         public Troop Select_Troop;
         public EditPrepodsViewModel(ref ApplicationContext temp_database, ref Troop selected_troop)
         {
-            DataBasePr = temp_database;
-           
-            DataBasePr.Prepods.Load();
+            DataBasePr = temp_database;   
 
             Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
@@ -80,8 +78,10 @@ namespace LKS_3._0
                       if(Select_Troop.NumberTroop != null)
                       {
 
+                          Prepod temp_prepod = selectedItem as Prepod;
 
-                            if (Select_Troop.Id_RP != 0)
+
+                          if (Select_Troop.Id_RP != 0)
                                 {
                                       MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
 
@@ -91,10 +91,17 @@ namespace LKS_3._0
                                       }
 
                                     Select_Troop.responsiblePrepod.AdditionalInfo = "";
-                                }
 
+                              //TO DO
+                              if(DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).Count()!=0)
+                              {
+                                  DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).First().Id_RP = 0;
+                              }
 
-                          Prepod temp_prepod = selectedItem as Prepod;
+                          }
+
+                         
+                         
 
                           Select_Troop.Id_RP = temp_prepod.Id;
 
@@ -102,9 +109,9 @@ namespace LKS_3._0
 
                           temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
 
+                          DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
+
                           DataBasePr.SaveChanges();
-                          
-                          Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
                           MessageBox.Show("Преподаватель назначен!", "Успешно!");
 
@@ -116,6 +123,8 @@ namespace LKS_3._0
                       {
                           MessageBox.Show("Взвод не выбран!", "Ошибка!");
                       }
+
+                    
 
                   }));
             }
