@@ -259,6 +259,7 @@ namespace LKS_3._0
                      List_Group = null;
                      List_Mname = null;
                      List_Rank = null;
+                     SelectTroopNumber = null;
                      Update_List();
                  }));
             }
@@ -365,7 +366,7 @@ namespace LKS_3._0
                
                     if( EditPrepodsWindow.ShowDialog() == true)
                      {
-                         CurrentPrepod = DataBase.Prepods.Local.Where(u => u.Id == SelectedTroop.Id_RP).First().ToString();
+                       //  CurrentPrepod = DataBase.Prepods.Local.Where(u => u.Id == SelectedTroop.Id_RP).First().ToString();
                      }
 
                          

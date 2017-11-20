@@ -46,7 +46,7 @@ namespace LKS_3._0
             {
 
                 prepods = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Prepods");
             }
         }
 
@@ -70,34 +70,45 @@ namespace LKS_3._0
                 return setRPCommand ??
                   (setRPCommand = new RelayCommand((selectedItem) =>
                   {
-                      if (selectedItem == null) return;
+                      if (selectedItem == null)
+                      {
+                          MessageBox.Show("Взвод не выбран!", "Ошибка!");
+                          return;
+                      }
                       // получаем выделенный объект
 
                       if(Select_Troop.NumberTroop != null)
                       {
 
 
-                      if (Select_Troop.Id_RP != 0)
-                          {
-                              MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
+                            if (Select_Troop.Id_RP != 0)
+                                {
+                                      MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
 
-                              if (res.ToString() == "No")
-                              {
-                                  return;
-                              }
-                             
-                          }
+                                      if (res.ToString() == "No")
+                                      {
+                                          return;
+                                      }
+
+                                    Select_Troop.responsiblePrepod.AdditionalInfo = "";
+                                }
 
 
                           Prepod temp_prepod = selectedItem as Prepod;
+
                           Select_Troop.Id_RP = temp_prepod.Id;
+
                           Select_Troop.responsiblePrepod = temp_prepod;
+
                           temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
-                       
+
                           DataBasePr.SaveChanges();
                           
-                          MessageBox.Show("Преподаватель назначен!", "Успешно!");
                           Prepods = DataBasePr.Prepods.Local.ToBindingList();
+
+                          MessageBox.Show("Преподаватель назначен!", "Успешно!");
+
+                          
 
 
                       }
@@ -169,6 +180,14 @@ namespace LKS_3._0
                         {
                             Prepod prepod = selectedPrepod as Prepod;
                             DataBasePr.Prepods.Remove(prepod);
+
+                            if (Select_Troop.Id_RP != 0)
+                            {
+                                Select_Troop.Id_RP = 0;
+                                Select_Troop.responsiblePrepod = new Prepod();
+                            }
+                            
+
                             DataBasePr.SaveChanges();
                         }
                         else if (res.ToString() == "No")
