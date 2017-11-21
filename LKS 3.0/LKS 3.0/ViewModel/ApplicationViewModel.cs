@@ -35,7 +35,8 @@ namespace LKS_3._0
             showPastSboriCommand,
             showAllCommand,
             troopCheck,
-            newSboricommand;
+            newSboricommand,
+            editTroopCommand;
 
 
         private Student selectedStudent;
@@ -56,6 +57,8 @@ namespace LKS_3._0
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
 
         private string selectTroopNumber;
+
+        private string currentPrepod;
 
         public string SelectedValueFind_T
         {
@@ -257,6 +260,7 @@ namespace LKS_3._0
                      List_Group = null;
                      List_Mname = null;
                      List_Rank = null;
+                     SelectTroopNumber = null;
                      Update_List();
                  }));
             }
@@ -344,7 +348,10 @@ namespace LKS_3._0
 
                      View.NewSbori NewSboriWindow = new View.NewSbori (ref DataBase, List_Troop);
 
-                     NewSboriWindow.ShowDialog();
+                     if(NewSboriWindow.ShowDialog() == true)
+                     {
+                         DataBase.SaveChanges();
+                     }
 
 
                  }));
@@ -360,7 +367,7 @@ namespace LKS_3._0
                      
                      
                      EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, ref selectedTroop);
-               
+
                      EditPrepodsWindow.ShowDialog();
 
                          
@@ -390,13 +397,15 @@ namespace LKS_3._0
                               SelectedTroop.ListStudents.Add(temp_student);
 
                               Students = new BindingList<Student>(selectedTroop.ListStudents);
-
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                               SelectedStudent = temp_student;
                           }
                           else
                           {
-                              Troops.Where(u => u.NumberTroop == temp_student.Troop).First().ListStudents.Add(temp_student);
-
+                              Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
+                             temp.ListStudents.Add(temp_student);
+                              temp.StaffCount = temp.ListStudents.Count;
+                             
                               SelectedStudent = temp_student;
                           }
                       }
@@ -424,11 +433,14 @@ namespace LKS_3._0
                           DataBase.Entry(temp_student).State = EntityState.Modified;
                           DataBase.SaveChanges();
 
+
+                          //TO DO 
                           if (SelectedTroop.NumberTroop != null)
                           {
                               int i = SelectedTroop.ListStudents.IndexOf(temp_student);
                               SelectedTroop.ListStudents.RemoveAt(i);
                               SelectedTroop.ListStudents.Insert(i, temp_student);
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                               Students = new BindingList<Student>(selectedTroop.ListStudents);
                           }
                           else
@@ -437,6 +449,7 @@ namespace LKS_3._0
                               int i = temp.ListStudents.IndexOf(temp_student);
                               temp.ListStudents.RemoveAt(i);
                               temp.ListStudents.Insert(i, temp_student);
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                           }
 
                           SelectedStudent = temp_student;
@@ -506,12 +519,14 @@ namespace LKS_3._0
                          if (SelectedTroop.NumberTroop != null)
                          {
                              SelectedTroop.ListStudents.Remove(temp_student);
-
+                             SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                              Students = new BindingList<Student>(selectedTroop.ListStudents);
                          }
                          else
                          {
-                             Troops.Where(u => u.NumberTroop == temp_student.Troop).First().ListStudents.Remove(temp_student);
+                             Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
+                             temp.ListStudents.Remove(temp_student);
+                             temp.StaffCount = temp.ListStudents.Count;
                          }
                          
                      }
@@ -581,6 +596,37 @@ namespace LKS_3._0
             }
         }
 
+        public string CurrentPrepod
+        {
+            get
+            {
+                return currentPrepod;
+            }
+
+            set
+            {
+                currentPrepod = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand EditTroopCommand
+        {
+            get
+            {
+                return editTroopCommand ??
+                    (editTroopCommand = new RelayCommand(obj =>
+                    {
+                        View.EditTroop window_TC = new View.EditTroop(ref DataBase, Troops);
+
+                        if (window_TC.ShowDialog() == true)
+                        {
+                            DataBase.SaveChanges();
+                        }
+                    }));
+            }
+        }
+
         public void Load_DB()
         {
 
@@ -594,15 +640,44 @@ namespace LKS_3._0
 
             DataBase.Troops.Load();
 
+            DataBase.Relatives.Load();
+
+            DataBase.Prepods.Load();
+
             Students = DataBase.Students.Local.ToBindingList();
 
             Troops = DataBase.Troops.Local.ToBindingList();
 
             foreach (Troop item in Troops)
             {
-                item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                if (item.Id_RP != 0)
+                {
+                    item.ResponsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
+                }
+                if (item.Id_PC != 0)
+                {
+                    item.PlatoonCommander = DataBase.Students.Local.Where(u => u.Id == item.Id_PC).First();
+                }
+                if (item.SboriTroop)
+                {
+                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
+                    item.StaffCount = item.ListStudents.Count;
+                }   
+                else
+                {
+                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                    item.StaffCount = item.ListStudents.Count;
+                }
+               
+                    
+
             }
 
+            foreach (Student item in Students)
+            {
+                item.ListRelatives = new BindingList<Relative>(DataBase.Relatives.Local.Where(u => u.IdStudent == item.Id).ToList());
+
+            }
         }
         public ApplicationViewModel(ProgramMode _progMode)
         {

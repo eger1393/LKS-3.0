@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
         Title="Редактирование" Height="333.89" Width="308.475">
+    
     <StackPanel>
         <Label x:Name="label" Content="Фамилия"/>
         <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding FirstName}"/>
@@ -15,8 +16,6 @@
         <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="{Binding LastName}"/>
         <Label x:Name="label3" Content="Звание"/>
         <TextBox x:Name="textBox3" Height="23" TextWrapping="Wrap" Text="{Binding Coolness}"/>
-        <Label x:Name="label4" Content="Дополнительно"/>
-        <TextBox x:Name="textBox4" Height="23" TextWrapping="Wrap" Text="{Binding AdditionalInfo}"/>
         <Button x:Name="button" Content="Ok" Click="button_Click" Margin="10"/>
 
 

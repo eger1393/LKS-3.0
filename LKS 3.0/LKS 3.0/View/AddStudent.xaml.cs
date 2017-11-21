@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Data.Entity;
 
 namespace LKS_3._0
 {
@@ -30,7 +31,8 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-		public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, IEnumerable<string> list_Group, ref ApplicationContext temp_DataBase)
+        ApplicationContext _tempDB;
+        public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, IEnumerable<string> list_Group, ref ApplicationContext temp_DataBase)
 		{
 			InitializeComponent();
 
@@ -40,13 +42,17 @@ namespace LKS_3._0
 
             CbRectal.ItemsSource = list_Rectal;
 
-            viewModel = new AddStudentViewModel(ref temp_DataBase);
+            _tempDB = temp_DataBase;
+
+            viewModel = new AddStudentViewModel(ref _tempDB);
 
 			viewModel.AddedStudent = temp;
 
             DataContext = viewModel;
 
 			Binding_columns();
+
+            
 		}
 
 		//TODO точно такаяже функция используется в WindowDatabase
@@ -226,8 +232,9 @@ namespace LKS_3._0
                 Student._count++;
                 viewModel.AddedStudent.Id = Student._count;
             }
-            
-            
+
+            viewModel.AddedStudent.ListRelatives = new BindingList<Relative>(_tempDB.Relatives.Local.Where(u => u.IdStudent == viewModel.AddedStudent.Id).ToList());
+
             //viewModel.AddedStudent.Skill_1 = (bool)checkBox_1.IsChecked;
             //viewModel.AddedStudent.Skill_2 = (bool)checkBox_2.IsChecked;
             //viewModel.AddedStudent.Skill_3 = (bool)checkBox_3.IsChecked;

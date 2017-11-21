@@ -193,25 +193,76 @@ namespace LKS_3._0.ViewModel
 
         Troop select_TroopCurrent;
         Troop select_TroopSbori;
+        Prepod selectPrepod;
 
         BindingList<Student> listStudentsTroopCurrent;
         BindingList<Student> listStudentsTroopSbori;
 
 
-        RelayCommand updateCurrentGridCommand, setSboriCommand, updateSboriGridCommand;
+        RelayCommand updateCurrentGridCommand, setSboriCommand, updateSboriGridCommand, returnSboriCommand, exelentCommand;
 
         public NewSboriViewModel(ref ApplicationContext temp_DataBase)
         {
             this.temp_DataBase = temp_DataBase;
 
-            Troops = this.temp_DataBase.Troops.Local.ToBindingList();
+            Load();
 
-            Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
+            
+
+            
+        }
+
+
+        private void Load()
+        {
+            Troops = temp_DataBase.Troops.Local.ToBindingList();
+
+            Prepods = temp_DataBase.Prepods.Local.ToBindingList();
 
             Select_TroopCurrent = new Troop();
-            Select_TroopSbori = new Troop();
 
-            ListStudentsTroopSbori = null;
+            Select_TroopSbori = Troops.Where(u => u.NumberTroop == "1").First();
+
+            SelectPrepod = Prepods.Where(u => u.Id == Select_TroopSbori.Id_RP).First();
+
+            Update();
+
+        }
+
+        private void Update()
+        {
+
+            foreach (Troop item in Troops)
+            {
+                if (item.SboriTroop)
+                {
+                    item.ListStudents = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
+                }
+                else
+                {
+                    item.ListStudents = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                }
+            }
+
+
+            if (Select_TroopSbori.ListStudents.Count != 0)
+            {
+                ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
+               
+            }
+            else
+            {
+                ListStudentsTroopSbori = null;
+            }
+
+            if (Select_TroopSbori.Id_RP != 0)
+            {
+                SelectPrepod = Prepods.Where(u => u.Id == Select_TroopSbori.Id_RP).First();
+            }
+            else
+            {
+                SelectPrepod = null;
+            }
         }
         public BindingList<Troop> Troops
         {
@@ -279,7 +330,8 @@ namespace LKS_3._0.ViewModel
                      string selected_value = obj as string;
 
                      Select_TroopCurrent = Troops.Where(u => u.NumberTroop == selected_value).First();
-                     ListStudentsTroopCurrent = Select_TroopCurrent.ListStudents;
+
+                     ListStudentsTroopCurrent = select_TroopCurrent.ListStudents;
 
                  }));
             }
@@ -291,17 +343,32 @@ namespace LKS_3._0.ViewModel
             get
             {
                 return setSboriCommand ??
-                (setSboriCommand = new RelayCommand(obj =>
+                (setSboriCommand = new RelayCommand( obj =>
                 {
-                    if (obj == null)
+
+                    
+
+                    System.Collections.IList items = (System.Collections.IList)obj;
+
+                    if (items.Count == 0)
                     {
                         MessageBox.Show("Выберите студента для перемещения!", "Ошибка!");
                         return;
                     }
 
-                    Student temp = obj as Student;
-                    Select_TroopSbori.ListStudents.Add(temp);
-                    ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
+                    var collection = items.Cast<Student>();
+                    collection = collection.ToList();
+
+                    foreach (var item in collection)
+                    {
+                        item.Status = "На сборах";
+                        item.NumSboriTroop = Select_TroopSbori.NumberTroop;
+                        Select_TroopSbori.ListStudents.Add(item);
+                    }
+
+                    Select_TroopSbori.ListStudents = new BindingList<Student>(Select_TroopSbori.ListStudents.Distinct().ToList());
+
+                    Update();
                 }));
             }
         }
@@ -323,10 +390,7 @@ namespace LKS_3._0.ViewModel
 
                     Select_TroopSbori = Troops.Where(u => u.NumberTroop == selected_value).First();
 
-                    if(Select_TroopSbori.ListStudents.Count!=0)
-                    {
-                        ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
-                    }
+                    Update();
                     
                 }));
             }
@@ -357,6 +421,71 @@ namespace LKS_3._0.ViewModel
             set
             {
                 select_TroopSbori = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand ReturnSboriCommand
+        {
+            get
+            {
+                return returnSboriCommand ??
+                (returnSboriCommand = new RelayCommand(obj =>
+                {
+                    if (obj == null)
+                    {
+                        MessageBox.Show("Выберите студента для перемещения!", "Ошибка!");
+                        return;
+                    }
+
+                    System.Collections.IList items = (System.Collections.IList)obj;
+                    var collection = items.Cast<Student>();
+                    collection = collection.ToList();
+
+                    foreach (var item in collection)
+                    {
+                        item.NumSboriTroop = null;
+                        item.Status = "Обучается";
+                        Select_TroopSbori.ListStudents.Remove(item);
+                    }
+
+                    Update();
+
+                }));
+            }
+        }
+
+        public RelayCommand ExelentCommand
+        {
+            get
+            {
+                return exelentCommand ??
+                (exelentCommand = new RelayCommand(obj =>
+                {
+                    if (obj == null)
+                    {
+                        MessageBox.Show("Выберите отв. преподавателя!", "Ошибка!");
+                        return;
+                    }
+
+                    Prepod temp_prepod = obj as Prepod;
+
+                    Select_TroopSbori.Id_RP = temp_prepod.Id;
+
+                }));
+            }
+        }
+
+        public Prepod SelectPrepod
+        {
+            get
+            {
+                return selectPrepod;
+            }
+
+            set
+            {
+                selectPrepod = value;
                 OnPropertyChanged();
             }
         }

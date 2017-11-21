@@ -14,13 +14,13 @@ namespace LKS_3._0
 
         private string numberTroop;
 
-        public Prepod responsiblePrepod;
+        public Prepod ResponsiblePrepod;
 
-        public Student platoonCommander;
+        public Student PlatoonCommander;
 
         public BindingList<Student> ListStudents;
 
-        private bool SboriTroop;
+        private bool sboriTroop;
 
         private int ID, ID_RP, ID_PC, staffCount;
 
@@ -28,14 +28,18 @@ namespace LKS_3._0
         {
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
+            StaffCount = ListStudents.Count;
+            ID_RP = 0;
+            ID_PC = 0;
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
-            //ID_RP = responsiblePrepod.Id;
-            //ID_PC = platoonCommander.Id;
+            StaffCount = ListStudents.Count;
+            ID_RP = 0;
+            ID_PC = 0;
         }
         public int Id
         {
@@ -46,6 +50,35 @@ namespace LKS_3._0
             set
             {
                 ID = value;
+            }
+        }
+       
+
+        [RusName("Номер взвода")]
+        public string NumberTroop
+        {
+            get
+            {
+                return numberTroop;
+            }
+            set
+            {
+                numberTroop = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [RusName("Личный состав (чел.)")]
+        public int StaffCount
+        {
+            get
+            {
+                return staffCount;
+            }
+            set
+            {
+                staffCount = value;
+                OnPropertyChanged();
             }
         }
 
@@ -72,34 +105,28 @@ namespace LKS_3._0
                 ID_PC = value;
             }
         }
-
-        public int StaffCount
+        [RusName("Взвод для сборов?")]
+        public bool SboriTroop
         {
             get
             {
-                return staffCount;
+                return sboriTroop;
             }
+
             set
             {
-                staffCount = value;
+                sboriTroop = value;
                 OnPropertyChanged();
             }
         }
 
-        public string NumberTroop
-        {
-            get
-            {
-                return numberTroop;
-            }
-            set
-            {
-                numberTroop = value;
-                OnPropertyChanged();
-            }
-        }
 
-       
+
+        
+
+        
+      
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

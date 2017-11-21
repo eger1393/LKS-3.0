@@ -58,7 +58,9 @@ namespace LKS_3._0
             skill_5 = false,
             skill_6 = false;
 
-        private IEnumerable<Relative> ListRelatives;
+        public BindingList<Relative> ListRelatives;
+
+        private string numSboriTroop;
 
         private string imagePath;
 
@@ -69,8 +71,8 @@ namespace LKS_3._0
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2}",
-               MiddleName, FirstName, LastName);
+            return String.Format("{0} {1}. {2}.",
+               MiddleName, FirstName[0], LastName[0]);
         }
 
          public string str_FIO
@@ -667,6 +669,20 @@ namespace LKS_3._0
             set
             {
                 status = value;
+            }
+        }
+
+        public string NumSboriTroop
+        {
+            get
+            {
+                return numSboriTroop;
+            }
+
+            set
+            {
+                numSboriTroop = value;
+                OnPropertyChanged();
             }
         }
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0.View"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="Формирование сборов" Height="512.111" Width="872.656">
+        Title="Формирование сборов" Height="656.111" Width="1121.656" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -24,14 +24,9 @@
             <ColumnDefinition Width="109*"></ColumnDefinition>
             <ColumnDefinition Width="110*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="LBCurrent"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentsTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox x:Name="LBSbori"  ItemsSource="{Binding ListStudentsTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" />
-        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15" SelectedIndex="0">
-            <ListBoxItem Content="1" />
-            <ListBoxItem Content="2" />
-            <ListBoxItem Content="3" />
-            <ListBoxItem Content="4" />
-            <ListBoxItem Content="5" />
+        <ListBox x:Name="LBCurrent"  SelectionMode="Multiple"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" ItemsSource="{Binding ListStudentsTroopCurrent, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" FontSize="21.333"/>
+        <ListBox x:Name="LBSbori" SelectionMode="Multiple" ItemsSource="{Binding ListStudentsTroopSbori, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" FontSize="21.333" />
+        <ComboBox x:Name="comboBoxSbori" Grid.Column="5" Margin="0,40,5,15" SelectedIndex="0" HorizontalContentAlignment="Center" FontSize="21.333">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
@@ -40,7 +35,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-                <ComboBox x:Name="comboBoxCurrent" Grid.Column="1" Margin="3,40,5,15">
+        <ComboBox x:Name="comboBoxCurrent" Grid.Column="1" Margin="3,40,5,15" HorizontalContentAlignment="Center" FontSize="21.333">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
@@ -49,18 +44,18 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        <Label x:Name="label" Content="Взвод на сборах " Grid.Column="4" Margin="0,30,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label x:Name="label1" Content="Взвод №" Margin="0,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <Button x:Name="button" Content="Выделить всех" Grid.Row="5"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <Button x:Name="button1" Content="Инвертировать" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Top" />
-        <Button x:Name="button2" Content="Выделить всех" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Top"/>
-        <Button x:Name="button3" Content="Инвертировать" Grid.Column="5" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="Отв. преподаватель" Grid.Column="4"  Grid.Row="5" VerticalAlignment="Center" Margin="0,27,0,28"/>
-        <ComboBox x:Name="comboBoxPrepods" Grid.Column="5"  Grid.Row="5" VerticalAlignment="Center" Margin="5,29,5,30"/>
-        <Button x:Name="button2_Copy" Content="Готово" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Bottom" Margin="20,0,20,5"/>
-        <Button x:Name="button3_Copy" Content="Отмена" Grid.Column="5" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Bottom" Margin="18,0,18,5"/>
-        <Button x:Name="buttonSetSbori" Grid.ColumnSpan="2" Content="&gt;&gt;&gt;" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="25,50" FontSize="18.667" Command="{Binding SetSboriCommand}" CommandParameter="{Binding ElementName=LBCurrent, Path=SelectedItem}" />
-        <Button x:Name="buttonReturnCurrent" Grid.ColumnSpan="2" Content="&lt;&lt;&lt;" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Margin="25,62,25,39" FontSize="18.667" />
+        <Label x:Name="label" Content="Взвод на сборах " Grid.Column="4" Margin="0,40,0,16" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="21.333"/>
+        <Label x:Name="label1" Content="Взвод №" Margin="0,40,236,16" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="21.333" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSelectAll" Content="Выделить всех" Grid.Row="5"  VerticalAlignment="Top" FontSize="16" Margin="20,0" Click="buttonSelectAll_Click"/>
+        <Button x:Name="buttonInSelect" Content="Инвертировать" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" FontSize="16" Margin="20,0" Click="buttonInSelect_Click" />
+        <Button x:Name="buttonSboriSelectAll" Content="Выделить всех" Grid.Column="4" Grid.Row="5" VerticalAlignment="Top" FontSize="16" Margin="20,0" Click="buttonSboriSelectAll_Click"/>
+        <Button x:Name="button3" Content="Инвертировать" Grid.Column="5"  Grid.Row="5" VerticalAlignment="Top" FontSize="16" Margin="20,0"/>
+        <Label x:Name="label2" Content="Отв. преподаватель" Grid.Column="4"  Grid.Row="5" VerticalAlignment="Center" Margin="20,27,20,28" FontSize="16" HorizontalAlignment="Right"/>
+        <ComboBox x:Name="comboBoxPrepods" Grid.Column="5"  Grid.Row="5" Margin="20,36,20,37" SelectedItem="{Binding SelectPrepod, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
+        <Button x:Name="Exelent_Copy" Content="Готово" Grid.Column="4" Grid.Row="5" VerticalAlignment="Bottom" Margin="20,0,20,5" Click="Exelent_Copy_Click" Command="{Binding ExelentCommand}" CommandParameter="{Binding ElementName=comboBoxPrepods, Path=SelectedValue}" FontSize="16"/>
+        <Button x:Name="Cancel_Copy" Content="Отмена" Grid.Column="5"  Grid.Row="5" VerticalAlignment="Bottom" Margin="18,0,18,5" Click="Cancel_Copy_Click" FontSize="16"/>
+        <Button x:Name="buttonSetSbori" Grid.ColumnSpan="2" Content="&gt;&gt;&gt;" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="25,50" FontSize="18.667" Command="{Binding SetSboriCommand}" CommandParameter="{Binding ElementName=LBCurrent, Path=SelectedItems}" />
+        <Button x:Name="buttonReturnCurrent" Grid.ColumnSpan="2" Content="&lt;&lt;&lt;" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Margin="25,62,25,39" FontSize="18.667" Command="{Binding ReturnSboriCommand}" CommandParameter="{Binding ElementName=LBSbori, Path=SelectedItems}" />
 
     </Grid>
 </Window>

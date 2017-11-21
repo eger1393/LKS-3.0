@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.IO;
 using System.Reflection;
+using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 using System.Data.Entity;
-using System.Windows;
 
 namespace LKS_3._0
 {
@@ -38,9 +45,17 @@ namespace LKS_3._0
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            t_troop = _Troops.Where(u => u.NumberTroop == CbTroop.Text).First();
+            if(CbTroop.Text != "")
+            {
+                t_troop = _Troops.Where(u => u.NumberTroop == CbTroop.Text).First();
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Выберите взвод!", "Внимание!");
+            }
 
-            DialogResult = true;
+            
         }
         public Troop troop_change()
         {
@@ -49,20 +64,35 @@ namespace LKS_3._0
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)
         {
-            Troop._count++;
+            if(TB_TroopName.Text != "")
+            {
+                Troop._count++;
 
-            t_troop = new Troop(TB_TroopName.Text);
+                t_troop = new Troop(TB_TroopName.Text);
 
-            t_troop.Id = Troop._count;
-            MessageBox.Show("Новый взвод №" + t_troop.NumberTroop + "создан!", "Внимание!");
+                t_troop.Id = Troop._count;
+                MessageBox.Show("Новый взвод №" + t_troop.NumberTroop + "создан!", "Внимание!");
 
-            _Troops.Add(t_troop);
+                _Troops.Add(t_troop);
 
-            temp_database.Troops.Add(t_troop);
-            temp_database.SaveChanges();
+                temp_database.SaveChanges();//???
 
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Введите название взвода!", "Внимание!");
 
-            DialogResult = true;
+            }
+         
+        }
+
+        private void TbOnlyDigit_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text.ToString()[0]))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -27,13 +27,53 @@ namespace LKS_3._0.View
 
             DataBaseSb = temp_DataBase;
 
-            temp_DataBase.Prepods.Load();
+            comboBoxCurrent.ItemsSource = List_Troop.Where(u => u.ToString().Count() > 1);
 
-            comboBoxCurrent.ItemsSource = List_Troop;
+            comboBoxSbori.ItemsSource = List_Troop.Where(u => u.ToString().Count() == 1);
 
-            comboBoxPrepods.ItemsSource = temp_DataBase.Prepods.Local.Select(u => u.ToString());
+            comboBoxPrepods.ItemsSource = temp_DataBase.Prepods.Local.ToBindingList();
 
             DataContext = new ViewModel.NewSboriViewModel(ref temp_DataBase);
+        }
+
+        private void Exelent_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MessageBoxResult res = MessageBox.Show("Закрыть окно?", "Внимание!", MessageBoxButton.YesNo);
+            if (res.ToString() == "Yes")
+            {
+                DialogResult = true;
+                Close();
+            }
+            else if (res.ToString() == "No")
+            {
+                
+            }
+       
+        }
+
+        private void Cancel_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        private void buttonSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            LBCurrent.SelectAll();
+        }
+
+        private void buttonInSelect_Click(object sender, RoutedEventArgs e)
+        {
+            foreach ( var item in LBCurrent.SelectedItems)
+            {
+
+            }
+        }
+
+        private void buttonSboriSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            LBSbori.SelectAll();
         }
     }
 }

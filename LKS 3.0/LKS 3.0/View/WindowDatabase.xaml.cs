@@ -83,6 +83,60 @@ namespace LKS_3._0
         {
            
         }
+
+        private void _1_Checked(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = true;
+            _2.IsChecked = false;
+            _3.IsChecked = false;
+            _4.IsChecked = false;
+            _5.IsChecked = false;
+        }
+
+        private void _2_Checked(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = false;
+            _2.IsChecked = true;
+            _3.IsChecked = false;
+            _4.IsChecked = false;
+            _5.IsChecked = false;
+        }
+
+        private void _3_Checked(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = false;
+            _2.IsChecked = false;
+            _3.IsChecked = true;
+            _4.IsChecked = false;
+            _5.IsChecked = false;
+        }
+
+        private void _4_Checked(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = false;
+            _2.IsChecked = false;
+            _3.IsChecked = false;
+            _4.IsChecked = true;
+            _5.IsChecked = false;
+        }
+
+        private void _5_Checked(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = false;
+            _2.IsChecked = false;
+            _3.IsChecked = false;
+            _4.IsChecked = false;
+            _5.IsChecked = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _1.IsChecked = false;
+            _2.IsChecked = false;
+            _3.IsChecked = false;
+            _4.IsChecked = false;
+            _5.IsChecked = false;
+        }
     }
   
 }
