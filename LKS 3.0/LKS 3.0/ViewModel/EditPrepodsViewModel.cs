@@ -90,7 +90,7 @@ namespace LKS_3._0
                                           return;
                                       }
 
-                                    Select_Troop.responsiblePrepod.AdditionalInfo = "";
+                                    Select_Troop.ResponsiblePrepod.AdditionalInfo = "";
 
                               //TO DO
                               if(DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).Count()!=0)
@@ -105,7 +105,7 @@ namespace LKS_3._0
 
                           Select_Troop.Id_RP = temp_prepod.Id;
 
-                          Select_Troop.responsiblePrepod = temp_prepod;
+                          Select_Troop.ResponsiblePrepod = temp_prepod;
 
                           temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
 
@@ -193,7 +193,7 @@ namespace LKS_3._0
                             if (Select_Troop.Id_RP != 0)
                             {
                                 Select_Troop.Id_RP = 0;
-                                Select_Troop.responsiblePrepod = new Prepod();
+                                Select_Troop.ResponsiblePrepod = new Prepod();
                             }
                             
 

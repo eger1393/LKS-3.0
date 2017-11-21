@@ -76,11 +76,12 @@
                 <MenuItem Header="Редактировать" Command="{Binding EditPrepodsCommand}">
                 </MenuItem>
             </MenuItem>
-
+            <MenuItem Header="Взвода" Command="{Binding EditTroopCommand}"/>
+            <MenuItem Header="Сборы" Command="{Binding NewSboriCommand}"/>
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Сборы" Command="{Binding NewSboriCommand}"/>
+            
 
         </Menu>
 

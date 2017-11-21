@@ -35,7 +35,8 @@ namespace LKS_3._0
             showPastSboriCommand,
             showAllCommand,
             troopCheck,
-            newSboricommand;
+            newSboricommand,
+            editTroopCommand;
 
 
         private Student selectedStudent;
@@ -603,6 +604,23 @@ namespace LKS_3._0
             }
         }
 
+        public RelayCommand EditTroopCommand
+        {
+            get
+            {
+                return editTroopCommand ??
+                    (editTroopCommand = new RelayCommand(obj =>
+                    {
+                        View.EditTroop window_TC = new View.EditTroop(ref DataBase, Troops);
+
+                        if (window_TC.ShowDialog() == true)
+                        {
+                            DataBase.SaveChanges();
+                        }
+                    }));
+            }
+        }
+
         public void Load_DB()
         {
 
@@ -628,7 +646,7 @@ namespace LKS_3._0
             {
                 if (item.Id_RP != 0)
                 {
-                    item.responsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
+                    item.ResponsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
                 }
 
                 if (item.SboriTroop)
