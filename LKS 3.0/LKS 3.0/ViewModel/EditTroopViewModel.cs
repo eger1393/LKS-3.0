@@ -47,7 +47,11 @@ namespace LKS_3._0.ViewModel
 
                       Troop temp_t = selectedItem as Troop;
                       DataBaseTr.Troops.Local.Insert(temp_t.Id, temp_t);
-                      DataBaseTr.SaveChanges();
+
+                      foreach (var item in temp_t.ListStudents)
+                      {
+                          item.Troop = temp_t.NumberTroop;
+                      }
 
 
                   }));
@@ -76,10 +80,11 @@ namespace LKS_3._0.ViewModel
                         // если ни одного объекта не выделено, выходим
                         if (selectedItem == null) return;
 
-                        MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить родственника?", "Внимание!", MessageBoxButton.YesNo);
+                        MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить взвод со всем личным составом?", "Внимание!", MessageBoxButton.YesNo);
                         if (res.ToString() == "Yes")
                         {
                             Troop temp = selectedItem as Troop;
+                            DataBaseTr.Students.RemoveRange(SelectTroop.ListStudents);
                             DataBaseTr.Troops.Remove(temp);
                             DataBaseTr.SaveChanges();
                             Troop._count--;
@@ -173,17 +178,10 @@ namespace LKS_3._0.ViewModel
             set
             {
                 selectTroop = value;
-                SelectTroopListStudent = Troops.Where(u => u.NumberTroop == value.NumberTroop).First().ListStudents;
+                SelectTroopListStudent = SelectTroop.ListStudents;
+                SelectStudent = SelectTroop.PlatoonCommander;
+                SelectPrepod = SelectTroop.ResponsiblePrepod;
 
-                if (value.Id_RP != 0)
-                {
-                    SelectPrepod = DataBaseTr.Prepods.Where(u => u.Id == value.Id_RP).First();
-                }
-                else
-                {
-                    SelectPrepod = null;
-                }
-                
                 OnPropertyChanged();
             }
         }

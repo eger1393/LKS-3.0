@@ -49,7 +49,7 @@ namespace LKS_3._0.View
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
                 if (temp_attribute != null)
                 {
-                    if(temp_attribute.Get_RussianTittle == "Взвод для сборов")
+                    if(temp_attribute.Get_RussianTittle == "Взвод для сборов?")
                     {
                         DataGridCheckBoxColumn _temp_column = new DataGridCheckBoxColumn();
                         _temp_column.Header = temp_attribute.Get_RussianTittle;

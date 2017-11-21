@@ -28,6 +28,7 @@ namespace LKS_3._0
         {
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
+            StaffCount = ListStudents.Count;
             ID_RP = 0;
             ID_PC = 0;
         }
@@ -36,6 +37,7 @@ namespace LKS_3._0
             NumberTroop = temp_TroopNumber;
             StaffCount = 0;
             ListStudents = new BindingList<Student>();
+            StaffCount = ListStudents.Count;
             ID_RP = 0;
             ID_PC = 0;
         }
@@ -66,7 +68,7 @@ namespace LKS_3._0
             }
         }
 
-        [RusName("Личный состав")]
+        [RusName("Личный состав (чел.)")]
         public int StaffCount
         {
             get
@@ -103,7 +105,7 @@ namespace LKS_3._0
                 ID_PC = value;
             }
         }
-        [RusName("Взвод для сборов")]
+        [RusName("Взвод для сборов?")]
         public bool SboriTroop
         {
             get

@@ -71,8 +71,8 @@ namespace LKS_3._0
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2}",
-               MiddleName, FirstName, LastName);
+            return String.Format("{0} {1}. {2}.",
+               MiddleName, FirstName[0], LastName[0]);
         }
 
          public string str_FIO

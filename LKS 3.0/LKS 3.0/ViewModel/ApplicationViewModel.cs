@@ -397,13 +397,15 @@ namespace LKS_3._0
                               SelectedTroop.ListStudents.Add(temp_student);
 
                               Students = new BindingList<Student>(selectedTroop.ListStudents);
-
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                               SelectedStudent = temp_student;
                           }
                           else
                           {
-                              Troops.Where(u => u.NumberTroop == temp_student.Troop).First().ListStudents.Add(temp_student);
-
+                              Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
+                             temp.ListStudents.Add(temp_student);
+                              temp.StaffCount = temp.ListStudents.Count;
+                             
                               SelectedStudent = temp_student;
                           }
                       }
@@ -438,6 +440,7 @@ namespace LKS_3._0
                               int i = SelectedTroop.ListStudents.IndexOf(temp_student);
                               SelectedTroop.ListStudents.RemoveAt(i);
                               SelectedTroop.ListStudents.Insert(i, temp_student);
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                               Students = new BindingList<Student>(selectedTroop.ListStudents);
                           }
                           else
@@ -446,6 +449,7 @@ namespace LKS_3._0
                               int i = temp.ListStudents.IndexOf(temp_student);
                               temp.ListStudents.RemoveAt(i);
                               temp.ListStudents.Insert(i, temp_student);
+                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                           }
 
                           SelectedStudent = temp_student;
@@ -515,12 +519,14 @@ namespace LKS_3._0
                          if (SelectedTroop.NumberTroop != null)
                          {
                              SelectedTroop.ListStudents.Remove(temp_student);
-
+                             SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
                              Students = new BindingList<Student>(selectedTroop.ListStudents);
                          }
                          else
                          {
-                             Troops.Where(u => u.NumberTroop == temp_student.Troop).First().ListStudents.Remove(temp_student);
+                             Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
+                             temp.ListStudents.Remove(temp_student);
+                             temp.StaffCount = temp.ListStudents.Count;
                          }
                          
                      }
@@ -648,14 +654,19 @@ namespace LKS_3._0
                 {
                     item.ResponsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
                 }
-
+                if (item.Id_PC != 0)
+                {
+                    item.PlatoonCommander = DataBase.Students.Local.Where(u => u.Id == item.Id_PC).First();
+                }
                 if (item.SboriTroop)
                 {
                     item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
-                }              
+                    item.StaffCount = item.ListStudents.Count;
+                }   
                 else
                 {
                     item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                    item.StaffCount = item.ListStudents.Count;
                 }
                
                     

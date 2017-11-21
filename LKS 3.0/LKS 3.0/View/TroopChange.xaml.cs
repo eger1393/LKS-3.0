@@ -73,11 +73,10 @@ namespace LKS_3._0
                 t_troop.Id = Troop._count;
                 MessageBox.Show("Новый взвод №" + t_troop.NumberTroop + "создан!", "Внимание!");
 
-                //_Troops.Add(t_troop);
+                _Troops.Add(t_troop);
 
-                temp_database.Troops.Add(t_troop);
+                temp_database.SaveChanges();//???
 
-                temp_database.SaveChanges();
                 DialogResult = true;
             }
             else
