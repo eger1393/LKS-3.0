@@ -53,7 +53,7 @@ namespace LKS_3._0
 			dlg.Filter = "Word files (*.doc, *.docx)|*.doc; *.docx"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				lSelectedTemplate.Content = "Загруженный шаблон: " + dlg.FileName;
+				lSelectedTemplate.Content = "Загруженный шаблон: " + dlg.FileName.Substring(dlg.FileName.LastIndexOf('\\') + 1);
 			    createReportViewModel.FileName = dlg.FileName;
 			}
 		}

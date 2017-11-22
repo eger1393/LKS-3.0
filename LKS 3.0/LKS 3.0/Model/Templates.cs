@@ -30,8 +30,18 @@ namespace LKS_3._0
 
 		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
 		{
+			// КОСТЫЛЬ
+			if(Students == null)
+			{
+				Students = new List<Student>();
+			}
 
-			if (Students == null && troops != null)
+			if(troops == null)
+			{
+				troops = new List<Troop>();
+			}
+
+			if (Students.Count == 0 && troops.Count != 0)
 			{
 				this.students = troops.First().ListStudents.ToList();
 			}
@@ -41,12 +51,12 @@ namespace LKS_3._0
 			}
 				selectedStudent = students.First(); // устанавливаем выбранного стуента
 				changeSelectedStudent(); // меняем мать и отца студента
-			System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
+			//System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
 
 
 
 			Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
-			Word.Document doc = appDoc.Documents.Open(@"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", ReadOnly: false); // открыли документ
+			Word.Document doc = appDoc.Documents.Open(fileName, ReadOnly: false); // открыли документ
 			Word.Range range = doc.Content; // запихнули весь текст из документа в range
 
 
@@ -146,9 +156,25 @@ namespace LKS_3._0
 				}
 			}
 
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
 
-			doc.SaveAs(@"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx");
-			doc.Close();
+			if (troops.Count == 0)
+			{
+				dlg.FileName = students.First().MiddleName;
+			}else
+			{
+				dlg.FileName = troops.First().NumberTroop;
+			}
+
+			if (dlg.ShowDialog() == true) // запустили окно
+			{
+			doc.SaveAs(dlg.FileName);
+				
+			}
+
+			//appDoc.Visible = true;
+			doc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
 			appDoc.Quit();
 			System.Windows.MessageBox.Show("ГОТОВО!");
 
@@ -289,315 +315,320 @@ namespace LKS_3._0
 			//
 			//БЛОК РОДСТВЕННИКОВ
 			//
-
-			if (command.ToUpper() == "$RELFNAME$")
+			if (selectedRelative != null)
 			{
-				return selectedStudentMather.FirstName;
-			}
+				if (command.ToUpper() == "$RELFNAME$")
+				{
+					return selectedRelative.FirstName;
+				}
 
-			if (command.ToUpper() == "$RELMNAME$")
-			{
-				return selectedStudentMather.MiddleName;
-			}
+				if (command.ToUpper() == "$RELMNAME$")
+				{
+					return selectedRelative.MiddleName;
+				}
 
-			if (command.ToUpper() == "$RELLNAME$")
-			{
-				return selectedStudentMather.LastName;
-			}
+				if (command.ToUpper() == "$RELLNAME$")
+				{
+					return selectedRelative.LastName;
+				}
 
-			if (command.ToUpper() == "$RELMAIDNAME$")
-			{
-				return selectedStudentMather.MaidenName;
-			}
+				if (command.ToUpper() == "$RELMAIDNAME$")
+				{
+					return selectedRelative.MaidenName;
+				}
 
-			if (command.ToUpper() == "$RELBIRTHDAY$")
-			{
-				return selectedStudentMather.Birthday;
-			}
+				if (command.ToUpper() == "$RELBIRTHDAY$")
+				{
+					return selectedRelative.Birthday;
+				}
 
-			if (command.ToUpper() == "$RELREGISTR$")
-			{
-				return selectedStudentMather.PlaceOfRegestration;
-			}
+				if (command.ToUpper() == "$RELREGISTR$")
+				{
+					return selectedRelative.PlaceOfRegestration;
+				}
 
-			if (command.ToUpper() == "$RELRESIDE$")
-			{
-				return selectedStudentMather.PlaceOfResidence;
-			}
+				if (command.ToUpper() == "$RELRESIDE$")
+				{
+					return selectedRelative.PlaceOfResidence;
+				}
 
-			if (command.ToUpper() == "$RELMOBIL$")
-			{
-				return selectedStudentMather.MobilePhone;
-			}
+				if (command.ToUpper() == "$RELMOBIL$")
+				{
+					return selectedRelative.MobilePhone;
+				}
 
-			if (command.ToUpper() == "$RELRELATION$")
-			{
-				return selectedStudentMather.RelationDegree;
-			}
+				if (command.ToUpper() == "$RELRELATION$")
+				{
+					return selectedRelative.RelationDegree;
+				}
 
-			if (command.ToUpper() == "$RELHEALTH$")
-			{
-				return selectedStudentMather.HealthStatus;
+				if (command.ToUpper() == "$RELHEALTH$")
+				{
+					return selectedRelative.HealthStatus;
+				}
 			}
-
 			//Мать
-
-			if (command.ToUpper() == "$MATHFNAME$")
+			if (selectedStudentMather != null)
 			{
-				return selectedStudentMather.FirstName;
-			}
+				if (command.ToUpper() == "$MATHFNAME$")
+				{
+					return selectedStudentMather.FirstName;
+				}
 
-			if (command.ToUpper() == "$MATHMNAME$")
-			{
-				return selectedStudentMather.MiddleName;
-			}
+				if (command.ToUpper() == "$MATHMNAME$")
+				{
+					return selectedStudentMather.MiddleName;
+				}
 
-			if (command.ToUpper() == "$MATHLNAME$")
-			{
-				return selectedStudentMather.LastName;
-			}
+				if (command.ToUpper() == "$MATHLNAME$")
+				{
+					return selectedStudentMather.LastName;
+				}
 
-			if (command.ToUpper() == "$MATHMAIDNAME$")
-			{
-				return selectedStudentMather.MaidenName;
-			}
+				if (command.ToUpper() == "$MATHMAIDNAME$")
+				{
+					return selectedStudentMather.MaidenName;
+				}
 
-			if (command.ToUpper() == "$MATHBIRTHDAY$")
-			{
-				return selectedStudentMather.Birthday;
-			}
+				if (command.ToUpper() == "$MATHBIRTHDAY$")
+				{
+					return selectedStudentMather.Birthday;
+				}
 
-			if (command.ToUpper() == "$MATHREGISTR$")
-			{
-				return selectedStudentMather.PlaceOfRegestration;
-			}
+				if (command.ToUpper() == "$MATHREGISTR$")
+				{
+					return selectedStudentMather.PlaceOfRegestration;
+				}
 
-			if (command.ToUpper() == "$MATHRESIDE$")
-			{
-				return selectedStudentMather.PlaceOfResidence;
-			}
+				if (command.ToUpper() == "$MATHRESIDE$")
+				{
+					return selectedStudentMather.PlaceOfResidence;
+				}
 
-			if (command.ToUpper() == "$MATHMOBIL$")
-			{
-				return selectedStudentMather.MobilePhone;
-			}
+				if (command.ToUpper() == "$MATHMOBIL$")
+				{
+					return selectedStudentMather.MobilePhone;
+				}
 
-			if (command.ToUpper() == "$MATHRELATION$")
-			{
-				return selectedStudentMather.RelationDegree;
-			}
+				if (command.ToUpper() == "$MATHRELATION$")
+				{
+					return selectedStudentMather.RelationDegree;
+				}
 
-			if (command.ToUpper() == "$MATHHEALTH$")
-			{
-				return selectedStudentMather.HealthStatus;
+				if (command.ToUpper() == "$MATHHEALTH$")
+				{
+					return selectedStudentMather.HealthStatus;
+				}
 			}
-
 			// ОТЕЦ(ОТЧИМ)
-
-			if (command.ToUpper() == "$FATHFNAME$")
+			if (selectedStudentFather != null)
 			{
-				return selectedStudentFather.FirstName;
-			}
+				if (command.ToUpper() == "$FATHFNAME$")
+				{
+					return selectedStudentFather.FirstName;
+				}
 
-			if (command.ToUpper() == "$FATHMNAME$")
-			{
-				return selectedStudentFather.MiddleName;
-			}
+				if (command.ToUpper() == "$FATHMNAME$")
+				{
+					return selectedStudentFather.MiddleName;
+				}
 
-			if (command.ToUpper() == "$FATHLNAME$")
-			{
-				return selectedStudentFather.LastName;
-			}
+				if (command.ToUpper() == "$FATHLNAME$")
+				{
+					return selectedStudentFather.LastName;
+				}
 
-			if (command.ToUpper() == "$FATHMAIDNAME$")
-			{
-				return selectedStudentFather.MaidenName;
-			}
+				if (command.ToUpper() == "$FATHMAIDNAME$")
+				{
+					return selectedStudentFather.MaidenName;
+				}
 
-			if (command.ToUpper() == "$FATHBIRTHDAY$")
-			{
-				return selectedStudentFather.Birthday;
-			}
+				if (command.ToUpper() == "$FATHBIRTHDAY$")
+				{
+					return selectedStudentFather.Birthday;
+				}
 
-			if (command.ToUpper() == "$FATHREGISTR$")
-			{
-				return selectedStudentFather.PlaceOfRegestration;
-			}
+				if (command.ToUpper() == "$FATHREGISTR$")
+				{
+					return selectedStudentFather.PlaceOfRegestration;
+				}
 
-			if (command.ToUpper() == "$FATHRESID$")
-			{
-				return selectedStudentFather.PlaceOfResidence;
-			}
+				if (command.ToUpper() == "$FATHRESID$")
+				{
+					return selectedStudentFather.PlaceOfResidence;
+				}
 
-			if (command.ToUpper() == "$FATHMOBIL$")
-			{
-				return selectedStudentFather.MobilePhone;
-			}
+				if (command.ToUpper() == "$FATHMOBIL$")
+				{
+					return selectedStudentFather.MobilePhone;
+				}
 
-			if (command.ToUpper() == "$FATHRELATION$")
-			{
-				return selectedStudentFather.RelationDegree;
-			}
+				if (command.ToUpper() == "$FATHRELATION$")
+				{
+					return selectedStudentFather.RelationDegree;
+				}
 
-			if (command.ToUpper() == "$FATHHEALTH$")
-			{
-				return selectedStudentFather.HealthStatus;
+				if (command.ToUpper() == "$FATHHEALTH$")
+				{
+					return selectedStudentFather.HealthStatus;
+				}
 			}
 
 			// Взвод
-
-			if(command.ToUpper() == "$TRNUM$")
+			if (selectedTrop != null)
 			{
-				return selectedTrop.NumberTroop;
+				if (command.ToUpper() == "$TRNUM$")
+				{
+					return selectedTrop.NumberTroop;
+				}
+
+				if (command.ToUpper() == "$TPRFNAME$")
+				{
+					return selectedTrop.ResponsiblePrepod.FirstName;
+				}
+
+				if (command.ToUpper() == "$TPRMNAME$")
+				{
+					return selectedTrop.ResponsiblePrepod.MiddleName;
+				}
+
+				if (command.ToUpper() == "$TPRLNAME$")
+				{
+					return selectedTrop.ResponsiblePrepod.LastName;
+				}
+
+				if (command.ToUpper() == "$TPRCOOLNESS$")
+				{
+					return selectedTrop.ResponsiblePrepod.Coolness;
+				}
+
+				// Командир взвода
+
+				if (command.ToUpper() == "$TCOMFNAME$")
+				{
+					return selectedTrop.PlatoonCommander.FirstName;
+				}
+
+				if (command.ToUpper() == "$TCOMMNAME$")
+				{
+					return selectedTrop.PlatoonCommander.MiddleName;
+				}
+
+				if (command.ToUpper() == "$TCOMLNAME$")
+				{
+					return selectedTrop.PlatoonCommander.LastName;
+				}
+
+				if (command.ToUpper() == "$TCOMFACULTY$")
+				{
+					return selectedTrop.PlatoonCommander.Faculty;
+				}
+
+				if (command.ToUpper() == "$TCOMGROUP$")
+				{
+					return selectedTrop.PlatoonCommander.Group;
+				}
+
+				if (command.ToUpper() == "$TCOMSPNAME$")
+				{
+					return selectedTrop.PlatoonCommander.SpecialityName;
+				}
+
+				if (command.ToUpper() == "$TCOMCONDEDUC$")
+				{
+					return selectedTrop.PlatoonCommander.ConditionsOfEducation;
+				}
+
+				if (command.ToUpper() == "$TCOM$AVERSCORE")
+				{
+					return selectedTrop.PlatoonCommander.AvarageScore;
+				}
+
+				if (command.ToUpper() == "$TCOMADDMAI$")
+				{
+					return selectedTrop.PlatoonCommander.YearOfAddMAI;
+				}
+
+				if (command.ToUpper() == "$TCOMENDMAI$")
+				{
+					return selectedTrop.PlatoonCommander.YearOfEndMAI;
+				}
+
+				if (command.ToUpper() == "$TCOMADDMIL$")
+				{
+					return selectedTrop.PlatoonCommander.YearOfAddVK;
+				}
+
+				if (command.ToUpper() == "$TCOMENDMIL$")
+				{
+					return selectedTrop.PlatoonCommander.YearOfEndVK;
+				}
+
+				if (command.ToUpper() == "$TCOMNUMORDER$")
+				{
+					return selectedTrop.PlatoonCommander.NumberOfOrder;
+				}
+
+				if (command.ToUpper() == "$TCOMDATEORDER$")
+				{
+					return selectedTrop.PlatoonCommander.DateOfOrder;
+				}
+
+				if (command.ToUpper() == "$TCOMRECTAL$")
+				{
+					return selectedTrop.PlatoonCommander.Rectal;
+				}
+
+				if (command.ToUpper() == "$TCOMBIRTHDAY$")
+				{
+					return selectedTrop.PlatoonCommander.Birthday;
+				}
+
+				if (command.ToUpper() == "$TCOMPLACEBIRTH$")
+				{
+					return selectedTrop.PlatoonCommander.PlaceBirthday;
+				}
+
+				if (command.ToUpper() == "$TCOMNATION$")
+				{
+					return selectedTrop.PlatoonCommander.Nationality;
+				}
+
+				if (command.ToUpper() == "$TCOMHOMEPRONE$")
+				{
+					return selectedTrop.PlatoonCommander.HomePhone;
+				}
+
+				if (command.ToUpper() == "$TCOMMOBPHONE$")
+				{
+					return selectedTrop.PlatoonCommander.MobilePhone;
+				}
+
+				if (command.ToUpper() == "$TCOMPLACERESID$")
+				{
+					return selectedTrop.PlatoonCommander.PlaceOfResidence;
+				}
+
+				if (command.ToUpper() == "$TCOMPLACEREGISTR$")
+				{
+					return selectedTrop.PlatoonCommander.PlaceOfRegestration;
+				}
+
+				if (command.ToUpper() == "$TCOMSCHOOL$")
+				{
+					return selectedTrop.PlatoonCommander.School;
+				}
+
+				if (command.ToUpper() == "$TCOMRANK$")
+				{
+					return selectedTrop.PlatoonCommander.Rank;
+				}
+
+				if (command.ToUpper() == "$TCOMTROOP$")
+				{
+					return selectedTrop.PlatoonCommander.Troop;
+				}
 			}
-
-			if (command.ToUpper() == "$TPRFNAME$")
-			{
-				return selectedTrop.responsiblePrepod.FirstName;
-			}
-
-			if (command.ToUpper() == "$TPRMNAME$")
-			{
-				return selectedTrop.responsiblePrepod.MiddleName;
-			}
-
-			if (command.ToUpper() == "$TPRLNAME$")
-			{
-				return selectedTrop.responsiblePrepod.LastName;
-			}
-
-			if (command.ToUpper() == "$TPRCOOLNESS$")
-			{
-				return selectedTrop.responsiblePrepod.Coolness;
-			}
-
-			// Командир взвода
-
-			if (command.ToUpper() == "$TCOMFNAME$")
-			{
-				return selectedTrop.platoonCommander.FirstName;
-			}
-
-			if (command.ToUpper() == "$TCOMMNAME$")
-			{
-				return selectedTrop.platoonCommander.MiddleName;
-			}
-
-			if (command.ToUpper() == "$TCOMLNAME$")
-			{
-				return selectedTrop.platoonCommander.LastName;
-			}
-
-			if (command.ToUpper() == "$TCOMFACULTY$")
-			{
-				return selectedTrop.platoonCommander.Faculty;
-			}
-
-			if (command.ToUpper() == "$TCOMGROUP$")
-			{
-				return selectedTrop.platoonCommander.Group;
-			}
-
-			if (command.ToUpper() == "$TCOMSPNAME$")
-			{
-				return selectedTrop.platoonCommander.SpecialityName;
-			}
-
-			if (command.ToUpper() == "$TCOMCONDEDUC$")
-			{
-				return selectedTrop.platoonCommander.ConditionsOfEducation;
-			}
-
-			if (command.ToUpper() == "$TCOM$AVERSCORE")
-			{
-				return selectedTrop.platoonCommander.AvarageScore;
-			}
-
-			if (command.ToUpper() == "$TCOMADDMAI$")
-			{
-				return selectedTrop.platoonCommander.YearOfAddMAI;
-			}
-
-			if (command.ToUpper() == "$TCOMENDMAI$")
-			{
-				return selectedTrop.platoonCommander.YearOfEndMAI;
-			}
-
-			if (command.ToUpper() == "$TCOMADDMIL$")
-			{
-				return selectedTrop.platoonCommander.YearOfAddVK;
-			}
-
-			if (command.ToUpper() == "$TCOMENDMIL$")
-			{
-				return selectedTrop.platoonCommander.YearOfEndVK;
-			}
-
-			if (command.ToUpper() == "$TCOMNUMORDER$")
-			{
-				return selectedTrop.platoonCommander.NumberOfOrder;
-			}
-
-			if (command.ToUpper() == "$TCOMDATEORDER$")
-			{
-				return selectedTrop.platoonCommander.DateOfOrder;
-			}
-
-			if (command.ToUpper() == "$TCOMRECTAL$")
-			{
-				return selectedTrop.platoonCommander.Rectal;
-			}
-
-			if (command.ToUpper() == "$TCOMBIRTHDAY$")
-			{
-				return selectedTrop.platoonCommander.Birthday;
-			}
-
-			if (command.ToUpper() == "$TCOMPLACEBIRTH$")
-			{
-				return selectedTrop.platoonCommander.PlaceBirthday;
-			}
-
-			if (command.ToUpper() == "$TCOMNATION$")
-			{
-				return selectedTrop.platoonCommander.Nationality;
-			}
-
-			if (command.ToUpper() == "$TCOMHOMEPRONE$")
-			{
-				return selectedTrop.platoonCommander.HomePhone;
-			}
-
-			if (command.ToUpper() == "$TCOMMOBPHONE$")
-			{
-				return selectedTrop.platoonCommander.MobilePhone;
-			}
-
-			if (command.ToUpper() == "$TCOMPLACERESID$")
-			{
-				return selectedTrop.platoonCommander.PlaceOfResidence;
-			}
-
-			if (command.ToUpper() == "$TCOMPLACEREGISTR$")
-			{
-				return selectedTrop.platoonCommander.PlaceOfRegestration;
-			}
-
-			if (command.ToUpper() == "$TCOMSCHOOL$")
-			{
-				return selectedTrop.platoonCommander.School;
-			}
-
-			if (command.ToUpper() == "$TCOMRANK$")
-			{
-				return selectedTrop.platoonCommander.Rank;
-			}
-
-			if (command.ToUpper() == "$TCOMTROOP$")
-			{
-				return selectedTrop.platoonCommander.Troop;
-			}
-
 
 
 
@@ -607,6 +638,8 @@ namespace LKS_3._0
 		void changeTroop ()
 		{
 			students = selectedTrop.ListStudents.ToList();
+			selectedStudent = students.First();
+			changeSelectedStudent();
 		}
 
 		void changeSelectedStudent()
@@ -615,6 +648,7 @@ namespace LKS_3._0
 			selectedStudentFather = null;
 			if (selectedStudent.ListRelatives != null)
 			{
+				selectedRelative = selectedStudent.ListRelatives.First();
 				foreach (Relative item in selectedStudent.ListRelatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)

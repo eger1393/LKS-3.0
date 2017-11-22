@@ -15,6 +15,7 @@ namespace LKS_3._0.ViewModel
 {
 	public class CreateReportViewModel: INotifyPropertyChanged
 	{
+		bool oneStudent, oneTroop, severalDocuments;
 		string fileName;
 		BindingList<Student> students;
 		BindingList<Student> selectedStudents;
@@ -61,6 +62,9 @@ namespace LKS_3._0.ViewModel
 				}
 			}
 			this.SelectedStudents = new BindingList<Student>();
+			SelectedTroops = new BindingList<Troop>();
+
+
 		}
 
 		public RelayCommand SelectTemplate
@@ -82,14 +86,44 @@ namespace LKS_3._0.ViewModel
 				return startTheTemplate ??
 					(startTheTemplate = new RelayCommand(obj =>
 					{
-					if (selectedStudents.Count != 0 && FileName != "")
+						if (oneStudent == true && severalDocuments == true)
 						{
-							
-							Templates temp = new Templates(FileName, selectedStudents.ToList());
+							foreach (Student item in selectedStudents)
+							{
+								List<Student> tempStud = new List<Student>();
+								tempStud.Add(item);
+								if (FileName != "" && selectedStudents.Count != 0)
+								{
+									Templates temp = new Templates(FileName, tempStud, null, null);
+								}
+							}
 						}
 						else
 						{
-							System.Windows.MessageBox.Show("Выберите студентов");
+							if (oneTroop == true && severalDocuments == true)
+							{
+								foreach (Troop item in selectedTroops)
+								{
+									List<Troop> tempTroop = new List<Troop>();
+									tempTroop.Add(item);
+									if (FileName != "" && selectedTroops.Count != 0)
+									{
+										Templates temp = new Templates(FileName, null, null, tempTroop);
+									}
+								}
+							}
+							else
+							{
+								if (FileName != "" && (selectedTroops.Count != 0 || selectedStudents.Count != 0))
+								{
+
+									Templates temp = new Templates(FileName, selectedStudents.ToList(), null, SelectedTroops.ToList());
+								}
+								else
+								{
+									System.Windows.MessageBox.Show("Выберите студентов");
+								}
+							}
 						}
 					}));
 			}
@@ -231,6 +265,49 @@ namespace LKS_3._0.ViewModel
 			set
 			{
 				selectedTroops = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public bool OneStudent
+		{
+			get
+			{
+				return oneStudent;
+			}
+
+			set
+			{
+				oneStudent = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public bool OneTroop
+		{
+			get
+			{
+				return oneTroop;
+			}
+
+			set
+			{
+				oneTroop = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public bool SeveralDocuments
+		{
+			get
+			{
+				return severalDocuments;
+			}
+
+			set
+			{
+				severalDocuments = value;
+				OnPropertyChanged();
 			}
 		}
 

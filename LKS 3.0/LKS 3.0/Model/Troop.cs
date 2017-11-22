@@ -122,12 +122,15 @@ namespace LKS_3._0
 
 
 
-        
+		override public string ToString()
+		{
+			return numberTroop;
+		}
 
-        
-      
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
+
+		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             if (PropertyChanged != null)
