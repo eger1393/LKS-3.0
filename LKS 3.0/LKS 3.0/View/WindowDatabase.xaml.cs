@@ -24,7 +24,7 @@ namespace LKS_3._0
     /// <summary>
     /// Логика взаимодействия для WindowDatabase.xaml
     /// </summary>
-    public enum ProgramMode { Admin, Student }
+   
 
     public partial class WindowDatabase : Window
     {
@@ -34,20 +34,19 @@ namespace LKS_3._0
         {
             InitializeComponent();
 
-            ProgramMode ProgMode = new ProgramMode();
 
             if (flag)
             {
-                ProgMode = ProgramMode.Admin;
+                ProgMode.ProgramMode = ProgramMode.Admin;
                 
             }
             else
             {
-                ProgMode = ProgramMode.Student;
-               
+                ProgMode.ProgramMode = ProgramMode.Student;
+
             }
 
-            DataContext = new ApplicationViewModel(ProgMode);
+            DataContext = new ApplicationViewModel();
 
             Binding_columns();
             

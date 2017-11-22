@@ -47,7 +47,7 @@ namespace LKS_3._0.View
             }
             else if (res.ToString() == "No")
             {
-                
+                DataBaseSb.SaveChanges();
             }
        
         }

@@ -18,7 +18,7 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBasePr;
         public Troop Select_Troop;
-        public EditPrepodsViewModel(ref ApplicationContext temp_database, ref Troop selected_troop)
+        public EditPrepodsViewModel(ref ApplicationContext temp_database,Troop selected_troop)
         {
             DataBasePr = temp_database;   
 
@@ -30,14 +30,14 @@ namespace LKS_3._0
         }
 
         private Prepod selectedPrepod; // Выбранный препод
-        public IEnumerable<Prepod> prepods; // Коллекция преподов
+        public BindingList<Prepod> prepods; // Коллекция преподов
 
         RelayCommand editCommand;
         RelayCommand addCommand;
         RelayCommand deleteCommand;
         RelayCommand setRPCommand;
 
-        public IEnumerable<Prepod> Prepods
+        public BindingList<Prepod> Prepods
         {
             get { return prepods; }
             set
@@ -70,7 +70,7 @@ namespace LKS_3._0
                   {
                       if (selectedItem == null)
                       {
-                          MessageBox.Show("Взвод не выбран!", "Ошибка!");
+                          MessageBox.Show("Преподаватель не выбран!", "Ошибка!");
                           return;
                       }
                       // получаем выделенный объект
@@ -100,18 +100,21 @@ namespace LKS_3._0
 
                           }
 
-                         
-                         
+
+
+                          temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
 
                           Select_Troop.Id_RP = temp_prepod.Id;
 
                           Select_Troop.ResponsiblePrepod = temp_prepod;
 
-                          temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
+                          
 
                           DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
 
                           DataBasePr.SaveChanges();
+
+                          Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
                           MessageBox.Show("Преподаватель назначен!", "Успешно!");
 
@@ -145,7 +148,7 @@ namespace LKS_3._0
 
                       if (addPrepodWindow.ShowDialog() == true)
                       { 
-                          DataBasePr.Prepods.Add(temp_prepod);
+                          Prepods.Add(temp_prepod);
                           DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
                           DataBasePr.SaveChanges();
                           SelectedPrepod = temp_prepod;
@@ -166,7 +169,7 @@ namespace LKS_3._0
 
                       if (addPrepodWindow.ShowDialog() == true)
                       {
-                          DataBasePr.Prepods.Add(temp_prepod);
+                          Prepods.Add(temp_prepod);
                           DataBasePr.SaveChanges();
                           SelectedPrepod = temp_prepod;
                       }
@@ -188,7 +191,7 @@ namespace LKS_3._0
                         if (res.ToString() == "Yes")
                         {
                             Prepod prepod = selectedPrepod as Prepod;
-                            DataBasePr.Prepods.Remove(prepod);
+                            Prepods.Remove(prepod);
 
                             if (Select_Troop.Id_RP != 0)
                             {

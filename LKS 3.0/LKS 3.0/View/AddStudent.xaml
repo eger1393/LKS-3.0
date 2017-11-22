@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
         
-        Title="Добавление нового студента" Height="600" Width="700">
+        Title="Добавление нового студента" Height="600" Width="700" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Times New Roman"/>
@@ -19,8 +19,8 @@
     </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Информация о студенте" Margin="0,0,-4,-3" DataContext="{Binding AddedStudent}">
-                <Grid Margin="-5,5,5,29">
+            <TabItem Header="Информация о студенте" DataContext="{Binding AddedStudent}">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.1*"/>
                         <ColumnDefinition Width="*"/>
@@ -51,16 +51,16 @@
                     <Label Grid.Column="0" Grid.Row="7" Content="Год окончания ВК"/>
                     <Label Grid.Column="0" Grid.Row="8" Content="Cтатус студента"/>
 
-
-                    <Label Grid.Column="2" Grid.Row="0" Content="Студенческая группа"/>
-                    <Label Grid.Column="2" Grid.Row="1" Content="Факультет"/>
-                    <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Content="Название специальности"/>
-                    <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Content="Условия обучения в вузе"/>
-                    <Label Grid.Column="2" Grid.Row="4" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2"/>
-                    <Label Grid.Column="2" Grid.Row="5" Content="№ приказа о приеме" />
-                    <Label Grid.Column="2" Grid.Row="6" Content="Дата приказа" />
-                    <Label Grid.Column="2" Grid.Row="7" Content="Военкомат"/>
-                    <Label Grid.Column="2" Grid.Row="8" Content="Должность во взводе"/>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Курс"/>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Студенческая группа"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Факультет"/>
+                    <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Content="Название специальности"/>
+                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Content="Условия обучения в вузе"/>
+                    <Label Grid.Column="2" Grid.Row="5" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2"/>
+                    <Label Grid.Column="2" Grid.Row="6" Content="№ приказа о приеме" />
+                    <Label Grid.Column="2" Grid.Row="7" Content="Дата приказа" />
+                    <Label Grid.Column="2" Grid.Row="8" Content="Военкомат"/>
+                    <Label Grid.Column="2" Grid.Row="9" Content="Должность во взводе"/>
 
                     <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
@@ -114,7 +114,7 @@
                         <ListBoxItem Content="На сборах"/>
                         <ListBoxItem Content="Прошел сборы"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbRank" Grid.Column="4" Grid.Row="8" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbRank" Grid.Column="4" Grid.Row="9" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="КО"/>
                         <ListBoxItem Content="КО1"/>
                         <ListBoxItem Content="КО2"/>
@@ -124,25 +124,35 @@
                         <ListBoxItem Content="Секретчик"/>
                         <ListBoxItem Content="Отсутствует"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="0" Text="{Binding Group}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <TextBox x:Name="TbKurs" Grid.Column="4" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
+                        <TextBox.Text>
+                            <Binding Path="Kurs" NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <myns:ValidationNumRule min ="1" max="6"/>
+                                    <ExceptionValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <ComboBox x:Name="CbGroup" Grid.Column="4" Grid.Row="1" Text="{Binding Group}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                     </ComboBox>
-                    <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="1" Text="{Binding Faculty}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbFacility" Grid.Column="4" Grid.Row="2" Text="{Binding Faculty}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>
                         <ListBoxItem Content="2"/>
                         <ListBoxItem Content="3"/>
                         <ListBoxItem Content="4"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="2" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="3" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="БУК"/>
                         <ListBoxItem Content="ТОР"/>
                         <ListBoxItem Content="ОСА"/>
                         <ListBoxItem Content="Тополь"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="3" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="4" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бюджетное"/>
                         <ListBoxItem Content="Платное"/>
                     </ComboBox>
-                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="4" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="2">
+                    <TextBox x:Name="TbAverageScore" Grid.Column="4" Grid.Row="5" MaxLength="5" PreviewTextInput="TbAverageScore_PreviewTextInput" HorizontalAlignment="Right" Width="100"  Margin="2">
                         <TextBox.Text>
                             <Binding Path="AvarageScore" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
@@ -152,14 +162,14 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="5"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
-                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,0,0,0"/>
-                    <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="7" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
+                    <TextBox x:Name="TbNumberOrderAdmision" Grid.Column="4" Grid.Row="6"  Text="{Binding NumberOfOrder}"  PreviewTextInput="TbDigitOrLetter_PreviewTextInput" />
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="4" Grid.Row="7"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}" Margin="2,0,0,0"/>
+                    <ComboBox x:Name="CbRectal" Grid.Column="4" Grid.Row="8" Text="{Binding Rectal}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2"/>
 
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}" Margin="-2,0,-2,-3">
+            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*" />
@@ -191,7 +201,7 @@
                         <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="Дата рождения" Grid.ColumnSpan="3"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Место рождния" Grid.ColumnSpan="3"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Место рождения" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="2" Content="Национальность" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="3" Content="Гражданство" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон" Grid.ColumnSpan="3"/>
@@ -299,7 +309,7 @@
                     </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Родственники" Margin="-1,0,-3,-3">
+            <TabItem Header="Родственники">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.8*"/>
@@ -373,7 +383,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Фотография" Margin="2,0,-6,-3">
+            <TabItem Header="Фотография" >
                 <Grid>
                     <Image x:Name="Photo" Margin="10,5,444,267"/>
                     <Button x:Name="UploadPhoto" Content="Загрузить фотографию" HorizontalAlignment="Left" Height="44" Margin="23,306,0,0" VerticalAlignment="Top" Width="189" Click="UploadPhoto_Click"/>

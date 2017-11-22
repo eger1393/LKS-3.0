@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Сменить пароль" Height="222.856" Width="270">
+        Title="Сменить пароль" Height="222.856" Width="270" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="231" Margin="17,10,0,0">
         <Label x:Name="label" Content="Введите текущий пароль:" HorizontalAlignment="Center"/>
         <PasswordBox x:Name="password_old"/>

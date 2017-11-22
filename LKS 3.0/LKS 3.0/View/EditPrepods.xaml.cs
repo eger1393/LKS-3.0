@@ -21,11 +21,11 @@ namespace LKS_3._0
     /// </summary>
     public partial class EditPrepods : Window
     {
-        public EditPrepods(ref ApplicationContext temp_database, ref Troop selected_troop)
+        public EditPrepods(ref ApplicationContext temp_database, Troop Selected_troop)
         {
             InitializeComponent();
 
-            DataContext = new EditPrepodsViewModel(ref temp_database, ref selected_troop);
+            DataContext = new EditPrepodsViewModel(ref temp_database, Selected_troop);
 
             Binding_columns();
 
