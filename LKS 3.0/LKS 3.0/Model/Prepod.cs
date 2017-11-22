@@ -46,6 +46,10 @@ namespace LKS_3._0
         public string Coolness
         { get; set; }
 
+        [RusName("Должность")]
+        public string PrepodRank
+        { get; set; }
+
         [RusName("Дополнительно")]
         public string AdditionalInfo
         { get; set; }
