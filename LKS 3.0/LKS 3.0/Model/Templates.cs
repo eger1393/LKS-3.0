@@ -648,7 +648,10 @@ namespace LKS_3._0
 			selectedStudentFather = null;
 			if (selectedStudent.ListRelatives != null)
 			{
-				selectedRelative = selectedStudent.ListRelatives.First();
+				if (selectedStudent.ListRelatives.Count != 0)
+				{
+					selectedRelative = selectedStudent.ListRelatives.First();
+				}
 				foreach (Relative item in selectedStudent.ListRelatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)

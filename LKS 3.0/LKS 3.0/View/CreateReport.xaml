@@ -31,8 +31,8 @@
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="button" Content="&gt;&gt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" Command="{Binding MoveStudent}" CommandParameter="{Binding ElementName=LBList,Path=SelectedItem}" />
-                    <Button x:Name="button1" Content="&lt;&lt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="29" Command="{Binding ReturnStudent}" CommandParameter="{Binding ElementName=LBSelectedList,Path=SelectedItem}"/>
+                    <Button x:Name="button" Content="&gt;&gt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" Command="{Binding MoveStudent}" CommandParameter="{Binding ElementName=LBList,Path=SelectedItem}" />
+                    <Button x:Name="button1" Content="&lt;&lt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,44,0,0" Grid.Row="3" VerticalAlignment="Top" Width="29" Command="{Binding ReturnStudent}" CommandParameter="{Binding ElementName=LBSelectedList,Path=SelectedItem}"/>
                     <ListBox x:Name="LBList" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3"/>
                     <ListBox x:Name="LBSelectedList" Grid.Column="3" Grid.Row="2" Grid.RowSpan="3"/>
                 </Grid>
@@ -40,14 +40,15 @@
             <TabItem Header="Взвода">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="26*"/>
+                        <ColumnDefinition Width="255*"/>
                         <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="281*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="button2" Content="&gt;&gt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,44,0,0" Grid.Row="3" VerticalAlignment="Top" Width="29" Command="{Binding MoveTroop}" CommandParameter="{Binding ElementName=LBTroopList,Path=SelectedItem}" />
-                    <Button x:Name="button3" Content="&lt;&lt;" Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="11,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" Command="{Binding ReturnTroop}" CommandParameter="{Binding ElementName=LBTroopSelectedList,Path=SelectedItem}"/>
-                    <ListBox x:Name="LBTroopList" Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" />
-                    <ListBox x:Name="LBTroopSelectedList" Grid.Column="3" Grid.Row="2" Grid.RowSpan="3"/>
+                    <Button x:Name="button2" Content="&gt;&gt;" Grid.Column="2" HorizontalAlignment="Left" Height="34" Margin="11,10,0,0" VerticalAlignment="Top" Width="29" Command="{Binding MoveTroop}" CommandParameter="{Binding ElementName=LBTroopList,Path=SelectedItem}" />
+                    <Button x:Name="button3" Content="&lt;&lt;" Grid.Column="2" HorizontalAlignment="Left" Height="34" Margin="11,44,0,0" VerticalAlignment="Top" Width="29" Command="{Binding ReturnTroop}" CommandParameter="{Binding ElementName=LBTroopSelectedList,Path=SelectedItem}"/>
+                    <ListBox x:Name="LBTroopList" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <ListBox x:Name="LBTroopSelectedList" Grid.Column="3"/>
                 </Grid>
             </TabItem>
         </TabControl>
