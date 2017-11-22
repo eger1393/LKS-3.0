@@ -111,17 +111,25 @@ namespace LKS_3._0
 
 						if (tableCommand[0].command.ToUpper() == "$S$")
 						{
+							int num = 0;
 							foreach (Student studentItem in students)
 							{
+								num++;
 								selectedStudent = studentItem; // переделать
 								changeSelectedStudent(); // костыль 
 								selectedTable.Rows.Add();
 								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
 								foreach (TableCommand item in tableCommand)
 								{
-									//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
-									selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-																																		 //selectedTable.Cell.
+									if (item.command.ToUpper() == "$NUM$")
+									{
+										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+									}
+									else
+									{
+										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
+										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+									}																						 //selectedTable.Cell.
 								}
 							}
 						}
@@ -130,16 +138,24 @@ namespace LKS_3._0
 
 						if (tableCommand[0].command.ToUpper() == "$R$")
 						{
+							int num = 0;
 							foreach (Relative relativeItem in selectedStudent.ListRelatives)
 							{
 								selectedRelative = relativeItem; // переделать
 								selectedTable.Rows.Add();
+								num++;
 								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
 								foreach (TableCommand item in tableCommand)
 								{
-									//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
-									selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-																																		 //selectedTable.Cell.
+									if (item.command.ToUpper() == "$NUM$")
+									{
+										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+									}
+									else
+									{
+										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
+										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+									}																									 //selectedTable.Cell.
 								}
 							}
 						}
@@ -480,6 +496,11 @@ namespace LKS_3._0
 				if (command.ToUpper() == "$TRNUM$")
 				{
 					return selectedTrop.NumberTroop;
+				}
+
+				if (command.ToUpper() == "$TRCOUNT")
+				{
+					return selectedTrop.StaffCount.ToString();
 				}
 
 				if (command.ToUpper() == "$TPRFNAME$")
