@@ -38,8 +38,8 @@ namespace LKS_3._0
 
             temp_database = database;
 
+            //ListTroop = temp_database.Troops.Local.Where(u => u.NumberTroop.ToString().Count() > 1).Select(u => u.NumberTroop);
             ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop);
-
             CbTroop.ItemsSource = ListTroop;
         }
 

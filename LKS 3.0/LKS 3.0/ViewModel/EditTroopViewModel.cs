@@ -14,6 +14,11 @@ using System.Windows;
 
 namespace LKS_3._0.ViewModel
 {
+
+    //ПРИ ПЕРЕЩЕЛКИВАНИИ ВЗВОДОВ САМ ПО СЕБЕ ЗАПОЛНЯЕТСЯ ОТВ. ПРЕПОДАВАТЕЛЬ, ИСПРАВИТЬ!
+
+
+
     public class EditTroopViewModel : INotifyPropertyChanged
     {
         public ApplicationContext DataBaseTr;
@@ -27,10 +32,13 @@ namespace LKS_3._0.ViewModel
         {
             DataBaseTr = temp_DB;
             Troops = troops;
+            foreach (var item in Troops)
+            {
+                item.StaffCount = item.ListStudents.Count;
+            }
         }
 
         RelayCommand saveChangeCommand;
-        RelayCommand addCommand;
         RelayCommand deleteCommand;
         RelayCommand exelentCommand;
         RelayCommand updatePCCommand, updateRPCommand;
@@ -58,17 +66,7 @@ namespace LKS_3._0.ViewModel
             }
         }
 
-        public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ??
-                  (addCommand = new RelayCommand(obj =>
-                  {
-                     
-                  }));
-            }
-        }
+      
 
         public RelayCommand DeleteCommand
         {
@@ -82,22 +80,22 @@ namespace LKS_3._0.ViewModel
 
                         MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить взвод со всем личным составом?", "Внимание!", MessageBoxButton.YesNo);
                         if (res.ToString() == "Yes")
-                        {
-                            Troop temp = selectedItem as Troop;
-                            DataBaseTr.Students.RemoveRange(SelectTroop.ListStudents);
-                            DataBaseTr.Troops.Remove(temp);
-                            DataBaseTr.SaveChanges();
-                            Troop._count--;
-                            Troops = DataBaseTr.Troops.Local.ToBindingList();
-                        }
+                            {
+                                Troop temp = selectedItem as Troop;
+                                DataBaseTr.Students.RemoveRange(SelectTroop.ListStudents);
+                                DataBaseTr.Troops.Remove(temp);
+                                DataBaseTr.SaveChanges();
+                                Troop._count--;
+                                Troops = DataBaseTr.Troops.Local.ToBindingList();
+                            }
                         else if (res.ToString() == "No")
-                        {
-                            deleteCommand = null;
-                            return;
-                        }
+                            {
+                                deleteCommand = null;
+                                return;
+                            }
 
 
-                    }, (obj) => Troops.Count() > 0));
+                    }, (obj) => Troops.Count() > 0 && (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
 
         }
@@ -126,6 +124,13 @@ namespace LKS_3._0.ViewModel
 
                       Student temp = selectedItem as Student;
 
+                      Student last_PC = SelectTroop.ListStudents.FirstOrDefault(u => u.Rank == "КО");
+                      if(last_PC != null)
+                      {
+                          last_PC.Rank = "Отсутсвует";
+                      }
+                     
+                      temp.Rank = "КО";
                       SelectTroop.Id_PC = temp.Id;
                       SelectTroop.PlatoonCommander = temp;
                 
@@ -147,9 +152,15 @@ namespace LKS_3._0.ViewModel
 
                       Prepod temp = selectedItem as Prepod;
 
+                      Prepod last_RP = DataBaseTr.Prepods.FirstOrDefault(u => u.AdditionalInfo == "Ответственный за " + SelectTroop.NumberTroop.ToString() + " взвод");
+                      if (last_RP != null)
+                      {
+                          last_RP.AdditionalInfo = "";
+                      }
+
                       SelectTroop.Id_RP = temp.Id;
                       SelectTroop.ResponsiblePrepod = temp;
-                 
+                      SelectTroop.ResponsiblePrepod.AdditionalInfo = "Ответственный за " + SelectTroop.NumberTroop.ToString() + " взвод";
 
                   }));
             }
@@ -178,9 +189,10 @@ namespace LKS_3._0.ViewModel
             set
             {
                 selectTroop = value;
-                SelectTroopListStudent = SelectTroop.ListStudents;
-                SelectStudent = SelectTroop.PlatoonCommander;
-                SelectPrepod = SelectTroop.ResponsiblePrepod;
+
+                SelectTroopListStudent = selectTroop.ListStudents;
+                SelectStudent = selectTroop.PlatoonCommander;
+                SelectPrepod = selectTroop.ResponsiblePrepod;
 
                 OnPropertyChanged();
             }

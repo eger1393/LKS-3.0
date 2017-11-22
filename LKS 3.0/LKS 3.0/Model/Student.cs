@@ -10,6 +10,17 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
+    public enum Student_Rank
+    {
+        Командир_взвода = 1,
+        Заместитель_КВ,
+        КО1,
+        КО2,
+        КО3,
+        Журналист,
+        Заместитель_журналиста,
+        Студент
+    }
     public class Student:INotifyPropertyChanged
     {
         private string middleName,
@@ -66,7 +77,7 @@ namespace LKS_3._0
 
         public static int _count;
 
-        private int ID;
+        private int ID, kurs;
 
 
         public override string ToString()
@@ -82,17 +93,7 @@ namespace LKS_3._0
                 return ToString();
             }
         }
-        public enum Student_Rank
-        {
-            Командир_взвода = 1,
-            Заместитель_КВ,
-            КО1,
-            КО2,
-            КО3,
-            Журналист,
-            Заместитель_журналиста,
-            Студент
-        }
+       
         public Student() // Конструктор по умолчанию
         {
 			
@@ -212,7 +213,20 @@ namespace LKS_3._0
 				group = value;
 				OnPropertyChanged("Group");
 			}
-		} // Группа студента
+		}
+        [RusName("Курс")]
+        public int Kurs // факультет
+        {
+            get
+            {
+                return kurs;
+            }
+            set
+            {
+                kurs = value;
+                OnPropertyChanged("Kurs");
+            }
+        }
         [RusName("Факультет")]
         public string Faculty // факультет
 		{

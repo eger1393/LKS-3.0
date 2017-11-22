@@ -14,10 +14,9 @@ using System.Windows;
 
 namespace LKS_3._0
 {
+   
     public class ApplicationViewModel : INotifyPropertyChanged
     {
-        ProgramMode progMode;
-
         public ApplicationContext DataBase;
 
         private RelayCommand addCommand,
@@ -36,7 +35,8 @@ namespace LKS_3._0
             showAllCommand,
             troopCheck,
             newSboricommand,
-            editTroopCommand;
+            editTroopCommand,
+            changeRankCommand;
 
 
         private Student selectedStudent;
@@ -354,7 +354,7 @@ namespace LKS_3._0
                      }
 
 
-                 }));
+                 },(obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
         public RelayCommand EditPrepodsCommand
@@ -366,12 +366,12 @@ namespace LKS_3._0
                  {
                      
                      
-                     EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, ref selectedTroop);
+                     EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, SelectedTroop);
 
                      EditPrepodsWindow.ShowDialog();
 
                          
-                 }));
+                 }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
         public RelayCommand AddCommand
@@ -402,8 +402,8 @@ namespace LKS_3._0
                           }
                           else
                           {
-                              Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
-                             temp.ListStudents.Add(temp_student);
+                              Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
+                              temp.ListStudents.Add(temp_student);
                               temp.StaffCount = temp.ListStudents.Count;
                              
                               SelectedStudent = temp_student;
@@ -470,7 +470,7 @@ namespace LKS_3._0
                         {
                             
                         }       
-                    },(obj) => (progMode == ProgramMode.Admin)));
+                    },(obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
         public RelayCommand SaveChangeCommand
@@ -495,7 +495,7 @@ namespace LKS_3._0
                   {
                       CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(Students, Troops, null));
                       CR_Window.Show();
-                  }));
+                  }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
         public RelayCommand DeleteCommand
@@ -512,9 +512,9 @@ namespace LKS_3._0
                      if (res.ToString() == "Yes")
                      {
                          Student temp_student = selectedStudent as Student;
-                         DataBase.Students.Remove(temp_student);
-                         DataBase.SaveChanges();
                          Student._count--;
+                         Students.Remove(temp_student);
+                         DataBase.Relatives.RemoveRange(temp_student.ListRelatives);
 
                          if (SelectedTroop.NumberTroop != null)
                          {
@@ -524,11 +524,16 @@ namespace LKS_3._0
                          }
                          else
                          {
-                             Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
+                             Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
                              temp.ListStudents.Remove(temp_student);
                              temp.StaffCount = temp.ListStudents.Count;
+
+                             if(temp.PlatoonCommander == temp_student)
+                             {
+                                 temp.Id_PC = 0;
+                             }
                          }
-                         
+                         DataBase.SaveChanges();
                      }
                      else if (res.ToString() == "No")
                      {
@@ -536,7 +541,7 @@ namespace LKS_3._0
                          return;
                      }
 
-                 }, (obj) => students.Count() > 0 /*&& progMode == ProgramMode.Admin*/));
+                 }, (obj) => students.Count() > 0 && (ProgMode.ProgramMode == ProgramMode.Admin)));
                 }
             
         }
@@ -623,6 +628,27 @@ namespace LKS_3._0
                         {
                             DataBase.SaveChanges();
                         }
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+            }
+        }
+
+        public RelayCommand ChangeRankCommand
+        {
+            get
+            {
+                return changeRankCommand ??
+                    (changeRankCommand = new RelayCommand(selectedItem =>
+                    {
+                        if (selectedItem == null) return;
+
+                        Student temp_student = selectedItem as Student;
+
+                        View.ChangeRankWindow window = new View.ChangeRankWindow(temp_student);
+
+                        if (window.ShowDialog() == true)
+                        {
+                            DataBase.SaveChanges();
+                        }
                     }));
             }
         }
@@ -679,14 +705,11 @@ namespace LKS_3._0
 
             }
         }
-        public ApplicationViewModel(ProgramMode _progMode)
+        public ApplicationViewModel()
         {
-            progMode = _progMode;
-
             Load_DB();
 
             Update_List();
-
         }
 
 

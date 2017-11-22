@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Взвода" ResizeMode="CanResizeWithGrip" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Height="500" Width="768">
+        Title="Взвода" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Height="500" Width="750" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="484" Width="755">
+    <Grid Background="#FFCDCDCD" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -25,7 +25,7 @@
 
         <Menu x:Name="Main_Menu" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="4">
             <MenuItem Header="Удалить выбранный взвод" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=TroopGrid, Path=SelectedItem}">
-          
+
             </MenuItem>
         </Menu>
 
@@ -33,14 +33,14 @@
 
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="4" FontSize="14.667" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="150,0" Click="button_Ok_Click" Command="{Binding ExelentCommand}"/>
 
-        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="4"  ColumnWidth="240" MinWidth="750" Width="750" EnableRowVirtualization="False" Margin="0,24,5,55" >
-            <i:Interaction.Triggers>
+        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="242" Background="#FFB6B6B6">
+            <!--<i:Interaction.Triggers>
                 <i:EventTrigger EventName="CellEditEnding">
                     <i:InvokeCommandAction 
                 Command="{Binding SaveChangeCommand}"
                 CommandParameter="{Binding SelectTroop}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </i:Interaction.Triggers>-->
         </DataGrid>
         <Label x:Name="labelKO" Content="Командир взвода" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Left"/>
 

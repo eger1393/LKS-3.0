@@ -11,8 +11,6 @@ namespace LKS_3._0
         public static int _count;
 
         private int ID;
-
-        private Troop TroopName;
        
         public int Id
         {

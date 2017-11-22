@@ -199,7 +199,7 @@ namespace LKS_3._0.ViewModel
         BindingList<Student> listStudentsTroopSbori;
 
 
-        RelayCommand updateCurrentGridCommand, setSboriCommand, updateSboriGridCommand, returnSboriCommand, exelentCommand;
+        RelayCommand updateCurrentGridCommand, setSboriCommand, updateSboriGridCommand, returnSboriCommand, exelentCommand, updateRPCommand;
 
         public NewSboriViewModel(ref ApplicationContext temp_DataBase)
         {
@@ -207,9 +207,6 @@ namespace LKS_3._0.ViewModel
 
             Load();
 
-            
-
-            
         }
 
 
@@ -221,9 +218,9 @@ namespace LKS_3._0.ViewModel
 
             Select_TroopCurrent = new Troop();
 
-            Select_TroopSbori = Troops.Where(u => u.NumberTroop == "1").First();
+            Select_TroopSbori = Troops.FirstOrDefault(u => u.NumberTroop == "1");
 
-            SelectPrepod = Prepods.Where(u => u.Id == Select_TroopSbori.Id_RP).First();
+            SelectPrepod = Select_TroopSbori.ResponsiblePrepod;
 
             Update();
 
@@ -244,25 +241,14 @@ namespace LKS_3._0.ViewModel
                 }
             }
 
+            ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
+            Select_TroopSbori.StaffCount = ListStudentsTroopSbori.Count;
 
-            if (Select_TroopSbori.ListStudents.Count != 0)
-            {
-                ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
-               
-            }
-            else
-            {
-                ListStudentsTroopSbori = null;
-            }
 
-            if (Select_TroopSbori.Id_RP != 0)
-            {
-                SelectPrepod = Prepods.Where(u => u.Id == Select_TroopSbori.Id_RP).First();
-            }
-            else
-            {
-                SelectPrepod = null;
-            }
+            ListStudentsTroopCurrent = Select_TroopCurrent.ListStudents;
+            Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
+
+            SelectPrepod = Select_TroopSbori.ResponsiblePrepod;
         }
         public BindingList<Troop> Troops
         {
@@ -301,7 +287,7 @@ namespace LKS_3._0.ViewModel
 
             set
             {
-                listStudentsTroopCurrent = value;
+                listStudentsTroopCurrent = new BindingList<Student>(value.Where(u => u.NumSboriTroop == null).ToList());
                 OnPropertyChanged();
             }
         }
@@ -320,6 +306,26 @@ namespace LKS_3._0.ViewModel
             }
         }
 
+        public RelayCommand UpdateRPCommand
+        {
+            get
+            {
+                return updateRPCommand ??
+                  (updateRPCommand = new RelayCommand((selectedItem) =>
+                  {
+                      // если ни одного объекта не выделено, выходим
+                      if (selectedItem == null) return;
+
+                      Prepod temp = selectedItem as Prepod;
+
+                      Select_TroopSbori.Id_RP = temp.Id;
+                      Select_TroopSbori.ResponsiblePrepod = temp;
+                      Select_TroopSbori.ResponsiblePrepod.AdditionalInfo = "Ответственный за " + Select_TroopSbori.NumberTroop.ToString() + " взвод";
+
+                  }));
+            }
+        }
+
         public RelayCommand UpdateCurrentGridCommand
         {
             get
@@ -329,7 +335,7 @@ namespace LKS_3._0.ViewModel
                  {
                      string selected_value = obj as string;
 
-                     Select_TroopCurrent = Troops.Where(u => u.NumberTroop == selected_value).First();
+                     Select_TroopCurrent = Troops.FirstOrDefault(u => u.NumberTroop == selected_value);
 
                      ListStudentsTroopCurrent = select_TroopCurrent.ListStudents;
 
@@ -368,6 +374,7 @@ namespace LKS_3._0.ViewModel
 
                     Select_TroopSbori.ListStudents = new BindingList<Student>(Select_TroopSbori.ListStudents.Distinct().ToList());
 
+
                     Update();
                 }));
             }
@@ -388,7 +395,7 @@ namespace LKS_3._0.ViewModel
 
                     string selected_value = obj as string;
 
-                    Select_TroopSbori = Troops.Where(u => u.NumberTroop == selected_value).First();
+                    Select_TroopSbori = Troops.FirstOrDefault(u => u.NumberTroop == selected_value);
 
                     Update();
                     
@@ -488,11 +495,6 @@ namespace LKS_3._0.ViewModel
                 selectPrepod = value;
                 OnPropertyChanged();
             }
-        }
-
-        public NewSboriViewModel()
-        {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

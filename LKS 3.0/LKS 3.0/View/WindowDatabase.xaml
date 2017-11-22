@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="База данных ВК" Height="900" Width="1440" WindowState="Maximized" Closing="W_Data_Closing">
+        Title="База данных ВК" WindowState="Maximized" Closing="W_Data_Closing">
 
     <Window.Resources>
         <Style x:Key="Default">
@@ -89,7 +89,8 @@
     RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Main}" IsReadOnly="True">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <Button Content="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedStudent}" Background="{x:Null}" BorderBrush="White"/>
+                    <MenuItem Header="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedStudent}"/>
+                    <MenuItem Header="Cменить должность" Command="{Binding ChangeRankCommand}" CommandParameter="{Binding SelectedStudent}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <i:Interaction.Triggers>

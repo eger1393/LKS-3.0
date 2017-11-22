@@ -90,6 +90,10 @@ namespace LKS_3._0
             }
             set
             {
+                if(value == 0)
+                {
+                    PlatoonCommander = null;
+                }
                 ID_RP = value;
             }
         }
@@ -102,6 +106,10 @@ namespace LKS_3._0
             }
             set
             {
+                if (value == 0)
+                {
+                    ResponsiblePrepod = null;
+                }
                 ID_PC = value;
             }
         }

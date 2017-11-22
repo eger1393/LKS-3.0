@@ -66,7 +66,7 @@ namespace LKS_3._0
             {
                 if (PB_Password.Password == Pass.Value)
                 {
-                    MessageBox.Show("Успешно!");
+                    MessageBox.Show("Вход с полным доступом!", "Успешно!");
                     WindowDatabase Window_Data = new WindowDatabase(true);
                     Window_Data.Show();
 

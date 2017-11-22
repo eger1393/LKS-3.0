@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Преподаватели" ResizeMode="CanResizeWithGrip" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Height="431.667" Width="630.333">
+        Title="Преподаватели" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Height="420.186" Width="630.333" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <!--<Window.Resources>
         <st:MultiBindingConverter_okdp_limit x:Key="MultiBindingConverter_okdp_limit" />
     </Window.Resources>-->
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="392" Width="620">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="392" Width="620" Background="#FFD4D4D4">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -34,7 +34,7 @@
         
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="2" Grid.Column="1" Click="button_OK_Click" Margin="10,25,10,10" FontSize="14.667"/>
 
-        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" IsReadOnly="True" Margin="0,25,0,0" >
+        <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" IsReadOnly="True" Margin="0,25,0,0" Background="#FFB2B2B2" >
             <!--<DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background">

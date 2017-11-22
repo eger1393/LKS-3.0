@@ -56,7 +56,7 @@ namespace LKS_3._0.View
 
                         Binding _myNewBindDef = new Binding(el.Name);
                         _temp_column.Binding = _myNewBindDef;
-
+                        _temp_column.IsReadOnly = false;
                         TroopGrid.Columns.Add(_temp_column);
                     }
                     else
@@ -66,7 +66,7 @@ namespace LKS_3._0.View
 
                         Binding myNewBindDef = new Binding(el.Name);
                         temp_column.Binding = myNewBindDef;
-
+                        temp_column.IsReadOnly = true;
                         TroopGrid.Columns.Add(temp_column);
                     }    
                 
