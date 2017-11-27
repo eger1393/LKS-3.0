@@ -30,7 +30,13 @@ namespace LKS_3._0
             LastName = "";
             Coolness = "";
         }
-        [RusName("Фамилия")]
+
+		public string initials()
+		{
+			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+		}
+
+		[RusName("Фамилия")]
         public string FirstName
         { get; set; }
 

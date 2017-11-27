@@ -79,6 +79,10 @@ namespace LKS_3._0
 
         private int ID, kurs;
 
+		public string initials()
+		{
+			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+		}
 
         public override string ToString()
         {

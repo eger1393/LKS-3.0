@@ -46,8 +46,12 @@ namespace LKS_3._0
         public int IdStudent
         { get; set; }
 
+		public string initials()
+		{
+			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+		}
 
-        [RusName("Фамилия")]
+		[RusName("Фамилия")]
 		public string MiddleName // Фамилия
 		{
 			get
