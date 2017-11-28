@@ -88,6 +88,60 @@
                     <Button x:Name="ОКbutton" Content="Сохранить" Grid.Column="1" Margin="13,143,9,261" Command="{Binding SaveCommand}" Click="ОКbutton_Click"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="Администрация сборов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="AdminSbori"  Header="Данные о командующих :" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.1*" />
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="ФИО" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"/>
+                            <Label Content="Звание" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center"/>
+                            <Label Content="Начальник штаба в/ч" Grid.Row="1"/>
+                            <Label Content="Командир в/ч" Grid.Row="2"/>          
+                            <Label Content="Командир батареи" Grid.Row="3"/>
+                            <Label Content="Старшина батареи" Grid.Row="4"/>
+
+
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ChiefOfStaffFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CommanderVKFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CommanderBatteryFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ForemanBatteryFIO, Mode=TwoWay}"/>
+
+
+                            
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ChiefOfStaffDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding CommanderVKDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding CommanderBatteryDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding ForemanBatteryDuty, Mode=TwoWay}"/>
+                            
+
+
+                        </Grid>
+                    </GroupBox>
+
+                    <Button x:Name="ОКbutton2" Content="Сохранить" Margin="10,200,10,200" Command="{Binding SaveCommand}" Click="ОКbutton_Click"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Общие документы">
                 <Grid>
                     <Grid.ColumnDefinitions>
