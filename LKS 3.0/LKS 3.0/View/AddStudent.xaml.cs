@@ -32,7 +32,7 @@ namespace LKS_3._0
 		private BitmapFrame ImageBitmapFrame;
 
         ApplicationContext _tempDB;
-        public AddStudent(Student temp, IEnumerable<string> list_Troop, IEnumerable<string> list_Rectal, IEnumerable<string> list_Group, ref ApplicationContext temp_DataBase)
+        public AddStudent(Student temp, List<string> list_Troop, List<string> list_Rectal, List<string> list_Group, List<string> list_Speciality, ref ApplicationContext temp_DataBase)
 		{
 			InitializeComponent();
 
@@ -41,6 +41,8 @@ namespace LKS_3._0
             CbGroup.ItemsSource = list_Group;
 
             CbRectal.ItemsSource = list_Rectal;
+
+            CbSpeciality.ItemsSource = list_Speciality;
 
             _tempDB = temp_DataBase;
 

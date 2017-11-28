@@ -1,0 +1,40 @@
+﻿<Window x:Class="LKS_3._0.View.InfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0.View"
+        mc:Ignorable="d"
+        Title="Информация о БД" Height="250" Width="676">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Content="Информация о :" HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="16"/>
+        <ComboBox x:Name="comboBoxInfo" Grid.Row="1" VerticalAlignment="Top" Margin="5,0" FontSize="16"/>
+        <Label x:Name="label1" Content="Критерий :" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16"/>
+        <Label x:Name="label2" Content="Значение :" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16"/>
+        <ComboBox x:Name="comboBoxKrit" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5,0" FontSize="16" SelectionChanged="comboBoxKrit_SelectionChanged">
+            <ListBoxItem Content="ВУС"></ListBoxItem>
+            <ListBoxItem Content="Группа"></ListBoxItem>
+            <ListBoxItem Content="Курс"></ListBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="comboBoxValue" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="5,0" FontSize="16"/>
+        <Label x:Name="AllStudentLabel" Content="Общее количество студентов :" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
+        <Label x:Name="KritStudentLabel" Content="Количество студентов по выбранному критерию :" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
+        <TextBlock x:Name="textBlockAll" Grid.Column="2"  Grid.Row="3" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="18.667" TextAlignment="Center" />
+        <TextBlock x:Name="textBlockKrit" Grid.Column="2"  Grid.Row="4" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="18.667" TextAlignment="Center" />
+        <Button x:Name="buttonCalc" Content="Подсчитать" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" FontSize="18.667" Margin="5,0" Click="buttonCalc_Click"/>
+    </Grid>
+</Window>

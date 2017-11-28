@@ -246,7 +246,7 @@ namespace LKS_3._0
 				OnPropertyChanged("Faculty");
 			}
 		} 
-        [RusName("Специальность в ВУЗе")]
+        [RusName("ВУС")]
         public string SpecialityName // Название специальности
 		{
 			get

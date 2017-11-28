@@ -36,7 +36,8 @@ namespace LKS_3._0
             troopCheck,
             newSboricommand,
             editTroopCommand,
-            changeRankCommand;
+            changeRankCommand,
+            infoCommand;
 
 
         private Student selectedStudent;
@@ -47,11 +48,12 @@ namespace LKS_3._0
 
         BindingList<Troop> troops;
 
-        private IEnumerable<string> list_Troop,
+        private List<string> list_Troop,
             list_Rectal,
             list_Mname,
             list_Rank,
-            list_Group; 
+            list_Group,
+            list_Speciality;
             //findItemsSource;
 
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
@@ -73,7 +75,7 @@ namespace LKS_3._0
                     Students = DataBase.Students.Local.ToBindingList();
                 }
 
-                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct();
+                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct().ToList();
 
                 ValueFind_T = value;
             }
@@ -92,7 +94,7 @@ namespace LKS_3._0
                 {
                     Students = DataBase.Students.Local.ToBindingList();
                 }
-                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct();
+                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct().ToList();
                 ValueFind_G = value;
             }
         }
@@ -127,7 +129,7 @@ namespace LKS_3._0
                 }
         }
 
-        public IEnumerable<string> List_Troop
+        public List<string> List_Troop
         {
             get { return list_Troop; }
             set
@@ -137,7 +139,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Rectal
+        public List<string> List_Rectal
         {
             get { return list_Rectal; }
             set
@@ -147,7 +149,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Mname
+        public List<string> List_Mname
         {
             get { return list_Mname;  }
             set
@@ -157,7 +159,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Rank
+        public List<string> List_Rank
         {
             get { return list_Rank; }
             set
@@ -167,7 +169,7 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<string> List_Group
+        public List<string> List_Group
         {
             get { return list_Group; }
             set
@@ -233,18 +235,20 @@ namespace LKS_3._0
 
         private void Update_List()
         {
-            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct();
+            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct().ToList();
 
-            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct();
+            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct().ToList();
 
-            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct();
+            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct().ToList();
 
-            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct();
+            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct().ToList();
 
-            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct();
-            
-            
-            
+            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct().ToList();
+
+            List_Speciality = DataBase.Students.Local.Select(u => u.SpecialityName).Distinct().ToList();
+
+
+
         }
 
         public RelayCommand ShowAllCommand
@@ -385,7 +389,7 @@ namespace LKS_3._0
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
@@ -425,7 +429,7 @@ namespace LKS_3._0
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
@@ -648,6 +652,36 @@ namespace LKS_3._0
                         if (window.ShowDialog() == true)
                         {
                             DataBase.SaveChanges();
+                        }
+                    }));
+            }
+        }
+
+        public List<string> List_Speciality
+        {
+            get
+            {
+                return list_Speciality;
+            }
+
+            set
+            {
+                list_Speciality = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand InfoCommand
+        {
+            get
+            {
+                return infoCommand ??
+                    (infoCommand = new RelayCommand(obj =>
+                    {
+                        LKS_3._0.View.InfoWindow Info = new View.InfoWindow(Students, List_Troop, List_Group, List_Speciality);
+                        if (Info.ShowDialog() == true)
+                        {
+
                         }
                     }));
             }

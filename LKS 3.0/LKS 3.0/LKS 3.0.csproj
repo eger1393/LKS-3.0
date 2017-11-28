@@ -144,6 +144,9 @@
     <Compile Include="View\EditTroop.xaml.cs">
       <DependentUpon>EditTroop.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\InfoWindow.xaml.cs">
+      <DependentUpon>InfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NewSbori.xaml.cs">
       <DependentUpon>NewSbori.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\EditTroop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
