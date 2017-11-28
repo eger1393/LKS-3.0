@@ -98,7 +98,7 @@ namespace LKS_3._0.View
 
             List_S = list_Speciality;
 
-            int[] List_Kurs = { 1,2,3 };
+            int[] List_Kurs = { 2,3,4 };
             List_K = new List<int>(List_Kurs);
 
             
