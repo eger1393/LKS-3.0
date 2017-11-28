@@ -152,15 +152,9 @@ namespace LKS_3._0.ViewModel
 
                       Prepod temp = selectedItem as Prepod;
 
-                      Prepod last_RP = DataBaseTr.Prepods.FirstOrDefault(u => u.AdditionalInfo == "Ответственный за " + SelectTroop.NumberTroop.ToString() + " взвод");
-                      if (last_RP != null)
-                      {
-                          last_RP.AdditionalInfo = "";
-                      }
-
                       SelectTroop.Id_RP = temp.Id;
                       SelectTroop.ResponsiblePrepod = temp;
-                      SelectTroop.ResponsiblePrepod.AdditionalInfo = "Ответственный за " + SelectTroop.NumberTroop.ToString() + " взвод";
+
 
                   }));
             }
@@ -189,12 +183,10 @@ namespace LKS_3._0.ViewModel
             set
             {
                 selectTroop = value;
-
+                OnPropertyChanged();
                 SelectTroopListStudent = selectTroop.ListStudents;
                 SelectStudent = selectTroop.PlatoonCommander;
                 SelectPrepod = selectTroop.ResponsiblePrepod;
-
-                OnPropertyChanged();
             }
         }
 

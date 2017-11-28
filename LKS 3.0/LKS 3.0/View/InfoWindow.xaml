@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-        Title="Информация о БД" Height="250" Width="676">
+        Title="Информация о БД" Height="250" Width="676" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

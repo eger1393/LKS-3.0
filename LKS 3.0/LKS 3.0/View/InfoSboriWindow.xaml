@@ -1,0 +1,166 @@
+﻿<Window x:Class="LKS_3._0.View.InfoSboriWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0.View"
+        mc:Ignorable="d"
+        Title="Сборы" Height="500" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Документы на учебные взвода">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="Docs"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBox"/>
+                    </GroupBox>
+                    <Label x:Name="label" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBox" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Данные о сборах">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="DateSbori"  Header="Время проведения сборов" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="№ приказа о сборах" Grid.Row="0"/>
+                            <Label Content="Дата приказа" Grid.Row="1"/>
+                            <Label Content="Начало сборов" Grid.Row="2"/>
+                            <Label Content="Конец сборов" Grid.Row="3"/>
+                            <Label Content="День присяги" Grid.Row="4"/>
+                            <Label Content="Экзамен" Grid.Row="5"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberofOrder, Mode=TwoWay}"/>
+                            <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="1" Grid.Row="1"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                            <DatePicker x:Name="TbDataBeginSbori" Grid.Column="1" Grid.Row="2"  Text="{Binding DateBeginSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                            <DatePicker x:Name="TbDataEndSbori" Grid.Column="1" Grid.Row="3"  Text="{Binding DateEndSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                            <DatePicker x:Name="TbDatePrisyaga" Grid.Column="1" Grid.Row="4"  Text="{Binding DatePrisyaga, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                            <DatePicker x:Name="TbDateExamen" Grid.Column="1" Grid.Row="5"  Text="{Binding DateExamen, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+
+
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="MilitaryBase"  Header="Военная часть" HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="№ в/ч" Grid.Row="0"/>
+                            <Label Content="Метоположение в/ч" Grid.Row="1"/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberVK, Mode=TwoWay}"></TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LocationVK, Mode=TwoWay}"></TextBox>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="ОКbutton" Content="Сохранить" Grid.Column="1" Margin="13,143,9,261" Command="{Binding SaveCommand}" Click="ОКbutton_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Администрация сборов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="AdminSbori"  Header="Данные о командующих :" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.1*" />
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="ФИО" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"/>
+                            <Label Content="Звание" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center"/>
+                            <Label Content="Начальник штаба в/ч" Grid.Row="1"/>
+                            <Label Content="Командир в/ч" Grid.Row="2"/>          
+                            <Label Content="Командир батареи" Grid.Row="3"/>
+                            <Label Content="Старшина батареи" Grid.Row="4"/>
+
+
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ChiefOfStaffFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CommanderVKFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CommanderBatteryFIO, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ForemanBatteryFIO, Mode=TwoWay}"/>
+
+
+                            
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ChiefOfStaffDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding CommanderVKDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding CommanderBatteryDuty, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding ForemanBatteryDuty, Mode=TwoWay}"/>
+                            
+
+
+                        </Grid>
+                    </GroupBox>
+
+                    <Button x:Name="ОКbutton2" Content="Сохранить" Margin="10,200,10,200" Command="{Binding SaveCommand}" Click="ОКbutton_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Общие документы">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="DocsAll"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsAllBox"/>
+                    </GroupBox>
+                    <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxAll" Grid.Column="1" FontSize="16" Width="170" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+    </Grid>
+</Window>
