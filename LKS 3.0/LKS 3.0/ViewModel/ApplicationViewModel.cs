@@ -38,6 +38,7 @@ namespace LKS_3._0
 			editTroopCommand,
 			changeRankCommand,
 			infoCommand,
+			infoSboriCommand,
 			closeAllWordFile;
 
 

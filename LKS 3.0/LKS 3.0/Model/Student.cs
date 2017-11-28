@@ -541,19 +541,7 @@ namespace LKS_3._0
 			}
 		}
 
-		[RusName("Специальность в институте")]
-		public string SpecInst
-		{
-			get
-			{
-				return specInst;
-			}
-			set
-			{
-				specInst = value;
-				OnPropertyChanged();
-			}
-		}
+		
 
 
 
