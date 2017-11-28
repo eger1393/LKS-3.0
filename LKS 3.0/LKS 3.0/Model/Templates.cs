@@ -44,6 +44,7 @@ namespace LKS_3._0
 			if (Students.Count == 0 && troops.Count != 0)
 			{
 				this.students = troops.First().ListStudents.ToList();
+				selectedTrop = troops.First();
 			}
 			else
 			{
@@ -62,8 +63,9 @@ namespace LKS_3._0
 
 			while (range.Find.Execute("$?{1;20}$", MatchWildcards: true, Forward: true)) // ищем команды
 			{
+				
 				if (range.Text == "$NTbl$") // если встретили начало таблицы 
-				{
+				{ 
 					Word.Table selectedTable = null;
 					for (int i = 1; i <= doc.Tables.Count; i++)
 					{
@@ -78,23 +80,27 @@ namespace LKS_3._0
 					{
 						List<TableCommand> tableCommand = new List<TableCommand>();
 
-
-						foreach (Word.Row rowItem in selectedTable.Rows) // Проходим все ячейки таблицы
-						{
-							foreach (Word.Cell cellItem in rowItem.Cells) // и записываем все команды стречающиеся там
-							{
+						int r = selectedTable.Rows.Count;
+						int c = selectedTable.Columns.Count;
+						//foreach (Word.Row rowItem in selectedTable.Rows) // Проходим все ячейки таблицы
+						//{
+						//	foreach (Word.Cell cellItem in rowItem.Cells) // и записываем все команды стречающиеся там
+						//	{
+						 
+							for(int j = 1; j <= selectedTable.Columns.Count; j++)
+							{ 
 								int firstIndex = 0, lastIndex = 0; // попутно удаляя все команды
 
 								do //todo переделать исспользуя регулярки
 								{
-									if (firstIndex < cellItem.Range.Text.Length)
-										firstIndex = cellItem.Range.Text.IndexOf('$', firstIndex);
+									if (firstIndex < selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Length)
+										firstIndex = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.IndexOf('$', firstIndex);
 									if (firstIndex != -1)
 									{
-										lastIndex = cellItem.Range.Text.IndexOf('$', firstIndex + 1);
-										tableCommand.Add(new TableCommand(cellItem.ColumnIndex, cellItem.RowIndex,
-											cellItem.Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
-										cellItem.Range.Text = cellItem.Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
+										lastIndex = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.IndexOf('$', firstIndex + 1);
+										tableCommand.Add(new TableCommand(j, selectedTable.Rows.Count,
+											selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
+										selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
 
 
 									}
@@ -104,10 +110,11 @@ namespace LKS_3._0
 
 
 							}
-						}
+
 						//
 
-						selectedTable.Rows[tableCommand[0].y].Delete();
+						//selectedTable.Cell(selectedTable.Rows.Count, 1).Range.Rows.Delete();
+						//selectedTable.Rows[tableCommand[0].y].Delete();
 
 						if (tableCommand[0].command.ToUpper() == "$S$")
 						{
@@ -160,13 +167,21 @@ namespace LKS_3._0
 							}
 						}
 
-						
+						selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+
 
 					}
 				}
 				else
 				{
-					range.Text = findCommand(range.Text);
+					if (range.Text.ToUpper() != "$PHOTO$")
+					{
+						range.Text = findCommand(range.Text);
+					}else
+					{
+						range.Text = "";
+						range.InlineShapes.AddPicture(@"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Image\1.jpg",Range:range);
+					}
 					range.Find.ClearFormatting();
 					range = doc.Content;
 				}
@@ -198,7 +213,7 @@ namespace LKS_3._0
 
 		private string findCommand(string command)
 		{
-
+			// Студент
 			if (command.ToUpper() == "$FNAME$")
 			{
 				return selectedStudent.FirstName;
@@ -325,6 +340,10 @@ namespace LKS_3._0
 				return selectedStudent.Troop;
 			}
 
+			if (command.ToUpper() == "$INIT$")
+			{
+				return selectedStudent.initials();
+			}
 
 
 
@@ -382,6 +401,11 @@ namespace LKS_3._0
 				{
 					return selectedRelative.HealthStatus;
 				}
+
+				if (command.ToUpper() == "$RELINIT")
+				{
+					return selectedRelative.initials();
+				}
 			}
 			//Мать
 			if (selectedStudentMather != null)
@@ -434,6 +458,11 @@ namespace LKS_3._0
 				if (command.ToUpper() == "$MATHHEALTH$")
 				{
 					return selectedStudentMather.HealthStatus;
+				}
+
+				if (command.ToUpper() == "$MATHINIT")
+				{
+					return selectedStudentMather.initials();
 				}
 			}
 			// ОТЕЦ(ОТЧИМ)
@@ -488,6 +517,11 @@ namespace LKS_3._0
 				{
 					return selectedStudentFather.HealthStatus;
 				}
+
+				if (command.ToUpper() == "$FATHINIT")
+				{
+					return selectedStudentFather.initials();
+				}
 			}
 
 			// Взвод
@@ -521,6 +555,11 @@ namespace LKS_3._0
 				if (command.ToUpper() == "$TPRCOOLNESS$")
 				{
 					return selectedTrop.ResponsiblePrepod.Coolness;
+				}
+
+				if (command.ToUpper() == "$TPRINIT")
+				{
+					return selectedTrop.ResponsiblePrepod.initials();
 				}
 
 				// Командир взвода
@@ -648,6 +687,11 @@ namespace LKS_3._0
 				if (command.ToUpper() == "$TCOMTROOP$")
 				{
 					return selectedTrop.PlatoonCommander.Troop;
+				}
+
+				if (command.ToUpper() == "$TCOMINIT")
+				{
+					return selectedTrop.PlatoonCommander.initials();
 				}
 			}
 
