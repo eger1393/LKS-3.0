@@ -81,7 +81,7 @@
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>
-            
+            <MenuItem Header="Информация" Command="{Binding InfoCommand}"/>
 
         </Menu>
 

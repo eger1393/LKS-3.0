@@ -20,7 +20,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Информация о студенте" DataContext="{Binding AddedStudent}">
-                <Grid>
+                <Grid Margin="0,4,0,-4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.1*"/>
                         <ColumnDefinition Width="*"/>
@@ -54,7 +54,7 @@
                     <Label Grid.Column="2" Grid.Row="0" Content="Курс"/>
                     <Label Grid.Column="2" Grid.Row="1" Content="Студенческая группа"/>
                     <Label Grid.Column="2" Grid.Row="2" Content="Факультет"/>
-                    <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Content="Название специальности"/>
+                    <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Content="ВУС"/>
                     <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Content="Условия обучения в вузе"/>
                     <Label Grid.Column="2" Grid.Row="5" Content="Средний бал в зачетной книжке" Grid.ColumnSpan="2"/>
                     <Label Grid.Column="2" Grid.Row="6" Content="№ приказа о приеме" />
@@ -143,10 +143,7 @@
                         <ListBoxItem Content="4"/>
                     </ComboBox>
                     <ComboBox x:Name="CbSpeciality" Grid.Column="4" Grid.Row="3" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="БУК"/>
-                        <ListBoxItem Content="ТОР"/>
-                        <ListBoxItem Content="ОСА"/>
-                        <ListBoxItem Content="Тополь"/>
+                      
                     </ComboBox>
                     <ComboBox x:Name="CbConditions" Grid.Column="4" Grid.Row="4" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бюджетное"/>
