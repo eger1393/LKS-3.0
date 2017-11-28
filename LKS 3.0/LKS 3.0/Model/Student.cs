@@ -60,6 +60,7 @@ namespace LKS_3._0
             languageRank,
 			familiStatys, // семейное полжоение
 			military, // Служба в ВС
+			specInst,
 			status;
 
 
@@ -522,6 +523,20 @@ namespace LKS_3._0
 			set
 			{
 				familiStatys = value;
+				OnPropertyChanged();
+			}
+		}
+
+		[RusName("Семейное положение")]
+		public string SpecInst
+		{
+			get
+			{
+				return specInst;
+			}
+			set
+			{
+				specInst = value;
 				OnPropertyChanged();
 			}
 		}
