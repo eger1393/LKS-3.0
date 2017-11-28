@@ -46,10 +46,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
-                    <ListBoxItem Grid.Column="0" Content="Взвод №"/>
-                    <ListBoxItem MaxHeight="30" MaxWidth="50" Grid.Column="1" Content="{Binding SelectTroopNumber,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True,Mode=TwoWay}">
+                    <ListBoxItem Grid.Column="1" Content="Взвод №" VerticalAlignment="Center"/>
+                    <ListBoxItem MaxHeight="30" MaxWidth="50" Grid.Column="2" Content="{Binding SelectTroopNumber,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True,Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center">
                     </ListBoxItem>
-                    <Button  Grid.Column="2" Content="Cменить" Command="{Binding СheckTroop}" Click="Button_Click"/>
+                    <Button  Grid.Column="0" Content="Cменить" Command="{Binding СheckTroop}" Click="Button_Click"/>
                 </Grid>
 
                 <MenuItem x:Name="_1" Header="Все" Command="{Binding ShowAllCommand}" IsCheckable="True" Checked="_1_Checked"/>
