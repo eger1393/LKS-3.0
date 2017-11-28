@@ -61,7 +61,7 @@ namespace LKS_3._0
 			Word.Range range = doc.Content; // запихнули весь текст из документа в range
 
 
-			while (range.Find.Execute("$?{1;20}$", MatchWildcards: true, Forward: true)) // ищем команды
+			while (range.Find.Execute("$?{1;20}$", MatchWildcards: true)) // ищем команды
 			{
 				
 				if (range.Text == "$NTbl$") // если встретили начало таблицы 
@@ -70,7 +70,7 @@ namespace LKS_3._0
 					for (int i = 1; i <= doc.Tables.Count; i++)
 					{
 						Word.Range item = doc.Tables[i].Range;
-						if (item.Find.Execute("$NTbl$", ReplaceWith: "", Forward: true))
+						if (doc.Tables[i].Range.Find.Execute("$NTbl$", ReplaceWith: "", Forward: true))
 						{
 							selectedTable = doc.Tables[i];
 							break;
@@ -79,9 +79,16 @@ namespace LKS_3._0
 					if (selectedTable != null) // нужная таблица найдена
 					{
 						List<TableCommand> tableCommand = new List<TableCommand>();
-
-						int r = selectedTable.Rows.Count;
-						int c = selectedTable.Columns.Count;
+						int i;
+						if (selectedTable.Range.Find.Execute("$O$", Forward: true)) // костыль
+						{
+							i = 2;
+						}
+						else
+						{
+							i = selectedTable.Rows.Count;
+						}
+						//int c = selectedTable.Columns.Count;
 						//foreach (Word.Row rowItem in selectedTable.Rows) // Проходим все ячейки таблицы
 						//{
 						//	foreach (Word.Cell cellItem in rowItem.Cells) // и записываем все команды стречающиеся там
@@ -93,14 +100,14 @@ namespace LKS_3._0
 
 								do //todo переделать исспользуя регулярки
 								{
-									if (firstIndex < selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Length)
-										firstIndex = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.IndexOf('$', firstIndex);
+									if (firstIndex < selectedTable.Cell(i, j).Range.Text.Length)
+										firstIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex);
 									if (firstIndex != -1)
 									{
-										lastIndex = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.IndexOf('$', firstIndex + 1);
-										tableCommand.Add(new TableCommand(j, selectedTable.Rows.Count,
-											selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
-										selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text = selectedTable.Cell(selectedTable.Rows.Count, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
+										lastIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex + 1);
+										tableCommand.Add(new TableCommand(j, i,
+											selectedTable.Cell(i, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
+										selectedTable.Cell(i, j).Range.Text = selectedTable.Cell(i, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
 
 
 									}
@@ -112,11 +119,40 @@ namespace LKS_3._0
 							}
 
 						//
-
+						if (tableCommand.Find(obj => obj.command.ToUpper() == "$O$") != null)
+						{
+							selectedTable.Rows.Add(selectedTable.Rows[3]); // костыль который правит поехавшее форматирование
+							selectedTable.Cell(2, 1).Range.Rows.Delete();
+							//selectedTable.Cell(2, 1).Range.Text = "1";
+							int num = 0;
+							int y = 0;
+							foreach (Student studentItem in students)
+							{
+								num++;
+								selectedStudent = studentItem; // переделать
+								changeSelectedStudent(); // костыль 
+								//selectedTable.Rows.Add();
+								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
+								foreach (TableCommand item in tableCommand)
+								{
+									if (item.command.ToUpper() == "$NUM$")
+									{
+										selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
+									}
+									else
+									{
+										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
+										selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+									}                                                                                        //selectedTable.Cell.
+								}
+								y++;
+							}
+						}
 						//selectedTable.Cell(selectedTable.Rows.Count, 1).Range.Rows.Delete();
 						//selectedTable.Rows[tableCommand[0].y].Delete();
 
-						if (tableCommand[0].command.ToUpper() == "$S$")
+						//if (tableCommand[0].command.ToUpper() == "$S$")
+						if (tableCommand.Find(obj => obj.command.ToUpper() == "$S$") != null)
 						{
 							int num = 0;
 							foreach (Student studentItem in students)
@@ -139,11 +175,12 @@ namespace LKS_3._0
 									}																						 //selectedTable.Cell.
 								}
 							}
+							selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
 						}
 
 						// КАК всегда немного костылей
 
-						if (tableCommand[0].command.ToUpper() == "$R$")
+						if (tableCommand.Find(obj => obj.command.ToUpper() == "$R$") != null)
 						{
 							int num = 0;
 							foreach (Relative relativeItem in selectedStudent.ListRelatives)
@@ -165,9 +202,10 @@ namespace LKS_3._0
 									}																									 //selectedTable.Cell.
 								}
 							}
+							selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
 						}
 
-						selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+						
 
 
 					}
@@ -244,7 +282,7 @@ namespace LKS_3._0
 				return selectedStudent.Group;
 			}
 
-			if (command.ToUpper() == "$SPNAME$")
+			if (command.ToUpper() == "$VUS$")
 			{
 				return selectedStudent.SpecialityName;
 			}
@@ -365,6 +403,10 @@ namespace LKS_3._0
 				return selectedStudent.BloodType;
 			}
 
+			if(command.ToUpper() == "$SPECINST$")
+			{
+				return selectedStudent.SpecInst;
+			}
 
 
 
@@ -717,7 +759,8 @@ namespace LKS_3._0
 			}
 
 			if(command.ToUpper() == "$S$" || 
-				command.ToUpper() == "$R$")
+				command.ToUpper() == "$R$" ||
+				command.ToUpper() == "$O$")
 			{
 				return "";
 			}

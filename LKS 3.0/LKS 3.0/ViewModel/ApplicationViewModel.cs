@@ -19,28 +19,30 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBase;
 
-        private RelayCommand addCommand,
-            createReportCommand,
-            findCommand,
-            editCommand,
-            deleteCommand,
-            saveChangeCommand,
-            checkPassCommand,
-            editPrepodsCommand,
-            openTemplate,
-            showTraineesCommand,
-            showDetachedCommand,
-            showNaSboriCommand,
-            showPastSboriCommand,
-            showAllCommand,
-            troopCheck,
-            newSboricommand,
-            editTroopCommand,
-            changeRankCommand,
-            infoCommand;
+		private RelayCommand addCommand,
+			createReportCommand,
+			findCommand,
+			editCommand,
+			deleteCommand,
+			saveChangeCommand,
+			checkPassCommand,
+			editPrepodsCommand,
+			openTemplate,
+			showTraineesCommand,
+			showDetachedCommand,
+			showNaSboriCommand,
+			showPastSboriCommand,
+			showAllCommand,
+			troopCheck,
+			newSboricommand,
+			editTroopCommand,
+			changeRankCommand,
+			infoCommand,
+			closeAllWordFile;
 
 
-        private Student selectedStudent;
+
+		private Student selectedStudent;
 
         private Troop selectedTroop;
 
@@ -250,6 +252,19 @@ namespace LKS_3._0
 
 
         }
+
+		public RelayCommand CloseAllWordFile
+		{
+			get
+			{
+				return closeAllWordFile ??
+					(closeAllWordFile = new RelayCommand(obj =>
+					{
+						System.Diagnostics.Process Process2 = null;
+						Process2 = System.Diagnostics.Process.Start(@"clean.bat");
+					}));
+			}
+		}
 
         public RelayCommand ShowAllCommand
         {

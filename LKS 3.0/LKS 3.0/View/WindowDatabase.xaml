@@ -79,7 +79,8 @@
             <MenuItem Header="Взвода" Command="{Binding EditTroopCommand}"/>
             <MenuItem Header="Сборы" Command="{Binding NewSboriCommand}"/>
             <MenuItem Header="Отчеты" >
-                <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
+                <MenuItem Header="Создать отчет" Command="{Binding CreateReportCommand}" ></MenuItem>
+                <MenuItem Header="Закрытие word файлов" Command="{Binding CloseAllWordFile}" />
             </MenuItem>
             <MenuItem Header="Информация" Command="{Binding InfoCommand}"/>
 

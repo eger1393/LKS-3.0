@@ -527,7 +527,7 @@ namespace LKS_3._0
 			}
 		}
 
-		[RusName("Семейное положение")]
+		[RusName("Специальность в институте")]
 		public string SpecInst
 		{
 			get

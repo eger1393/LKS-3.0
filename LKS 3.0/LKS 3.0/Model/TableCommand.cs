@@ -16,5 +16,16 @@ namespace LKS_3._0
 			this.y = y;
 			this.command = command;
 		}
+		public static bool FoundCommand(TableCommand cm,string com)
+		{
+			if(cm.command == com)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 }
