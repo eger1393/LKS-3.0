@@ -744,11 +744,11 @@ namespace LKS_3._0
             {
                 if (item.Id_RP != 0)
                 {
-                    item.ResponsiblePrepod = DataBase.Prepods.Local.Where(u => u.Id == item.Id_RP).First();
+                    item.ResponsiblePrepod = DataBase.Prepods.Local.FirstOrDefault(u => u.Id == item.Id_RP);
                 }
                 if (item.Id_PC != 0)
                 {
-                    item.PlatoonCommander = DataBase.Students.Local.Where(u => u.Id == item.Id_PC).First();
+                    item.PlatoonCommander = DataBase.Students.Local.FirstOrDefault(u => u.Id == item.Id_PC);
                 }
                 if (item.SboriTroop)
                 {

@@ -90,19 +90,13 @@ namespace LKS_3._0
                                           return;
                                       }
 
-                                    Select_Troop.ResponsiblePrepod.AdditionalInfo = "";
-
                               //TO DO
                               if(DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).Count()!=0)
                               {
-                                  DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).First().Id_RP = 0;
+                                  DataBasePr.Troops.Local.FirstOrDefault(u => u.Id_RP == temp_prepod.Id).Id_RP = 0;
                               }
 
                           }
-
-
-
-                          temp_prepod.AdditionalInfo = "Ответственный за " + Select_Troop.NumberTroop.ToString() + " взвод";
 
                           Select_Troop.Id_RP = temp_prepod.Id;
 
