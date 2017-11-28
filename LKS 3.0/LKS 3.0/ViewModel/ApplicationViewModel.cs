@@ -35,6 +35,7 @@ namespace LKS_3._0
             showAllCommand,
             troopCheck,
             newSboricommand,
+            infoSboriCommand,
             editTroopCommand,
             changeRankCommand,
             infoCommand;
@@ -53,8 +54,9 @@ namespace LKS_3._0
             list_Mname,
             list_Rank,
             list_Group,
-            list_Speciality;
-            //findItemsSource;
+            list_Speciality,
+            list_SpecInst;
+
 
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
 
@@ -247,7 +249,7 @@ namespace LKS_3._0
 
             List_Speciality = DataBase.Students.Local.Select(u => u.SpecialityName).Distinct().ToList();
 
-
+            List_SpecInst = DataBase.Students.Local.Select(u => u.SpecInst).Distinct().ToList();
 
         }
 
@@ -389,7 +391,7 @@ namespace LKS_3._0
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, List_SpecInst, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
@@ -429,7 +431,7 @@ namespace LKS_3._0
 
                       Update_List();
 
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, List_SpecInst, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
@@ -682,6 +684,36 @@ namespace LKS_3._0
                         if (Info.ShowDialog() == true)
                         {
 
+                        }
+                    }));
+            }
+        }
+
+        public List<string> List_SpecInst
+        {
+            get
+            {
+                return list_SpecInst;
+            }
+
+            set
+            {
+                list_SpecInst = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand InfoSboriCommand
+        {
+            get
+            {
+                return infoSboriCommand ??
+                    (infoSboriCommand = new RelayCommand(obj =>
+                    {
+                        LKS_3._0.View.InfoSboriWindow Info = new View.InfoSboriWindow(ref DataBase, Troops);
+                        if (Info.ShowDialog() == true)
+                        {
+                            DataBase.SaveChanges();
                         }
                     }));
             }

@@ -77,7 +77,10 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Взвода" Command="{Binding EditTroopCommand}"/>
-            <MenuItem Header="Сборы" Command="{Binding NewSboriCommand}"/>
+            <MenuItem Header="Сборы">
+                <MenuItem Header="Формирование сборов" Command="{Binding NewSboriCommand}" ></MenuItem>
+                <MenuItem Header="Информация о сборах" Command="{Binding InfoSboriCommand}" ></MenuItem>
+            </MenuItem>
             <MenuItem Header="Отчеты" >
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportCommand}" ></MenuItem>
             </MenuItem>

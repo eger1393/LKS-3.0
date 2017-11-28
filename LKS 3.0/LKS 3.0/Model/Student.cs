@@ -208,6 +208,19 @@ namespace LKS_3._0
                 rank = value;
             }
         }
+        [RusName("ВУС")]
+        public string SpecialityName // Название специальности
+        {
+            get
+            {
+                return specialityName;
+            }
+            set
+            {
+                specialityName = value;
+                OnPropertyChanged("SpecialityName");
+            }
+        }
         [RusName("Группа")]
         public string Group
         {
@@ -247,19 +260,20 @@ namespace LKS_3._0
 				OnPropertyChanged("Faculty");
 			}
 		} 
-        [RusName("ВУС")]
-        public string SpecialityName // Название специальности
-		{
-			get
-			{
-				return specialityName;
-			}
-			set
-			{
-				specialityName = value;
-				OnPropertyChanged("SpecialityName");
-			}
-		} 
+       
+        [RusName("Специальность в ВУЗе")]
+        public string SpecInst
+        {
+            get
+            {
+                return specInst;
+            }
+            set
+            {
+                specInst = value;
+                OnPropertyChanged();
+            }
+        }
         [RusName("Условия обучения в ВУЗе")]
         public string ConditionsOfEducation // условия обучения
 		{
@@ -527,19 +541,7 @@ namespace LKS_3._0
 			}
 		}
 
-		[RusName("Семейное положение")]
-		public string SpecInst
-		{
-			get
-			{
-				return specInst;
-			}
-			set
-			{
-				specInst = value;
-				OnPropertyChanged();
-			}
-		}
+	
 
 
 
