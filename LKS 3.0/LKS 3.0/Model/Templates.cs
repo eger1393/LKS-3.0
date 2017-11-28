@@ -213,6 +213,11 @@ namespace LKS_3._0
 
 		private string findCommand(string command)
 		{
+			if(command.ToUpper() == "$N$")
+			{
+				return "\n";
+			}
+
 			// Студент
 			if (command.ToUpper() == "$FNAME$")
 			{
@@ -249,7 +254,7 @@ namespace LKS_3._0
 				return selectedStudent.ConditionsOfEducation;
 			}
 
-			if (command.ToUpper() == "$$AVERSCORE")
+			if (command.ToUpper() == "$AVERSCORE$")
 			{
 				return selectedStudent.AvarageScore;
 			}
@@ -304,7 +309,7 @@ namespace LKS_3._0
 				return selectedStudent.Nationality;
 			}
 
-			if (command.ToUpper() == "$HOMEPRONE$")
+			if (command.ToUpper() == "$HOMEPHONE$")
 			{
 				return selectedStudent.HomePhone;
 			}
@@ -344,6 +349,22 @@ namespace LKS_3._0
 			{
 				return selectedStudent.initials();
 			}
+
+			if (command.ToUpper() == "$MILITARY$")
+			{
+				return selectedStudent.Military;
+			}
+
+			if (command.ToUpper() == "$FAMILISTAT$")
+			{
+				return selectedStudent.FamiliStatys;
+			}
+
+			if (command.ToUpper() == "$BLOODTYPE$")
+			{
+				return selectedStudent.BloodType;
+			}
+
 
 
 
@@ -402,7 +423,7 @@ namespace LKS_3._0
 					return selectedRelative.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$RELINIT")
+				if (command.ToUpper() == "$RELINIT$")
 				{
 					return selectedRelative.initials();
 				}
@@ -460,7 +481,7 @@ namespace LKS_3._0
 					return selectedStudentMather.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$MATHINIT")
+				if (command.ToUpper() == "$MATHINIT$")
 				{
 					return selectedStudentMather.initials();
 				}
@@ -518,7 +539,7 @@ namespace LKS_3._0
 					return selectedStudentFather.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$FATHINIT")
+				if (command.ToUpper() == "$FATHINIT$")
 				{
 					return selectedStudentFather.initials();
 				}
@@ -532,7 +553,7 @@ namespace LKS_3._0
 					return selectedTrop.NumberTroop;
 				}
 
-				if (command.ToUpper() == "$TRCOUNT")
+				if (command.ToUpper() == "$TRCOUNT$")
 				{
 					return selectedTrop.StaffCount.ToString();
 				}
@@ -557,7 +578,7 @@ namespace LKS_3._0
 					return selectedTrop.ResponsiblePrepod.Coolness;
 				}
 
-				if (command.ToUpper() == "$TPRINIT")
+				if (command.ToUpper() == "$TPRINIT$")
 				{
 					return selectedTrop.ResponsiblePrepod.initials();
 				}
@@ -689,15 +710,21 @@ namespace LKS_3._0
 					return selectedTrop.PlatoonCommander.Troop;
 				}
 
-				if (command.ToUpper() == "$TCOMINIT")
+				if (command.ToUpper() == "$TCOMINIT$")
 				{
 					return selectedTrop.PlatoonCommander.initials();
 				}
 			}
 
+			if(command.ToUpper() == "$S$" || 
+				command.ToUpper() == "$R$")
+			{
+				return "";
+			}
 
 
-			return null;
+
+			return command.Substring(1, command.Length - 2);
 		}
 
 		void changeTroop ()

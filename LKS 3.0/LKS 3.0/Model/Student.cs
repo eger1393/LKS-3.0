@@ -58,7 +58,9 @@ namespace LKS_3._0
             mask_size,
             foreignLanguage,
             languageRank,
-            status;
+			familiStatys, // семейное полжоение
+			military, // Служба в ВС
+			status;
 
 
         private bool
@@ -493,6 +495,34 @@ namespace LKS_3._0
 			{
 				school = value;
 				OnPropertyChanged("School");
+			}
+		}
+
+		[RusName("Служба в ВС")]
+		public string Military
+		{
+			get
+			{
+				return military;
+			}
+			set
+			{
+				military = value;
+				OnPropertyChanged();
+			}
+		}
+
+		[RusName("Семейное положение")]
+		public string FamiliStatys
+		{
+			get
+			{
+				return familiStatys;
+			}
+			set
+			{
+				familiStatys = value;
+				OnPropertyChanged();
 			}
 		}
 
