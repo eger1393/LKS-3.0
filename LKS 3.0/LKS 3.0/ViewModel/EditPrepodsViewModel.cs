@@ -18,6 +18,7 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBasePr;
         public Troop Select_Troop;
+        public IEnumerable<Troop> Troops;
         public EditPrepodsViewModel(ref ApplicationContext temp_database,Troop selected_troop)
         {
             DataBasePr = temp_database;   
@@ -27,6 +28,21 @@ namespace LKS_3._0
             Prepod._count = Prepods.Count();
 
             Select_Troop = selected_troop;
+
+            Troops = DataBasePr.Troops.Local.ToBindingList();
+
+            foreach (var item in Prepods)
+            {
+                IEnumerable<Troop> TroopsTemp;
+
+                TroopsTemp = Troops.Where(u => u.Id_RP == item.Id);
+
+                foreach (var item2 in TroopsTemp)
+                {
+                    item.AdditionalInfo += item2.NumberTroop.ToString() + " взвод ";
+                }
+                
+            }
         }
 
         private Prepod selectedPrepod; // Выбранный препод
@@ -61,71 +77,71 @@ namespace LKS_3._0
             }
         }
 
-        public RelayCommand SetRPCommand
-        {
-            get
-            {
-                return setRPCommand ??
-                  (setRPCommand = new RelayCommand((selectedItem) =>
-                  {
-                      if (selectedItem == null)
-                      {
-                          MessageBox.Show("Преподаватель не выбран!", "Ошибка!");
-                          return;
-                      }
-                      // получаем выделенный объект
+        //public RelayCommand SetRPCommand
+        //{
+        //    get
+        //    {
+        //        return setRPCommand ??
+        //          (setRPCommand = new RelayCommand((selectedItem) =>
+        //          {
+        //              if (selectedItem == null)
+        //              {
+        //                  MessageBox.Show("Преподаватель не выбран!", "Ошибка!");
+        //                  return;
+        //              }
+        //              // получаем выделенный объект
 
-                      if(Select_Troop.NumberTroop != null)
-                      {
+        //              if(Select_Troop.NumberTroop != null)
+        //              {
 
-                          Prepod temp_prepod = selectedItem as Prepod;
+        //                  Prepod temp_prepod = selectedItem as Prepod;
 
 
-                          if (Select_Troop.Id_RP != 0)
-                                {
-                                      MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
+        //                  if (Select_Troop.Id_RP != 0)
+        //                        {
+        //                              MessageBoxResult res = MessageBox.Show("Вы уверены что хотите переназначить преподавателя?", "Внимание!", MessageBoxButton.YesNo);
 
-                                      if (res.ToString() == "No")
-                                      {
-                                          return;
-                                      }
+        //                              if (res.ToString() == "No")
+        //                              {
+        //                                  return;
+        //                              }
 
-                              //TO DO
-                              if(DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).Count()!=0)
-                              {
-                                  DataBasePr.Troops.Local.FirstOrDefault(u => u.Id_RP == temp_prepod.Id).Id_RP = 0;
-                              }
+        //                      //TO DO
+        //                      if(DataBasePr.Troops.Local.Where(u => u.Id_RP == temp_prepod.Id).Count()!=0)
+        //                      {
+        //                          DataBasePr.Troops.Local.FirstOrDefault(u => u.Id_RP == temp_prepod.Id).Id_RP = 0;
+        //                      }
 
-                          }
+        //                  }
 
-                          Select_Troop.Id_RP = temp_prepod.Id;
+        //                  Select_Troop.Id_RP = temp_prepod.Id;
 
-                          Select_Troop.ResponsiblePrepod = temp_prepod;
-
-                          
-
-                          DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
-
-                          DataBasePr.SaveChanges();
-
-                          Prepods = DataBasePr.Prepods.Local.ToBindingList();
-
-                          MessageBox.Show("Преподаватель назначен!", "Успешно!");
+        //                  Select_Troop.ResponsiblePrepod = temp_prepod;
 
                           
 
+        //                  DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
 
-                      }
-                      else
-                      {
-                          MessageBox.Show("Взвод не выбран!", "Ошибка!");
-                      }
+        //                  DataBasePr.SaveChanges();
+
+        //                  Prepods = DataBasePr.Prepods.Local.ToBindingList();
+
+        //                  MessageBox.Show("Преподаватель назначен!", "Успешно!");
+
+                          
+
+
+        //              }
+        //              else
+        //              {
+        //                  MessageBox.Show("Взвод не выбран!", "Ошибка!");
+        //              }
 
                     
 
-                  }));
-            }
-        }
+        //          }));
+        //    }
+        //}
 
         public RelayCommand EditCommand
         {

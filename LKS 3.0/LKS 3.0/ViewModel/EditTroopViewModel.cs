@@ -154,7 +154,7 @@ namespace LKS_3._0.ViewModel
 
                       SelectTroop.Id_RP = temp.Id;
                       SelectTroop.ResponsiblePrepod = temp;
-                     
+
 
                   }));
             }
