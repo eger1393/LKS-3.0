@@ -123,7 +123,7 @@
                         <ListBoxItem Content="Негоден"/>
                     </ComboBox>
 
-                    <ComboBox x:Name="CbFamilyStatus" Grid.Column="1" Grid.Row="10" Text="{Binding Military}" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbFamilyStatus" Grid.Column="1" Grid.Row="10" Text="{Binding FamiliStatys}" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Женат"/>
                         <ListBoxItem Content="Замужем"/>
                         <ListBoxItem Content="Холост"/>

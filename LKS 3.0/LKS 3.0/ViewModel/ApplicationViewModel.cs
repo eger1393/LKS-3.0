@@ -695,7 +695,7 @@ namespace LKS_3._0
                 return infoCommand ??
                     (infoCommand = new RelayCommand(obj =>
                     {
-                        LKS_3._0.View.InfoWindow Info = new View.InfoWindow(Students, List_Troop, List_Group, List_Speciality);
+                        LKS_3._0.View.InfoWindow Info = new View.InfoWindow(ref DataBase, List_Troop, List_Group, List_Speciality);
                         if (Info.ShowDialog() == true)
                         {
 

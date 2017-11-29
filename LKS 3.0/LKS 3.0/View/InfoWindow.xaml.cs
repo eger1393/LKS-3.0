@@ -85,12 +85,12 @@ namespace LKS_3._0.View
             }
         }
 
-        public InfoWindow(BindingList<Student> students, List<string> list_Troop, List<string> list_Group, List<string> list_Speciality)
+        public InfoWindow(ref ApplicationContext data, List<string> list_Troop, List<string> list_Group, List<string> list_Speciality)
         {
 
             InitializeComponent();
 
-            Students = students;
+			Students = data.Students.Local.ToBindingList();
             List_T = list_Troop;
             List_T.Insert(0, "Все взвода");
 
