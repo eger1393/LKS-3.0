@@ -53,8 +53,8 @@
             </TabItem>
         </TabControl>
 
-        <CheckBox x:Name="oneStudent" Content="Один студент" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="109" IsChecked="{Binding OneStudent}"/>
-        <CheckBox x:Name="oneTroop" Content="Один взвод" HorizontalAlignment="Left" Margin="140,12,0,0" VerticalAlignment="Top" IsChecked="{Binding OneTroop}"/>
+        <CheckBox x:Name="oneStudent" Content="На одного студента" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="130" IsChecked="{Binding OneStudent}"/>
+        <CheckBox x:Name="oneTroop" Content="На один взвод" HorizontalAlignment="Left" Margin="157,10,0,0" VerticalAlignment="Top" IsChecked="{Binding OneTroop}"/>
         <CheckBox x:Name="severalDocuments" Content="Несколько документов" HorizontalAlignment="Left" Margin="10,15,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150" Height="17" IsChecked="{Binding SeveralDocuments}"/>
 
 

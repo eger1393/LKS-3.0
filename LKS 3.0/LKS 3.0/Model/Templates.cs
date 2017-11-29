@@ -218,7 +218,7 @@ namespace LKS_3._0
 					}else
 					{
 						range.Text = "";
-						range.InlineShapes.AddPicture(@"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Image\1.jpg",Range:range);
+						range.InlineShapes.AddPicture(selectedStudent.ImagePath,Range:range);
 					}
 					range.Find.ClearFormatting();
 					range = doc.Content;
