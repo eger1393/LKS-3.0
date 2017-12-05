@@ -46,6 +46,8 @@ namespace LKS_3._0
 
             CbSpecInst.ItemsSource = list_SpecInst;
 
+            CbRank.ItemsSource = Troop.Ranks;
+
             _tempDB = temp_DataBase;
 
             viewModel = new AddStudentViewModel(ref _tempDB);

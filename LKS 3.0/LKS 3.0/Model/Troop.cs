@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
+  
+
     public partial class Troop:INotifyPropertyChanged
     {
         public static int _count;
@@ -24,6 +26,14 @@ namespace LKS_3._0
 
         private int ID, ID_RP, ID_PC, staffCount;
 
+        public static List<string> Ranks = new List<string>() { "КВ",
+        "КО1",
+        "КО2",
+        "КО3",
+        "Старший_секретчик",
+        "Секретчик",
+        "Журналист",
+        "Отсутствует" };
         public Troop()
         {
             StaffCount = 0;
