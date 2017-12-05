@@ -39,6 +39,7 @@ namespace LKS_3._0
 			changeRankCommand,
 			infoCommand,
 			infoSboriCommand,
+			createReportUniversityCommand,
 			closeAllWordFile;
 
 
@@ -254,6 +255,20 @@ namespace LKS_3._0
             List_SpecInst = DataBase.Students.Local.Select(u => u.SpecInst).Distinct().ToList();
 
         }
+
+		public RelayCommand CreateReportUniversityCommand
+		{
+			get
+			{
+				return createReportUniversityCommand ??
+					(createReportUniversityCommand = new RelayCommand(obj =>
+				   {
+					   View.CreateReportUniversity Wind = new View.CreateReportUniversity(
+						   new ViewModel.CreateReportUniversityViewModel(Students, Troops));
+					   Wind.Show();
+				   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+			}
+		}
 
 		public RelayCommand CloseAllWordFile
 		{

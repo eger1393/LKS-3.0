@@ -111,6 +111,7 @@
     </Page>
     <Compile Include="Model\Summer.cs" />
     <Compile Include="ProgMode.cs" />
+    <Compile Include="ViewModel\CreateReportUniversityViewModel.cs" />
     <Compile Include="ViewModel\CreateReportViewModel.cs" />
     <Compile Include="ViewModel\EditTroopViewModel.cs" />
     <Compile Include="ViewModel\NewSboriViewModel.cs" />
@@ -129,6 +130,9 @@
     </Compile>
     <Compile Include="View\CreateReport.xaml.cs">
       <DependentUpon>CreateReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateReportUniversity.xaml.cs">
+      <DependentUpon>CreateReportUniversity.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditPrepods.xaml.cs">
       <DependentUpon>EditPrepods.xaml</DependentUpon>
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateReportUniversity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

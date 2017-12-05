@@ -26,17 +26,17 @@ namespace LKS_3._0
 			selectedRelative;
 		Troop selectedTrop;
 
-
+		Dictionary<string, string> command; // массив комманд
 
 		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
 		{
 			// КОСТЫЛЬ
-			if(Students == null)
+			if (Students == null)
 			{
 				Students = new List<Student>();
 			}
 
-			if(troops == null)
+			if (troops == null)
 			{
 				troops = new List<Troop>();
 			}
@@ -50,52 +50,51 @@ namespace LKS_3._0
 			{
 				this.students = Students;
 			}
-				selectedStudent = students.First(); // устанавливаем выбранного стуента
-				changeSelectedStudent(); // меняем мать и отца студента
-			//System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
+			selectedStudent = students.First(); // устанавливаем выбранного стуента
+			changeSelectedStudent(); // меняем мать и отца студента
+									 //System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
 
 
 
-			Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
-			Word.Document doc = appDoc.Documents.Open(fileName, ReadOnly: false); // открыли документ
-			Word.Range range = doc.Content; // запихнули весь текст из документа в range
-
-
-			while (range.Find.Execute("$?{1;20}$", MatchWildcards: true)) // ищем команды
+			try
 			{
-				
-				if (range.Text == "$NTbl$") // если встретили начало таблицы 
-				{ 
-					Word.Table selectedTable = null;
-					for (int i = 1; i <= doc.Tables.Count; i++)
+
+
+				Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
+				Word.Document doc = appDoc.Documents.Open(fileName, ReadOnly: false); // открыли документ
+				Word.Range range = doc.Content; // запихнули весь текст из документа в range
+
+
+				while (range.Find.Execute("$?{1;20}$", MatchWildcards: true)) // ищем команды
+				{
+
+					if (range.Text == "$НОВТБ$") // если встретили начало таблицы 
 					{
-						Word.Range item = doc.Tables[i].Range;
-						if (doc.Tables[i].Range.Find.Execute("$NTbl$", ReplaceWith: "", Forward: true))
+						Word.Table selectedTable = null;
+						for (int i = 1; i <= doc.Tables.Count; i++)
 						{
-							selectedTable = doc.Tables[i];
-							break;
+							Word.Range item = doc.Tables[i].Range;
+							if (doc.Tables[i].Range.Find.Execute("$НОВТБ$", ReplaceWith: "", Forward: true))
+							{
+								selectedTable = doc.Tables[i];
+								break;
+							}
 						}
-					}
-					if (selectedTable != null) // нужная таблица найдена
-					{
-						List<TableCommand> tableCommand = new List<TableCommand>();
-						int i;
-						if (selectedTable.Range.Find.Execute("$O$", Forward: true)) // костыль
+						if (selectedTable != null) // нужная таблица найдена
 						{
-							i = 2;
-						}
-						else
-						{
-							i = selectedTable.Rows.Count;
-						}
-						//int c = selectedTable.Columns.Count;
-						//foreach (Word.Row rowItem in selectedTable.Rows) // Проходим все ячейки таблицы
-						//{
-						//	foreach (Word.Cell cellItem in rowItem.Cells) // и записываем все команды стречающиеся там
-						//	{
-						 
-							for(int j = 1; j <= selectedTable.Columns.Count; j++)
-							{ 
+							List<TableCommand> tableCommand = new List<TableCommand>();
+							int i;
+							if (selectedTable.Range.Find.Execute("$О$", Forward: true)) // костыль
+							{
+								i = 2;
+							}
+							else
+							{
+								i = selectedTable.Rows.Count;
+							}
+
+							for (int j = 1; j <= selectedTable.Columns.Count; j++)
+							{
 								int firstIndex = 0, lastIndex = 0; // попутно удаляя все команды
 
 								do //todo переделать исспользуя регулярки
@@ -109,698 +108,857 @@ namespace LKS_3._0
 											selectedTable.Cell(i, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
 										selectedTable.Cell(i, j).Range.Text = selectedTable.Cell(i, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
 
-
 									}
 
 								} while (firstIndex != -1);
-
-
-
 							}
 
-						//
-						if (tableCommand.Find(obj => obj.command.ToUpper() == "$O$") != null)
-						{
-							selectedTable.Rows.Add(selectedTable.Rows[3]); // костыль который правит поехавшее форматирование
-							selectedTable.Cell(2, 1).Range.Rows.Delete();
-							//selectedTable.Cell(2, 1).Range.Text = "1";
-							int num = 0;
-							int y = 0;
-							foreach (Student studentItem in students)
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$О$") != null)
 							{
-								num++;
-								selectedStudent = studentItem; // переделать
-								changeSelectedStudent(); // костыль 
-								//selectedTable.Rows.Add();
-								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
-								foreach (TableCommand item in tableCommand)
+								selectedTable.Rows.Add(selectedTable.Rows[3]); // костыль который правит поехавшее форматирование
+								selectedTable.Cell(2, 1).Range.Rows.Delete();
+								int num = 0;
+								int y = 0;
+								foreach (Student studentItem in students)
 								{
-									if (item.command.ToUpper() == "$NUM$")
+									num++;
+									selectedStudent = studentItem; // переделать
+									changeSelectedStudent(); // костыль 
+									foreach (TableCommand item in tableCommand)
 									{
-										selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));
+										}
 									}
-									else
-									{
-										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
-										selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-									}                                                                                        //selectedTable.Cell.
-								}
-								y++;
-							}
-						}
-						//selectedTable.Cell(selectedTable.Rows.Count, 1).Range.Rows.Delete();
-						//selectedTable.Rows[tableCommand[0].y].Delete();
-
-						//if (tableCommand[0].command.ToUpper() == "$S$")
-						if (tableCommand.Find(obj => obj.command.ToUpper() == "$S$") != null)
-						{
-							int num = 0;
-							foreach (Student studentItem in students)
-							{
-								num++;
-								selectedStudent = studentItem; // переделать
-								changeSelectedStudent(); // костыль 
-								selectedTable.Rows.Add();
-								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
-								foreach (TableCommand item in tableCommand)
-								{
-									if (item.command.ToUpper() == "$NUM$")
-									{
-										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
-									}
-									else
-									{
-										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
-										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-									}																						 //selectedTable.Cell.
+									y++;
 								}
 							}
-							selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
-						}
 
-						// КАК всегда немного костылей
-
-						if (tableCommand.Find(obj => obj.command.ToUpper() == "$R$") != null)
-						{
-							int num = 0;
-							foreach (Relative relativeItem in selectedStudent.ListRelatives)
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$С$") != null)
 							{
-								selectedRelative = relativeItem; // переделать
-								selectedTable.Rows.Add();
-								num++;
-								//selectedTable.Rows[selectedTable.Rows.Count].Range.set_Style(selectedTable.Rows[1].Range.get_Style());
-								foreach (TableCommand item in tableCommand)
+								int num = 0;
+								foreach (Student studentItem in students)
 								{
-									if (item.command.ToUpper() == "$NUM$")
+									num++;
+									selectedStudent = studentItem; // переделать
+									changeSelectedStudent(); // костыль 
+									selectedTable.Rows.Add();
+									foreach (TableCommand item in tableCommand)
 									{
-										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command.ToUpper()));
+										}
 									}
-									else
-									{
-										//selectedTable.Rows[selectedTable.Rows.Count].Cells[item.x].Range.Text += findCommand(item.command);
-										selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-									}																									 //selectedTable.Cell.
 								}
+								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
 							}
-							selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+
+							// КАК всегда немного костылей
+
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$Р$") != null)
+							{
+								int num = 0;
+								foreach (Relative relativeItem in selectedStudent.ListRelatives)
+								{
+									selectedRelative = relativeItem; // переделать
+									selectedTable.Rows.Add();
+									num++;
+
+									foreach (TableCommand item in tableCommand)
+									{
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+										}                                                                                                    //selectedTable.Cell.
+									}
+								}
+								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+							}
+
+
+
+
 						}
-
-						
-
-
 					}
+					else
+					{
+						if (range.Text.ToUpper() != "$ФОТО$")
+						{
+							range.Text = findCommand(range.Text);
+						}
+						else
+						{
+							range.Text = "";
+							range.InlineShapes.AddPicture(selectedStudent.ImagePath, Range: range);
+						}
+						range.Find.ClearFormatting();
+						range = doc.Content;
+					}
+				}
+
+				Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+				dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
+
+				if (troops.Count == 0)
+				{
+					dlg.FileName = students.First().MiddleName;
 				}
 				else
 				{
-					if (range.Text.ToUpper() != "$PHOTO$")
-					{
-						range.Text = findCommand(range.Text);
-					}else
-					{
-						range.Text = "";
-						range.InlineShapes.AddPicture(selectedStudent.ImagePath,Range:range);
-					}
-					range.Find.ClearFormatting();
-					range = doc.Content;
+					dlg.FileName = troops.First().NumberTroop;
 				}
+
+				if (dlg.ShowDialog() == true) // запустили окно
+				{
+					doc.SaveAs(dlg.FileName);
+
+				}
+
+				//appDoc.Visible = true;
+				doc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+				appDoc.Quit();
+				System.Windows.MessageBox.Show("ГОТОВО!");
 			}
 
-			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
-			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
-
-			if (troops.Count == 0)
+			catch
 			{
-				dlg.FileName = students.First().MiddleName;
-			}else
-			{
-				dlg.FileName = troops.First().NumberTroop;
-			}
-
-			if (dlg.ShowDialog() == true) // запустили окно
-			{
-			doc.SaveAs(dlg.FileName);
-				
-			}
-
-			//appDoc.Visible = true;
-			doc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
-			appDoc.Quit();
-			System.Windows.MessageBox.Show("ГОТОВО!");
-
+				System.Windows.MessageBox.Show("Ошибка, закройте все процессы ворда и попробуйте еще раз.");
+				return;
 		}
 
-		private string findCommand(string command)
+	}
+
+	private void initcommand(ref Dictionary<string, string> command)
+	{
+		command = new Dictionary<string, string>()
+			{
+				{ "$N$", "\n" },
+				{ "$ИМЯ$",selectedStudent.FirstName },
+				{ "$ФАМИЛИЯ$", selectedStudent.MiddleName },
+				{ "$ОТЧЕСТВО$", selectedStudent.LastName },
+				{ "$ФАКУЛЬТЕТ$", selectedStudent.Faculty },
+				{ "$ГРУППА$", selectedStudent.Group },
+				{ "$ВУС$", selectedStudent.SpecialityName },
+				{ "$УСЛОБУЧ$", selectedStudent.ConditionsOfEducation },
+				{ "$СРБАЛЛ$", selectedStudent.AvarageScore },
+				{ "$ПОСТМАИ$", selectedStudent.YearOfAddMAI },
+				{ "$ОКОНЧМАИ$", selectedStudent.YearOfEndMAI },
+				{ "$ПОСТВОЕНКАФ$", selectedStudent.YearOfAddVK },
+				{ "$ОКОНЧВОЕНКАФ$", selectedStudent.YearOfEndVK },
+				{ "$НОМЕРПРИКАЗА$", selectedStudent.NumberOfOrder },
+				{ "$ДАТАПРИКАЗА$", selectedStudent.DateOfOrder },
+				{ "$ВОЕНКОМАТ$", selectedStudent.Rectal },
+				{ "$ДЕНЬРОЖД$", selectedStudent.Birthday },
+				{ "$МЕСТОРОЖД$",  selectedStudent.PlaceBirthday },
+				{ "$НАЦИЯ$", selectedStudent.Nationality },
+				{ "$ДОМНОМЕР$", selectedStudent.HomePhone },
+				{ "$МОБНОМЕР$", selectedStudent.MobilePhone },
+				{ "$АДРЕСПРОЖИВАНИЯ$", selectedStudent.PlaceOfResidence },
+				{ "$АДРЕСРЕГИСТРАЦИИ$", selectedStudent.PlaceOfRegestration },
+				{ "$ШКОЛА$", selectedStudent.School },
+				{ "$ДОЛЖНОСТЬ$", selectedStudent.Rank },
+				{ "$ВЗВОД$", selectedStudent.Troop },
+				{ "$ИНИЦИАЛЫ$", selectedStudent.initials() },
+				{ "$СЛУЖБАВВС$", selectedStudent.Military },
+				{ "$СЕМЕЙНЫЙСТАТУС$", selectedStudent.FamiliStatys },
+				{ "$ГРУППАКРОВИ$", selectedStudent.BloodType },
+				{ "$СПЕЦВИНСТ$", selectedStudent.SpecInst },
+
+				{ "$РОДИМЯ$", selectedRelative.FirstName },
+				{ "$РОДФАМИОЛИЯ$", selectedRelative.MiddleName },
+				{ "$РОДОТЧЕСТВО$", selectedRelative.LastName },
+				{ "$РОДДЕВИЧФАМИЛИЯ$", selectedRelative.MaidenName },
+				{ "$РОДДЕНЬРОЖД$", selectedRelative.Birthday },
+				{ "$РОД$АДРЕСГЕРИСТРАЦИИ", selectedRelative.PlaceOfRegestration },
+				{ "$РОДАДРЕСПРОЖИВАНИЯ$", selectedRelative.PlaceOfResidence },
+				{ "$РОДМОБНОМЕР$", selectedRelative.MobilePhone },
+				{ "$РОДСТЕПЕНЬРОДСТВА$", selectedRelative.RelationDegree },
+				{ "$РОДСОСТЗДОРОВЬЯ$", selectedRelative.HealthStatus },
+				{ "$РОДИНИЦИАЛЫ$", selectedRelative.initials() },
+
+				{ "$МАТЬИМЯ$", selectedStudentMather.FirstName },
+				{ "$МАТЬФИМИЛИЯ$", selectedStudentMather.MiddleName },
+				{ "$МАТЬОТЧЕСТВО$", selectedStudentMather.LastName},
+				{ "$МАТЬДЕВИЧЬЯФАМИЛИЯ$", selectedStudentMather.MaidenName },
+				{ "$МАТЬДЕНЬРОЖД$", selectedStudentMather.Birthday },
+				{ "$МАТЬАДРЕСРЕГИСТРАЦИИ$",selectedStudentMather.PlaceOfRegestration },
+				{ "$МАТЬАДРЕСПРОЖИВАНИЯ$", selectedStudentMather.PlaceOfResidence },
+				{ "$МАТЬМОБНОМЕР$", selectedStudentMather.MobilePhone },
+				{ "$МАТЬСТЕПРОДСТВА$", selectedStudentMather.RelationDegree },
+				{ "$МАТЬСОСТЗДОРОВЬЯ$", selectedStudentMather.HealthStatus },
+				{ "$МАТЬИНИЦИАЛЫ$", selectedStudentMather.initials() },
+
+				{ "$ОТЕЦИМЯ$", selectedStudentFather.FirstName },
+				{ "$ОТЕЦФАМИЛИЯ$", selectedStudentFather.MiddleName },
+				{ "$ОТЕЦОТЧЕСТВО$", selectedStudentFather.LastName },
+				{ "$FATHMAIDNAME$",selectedStudentFather.MaidenName },
+				{ "$ОТЕЦДЕНЬРОЖД$",selectedStudentFather.Birthday },
+				{ "$ОТЕЦАДРЕСРЕГИСТРАЦИИ$",selectedStudentFather.PlaceOfRegestration },
+				{ "$ОТЕЦАДРЕСПРОЖИВАНИЯ$", selectedStudentFather.PlaceOfResidence },
+				{ "$ОТЕЦМОБНОМЕР$", selectedStudentFather.MobilePhone },
+				{ "$ОТЕЦСТЕПРОДСТВА$", selectedStudentFather.RelationDegree },
+				{ "$ОТЕЦСОСТЗДОРОВЬЯ$",selectedStudentFather.HealthStatus },
+				{ "$ОТЕЦИНИЦИАЛЫ$", selectedStudentFather.initials() },
+
+				{ "$ВЗНОМЕР$", selectedTrop.NumberTroop },
+
+				{ "$ВЗКОЛВОЧЕЛ$", selectedTrop.StaffCount.ToString() },
+				{ "$ВЗПИМЯ$",selectedTrop.ResponsiblePrepod.FirstName },
+				{ "$ВЗПФАМИЛИЯ$", selectedTrop.ResponsiblePrepod.MiddleName },
+				{ "$ВЗПОТЧЕСТВО$", selectedTrop.ResponsiblePrepod.LastName },
+				{ "$ВЗПЗВАНИЕ$", selectedTrop.ResponsiblePrepod.Coolness },
+				{ "$ВЗПДОЛЖНОСТЬ$", selectedTrop.ResponsiblePrepod.PrepodRank },
+				{ "$ВЗПИНИЦИАЛЫ$",selectedTrop.ResponsiblePrepod.initials() },
+
+				{ "$ВЗКОМИМЯ$", selectedTrop.PlatoonCommander.FirstName },
+				{ "$ВЗКОМФАМИЛИЯ$", selectedTrop.PlatoonCommander.MiddleName },
+				{ "$TCOMLNAME$", selectedTrop.PlatoonCommander.LastName },
+				{ "$TCOMFACULTY$", selectedTrop.PlatoonCommander.Faculty },
+				{ "$TCOMGROUP$", selectedTrop.PlatoonCommander.Group },
+				{ "$TCOMSPNAME$", selectedTrop.PlatoonCommander.SpecialityName },
+				{ "$TCOMCONDEDUC$", selectedTrop.PlatoonCommander.ConditionsOfEducation },
+				{ "$TCOMAVERSCORE$", selectedTrop.PlatoonCommander.AvarageScore },
+				{ "$TCOMADDMAI$", selectedTrop.PlatoonCommander.YearOfAddMAI },
+				{ "$TCOMENDMAI$", selectedTrop.PlatoonCommander.YearOfEndMAI },
+				{ "$TCOMADDMIL$",selectedTrop.PlatoonCommander.YearOfAddVK },
+				{ "$TCOMENDMIL$", selectedTrop.PlatoonCommander.YearOfEndVK },
+				{ "$TCOMNUMORDER$", selectedTrop.PlatoonCommander.NumberOfOrder },
+				{ "$TCOMDATEORDER$", selectedTrop.PlatoonCommander.DateOfOrder },
+				{ "$TCOMRECTAL$", selectedTrop.PlatoonCommander.Rectal },
+				{ "$TCOMBIRTHDAY$", selectedTrop.PlatoonCommander.Birthday },
+				{ "$TCOMPLACEBIRTH$", selectedTrop.PlatoonCommander.PlaceBirthday },
+				{ "$TCOMNATION$", selectedTrop.PlatoonCommander.Nationality },
+				{ "$TCOMHOMEPRONE$", selectedTrop.PlatoonCommander.HomePhone },
+				{ "$TCOMMOBPHONE$", selectedTrop.PlatoonCommander.MobilePhone },
+				{ "$TCOMPLACERESID$", selectedTrop.PlatoonCommander.PlaceOfResidence },
+				{ "$TCOMPLACEREGISTR$", selectedTrop.PlatoonCommander.PlaceOfRegestration },
+				{ "$TCOMSCHOOL$", selectedTrop.PlatoonCommander.School },
+				{ "$TCOMRANK$", selectedTrop.PlatoonCommander.Rank },
+				{ "$TCOMTROOP$", selectedTrop.PlatoonCommander.Troop },
+				{ "$TCOMINIT$", selectedTrop.PlatoonCommander.initials() },
+
+				{ "$S$", "" },
+				{ "$R$", "" },
+				{ "$O$", "" },
+			};
+	}
+
+	private string findCommand(string command)
+	{
+		if (command.ToUpper() == "$НСТР$")
 		{
-			if(command.ToUpper() == "$N$")
+			return "\n";
+		}
+
+		if (command.ToUpper() == "$ТЕКДАТА$")
+		{
+			return DateTime.Now.ToString("dd.MM.yyyy");
+		}
+
+		// Студент
+		if (command.ToUpper() == "$ИМЯ$")
+		{
+			return selectedStudent.FirstName;
+		}
+
+		if (command.ToUpper() == "$ФАМИЛИЯ$")
+		{
+			return selectedStudent.MiddleName;
+		}
+
+		if (command.ToUpper() == "$ОТЧЕСТВО$")
+		{
+			return selectedStudent.LastName;
+		}
+
+		if (command.ToUpper() == "$ФАКУЛЬТЕТ$")
+		{
+			return selectedStudent.Faculty;
+		}
+
+		if (command.ToUpper() == "$ГРУППА$")
+		{
+			return selectedStudent.Group;
+		}
+
+		if (command.ToUpper() == "$ВУС$")
+		{
+			return selectedStudent.SpecialityName;
+		}
+
+		if (command.ToUpper() == "$УСЛОБУЧ$")
+		{
+			return selectedStudent.ConditionsOfEducation;
+		}
+
+		if (command.ToUpper() == "$СРБАЛЛ$")
+		{
+			return selectedStudent.AvarageScore;
+		}
+
+		if (command.ToUpper() == "$ПОСТМАИ$")
+		{
+			return selectedStudent.YearOfAddMAI;
+		}
+
+		if (command.ToUpper() == "$ОКОНЧМАИ$")
+		{
+			return selectedStudent.YearOfEndMAI;
+		}
+
+		if (command.ToUpper() == "$ПОСТВОЕНКАФ$")
+		{
+			return selectedStudent.YearOfAddVK;
+		}
+
+		if (command.ToUpper() == "$ОКОНЧВОЕНКАФ$")
+		{
+			return selectedStudent.YearOfEndVK;
+		}
+
+		if (command.ToUpper() == "$НОМЕРПРИКАЗА$")
+		{
+			return selectedStudent.NumberOfOrder;
+		}
+
+		if (command.ToUpper() == "$ДАТАПРИКАЗА$")
+		{
+			return selectedStudent.DateOfOrder;
+		}
+
+		if (command.ToUpper() == "$ВОЕНКОМАТ$")
+		{
+			return selectedStudent.Rectal;
+		}
+
+		if (command.ToUpper() == "$ДЕНЬРОЖД$")
+		{
+			return selectedStudent.Birthday;
+		}
+
+		if (command.ToUpper() == "$МЕСТОРОЖД$")
+		{
+			return selectedStudent.PlaceBirthday;
+		}
+
+		if (command.ToUpper() == "$НАЦИЯ$")
+		{
+			return selectedStudent.Nationality;
+		}
+
+		if (command.ToUpper() == "$ДОМНОМЕР$")
+		{
+			return selectedStudent.HomePhone;
+		}
+
+		if (command.ToUpper() == "$МОБНОМЕР$")
+		{
+			return selectedStudent.MobilePhone;
+		}
+
+		if (command.ToUpper() == "$АДРЕСПРОЖИВАНИЯ$")
+		{
+			return selectedStudent.PlaceOfResidence;
+		}
+
+		if (command.ToUpper() == "$АДРЕСРЕГИСТРАЦИИ$")
+		{
+			return selectedStudent.PlaceOfRegestration;
+		}
+
+		if (command.ToUpper() == "$ШКОЛА$")
+		{
+			return selectedStudent.School;
+		}
+
+		if (command.ToUpper() == "$ДОЛЖНОСТЬ$")
+		{
+			return selectedStudent.Rank;
+		}
+
+
+		if (command.ToUpper() == "$ВЗВОД$")
+		{
+			return selectedStudent.Troop;
+		}
+
+		if (command.ToUpper() == "$ИНИЦИАЛЫ$")
+		{
+			return selectedStudent.initials();
+		}
+
+		if (command.ToUpper() == "$СЛУЖБАВВС$")
+		{
+			return selectedStudent.Military;
+		}
+
+		if (command.ToUpper() == "$СЕМЕЙНЫЙСТАТУС$")
+		{
+			return selectedStudent.FamiliStatys;
+		}
+
+		if (command.ToUpper() == "$ГРУППАКРОВИ$")
+		{
+			return selectedStudent.BloodType;
+		}
+
+		if (command.ToUpper() == "$СПЕЦВИНСТ$")
+		{
+			return selectedStudent.SpecInst;
+		}
+
+
+
+		//
+		//БЛОК РОДСТВЕННИКОВ
+		//
+		if (selectedRelative != null)
+		{
+			if (command.ToUpper() == "$РОДИМЯ$")
 			{
-				return "\n";
+				return selectedRelative.FirstName;
 			}
 
-			// Студент
-			if (command.ToUpper() == "$FNAME$")
+			if (command.ToUpper() == "$РОДФАМИОЛИЯ$")
 			{
-				return selectedStudent.FirstName;
+				return selectedRelative.MiddleName;
 			}
 
-			if (command.ToUpper() == "$MNAME$")
+			if (command.ToUpper() == "$РОДОТЧЕСТВО$")
 			{
-				return selectedStudent.MiddleName;
+				return selectedRelative.LastName;
 			}
 
-			if (command.ToUpper() == "$LNAME$")
+			if (command.ToUpper() == "$РОДДЕВИЧФАМИЛИЯ$")
 			{
-				return selectedStudent.LastName;
+				return selectedRelative.MaidenName;
 			}
 
-			if (command.ToUpper() == "$FACULTY$")
+			if (command.ToUpper() == "$РОДДЕНЬРОЖД$")
 			{
-				return selectedStudent.Faculty;
+				return selectedRelative.Birthday;
 			}
 
-			if (command.ToUpper() == "$GROUP$")
+			if (command.ToUpper() == "$РОДАДРЕСГЕРИСТРАЦИИ$")
 			{
-				return selectedStudent.Group;
+				return selectedRelative.PlaceOfRegestration;
 			}
 
-			if (command.ToUpper() == "$VUS$")
+			if (command.ToUpper() == "$РОДАДРЕСПРОЖИВАНИЯ$")
 			{
-				return selectedStudent.SpecialityName;
+				return selectedRelative.PlaceOfResidence;
 			}
 
-			if (command.ToUpper() == "$CONDEDUC$")
+			if (command.ToUpper() == "$РОДМОБНОМЕР$")
 			{
-				return selectedStudent.ConditionsOfEducation;
+				return selectedRelative.MobilePhone;
 			}
 
-			if (command.ToUpper() == "$AVERSCORE$")
+			if (command.ToUpper() == "$РОДСТЕПЕНЬРОДСТВА$")
 			{
-				return selectedStudent.AvarageScore;
+				return selectedRelative.RelationDegree;
 			}
 
-			if (command.ToUpper() == "$ADDMAI$")
+			if (command.ToUpper() == "$РОДСОСТЗДОРОВЬЯ$")
 			{
-				return selectedStudent.YearOfAddMAI;
+				return selectedRelative.HealthStatus;
 			}
 
-			if (command.ToUpper() == "$ENDMAI$")
+			if (command.ToUpper() == "$РОДИНИЦИАЛЫ$")
 			{
-				return selectedStudent.YearOfEndMAI;
+				return selectedRelative.initials();
+			}
+		}
+		//Мать
+		if (selectedStudentMather != null)
+		{
+			if (command.ToUpper() == "$МАТЬИМЯ$")
+			{
+				return selectedStudentMather.FirstName;
 			}
 
-			if (command.ToUpper() == "$ADDMIL$")
+			if (command.ToUpper() == "$МАТЬФИМИЛИЯ$")
 			{
-				return selectedStudent.YearOfAddVK;
+				return selectedStudentMather.MiddleName;
 			}
 
-			if (command.ToUpper() == "$ENDMIL$")
+			if (command.ToUpper() == "$ФАТЬОТЧЕСТВО$")
 			{
-				return selectedStudent.YearOfEndVK;
+				return selectedStudentMather.LastName;
 			}
 
-			if (command.ToUpper() == "$NUMORDER$")
+			if (command.ToUpper() == "$МАТЬДЕВИЧЬЯФАМИЛИЯ$")
 			{
-				return selectedStudent.NumberOfOrder;
+				return selectedStudentMather.MaidenName;
 			}
 
-			if (command.ToUpper() == "$DATEORDER$")
+			if (command.ToUpper() == "$МАТЬДЕНЬРОЖД$")
 			{
-				return selectedStudent.DateOfOrder;
+				return selectedStudentMather.Birthday;
 			}
 
-			if (command.ToUpper() == "$RECTAL$")
+			if (command.ToUpper() == "$МАТЬАДРЕСРЕГИСТРАЦИИ$")
 			{
-				return selectedStudent.Rectal;
+				return selectedStudentMather.PlaceOfRegestration;
 			}
 
-			if (command.ToUpper() == "$BIRTHDAY$")
+			if (command.ToUpper() == "$МАТЬАДРЕСПРОЖИВАНИЯ$")
 			{
-				return selectedStudent.Birthday;
+				return selectedStudentMather.PlaceOfResidence;
 			}
 
-			if (command.ToUpper() == "$PLACEBIRTH$")
+			if (command.ToUpper() == "$МАТЬМОБНОМЕР$")
 			{
-				return selectedStudent.PlaceBirthday;
+				return selectedStudentMather.MobilePhone;
 			}
 
-			if (command.ToUpper() == "$NATION$")
+			if (command.ToUpper() == "$МАТЬСТЕПРОДСТВА$")
 			{
-				return selectedStudent.Nationality;
+				return selectedStudentMather.RelationDegree;
 			}
 
-			if (command.ToUpper() == "$HOMEPHONE$")
+			if (command.ToUpper() == "$МАТЬСОСТЗДОРОВЬЯ$")
 			{
-				return selectedStudent.HomePhone;
+				return selectedStudentMather.HealthStatus;
 			}
 
-			if (command.ToUpper() == "$MOBPHONE$")
+			if (command.ToUpper() == "$МАТЬИНИЦИАЛЫ$")
 			{
-				return selectedStudent.MobilePhone;
+				return selectedStudentMather.initials();
+			}
+		}
+		// ОТЕЦ(ОТЧИМ)
+		if (selectedStudentFather != null)
+		{
+			if (command.ToUpper() == "$ОТЕЦИМЯ$")
+			{
+				return selectedStudentFather.FirstName;
 			}
 
-			if (command.ToUpper() == "$PLACERESID$")
+			if (command.ToUpper() == "$ОТЕЦФАМИЛИЯ$")
 			{
-				return selectedStudent.PlaceOfResidence;
+				return selectedStudentFather.MiddleName;
 			}
 
-			if (command.ToUpper() == "$PLACEREGISTR$")
+			if (command.ToUpper() == "$ОТЕЦОТЧЕСТВО$")
 			{
-				return selectedStudent.PlaceOfRegestration;
+				return selectedStudentFather.LastName;
 			}
 
-			if (command.ToUpper() == "$SCHOOL$")
+			if (command.ToUpper() == "$ОТЕЦДЕВФАМИЛИЯ$")
 			{
-				return selectedStudent.School;
+				return selectedStudentFather.MaidenName;
 			}
 
-			if (command.ToUpper() == "$RANK$")
+			if (command.ToUpper() == "$ОТЕЦДЕНЬРОЖД$")
 			{
-				return selectedStudent.Rank;
+				return selectedStudentFather.Birthday;
 			}
 
-
-			if (command.ToUpper() == "$TROOP$")
+			if (command.ToUpper() == "$ОТЕЦАДРЕСРЕГИСТРАЦИИ$")
 			{
-				return selectedStudent.Troop;
+				return selectedStudentFather.PlaceOfRegestration;
 			}
 
-			if (command.ToUpper() == "$INIT$")
+			if (command.ToUpper() == "$ОТЕЦАДРЕСПРОЖИВАНИЯ$")
 			{
-				return selectedStudent.initials();
+				return selectedStudentFather.PlaceOfResidence;
 			}
 
-			if (command.ToUpper() == "$MILITARY$")
+			if (command.ToUpper() == "$ОТЕЦМОБНОМЕР$")
 			{
-				return selectedStudent.Military;
+				return selectedStudentFather.MobilePhone;
 			}
 
-			if (command.ToUpper() == "$FAMILISTAT$")
+			if (command.ToUpper() == "$ОТЕЦСТЕПРОДСТВА$")
 			{
-				return selectedStudent.FamiliStatys;
+				return selectedStudentFather.RelationDegree;
 			}
 
-			if (command.ToUpper() == "$BLOODTYPE$")
+			if (command.ToUpper() == "$ОТЕЦСОСТЗДОРОВЬЯ$")
 			{
-				return selectedStudent.BloodType;
+				return selectedStudentFather.HealthStatus;
 			}
 
-			if(command.ToUpper() == "$SPECINST$")
+			if (command.ToUpper() == "$ОТЕЦИНИЦИАЛЫ$")
 			{
-				return selectedStudent.SpecInst;
+				return selectedStudentFather.initials();
+			}
+		}
+
+		// Взвод
+		if (selectedTrop != null)
+		{
+			if (command.ToUpper() == "$ВЗНОМЕР$")
+			{
+				return selectedTrop.NumberTroop;
 			}
 
-
-
-			//
-			//БЛОК РОДСТВЕННИКОВ
-			//
-			if (selectedRelative != null)
+			if (command.ToUpper() == "$ВЗКОЛВОЧЕЛ$")
 			{
-				if (command.ToUpper() == "$RELFNAME$")
-				{
-					return selectedRelative.FirstName;
-				}
-
-				if (command.ToUpper() == "$RELMNAME$")
-				{
-					return selectedRelative.MiddleName;
-				}
-
-				if (command.ToUpper() == "$RELLNAME$")
-				{
-					return selectedRelative.LastName;
-				}
-
-				if (command.ToUpper() == "$RELMAIDNAME$")
-				{
-					return selectedRelative.MaidenName;
-				}
-
-				if (command.ToUpper() == "$RELBIRTHDAY$")
-				{
-					return selectedRelative.Birthday;
-				}
-
-				if (command.ToUpper() == "$RELREGISTR$")
-				{
-					return selectedRelative.PlaceOfRegestration;
-				}
-
-				if (command.ToUpper() == "$RELRESIDE$")
-				{
-					return selectedRelative.PlaceOfResidence;
-				}
-
-				if (command.ToUpper() == "$RELMOBIL$")
-				{
-					return selectedRelative.MobilePhone;
-				}
-
-				if (command.ToUpper() == "$RELRELATION$")
-				{
-					return selectedRelative.RelationDegree;
-				}
-
-				if (command.ToUpper() == "$RELHEALTH$")
-				{
-					return selectedRelative.HealthStatus;
-				}
-
-				if (command.ToUpper() == "$RELINIT$")
-				{
-					return selectedRelative.initials();
-				}
-			}
-			//Мать
-			if (selectedStudentMather != null)
-			{
-				if (command.ToUpper() == "$MATHFNAME$")
-				{
-					return selectedStudentMather.FirstName;
-				}
-
-				if (command.ToUpper() == "$MATHMNAME$")
-				{
-					return selectedStudentMather.MiddleName;
-				}
-
-				if (command.ToUpper() == "$MATHLNAME$")
-				{
-					return selectedStudentMather.LastName;
-				}
-
-				if (command.ToUpper() == "$MATHMAIDNAME$")
-				{
-					return selectedStudentMather.MaidenName;
-				}
-
-				if (command.ToUpper() == "$MATHBIRTHDAY$")
-				{
-					return selectedStudentMather.Birthday;
-				}
-
-				if (command.ToUpper() == "$MATHREGISTR$")
-				{
-					return selectedStudentMather.PlaceOfRegestration;
-				}
-
-				if (command.ToUpper() == "$MATHRESIDE$")
-				{
-					return selectedStudentMather.PlaceOfResidence;
-				}
-
-				if (command.ToUpper() == "$MATHMOBIL$")
-				{
-					return selectedStudentMather.MobilePhone;
-				}
-
-				if (command.ToUpper() == "$MATHRELATION$")
-				{
-					return selectedStudentMather.RelationDegree;
-				}
-
-				if (command.ToUpper() == "$MATHHEALTH$")
-				{
-					return selectedStudentMather.HealthStatus;
-				}
-
-				if (command.ToUpper() == "$MATHINIT$")
-				{
-					return selectedStudentMather.initials();
-				}
-			}
-			// ОТЕЦ(ОТЧИМ)
-			if (selectedStudentFather != null)
-			{
-				if (command.ToUpper() == "$FATHFNAME$")
-				{
-					return selectedStudentFather.FirstName;
-				}
-
-				if (command.ToUpper() == "$FATHMNAME$")
-				{
-					return selectedStudentFather.MiddleName;
-				}
-
-				if (command.ToUpper() == "$FATHLNAME$")
-				{
-					return selectedStudentFather.LastName;
-				}
-
-				if (command.ToUpper() == "$FATHMAIDNAME$")
-				{
-					return selectedStudentFather.MaidenName;
-				}
-
-				if (command.ToUpper() == "$FATHBIRTHDAY$")
-				{
-					return selectedStudentFather.Birthday;
-				}
-
-				if (command.ToUpper() == "$FATHREGISTR$")
-				{
-					return selectedStudentFather.PlaceOfRegestration;
-				}
-
-				if (command.ToUpper() == "$FATHRESID$")
-				{
-					return selectedStudentFather.PlaceOfResidence;
-				}
-
-				if (command.ToUpper() == "$FATHMOBIL$")
-				{
-					return selectedStudentFather.MobilePhone;
-				}
-
-				if (command.ToUpper() == "$FATHRELATION$")
-				{
-					return selectedStudentFather.RelationDegree;
-				}
-
-				if (command.ToUpper() == "$FATHHEALTH$")
-				{
-					return selectedStudentFather.HealthStatus;
-				}
-
-				if (command.ToUpper() == "$FATHINIT$")
-				{
-					return selectedStudentFather.initials();
-				}
+				return selectedTrop.StaffCount.ToString();
 			}
 
-			// Взвод
-			if (selectedTrop != null)
+			if (command.ToUpper() == "$ВЗДЕНЬПРИХОДА$")
 			{
-				if (command.ToUpper() == "$TRNUM$")
-				{
-					return selectedTrop.NumberTroop;
-				}
-
-				if (command.ToUpper() == "$TRCOUNT$")
-				{
-					return selectedTrop.StaffCount.ToString();
-				}
-
-				if (command.ToUpper() == "$TPRFNAME$")
-				{
-					return selectedTrop.ResponsiblePrepod.FirstName;
-				}
-
-				if (command.ToUpper() == "$TPRMNAME$")
-				{
-					return selectedTrop.ResponsiblePrepod.MiddleName;
-				}
-
-				if (command.ToUpper() == "$TPRLNAME$")
-				{
-					return selectedTrop.ResponsiblePrepod.LastName;
-				}
-
-				if (command.ToUpper() == "$TPRCOOLNESS$")
-				{
-					return selectedTrop.ResponsiblePrepod.Coolness;
-				}
-
-				if (command.ToUpper() == "$TPRINIT$")
-				{
-					return selectedTrop.ResponsiblePrepod.initials();
-				}
-
-				// Командир взвода
-
-				if (command.ToUpper() == "$TCOMFNAME$")
-				{
-					return selectedTrop.PlatoonCommander.FirstName;
-				}
-
-				if (command.ToUpper() == "$TCOMMNAME$")
-				{
-					return selectedTrop.PlatoonCommander.MiddleName;
-				}
-
-				if (command.ToUpper() == "$TCOMLNAME$")
-				{
-					return selectedTrop.PlatoonCommander.LastName;
-				}
-
-				if (command.ToUpper() == "$TCOMFACULTY$")
-				{
-					return selectedTrop.PlatoonCommander.Faculty;
-				}
-
-				if (command.ToUpper() == "$TCOMGROUP$")
-				{
-					return selectedTrop.PlatoonCommander.Group;
-				}
-
-				if (command.ToUpper() == "$TCOMSPNAME$")
-				{
-					return selectedTrop.PlatoonCommander.SpecialityName;
-				}
-
-				if (command.ToUpper() == "$TCOMCONDEDUC$")
-				{
-					return selectedTrop.PlatoonCommander.ConditionsOfEducation;
-				}
-
-				if (command.ToUpper() == "$TCOM$AVERSCORE")
-				{
-					return selectedTrop.PlatoonCommander.AvarageScore;
-				}
-
-				if (command.ToUpper() == "$TCOMADDMAI$")
-				{
-					return selectedTrop.PlatoonCommander.YearOfAddMAI;
-				}
-
-				if (command.ToUpper() == "$TCOMENDMAI$")
-				{
-					return selectedTrop.PlatoonCommander.YearOfEndMAI;
-				}
-
-				if (command.ToUpper() == "$TCOMADDMIL$")
-				{
-					return selectedTrop.PlatoonCommander.YearOfAddVK;
-				}
-
-				if (command.ToUpper() == "$TCOMENDMIL$")
-				{
-					return selectedTrop.PlatoonCommander.YearOfEndVK;
-				}
-
-				if (command.ToUpper() == "$TCOMNUMORDER$")
-				{
-					return selectedTrop.PlatoonCommander.NumberOfOrder;
-				}
-
-				if (command.ToUpper() == "$TCOMDATEORDER$")
-				{
-					return selectedTrop.PlatoonCommander.DateOfOrder;
-				}
-
-				if (command.ToUpper() == "$TCOMRECTAL$")
-				{
-					return selectedTrop.PlatoonCommander.Rectal;
-				}
-
-				if (command.ToUpper() == "$TCOMBIRTHDAY$")
-				{
-					return selectedTrop.PlatoonCommander.Birthday;
-				}
-
-				if (command.ToUpper() == "$TCOMPLACEBIRTH$")
-				{
-					return selectedTrop.PlatoonCommander.PlaceBirthday;
-				}
-
-				if (command.ToUpper() == "$TCOMNATION$")
-				{
-					return selectedTrop.PlatoonCommander.Nationality;
-				}
-
-				if (command.ToUpper() == "$TCOMHOMEPRONE$")
-				{
-					return selectedTrop.PlatoonCommander.HomePhone;
-				}
-
-				if (command.ToUpper() == "$TCOMMOBPHONE$")
-				{
-					return selectedTrop.PlatoonCommander.MobilePhone;
-				}
-
-				if (command.ToUpper() == "$TCOMPLACERESID$")
-				{
-					return selectedTrop.PlatoonCommander.PlaceOfResidence;
-				}
-
-				if (command.ToUpper() == "$TCOMPLACEREGISTR$")
-				{
-					return selectedTrop.PlatoonCommander.PlaceOfRegestration;
-				}
-
-				if (command.ToUpper() == "$TCOMSCHOOL$")
-				{
-					return selectedTrop.PlatoonCommander.School;
-				}
-
-				if (command.ToUpper() == "$TCOMRANK$")
-				{
-					return selectedTrop.PlatoonCommander.Rank;
-				}
-
-				if (command.ToUpper() == "$TCOMTROOP$")
-				{
-					return selectedTrop.PlatoonCommander.Troop;
-				}
-
-				if (command.ToUpper() == "$TCOMINIT$")
-				{
-					return selectedTrop.PlatoonCommander.initials();
-				}
-			}
-
-			if(command.ToUpper() == "$S$" || 
-				command.ToUpper() == "$R$" ||
-				command.ToUpper() == "$O$")
-			{
+				// TODO ВОЗВРАЩАТЬ ДЕНЬ ПРИХОДА
 				return "";
 			}
 
-
-
-			return command.Substring(1, command.Length - 2);
-		}
-
-		void changeTroop ()
-		{
-			students = selectedTrop.ListStudents.ToList();
-			selectedStudent = students.First();
-			changeSelectedStudent();
-		}
-
-		void changeSelectedStudent()
-		{
-			selectedStudentMather = null;
-			selectedStudentFather = null;
-			if (selectedStudent.ListRelatives != null)
+			if (command.ToUpper() == "$ВЗВУС$")
 			{
-				if (selectedStudent.ListRelatives.Count != 0)
-				{
-					selectedRelative = selectedStudent.ListRelatives.First();
-				}
-				foreach (Relative item in selectedStudent.ListRelatives)
-				{
-					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
-					{
-						selectedStudentMather = item;
-					}
+				// TODO ВУС
+				return "";
+			}
 
-					if ((item.RelationDegree == "Отец" || item.RelationDegree == "Отчим")
-						&& selectedStudentFather == null)
-					{
-						selectedStudentFather = item;
-					}
+			if (command.ToUpper() == "$ВЗПИМЯ$")
+			{
+				return selectedTrop.ResponsiblePrepod.FirstName;
+			}
+
+			if (command.ToUpper() == "$ВЗПФАМИЛИЯ$")
+			{
+				return selectedTrop.ResponsiblePrepod.MiddleName;
+			}
+
+			if (command.ToUpper() == "$ВЗПОТЧЕСТВО$")
+			{
+				return selectedTrop.ResponsiblePrepod.LastName;
+			}
+
+			if (command.ToUpper() == "$ВЗПЗВАНИЕ$")
+			{
+				return selectedTrop.ResponsiblePrepod.Coolness;
+			}
+
+			if (command.ToUpper() == "$ВЗПДОЛЖНОСТЬ$")
+			{
+				return selectedTrop.ResponsiblePrepod.PrepodRank;
+			}
+
+			if (command.ToUpper() == "$ВЗПИНИЦИАЛЫ$")
+			{
+				return selectedTrop.ResponsiblePrepod.initials();
+			}
+
+			// Командир взвода
+
+			if (command.ToUpper() == "$ВЗКОМКИМЯ$")
+			{
+				return selectedTrop.PlatoonCommander.FirstName;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМИМЯ$")
+			{
+				return selectedTrop.PlatoonCommander.FirstName;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМФАМИЛИЯ$")
+			{
+				return selectedTrop.PlatoonCommander.MiddleName;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМОТЧЕСТВО$")
+			{
+				return selectedTrop.PlatoonCommander.LastName;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМФАКУЛЬТЕТ$")
+			{
+				return selectedTrop.PlatoonCommander.Faculty;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМГРУППА$")
+			{
+				return selectedTrop.PlatoonCommander.Group;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМВУС$")
+			{
+				return selectedTrop.PlatoonCommander.SpecialityName;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМУСЛОБУЧ$")
+			{
+				return selectedTrop.PlatoonCommander.ConditionsOfEducation;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМСРБАЛЛ$")
+			{
+				return selectedTrop.PlatoonCommander.AvarageScore;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМПОСТМАИ$")
+			{
+				return selectedTrop.PlatoonCommander.YearOfAddMAI;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМОКОНЧМАИ$")
+			{
+				return selectedTrop.PlatoonCommander.YearOfEndMAI;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМПОСТВОЕНКАФ$")
+			{
+				return selectedTrop.PlatoonCommander.YearOfAddVK;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМОКОНЧВОЕНКАФ$")
+			{
+				return selectedTrop.PlatoonCommander.YearOfEndVK;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМНОМЕРПРИКАЗА$")
+			{
+				return selectedTrop.PlatoonCommander.NumberOfOrder;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМДАТАПРИКАЗА$")
+			{
+				return selectedTrop.PlatoonCommander.DateOfOrder;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМВОЕНКОМАТ$")
+			{
+				return selectedTrop.PlatoonCommander.Rectal;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМДЕНЬРОЖД$")
+			{
+				return selectedTrop.PlatoonCommander.Birthday;
+			}
+
+			if (command.ToUpper() == "$ВЗКОММЕСТОРОЖД$")
+			{
+				return selectedTrop.PlatoonCommander.PlaceBirthday;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМНАЦИЯ$")
+			{
+				return selectedTrop.PlatoonCommander.Nationality;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМДОМНОМЕР$")
+			{
+				return selectedTrop.PlatoonCommander.HomePhone;
+			}
+
+			if (command.ToUpper() == "$ВЗКОММОБНОМЕР$")
+			{
+				return selectedTrop.PlatoonCommander.MobilePhone;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМАДРЕСПРОЖИВАНИЯ$")
+			{
+				return selectedTrop.PlatoonCommander.PlaceOfResidence;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМАДРЕСРЕГИСТРАЦИИ$")
+			{
+				return selectedTrop.PlatoonCommander.PlaceOfRegestration;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМШКОЛА$")
+			{
+				return selectedTrop.PlatoonCommander.School;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМДОЛЖНОСТЬ$")
+			{
+				return selectedTrop.PlatoonCommander.Rank;
+			}
+
+
+			if (command.ToUpper() == "$ВЗКОМВЗВОД$")
+			{
+				return selectedTrop.PlatoonCommander.Troop;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМИНИЦИАЛЫ$")
+			{
+				return selectedTrop.PlatoonCommander.initials();
+			}
+
+			if (command.ToUpper() == "$ВЗКОМСЛУЖБАВВС$")
+			{
+				return selectedTrop.PlatoonCommander.Military;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМСЕМЕЙНЫЙСТАТУС$")
+			{
+				return selectedTrop.PlatoonCommander.FamiliStatys;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМГРУППАКРОВИ$")
+			{
+				return selectedTrop.PlatoonCommander.BloodType;
+			}
+
+			if (command.ToUpper() == "$ВЗКОМСПЕЦВИНСТ$")
+			{
+				return selectedTrop.PlatoonCommander.SpecInst;
+			}
+		}
+
+		if (command.ToUpper() == "$С$" ||
+			command.ToUpper() == "$Р$" ||
+			command.ToUpper() == "$О$")
+		{
+			return "";
+		}
+
+
+
+		return command.Substring(1, command.Length - 2);
+	}
+
+	void changeTroop()
+	{
+		students = selectedTrop.ListStudents.ToList();
+		selectedStudent = students.First();
+		changeSelectedStudent();
+	}
+
+	void changeSelectedStudent()
+	{
+
+		selectedStudentMather = null;
+		selectedStudentFather = null;
+		if (selectedStudent.ListRelatives != null)
+		{
+			if (selectedStudent.ListRelatives.Count != 0)
+			{
+				selectedRelative = selectedStudent.ListRelatives.First();
+			}
+			foreach (Relative item in selectedStudent.ListRelatives)
+			{
+				if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
+				{
+					selectedStudentMather = item;
+				}
+
+				if ((item.RelationDegree == "Отец" || item.RelationDegree == "Отчим")
+					&& selectedStudentFather == null)
+				{
+					selectedStudentFather = item;
 				}
 			}
 		}
+		//initcommand(ref command); // обновили все параметры в массиве комманд(переделать)
 	}
+}
 }
