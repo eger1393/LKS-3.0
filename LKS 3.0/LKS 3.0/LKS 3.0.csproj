@@ -109,6 +109,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Summer.cs" />
     <Compile Include="ProgMode.cs" />
     <Compile Include="ViewModel\CreateReportViewModel.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="ViewModel\AddStudentViewModel.cs" />
     <Compile Include="ViewModel\ApplicationContext.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
+    <Compile Include="View\ChangeKurs.xaml.cs">
+      <DependentUpon>ChangeKurs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ChangeRankWindow.xaml.cs">
       <DependentUpon>ChangeRankWindow.xaml</DependentUpon>
     </Compile>
@@ -155,6 +159,9 @@
     <Compile Include="View\NewSbori.xaml.cs">
       <DependentUpon>NewSbori.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SummerOrders.xaml.cs">
+      <DependentUpon>SummerOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TroopChange.xaml.cs">
       <DependentUpon>TroopChange.xaml</DependentUpon>
     </Compile>
@@ -162,6 +169,10 @@
     <Compile Include="View\WindowDatabase.xaml.cs">
       <DependentUpon>WindowDatabase.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ChangeKurs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChangeRankWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewSbori.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SummerOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

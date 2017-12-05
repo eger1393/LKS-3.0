@@ -58,10 +58,11 @@ namespace LKS_3._0
             mask_size,
             foreignLanguage,
             languageRank,
-			familiStatys, // семейное полжоение
-			military, // Служба в ВС
-			specInst,
-			status;
+            familiStatys, // семейное полжоение
+            military, // Служба в ВС
+            specInst,
+            status,
+            collness;
 
 
         private bool
@@ -143,7 +144,19 @@ namespace LKS_3._0
                 ID = value;
             }
         }
+        [RusName("Звание")]
+        public string Collness
+        {
+            get
+            {
+                return collness;
+            }
 
+            set
+            {
+                collness = value;
+            }
+        }
         [RusName("Фамилия")]
         public string MiddleName // Фамилия
         {
@@ -750,5 +763,7 @@ namespace LKS_3._0
                 OnPropertyChanged();
             }
         }
+
+       
     }
 }

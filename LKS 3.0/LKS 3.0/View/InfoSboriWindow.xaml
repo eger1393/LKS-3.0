@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-        Title="Сборы" Height="500" Width="800">
+        Title="Сборы" Height="600" Width="950" SizeToContent="WidthAndHeight">
     <Grid>
         <TabControl>
-            <TabItem Header="Документы на учебные взвода">
+            <TabItem Header="Документы на учебные взвода" DataContext="{Binding SelectedSummerSbori}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -25,7 +25,7 @@
                     <ComboBox x:Name="TroopComboBox" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Данные о сборах">
+            <TabItem Header="Данные о сборах" DataContext="{Binding SelectedSummerSbori}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -91,6 +91,22 @@
             <TabItem Header="Администрация сборов">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+             
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="AdminDataGrid" ItemsSource ="{Binding Admins}" SelectedItem="{Binding SelectedAdmin}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray" ColumnWidth="Auto" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" />
+                    <Button x:Name="EXbutton" Content="Сохранить" Grid.Column="1" Grid.Row="1" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
+                </Grid>
+                
+            </TabItem>
+            <TabItem Header="1 неделя" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -98,48 +114,79 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <GroupBox x:Name="AdminSbori"  Header="Данные о командующих :" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Top">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.1*" />
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Label Content="ФИО" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"/>
-                            <Label Content="Звание" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center"/>
-                            <Label Content="Начальник штаба в/ч" Grid.Row="1"/>
-                            <Label Content="Командир в/ч" Grid.Row="2"/>          
-                            <Label Content="Командир батареи" Grid.Row="3"/>
-                            <Label Content="Старшина батареи" Grid.Row="4"/>
-
-
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ChiefOfStaffFIO, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CommanderVKFIO, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CommanderBatteryFIO, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ForemanBatteryFIO, Mode=TwoWay}"/>
-
-
-                            
-                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ChiefOfStaffDuty, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding CommanderVKDuty, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding CommanderBatteryDuty, Mode=TwoWay}"/>
-                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding ForemanBatteryDuty, Mode=TwoWay}"/>
-                            
-
-
-                        </Grid>
+                    <GroupBox x:Name="DocsOneWeek"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBoxOneWeek"/>
                     </GroupBox>
+                    <Label x:Name="labelOneWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxOneWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="2 неделя" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <Button x:Name="ОКbutton2" Content="Сохранить" Margin="10,200,10,200" Command="{Binding SaveCommand}" Click="ОКbutton_Click"/>
+                    <GroupBox x:Name="DocsTwoWeek"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBoxTwoWeek"/>
+                    </GroupBox>
+                    <Label x:Name="labelTwoWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxTwoWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="3 неделя" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="DocsThreeWeek"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBoxThreeWeek"/>
+                    </GroupBox>
+                    <Label x:Name="labelThreeWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxThreeWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="4 неделя" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="DocsFourWeek"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBoxFourWeek"/>
+                    </GroupBox>
+                    <Label x:Name="labelFourWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxFourWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="5 неделя" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="DocsFiveWeek"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBoxFiveWeek"/>
+                    </GroupBox>
+                    <Label x:Name="labelFiveWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxFiveWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Общие документы">

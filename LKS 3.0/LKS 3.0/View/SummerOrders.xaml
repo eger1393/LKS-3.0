@@ -1,0 +1,119 @@
+﻿<Window x:Class="LKS_3._0.View.SummerOrders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0.View"
+        mc:Ignorable="d"
+        Title="SummerOrders" Height="600" Width="950">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Проведение сборов" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="Docs"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBox"/>
+                    </GroupBox>
+                    <Label x:Name="label" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBox" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Спартакиада" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="Docs2"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBox2"/>
+                    </GroupBox>
+                    <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBox2" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="15-км марш" DataContext="{Binding SelectedSummerSbori}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox x:Name="Docs3"  Header="Документы" HorizontalAlignment="Stretch">
+                        <ListBox x:Name="DocsBox3"/>
+                    </GroupBox>
+                    <Label x:Name="label3" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="TroopComboBox3" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Присвоение званий и должностей">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content ="Присвоить звание и/или должности:" Grid.Row ="2" VerticalAlignment="Center"/>
+                    <CheckBox Content ="Сохранить новые звания и должности в базу" Grid.Row ="2" Grid.Column="1" IsChecked="True" VerticalAlignment="Center"/>
+                    <DataGrid x:Name="StudentDataGrid" Grid.Row ="3" Grid.ColumnSpan="2" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" FontSize="16" ColumnWidth="120" />
+                    <Button x:Name="EXbutton" Grid.Row ="4" Grid.ColumnSpan="2" Content="Сохранить" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
+                    <Label Grid.Row ="0" Content ="Приказ №" VerticalAlignment="Center"/>
+                    <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="" Width="210" HorizontalAlignment="Center" Margin="70,8,186,7"/>
+                    <Label Content ="От" Grid.Row ="1" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="TbDataOrderAdmision" Grid.Row="1" Margin="71,5,186,6" />
+                    <Label Content ="о:" Grid.Row ="0" Grid.Column="1" VerticalAlignment="Center"/>
+                    <RadioButton GroupName="Change" x:Name="radioButtonCollness" Content="Присвоении звания" Grid.Column="1" HorizontalAlignment="Left" Margin="24,12,0,0" VerticalAlignment="Top"/>
+                    <RadioButton GroupName="Change" x:Name="radioButtonRank" Content="Назначении на должность" Grid.Column="1" HorizontalAlignment="Left" Margin="160,13,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Окончание уч. сборов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content ="Объявить благодарность офицерам:" Grid.Row ="2" VerticalAlignment="Center"/>
+                    <Label Content ="Объявить благодарность cтудентам:" Grid.Row ="2" Grid.Column="1" VerticalAlignment="Center"/>
+                    
+                    <ListBox x:Name="Prepod" Grid.Row ="3"  ItemsSource="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" HorizontalContentAlignment="Stretch" FontSize="16" />
+                    <ListBox x:Name="Student" Grid.Row ="3" Grid.Column="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}"  HorizontalContentAlignment="Stretch" FontSize="16"/>
+                    
+                    <Button x:Name="CreateButton" Grid.Row ="4"  Content="Создать" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
+                    <Button x:Name="CancelButton" Grid.Row ="4"  Content="Создать" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
+                    <Label Grid.Row ="0" Content ="Приказ №" VerticalAlignment="Center"/>
+                    <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="" Width="210" HorizontalAlignment="Center" Margin="70,8,186,7"/>
+                    <Label Content ="От" Grid.Row ="1" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="TbDataOrderAdmision2" Grid.Row="1" Margin="71,5,186,6" />
+                   
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

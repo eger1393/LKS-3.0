@@ -12,7 +12,7 @@ namespace LKS_3._0
     {
         public static int _count;
 
-        private string numberTroop;
+        private string numberTroop, day;
 
         public Prepod ResponsiblePrepod;
 
@@ -128,9 +128,22 @@ namespace LKS_3._0
             }
         }
 
+        [RusName("День")]
+        public string Day
+        {
+            get
+            {
+                return day;
+            }
 
+            set
+            {
+                day = value;
+                OnPropertyChanged();
+            }
+        }
 
-		override public string ToString()
+        override public string ToString()
 		{
 			return numberTroop;
 		}

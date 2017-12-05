@@ -59,7 +59,7 @@ namespace LKS_3._0
             foreach (PropertyInfo el in Property_Arr)
             {
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
-                if (temp_attribute != null)
+                if (temp_attribute != null &&(temp_attribute.Get_RussianTittle != "Звание"))
                 {
                     DataGridTextColumn temp_column = new DataGridTextColumn();
                     temp_column.Header = temp_attribute.Get_RussianTittle;
