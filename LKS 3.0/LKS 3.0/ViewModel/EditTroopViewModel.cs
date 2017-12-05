@@ -28,6 +28,8 @@ namespace LKS_3._0.ViewModel
         private BindingList<Student> selectTroopListStudent;
         BindingList<Troop> troops;
 
+      
+
         public EditTroopViewModel(ref ApplicationContext temp_DB, BindingList<Troop> troops)
         {
             DataBaseTr = temp_DB;
@@ -54,13 +56,13 @@ namespace LKS_3._0.ViewModel
                       if (selectedItem == null) return;
 
                       Troop temp_t = selectedItem as Troop;
-                      DataBaseTr.Troops.Local.Insert(temp_t.Id, temp_t);
 
                       foreach (var item in temp_t.ListStudents)
                       {
                           item.Troop = temp_t.NumberTroop;
                       }
 
+                      DataBaseTr.SaveChanges();
 
                   }));
             }
@@ -106,8 +108,14 @@ namespace LKS_3._0.ViewModel
                 return exelentCommand ??
                   (exelentCommand = new RelayCommand((selectedItem) =>
                   {
-                      
-
+                      foreach (var item in Troops)
+                      {
+                          foreach (var item2 in item.ListStudents)
+                          {
+                              item2.Troop = item.NumberTroop;
+                          }
+                      }
+                      DataBaseTr.SaveChanges();
                   }));
             }
         }
@@ -173,6 +181,9 @@ namespace LKS_3._0.ViewModel
             }
         }
 
+
+        
+
         public Troop SelectTroop
         {
             get
@@ -183,10 +194,19 @@ namespace LKS_3._0.ViewModel
             set
             {
                 selectTroop = value;
-                OnPropertyChanged();
+
+                //foreach (var item in value.ListStudents)
+                //{
+                //    item.Troop = value.NumberTroop;
+                //}
+
+                //DataBaseTr.SaveChanges();
+
                 SelectTroopListStudent = selectTroop.ListStudents;
                 SelectStudent = selectTroop.PlatoonCommander;
                 SelectPrepod = selectTroop.ResponsiblePrepod;
+
+                OnPropertyChanged();
             }
         }
 

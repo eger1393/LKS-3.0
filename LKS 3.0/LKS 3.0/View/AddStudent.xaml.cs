@@ -46,6 +46,8 @@ namespace LKS_3._0
 
             CbSpecInst.ItemsSource = list_SpecInst;
 
+            CbRank.ItemsSource = Troop.Ranks;
+
             _tempDB = temp_DataBase;
 
             viewModel = new AddStudentViewModel(ref _tempDB);
@@ -238,6 +240,8 @@ namespace LKS_3._0
             }
 
             viewModel.AddedStudent.ListRelatives = new BindingList<Relative>(_tempDB.Relatives.Local.Where(u => u.IdStudent == viewModel.AddedStudent.Id).ToList());
+
+            viewModel.AddedStudent.Collness = "Студент";
 
             //viewModel.AddedStudent.Skill_1 = (bool)checkBox_1.IsChecked;
             //viewModel.AddedStudent.Skill_2 = (bool)checkBox_2.IsChecked;

@@ -19,32 +19,34 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBase;
 
-		private RelayCommand addCommand,
-			createReportCommand,
-			findCommand,
-			editCommand,
-			deleteCommand,
-			saveChangeCommand,
-			checkPassCommand,
-			editPrepodsCommand,
-			openTemplate,
-			showTraineesCommand,
-			showDetachedCommand,
-			showNaSboriCommand,
-			showPastSboriCommand,
-			showAllCommand,
-			troopCheck,
-			newSboricommand,
-			editTroopCommand,
-			changeRankCommand,
-			infoCommand,
-			infoSboriCommand,
+        private RelayCommand addCommand,
+            createReportCommand,
+            findCommand,
+            editCommand,
+            deleteCommand,
+            saveChangeCommand,
+            checkPassCommand,
+            editPrepodsCommand,
+            openTemplate,
+            showTraineesCommand,
+            showDetachedCommand,
+            showNaSboriCommand,
+            showPastSboriCommand,
+            showAllCommand,
+            troopCheck,
+            newSboricommand,
+            editTroopCommand,
+            changeRankCommand,
+            infoCommand,
+            infoSboriCommand,
+            closeAllWordFile,
+            changeKursCommand,
 			createReportUniversityCommand,
-			closeAllWordFile;
+			ordersCommand;
 
 
 
-		private Student selectedStudent;
+        private Student selectedStudent;
 
         private Troop selectedTroop;
 
@@ -746,6 +748,37 @@ namespace LKS_3._0
                             DataBase.SaveChanges();
                         }
                     }));
+            }
+        }
+
+        public RelayCommand ChangeKursCommand
+        {
+            get
+            {
+                return changeKursCommand ??
+                  (changeKursCommand = new RelayCommand(obj =>
+                  {
+                      View.ChangeKurs wind = new View.ChangeKurs(Students);
+                      wind.ShowDialog();
+                      DataBase.SaveChanges();
+                  }));
+            }
+        }
+
+        public RelayCommand OrdersCommand
+        {
+            get
+            {
+                return ordersCommand ??
+                  (ordersCommand = new RelayCommand(obj =>
+                  {
+                      BindingList<Student> _temp_students = new BindingList<Student>(Students.Where(u => u.Status == "На сборах").ToList());
+                      View.SummerOrders win = new View.SummerOrders(ref DataBase, _temp_students, Troops);
+
+                      win.ShowDialog();
+
+                      DataBase.SaveChanges();
+                  }));
             }
         }
 

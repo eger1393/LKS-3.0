@@ -130,14 +130,7 @@
                     </ComboBox>
 
                     <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="КО"/>
-                        <ListBoxItem Content="КО1"/>
-                        <ListBoxItem Content="КО2"/>
-                        <ListBoxItem Content="КО3"/>
-                        <ListBoxItem Content="Журналист"/>
-                        <ListBoxItem Content="Зам. журналиста"/>
-                        <ListBoxItem Content="Секретчик"/>
-                        <ListBoxItem Content="Отсутствует"/>
+                      
                     </ComboBox>
 
                     <ComboBox x:Name="CbSpecInst" Grid.Column="3" Grid.Row="4" Text="{Binding SpecInst}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">

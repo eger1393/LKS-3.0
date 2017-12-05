@@ -25,20 +25,59 @@ namespace LKS_3._0.View
         {
             InitializeComponent();
 
+            Binding_columns();
+                
             DataBaseSb = temp_DataBase;
 
             ViewModel.SummerSboriViewModel temp_VM  = new ViewModel.SummerSboriViewModel(ref temp_DataBase, _troops);
 
-            DataContext = temp_VM.selectedSummerSbori;
+            DataContext = temp_VM;
 
             TroopComboBox.ItemsSource = _troops.Select(u => u.NumberTroop);
             TroopComboBoxAll.ItemsSource = TroopComboBox.ItemsSource;
+            TroopComboBoxOneWeek.ItemsSource = TroopComboBox.ItemsSource;
+            TroopComboBoxTwoWeek.ItemsSource = TroopComboBox.ItemsSource;
+            TroopComboBoxThreeWeek.ItemsSource = TroopComboBox.ItemsSource;
+            TroopComboBoxFourWeek.ItemsSource = TroopComboBox.ItemsSource;
+            TroopComboBoxFiveWeek.ItemsSource = TroopComboBox.ItemsSource;
+        }
+
+        private void Binding_columns()
+        {
+            Type T = typeof(Model.Admin);
+            Type B = typeof(bool);
+            PropertyInfo[] Property_Arr = T.GetProperties();
+            foreach (PropertyInfo el in Property_Arr)
+            {
+                RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+
+                if ((temp_attribute != null) && (el.PropertyType == B))
+                    {
+                    DataGridCheckBoxColumn _temp_column = new DataGridCheckBoxColumn();
+                    _temp_column.Header = temp_attribute.Get_RussianTittle;
+
+                    Binding _myNewBindDef = new Binding(el.Name);
+                    _temp_column.Binding = _myNewBindDef;
+
+                    AdminDataGrid.Columns.Add(_temp_column);
+                }
+                else if(temp_attribute != null)
+                { 
+
+                    DataGridTextColumn temp_column = new DataGridTextColumn();
+                    temp_column.Header = temp_attribute.Get_RussianTittle;
+
+                    Binding myNewBindDef = new Binding(el.Name);
+                    temp_column.Binding = myNewBindDef;
+
+                    AdminDataGrid.Columns.Add(temp_column);
+                }
+            }
         }
 
         private void ОКbutton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+          
         }
     }
 }

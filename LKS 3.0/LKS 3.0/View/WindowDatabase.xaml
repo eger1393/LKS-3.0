@@ -66,6 +66,9 @@
 
 
             </MenuItem>
+            <MenuItem Header="Инструменты">
+                <MenuItem Header="Групповые операции" Command="{Binding ChangeKursCommand}" ></MenuItem>
+            </MenuItem>
             <MenuItem Header="Добавить/Удалить">
                 <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">
                 </MenuItem>
@@ -82,6 +85,8 @@
                 <MenuItem Header="Информация о сборах" Command="{Binding InfoSboriCommand}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Отчеты" >
+                <MenuItem Header="Создать отчет" Command="{Binding CreateReportCommand}" ></MenuItem>
+                <MenuItem Header="Приказы" Command="{Binding OrdersCommand}" />
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportUniversityCommand}" />
                 <MenuItem Header="Создать отчет" Command="{Binding CreateReportCommand}" />
                 <MenuItem Header="Закрытие word файлов" Command="{Binding CloseAllWordFile}" />

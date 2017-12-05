@@ -26,11 +26,15 @@ namespace LKS_3._0.View
     /// </summary>
     public partial class EditTroop : Window
     {
+
+        string[] days = { "Пн", "Вт", "Ср", "Чт", "Пт" };
         public EditTroop(ref ApplicationContext temp_database, BindingList<Troop> _troops)
         {
             InitializeComponent();
 
             comboBoxPrepods.ItemsSource = temp_database.Prepods.Local.ToBindingList();
+
+
 
             DataContext = new ViewModel.EditTroopViewModel(ref temp_database, _troops);
 
@@ -56,8 +60,18 @@ namespace LKS_3._0.View
 
                         Binding _myNewBindDef = new Binding(el.Name);
                         _temp_column.Binding = _myNewBindDef;
-                        _temp_column.IsReadOnly = false;
                         TroopGrid.Columns.Add(_temp_column);
+                    }
+                    else if (temp_attribute.Get_RussianTittle == "День")
+                    {
+                        DataGridComboBoxColumn _temp_column = new DataGridComboBoxColumn();
+                        _temp_column.Header = temp_attribute.Get_RussianTittle;
+
+                        Binding _myNewBindDef = new Binding(el.Name);
+                        _temp_column.ItemsSource = days;
+                        _temp_column.TextBinding = _myNewBindDef;
+                        TroopGrid.Columns.Add(_temp_column);
+
                     }
                     else
                     {
@@ -66,7 +80,6 @@ namespace LKS_3._0.View
 
                         Binding myNewBindDef = new Binding(el.Name);
                         temp_column.Binding = myNewBindDef;
-                        temp_column.IsReadOnly = true;
                         TroopGrid.Columns.Add(temp_column);
                     }    
                 

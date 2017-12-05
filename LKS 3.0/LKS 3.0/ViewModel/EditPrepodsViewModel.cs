@@ -51,7 +51,7 @@ namespace LKS_3._0
         RelayCommand editCommand;
         RelayCommand addCommand;
         RelayCommand deleteCommand;
-        RelayCommand setRPCommand;
+        //RelayCommand setRPCommand;
 
         public BindingList<Prepod> Prepods
         {
