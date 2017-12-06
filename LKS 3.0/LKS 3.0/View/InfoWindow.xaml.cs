@@ -56,6 +56,8 @@ namespace LKS_3._0.View
                 temp_students = Students;
             }
 
+
+
             switch (comboBoxKrit.SelectedIndex)
             {
                 case 0:

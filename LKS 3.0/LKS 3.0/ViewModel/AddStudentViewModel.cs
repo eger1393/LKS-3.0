@@ -25,9 +25,6 @@ namespace LKS_3._0
             Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
 
             AddedRelative = new Relative();
-
-            
-
         }
 
      
