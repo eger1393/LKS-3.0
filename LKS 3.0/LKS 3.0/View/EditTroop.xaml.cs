@@ -73,6 +73,15 @@ namespace LKS_3._0.View
                         TroopGrid.Columns.Add(_temp_column);
 
                     }
+                    else if(temp_attribute.Get_RussianTittle == "Личный состав (чел.)")
+                    {
+                        DataGridTextColumn temp_column = new DataGridTextColumn();
+                        temp_column.Header = temp_attribute.Get_RussianTittle;
+                        temp_column.IsReadOnly = true;
+                        Binding myNewBindDef = new Binding(el.Name);
+                        temp_column.Binding = myNewBindDef;
+                        TroopGrid.Columns.Add(temp_column);
+                    }
                     else
                     {
                         DataGridTextColumn temp_column = new DataGridTextColumn();

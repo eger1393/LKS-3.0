@@ -27,7 +27,7 @@ namespace LKS_3._0
             saveChangeCommand,
             checkPassCommand,
             editPrepodsCommand,
-            openTemplate,
+            //openTemplate,
             showTraineesCommand,
             showDetachedCommand,
             showNaSboriCommand,
@@ -589,17 +589,17 @@ namespace LKS_3._0
                 
             }
         }
-		public RelayCommand OpenTemplate
-		{
-			get
-			{
-				return openTemplate ??
-					(openTemplate = new RelayCommand(obj =>
-					{
-						//Templates temp = new Templates(students,);
-					}));
-			}
-		}
+		//public RelayCommand OpenTemplate
+		//{
+		//	get
+		//	{
+		//		return openTemplate ??
+		//			(openTemplate = new RelayCommand(obj =>
+		//			{
+		//				//Templates temp = new Templates(students,);
+		//			}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+		//	}
+		//}
         public RelayCommand СheckTroop
         {
             get
@@ -672,7 +672,7 @@ namespace LKS_3._0
                         {
                             DataBase.SaveChanges();
                         }
-                    }));
+                    },(obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
 
@@ -732,7 +732,7 @@ namespace LKS_3._0
                         {
                             DataBase.SaveChanges();
                         }
-                    }));
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
 
@@ -746,7 +746,7 @@ namespace LKS_3._0
                       View.ChangeKurs wind = new View.ChangeKurs(Students);
                       wind.ShowDialog();
                       DataBase.SaveChanges();
-                  }));
+                  }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
 
@@ -763,7 +763,7 @@ namespace LKS_3._0
                       win.ShowDialog();
 
                       DataBase.SaveChanges();
-                  }));
+                  }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
 

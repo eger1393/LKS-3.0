@@ -34,13 +34,13 @@
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="4" FontSize="14.667" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="150,0" Click="button_Ok_Click" Command="{Binding ExelentCommand}"/>
 
         <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="180" Background="#FFB6B6B6">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="CellEditEnding">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
                 Command="{Binding SaveChangeCommand}"
-                CommandParameter="{Binding SelectTroop}" />
+                CommandParameter="{Binding ElementName=TroopGrid, Path=SelectedItem}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+            </i:Interaction.Triggers>
         </DataGrid>
         <Label x:Name="labelKO" Content="Командир взвода" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Left"/>
 

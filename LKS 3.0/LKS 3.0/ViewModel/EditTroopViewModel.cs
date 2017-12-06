@@ -54,15 +54,11 @@ namespace LKS_3._0.ViewModel
                   {
                       // если ни одного объекта не выделено, выходим
                       if (selectedItem == null) return;
-
                       Troop temp_t = selectedItem as Troop;
 
-                      foreach (var item in temp_t.ListStudents)
-                      {
-                          item.Troop = temp_t.NumberTroop;
-                      }
-
-                      DataBaseTr.SaveChanges();
+                      SelectTroopListStudent = temp_t.ListStudents;
+                      SelectStudent = temp_t.PlatoonCommander;
+                      SelectPrepod = temp_t.ResponsiblePrepod;
 
                   }));
             }
@@ -194,18 +190,6 @@ namespace LKS_3._0.ViewModel
             set
             {
                 selectTroop = value;
-
-                //foreach (var item in value.ListStudents)
-                //{
-                //    item.Troop = value.NumberTroop;
-                //}
-
-                //DataBaseTr.SaveChanges();
-
-                SelectTroopListStudent = selectTroop.ListStudents;
-                SelectStudent = selectTroop.PlatoonCommander;
-                SelectPrepod = selectTroop.ResponsiblePrepod;
-
                 OnPropertyChanged();
             }
         }
