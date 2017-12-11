@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="База данных ВК" WindowState="Maximized" Closing="W_Data_Closing">
-
+        Title="База данных ВК" WindowState="Maximized" >
+    <!--Closing="W_Data_Closing"-->
     <Window.Resources>
         <Style x:Key="Default">
             <Setter Property="Control.FontFamily" Value="Times New Roman" />

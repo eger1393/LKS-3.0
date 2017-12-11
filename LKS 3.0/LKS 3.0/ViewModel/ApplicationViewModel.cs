@@ -15,7 +15,7 @@ using System.Windows;
 namespace LKS_3._0
 {
    
-    public class ApplicationViewModel : INotifyPropertyChanged
+    public class ApplicationViewModel : INotifyPropertyChanged, IDisposable
     {
         public ApplicationContext DataBase;
 
@@ -849,6 +849,10 @@ namespace LKS_3._0
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        public void Dispose()
+        {
+            ((IDisposable)DataBase).Dispose();
+        }
     }
 }
 
