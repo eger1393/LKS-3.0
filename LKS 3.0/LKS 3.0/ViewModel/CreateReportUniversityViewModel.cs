@@ -35,8 +35,10 @@ namespace LKS_3._0.ViewModel
 
 		BindingList<Troop> troops;
 
-		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None;
-		Troop selectedTroopDocOnTroop;
+		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None,
+			radioOptionsJernal = RadioOptions.None;
+		Troop selectedTroopDocOnTroop,
+			selectedTroopJernal;
 
 		private RelayCommand create,
 			cancel;
@@ -183,6 +185,36 @@ namespace LKS_3._0.ViewModel
 			set
 			{
 				selectedTroopDocOnTroop = value;
+				OnPropertyChanged();
+			}
+		}
+
+		
+
+		public RadioOptions RadioOptionsJernal
+		{
+			get
+			{
+				return radioOptionsJernal;
+			}
+
+			set
+			{
+				radioOptionsJernal = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public Troop SelectedTroopJernal
+		{
+			get
+			{
+				return selectedTroopJernal;
+			}
+
+			set
+			{
+				selectedTroopJernal = value;
 				OnPropertyChanged();
 			}
 		}

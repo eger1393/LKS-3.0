@@ -78,19 +78,19 @@
                                 <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <RadioButton GroupName="DocOnTroop" Content="Обложка" Grid.Row="0"
-                                         IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter}, 
+                                         IsChecked="{Binding radioOptionsJernal, Converter={StaticResource enumBooleanConverter}, 
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Журнал целиком" Grid.Row="1"
-                                         IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding radioOptionsJernal, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Наряды, взыскания и инструктажи" Grid.Row="2"
-                                         IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding radioOptionsJernal, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Посещаемость" Grid.Row="3"
-                                         IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding radioOptionsJernal, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option4}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Список взвода для журнала" Grid.Row="4"
-                                         IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding RadioOptionsJernal, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option5}}"/>
                         </Grid>
                     </GroupBox>
