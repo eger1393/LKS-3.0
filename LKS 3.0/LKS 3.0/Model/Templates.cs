@@ -715,8 +715,7 @@ namespace LKS_3._0
 
 				if (command.ToUpper() == "$ВЗДЕНЬПРИХОДА$")
 				{
-					// TODO ВОЗВРАЩАТЬ ДЕНЬ ПРИХОДА
-					return "";
+					return selectedTrop.Day;
 				}
 
 				if (command.ToUpper() == "$ВЗВУС$")

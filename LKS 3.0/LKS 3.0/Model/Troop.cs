@@ -14,7 +14,7 @@ namespace LKS_3._0
     {
         public static int _count;
 
-        private string numberTroop, day;
+        private string numberTroop, day, vus;
 
         public Prepod ResponsiblePrepod;
 
@@ -153,7 +153,21 @@ namespace LKS_3._0
             }
         }
 
-        override public string ToString()
+		public string Vus
+		{
+			get
+			{
+				return vus;
+			}
+
+			set
+			{
+				vus = value;
+				OnPropertyChanged();
+			}
+		}
+
+		override public string ToString()
 		{
 			return numberTroop;
 		}

@@ -72,62 +72,124 @@ namespace LKS_3._0.ViewModel
 				return create ??
 					(create = new RelayCommand(obj =>
 					{
-						if((int)obj == 0) // Если выбранна 1 вкладка
+						//if((int)obj == 0) // Если выбранна 1 вкладка
+						switch((int)obj)
 						{
-							if(selectedTroopDocOnTroop != null)
-							{
-								List<Troop> tempList = new List<Troop>();
-								tempList.Add(selectedTroopDocOnTroop);
-
-								switch (radioOptionsDocOnTroop)
+							case 1: // Выбранна 1 вкладка
 								{
-									
-									case RadioOptions.Option1:
-										{
-											Templates temp = new Templates(
-												System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
-												null, null, tempList);
-										}
-										break;
-									case RadioOptions.Option2:
-										{
-											Templates temp = new Templates(
-												System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
-												null, null, tempList);
-										}
-										break;
-									case RadioOptions.Option3:
-										{
-											Templates temp = new Templates(
-												System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
-												null, null, tempList);
-										}
-										break;
-									case RadioOptions.Option4:
-										{
-											Templates temp = new Templates(
-												System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
-												null, null, tempList);
-										}
-										break;
-									case RadioOptions.Option5:
-										System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-										break;
-									case RadioOptions.None:
-										{
-											System.Windows.MessageBox.Show("Выберите шаблон!");
-										}
-										break;
-									default:
-										System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-										break;
-								}
+									if (selectedTroopDocOnTroop != null)
+									{
+										List<Troop> tempList = new List<Troop>();
+										tempList.Add(selectedTroopDocOnTroop);
 
-							}
-							else
-							{
-								System.Windows.MessageBox.Show("Выберите взвод!");
-							}
+										switch (radioOptionsDocOnTroop)
+										{
+
+											case RadioOptions.Option1:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option2:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option3:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option4:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option5:
+												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
+												break;
+											case RadioOptions.None:
+												{
+													System.Windows.MessageBox.Show("Выберите шаблон!");
+												}
+												break;
+											default:
+												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
+												break;
+										}
+
+									}
+									else
+									{
+										System.Windows.MessageBox.Show("Выберите взвод!");
+									}
+									break;
+								}
+							case 2:
+								{
+									if (SelectedTroopDocOnTroop != null)
+									{
+										List<Troop> tempList = new List<Troop>();
+										tempList.Add(SelectedTroopDocOnTroop);
+
+										switch (radioOptionsJernal)
+										{
+											case RadioOptions.Option1:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option2:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option3:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option4:
+												{
+													Templates temp = new Templates(
+														System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
+														null, null, tempList);
+												}
+												break;
+											case RadioOptions.Option5:
+												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
+												break;
+											case RadioOptions.None:
+												{
+													System.Windows.MessageBox.Show("Выберите шаблон!");
+												}
+												break;
+											default:
+												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
+												break;
+										}
+
+									}
+									else
+									{
+										System.Windows.MessageBox.Show("Выберите взвод!");
+									}
+									break;
+								}
 						}
 					}));
 			}
