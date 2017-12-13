@@ -92,6 +92,22 @@ namespace LKS_3._0
             }
         }
 
+        [RusName("ВУС")]
+        public string Vus
+        {
+            get
+            {
+                return vus;
+            }
+
+            set
+            {
+                vus = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public int Id_RP
         {
             get
@@ -153,19 +169,7 @@ namespace LKS_3._0
             }
         }
 
-		public string Vus
-		{
-			get
-			{
-				return vus;
-			}
-
-			set
-			{
-				vus = value;
-				OnPropertyChanged();
-			}
-		}
+ 
 
 		override public string ToString()
 		{

@@ -808,6 +808,7 @@ namespace LKS_3._0
                 if (item.Id_RP != 0)
                 {
                     item.ResponsiblePrepod = DataBase.Prepods.Local.FirstOrDefault(u => u.Id == item.Id_RP);
+                   
                 }
                 if (item.Id_PC != 0)
                 {
@@ -824,7 +825,10 @@ namespace LKS_3._0
                     item.StaffCount = item.ListStudents.Count;
                 }
                
-                    
+               if(item.StaffCount != 0)
+                {
+                    item.Vus = item.ListStudents.FirstOrDefault().SpecialityName;
+                }     
 
             }
 
