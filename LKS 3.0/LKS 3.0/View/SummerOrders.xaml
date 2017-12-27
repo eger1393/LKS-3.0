@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0.View"
         xmlns:VievModel="clr-namespace:LKS_3._0.ViewModel"
         mc:Ignorable="d"
-        Title="SummerOrders" Height="600" Width="950">
+        Title="Приказы" Height="600" Width="950">
     <Window.Resources>
         <VievModel:EnumToBooleanConverter x:Key="enumBooleanConverter"/>
     </Window.Resources>

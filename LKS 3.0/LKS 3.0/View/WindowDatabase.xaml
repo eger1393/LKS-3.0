@@ -85,10 +85,9 @@
                 <MenuItem Header="Информация о сборах" Command="{Binding InfoSboriCommand}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Отчеты" >
-                <MenuItem Header="Создать отчет" Command="{Binding CreateReportCommand}" ></MenuItem>
+                <MenuItem Header="Создать отчет по новому шаблону" Command="{Binding CreateReportCommand}" ></MenuItem>
                 <MenuItem Header="Приказы" Command="{Binding OrdersCommand}" />
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportUniversityCommand}" />
-                <MenuItem Header="Создать отчет" Command="{Binding CreateReportCommand}" />
                 <MenuItem Header="Закрытие word файлов" Command="{Binding CloseAllWordFile}" />
             </MenuItem>
             <MenuItem Header="Информация" Command="{Binding InfoCommand}"/>
