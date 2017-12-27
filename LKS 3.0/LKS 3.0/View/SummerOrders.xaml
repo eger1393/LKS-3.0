@@ -4,10 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
+        xmlns:VievModel="clr-namespace:LKS_3._0.ViewModel"
         mc:Ignorable="d"
         Title="SummerOrders" Height="600" Width="950">
+    <Window.Resources>
+        <VievModel:EnumToBooleanConverter x:Key="enumBooleanConverter"/>
+    </Window.Resources>
     <Grid>
-        <TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="535*"/>
+            <ColumnDefinition Width="408*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.ColumnSpan="2">
             <TabItem Header="Проведение сборов" DataContext="{Binding SelectedSummerSbori}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -35,8 +43,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <GroupBox x:Name="Docs2"  Header="Документы" HorizontalAlignment="Stretch">
-                        <ListBox x:Name="DocsBox2"/>
+                    <GroupBox Grid.Column="0" Header="Документ">
+
                     </GroupBox>
                     <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
                     <ComboBox x:Name="TroopComboBox2" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
@@ -101,17 +109,17 @@
                     </Grid.RowDefinitions>
                     <Label Content ="Объявить благодарность офицерам:" Grid.Row ="2" VerticalAlignment="Center"/>
                     <Label Content ="Объявить благодарность cтудентам:" Grid.Row ="2" Grid.Column="1" VerticalAlignment="Center"/>
-                    
+
                     <ListBox x:Name="Prepod" Grid.Row ="3"  ItemsSource="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" HorizontalContentAlignment="Stretch" FontSize="16" />
                     <ListBox x:Name="Student" Grid.Row ="3" Grid.Column="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}"  HorizontalContentAlignment="Stretch" FontSize="16"/>
-                    
+
                     <Button x:Name="CreateButton" Grid.Row ="4"  Content="Создать" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
                     <Button x:Name="CancelButton" Grid.Row ="4"  Content="Создать" Command="{Binding SaveCommand}" Click="ОКbutton_Click" Margin="0,10,0,0"/>
                     <Label Grid.Row ="0" Content ="Приказ №" VerticalAlignment="Center"/>
                     <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="" Width="210" HorizontalAlignment="Center" Margin="70,8,186,7"/>
                     <Label Content ="От" Grid.Row ="1" VerticalAlignment="Center"/>
                     <DatePicker x:Name="TbDataOrderAdmision2" Grid.Row="1" Margin="71,5,186,6" />
-                   
+
                 </Grid>
             </TabItem>
         </TabControl>

@@ -17,14 +17,14 @@
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1.3*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
 
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Информация о :" HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="16" Grid.Column="1"/>
-        <ComboBox x:Name="comboBoxInfo" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="5,0" FontSize="16"/>
+        <ComboBox x:Name="comboBoxInfo" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="5,8,5,0" FontSize="16"/>
         <Label x:Name="label1" Content="Критерий :"  Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16"/>
         <Label x:Name="label2" Content="Значение :" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" Margin="55,0,64,0" Grid.Row="2"/>
         <ComboBox x:Name="comboBoxKrit" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Margin="5,5,5,0" FontSize="14.667" SelectionChanged="comboBoxKrit_SelectionChanged">
@@ -32,20 +32,8 @@
             <ListBoxItem Content="Группа"></ListBoxItem>
             <ListBoxItem Content="Курс"></ListBoxItem>
         </ComboBox>
-        <ComboBox x:Name="comboBoxKrit2" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Margin="5,40,5,0" FontSize="14.667" SelectionChanged="comboBoxKrit_SelectionChanged">
-            <ListBoxItem Content="ВУС"></ListBoxItem>
-            <ListBoxItem Content="Группа"></ListBoxItem>
-            <ListBoxItem Content="Курс"></ListBoxItem>
-        </ComboBox>
-        <ComboBox x:Name="comboBoxKrit3" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Margin="5,80,5,0" FontSize="14.667" SelectionChanged="comboBoxKrit_SelectionChanged">
-            <ListBoxItem Content="ВУС"></ListBoxItem>
-            <ListBoxItem Content="Группа"></ListBoxItem>
-            <ListBoxItem Content="Курс"></ListBoxItem>
-        </ComboBox>
         <ComboBox x:Name="comboBoxValue" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Margin="5,5,5,0"/>
-        <ComboBox x:Name="comboBoxValue2" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Margin="5,40,5,0"/>
-        <ComboBox x:Name="comboBoxValue3" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Margin="5,80,5,0"/>
-        
+
         <Label x:Name="AllStudentLabel" Content="Общее количество студентов :" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
         <Label x:Name="KritStudentLabel" Content="Количество студентов по выбранным критериям :" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan ="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
         <TextBlock x:Name="textBlockAll" Grid.Column="2"  Grid.Row="5" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="18.667" TextAlignment="Center" />

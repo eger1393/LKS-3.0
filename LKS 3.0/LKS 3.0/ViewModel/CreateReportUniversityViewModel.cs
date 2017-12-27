@@ -14,7 +14,7 @@ namespace LKS_3._0.ViewModel
 {
 	public enum RadioOptions
 	{
-		Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, None
+		Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, None
 	}
 
 	public class EnumToBooleanConverter : IValueConverter
@@ -29,9 +29,13 @@ namespace LKS_3._0.ViewModel
 			return value.Equals(true) ? parameter : Binding.DoNothing;
 		}
 	}
-	public class CreateReportUniversityViewModel:INotifyPropertyChanged
+
+    
+    public class CreateReportUniversityViewModel:INotifyPropertyChanged
 	{
-		BindingList<Student> students;
+        private BindingList<Student> troopStudents;
+
+        BindingList<Student> students;
 
 		BindingList<Troop> troops;
 
@@ -63,6 +67,7 @@ namespace LKS_3._0.ViewModel
 				}
 			}
 			
+           
 		}
 
 		public RelayCommand Create
@@ -72,125 +77,182 @@ namespace LKS_3._0.ViewModel
 				return create ??
 					(create = new RelayCommand(obj =>
 					{
-						//if((int)obj == 0) // Если выбранна 1 вкладка
-						switch((int)obj)
-						{
-							case 1: // Выбранна 1 вкладка
-								{
-									if (selectedTroopDocOnTroop != null)
-									{
-										List<Troop> tempList = new List<Troop>();
-										tempList.Add(selectedTroopDocOnTroop);
+                        try {
+                            //if((int)obj == 0) // Если выбранна 1 вкладка
+                            switch ((int)obj)
+                            {
+                                case 1: // Выбранна 1 вкладка
+                                    {
+                                        if (selectedTroopDocOnTroop != null)
+                                        {
+                                            List<Troop> tempList = new List<Troop>();
+                                            tempList.Add(selectedTroopDocOnTroop);
 
-										switch (radioOptionsDocOnTroop)
-										{
+                                            switch (radioOptionsDocOnTroop)
+                                            {
 
-											case RadioOptions.Option1:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option2:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option3:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option4:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option5:
-												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-												break;
-											case RadioOptions.None:
-												{
-													System.Windows.MessageBox.Show("Выберите шаблон!");
-												}
-												break;
-											default:
-												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-												break;
-										}
+                                                case RadioOptions.Option1:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option2:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option3:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option4:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option5:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                                case RadioOptions.None:
+                                                    {
+                                                        System.Windows.MessageBox.Show("Выберите шаблон!");
+                                                    }
+                                                    break;
+                                                default:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                            }
 
-									}
-									else
-									{
-										System.Windows.MessageBox.Show("Выберите взвод!");
-									}
-									break;
-								}
-							case 2:
-								{
-									if (SelectedTroopDocOnTroop != null)
-									{
-										List<Troop> tempList = new List<Troop>();
-										tempList.Add(SelectedTroopDocOnTroop);
+                                        }
+                                        else
+                                        {
+                                            System.Windows.MessageBox.Show("Выберите взвод!");
+                                        }
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        if (SelectedTroopDocOnTroop != null)
+                                        {
+                                            List<Troop> tempList = new List<Troop>();
+                                            tempList.Add(SelectedTroopDocOnTroop);
 
-										switch (radioOptionsJernal)
-										{
-											case RadioOptions.Option1:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option2:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option3:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option4:
-												{
-													Templates temp = new Templates(
-														System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
-														null, null, tempList);
-												}
-												break;
-											case RadioOptions.Option5:
-												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-												break;
-											case RadioOptions.None:
-												{
-													System.Windows.MessageBox.Show("Выберите шаблон!");
-												}
-												break;
-											default:
-												System.Windows.MessageBox.Show("Пыщь пыщь ололо я водитель нло!");
-												break;
-										}
+                                            switch (radioOptionsJernal)
+                                            {
+                                                case RadioOptions.Option1:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option2:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option3:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option4:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option5:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                                case RadioOptions.None:
+                                                    {
+                                                        System.Windows.MessageBox.Show("Выберите шаблон!");
+                                                    }
+                                                    break;
+                                                default:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                            }
 
-									}
-									else
-									{
-										System.Windows.MessageBox.Show("Выберите взвод!");
-									}
-									break;
-								}
-						}
+                                        }
+                                        else
+                                        {
+                                            System.Windows.MessageBox.Show("Выберите взвод!");
+                                        }
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        if (SelectedTroopDocOnTroop != null)
+                                        {
+                                            List<Troop> tempList = new List<Troop>();
+                                            tempList.Add(SelectedTroopDocOnTroop);
+
+                                            switch (radioOptionsJernal)
+                                            {
+                                                case RadioOptions.Option1:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option2:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option3:
+                                                    {
+                                                        Templates temp = new Templates(
+                                                            System.IO.Path.GetFullPath(@".\Templates\ЛКС.docx"),
+                                                            null, null, tempList);
+                                                    }
+                                                    break;
+
+                                                case RadioOptions.Option5:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                                case RadioOptions.None:
+                                                    {
+                                                        System.Windows.MessageBox.Show("Выберите шаблон!");
+                                                    }
+                                                    break;
+                                                default:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            System.Windows.MessageBox.Show("Выберите взвод!");
+                                        }
+                                        break;
+                                    }
+                            }
+                        }
+                        catch(Exception)
+                        {
+                            MessageBox.Show("Неизвестная ошибка!", "Внимание!");
+                        }
 					}));
 			}
 		}
@@ -247,7 +309,8 @@ namespace LKS_3._0.ViewModel
 			set
 			{
 				selectedTroopDocOnTroop = value;
-				OnPropertyChanged();
+                TroopStudents = value.ListStudents;
+                OnPropertyChanged();
 			}
 		}
 
@@ -281,7 +344,21 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public BindingList<Student> TroopStudents
+        {
+            get
+            {
+                return troopStudents;
+            }
+
+            set
+            {
+                troopStudents = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			if (PropertyChanged != null)
