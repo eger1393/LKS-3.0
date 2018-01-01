@@ -359,7 +359,7 @@ namespace LKS_3._0
 
 		private string findCommand(string command)
 		{
-			if (command.ToUpper() == "$НСТР$")
+			if (command.ToUpper() == "$НС$")
 			{
 				return "\n";
 			}
