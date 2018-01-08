@@ -16,7 +16,7 @@ namespace LKS_3._0.Model
 
         public BindingList<Troop> listTroops;
 
-
+		 
         public int ID
         {
             get
