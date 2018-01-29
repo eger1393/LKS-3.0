@@ -68,11 +68,11 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -98,6 +98,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.106.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -127,6 +128,7 @@
     </Page>
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Summer.cs" />
+    <Compile Include="Model\Templates.cs" />
     <Compile Include="ProgMode.cs" />
     <Compile Include="ViewModel\CreateReportUniversityViewModel.cs" />
     <Compile Include="ViewModel\CreateReportViewModel.cs" />
@@ -165,7 +167,7 @@
     <Compile Include="Model\RusNameAttribute.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\TableCommand.cs" />
-    <Compile Include="Model\Templates.cs" />
+    <Compile Include="Model\Templates2.cs" />
     <Compile Include="Model\Troop.cs" />
     <Compile Include="View\EditTroop.xaml.cs">
       <DependentUpon>EditTroop.xaml</DependentUpon>

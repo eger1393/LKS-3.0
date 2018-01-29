@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Word = Microsoft.Office.Interop.Word;
+
 using System.IO;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 
+//using Word = Microsoft.Office.Interop.Word;
+//using Microsoft.Office.Interop;
 
-namespace LKS_3._0.Model
+namespace LKS_3._0
 {
-	class Templates
-	{
-		List<Student> students; // текущие выбранные студенты(урощает работу с несколькими взводами)
-		Student selectedStudent;    // выбранный студент
-		Relative selectedStudentMather, //его мать
-			selectedStudentFather,  //его отец
-			selectedRelative;   //его дорственник
-		Troop selectedTrop; //выбранный взвод
 
-		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
-		{   //TODO отрефактрить этот код
+	class Templates2
+	{
+
+		List<Student> students;
+		Student selectedStudent;
+		Relative selectedStudentMather,
+			selectedStudentFather,
+			selectedRelative;
+		Troop selectedTrop;
+
+		Dictionary<string, string> command; // массив комманд
+
+		public Templates2(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
+		{
 			// КОСТЫЛЬ
 			if (Students == null)
 			{
@@ -45,69 +52,309 @@ namespace LKS_3._0.Model
 			}
 			selectedStudent = students.First(); // устанавливаем выбранного стуента
 			changeSelectedStudent(); // меняем мать и отца студента
+									 //System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
 
-			///////////////////
 
-			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
-			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
 
-			if (troops.Count == 0)
+			try
 			{
-				dlg.FileName = students.First().MiddleName;
+
+
+				Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
+				Word.Document doc = appDoc.Documents.Open(fileName, ReadOnly: false); // открыли документ
+				Word.Range range = doc.Content; // запихнули весь текст из документа в range
+
+
+				while (range.Find.Execute("$?{1;20}$", MatchWildcards: true)) // ищем команды
+				{
+
+					if (range.Text == "$НОВТБ$") // если встретили начало таблицы 
+					{
+						Word.Table selectedTable = null;
+						for (int i = 1; i <= doc.Tables.Count; i++)
+						{
+							Word.Range item = doc.Tables[i].Range;
+							if (doc.Tables[i].Range.Find.Execute("$НОВТБ$", ReplaceWith: "", Forward: true))
+							{
+								selectedTable = doc.Tables[i];
+								break;
+							}
+						}
+						if (selectedTable != null) // нужная таблица найдена
+						{
+							List<TableCommand> tableCommand = new List<TableCommand>();
+							int i;
+							if (selectedTable.Range.Find.Execute("$О$", Forward: true)) // костыль
+							{
+								i = 2;
+							}
+							else
+							{
+								i = selectedTable.Rows.Count;
+							}
+
+							for (int j = 1; j <= selectedTable.Columns.Count; j++)
+							{
+								int firstIndex = 0, lastIndex = 0; // попутно удаляя все команды
+
+								do //todo переделать исспользуя регулярки
+								{
+									if (firstIndex < selectedTable.Cell(i, j).Range.Text.Length)
+										firstIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex);
+									if (firstIndex != -1)
+									{
+										lastIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex + 1);
+										tableCommand.Add(new TableCommand(j, i,
+											selectedTable.Cell(i, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
+										selectedTable.Cell(i, j).Range.Text = selectedTable.Cell(i, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
+
+									}
+
+								} while (firstIndex != -1);
+							}
+
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$О$") != null)
+							{
+								selectedTable.Rows.Add(selectedTable.Rows[3]); // костыль который правит поехавшее форматирование
+								selectedTable.Cell(2, 1).Range.Rows.Delete();
+								int num = 0;
+								int y = 0;
+								foreach (Student studentItem in students)
+								{
+									num++;
+									selectedStudent = studentItem; // переделать
+									changeSelectedStudent(); // костыль 
+									foreach (TableCommand item in tableCommand)
+									{
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));
+										}
+									}
+									y++;
+								}
+							}
+
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$С$") != null)
+							{
+								int num = 0;
+								foreach (Student studentItem in students)
+								{
+									num++;
+									selectedStudent = studentItem; // переделать
+									changeSelectedStudent(); // костыль 
+									selectedTable.Rows.Add();
+									foreach (TableCommand item in tableCommand)
+									{
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command.ToUpper()));
+										}
+									}
+								}
+								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+							}
+
+							// КАК всегда немного костылей
+
+							if (tableCommand.Find(obj => obj.command.ToUpper() == "$Р$") != null)
+							{
+								int num = 0;
+								foreach (Relative relativeItem in selectedStudent.ListRelatives)
+								{
+									selectedRelative = relativeItem; // переделать
+									selectedTable.Rows.Add();
+									num++;
+
+									foreach (TableCommand item in tableCommand)
+									{
+										if (item.command.ToUpper() == "$НОМЕР$")
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+										}
+										else
+										{
+											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+										}                                                                                                    //selectedTable.Cell.
+									}
+								}
+								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+							}
+
+
+
+
+						}
+					}
+					else
+					{
+						if (range.Text.ToUpper() != "$ФОТО$")
+						{
+							range.Text = findCommand(range.Text);
+						}
+						else
+						{
+							range.Text = "";
+							range.InlineShapes.AddPicture(selectedStudent.ImagePath, Range: range);
+						}
+						range.Find.ClearFormatting();
+						range = doc.Content;
+					}
+				}
+
+				Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+				dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
+
+				if (troops.Count == 0)
+				{
+					dlg.FileName = students.First().MiddleName;
+				}
+				else
+				{
+					dlg.FileName = troops.First().NumberTroop;
+				}
+
+				if (dlg.ShowDialog() == true) // запустили окно
+				{
+					doc.SaveAs(dlg.FileName);
+
+				}
+
+				//appDoc.Visible = true;
+				doc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
+				appDoc.Quit();
+				System.Windows.MessageBox.Show("ГОТОВО!");
 			}
-			else
-			{
-				dlg.FileName = troops.First().NumberTroop;
-			}
 
-			if (dlg.ShowDialog() == true) // запустили окно
+			catch
 			{
-				File.Copy(fileName, dlg.FileName, true);
-			}
-			else
-			{
+				System.Windows.MessageBox.Show("Ошибка, закройте все процессы ворда и попробуйте еще раз.");
 				return;
 			}
-			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true))
+
+		}
+
+		private void initcommand(ref Dictionary<string, string> command)
+		{
+			command = new Dictionary<string, string>()
 			{
-				SdtElement elem = doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().First();
-				//SdtElement elem = doc.MainDocumentPart.Document.Body.ele
-				//Table tbl = doc.MainDocumentPart.Document.Body.Elements<Table>().First();
-				//foreach (var row in tbl.Elements<TableRow>()) // Перебираем все строки
-				//{
-				//	foreach (var cell in row.Elements<TableCell>()) // Перебираем все ячейки
-				//	{
-				//		foreach (var paragraph in cell.Elements<Paragraph>()) // параграфы
-				//		{
-				//			int fIndex = paragraph.InnerText.IndexOf('$'),
-				//				lIndex = -1;
-				//			if (fIndex >= 0)
-				//			{
-				//				lIndex = paragraph.InnerText.IndexOf('$', fIndex + 1);
-				//				// TODO добавить исключение на ошибку поиска
+				{ "$N$", "\n" },
+				{ "$ИМЯ$",selectedStudent.FirstName },
+				{ "$ФАМИЛИЯ$", selectedStudent.MiddleName },
+				{ "$ОТЧЕСТВО$", selectedStudent.LastName },
+				{ "$ФАКУЛЬТЕТ$", selectedStudent.Faculty },
+				{ "$ГРУППА$", selectedStudent.Group },
+				{ "$ВУС$", selectedStudent.SpecialityName },
+				{ "$УСЛОБУЧ$", selectedStudent.ConditionsOfEducation },
+				{ "$СРБАЛЛ$", selectedStudent.AvarageScore },
+				{ "$ПОСТМАИ$", selectedStudent.YearOfAddMAI },
+				{ "$ОКОНЧМАИ$", selectedStudent.YearOfEndMAI },
+				{ "$ПОСТВОЕНКАФ$", selectedStudent.YearOfAddVK },
+				{ "$ОКОНЧВОЕНКАФ$", selectedStudent.YearOfEndVK },
+				{ "$НОМЕРПРИКАЗА$", selectedStudent.NumberOfOrder },
+				{ "$ДАТАПРИКАЗА$", selectedStudent.DateOfOrder },
+				{ "$ВОЕНКОМАТ$", selectedStudent.Rectal },
+				{ "$ДЕНЬРОЖД$", selectedStudent.Birthday },
+				{ "$МЕСТОРОЖД$",  selectedStudent.PlaceBirthday },
+				{ "$НАЦИЯ$", selectedStudent.Nationality },
+				{ "$ДОМНОМЕР$", selectedStudent.HomePhone },
+				{ "$МОБНОМЕР$", selectedStudent.MobilePhone },
+				{ "$АДРЕСПРОЖИВАНИЯ$", selectedStudent.PlaceOfResidence },
+				{ "$АДРЕСРЕГИСТРАЦИИ$", selectedStudent.PlaceOfRegestration },
+				{ "$ШКОЛА$", selectedStudent.School },
+				{ "$ДОЛЖНОСТЬ$", selectedStudent.Rank },
+				{ "$ВЗВОД$", selectedStudent.Troop },
+				{ "$ИНИЦИАЛЫ$", selectedStudent.initials() },
+				{ "$СЛУЖБАВВС$", selectedStudent.Military },
+				{ "$СЕМЕЙНЫЙСТАТУС$", selectedStudent.FamiliStatys },
+				{ "$ГРУППАКРОВИ$", selectedStudent.BloodType },
+				{ "$СПЕЦВИНСТ$", selectedStudent.SpecInst },
 
-				//				string comand = paragraph.InnerText.Substring(fIndex, lIndex - fIndex + 1); // выделили команду
-				//				string modidiedString = paragraph.InnerText.Replace(comand, findCommand(comand));  // заменили все вхождения
+				{ "$РОДИМЯ$", selectedRelative.FirstName },
+				{ "$РОДФАМИОЛИЯ$", selectedRelative.MiddleName },
+				{ "$РОДОТЧЕСТВО$", selectedRelative.LastName },
+				{ "$РОДДЕВИЧФАМИЛИЯ$", selectedRelative.MaidenName },
+				{ "$РОДДЕНЬРОЖД$", selectedRelative.Birthday },
+				{ "$РОД$АДРЕСГЕРИСТРАЦИИ", selectedRelative.PlaceOfRegestration },
+				{ "$РОДАДРЕСПРОЖИВАНИЯ$", selectedRelative.PlaceOfResidence },
+				{ "$РОДМОБНОМЕР$", selectedRelative.MobilePhone },
+				{ "$РОДСТЕПЕНЬРОДСТВА$", selectedRelative.RelationDegree },
+				{ "$РОДСОСТЗДОРОВЬЯ$", selectedRelative.HealthStatus },
+				{ "$РОДИНИЦИАЛЫ$", selectedRelative.initials() },
 
-				//				paragraph.RemoveAllChildren();
-				//				paragraph.AppendChild<Run>(new Run(new Text(modidiedString)));
-				//				//foreach (var run in paragraph.Elements<Run>()) //а это хрень в которой лежит текст в ячейках
-				//				//{
-				//				//	foreach (var text in run.Elements<Text>()) // ну и наконец сам текст из ячейки
-				//				//	{
-				//				//	}
-				//				//}
-				//			}
-				//		}
-				//	}
-				//}
-			}
+				{ "$МАТЬИМЯ$", selectedStudentMather.FirstName },
+				{ "$МАТЬФИМИЛИЯ$", selectedStudentMather.MiddleName },
+				{ "$МАТЬОТЧЕСТВО$", selectedStudentMather.LastName},
+				{ "$МАТЬДЕВИЧЬЯФАМИЛИЯ$", selectedStudentMather.MaidenName },
+				{ "$МАТЬДЕНЬРОЖД$", selectedStudentMather.Birthday },
+				{ "$МАТЬАДРЕСРЕГИСТРАЦИИ$",selectedStudentMather.PlaceOfRegestration },
+				{ "$МАТЬАДРЕСПРОЖИВАНИЯ$", selectedStudentMather.PlaceOfResidence },
+				{ "$МАТЬМОБНОМЕР$", selectedStudentMather.MobilePhone },
+				{ "$МАТЬСТЕПРОДСТВА$", selectedStudentMather.RelationDegree },
+				{ "$МАТЬСОСТЗДОРОВЬЯ$", selectedStudentMather.HealthStatus },
+				{ "$МАТЬИНИЦИАЛЫ$", selectedStudentMather.initials() },
 
-			//doc.Close();
+				{ "$ОТЕЦИМЯ$", selectedStudentFather.FirstName },
+				{ "$ОТЕЦФАМИЛИЯ$", selectedStudentFather.MiddleName },
+				{ "$ОТЕЦОТЧЕСТВО$", selectedStudentFather.LastName },
+				{ "$FATHMAIDNAME$",selectedStudentFather.MaidenName },
+				{ "$ОТЕЦДЕНЬРОЖД$",selectedStudentFather.Birthday },
+				{ "$ОТЕЦАДРЕСРЕГИСТРАЦИИ$",selectedStudentFather.PlaceOfRegestration },
+				{ "$ОТЕЦАДРЕСПРОЖИВАНИЯ$", selectedStudentFather.PlaceOfResidence },
+				{ "$ОТЕЦМОБНОМЕР$", selectedStudentFather.MobilePhone },
+				{ "$ОТЕЦСТЕПРОДСТВА$", selectedStudentFather.RelationDegree },
+				{ "$ОТЕЦСОСТЗДОРОВЬЯ$",selectedStudentFather.HealthStatus },
+				{ "$ОТЕЦИНИЦИАЛЫ$", selectedStudentFather.initials() },
 
+				{ "$ВЗНОМЕР$", selectedTrop.NumberTroop },
 
+				{ "$ВЗКОЛВОЧЕЛ$", selectedTrop.StaffCount.ToString() },
+				{ "$ВЗПИМЯ$",selectedTrop.ResponsiblePrepod.FirstName },
+				{ "$ВЗПФАМИЛИЯ$", selectedTrop.ResponsiblePrepod.MiddleName },
+				{ "$ВЗПОТЧЕСТВО$", selectedTrop.ResponsiblePrepod.LastName },
+				{ "$ВЗПЗВАНИЕ$", selectedTrop.ResponsiblePrepod.Coolness },
+				{ "$ВЗПДОЛЖНОСТЬ$", selectedTrop.ResponsiblePrepod.PrepodRank },
+				{ "$ВЗПИНИЦИАЛЫ$",selectedTrop.ResponsiblePrepod.initials() },
 
+				{ "$ВЗКОМИМЯ$", selectedTrop.PlatoonCommander.FirstName },
+				{ "$ВЗКОМФАМИЛИЯ$", selectedTrop.PlatoonCommander.MiddleName },
+				{ "$TCOMLNAME$", selectedTrop.PlatoonCommander.LastName },
+				{ "$TCOMFACULTY$", selectedTrop.PlatoonCommander.Faculty },
+				{ "$TCOMGROUP$", selectedTrop.PlatoonCommander.Group },
+				{ "$TCOMSPNAME$", selectedTrop.PlatoonCommander.SpecialityName },
+				{ "$TCOMCONDEDUC$", selectedTrop.PlatoonCommander.ConditionsOfEducation },
+				{ "$TCOMAVERSCORE$", selectedTrop.PlatoonCommander.AvarageScore },
+				{ "$TCOMADDMAI$", selectedTrop.PlatoonCommander.YearOfAddMAI },
+				{ "$TCOMENDMAI$", selectedTrop.PlatoonCommander.YearOfEndMAI },
+				{ "$TCOMADDMIL$",selectedTrop.PlatoonCommander.YearOfAddVK },
+				{ "$TCOMENDMIL$", selectedTrop.PlatoonCommander.YearOfEndVK },
+				{ "$TCOMNUMORDER$", selectedTrop.PlatoonCommander.NumberOfOrder },
+				{ "$TCOMDATEORDER$", selectedTrop.PlatoonCommander.DateOfOrder },
+				{ "$TCOMRECTAL$", selectedTrop.PlatoonCommander.Rectal },
+				{ "$TCOMBIRTHDAY$", selectedTrop.PlatoonCommander.Birthday },
+				{ "$TCOMPLACEBIRTH$", selectedTrop.PlatoonCommander.PlaceBirthday },
+				{ "$TCOMNATION$", selectedTrop.PlatoonCommander.Nationality },
+				{ "$TCOMHOMEPRONE$", selectedTrop.PlatoonCommander.HomePhone },
+				{ "$TCOMMOBPHONE$", selectedTrop.PlatoonCommander.MobilePhone },
+				{ "$TCOMPLACERESID$", selectedTrop.PlatoonCommander.PlaceOfResidence },
+				{ "$TCOMPLACEREGISTR$", selectedTrop.PlatoonCommander.PlaceOfRegestration },
+				{ "$TCOMSCHOOL$", selectedTrop.PlatoonCommander.School },
+				{ "$TCOMRANK$", selectedTrop.PlatoonCommander.Rank },
+				{ "$TCOMTROOP$", selectedTrop.PlatoonCommander.Troop },
+				{ "$TCOMINIT$", selectedTrop.PlatoonCommander.initials() },
 
+				{ "$S$", "" },
+				{ "$R$", "" },
+				{ "$O$", "" },
+			};
 		}
 
 		private string findCommand(string command)
@@ -680,14 +927,8 @@ namespace LKS_3._0.Model
 			}
 
 
-			if (command.Length > 2) // TODO костыль
-			{
-				return command.Substring(1, command.Length - 2);
-			}
-			else
-			{
-				return "";
-			}
+
+			return command.Substring(1, command.Length - 2);
 		}
 
 		void changeTroop()
