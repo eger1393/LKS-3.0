@@ -13,6 +13,8 @@ using System.IO;
 //using Word = Microsoft.Office.Interop.Word;
 //using Microsoft.Office.Interop;
 
+// УСТАРЕЛО!
+
 namespace LKS_3._0
 {
 
@@ -52,7 +54,7 @@ namespace LKS_3._0
 			}
 			selectedStudent = students.First(); // устанавливаем выбранного стуента
 			changeSelectedStudent(); // меняем мать и отца студента
-									 //System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
+			//System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
 
 
 
@@ -104,7 +106,7 @@ namespace LKS_3._0
 									if (firstIndex != -1)
 									{
 										lastIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex + 1);
-										tableCommand.Add(new TableCommand(j, i,
+										tableCommand.Add(new TableCommand(i, j,
 											selectedTable.Cell(i, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
 										selectedTable.Cell(i, j).Range.Text = selectedTable.Cell(i, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
 
@@ -124,15 +126,16 @@ namespace LKS_3._0
 									num++;
 									selectedStudent = studentItem; // переделать
 									changeSelectedStudent(); // костыль 
+									// НЕМНОГО ПОМЕНЯЛ TableCommand, если что-то неработает проверить правильность строки и столбца
 									foreach (TableCommand item in tableCommand)
 									{
 										if (item.command.ToUpper() == "$НОМЕР$")
 										{
-											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
+											selectedTable.Cell(item.row + y, item.coll).Range.InsertAfter(num.ToString());
 										}
 										else
 										{
-											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));
+											selectedTable.Cell(item.row + y, item.coll).Range.InsertAfter(findCommand(item.command));
 										}
 									}
 									y++;
@@ -152,15 +155,15 @@ namespace LKS_3._0
 									{
 										if (item.command.ToUpper() == "$НОМЕР$")
 										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+											selectedTable.Cell(selectedTable.Rows.Count, item.coll).Range.InsertAfter(num.ToString());
 										}
 										else
 										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command.ToUpper()));
+											selectedTable.Cell(selectedTable.Rows.Count, item.coll).Range.InsertAfter(findCommand(item.command.ToUpper()));
 										}
 									}
 								}
-								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+								selectedTable.Cell(tableCommand[0].row, 1).Range.Rows.Delete();
 							}
 
 							// КАК всегда немного костылей
@@ -178,15 +181,15 @@ namespace LKS_3._0
 									{
 										if (item.command.ToUpper() == "$НОМЕР$")
 										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
+											selectedTable.Cell(selectedTable.Rows.Count, item.coll).Range.InsertAfter(num.ToString());
 										}
 										else
 										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
+											selectedTable.Cell(selectedTable.Rows.Count, item.coll).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
 										}                                                                                                    //selectedTable.Cell.
 									}
 								}
-								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
+								selectedTable.Cell(tableCommand[0].row, 1).Range.Rows.Delete();
 							}
 
 

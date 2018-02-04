@@ -7,7 +7,6 @@ using System.IO;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 
 namespace LKS_3._0.Model
@@ -62,52 +61,85 @@ namespace LKS_3._0.Model
 
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				File.Copy(fileName, dlg.FileName, true);
+				File.Copy(fileName, dlg.FileName, true); // создали выходной файл и теперь работаем с ним
 			}
 			else
 			{
 				return;
 			}
-			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true))
+			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true)) // открыли документ
 			{
-				SdtElement elem = doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().First();
-				//SdtElement elem = doc.MainDocumentPart.Document.Body.ele
-				//Table tbl = doc.MainDocumentPart.Document.Body.Elements<Table>().First();
-				//foreach (var row in tbl.Elements<TableRow>()) // Перебираем все строки
-				//{
-				//	foreach (var cell in row.Elements<TableCell>()) // Перебираем все ячейки
-				//	{
-				//		foreach (var paragraph in cell.Elements<Paragraph>()) // параграфы
-				//		{
-				//			int fIndex = paragraph.InnerText.IndexOf('$'),
-				//				lIndex = -1;
-				//			if (fIndex >= 0)
-				//			{
-				//				lIndex = paragraph.InnerText.IndexOf('$', fIndex + 1);
-				//				// TODO добавить исключение на ошибку поиска
+				// получили список форматированного текста
+				List<SdtElement> allFormattedText = doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList();
 
-				//				string comand = paragraph.InnerText.Substring(fIndex, lIndex - fIndex + 1); // выделили команду
-				//				string modidiedString = paragraph.InnerText.Replace(comand, findCommand(comand));  // заменили все вхождения
+				foreach (Table table in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
+				{
+					if(!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
+					{
+						continue; 
+					}
 
-				//				paragraph.RemoveAllChildren();
-				//				paragraph.AppendChild<Run>(new Run(new Text(modidiedString)));
-				//				//foreach (var run in paragraph.Elements<Run>()) //а это хрень в которой лежит текст в ячейках
-				//				//{
-				//				//	foreach (var text in run.Elements<Text>()) // ну и наконец сам текст из ячейки
-				//				//	{
-				//				//	}
-				//				//}
-				//			}
-				//		}
-				//	}
-				//}
+					foreach (TableRow row in table.Elements<TableRow>())
+					{
+						if(row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
+						{
+							for(int i = 0; i < students.Count; i++)
+							{
+								TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+								selectedStudent = students[i];
+								changeSelectedStudent();
+								// модифицировал копию строки
+								foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+								{
+									string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+									if (valueCommand != "false")
+									{
+										SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+										Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
+										(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+										formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																								   // и заменил закладку обычным текстом
+									}
+								}
+
+								table.AppendChild(tempRow); // добавили временую стороку к таблице
+							} // закончили создание таблицы
+							row.Parent.RemoveChild(row); // удалили немодифицированную строку
+							break; // закончили работу с таблицей
+						}
+
+					}
+					//foreach (TableCell cell in table.Descendants<TableCell>()) // для каждой получаем список ячеек
+					//{
+					
+						//foreach (SdtElement formattedText in cell.Descendants<SdtElement>().ToList())
+						//{
+						//	string command = formattedText.Descendants<SdtAlias>().First().Val;
+						//	if (findCommand(command) != "false")
+						//	{
+						//		tableCommand.Add(
+						//			new TableCommand(1, 1, command));
+						//	}
+						//}
+					//}
+				}
+
+				// проходим по всем элементам "форматированный текст"(далее просто "закладка")
+				// и сверяем имя закладки со списком команд
+				// как обычно здесь есть немного магии (без toList может работать не правильно)
+				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
+				{
+					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
+					if (valueCommand != "false")
+					{
+						SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+						Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
+						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+						formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+						// и заменил закладку обычным текстом
+					}
+				}
 			}
-
-			//doc.Close();
-
-
-
-
 		}
 
 		private string findCommand(string command)
@@ -679,7 +711,8 @@ namespace LKS_3._0.Model
 				return "";
 			}
 
-
+			return "false";
+			//TODO
 			if (command.Length > 2) // TODO костыль
 			{
 				return command.Substring(1, command.Length - 2);

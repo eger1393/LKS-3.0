@@ -8,12 +8,12 @@ namespace LKS_3._0
 {
 	class TableCommand
 	{
-		public int x, y;
+		public int row, coll;
 		public string command;
-		public TableCommand(int x, int y, string command)
+		public TableCommand(int row, int coll, string command)
 		{
-			this.x = x; 
-			this.y = y;
+			this.row = row; 
+			this.coll = coll;
 			this.command = command;
 		}
 		public static bool FoundCommand(TableCommand cm,string com)
