@@ -74,53 +74,118 @@ namespace LKS_3._0.Model
 
 				foreach (Table table in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
 				{
-					if(!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
+					if (!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
 					{
-						continue; 
+						continue;
 					}
 
-					foreach (TableRow row in table.Elements<TableRow>())
+					bool withoutAddingRows = false; //как строится таблица( с добавлением строк или используется уже существующие строки)
+					foreach (SdtElement formattedText in table.Descendants<SdtElement>().ToList())
 					{
-						if(row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
+						if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "БЕЗ ДОБАВЛЕНИЯ СТРОК")
 						{
-							for(int i = 0; i < students.Count; i++)
+							withoutAddingRows = true; // установили флаг 
+							break;
+						}
+					}
+
+					if (withoutAddingRows) // проверяем флаг 
+					{
+						int rowIndex = 0; // костыль который поможет определить с какой строкой мы сейчас работаем
+						// первая строка с которой мы будем работать это та где мы обнаружили команды 
+						foreach (TableRow row in table.Elements<TableRow>())
+						{
+							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
 							{
 								TableRow tempRow = row.Clone() as TableRow; // создали копию строки
-								selectedStudent = students[i];
-								changeSelectedStudent();
-								// модифицировал копию строки
-								foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+								foreach(SdtElement formattedText in row.Descendants<SdtElement>().ToList())
 								{
-									string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
-									if (valueCommand != "false")
-									{
-										SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
-										Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
-										(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
-										formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
-																								   // и заменил закладку обычным текстом
-									}
+									formattedText.Remove(); // удалили все закладки в строке с закладками
+									// команды остались в копии строки и мы будем работать с ними
 								}
-
-								table.AppendChild(tempRow); // добавили временую стороку к таблице
-							} // закончили создание таблицы
-							row.Parent.RemoveChild(row); // удалили немодифицированную строку
-							break; // закончили работу с таблицей
+								for (int i = 0; i < students.Count; i++)
+								{
+									selectedStudent = students[i];
+									changeSelectedStudent();
+									
+									List<TableRow> rowList = table.Elements<TableRow>().ToList();
+									
+									IEnumerator<TableCell> IEcell = rowList[rowIndex].Descendants<TableCell>().ToList().GetEnumerator(); // перечеслитель для перебора ячеек в строке которая назодится в таблице
+									foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
+									{
+										IEcell.MoveNext();// передвинули перечеслитель
+										if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
+										{
+											// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
+											TableCell tempCell = cell.Clone() as TableCell;
+											IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+											foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+											{
+												string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+												if (valueCommand != "false")
+												{
+													SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+													Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
+													(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+													formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																											   // и заменил закладку обычным текстом
+																											   //IEcell.Current.
+												}
+											}
+										}
+									}
+									rowIndex++; // перешли на след строку
+								} //
+								break; // закончили работу с таблицей
+							}
+							rowIndex++;
 						}
+					}
+					else
+					{
+						foreach (TableRow row in table.Elements<TableRow>())
+						{
+							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
+							{
+								for (int i = 0; i < students.Count; i++)
+								{
+									TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+									selectedStudent = students[i];
+									changeSelectedStudent();
+									// модифицировал копию строки
+									foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+									{
+										string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+										if (valueCommand != "false")
+										{
+											SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+											Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
+											(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+											formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																									   // и заменил закладку обычным текстом
+										}
+									}
 
+									table.AppendChild(tempRow); // добавили временую стороку к таблице
+								} // закончили создание таблицы
+								row.Parent.RemoveChild(row); // удалили немодифицированную строку
+								break; // закончили работу с таблицей
+							}
+
+						}
 					}
 					//foreach (TableCell cell in table.Descendants<TableCell>()) // для каждой получаем список ячеек
 					//{
-					
-						//foreach (SdtElement formattedText in cell.Descendants<SdtElement>().ToList())
-						//{
-						//	string command = formattedText.Descendants<SdtAlias>().First().Val;
-						//	if (findCommand(command) != "false")
-						//	{
-						//		tableCommand.Add(
-						//			new TableCommand(1, 1, command));
-						//	}
-						//}
+
+					//foreach (SdtElement formattedText in cell.Descendants<SdtElement>().ToList())
+					//{
+					//	string command = formattedText.Descendants<SdtAlias>().First().Val;
+					//	if (findCommand(command) != "false")
+					//	{
+					//		tableCommand.Add(
+					//			new TableCommand(1, 1, command));
+					//	}
+					//}
 					//}
 				}
 
@@ -136,7 +201,7 @@ namespace LKS_3._0.Model
 						Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
 						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
 						formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
-						// и заменил закладку обычным текстом
+																				   // и заменил закладку обычным текстом
 					}
 				}
 			}
