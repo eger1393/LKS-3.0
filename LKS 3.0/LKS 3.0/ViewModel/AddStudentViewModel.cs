@@ -22,23 +22,18 @@ namespace LKS_3._0
 
             Relative._count = DataBaseR.Relatives.Count();
 
-            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
 
             AddedRelative = new Relative();
         }
 
-     
+        RelayCommand addRelativeCommand, editRelativeCommand, deleteRelativeCommand, saveChangeCommand;
+        private IEnumerable<Relative> relatives;
+        private Student addedStudent;
+        private Relative selectedRelative;
+        private Relative addedRelative;
 
-		private Student addedStudent; // Добавляемый студент
-		private Relative selectedRelative, // Выбранный родственник
-			addedRelative; // Добавляемый родственник
-		private IEnumerable<Relative> relatives; // Коллекция родственников
-
-        RelayCommand addRelativeCommand, editRelativeCommand, deleteRelativeCommand;
-
-        
-
-		public RelayCommand AddRelative
+        public RelayCommand AddRelative
 		{
 			get
 			{
@@ -51,7 +46,7 @@ namespace LKS_3._0
 
                       Relative._count++;
 
-                      temp_relative.IdStudent = addedStudent.Id;
+                      temp_relative.IdStudent = AddedStudent.Id;
 
                       temp_relative.Id = Relative._count;
 
@@ -63,7 +58,7 @@ namespace LKS_3._0
 
 					  AddedRelative = new Relative();
 
-                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
                   }));
 			}
 			
@@ -83,7 +78,7 @@ namespace LKS_3._0
 
                       DataBaseR.Relatives.Remove(temp_relative);
                       DataBaseR.SaveChanges();
-                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
                   }));
             }
         }
@@ -105,7 +100,7 @@ namespace LKS_3._0
                             DataBaseR.Relatives.Remove(temp_relative);
                             DataBaseR.SaveChanges();
                             Relative._count--;
-                            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == addedStudent.Id);
+                            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
                         }
                         else if (res.ToString() == "No")
                         {
@@ -117,53 +112,78 @@ namespace LKS_3._0
             }
 
         }
-        public IEnumerable<Relative> Relatives
-		{
-			get { return relatives; }
-			set
-			{
-				relatives = value;
-				OnPropertyChanged();
-			}
-		}
-		public Student AddedStudent
-		{
-			get
-			{
-				return addedStudent;
-			}
-			set
-			{
-				addedStudent = value;
-				OnPropertyChanged();
-			}
-		}
 
-		public Relative SelectedRelative
-		{
-			get
-			{
-				return selectedRelative;
-			}
-			set
-			{
-				selectedRelative = value;
-				OnPropertyChanged();
-			}
-		}
-		public Relative AddedRelative
-		{
-			get
-			{
-				return addedRelative;
-			}
-			set
-			{
-				addedRelative = value;
-				OnPropertyChanged();
-			}
-		}
-		public event PropertyChangedEventHandler PropertyChanged;
+        public RelayCommand SaveChange
+        {
+            get
+            {
+                return saveChangeCommand ??
+                    (saveChangeCommand = new RelayCommand(selectedItem =>
+                    {
+                        if (AddedStudent.Id == 0)
+                        {
+                            Student._count++;
+                            AddedStudent.Id = Student._count;
+                        }
+
+                        AddedStudent.ListRelatives = new BindingList<Relative>(Relatives.Where(u => u.IdStudent == AddedStudent.Id).ToList());
+
+                        AddedStudent.Collness = "Студент";
+                    }));
+            }
+
+        }
+
+        public IEnumerable<Relative> Relatives
+        {
+            get
+            {
+                return relatives;
+            }
+            set
+            {
+                relatives = value;
+                OnPropertyChanged();
+            }
+        }
+        public Student AddedStudent
+        {
+            get
+            {
+                return addedStudent;
+            }
+            set
+            {
+                addedStudent = value;
+                OnPropertyChanged();
+            }
+        }
+        public Relative SelectedRelative
+        {
+            get
+            {
+                return selectedRelative;
+            }
+            set
+            {
+                selectedRelative = value;
+                OnPropertyChanged();
+            }
+        }
+        public Relative AddedRelative
+        {
+            get
+            {
+                return addedRelative;
+            }
+            set
+            {
+                addedRelative = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			if (PropertyChanged != null)

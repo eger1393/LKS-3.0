@@ -141,7 +141,7 @@
                         <TextBox.Text>
                             <Binding Path="Kurs" NotifyOnValidationError="True">
                                 <Binding.ValidationRules>
-                                    <myns:ValidationNumRule min ="1" max="6"/>
+                                    <myns:ValidationNumRule min ="2" max="6"/>
                                     <ExceptionValidationRule/>
                                 </Binding.ValidationRules>
                             </Binding>
@@ -216,6 +216,7 @@
                     <Label Grid.Column="0" Grid.Row="3" Content="Гражданство" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="4" Content="Домашний телефон" Grid.ColumnSpan="3"/>
                     <Label Grid.Column="0" Grid.Row="5" Content="Сотовый телефон"/>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Доп. сотовый телефон"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Text="Почтовый индекс, адрес места проживания студента" TextWrapping="Wrap" Padding="5"/>
                     <TextBlock Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Text="Почтовый индекс, адрес места прописки студента" TextWrapping="Wrap" Padding="5" Grid.IsSharedSizeScope="True"/>
                     <Label Grid.Column="2" Grid.Row="4" Content="Школа"/>
@@ -226,6 +227,7 @@
                     <TextBox x:Name="TbCitizenship" Grid.Column="1" Grid.Row="3" Text="{Binding Citizenship}"  />
                     <TextBox x:Name="TbHomePhone" Grid.Column="1" Grid.Row="4" Text="{Binding HomePhone }" PreviewTextInput="TbHomePhone_PreviewTextInput"/>
                     <TextBox x:Name="TbMobilePhone" Grid.Column="1" Grid.Row="5" Text="{Binding MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
+                    <TextBox x:Name="TbMobilePhone_2" Grid.Column="1" Grid.Row="6" Text="{Binding Two_MobilePhone}" PreviewTextInput="TbMobailPhone_PreviewTextInput" PreviewKeyDown="TbMobailPhone_PreviewKeyDown" MaxLength="16" LostFocus="TbMobailPhone_LostFocus" GotFocus="TbMobailPhone_GotFocus"/>
                     <TextBox x:Name="TbPlaceOfResidence" Grid.Column="3" Grid.Row="0" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
                     <TextBox x:Name="TbPlaceOfRegestration" Grid.Column="3" Grid.Row="2" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
                     <TextBox x:Name="TbSchool" Grid.Column="3" Grid.Row="4" Text="{Binding School}"/>
@@ -374,6 +376,7 @@
                             <ListBoxItem Content="Жена" />
                             <ListBoxItem Content="Сын" />
                             <ListBoxItem Content="Дочь" />
+                            <ListBoxItem Content="Опекун" />
                         </ComboBox>
                         <TextBox x:Name="TbRelativeMName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                         <TextBox x:Name="TbRelativeFName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding FirstName}"  PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
@@ -385,7 +388,7 @@
                             <ListBoxItem Content="Здоров" />
                             <ListBoxItem Content="Инвалид 1 группы" />
                             <ListBoxItem Content="Инвалид 2 группы" />
-                            <ListBoxItem Content="Мертв" />
+                            <ListBoxItem Content="Умер" />
                         </ComboBox>
                         <TextBox x:Name="TbRelativePlaceOfResidence" Grid.Column="3" Grid.Row="1" Text="{Binding PlaceOfResidence}" Grid.RowSpan="2"/>
                         <TextBox x:Name="TbRelativePlaceOfRegestration" Grid.Column="3" Grid.Row="3" Text="{Binding PlaceOfRegestration}" Grid.RowSpan="2"/>
@@ -402,7 +405,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Save_Click"/>
+        <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Command="{Binding SaveChange}"  Click="Save_Click"/>
         <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Cnacel_Click"/>
 
     </Grid>

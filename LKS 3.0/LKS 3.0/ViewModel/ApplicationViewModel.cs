@@ -27,12 +27,12 @@ namespace LKS_3._0
             saveChangeCommand,
             checkPassCommand,
             editPrepodsCommand,
-            //openTemplate,
             showTraineesCommand,
             showDetachedCommand,
             showNaSboriCommand,
             showPastSboriCommand,
             showAllCommand,
+            addNoteCommand,
             troopCheck,
             newSboricommand,
             editTroopCommand,
@@ -44,30 +44,13 @@ namespace LKS_3._0
 			createReportUniversityCommand,
 			ordersCommand;
 
-
-
         private Student selectedStudent;
-
-        private Troop selectedTroop;
-
-        BindingList<Student> students;
-
-        BindingList<Troop> troops;
-
-        private List<string> list_Troop,
-            list_Rectal,
-            list_Mname,
-            list_Rank,
-            list_Group,
-            list_Speciality,
-            list_SpecInst;
-
-
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
-
+        private Troop selectedTroop;
         private string selectTroopNumber;
-
-        private string currentPrepod;
+        private BindingList<Student> students;
+        private BindingList<Troop> troops;
+        private BindingList<string> list_Troop, list_Mname, list_Rank, list_Group;
 
         public string SelectedValueFind_T
         {
@@ -82,13 +65,12 @@ namespace LKS_3._0
                     Students = DataBase.Students.Local.ToBindingList();
                 }
 
-                List_Group = DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct().ToList();
+                List_Group = new BindingList<string>(DataBase.Students.Local.Where(u => u.Troop == value).Select(u => u.Group).Distinct().ToList());
 
                 ValueFind_T = value;
             }
 
         }
-        
         public string SelectedValueFind_G
         {
             get
@@ -101,7 +83,7 @@ namespace LKS_3._0
                 {
                     Students = DataBase.Students.Local.ToBindingList();
                 }
-                List_Mname = DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct().ToList();
+                List_Mname = new BindingList<string>(DataBase.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct().ToList());
                 ValueFind_G = value;
             }
         }
@@ -136,76 +118,82 @@ namespace LKS_3._0
                 }
         }
 
-        public List<string> List_Troop
+        public BindingList<string> List_Troop
         {
-            get { return list_Troop; }
+            get
+            {
+                return list_Troop;
+            }
             set
             {
                 list_Troop = value;
                 OnPropertyChanged();
             }
-
         }
-        public List<string> List_Rectal
+        public BindingList<string> List_Mname
         {
-            get { return list_Rectal; }
-            set
+            get
             {
-                list_Rectal = value;
-                OnPropertyChanged();
+                return list_Mname;
             }
-
-        }
-        public List<string> List_Mname
-        {
-            get { return list_Mname;  }
             set
             {
                 list_Mname = value;
                 OnPropertyChanged();
             }
-
         }
-        public List<string> List_Rank
+        public BindingList<string> List_Rank
         {
-            get { return list_Rank; }
+            get
+            {
+                return list_Rank;
+            }
             set
-                {
+            {
                 list_Rank = value;
                 OnPropertyChanged();
             }
-
         }
-        public List<string> List_Group
+        public BindingList<string> List_Group
         {
-            get { return list_Group; }
+            get
+            {
+                return list_Group;
+            }
             set
             {
                 list_Group = value;
                 OnPropertyChanged();
             }
-
         }
 
-        public Student SelectedStudent
+
+        public Student SelectedStudent 
         {
-            get { return selectedStudent; }
+            get
+            {
+                return selectedStudent;
+            }
             set
             {
                 selectedStudent = value;
-                OnPropertyChanged("SelectedStudent");
+                OnPropertyChanged();
             }
         }
+
         public Troop SelectedTroop
         {
-            get { return selectedTroop; }
+            get
+            {
+                return selectedTroop;
+            }
             set
             {
                 selectedTroop = value;
-                OnPropertyChanged("SelectedStudent");
+                OnPropertyChanged();
             }
         }
-            public string SelectTroopNumber
+        public string SelectTroopNumber
         {
             get
             {
@@ -217,44 +205,41 @@ namespace LKS_3._0
                 OnPropertyChanged();
             }
         }
-
         public BindingList<Student> Students
         {
-            get { return students; }
+            get
+            {
+                return students;
+            }
             set
             {
-
                 students = value;
-                OnPropertyChanged("Students");
+                OnPropertyChanged();
             }
         }
 
         public BindingList<Troop> Troops
         {
-            get { return troops; }
+            get
+            {
+                return troops;
+            }
             set
             {
-
                 troops = value;
-                OnPropertyChanged("Troops");
+                OnPropertyChanged();
             }
         }
 
         private void Update_List()
         {
-            List_Troop = DataBase.Troops.Local.Select(u => u.NumberTroop).Distinct().ToList();
+            List_Troop = new BindingList<string>(DataBase.Troops.Where(u => u.SboriTroop == false).Select(u => u.NumberTroop).Distinct().ToList());
 
-            List_Group = DataBase.Students.Local.Select(u => u.Group).Distinct().ToList();
+            List_Group = new BindingList<string>(DataBase.Students.Select(u => u.Group).Distinct().ToList());
 
-            List_Mname = DataBase.Students.Local.Select(u => u.MiddleName).Distinct().ToList();
+            List_Mname = new BindingList<string>(DataBase.Students.Select(u => u.MiddleName).Distinct().ToList());
 
-            List_Rank = DataBase.Students.Local.Select(u => u.Rank).Distinct().ToList();
-
-            List_Rectal = DataBase.Students.Local.Select(u => u.Rectal).Distinct().ToList();
-
-            List_Speciality = DataBase.Students.Local.Select(u => u.SpecialityName).Distinct().ToList();
-
-            List_SpecInst = DataBase.Students.Local.Select(u => u.SpecInst).Distinct().ToList();
+            List_Rank = new BindingList<string>(DataBase.Students.Select(u => u.Rank).Distinct().ToList());
 
         }
 
@@ -310,7 +295,7 @@ namespace LKS_3._0
                 return showTraineesCommand ??
                  (showTraineesCommand = new RelayCommand(obj =>
                  {
-                     if(selectedTroop.NumberTroop !=  null)
+                     if(SelectedTroop.NumberTroop !=  null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.ListStudents.Where(u => u.Status == "Обучается").ToList());
                      }
@@ -328,7 +313,7 @@ namespace LKS_3._0
                 return showDetachedCommand ??
                  (showDetachedCommand = new RelayCommand(obj =>
                  {
-                     if (selectedTroop.NumberTroop != null)
+                     if (SelectedTroop.NumberTroop != null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.ListStudents.Where(u => u.Status == "Отстранен").ToList());
                      }
@@ -346,7 +331,7 @@ namespace LKS_3._0
                 return showNaSboriCommand ??
                  (showNaSboriCommand = new RelayCommand(obj =>
                  {
-                     if (selectedTroop.NumberTroop != null)
+                     if (SelectedTroop.NumberTroop != null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.ListStudents.Where(u => u.Status == "На сборах").ToList());
                      }
@@ -364,7 +349,7 @@ namespace LKS_3._0
                 return showPastSboriCommand ??
                  (showPastSboriCommand = new RelayCommand(obj =>
                  {
-                     if (selectedTroop.NumberTroop != null)
+                     if (SelectedTroop.NumberTroop != null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.ListStudents.Where(u => u.Status == "Прошел сборы").ToList());
                      }
@@ -384,7 +369,7 @@ namespace LKS_3._0
                  {
 
 
-                     View.NewSbori NewSboriWindow = new View.NewSbori (ref DataBase, List_Troop);
+                     View.NewSbori NewSboriWindow = new View.NewSbori (ref DataBase);
 
                      if(NewSboriWindow.ShowDialog() == true)
                      {
@@ -404,7 +389,7 @@ namespace LKS_3._0
                  {
                      
                      
-                     EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase, SelectedTroop);
+                     EditPrepods EditPrepodsWindow = new EditPrepods(ref DataBase);
 
                      EditPrepodsWindow.ShowDialog();
 
@@ -419,34 +404,25 @@ namespace LKS_3._0
                 return addCommand ??
                   (addCommand = new RelayCommand(obj =>
                   {
+                      while (SelectedTroop.NumberTroop == null)
+                      {
+                          СheckTroop.Execute(obj);
+                      }
+
                       Student temp_student = new Student(SelectTroopNumber);
-
-                      Update_List();
-
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, List_SpecInst, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
                           DataBase.Students.Add(temp_student);
+                          SelectedTroop.ListStudents.Add(temp_student);
+                          Students = SelectedTroop.ListStudents;
+                          SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
+                          SelectedStudent = temp_student;
+
                           DataBase.SaveChanges();
-
-                          if(SelectedTroop.NumberTroop != null)
-                          {
-                              SelectedTroop.ListStudents.Add(temp_student);
-
-                              Students = new BindingList<Student>(selectedTroop.ListStudents);
-                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
-                              SelectedStudent = temp_student;
-                          }
-                          else
-                          {
-                              Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
-                              temp.ListStudents.Add(temp_student);
-                              temp.StaffCount = temp.ListStudents.Count;
-                             
-                              SelectedStudent = temp_student;
-                          }
                       }
+
                   }));
             }
         }
@@ -458,40 +434,22 @@ namespace LKS_3._0
                   (editCommand = new RelayCommand((selectedItem) =>
                   {
                       if (selectedItem == null) return;
+
                       // получаем выделенный объект
                       Student temp_student = selectedItem as Student;
-
-                      Update_List();
-
-                      AddStudent addStudentWindow = new AddStudent(temp_student, List_Troop, List_Rectal, List_Group, List_Speciality, List_SpecInst, ref DataBase);
+                      AddStudent addStudentWindow = new AddStudent(temp_student, ref DataBase);
 
                       if (addStudentWindow.ShowDialog() == true)
                       {
-                          DataBase.Students.Add(temp_student);
-                          DataBase.Entry(temp_student).State = EntityState.Modified;
-                          DataBase.SaveChanges();
+                        DataBase.Students.Add(temp_student);
+                        DataBase.Entry(temp_student).State = EntityState.Modified;
+                        DataBase.SaveChanges();
 
-
-                          //TO DO 
-                          if (SelectedTroop.NumberTroop != null)
-                          {
-                              int i = SelectedTroop.ListStudents.IndexOf(temp_student);
-                              SelectedTroop.ListStudents.RemoveAt(i);
-                              SelectedTroop.ListStudents.Insert(i, temp_student);
-                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
-                              Students = new BindingList<Student>(selectedTroop.ListStudents);
-                          }
-                          else
-                          {
-                              Troop temp = Troops.Where(u => u.NumberTroop == temp_student.Troop).First();
-                              int i = temp.ListStudents.IndexOf(temp_student);
-                              temp.ListStudents.RemoveAt(i);
-                              temp.ListStudents.Insert(i, temp_student);
-                              SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
-                          }
-
+                          Troop temp_Troop = DataBase.Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
+                          temp_Troop.ListStudents = new BindingList<Student>(DataBase.Students.Where(u => u.Troop == temp_Troop.NumberTroop).ToList());
+                          temp_Troop.StaffCount = temp_Troop.ListStudents.Count;
+                          
                           SelectedStudent = temp_student;
-
                       }                     
                   }));
             }
@@ -518,7 +476,7 @@ namespace LKS_3._0
                 return saveChangeCommand ??
                   (saveChangeCommand = new RelayCommand(selectStudent =>
                   {
-                      Student temp_stud = selectedStudent as Student;
+                      Student temp_stud = selectStudent as Student;
                       DataBase.Students.Local.Insert(temp_stud.Id, temp_stud);
                       DataBase.SaveChanges();
                   }));
@@ -546,31 +504,24 @@ namespace LKS_3._0
                          // если ни одного объекта не выделено, выходим
                          if (selectedItem == null) return;
 
+
                      MessageBoxResult res = MessageBox.Show("Вы уверены что хотите удалить студента?", "Внимание!", MessageBoxButton.YesNo);
                      if (res.ToString() == "Yes")
                      {
-                         Student temp_student = selectedStudent as Student;
+                         Student temp_student = SelectedStudent as Student;
                          Student._count--;
                          Students.Remove(temp_student);
                          DataBase.Relatives.RemoveRange(temp_student.ListRelatives);
 
-                         if (SelectedTroop.NumberTroop != null)
-                         {
-                             SelectedTroop.ListStudents.Remove(temp_student);
-                             SelectedTroop.StaffCount = SelectedTroop.ListStudents.Count;
-                             Students = new BindingList<Student>(selectedTroop.ListStudents);
-                         }
-                         else
-                         {
-                             Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
-                             temp.ListStudents.Remove(temp_student);
-                             temp.StaffCount = temp.ListStudents.Count;
+                        Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop);
+                        temp.ListStudents.Remove(temp_student);
+                        temp.StaffCount = temp.ListStudents.Count;
 
-                             if(temp.PlatoonCommander == temp_student)
-                             {
-                                 temp.Id_PC = 0;
-                             }
-                         }
+                        if(temp.PlatoonCommander == temp_student)
+                        {
+                            temp.Id_PC = 0;
+                        }
+                         
                          DataBase.SaveChanges();
                      }
                      else if (res.ToString() == "No")
@@ -579,7 +530,7 @@ namespace LKS_3._0
                          return;
                      }
 
-                 }, (obj) => students.Count() > 0 && (ProgMode.ProgramMode == ProgramMode.Admin)));
+                 }, (obj) => Students.Count() > 0 && (ProgMode.ProgramMode == ProgramMode.Admin)));
                 }
             
         }
@@ -604,17 +555,7 @@ namespace LKS_3._0
                 
             }
         }
-		//public RelayCommand OpenTemplate
-		//{
-		//	get
-		//	{
-		//		return openTemplate ??
-		//			(openTemplate = new RelayCommand(obj =>
-		//			{
-		//				//Templates temp = new Templates(students,);
-		//			}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
-		//	}
-		//}
+
         public RelayCommand СheckTroop
         {
             get
@@ -626,30 +567,16 @@ namespace LKS_3._0
 
                         if (window_TC.ShowDialog() == true)
                         {
-                            selectedTroop = window_TC.troop_change();
+                            SelectedTroop = window_TC.troop_change();
 
                             window_TC.Close();
 
-                            Students = new BindingList<Student>(selectedTroop.ListStudents);
+                            Students = SelectedTroop.ListStudents;
 
-                            SelectTroopNumber = selectedTroop.NumberTroop;
+                            SelectTroopNumber = SelectedTroop.NumberTroop;
 
                         }
                     }));
-            }
-        }
-
-        public string CurrentPrepod
-        {
-            get
-            {
-                return currentPrepod;
-            }
-
-            set
-            {
-                currentPrepod = value;
-                OnPropertyChanged();
             }
         }
 
@@ -691,19 +618,8 @@ namespace LKS_3._0
             }
         }
 
-        public List<string> List_Speciality
-        {
-            get
-            {
-                return list_Speciality;
-            }
 
-            set
-            {
-                list_Speciality = value;
-                OnPropertyChanged();
-            }
-        }
+       
 
         public RelayCommand InfoCommand
         {
@@ -712,28 +628,17 @@ namespace LKS_3._0
                 return infoCommand ??
                     (infoCommand = new RelayCommand(obj =>
                     {
-                        LKS_3._0.View.InfoWindow Info = new View.InfoWindow(ref DataBase, List_Troop, List_Group, List_Speciality);
-                        if (Info.ShowDialog() == true)
-                        {
+                        //LKS_3._0.View.InfoWindow Info = new View.InfoWindow(ref DataBase, List_Troop, List_Group, List_Speciality);
+                        //if (Info.ShowDialog() == true)
+                        //{
 
-                        }
+                        //}
                     }));
             }
         }
 
-        public List<string> List_SpecInst
-        {
-            get
-            {
-                return list_SpecInst;
-            }
 
-            set
-            {
-                list_SpecInst = value;
-                OnPropertyChanged();
-            }
-        }
+        
 
         public RelayCommand InfoSboriCommand
         {
@@ -765,6 +670,26 @@ namespace LKS_3._0
             }
         }
 
+        public RelayCommand AddNoteCommand
+        {
+            get
+            {
+                return addNoteCommand ??
+                    (addNoteCommand = new RelayCommand(obj =>
+                    {
+                        if (obj == null) return;
+
+                        Student tepm_student = obj as Student;
+                        View.AddNoteStudent AddNewNote = new View.AddNoteStudent(tepm_student);
+
+                        if (AddNewNote.ShowDialog() == true)
+                        {
+                            DataBase.SaveChanges();
+                        }
+                    }));
+            }
+        }
+
         public RelayCommand OrdersCommand
         {
             get
@@ -787,7 +712,7 @@ namespace LKS_3._0
 
             DataBase = new ApplicationContext();
 
-            selectedTroop = new Troop();
+            SelectedTroop = new Troop();
 
             DataBase.Students.Load();
 
@@ -812,16 +737,16 @@ namespace LKS_3._0
                 }
                 if (item.Id_PC != 0)
                 {
-                    item.PlatoonCommander = DataBase.Students.Local.FirstOrDefault(u => u.Id == item.Id_PC);
+                    item.PlatoonCommander = Students.FirstOrDefault(u => u.Id == item.Id_PC);
                 }
                 if (item.SboriTroop)
                 {
-                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
+                    item.ListStudents = new BindingList<Student>(Students.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
                     item.StaffCount = item.ListStudents.Count;
                 }   
                 else
                 {
-                    item.ListStudents = new BindingList<Student>(DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
+                    item.ListStudents = new BindingList<Student>(Students.Where(u => u.Troop == item.NumberTroop).ToList());
                     item.StaffCount = item.ListStudents.Count;
                 }
                
@@ -837,7 +762,12 @@ namespace LKS_3._0
                 item.ListRelatives = new BindingList<Relative>(DataBase.Relatives.Local.Where(u => u.IdStudent == item.Id).ToList());
 
             }
+
+
         }
+
+
+
         public ApplicationViewModel()
         {
             Load_DB();

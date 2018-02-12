@@ -54,6 +54,7 @@ namespace LKS_3._0.ViewModel
                   {
                       // если ни одного объекта не выделено, выходим
                       if (selectedItem == null) return;
+
                       Troop temp_t = selectedItem as Troop;
 
                       SelectTroopListStudent = temp_t.ListStudents;

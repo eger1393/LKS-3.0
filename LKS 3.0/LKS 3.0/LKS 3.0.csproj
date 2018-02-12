@@ -117,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AddNoteStudent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPrepod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +137,9 @@
     <Compile Include="ViewModel\EditTroopViewModel.cs" />
     <Compile Include="ViewModel\NewSboriViewModel.cs" />
     <Compile Include="ViewModel\SummerSboriViewModel.cs" />
+    <Compile Include="View\AddNoteStudent.xaml.cs">
+      <DependentUpon>AddNoteStudent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPrepod.xaml.cs">
       <DependentUpon>AddPrepod.xaml</DependentUpon>
     </Compile>
@@ -276,6 +283,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="DataBaseStudents.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

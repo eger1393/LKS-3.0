@@ -16,176 +16,6 @@ namespace LKS_3._0.ViewModel
 {
     public partial class NewSboriViewModel : INotifyPropertyChanged
     {
-        //    private ApplicationContext temp_DataBase;
-
-        //    BindingList<Prepod> prepods;
-        //    BindingList<Troop> troops;
-        //    Troop select_TroopCurrent;
-        //    Troop select_TroopSbori;
-
-        //    BindingList<Student> Students_CT;
-        //    BindingList<Student> Students_ST;
-
-        //    RelayCommand updateCurrentGridCommand, updateSboriGridCommand, setSboriCommand;
-
-        //    public NewSboriViewModel(ref ApplicationContext temp_DataBase)
-        //    {
-        //        this.temp_DataBase = temp_DataBase;
-
-        //        Troops = this.temp_DataBase.Troops.Local.ToBindingList();
-
-        //        Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
-
-        //        Select_TroopCurrent = new Troop();
-        //        Select_TroopSbori = new Troop();
-
-        //        Students_ST = Select_TroopCurrent.ListStudents;
-        //        Students_CT = Select_TroopSbori.ListStudents;
-        //    }
-        //    public BindingList<Troop> Troops
-        //    {
-        //        get
-        //        {
-        //            return troops;
-        //        }
-
-        //        set
-        //        {
-        //            troops = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public BindingList<Prepod> Prepods
-        //    {
-        //        get
-        //        {
-        //            return prepods;
-        //        }
-
-        //        set
-        //        {
-        //            prepods = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public RelayCommand UpdateCurrentGridCommand
-        //    {
-        //        get
-        //        {
-        //            return updateCurrentGridCommand ??
-        //             (updateCurrentGridCommand = new RelayCommand(obj =>
-        //             {
-        //                 string selected_value = obj as string;
-
-        //                 Select_TroopCurrent = Troops.Where(u => u.NumberTroop == selected_value).First();
-        //                 Students_ST = Select_TroopCurrent.ListStudents;
-
-        //             }));
-        //        }
-
-        //    }
-        //    public RelayCommand SetSboriCommand
-        //    {
-        //        get
-        //        {
-        //            return setSboriCommand ??
-        //            (setSboriCommand = new RelayCommand(obj =>
-        //            {
-        //                if (obj == null) return;
-
-        //                Student temp = obj as Student;
-        //                Select_TroopSbori.ListStudents.Add(temp);
-        //            }));
-        //        }
-        //    }
-
-        //    public RelayCommand UpdateSboriGridCommand
-        //    {
-        //        get
-        //        {
-        //            return updateSboriGridCommand ??
-        //            (updateSboriGridCommand = new RelayCommand(obj =>
-        //            {
-
-        //                string selected_value = obj as string;
-
-        //                Select_TroopSbori = Troops.Where(u => u.NumberTroop == selected_value).First();
-
-        //            }));
-        //        }
-
-        //    }
-
-        //    public Troop Select_TroopSbori
-        //    {
-        //        get
-        //        {
-        //            return select_TroopSbori;
-        //        }
-
-        //        set
-        //        {
-        //            select_TroopSbori = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public Troop Select_TroopCurrent
-        //    {
-        //        get
-        //        {
-        //            return select_TroopCurrent;
-        //        }
-
-        //        set
-        //        {
-        //            select_TroopCurrent = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public BindingList<Student> ListStudentTroopSbori
-        //    {
-        //        get
-        //        {
-        //            return Students_ST;
-        //        }
-
-        //        set
-        //        {
-        //            Students_ST = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public BindingList<Student> ListStudentTroopCurrent
-        //    {
-        //        get
-        //        {
-        //            return Students_CT;
-        //        }
-
-        //        set
-        //        {
-        //            Students_CT = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-
-        //    public NewSboriViewModel()
-        //    {
-
-        //    }
-
-        //    public event PropertyChangedEventHandler PropertyChanged;
-        //    public void OnPropertyChanged([CallerMemberName]string prop = "")
-        //    {
-        //        if (PropertyChanged != null)
-        //            PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        //    }
-        //}
         private ApplicationContext temp_DataBase;
 
         BindingList<Prepod> prepods;
@@ -320,7 +150,6 @@ namespace LKS_3._0.ViewModel
 
                       Select_TroopSbori.Id_RP = temp.Id;
                       Select_TroopSbori.ResponsiblePrepod = temp;
-                      Select_TroopSbori.ResponsiblePrepod.AdditionalInfo = "Ответственный за " + Select_TroopSbori.NumberTroop.ToString() + " взвод";
 
                   }));
             }
@@ -333,11 +162,12 @@ namespace LKS_3._0.ViewModel
                 return updateCurrentGridCommand ??
                  (updateCurrentGridCommand = new RelayCommand(obj =>
                  {
-                     string selected_value = obj as string;
+                     if (obj == null) return;
 
-                     Select_TroopCurrent = Troops.FirstOrDefault(u => u.NumberTroop == selected_value);
 
-                     ListStudentsTroopCurrent = select_TroopCurrent.ListStudents;
+                     select_TroopCurrent = obj as Troop;
+
+                     ListStudentsTroopCurrent = Select_TroopCurrent.ListStudents;
 
                  }));
             }
@@ -349,7 +179,7 @@ namespace LKS_3._0.ViewModel
             get
             {
                 return setSboriCommand ??
-                (setSboriCommand = new RelayCommand( obj =>
+                (setSboriCommand = new RelayCommand(obj =>
                 {
 
                     
@@ -373,9 +203,8 @@ namespace LKS_3._0.ViewModel
                     }
 
                     Select_TroopSbori.ListStudents = new BindingList<Student>(Select_TroopSbori.ListStudents.Distinct().ToList());
-
-
                     Update();
+
                 }));
             }
         }
@@ -393,9 +222,7 @@ namespace LKS_3._0.ViewModel
                         return;
                     }
 
-                    string selected_value = obj as string;
-
-                    Select_TroopSbori = Troops.FirstOrDefault(u => u.NumberTroop == selected_value);
+                    Select_TroopSbori = obj as Troop;
 
                     Update();
                     

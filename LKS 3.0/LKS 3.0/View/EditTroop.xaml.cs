@@ -34,8 +34,6 @@ namespace LKS_3._0.View
 
             comboBoxPrepods.ItemsSource = temp_database.Prepods.Local.ToBindingList();
 
-
-
             DataContext = new ViewModel.EditTroopViewModel(ref temp_database, _troops);
 
             Binding_columns();
@@ -57,7 +55,6 @@ namespace LKS_3._0.View
                     {
                         DataGridCheckBoxColumn _temp_column = new DataGridCheckBoxColumn();
                         _temp_column.Header = temp_attribute.Get_RussianTittle;
-
                         Binding _myNewBindDef = new Binding(el.Name);
                         _temp_column.Binding = _myNewBindDef;
                         TroopGrid.Columns.Add(_temp_column);

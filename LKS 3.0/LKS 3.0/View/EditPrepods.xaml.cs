@@ -21,11 +21,11 @@ namespace LKS_3._0
     /// </summary>
     public partial class EditPrepods : Window
     {
-        public EditPrepods(ref ApplicationContext temp_database, Troop Selected_troop)
+        public EditPrepods(ref ApplicationContext temp_database)
         {
             InitializeComponent();
 
-            DataContext = new EditPrepodsViewModel(ref temp_database, Selected_troop);
+            DataContext = new EditPrepodsViewModel(ref temp_database);
 
             Binding_columns();
 
@@ -44,7 +44,6 @@ namespace LKS_3._0
                 {
                     DataGridTextColumn temp_column = new DataGridTextColumn();
                     temp_column.Header = temp_attribute.Get_RussianTittle;
-
                     Binding myNewBindDef = new Binding(el.Name);
                     temp_column.Binding = myNewBindDef;
 
@@ -53,6 +52,7 @@ namespace LKS_3._0
                     
                 }
             }
+            PrepodGrid.ColumnWidth = DataGridLength.Auto;
         }
 
         private void button_OK_Click(object sender, RoutedEventArgs e)

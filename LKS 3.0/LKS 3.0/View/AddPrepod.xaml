@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Редактирование" Height="348.06" Width="308.475">
-    
+        Title="Редактирование" Height="352.66" Width="310.008">
+
     <StackPanel>
         <Label x:Name="label" Content="Фамилия"/>
         <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding FirstName}"/>
@@ -20,7 +20,7 @@
         <TextBox x:Name="textBox4" Height="23" TextWrapping="Wrap" Text="{Binding PrepodRank}"/>
         <Label x:Name="label5" Content="Дополнительно"/>
         <TextBox x:Name="textBox5" Height="23" TextWrapping="Wrap" Text="{Binding AdditionalInfo}"/>
-        
+
         <Button x:Name="button" Content="Ok" Click="button_Click"/>
 
 

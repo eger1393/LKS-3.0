@@ -27,9 +27,11 @@ namespace LKS_3._0
     public partial class TroopChange : Window
     {
         ApplicationContext temp_database;
+
         Troop t_troop;
+
         BindingList<Troop> _Troops;
-        IEnumerable<string> ListTroop;
+
         public TroopChange(ref ApplicationContext database, BindingList<Troop> Troops)
         {
             InitializeComponent();
@@ -38,16 +40,14 @@ namespace LKS_3._0
 
             temp_database = database;
 
-            //ListTroop = temp_database.Troops.Local.Where(u => u.NumberTroop.ToString().Count() > 1).Select(u => u.NumberTroop);
-            ListTroop = temp_database.Troops.Local.Select(u => u.NumberTroop);
-            CbTroop.ItemsSource = ListTroop;
+            CbTroop.ItemsSource = temp_database.Troops.Local.Where(u => u.SboriTroop == false).ToList();
         }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
             if(CbTroop.Text != "")
             {
-                t_troop = _Troops.Where(u => u.NumberTroop == CbTroop.Text).First();
+                t_troop = _Troops.FirstOrDefault(u => u.NumberTroop == CbTroop.Text);
                 DialogResult = true;
             }
             else
@@ -71,11 +71,12 @@ namespace LKS_3._0
                 t_troop = new Troop(TB_TroopName.Text);
 
                 t_troop.Id = Troop._count;
-                MessageBox.Show("Новый взвод №" + t_troop.NumberTroop + "создан!", "Внимание!");
+
+                MessageBox.Show("Новый взвод № " + t_troop.NumberTroop + " создан!", "Внимание!");
 
                 _Troops.Add(t_troop);
 
-                temp_database.SaveChanges();//???
+                temp_database.SaveChanges();// оно тут надо или нет???
 
                 DialogResult = true;
             }

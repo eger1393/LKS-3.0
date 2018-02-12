@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0.View"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="Формирование сборов" Height="536.111" Width="751.656" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Формирование сборов" Height="548.111" Width="1014.656" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFB9B9B9">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"></RowDefinition>

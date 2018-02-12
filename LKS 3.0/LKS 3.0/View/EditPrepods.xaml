@@ -34,20 +34,9 @@
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="2" Click="button_OK_Click" Margin="164,23,166,12" FontSize="14.667" Grid.ColumnSpan="2"/>
 
         <DataGrid x:Name="PrepodGrid" ItemsSource ="{Binding Prepods}" SelectedItem="{Binding SelectedPrepod}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" IsReadOnly="True" Margin="0,25,0,0" Background="#FFB2B2B2" >
-            <!--<DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <MultiBinding Converter="{StaticResource MultiBindingConverter_okdp_limit}" ConverterParameter="123">
-                                <Binding Path="sum_okdp"/>
-                            </MultiBinding>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.RowStyle>-->
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <Button Content="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedPrepod}" Background="{x:Null}" BorderBrush="White"/>
+                    <MenuItem Header="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedPrepod}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

@@ -28,12 +28,9 @@
 
             </MenuItem>
         </Menu>
-
-        <!--<Button Content="Назначить ответственным за взвод" Grid.Row="2" Grid.Column="0" Margin="10,25,10,10" FontSize="14.667" Command="{Binding SetRPCommand}" CommandParameter="{Binding ElementName=PrepodGrid, Path=SelectedItem}" Click="Button_Click"></Button>-->
-
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="4" FontSize="14.667" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="150,0" Click="button_Ok_Click" Command="{Binding ExelentCommand}"/>
 
-        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="135" Background="#FFB6B6B6">
+        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="135" Background="#FFB6B6B6" Margin="0,25,0,0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 
@@ -58,7 +55,7 @@
         <Label x:Name="labelPrepod" Content="Отв. преподаватель" Grid.Column="2"  Grid.Row="2" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Left"/>
         <ComboBox x:Name="comboBoxPrepods" Grid.Column="3"  Grid.Row="2" SelectedItem="{Binding SelectPrepod, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" FontSize="16" VerticalAlignment="Center">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
+                <i:EventTrigger EventName="LostFocus">
                     <i:InvokeCommandAction 
                 Command="{Binding UpdateRPCommand, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                 CommandParameter="{Binding ElementName=comboBoxPrepods, Path=SelectedItem}" />

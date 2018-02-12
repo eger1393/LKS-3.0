@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="База данных ВК" WindowState="Maximized" >
+        Title="База данных ВК" WindowState="Maximized" Width="1440" Height="900" >
     <!--Closing="W_Data_Closing"-->
     <Window.Resources>
         <Style x:Key="Default">
@@ -98,6 +98,7 @@
     RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Main}" IsReadOnly="True">
             <DataGrid.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Добавить заметку о студенте" Command="{Binding AddNoteCommand}" CommandParameter="{Binding SelectedStudent}"/>
                     <MenuItem Header="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedStudent}"/>
                     <MenuItem Header="Cменить должность" Command="{Binding ChangeRankCommand}" CommandParameter="{Binding SelectedStudent}"/>
                 </ContextMenu>
@@ -153,8 +154,9 @@
 
             </Grid>
         </GroupBox>
-        <Grid  Style="{StaticResource Default}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent}">
+        <Grid  Style="{StaticResource Default}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedStudent,UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -170,8 +172,7 @@
             </Grid.ColumnDefinitions>
 
             <!--<Label Grid.Column="1" Grid.Row="0" Content="Отв. преподаватель:" FontSize="20" FontWeight="Bold" MinWidth="180" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="95,0,0,0"/>-->
-            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный взвод:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold"/>
-            <Label x:Name="Label_Prepod" Grid.Column="1" Grid.Row="0" Content="{Binding Troop}" Margin="20,0,0,0" HorizontalAlignment="Left" Width="149"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Выбранный cтудент:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold" />
             <!--<Label x:Name="Label_Troop" Grid.Column="2" Grid.Row="0"  Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="246"/>-->
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
@@ -180,13 +181,15 @@
             <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Content="{Binding Rank}" Margin="2"/>
             <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding Group}" Margin="2"/>
             <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Content="{Binding MobilePhone}" Margin="2"/>
+            <Label x:Name="Label_bote" Grid.Row="6" Grid.Column="1" Content="{Binding Note}" Margin="2"/>
 
 
-            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="5" Grid.Row="1" Margin="0,0,10,1"/>
+            <Image x:Name="Photo_Student" Source="{Binding ImagePath}" Grid.Column="3" Grid.RowSpan="7" Margin="0,9,3,3"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left" Margin="2"/>
-            <Label Grid.Column="0" Grid.Row="3" Content="Должность" HorizontalAlignment="Left" Margin="2"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Должность:" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left" Margin="2"/>
-            <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона" HorizontalAlignment="Left" Margin="2"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Номер телефона:" HorizontalAlignment="Left" Margin="2"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="Заметка:" HorizontalAlignment="Left" Margin="2"/>
 
         </Grid>
 

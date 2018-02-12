@@ -33,15 +33,15 @@ namespace LKS_3._0
 
 		public string initials()
 		{
-			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+			return FirstName + " " + MiddleName[0] + ". " + LastName[0] + ".";
 		}
 
 		[RusName("Фамилия")]
-        public string FirstName
+        public string MiddleName
         { get; set; }
 
         [RusName("Имя")]
-        public string MiddleName
+        public string FirstName
         { get; set; }
 
         [RusName("Отчество")]
@@ -62,15 +62,7 @@ namespace LKS_3._0
 
         public override string ToString()
         {
-            //var ranks = new Dictionary<string, string>()
-            //{
-            //    { "полковник", "п-к" },
-            //    { "подполковник", "п/п-к" },
-            //    { "капитан", "к-н" },
-            //    { "лейтенант", "л-т" },
-            //};
-
-            return Coolness + " " + FirstName + " " + MiddleName[0] + ". " + LastName[0]+ ". ";
+            return Coolness + " " + MiddleName + " " + FirstName[0] + ". " + LastName[0]+ ". ";
         }
     }
 }

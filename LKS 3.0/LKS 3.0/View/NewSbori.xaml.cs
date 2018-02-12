@@ -21,17 +21,17 @@ namespace LKS_3._0.View
     {
         ApplicationContext DataBaseSb;
 
-        public NewSbori(ref ApplicationContext temp_DataBase, IEnumerable<string> List_Troop)
+        public NewSbori(ref ApplicationContext temp_DataBase)
         {
             InitializeComponent();
 
             DataBaseSb = temp_DataBase;
 
-            comboBoxCurrent.ItemsSource = List_Troop.Where(u => u.ToString().Count() > 1);
+            comboBoxCurrent.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.ToString().Count() > 1);
 
-            comboBoxSbori.ItemsSource = List_Troop.Where(u => u.ToString().Count() == 1);
+            comboBoxSbori.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.ToString().Count() == 1);
 
-            comboBoxPrepods.ItemsSource = temp_DataBase.Prepods.Local.ToBindingList();
+            comboBoxPrepods.ItemsSource = DataBaseSb.Prepods.Local.ToBindingList();
 
             DataContext = new ViewModel.NewSboriViewModel(ref temp_DataBase);
         }

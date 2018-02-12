@@ -31,26 +31,23 @@ namespace LKS_3._0
 
 		private BitmapFrame ImageBitmapFrame;
 
-        ApplicationContext _tempDB;
-        public AddStudent(Student temp, List<string> list_Troop, List<string> list_Rectal, List<string> list_Group, List<string> list_Speciality, List<string> list_SpecInst, ref ApplicationContext temp_DataBase)
+        public AddStudent(Student temp,ref ApplicationContext temp_DataBase)
 		{
 			InitializeComponent();
 
-            CbTroop.ItemsSource = list_Troop;
-            
-            CbGroup.ItemsSource = list_Group;
+            CbTroop.ItemsSource = temp_DataBase.Troops.Where(u => u.SboriTroop == false).Select(u => u.NumberTroop).Distinct().ToList();
 
-            CbRectal.ItemsSource = list_Rectal;
+            CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.Group).Distinct().ToList();
 
-            CbSpeciality.ItemsSource = list_Speciality;
+            CbRectal.ItemsSource = temp_DataBase.Students.Select(u => u.Rectal).Distinct().ToList();
 
-            CbSpecInst.ItemsSource = list_SpecInst;
+            CbSpeciality.ItemsSource = temp_DataBase.Students.Select(u => u.SpecialityName).Distinct().ToList();
+
+            CbSpecInst.ItemsSource = temp_DataBase.Students.Select(u => u.SpecInst).Distinct().ToList();
 
             CbRank.ItemsSource = Troop.Ranks;
 
-            _tempDB = temp_DataBase;
-
-            viewModel = new AddStudentViewModel(ref _tempDB);
+            viewModel = new AddStudentViewModel(ref temp_DataBase);
 
 			viewModel.AddedStudent = temp;
 
@@ -233,22 +230,6 @@ namespace LKS_3._0
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-            if(viewModel.AddedStudent.Id == 0)
-            {
-                Student._count++;
-                viewModel.AddedStudent.Id = Student._count;
-            }
-
-            viewModel.AddedStudent.ListRelatives = new BindingList<Relative>(_tempDB.Relatives.Local.Where(u => u.IdStudent == viewModel.AddedStudent.Id).ToList());
-
-            viewModel.AddedStudent.Collness = "Студент";
-
-            //viewModel.AddedStudent.Skill_1 = (bool)checkBox_1.IsChecked;
-            //viewModel.AddedStudent.Skill_2 = (bool)checkBox_2.IsChecked;
-            //viewModel.AddedStudent.Skill_3 = (bool)checkBox_3.IsChecked;
-            //viewModel.AddedStudent.Skill_4 = (bool)checkBox_4.IsChecked;
-            //viewModel.AddedStudent.Skill_5 = (bool)checkBox_5.IsChecked;
-            //viewModel.AddedStudent.Skill_6 = (bool)checkBox_6.IsChecked;
 
             if (ImageBitmapFrame != null)
 			{
@@ -265,25 +246,17 @@ namespace LKS_3._0
 				viewModel.AddedStudent.ImagePath = AppDomain.CurrentDomain.BaseDirectory + "Image\\" + viewModel.AddedStudent.Id + ".jpg";
 			}
 
-			DialogResult = true;
-
-            Close();
+            if(viewModel.AddedStudent.MiddleName == null)
+            {
+                MessageBox.Show("Заполните поле фамилии!","Ошибка!");
+            }
+            else
+            {
+                DialogResult = true;
+                Close();
+            }
+			
 		}
-
-        //private Image ResizePicture(Image img)
-        //{
-        //    int iDestWidth = 198;
-        //    int iDestHeight = 255;
-
-        //    Bitmap bmp = new Bitmap(iDestWidth, iDestHeight);
-        //    Graphics gr = Graphics.FromImage((Image)bmp);
-
-        //    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-
-        //    gr.DrawImage(img, 0, 0, iDestWidth, iDestHeight);
-        //    gr.Dispose();
-        //    return (Image)bmp;
-        //}
 
 		private void TbYearValidate_LostFocus(object sender, RoutedEventArgs e)
 		{
