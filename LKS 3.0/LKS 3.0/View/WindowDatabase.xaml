@@ -90,7 +90,7 @@
                 <MenuItem Header="ВУЗ" Command="{Binding CreateReportUniversityCommand}" />
                 <MenuItem Header="Закрытие word файлов" Command="{Binding CloseAllWordFile}" />
             </MenuItem>
-            <MenuItem Header="Информация" Command="{Binding InfoCommand}"/>
+            <MenuItem Header="Экспорт в маевскую базу" Command="{Binding ExportCommand}"/>
 
         </Menu>
 

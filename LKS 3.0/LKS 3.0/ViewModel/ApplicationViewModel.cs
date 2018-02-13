@@ -11,6 +11,15 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Data.Entity;
 using System.Windows;
+using System.Data;
+using System.Drawing;
+using System.Configuration;
+using System.Threading;
+using System.IO;
+using System.Data.Odbc;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.Data.OleDb;
 
 namespace LKS_3._0
 {
@@ -37,7 +46,7 @@ namespace LKS_3._0
             newSboricommand,
             editTroopCommand,
             changeRankCommand,
-            infoCommand,
+            exportCommand,
             infoSboriCommand,
             closeAllWordFile,
             changeKursCommand,
@@ -51,7 +60,7 @@ namespace LKS_3._0
         private BindingList<Student> students;
         private BindingList<Troop> troops;
         private BindingList<string> list_Troop, list_Mname, list_Rank, list_Group;
-
+        string maev_path = Environment.CurrentDirectory + "/maev.mdb";
         public string SelectedValueFind_T
         {
             get
@@ -621,24 +630,301 @@ namespace LKS_3._0
 
        
 
-        public RelayCommand InfoCommand
+        public RelayCommand ExportCommand
         {
             get
             {
-                return infoCommand ??
-                    (infoCommand = new RelayCommand(obj =>
+                return exportCommand ??
+                    (exportCommand = new RelayCommand(obj =>
                     {
-                        //LKS_3._0.View.InfoWindow Info = new View.InfoWindow(ref DataBase, List_Troop, List_Group, List_Speciality);
-                        //if (Info.ShowDialog() == true)
-                        //{
-
-                        //}
+                        Export2MaevDB();
                     }));
             }
         }
 
+        public static bool IsVowel(char c)
+        {
+            return "феёиоуыэюя".Contains(c);
+        }
 
-        
+        public static string[] NameToDP(Student s)
+        {
+            string[] res = new string[3] { "", "", "" };
+
+            if (IsVowel(s.LastName[s.LastName.Length - 2]) &&
+                s.LastName.Last() == 'й')
+                res[0] = s.LastName.Remove(s.LastName.Length - 2) + "ому";
+            else if (!IsVowel(s.LastName.Last()) && s.LastName.Last() != 'ц'
+                && s.LastName.Last() != 'х')
+                res[0] = s.LastName + 'у';
+            else
+                res[0] = s.LastName;
+
+            if (s.MiddleName.Last() == 'ч')
+                res[1] = s.MiddleName + 'у';
+            else
+                res[1] = s.MiddleName;
+
+            if (s.FirstName.Last() == 'я' || s.FirstName.Last() == 'а')
+                res[2] = s.FirstName.Remove(s.FirstName.Length - 1) + 'е';
+            else if (s.FirstName.Last() == 'й' || s.FirstName.Last() == 'ь')
+                res[2] = s.FirstName.Remove(s.FirstName.Length - 1) + 'ю';
+            else if (!IsVowel(s.FirstName.Last()))
+                res[2] = s.FirstName + 'у';
+            else
+                res[2] = s.FirstName;
+
+            return res;
+        }
+
+        private void Export2MaevDB()
+        {
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"Log.txt");
+            int counter = 0;
+            string path = "Q:\\maev_new.mdb";
+            try
+            {
+                File.Copy(maev_path, path, true);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка создания временнего файла: " + e.Message);
+                return;
+            }
+
+            string connection_string;
+
+            switch (Environment.OSVersion.Version.Major)
+            {
+                case 5:
+                    connection_string = "Driver={Microsoft Access Driver (*.mdb)};DBQ=" + path + ";";
+                    break;
+                case 6:
+                    connection_string = "Provider=Microsoft.JET.OLEDB.4.0;data source=" + path + "";
+                    break;
+                default:
+                    connection_string = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=" + path + ";";
+                    break;
+            }
+            //var odbc_connection = new OdbcConnection(connection_string);
+            var odbc_connection = new OleDbConnection(connection_string);
+
+            try
+            {
+                odbc_connection.Open();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+            //Очищаем файл-шаблон
+            var cmd = new OleDbCommand("DELETE FROM КПУ"); //КПУ
+            cmd.Connection = odbc_connection;
+            cmd.ExecuteNonQuery();
+
+            //Выбираем студентов на экспорт, которые буду на сборах
+            var students_to_export = Students.Where(u => u.Status == "На сборах");
+            //System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\ExportToMDBLogs.txt");
+
+            //Запрос добавления студента в таблицу КПУ, сначала основные данные
+            foreach (var s in students_to_export)
+            {
+                //MessageBox.Show("vtnrf"+s.FirstName+s.ID+s.Group);
+                //file.WriteLine(s.FirstName);
+                cmd.CommandText = String.Format(@"INSERT INTO КПУ (Фамилия,Имя,Отчество,К_НАЦ)
+SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE национальность='{3}'",
+                                                    s.LastName, s.FirstName, s.MiddleName, s.Nationality.ToLower());
+
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "SELECT @@Identity";
+                var reader = cmd.ExecuteReader();
+
+                reader.Read();
+                int id = reader.GetInt32(0);
+                reader.Close();
+
+                String birthplace = s.PlaceBirthday;
+                if (birthplace.Length == 0)
+                    birthplace = "Неизвестно";
+           
+                //Дописываем даты
+                cmd.CommandText = String.Format(@"UPDATE КПУ SET [Дата рождения]={0}, " +
+                    "[М/рождения]='{1}' WHERE к_код={2}", "# "+ s.Birthday[6] + s.Birthday[7] + s.Birthday[8] + s.Birthday[9]+"-"+ s.Birthday[3] + s.Birthday[4]+"-"+ s.Birthday[0] + s.Birthday[1] + " 12.00.00#", birthplace, id);
+                cmd.ExecuteNonQuery();
+
+                String home_address = "Неизвестно",
+                    phone_number = "Нет",
+                    speciality_name = "Неизвестно",
+                    cell_number = "Неизвестно";
+
+                if (s.PlaceOfResidence.Length > 0)
+                    home_address = s.PlaceOfResidence;
+
+                if (s.HomePhone.Length > 5)
+                    phone_number = s.HomePhone;
+                else if (s.MobilePhone.Length > 5)
+                    phone_number = s.MobilePhone;
+
+                if (s.MobilePhone.Length > 5)
+                    cell_number = s.MobilePhone;
+                else if (s.HomePhone.Length > 5)
+                    cell_number = s.HomePhone;
+
+
+
+                if (s.SpecialityName.Trim().Length > 0)
+                    speciality_name = s.SpecialityName;
+
+                var name_dp = NameToDP(s);
+
+
+                //OleDbCommand SqlCom = new OleDbCommand("SELECT * FROM 1Users where LastName = @LastName", odbc_connection);
+                //SqlCom.Parameters.Add("@LastName", OleDbType.WChar).Value = 1;
+
+                //Дописываем остальную информацию
+                cmd.CommandText = string.Format(@"UPDATE КПУ SET ВУЗ='{0}',[Год окончания ВУЗа]='{1}',[Год окончания В/К]='{2}',[Состоит на учете]='{3}',[Специальность воен]='{4}',[Рост]='{5}',[Одежда]='{6}',[Одежда размер]='{7}',[Головной убор]='{8}',[Противогаз]='{9}',[Домашний адрес]='{10}',[Телефон]='{11}',[Группа крови]='{12}',[Факультет]='{13}',[Специальность гр]='{14}',[Обувь]='{15}',[Фамилия ДП]='{16}',[Имя ДП]='{17}',[Отчество ДП]='{18}',ВУС = '{19}',[в/кафедра] = '{20}' WHERE к_код=" + id,
+"\"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)\"(МАИ)",
+                    s.YearOfEndMAI,
+                    s.YearOfEndVK,
+                    s.Rectal.Length > 0 ? s.Rectal : "Неизвестно",
+                    "Боевое применение частей и подразделений войсковой ПВО",
+                    s.Growth,
+                    s.ClothihgSize,
+                    s.ClothihgSize,
+                    s.CapSize,
+                    s.MaskSize.Length > 0 ? "№" + s.MaskSize : "№0",
+                    home_address + " т. " + cell_number,
+                    phone_number,
+                    s.BloodType == "Не знаю" ? "2+" : s.BloodType,
+                    s.Faculty,
+                    speciality_name,
+                    s.ShoeSize,
+                    name_dp[0],
+                    name_dp[2],
+                    name_dp[1],
+                    "0426000",
+                    "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)\"(МАИ)");
+                /*"годен к военной службе"*/ /*[Категория годности] = '{21}'*/
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException e)
+                {
+                    
+                }
+                
+
+                //Дописываем значния языков
+                //cmd.CommandText = String.Format(@"UPDATE КПУ SET ");
+                int i = 1;
+                //foreach (var k in s.Languages.Keys)
+                //{
+                //    if (k == "русский")
+                //        continue;
+                //    if (k == "")
+                //        continue;
+                //    var select_lang = new OdbcCommand("SELECT К_ЯЗ FROM [иностранный язык] " +
+                //            "WHERE [Иностранный язык] LIKE '" + k.ToLower().Substring(0, k.Length - 1)
+                //            + "_'");
+                //    select_lang.Connection = odbc_connection;
+                //    var r = select_lang.ExecuteReader();
+                //    r.Read();
+
+                //    Int32 lang_id;
+                //    try
+                //    {
+                //        lang_id = r.GetInt32(0);
+                //    }
+                //    catch (Exception)
+                //    {
+                //        continue;
+                //    }
+                //    finally
+                //    {
+                //        r.Close();
+                //    }
+
+                //    if (i != 1)
+                //        cmd.CommandText += ", ";
+
+                //    cmd.CommandText += "[К_ЯЗ" + (i > 1 ? " " + i.ToString() : "") + "]" +
+                //        "=" + lang_id.ToString() + ", ";
+                //    cmd.CommandText += "[К_СТ/ВЛ" + (i > 1 ? " " + i.ToString() : "") + "]" +
+                //        "=" + s.Languages[k];
+
+                //    i++;
+                //}
+
+                if (i != 1)
+                {
+                    cmd.CommandText += " WHERE к_код=" + id.ToString();
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n" + cmd.CommandText);
+                        break;
+                    }
+                }
+
+                String[] parenting_levels = { "Мать", "Отец", "Отчим", "Мачеха", "Брат", "Сестра", "Жена", "Сын", "Дочь" };
+
+                foreach (var r in s.ListRelatives)
+                {
+                    var select_parenting_level = new OleDbCommand(@"SELECT [к-С/Р] FROM [степень родства]
+        WHERE [Степень родства]='" + r.RelationDegree.ToLower() + "'");
+                    select_parenting_level.Connection = odbc_connection;
+
+                    var rd = select_parenting_level.ExecuteReader();
+
+                    rd.Read();
+                    Int32 type_id = rd.GetInt32(0);
+                    rd.Close();
+
+                    // Записываем информацию о родственниках
+                    switch (r.RelationDegree)
+                    {
+                        case "Мать": // Мать
+                        case "Жена": // Жена
+                            cmd.CommandText = String.Format(@"UPDATE КПУ SET [к-С/Р]={0},
+    [Фамилия б/р]='{1}', [Имя б/р]='{3}', 
+    [Отчество б/р]='{4}', [Дата рождения б/р]='{5}', [Адрес б/р (жены)]='{6}'  WHERE к_код=" + id, //removed  ({2})
+                                type_id, r.LastName, r.MaidenName != null && r.MaidenName.Length > 1 ? r.MaidenName : "Неизвестно",
+                                r.FirstName, r.MiddleName, r.Birthday.ToString(),
+                                (r.PlaceOfResidence != null && r.PlaceOfResidence.Length > 1 ? r.PlaceOfResidence : r.PlaceOfRegestration != null && r.PlaceOfRegestration.Length > 1 ? r.PlaceOfRegestration : "Неизвестно") + " т." + r.MobilePhone);
+                            //file.WriteLine(r.NameString + " " + r.AddressDoc + " " + r.AddressFact);
+                            break;
+
+                        default:
+                            cmd.CommandText = String.Format(@"UPDATE КПУ SET [к-С/Р]={0},
+    [Фамилия б/р]='{1}', [Имя б/р]='{2}',
+    [Отчество б/р]='{3}', [Дата рождения б/р]='{4}', [Адрес б/р (жены)]='{5}' WHERE к_код=" + id,
+                        type_id, r.LastName, r.FirstName, r.MiddleName, r.Birthday.ToString(),
+                         (r.PlaceOfResidence != null && r.PlaceOfResidence.Length > 1 ? r.PlaceOfResidence : r.PlaceOfRegestration != null && r.PlaceOfRegestration.Length > 1 ? r.PlaceOfRegestration : "Неизвестно") + " т." + r.MobilePhone);
+
+                            //file.WriteLine(r.NameString + " " + r.AddressDoc + " " + r.AddressFact);
+                            break;
+                    }
+
+
+                    cmd.ExecuteNonQuery();
+                    break; // we need only first non-son/daughter relative
+                }
+
+                ++counter;
+            }
+
+            odbc_connection.Close();
+            file.Close();
+            MessageBox.Show(String.Format("Студентов экспортировано: {0}", counter), "Готово");
+        }
+
 
         public RelayCommand InfoSboriCommand
         {
