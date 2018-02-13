@@ -7,6 +7,9 @@ using System.IO;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 
 namespace LKS_3._0.Model
@@ -19,8 +22,9 @@ namespace LKS_3._0.Model
 			selectedStudentFather,  //его отец
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
+		Summer summer; // информация о сборах
 
-		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
+		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
 		{   //TODO отрефактрить этот код
 			// КОСТЫЛЬ
 			if (Students == null)
@@ -45,6 +49,7 @@ namespace LKS_3._0.Model
 			selectedStudent = students.First(); // устанавливаем выбранного стуента
 			changeSelectedStudent(); // меняем мать и отца студента
 
+			summer = charges;
 			///////////////////
 
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
@@ -72,7 +77,8 @@ namespace LKS_3._0.Model
 				// получили список форматированного текста
 				List<SdtElement> allFormattedText = doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList();
 
-				foreach (Table table in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
+				foreach (Table table 
+					in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
 				{
 					if (!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
 					{
@@ -286,6 +292,10 @@ namespace LKS_3._0.Model
 												// TODO Добавить обработку ситуации когда в закладке нет текста)
 												Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
 												(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+												if(formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОВАЯ СТРОКА")
+												{
+													tempRun.AppendChild(new Break());
+												}
 												formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
 																										   // и заменил закладку обычным текстом
 											}
@@ -375,10 +385,22 @@ namespace LKS_3._0.Model
 				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
 				{
 					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
+					if(valueCommand == "ФОТО")
+					{
+						// скопипастил вставку картинок тупо из мдсн
+						MainDocumentPart mainPart = doc.MainDocumentPart;
+						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+						using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+						{
+							imagePart.FeedData(stream);
+						}
+						AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
+						continue;
+					}
 					if (valueCommand != "false")
 					{
-						SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
-						Run tempRun = contentRun.FirstChild.Clone() as Run; // скопировал первого потомка
+						//SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+						Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
 						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
 						formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
 																				   // и заменил закладку обычным текстом
@@ -388,16 +410,91 @@ namespace LKS_3._0.Model
 			System.Windows.MessageBox.Show("Готово!");
 		}
 
+		private static void AddImageToBody(SdtElement formattedText, string relationshipId)
+		{
+			// скопипастил код из МДСН 
+			var element =
+				 new Drawing(
+					 new DW.Inline(
+						 new DW.Extent() { Cx = 990000L, Cy = 792000L },
+						 new DW.EffectExtent()
+						 {
+							 LeftEdge = 0L,
+							 TopEdge = 0L,
+							 RightEdge = 0L,
+							 BottomEdge = 0L
+						 },
+						 new DW.DocProperties()
+						 {
+							 Id = (UInt32Value)1U,
+							 Name = "Picture 1"
+						 },
+						 new DW.NonVisualGraphicFrameDrawingProperties(
+							 new A.GraphicFrameLocks() { NoChangeAspect = true }),
+						 new A.Graphic(
+							 new A.GraphicData(
+								 new PIC.Picture(
+									 new PIC.NonVisualPictureProperties(
+										 new PIC.NonVisualDrawingProperties()
+										 {
+											 Id = (UInt32Value)0U,
+											 Name = "New Bitmap Image.jpg"
+										 },
+										 new PIC.NonVisualPictureDrawingProperties()),
+									 new PIC.BlipFill(
+										 new A.Blip(
+											 new A.BlipExtensionList(
+												 new A.BlipExtension()
+												 {
+													 Uri =
+														"{28A0092B-C50C-407E-A947-70E740481C1C}"
+												 })
+										 )
+										 {
+											 Embed = relationshipId,
+											 CompressionState =
+											 A.BlipCompressionValues.Print
+										 },
+										 new A.Stretch(
+											 new A.FillRectangle())),
+									 new PIC.ShapeProperties(
+										 new A.Transform2D(
+											 new A.Offset() { X = 0L, Y = 0L },
+											 new A.Extents() { Cx = 990000L, Cy = 792000L }),
+										 new A.PresetGeometry(
+											 new A.AdjustValueList()
+										 )
+										 { Preset = A.ShapeTypeValues.Rectangle }))
+							 )
+							 { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+					 )
+					 {
+						 DistanceFromTop = (UInt32Value)0U,
+						 DistanceFromBottom = (UInt32Value)0U,
+						 DistanceFromLeft = (UInt32Value)0U,
+						 DistanceFromRight = (UInt32Value)0U,
+						 EditId = "50D07946"
+					 });
+
+			// Append the reference to body, the element should be in a Run.
+			formattedText.Parent.ReplaceChild(new Run(element),formattedText);
+		}
+
 		private string findCommand(string command)
 		{
 			if (command.ToUpper() == "НОВАЯ СТРОКА")
 			{
-				return "\n";
+				return "";
 			}
 
 			if (command.ToUpper() == "ТЕКУЩАЯ ДАТА")
 			{
 				return DateTime.Now.ToString("dd.MM.yyyy");
+			}
+
+			if (command.ToUpper() == "ФОТО")
+			{
+				return "ФОТО";
 			}
 
 			// Студент
@@ -436,7 +533,7 @@ namespace LKS_3._0.Model
 				return selectedStudent.ConditionsOfEducation;
 			}
 
-			if (command.ToUpper() == "СРУДНИЙ БАЛЛ")
+			if (command.ToUpper() == "СРЕДНИЙ БАЛЛ")
 			{
 				return selectedStudent.AvarageScore;
 			}
@@ -751,8 +848,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "ВЗВОД ВУС")
 				{
-					// TODO ВУС
-					return "";
+					return selectedTrop.Vus;
 				}
 
 				if (selectedTrop.ResponsiblePrepod != null)
@@ -945,11 +1041,55 @@ namespace LKS_3._0.Model
 				}
 			}
 
-			if (command.ToUpper() == "$С$" ||
-				command.ToUpper() == "$Р$" ||
-				command.ToUpper() == "$О$")
+			if(summer == null) // ИЗМЕНИТЬ НА НЕ РАВНО
 			{
-				return "";
+				if(command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
+				{
+					return "123"; // тестовая строчка, УДАЛИТЬ!
+					return summer.NumberofOrder;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ПРИКАЗА")
+				{
+					return "12.05.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateOfOrder;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА НАЧАЛА")
+				{
+					return "10.05.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateBeginSbori;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ОКОНЧАНИЯ")
+				{
+					return "30.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateEndSbori;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
+				{
+					return "25.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DatePrisyaga;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ЭКЗАМЕНА")
+				{
+					return "26.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateExamen;
+				}
+
+				if (command.ToUpper() == "СБОРЫ НОМЕР ЧАСТИ")
+				{
+					return "321"; // тестовая строчка, УДАЛИТЬ!
+					return summer.NumberVK;
+				}
+
+				if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
+				{
+					return "г. Москва"; // тестовая строчка, УДАЛИТЬ!
+					return summer.LocationVK;
+				}
 			}
 
 			return "false";

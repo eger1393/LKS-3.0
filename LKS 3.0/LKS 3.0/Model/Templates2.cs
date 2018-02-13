@@ -245,6 +245,8 @@ namespace LKS_3._0
 
 		}
 
+
+
 		private void initcommand(ref Dictionary<string, string> command)
 		{
 			command = new Dictionary<string, string>()
