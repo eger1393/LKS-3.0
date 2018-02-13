@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Word = Microsoft.Office.Interop.Word;
-
 using System.IO;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
-//using Word = Microsoft.Office.Interop.Word;
-//using Microsoft.Office.Interop;
 
-namespace LKS_3._0
+namespace LKS_3._0.Model
 {
-
 	class Templates
 	{
+		List<Student> students; // текущие выбранные студенты(урощает работу с несколькими взводами)
+		Student selectedStudent;    // выбранный студент
+		Relative selectedStudentMather, //его мать
+			selectedStudentFather,  //его отец
+			selectedRelative;   //его дорственник
+		Troop selectedTrop; //выбранный взвод
+		Summer summer; // информация о сборах
 
-		List<Student> students;
-		Student selectedStudent;
-		Relative selectedStudentMather,
-			selectedStudentFather,
-			selectedRelative;
-		Troop selectedTrop;
-
-		Dictionary<string, string> command; // массив комманд
-
-		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
-		{
+		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
+		{   //TODO отрефактрить этот код
 			// КОСТЫЛЬ
 			if (Students == null)
 			{
@@ -52,471 +48,603 @@ namespace LKS_3._0
 			}
 			selectedStudent = students.First(); // устанавливаем выбранного стуента
 			changeSelectedStudent(); // меняем мать и отца студента
-									 //System.IO.File.Copy(fileName, @"D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Templates\123.docx", true);
 
+			summer = charges;
+			///////////////////
 
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
 
-			try
+			if (troops.Count == 0)
 			{
-
-
-				Word.Application appDoc = new Word.Application(); // создали новый вордовский процесс
-				Word.Document doc = appDoc.Documents.Open(fileName, ReadOnly: false); // открыли документ
-				Word.Range range = doc.Content; // запихнули весь текст из документа в range
-
-
-				while (range.Find.Execute("$?{1;20}$", MatchWildcards: true)) // ищем команды
-				{
-
-					if (range.Text == "$НОВТБ$") // если встретили начало таблицы 
-					{
-						Word.Table selectedTable = null;
-						for (int i = 1; i <= doc.Tables.Count; i++)
-						{
-							Word.Range item = doc.Tables[i].Range;
-							if (doc.Tables[i].Range.Find.Execute("$НОВТБ$", ReplaceWith: "", Forward: true))
-							{
-								selectedTable = doc.Tables[i];
-								break;
-							}
-						}
-						if (selectedTable != null) // нужная таблица найдена
-						{
-							List<TableCommand> tableCommand = new List<TableCommand>();
-							int i;
-							if (selectedTable.Range.Find.Execute("$О$", Forward: true)) // костыль
-							{
-								i = 2;
-							}
-							else
-							{
-								i = selectedTable.Rows.Count;
-							}
-
-							for (int j = 1; j <= selectedTable.Columns.Count; j++)
-							{
-								int firstIndex = 0, lastIndex = 0; // попутно удаляя все команды
-
-								do //todo переделать исспользуя регулярки
-								{
-									if (firstIndex < selectedTable.Cell(i, j).Range.Text.Length)
-										firstIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex);
-									if (firstIndex != -1)
-									{
-										lastIndex = selectedTable.Cell(i, j).Range.Text.IndexOf('$', firstIndex + 1);
-										tableCommand.Add(new TableCommand(j, i,
-											selectedTable.Cell(i, j).Range.Text.Substring(firstIndex, lastIndex - firstIndex + 1)));
-										selectedTable.Cell(i, j).Range.Text = selectedTable.Cell(i, j).Range.Text.Remove(firstIndex, lastIndex - firstIndex + 1);
-
-									}
-
-								} while (firstIndex != -1);
-							}
-
-							if (tableCommand.Find(obj => obj.command.ToUpper() == "$О$") != null)
-							{
-								selectedTable.Rows.Add(selectedTable.Rows[3]); // костыль который правит поехавшее форматирование
-								selectedTable.Cell(2, 1).Range.Rows.Delete();
-								int num = 0;
-								int y = 0;
-								foreach (Student studentItem in students)
-								{
-									num++;
-									selectedStudent = studentItem; // переделать
-									changeSelectedStudent(); // костыль 
-									foreach (TableCommand item in tableCommand)
-									{
-										if (item.command.ToUpper() == "$НОМЕР$")
-										{
-											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(num.ToString());
-										}
-										else
-										{
-											selectedTable.Cell(item.y + y, item.x).Range.InsertAfter(findCommand(item.command));
-										}
-									}
-									y++;
-								}
-							}
-
-							if (tableCommand.Find(obj => obj.command.ToUpper() == "$С$") != null)
-							{
-								int num = 0;
-								foreach (Student studentItem in students)
-								{
-									num++;
-									selectedStudent = studentItem; // переделать
-									changeSelectedStudent(); // костыль 
-									selectedTable.Rows.Add();
-									foreach (TableCommand item in tableCommand)
-									{
-										if (item.command.ToUpper() == "$НОМЕР$")
-										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
-										}
-										else
-										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command.ToUpper()));
-										}
-									}
-								}
-								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
-							}
-
-							// КАК всегда немного костылей
-
-							if (tableCommand.Find(obj => obj.command.ToUpper() == "$Р$") != null)
-							{
-								int num = 0;
-								foreach (Relative relativeItem in selectedStudent.ListRelatives)
-								{
-									selectedRelative = relativeItem; // переделать
-									selectedTable.Rows.Add();
-									num++;
-
-									foreach (TableCommand item in tableCommand)
-									{
-										if (item.command.ToUpper() == "$НОМЕР$")
-										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(num.ToString());
-										}
-										else
-										{
-											selectedTable.Cell(selectedTable.Rows.Count, item.x).Range.InsertAfter(findCommand(item.command));   //Text += findCommand(item.command);
-										}                                                                                                    //selectedTable.Cell.
-									}
-								}
-								selectedTable.Cell(tableCommand[0].y, 1).Range.Rows.Delete();
-							}
-
-
-
-
-						}
-					}
-					else
-					{
-						if (range.Text.ToUpper() != "$ФОТО$")
-						{
-							range.Text = findCommand(range.Text);
-						}
-						else
-						{
-							range.Text = "";
-							range.InlineShapes.AddPicture(selectedStudent.ImagePath, Range: range);
-						}
-						range.Find.ClearFormatting();
-						range = doc.Content;
-					}
-				}
-
-				Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
-				dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
-
-				if (troops.Count == 0)
-				{
-					dlg.FileName = students.First().MiddleName;
-				}
-				else
-				{
-					dlg.FileName = troops.First().NumberTroop;
-				}
-
-				if (dlg.ShowDialog() == true) // запустили окно
-				{
-					doc.SaveAs(dlg.FileName);
-
-				}
-
-				//appDoc.Visible = true;
-				doc.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
-				appDoc.Quit();
-				System.Windows.MessageBox.Show("ГОТОВО!");
+				dlg.FileName = students.First().MiddleName;
+			}
+			else
+			{
+				dlg.FileName = troops.First().NumberTroop;
 			}
 
-			catch
+			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				System.Windows.MessageBox.Show("Ошибка, закройте все процессы ворда и попробуйте еще раз.");
+				File.Copy(fileName, dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+			}
+			else
+			{
 				return;
 			}
+			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true)) // открыли документ
+			{
+				// получили список форматированного текста
+				List<SdtElement> allFormattedText = doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList();
 
+				foreach (Table table 
+					in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
+				{
+					if (!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
+					{
+						continue;
+					}
+
+					//проверяем как строится таблица( с добавлением строк или используется уже существующие строки)
+
+					if (table.Descendants<SdtElement>().ToList().Find(obj =>
+						obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "БЕЗ ДОБАВЛЕНИЯ СТРОК") != null)
+					{ // Без добавления строк
+					  // удаляем лишню закладку
+						table.Descendants<SdtElement>().ToList().Find(obj =>
+						obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "БЕЗ ДОБАВЛЕНИЯ СТРОК").Remove();
+						int rowIndex = 0; // костыль который поможет определить с какой строкой мы сейчас работаем
+										  // первая строка с которой мы будем работать это та где мы обнаружили команды 
+						foreach (TableRow row in table.Elements<TableRow>())
+						{
+							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
+							{
+								TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+								foreach (SdtElement formattedText in row.Descendants<SdtElement>().ToList())
+								{
+									formattedText.Remove(); // удалили все закладки в строке с закладками
+															// команды остались в копии строки и мы будем работать с ними
+								}
+
+								// проверяем кам заполнять таблицу (студентами, взводами или родственниками)
+								// СТУДЕНТЫ
+								// TODO Вынести все это в функцию и упростить (сейчас очень много индусского кода) 
+								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ") != null)
+								{
+									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ").Remove();
+									for (int i = 0; i < students.Count; i++)
+									{
+										selectedStudent = students[i];
+										changeSelectedStudent();
+
+										List<TableRow> rowList = table.Elements<TableRow>().ToList();
+
+										IEnumerator<TableCell> IEcell = rowList[rowIndex].Descendants<TableCell>().ToList().GetEnumerator(); // перечеслитель для перебора ячеек в строке которая назодится в таблице
+										foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
+										{
+											IEcell.MoveNext();// передвинули перечеслитель
+											if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
+											{
+												// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
+												TableCell tempCell = cell.Clone() as TableCell;
+												IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+												foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+												{
+													string valueCommand;
+													if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
+													{
+														valueCommand = (i + 1).ToString();
+													}
+													else
+													{
+														valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+													}
+													if (valueCommand != "false")
+													{
+														// TODO Добавить обработку ситуации когда в закладке нет текста)
+														Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+														(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+														formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																												   // и заменил закладку обычным текстом
+																												   //IEcell.Current.
+													}
+												}
+											}
+										}
+										rowIndex++; // перешли на след строку
+									} //
+									break; // закончили работу с таблицей
+								}
+
+								// ВЗВОДА
+								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА") != null)
+								{
+									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА").Remove();
+									for (int i = 0; i < troops.Count; i++)
+									{
+										selectedTrop = troops[i];
+										changeTroop();
+
+										List<TableRow> rowList = table.Elements<TableRow>().ToList();
+
+										IEnumerator<TableCell> IEcell = rowList[rowIndex].Descendants<TableCell>().ToList().GetEnumerator(); // перечеслитель для перебора ячеек в строке которая назодится в таблице
+										foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
+										{
+											IEcell.MoveNext();// передвинули перечеслитель
+											if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
+											{
+												// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
+												TableCell tempCell = cell.Clone() as TableCell;
+												IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+												foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+												{
+													string valueCommand;
+													if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
+													{
+														valueCommand = (i + 1).ToString();
+													}
+													else
+													{
+														valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+													}
+													if (valueCommand != "false")
+													{
+														// TODO Добавить обработку ситуации когда в закладке нет текста)
+														Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+														(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+														formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																												   // и заменил закладку обычным текстом
+																												   //IEcell.Current.
+													}
+												}
+											}
+										}
+										rowIndex++; // перешли на след строку
+									} //
+									break; // закончили работу с таблицей
+								}
+
+								//РОДСТВЕННИКИ
+								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") != null)
+								{
+									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
+									for (int i = 0; i < selectedStudent.ListRelatives.Count; i++)
+									{
+										selectedRelative = selectedStudent.ListRelatives[i];
+
+
+										List<TableRow> rowList = table.Elements<TableRow>().ToList();
+
+										IEnumerator<TableCell> IEcell = rowList[rowIndex].Descendants<TableCell>().ToList().GetEnumerator(); // перечеслитель для перебора ячеек в строке которая назодится в таблице
+										foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
+										{
+											IEcell.MoveNext();// передвинули перечеслитель
+											if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
+											{
+												// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
+												TableCell tempCell = cell.Clone() as TableCell;
+												IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+												foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+												{
+													string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+													if (valueCommand != "false")
+													{
+														// TODO Добавить обработку ситуации когда в закладке нет текста)
+														Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+														(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+														formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																												   // и заменил закладку обычным текстом
+																												   //IEcell.Current.
+													}
+												}
+											}
+										}
+										rowIndex++; // перешли на след строку
+									} //
+									break; // закончили работу с таблицей
+								}
+
+								// Индийский код закончился(переделай эту хрень, если ты это увидел!!)
+								break; // закончили работу с таблицей
+							}
+							rowIndex++;
+						}
+					}
+					else // с добавлением строк
+					{
+						foreach (TableRow row in table.Elements<TableRow>())
+						{
+							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
+							{
+								// TODO Снова индийский код
+								// Студенты
+								if (row.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ") != null)
+								{
+									// удалили лишнюю комаду
+									row.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ").Remove();
+									for (int i = 0; i < students.Count; i++)
+									{
+										TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+										selectedStudent = students[i];
+										changeSelectedStudent();
+										// модифицировал копию строки
+										foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+										{
+											string valueCommand;
+											if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
+											{
+												valueCommand = (i + 1).ToString();
+											}
+											else
+											{
+												valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+											}
+											if (valueCommand != "false")
+											{
+												// TODO Добавить обработку ситуации когда в закладке нет текста)
+												Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+												(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+												if(formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОВАЯ СТРОКА")
+												{
+													tempRun.AppendChild(new Break());
+												}
+												formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																										   // и заменил закладку обычным текстом
+											}
+										}
+
+										table.AppendChild(tempRow); // добавили временую стороку к таблице
+									} // закончили создание таблицы
+								}
+								// Взвода
+								if (row.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА") != null)
+								{
+									row.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА").Remove();
+									for (int i = 0; i < troops.Count; i++)
+									{
+										selectedTrop = troops[i];
+										changeTroop();
+										TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+																					// модифицировал копию строки
+										foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+										{
+											string valueCommand;
+											if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
+											{
+												valueCommand = (i + 1).ToString();
+											}
+											else
+											{
+												valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+											}
+											if (valueCommand != "false")
+											{
+												// TODO Добавить обработку ситуации когда в закладке нет текста)
+												Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+												(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+												formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																										   // и заменил закладку обычным текстом
+											}
+										}
+
+										table.AppendChild(tempRow); // добавили временую стороку к таблице
+									} // закончили создание таблицы
+								}
+								//Родственники
+								if (row.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") != null)
+								{
+									row.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
+									for (int i = 0; i < selectedStudent.ListRelatives.Count; i++)
+									{
+										selectedRelative = selectedStudent.ListRelatives[i];
+										TableRow tempRow = row.Clone() as TableRow; // создали копию строки
+																					// модифицировал копию строки
+										foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+										{
+											string valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+											if (valueCommand != "false")
+											{
+												// TODO Добавить обработку ситуации когда в закладке нет текста)
+												Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+												(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+												formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																										   // и заменил закладку обычным текстом
+											}
+										}
+
+										table.AppendChild(tempRow); // добавили временую стороку к таблице
+									} // закончили создание таблицы
+								}
+								row.Parent.RemoveChild(row); // удалили немодифицированную строку
+								break; // закончили работу с таблицей
+							}
+
+						}
+					}
+				}
+
+				// проходим по всем элементам "форматированный текст"(далее просто "закладка")
+				// и сверяем имя закладки со списком команд
+				// как обычно здесь есть немного магии (без toList может работать не правильно)
+
+				// как всегда небольшой костыль ( сбрасываю исходного студента на начало)
+				selectedStudent = students[0];
+				changeSelectedStudent();
+				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
+				{
+					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
+					if(valueCommand == "ФОТО")
+					{
+						// скопипастил вставку картинок тупо из мдсн
+						MainDocumentPart mainPart = doc.MainDocumentPart;
+						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+						using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+						{
+							imagePart.FeedData(stream);
+						}
+						AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
+						continue;
+					}
+					if (valueCommand != "false")
+					{
+						//SdtContentRun contentRun = formattedText.GetFirstChild<SdtContentRun>(); // ссылка на контент
+						Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
+						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+						formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																				   // и заменил закладку обычным текстом
+					}
+				}
+			}
+			System.Windows.MessageBox.Show("Готово!");
 		}
 
-		private void initcommand(ref Dictionary<string, string> command)
+		private static void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
-			command = new Dictionary<string, string>()
-			{
-				{ "$N$", "\n" },
-				{ "$ИМЯ$",selectedStudent.FirstName },
-				{ "$ФАМИЛИЯ$", selectedStudent.MiddleName },
-				{ "$ОТЧЕСТВО$", selectedStudent.LastName },
-				{ "$ФАКУЛЬТЕТ$", selectedStudent.Faculty },
-				{ "$ГРУППА$", selectedStudent.Group },
-				{ "$ВУС$", selectedStudent.SpecialityName },
-				{ "$УСЛОБУЧ$", selectedStudent.ConditionsOfEducation },
-				{ "$СРБАЛЛ$", selectedStudent.AvarageScore },
-				{ "$ПОСТМАИ$", selectedStudent.YearOfAddMAI },
-				{ "$ОКОНЧМАИ$", selectedStudent.YearOfEndMAI },
-				{ "$ПОСТВОЕНКАФ$", selectedStudent.YearOfAddVK },
-				{ "$ОКОНЧВОЕНКАФ$", selectedStudent.YearOfEndVK },
-				{ "$НОМЕРПРИКАЗА$", selectedStudent.NumberOfOrder },
-				{ "$ДАТАПРИКАЗА$", selectedStudent.DateOfOrder },
-				{ "$ВОЕНКОМАТ$", selectedStudent.Rectal },
-				{ "$ДЕНЬРОЖД$", selectedStudent.Birthday },
-				{ "$МЕСТОРОЖД$",  selectedStudent.PlaceBirthday },
-				{ "$НАЦИЯ$", selectedStudent.Nationality },
-				{ "$ДОМНОМЕР$", selectedStudent.HomePhone },
-				{ "$МОБНОМЕР$", selectedStudent.MobilePhone },
-				{ "$АДРЕСПРОЖИВАНИЯ$", selectedStudent.PlaceOfResidence },
-				{ "$АДРЕСРЕГИСТРАЦИИ$", selectedStudent.PlaceOfRegestration },
-				{ "$ШКОЛА$", selectedStudent.School },
-				{ "$ДОЛЖНОСТЬ$", selectedStudent.Rank },
-				{ "$ВЗВОД$", selectedStudent.Troop },
-				{ "$ИНИЦИАЛЫ$", selectedStudent.initials() },
-				{ "$СЛУЖБАВВС$", selectedStudent.Military },
-				{ "$СЕМЕЙНЫЙСТАТУС$", selectedStudent.FamiliStatys },
-				{ "$ГРУППАКРОВИ$", selectedStudent.BloodType },
-				{ "$СПЕЦВИНСТ$", selectedStudent.SpecInst },
+			// скопипастил код из МДСН 
+			var element =
+				 new Drawing(
+					 new DW.Inline(
+						 new DW.Extent() { Cx = 990000L, Cy = 792000L },
+						 new DW.EffectExtent()
+						 {
+							 LeftEdge = 0L,
+							 TopEdge = 0L,
+							 RightEdge = 0L,
+							 BottomEdge = 0L
+						 },
+						 new DW.DocProperties()
+						 {
+							 Id = (UInt32Value)1U,
+							 Name = "Picture 1"
+						 },
+						 new DW.NonVisualGraphicFrameDrawingProperties(
+							 new A.GraphicFrameLocks() { NoChangeAspect = true }),
+						 new A.Graphic(
+							 new A.GraphicData(
+								 new PIC.Picture(
+									 new PIC.NonVisualPictureProperties(
+										 new PIC.NonVisualDrawingProperties()
+										 {
+											 Id = (UInt32Value)0U,
+											 Name = "New Bitmap Image.jpg"
+										 },
+										 new PIC.NonVisualPictureDrawingProperties()),
+									 new PIC.BlipFill(
+										 new A.Blip(
+											 new A.BlipExtensionList(
+												 new A.BlipExtension()
+												 {
+													 Uri =
+														"{28A0092B-C50C-407E-A947-70E740481C1C}"
+												 })
+										 )
+										 {
+											 Embed = relationshipId,
+											 CompressionState =
+											 A.BlipCompressionValues.Print
+										 },
+										 new A.Stretch(
+											 new A.FillRectangle())),
+									 new PIC.ShapeProperties(
+										 new A.Transform2D(
+											 new A.Offset() { X = 0L, Y = 0L },
+											 new A.Extents() { Cx = 990000L, Cy = 792000L }),
+										 new A.PresetGeometry(
+											 new A.AdjustValueList()
+										 )
+										 { Preset = A.ShapeTypeValues.Rectangle }))
+							 )
+							 { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+					 )
+					 {
+						 DistanceFromTop = (UInt32Value)0U,
+						 DistanceFromBottom = (UInt32Value)0U,
+						 DistanceFromLeft = (UInt32Value)0U,
+						 DistanceFromRight = (UInt32Value)0U,
+						 EditId = "50D07946"
+					 });
 
-				{ "$РОДИМЯ$", selectedRelative.FirstName },
-				{ "$РОДФАМИОЛИЯ$", selectedRelative.MiddleName },
-				{ "$РОДОТЧЕСТВО$", selectedRelative.LastName },
-				{ "$РОДДЕВИЧФАМИЛИЯ$", selectedRelative.MaidenName },
-				{ "$РОДДЕНЬРОЖД$", selectedRelative.Birthday },
-				{ "$РОД$АДРЕСГЕРИСТРАЦИИ", selectedRelative.PlaceOfRegestration },
-				{ "$РОДАДРЕСПРОЖИВАНИЯ$", selectedRelative.PlaceOfResidence },
-				{ "$РОДМОБНОМЕР$", selectedRelative.MobilePhone },
-				{ "$РОДСТЕПЕНЬРОДСТВА$", selectedRelative.RelationDegree },
-				{ "$РОДСОСТЗДОРОВЬЯ$", selectedRelative.HealthStatus },
-				{ "$РОДИНИЦИАЛЫ$", selectedRelative.initials() },
-
-				{ "$МАТЬИМЯ$", selectedStudentMather.FirstName },
-				{ "$МАТЬФИМИЛИЯ$", selectedStudentMather.MiddleName },
-				{ "$МАТЬОТЧЕСТВО$", selectedStudentMather.LastName},
-				{ "$МАТЬДЕВИЧЬЯФАМИЛИЯ$", selectedStudentMather.MaidenName },
-				{ "$МАТЬДЕНЬРОЖД$", selectedStudentMather.Birthday },
-				{ "$МАТЬАДРЕСРЕГИСТРАЦИИ$",selectedStudentMather.PlaceOfRegestration },
-				{ "$МАТЬАДРЕСПРОЖИВАНИЯ$", selectedStudentMather.PlaceOfResidence },
-				{ "$МАТЬМОБНОМЕР$", selectedStudentMather.MobilePhone },
-				{ "$МАТЬСТЕПРОДСТВА$", selectedStudentMather.RelationDegree },
-				{ "$МАТЬСОСТЗДОРОВЬЯ$", selectedStudentMather.HealthStatus },
-				{ "$МАТЬИНИЦИАЛЫ$", selectedStudentMather.initials() },
-
-				{ "$ОТЕЦИМЯ$", selectedStudentFather.FirstName },
-				{ "$ОТЕЦФАМИЛИЯ$", selectedStudentFather.MiddleName },
-				{ "$ОТЕЦОТЧЕСТВО$", selectedStudentFather.LastName },
-				{ "$FATHMAIDNAME$",selectedStudentFather.MaidenName },
-				{ "$ОТЕЦДЕНЬРОЖД$",selectedStudentFather.Birthday },
-				{ "$ОТЕЦАДРЕСРЕГИСТРАЦИИ$",selectedStudentFather.PlaceOfRegestration },
-				{ "$ОТЕЦАДРЕСПРОЖИВАНИЯ$", selectedStudentFather.PlaceOfResidence },
-				{ "$ОТЕЦМОБНОМЕР$", selectedStudentFather.MobilePhone },
-				{ "$ОТЕЦСТЕПРОДСТВА$", selectedStudentFather.RelationDegree },
-				{ "$ОТЕЦСОСТЗДОРОВЬЯ$",selectedStudentFather.HealthStatus },
-				{ "$ОТЕЦИНИЦИАЛЫ$", selectedStudentFather.initials() },
-
-				{ "$ВЗНОМЕР$", selectedTrop.NumberTroop },
-
-				{ "$ВЗКОЛВОЧЕЛ$", selectedTrop.StaffCount.ToString() },
-				{ "$ВЗПИМЯ$",selectedTrop.ResponsiblePrepod.FirstName },
-				{ "$ВЗПФАМИЛИЯ$", selectedTrop.ResponsiblePrepod.MiddleName },
-				{ "$ВЗПОТЧЕСТВО$", selectedTrop.ResponsiblePrepod.LastName },
-				{ "$ВЗПЗВАНИЕ$", selectedTrop.ResponsiblePrepod.Coolness },
-				{ "$ВЗПДОЛЖНОСТЬ$", selectedTrop.ResponsiblePrepod.PrepodRank },
-				{ "$ВЗПИНИЦИАЛЫ$",selectedTrop.ResponsiblePrepod.initials() },
-
-				{ "$ВЗКОМИМЯ$", selectedTrop.PlatoonCommander.FirstName },
-				{ "$ВЗКОМФАМИЛИЯ$", selectedTrop.PlatoonCommander.MiddleName },
-				{ "$TCOMLNAME$", selectedTrop.PlatoonCommander.LastName },
-				{ "$TCOMFACULTY$", selectedTrop.PlatoonCommander.Faculty },
-				{ "$TCOMGROUP$", selectedTrop.PlatoonCommander.Group },
-				{ "$TCOMSPNAME$", selectedTrop.PlatoonCommander.SpecialityName },
-				{ "$TCOMCONDEDUC$", selectedTrop.PlatoonCommander.ConditionsOfEducation },
-				{ "$TCOMAVERSCORE$", selectedTrop.PlatoonCommander.AvarageScore },
-				{ "$TCOMADDMAI$", selectedTrop.PlatoonCommander.YearOfAddMAI },
-				{ "$TCOMENDMAI$", selectedTrop.PlatoonCommander.YearOfEndMAI },
-				{ "$TCOMADDMIL$",selectedTrop.PlatoonCommander.YearOfAddVK },
-				{ "$TCOMENDMIL$", selectedTrop.PlatoonCommander.YearOfEndVK },
-				{ "$TCOMNUMORDER$", selectedTrop.PlatoonCommander.NumberOfOrder },
-				{ "$TCOMDATEORDER$", selectedTrop.PlatoonCommander.DateOfOrder },
-				{ "$TCOMRECTAL$", selectedTrop.PlatoonCommander.Rectal },
-				{ "$TCOMBIRTHDAY$", selectedTrop.PlatoonCommander.Birthday },
-				{ "$TCOMPLACEBIRTH$", selectedTrop.PlatoonCommander.PlaceBirthday },
-				{ "$TCOMNATION$", selectedTrop.PlatoonCommander.Nationality },
-				{ "$TCOMHOMEPRONE$", selectedTrop.PlatoonCommander.HomePhone },
-				{ "$TCOMMOBPHONE$", selectedTrop.PlatoonCommander.MobilePhone },
-				{ "$TCOMPLACERESID$", selectedTrop.PlatoonCommander.PlaceOfResidence },
-				{ "$TCOMPLACEREGISTR$", selectedTrop.PlatoonCommander.PlaceOfRegestration },
-				{ "$TCOMSCHOOL$", selectedTrop.PlatoonCommander.School },
-				{ "$TCOMRANK$", selectedTrop.PlatoonCommander.Rank },
-				{ "$TCOMTROOP$", selectedTrop.PlatoonCommander.Troop },
-				{ "$TCOMINIT$", selectedTrop.PlatoonCommander.initials() },
-
-				{ "$S$", "" },
-				{ "$R$", "" },
-				{ "$O$", "" },
-			};
+			// Append the reference to body, the element should be in a Run.
+			formattedText.Parent.ReplaceChild(new Run(element),formattedText);
 		}
 
 		private string findCommand(string command)
 		{
-			if (command.ToUpper() == "$НС$")
+			if (command.ToUpper() == "НОВАЯ СТРОКА")
 			{
-				return "\n";
+				return "";
 			}
 
-			if (command.ToUpper() == "$ТЕКДАТА$")
+			if (command.ToUpper() == "ТЕКУЩАЯ ДАТА")
 			{
 				return DateTime.Now.ToString("dd.MM.yyyy");
 			}
 
+			if (command.ToUpper() == "ФОТО")
+			{
+				return "ФОТО";
+			}
+
 			// Студент
-			if (command.ToUpper() == "$ИМЯ$")
+			if (command.ToUpper() == "ИМЯ")
 			{
 				return selectedStudent.FirstName;
 			}
 
-			if (command.ToUpper() == "$ФАМИЛИЯ$")
+			if (command.ToUpper() == "ФАМИЛИЯ")
 			{
 				return selectedStudent.MiddleName;
 			}
 
-			if (command.ToUpper() == "$ОТЧЕСТВО$")
+			if (command.ToUpper() == "ОТЧЕСТВО")
 			{
 				return selectedStudent.LastName;
 			}
 
-			if (command.ToUpper() == "$ФАКУЛЬТЕТ$")
+			if (command.ToUpper() == "ФАКУЛЬТЕТ")
 			{
 				return selectedStudent.Faculty;
 			}
 
-			if (command.ToUpper() == "$ГРУППА$")
+			if (command.ToUpper() == "ГРУППА")
 			{
 				return selectedStudent.Group;
 			}
 
-			if (command.ToUpper() == "$ВУС$")
+			if (command.ToUpper() == "ВУС")
 			{
 				return selectedStudent.SpecialityName;
 			}
 
-			if (command.ToUpper() == "$УСЛОБУЧ$")
+			if (command.ToUpper() == "УСЛОВИЯ ОБУЧЕНИЯ")
 			{
 				return selectedStudent.ConditionsOfEducation;
 			}
 
-			if (command.ToUpper() == "$СРБАЛЛ$")
+			if (command.ToUpper() == "СРЕДНИЙ БАЛЛ")
 			{
 				return selectedStudent.AvarageScore;
 			}
 
-			if (command.ToUpper() == "$ПОСТМАИ$")
+			if (command.ToUpper() == "ГОД ПОСТУПЛЕНИЯ В МАИ")
 			{
 				return selectedStudent.YearOfAddMAI;
 			}
 
-			if (command.ToUpper() == "$ОКОНЧМАИ$")
+			if (command.ToUpper() == "ГОД ОКОНЧАНИЯ МАИ")
 			{
 				return selectedStudent.YearOfEndMAI;
 			}
 
-			if (command.ToUpper() == "$ПОСТВОЕНКАФ$")
+			if (command.ToUpper() == "ГОД ПОСТУПЛЕНИЯ НА КАФЕДРУ")
 			{
 				return selectedStudent.YearOfAddVK;
 			}
 
-			if (command.ToUpper() == "$ОКОНЧВОЕНКАФ$")
+			if (command.ToUpper() == "ГОД ОКОНЧАНИЯ КАФЕДРЫ")
 			{
 				return selectedStudent.YearOfEndVK;
 			}
 
-			if (command.ToUpper() == "$НОМЕРПРИКАЗА$")
+			if (command.ToUpper() == "НОМЕР ПРИКАЗА")
 			{
 				return selectedStudent.NumberOfOrder;
 			}
 
-			if (command.ToUpper() == "$ДАТАПРИКАЗА$")
+			if (command.ToUpper() == "ДАТА ПРИКАЗА")
 			{
 				return selectedStudent.DateOfOrder;
 			}
 
-			if (command.ToUpper() == "$ВОЕНКОМАТ$")
+			if (command.ToUpper() == "ВОЕНКОМАТ")
 			{
 				return selectedStudent.Rectal;
 			}
 
-			if (command.ToUpper() == "$ДЕНЬРОЖД$")
+			if (command.ToUpper() == "ДЕНЬ РОЖДЕНИЯ")
 			{
 				return selectedStudent.Birthday;
 			}
 
-			if (command.ToUpper() == "$МЕСТОРОЖД$")
+			if (command.ToUpper() == "МЕСТО РОЖДЕНИЯ")
 			{
 				return selectedStudent.PlaceBirthday;
 			}
 
-			if (command.ToUpper() == "$НАЦИЯ$")
+			if (command.ToUpper() == "НАЦИЯ")
 			{
 				return selectedStudent.Nationality;
 			}
 
-			if (command.ToUpper() == "$ДОМНОМЕР$")
+			if (command.ToUpper() == "ДОМАШНИЙ НОМЕР")
 			{
 				return selectedStudent.HomePhone;
 			}
 
-			if (command.ToUpper() == "$МОБНОМЕР$")
+			if (command.ToUpper() == "МОБИЛЬНЫЙ НОМЕР")
 			{
 				return selectedStudent.MobilePhone;
 			}
 
-			if (command.ToUpper() == "$АДРЕСПРОЖИВАНИЯ$")
+			if (command.ToUpper() == "АДРЕС ПРОЖИВАНИЯ")
 			{
 				return selectedStudent.PlaceOfResidence;
 			}
 
-			if (command.ToUpper() == "$АДРЕСРЕГИСТРАЦИИ$")
+			if (command.ToUpper() == "АДРЕС РЕГИСТРАЦИИ")
 			{
 				return selectedStudent.PlaceOfRegestration;
 			}
 
-			if (command.ToUpper() == "$ШКОЛА$")
+			if (command.ToUpper() == "ШКОЛА")
 			{
 				return selectedStudent.School;
 			}
 
-			if (command.ToUpper() == "$ДОЛЖНОСТЬ$")
+			if (command.ToUpper() == "ДОЛЖНОСТЬ")
 			{
 				return selectedStudent.Rank;
 			}
 
 
-			if (command.ToUpper() == "$ВЗВОД$")
+			if (command.ToUpper() == "ВЗВОД")
 			{
 				return selectedStudent.Troop;
 			}
 
-			if (command.ToUpper() == "$ИНИЦИАЛЫ$")
+			if (command.ToUpper() == "ИНИЦИАЛЫ")
 			{
 				return selectedStudent.initials();
 			}
 
-			if (command.ToUpper() == "$СЛУЖБАВВС$")
+			if (command.ToUpper() == "СЛУЖБА В ВС")
 			{
 				return selectedStudent.Military;
 			}
 
-			if (command.ToUpper() == "$СЕМЕЙНЫЙСТАТУС$")
+			if (command.ToUpper() == "СЕМЕЙНЫЙ СТАТУС")
 			{
 				return selectedStudent.FamiliStatys;
 			}
 
-			if (command.ToUpper() == "$ГРУППАКРОВИ$")
+			if (command.ToUpper() == "ГРУПП АКРОВИ")
 			{
 				return selectedStudent.BloodType;
 			}
 
-			if (command.ToUpper() == "$СПЕЦВИНСТ$")
+			if (command.ToUpper() == "СПЕЦИАЛЬНОСТЬ В ИНСТИТУТЕ")
 			{
 				return selectedStudent.SpecInst;
 			}
@@ -528,57 +656,57 @@ namespace LKS_3._0
 			//
 			if (selectedRelative != null)
 			{
-				if (command.ToUpper() == "$РОДИМЯ$")
+				if (command.ToUpper() == "РОД ИМЯ")
 				{
 					return selectedRelative.FirstName;
 				}
 
-				if (command.ToUpper() == "$РОДФАМИОЛИЯ$")
+				if (command.ToUpper() == "РОД ФАМИОЛИЯ")
 				{
 					return selectedRelative.MiddleName;
 				}
 
-				if (command.ToUpper() == "$РОДОТЧЕСТВО$")
+				if (command.ToUpper() == "РОД ОТЧЕСТВО")
 				{
 					return selectedRelative.LastName;
 				}
 
-				if (command.ToUpper() == "$РОДДЕВИЧФАМИЛИЯ$")
+				if (command.ToUpper() == "РОД ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
 					return selectedRelative.MaidenName;
 				}
 
-				if (command.ToUpper() == "$РОДДЕНЬРОЖД$")
+				if (command.ToUpper() == "РОД ДЕНЬ РОЖДЕНИЯ")
 				{
 					return selectedRelative.Birthday;
 				}
 
-				if (command.ToUpper() == "$РОДАДРЕСГЕРИСТРАЦИИ$")
+				if (command.ToUpper() == "РОД АДРЕС РЕГЕРИСТРАЦИИ")
 				{
 					return selectedRelative.PlaceOfRegestration;
 				}
 
-				if (command.ToUpper() == "$РОДАДРЕСПРОЖИВАНИЯ$")
+				if (command.ToUpper() == "РОД АДРЕС ПРОЖИВАНИЯ")
 				{
 					return selectedRelative.PlaceOfResidence;
 				}
 
-				if (command.ToUpper() == "$РОДМОБНОМЕР$")
+				if (command.ToUpper() == "РОД МОБИЛЬНЫЙ НОМЕР")
 				{
 					return selectedRelative.MobilePhone;
 				}
 
-				if (command.ToUpper() == "$РОДСТЕПЕНЬРОДСТВА$")
+				if (command.ToUpper() == "РОД СТЕПЕНЬ РОДСТВА")
 				{
 					return selectedRelative.RelationDegree;
 				}
 
-				if (command.ToUpper() == "$РОДСОСТЗДОРОВЬЯ$")
+				if (command.ToUpper() == "РОД СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
 					return selectedRelative.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$РОДИНИЦИАЛЫ$")
+				if (command.ToUpper() == "РОД ИНИЦИАЛЫ")
 				{
 					return selectedRelative.initials();
 				}
@@ -586,57 +714,57 @@ namespace LKS_3._0
 			//Мать
 			if (selectedStudentMather != null)
 			{
-				if (command.ToUpper() == "$МАТЬИМЯ$")
+				if (command.ToUpper() == "МАТЬ ИМЯ")
 				{
 					return selectedStudentMather.FirstName;
 				}
 
-				if (command.ToUpper() == "$МАТЬФИМИЛИЯ$")
+				if (command.ToUpper() == "МАТЬ ФАМИЛИЯ")
 				{
 					return selectedStudentMather.MiddleName;
 				}
 
-				if (command.ToUpper() == "$ФАТЬОТЧЕСТВО$")
+				if (command.ToUpper() == "МАТЬ ОТЧЕСТВО")
 				{
 					return selectedStudentMather.LastName;
 				}
 
-				if (command.ToUpper() == "$МАТЬДЕВИЧЬЯФАМИЛИЯ$")
+				if (command.ToUpper() == "МАТЬ ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
 					return selectedStudentMather.MaidenName;
 				}
 
-				if (command.ToUpper() == "$МАТЬДЕНЬРОЖД$")
+				if (command.ToUpper() == "МАТЬ ДЕНЬ РОЖДЕНИЯ")
 				{
 					return selectedStudentMather.Birthday;
 				}
 
-				if (command.ToUpper() == "$МАТЬАДРЕСРЕГИСТРАЦИИ$")
+				if (command.ToUpper() == "МАТЬ АДРЕС РЕГИСТРАЦИИ")
 				{
 					return selectedStudentMather.PlaceOfRegestration;
 				}
 
-				if (command.ToUpper() == "$МАТЬАДРЕСПРОЖИВАНИЯ$")
+				if (command.ToUpper() == "МАТЬ АДРЕС ПРОЖИВАНИЯ")
 				{
 					return selectedStudentMather.PlaceOfResidence;
 				}
 
-				if (command.ToUpper() == "$МАТЬМОБНОМЕР$")
+				if (command.ToUpper() == "МАТЬ МОБИЛЬНЫЙ НОМЕР")
 				{
 					return selectedStudentMather.MobilePhone;
 				}
 
-				if (command.ToUpper() == "$МАТЬСТЕПРОДСТВА$")
+				if (command.ToUpper() == "МАТЬ СТЕПЕНЬ РОДСТВА")
 				{
 					return selectedStudentMather.RelationDegree;
 				}
 
-				if (command.ToUpper() == "$МАТЬСОСТЗДОРОВЬЯ$")
+				if (command.ToUpper() == "МАТЬ СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
 					return selectedStudentMather.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$МАТЬИНИЦИАЛЫ$")
+				if (command.ToUpper() == "МАТЬ ИНИЦИАЛЫ")
 				{
 					return selectedStudentMather.initials();
 				}
@@ -644,57 +772,57 @@ namespace LKS_3._0
 			// ОТЕЦ(ОТЧИМ)
 			if (selectedStudentFather != null)
 			{
-				if (command.ToUpper() == "$ОТЕЦИМЯ$")
+				if (command.ToUpper() == "ОТЕЦ ИМЯ")
 				{
 					return selectedStudentFather.FirstName;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦФАМИЛИЯ$")
+				if (command.ToUpper() == "ОТЕЦ ФАМИЛИЯ")
 				{
 					return selectedStudentFather.MiddleName;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦОТЧЕСТВО$")
+				if (command.ToUpper() == "ОТЕЦ ОТЧЕСТВО")
 				{
 					return selectedStudentFather.LastName;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦДЕВФАМИЛИЯ$")
+				if (command.ToUpper() == "ОТЕЦ ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
 					return selectedStudentFather.MaidenName;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦДЕНЬРОЖД$")
+				if (command.ToUpper() == "ОТЕЦ ДЕНЬ РОЖДЕНИЯ")
 				{
 					return selectedStudentFather.Birthday;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦАДРЕСРЕГИСТРАЦИИ$")
+				if (command.ToUpper() == "ОТЕЦ АДРЕС РЕГИСТРАЦИИ")
 				{
 					return selectedStudentFather.PlaceOfRegestration;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦАДРЕСПРОЖИВАНИЯ$")
+				if (command.ToUpper() == "ОТЕЦ АДРЕС ПРОЖИВАНИЯ")
 				{
 					return selectedStudentFather.PlaceOfResidence;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦМОБНОМЕР$")
+				if (command.ToUpper() == "ОТЕЦ МОБИЛЬНЫЙ НОМЕР")
 				{
 					return selectedStudentFather.MobilePhone;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦСТЕПРОДСТВА$")
+				if (command.ToUpper() == "ОТЕЦ СТЕПЕНЬ РОДСТВА")
 				{
 					return selectedStudentFather.RelationDegree;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦСОСТЗДОРОВЬЯ$")
+				if (command.ToUpper() == "ОТЕЦ СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
 					return selectedStudentFather.HealthStatus;
 				}
 
-				if (command.ToUpper() == "$ОТЕЦИНИЦИАЛЫ$")
+				if (command.ToUpper() == "ОТЕЦ ИНИЦИАЛЫ")
 				{
 					return selectedStudentFather.initials();
 				}
@@ -703,55 +831,54 @@ namespace LKS_3._0
 			// Взвод
 			if (selectedTrop != null)
 			{
-				if (command.ToUpper() == "$ВЗНОМЕР$")
+				if (command.ToUpper() == "ВЗВОД НОМЕР")
 				{
 					return selectedTrop.NumberTroop;
 				}
 
-				if (command.ToUpper() == "$ВЗКОЛВОЧЕЛ$")
+				if (command.ToUpper() == "ВЗВОД КОЛ-ВО ЧЕЛОВЕК")
 				{
 					return selectedTrop.StaffCount.ToString();
 				}
 
-				if (command.ToUpper() == "$ВЗДЕНЬПРИХОДА$")
+				if (command.ToUpper() == "ВЗВОД ДЕНЬ ПРИХОДА")
 				{
 					return selectedTrop.Day;
 				}
 
-				if (command.ToUpper() == "$ВЗВУС$")
+				if (command.ToUpper() == "ВЗВОД ВУС")
 				{
-					// TODO ВУС
-					return "";
+					return selectedTrop.Vus;
 				}
 
 				if (selectedTrop.ResponsiblePrepod != null)
 				{
-					if (command.ToUpper() == "$ВЗПИМЯ$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИМЯ")
 					{
 						return selectedTrop.ResponsiblePrepod.FirstName;
 					}
 
-					if (command.ToUpper() == "$ВЗПФАМИЛИЯ$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ФАМИЛИЯ")
 					{
 						return selectedTrop.ResponsiblePrepod.MiddleName;
 					}
 
-					if (command.ToUpper() == "$ВЗПОТЧЕСТВО$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ОТЧЕСТВО")
 					{
 						return selectedTrop.ResponsiblePrepod.LastName;
 					}
 
-					if (command.ToUpper() == "$ВЗПЗВАНИЕ$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ЗВАНИЕ")
 					{
 						return selectedTrop.ResponsiblePrepod.Coolness;
 					}
 
-					if (command.ToUpper() == "$ВЗПДОЛЖНОСТЬ$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ДОЛЖНОСТЬ")
 					{
 						return selectedTrop.ResponsiblePrepod.PrepodRank;
 					}
 
-					if (command.ToUpper() == "$ВЗПИНИЦИАЛЫ$")
+					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИНИЦИАЛЫ")
 					{
 						return selectedTrop.ResponsiblePrepod.initials();
 					}
@@ -761,174 +888,211 @@ namespace LKS_3._0
 				if (selectedTrop.PlatoonCommander != null)
 				{
 
-					if (command.ToUpper() == "$ВЗКОМКИМЯ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИМЯ")
 					{
 						return selectedTrop.PlatoonCommander.FirstName;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМИМЯ$")
-					{
-						return selectedTrop.PlatoonCommander.FirstName;
-					}
-
-					if (command.ToUpper() == "$ВЗКОМФАМИЛИЯ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ФАМИЛИЯ")
 					{
 						return selectedTrop.PlatoonCommander.MiddleName;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМОТЧЕСТВО$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ОТЧЕСТВО")
 					{
 						return selectedTrop.PlatoonCommander.LastName;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМФАКУЛЬТЕТ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ФАКУЛЬТЕТ")
 					{
 						return selectedTrop.PlatoonCommander.Faculty;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМГРУППА$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГРУППА")
 					{
 						return selectedTrop.PlatoonCommander.Group;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМВУС$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВУС")
 					{
 						return selectedTrop.PlatoonCommander.SpecialityName;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМУСЛОБУЧ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР УСЛОВИЯ ОБУЧЕНИЯ")
 					{
 						return selectedTrop.PlatoonCommander.ConditionsOfEducation;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМСРБАЛЛ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР СРЕДНИЙ БАЛЛ")
 					{
 						return selectedTrop.PlatoonCommander.AvarageScore;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМПОСТМАИ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ПОСТУПЛЕНИЯ В МАИ")
 					{
 						return selectedTrop.PlatoonCommander.YearOfAddMAI;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМОКОНЧМАИ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ОКОНЧАНИЯ МАИ")
 					{
 						return selectedTrop.PlatoonCommander.YearOfEndMAI;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМПОСТВОЕНКАФ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ПОСТУПЛЕНИЯ НА КАФЕДРУ")
 					{
 						return selectedTrop.PlatoonCommander.YearOfAddVK;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМОКОНЧВОЕНКАФ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ОКОНЧАНИЯ КАФЕДРЫ")
 					{
 						return selectedTrop.PlatoonCommander.YearOfEndVK;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМНОМЕРПРИКАЗА$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР НОМЕР ПРИКАЗА")
 					{
 						return selectedTrop.PlatoonCommander.NumberOfOrder;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМДАТАПРИКАЗА$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДАТА ПРИКАЗА")
 					{
 						return selectedTrop.PlatoonCommander.DateOfOrder;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМВОЕНКОМАТ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВОЕНКОМАТ")
 					{
 						return selectedTrop.PlatoonCommander.Rectal;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМДЕНЬРОЖД$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДЕНЬ РОЖДЕНИЯ")
 					{
 						return selectedTrop.PlatoonCommander.Birthday;
 					}
 
-					if (command.ToUpper() == "$ВЗКОММЕСТОРОЖД$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР МЕСТО РОЖДЕНИЯ")
 					{
 						return selectedTrop.PlatoonCommander.PlaceBirthday;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМНАЦИЯ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР НАЦИЯ")
 					{
 						return selectedTrop.PlatoonCommander.Nationality;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМДОМНОМЕР$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДОМАШНИЙ НОМЕР")
 					{
 						return selectedTrop.PlatoonCommander.HomePhone;
 					}
 
-					if (command.ToUpper() == "$ВЗКОММОБНОМЕР$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР МОБИЛЬНЫЙНОМЕР")
 					{
 						return selectedTrop.PlatoonCommander.MobilePhone;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМАДРЕСПРОЖИВАНИЯ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР АДРЕС ПРОЖИВАНИЯ")
 					{
 						return selectedTrop.PlatoonCommander.PlaceOfResidence;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМАДРЕСРЕГИСТРАЦИИ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР АДРЕС РЕГИСТРАЦИИ")
 					{
 						return selectedTrop.PlatoonCommander.PlaceOfRegestration;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМШКОЛА$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ШКОЛА")
 					{
 						return selectedTrop.PlatoonCommander.School;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМДОЛЖНОСТЬ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДОЛЖНОСТЬ")
 					{
 						return selectedTrop.PlatoonCommander.Rank;
 					}
 
 
-					if (command.ToUpper() == "$ВЗКОМВЗВОД$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
 						return selectedTrop.PlatoonCommander.Troop;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМИНИЦИАЛЫ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
 					{
 						return selectedTrop.PlatoonCommander.initials();
 					}
 
-					if (command.ToUpper() == "$ВЗКОМСЛУЖБАВВС$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР СЛУЖБА В ВС")
 					{
 						return selectedTrop.PlatoonCommander.Military;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМСЕМЕЙНЫЙСТАТУС$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР СЕМЕЙНЫЙ СТАТУС")
 					{
 						return selectedTrop.PlatoonCommander.FamiliStatys;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМГРУППАКРОВИ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГРУППА КРОВИ")
 					{
 						return selectedTrop.PlatoonCommander.BloodType;
 					}
 
-					if (command.ToUpper() == "$ВЗКОМСПЕЦВИНСТ$")
+					if (command.ToUpper() == "ВЗВОД КОМАНДИР СПЕЦИАЛЬНОСТЬ В ИНСТИТУТЕ")
 					{
 						return selectedTrop.PlatoonCommander.SpecInst;
 					}
 				}
 			}
 
-			if (command.ToUpper() == "$С$" ||
-				command.ToUpper() == "$Р$" ||
-				command.ToUpper() == "$О$")
+			if(summer == null) // ИЗМЕНИТЬ НА НЕ РАВНО
 			{
-				return "";
+				if(command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
+				{
+					return "123"; // тестовая строчка, УДАЛИТЬ!
+					return summer.NumberofOrder;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ПРИКАЗА")
+				{
+					return "12.05.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateOfOrder;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА НАЧАЛА")
+				{
+					return "10.05.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateBeginSbori;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ОКОНЧАНИЯ")
+				{
+					return "30.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateEndSbori;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
+				{
+					return "25.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DatePrisyaga;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ДАТА ЭКЗАМЕНА")
+				{
+					return "26.06.12"; // тестовая строчка, УДАЛИТЬ!
+					return summer.DateExamen;
+				}
+
+				if (command.ToUpper() == "СБОРЫ НОМЕР ЧАСТИ")
+				{
+					return "321"; // тестовая строчка, УДАЛИТЬ!
+					return summer.NumberVK;
+				}
+
+				if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
+				{
+					return "г. Москва"; // тестовая строчка, УДАЛИТЬ!
+					return summer.LocationVK;
+				}
 			}
 
-
-
-			return command.Substring(1, command.Length - 2);
+			return "false";
 		}
 
 		void changeTroop()

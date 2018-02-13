@@ -94,7 +94,7 @@ namespace LKS_3._0.ViewModel
 								tempStud.Add(item);
 								if (FileName != "" && selectedStudents.Count != 0)
 								{
-									Templates temp = new Templates(FileName, tempStud, null, null);
+									Model.Templates temp = new Model.Templates(FileName, tempStud, null, null);
 								}
 							}
 						}
@@ -108,7 +108,7 @@ namespace LKS_3._0.ViewModel
 									tempTroop.Add(item);
 									if (FileName != "" && selectedTroops.Count != 0)
 									{
-										Templates temp = new Templates(FileName, null, null, tempTroop);
+										Model.Templates temp = new Model.Templates(FileName, null, null, tempTroop);
 									}
 								}
 							}
@@ -117,7 +117,7 @@ namespace LKS_3._0.ViewModel
 								if (FileName != "" && (selectedTroops.Count != 0 || selectedStudents.Count != 0))
 								{
 
-									Templates temp = new Templates(FileName, selectedStudents.ToList(), null, SelectedTroops.ToList());
+									Model.Templates temp = new Model.Templates(FileName, selectedStudents.ToList(), null, SelectedTroops.ToList());
 								}
 								else
 								{
