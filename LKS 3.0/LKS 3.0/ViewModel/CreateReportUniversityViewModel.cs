@@ -82,7 +82,7 @@ namespace LKS_3._0.ViewModel
                         //if((int)obj == 0) // Если выбранна 1 вкладка
                         switch ((int)obj)
                             {
-                                case 1: // Выбранна 1 вкладка
+                                case 0: // Выбранна 1 вкладка
                                     {
                                         if (selectedTroopDocOnTroop != null)
                                         {
@@ -95,28 +95,28 @@ namespace LKS_3._0.ViewModel
                                                 case RadioOptions.Option1:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Список_взвода.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Список_должностных_лиц_взводов.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Условия_обучения_в_вузе.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option4:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Тематический_контроль.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
@@ -140,7 +140,7 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 2:
+                                case 1:
                                     {
                                         if (SelectedTroopDocOnTroop != null)
                                         {
@@ -152,28 +152,28 @@ namespace LKS_3._0.ViewModel
                                                 case RadioOptions.Option1:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Список_взвода.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Журнал_обложка.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Список_должностных_лиц_взводов.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Журнал_целиком.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Условия_обучения_в_вузе.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option4:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Тематический_контроль.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
@@ -197,7 +197,7 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 4:
+                                case 3:
                                     {
                                         if (SelectedTroopDocOnTroop != null)
                                         {
@@ -209,14 +209,14 @@ namespace LKS_3._0.ViewModel
                                                 case RadioOptions.Option1:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Анкета.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Анкета.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Анкета_шабон.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Анкета_шабон.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
@@ -254,21 +254,21 @@ namespace LKS_3._0.ViewModel
                                                 case RadioOptions.Option1:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Шаблон.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\Шаблон.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Model.Templates\ЛКС.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\ЛКС.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;

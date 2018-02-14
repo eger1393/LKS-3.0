@@ -26,8 +26,8 @@
 
     <Grid x:Name="Main_Grid" Background="LightGray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.35*"></RowDefinition>
+            <RowDefinition Height="593*"></RowDefinition>
+            <RowDefinition Height="277*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
