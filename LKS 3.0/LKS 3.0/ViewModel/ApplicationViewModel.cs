@@ -681,7 +681,7 @@ namespace LKS_3._0
         {
             System.IO.StreamWriter file = new System.IO.StreamWriter(@"Log.txt");
             int counter = 0;
-            string path = "Q:\\maev_new.mdb";
+            string path = Environment.CurrentDirectory + "/maev_new.mdb"; ;
             try
             {
                 File.Copy(maev_path, path, true);

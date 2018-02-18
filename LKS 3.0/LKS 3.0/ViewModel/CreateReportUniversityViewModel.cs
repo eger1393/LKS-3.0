@@ -242,7 +242,7 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 5:
+                                case 4:
                                     {
                                         if (SelectedTroopDocOnTroop != null)
                                         {
@@ -268,7 +268,7 @@ namespace LKS_3._0.ViewModel
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Templates\ЛКС.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Личная_карточка_студента.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
