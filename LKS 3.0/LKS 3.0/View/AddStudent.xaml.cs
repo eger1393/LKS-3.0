@@ -222,7 +222,7 @@ namespace LKS_3._0
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
-				Photo.Source = ImageBitmapFrame;//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
+				Photo.Source = ImageBitmapFrame.CloneCurrentValue();//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
 				
 			
 			}
@@ -233,17 +233,17 @@ namespace LKS_3._0
 
             if (ImageBitmapFrame != null)
 			{
+				string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
+				if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
 				jpegBitmapEncoder.QualityLevel = 100;
 				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				string ImagePath = AppDomain.CurrentDomain.BaseDirectory + @".\Image\" + viewModel.AddedStudent.Id + ".jpg";
-				if (File.Exists(ImagePath))
-					File.Delete(ImagePath);
-				FileStream fileStream = new FileStream(ImagePath, FileMode.CreateNew);
+				FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);
 				fileStream.Close();
-				viewModel.AddedStudent.ImagePath = AppDomain.CurrentDomain.BaseDirectory + "Image\\" + viewModel.AddedStudent.Id + ".jpg";
+				viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
 			}
 
             if(viewModel.AddedStudent.MiddleName == null)

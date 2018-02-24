@@ -25,6 +25,7 @@ namespace LKS_3._0
     {
         public BindingList<Relative> ListRelatives;
         public static int _count;
+		private string imagePath;
 
 		public string initials()
 		{
@@ -179,7 +180,17 @@ namespace LKS_3._0
         public string Note
         { get; set; }
         public string ImagePath
-        { get; set; }
+        {
+			get
+			{
+				//return imagePath;
+				return AppDomain.CurrentDomain.BaseDirectory + imagePath;
+			}
+			set
+			{
+				imagePath = value;
+			}
+		}
         public bool Skill1
         { get; set; }
 

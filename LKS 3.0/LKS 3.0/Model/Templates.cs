@@ -122,6 +122,7 @@ namespace LKS_3._0.Model
 										List<TableRow> rowList = table.Elements<TableRow>().ToList();
 
 										IEnumerator<TableCell> IEcell = rowList[rowIndex].Descendants<TableCell>().ToList().GetEnumerator(); // перечеслитель для перебора ячеек в строке которая назодится в таблице
+
 										foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
 										{
 											IEcell.MoveNext();// передвинули перечеслитель
@@ -303,6 +304,8 @@ namespace LKS_3._0.Model
 
 										table.AppendChild(tempRow); // добавили временую стороку к таблице
 									} // закончили создание таблицы
+									row.Parent.RemoveChild(row); // удалили немодифицированную строку
+									break; // закончили работу с таблицей
 								}
 								// Взвода
 								if (row.Descendants<SdtElement>().ToList().Find(obj =>
@@ -339,6 +342,8 @@ namespace LKS_3._0.Model
 
 										table.AppendChild(tempRow); // добавили временую стороку к таблице
 									} // закончили создание таблицы
+									row.Parent.RemoveChild(row); // удалили немодифицированную строку
+									break; // закончили работу с таблицей
 								}
 								//Родственники
 								if (row.Descendants<SdtElement>().ToList().Find(obj =>
@@ -366,9 +371,10 @@ namespace LKS_3._0.Model
 
 										table.AppendChild(tempRow); // добавили временую стороку к таблице
 									} // закончили создание таблицы
+									row.Parent.RemoveChild(row); // удалили немодифицированную строку
+									break; // закончили работу с таблицей
 								}
-								row.Parent.RemoveChild(row); // удалили немодифицированную строку
-								break; // закончили работу с таблицей
+								
 							}
 
 						}
