@@ -396,11 +396,18 @@ namespace LKS_3._0.Model
 						// скопипастил вставку картинок тупо из мдсн
 						MainDocumentPart mainPart = doc.MainDocumentPart;
 						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
-						using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+						try
 						{
-							imagePart.FeedData(stream);
+							using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+							{
+								imagePart.FeedData(stream);
+							}
+							AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
 						}
-						AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
+						catch (System.NotSupportedException ex)
+						{
+							continue;
+						}
 						continue;
 					}
 					if (valueCommand != "false")
