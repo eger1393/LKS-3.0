@@ -30,7 +30,7 @@ namespace LKS_3._0.ViewModel
 		}
 	}
 
-    
+    // вкладка ВУЗ
     public class CreateReportUniversityViewModel:INotifyPropertyChanged
 	{
         private BindingList<Student> troopStudents;
@@ -38,6 +38,8 @@ namespace LKS_3._0.ViewModel
         BindingList<Student> students;
 
 		BindingList<Troop> troops;
+
+		Student selectedStudent;
 
 		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None,
 			radioOptionsJernal = RadioOptions.None;
@@ -82,9 +84,9 @@ namespace LKS_3._0.ViewModel
                         //if((int)obj == 0) // Если выбранна 1 вкладка
                         switch ((int)obj)
                             {
-                                case 0: // Выбранна 1 вкладка
+                                case 0: // Выбранна 1 вкладка (Документы на взвод)
                                     {
-                                        if (selectedTroopDocOnTroop != null)
+                                        if (selectedTroopDocOnTroop != null) // проверка на выделение взвода
                                         {
                                             List<Troop> tempList = new List<Troop>();
                                             tempList.Add(selectedTroopDocOnTroop);
@@ -140,12 +142,12 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 1:
+                                case 1: // Журналы
                                     {
-                                        if (SelectedTroopDocOnTroop != null)
+                                        if (SelectedTroop != null)
                                         {
                                             List<Troop> tempList = new List<Troop>();
-                                            tempList.Add(SelectedTroopDocOnTroop);
+                                            tempList.Add(SelectedTroop);
 
                                             switch (radioOptionsJernal)
                                             {
@@ -163,22 +165,26 @@ namespace LKS_3._0.ViewModel
                                                             null, null, tempList);
                                                     }
                                                     break;
-                                                case RadioOptions.Option3:
+                                                case RadioOptions.Option3: // TODO узать где эти шаблоны
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Наряды_взыскания_инструктажи.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option4:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
+                                                            System.IO.Path.GetFullPath(@".\Templates\Посещаемость.docx"),
                                                             null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option5:
-                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+													{
+														Model.Templates temp = new Model.Templates(
+															System.IO.Path.GetFullPath(@".\Templates\Список_взвода_для_журнала.docx"),
+															null, null, tempList);
+													}
                                                     break;
                                                 case RadioOptions.None:
                                                     {
@@ -197,12 +203,13 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 3:
+								// ПЕЧАТЬ по требованию(узнать что это??)
+								case 3: //  АНКЕТЫ
                                     {
-                                        if (SelectedTroopDocOnTroop != null)
+                                        if (SelectedTroop != null)
                                         {
                                             List<Troop> tempList = new List<Troop>();
-                                            tempList.Add(SelectedTroopDocOnTroop);
+                                            tempList.Add(SelectedTroop);
 
                                             switch (radioOptionsJernal)
                                             {
@@ -242,34 +249,34 @@ namespace LKS_3._0.ViewModel
                                         }
                                         break;
                                     }
-                                case 4:
+                                case 4: // ЛКС
                                     {
-                                        if (SelectedTroopDocOnTroop != null)
+                                        if (SelectedTroop != null)
                                         {
-                                            List<Troop> tempList = new List<Troop>();
-                                            tempList.Add(SelectedTroopDocOnTroop);
+                                            List<Student> tempList = new List<Student>();
+                                            tempList.Add(SelectedStudent);
 
                                             switch (radioOptionsJernal)
                                             {
                                                 case RadioOptions.Option1:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
-                                                            null, null, tempList);
+                                                            System.IO.Path.GetFullPath(@".\Templates\ЛКС_Форма_допуска.docx"),
+															tempList, null, null);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
-                                                            System.IO.Path.GetFullPath(@".\Templates\Шаблон.docx"),
-                                                            null, null, tempList);
+                                                            System.IO.Path.GetFullPath(@".\Templates\Лист_изучения_кандидата_на_призыв.docx"),
+															tempList, null, null);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Личная_карточка_студента.docx"),
-                                                            null, null, tempList);
+															tempList, null, null);
                                                     }
                                                     break;
 
@@ -345,7 +352,7 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public Troop SelectedTroopDocOnTroop
+		public Troop SelectedTroop
 		{
 			get
 			{
@@ -404,7 +411,21 @@ namespace LKS_3._0.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public Student SelectedStudent
+		{
+			get
+			{
+				return selectedStudent;
+			}
+
+			set
+			{
+				selectedStudent = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			if (PropertyChanged != null)

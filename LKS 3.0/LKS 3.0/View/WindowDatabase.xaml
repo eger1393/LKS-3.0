@@ -68,6 +68,7 @@
             </MenuItem>
             <MenuItem Header="Инструменты">
                 <MenuItem Header="Групповые операции" Command="{Binding ChangeKursCommand}" ></MenuItem>
+                <MenuItem Header="Информация о кафедре/военкомате" Command="{Binding ShowInfoAdministrationsMillKaf}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Добавить/Удалить">
                 <MenuItem Header="Добавить студента" Command="{Binding AddCommand}">

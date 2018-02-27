@@ -652,7 +652,7 @@ namespace LKS_3._0.Model
 				return selectedStudent.FamiliStatys;
 			}
 
-			if (command.ToUpper() == "ГРУПП АКРОВИ")
+			if (command.ToUpper() == "ГРУППА КРОВИ")
 			{
 				return selectedStudent.BloodType;
 			}
@@ -674,7 +674,7 @@ namespace LKS_3._0.Model
 					return selectedRelative.FirstName;
 				}
 
-				if (command.ToUpper() == "РОД ФАМИОЛИЯ")
+				if (command.ToUpper() == "РОД ФАМИЛИЯ")
 				{
 					return selectedRelative.MiddleName;
 				}

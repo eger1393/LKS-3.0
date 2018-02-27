@@ -131,12 +131,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Model\Admin.cs" />
+    <Compile Include="Model\AdministrationMilitaryDepartment.cs" />
     <Compile Include="Model\Summer.cs" />
     <Compile Include="Model\Templates.cs" />
     <Compile Include="ProgMode.cs" />
     <Compile Include="ViewModel\CreateReportUniversityViewModel.cs" />
     <Compile Include="ViewModel\CreateReportViewModel.cs" />
     <Compile Include="ViewModel\EditTroopViewModel.cs" />
+    <Compile Include="ViewModel\InfoAdministrationMilKafViewModel.cs" />
     <Compile Include="ViewModel\NewSboriViewModel.cs" />
     <Compile Include="ViewModel\SummerSboriViewModel.cs" />
     <Compile Include="View\AddNoteStudent.xaml.cs">
@@ -178,6 +180,9 @@
     <Compile Include="Model\Troop.cs" />
     <Compile Include="View\EditTroop.xaml.cs">
       <DependentUpon>EditTroop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InfoAdministrationMilKaf.xaml.cs">
+      <DependentUpon>InfoAdministrationMilKaf.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InfoSboriWindow.xaml.cs">
       <DependentUpon>InfoSboriWindow.xaml</DependentUpon>
@@ -238,6 +243,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\EditTroop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoAdministrationMilKaf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

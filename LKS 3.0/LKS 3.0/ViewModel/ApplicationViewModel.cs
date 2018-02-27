@@ -28,30 +28,31 @@ namespace LKS_3._0
     {
         public ApplicationContext DataBase;
 
-        private RelayCommand addCommand,
-            createReportCommand,
-            findCommand,
-            editCommand,
-            deleteCommand,
-            saveChangeCommand,
-            checkPassCommand,
-            editPrepodsCommand,
-            showTraineesCommand,
-            showDetachedCommand,
-            showNaSboriCommand,
-            showPastSboriCommand,
-            showAllCommand,
-            addNoteCommand,
-            troopCheck,
-            newSboricommand,
-            editTroopCommand,
-            changeRankCommand,
-            exportCommand,
-            infoSboriCommand,
-            closeAllWordFile,
-            changeKursCommand,
+		private RelayCommand addCommand,
+			createReportCommand,
+			findCommand,
+			editCommand,
+			deleteCommand,
+			saveChangeCommand,
+			checkPassCommand,
+			editPrepodsCommand,
+			showTraineesCommand,
+			showDetachedCommand,
+			showNaSboriCommand,
+			showPastSboriCommand,
+			showAllCommand,
+			addNoteCommand,
+			troopCheck,
+			newSboricommand,
+			editTroopCommand,
+			changeRankCommand,
+			exportCommand,
+			infoSboriCommand,
+			closeAllWordFile,
+			changeKursCommand,
 			createReportUniversityCommand,
-			ordersCommand;
+			ordersCommand,
+			showInfoAdministrationsMillKaf;
 
         private Student selectedStudent;
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
@@ -351,7 +352,21 @@ namespace LKS_3._0
                  }));
             }
         }
-        public RelayCommand ShowPastSboriCommand
+
+		public RelayCommand ShowInfoAdministrationsMillKaf
+		{
+			get
+			{
+				return showInfoAdministrationsMillKaf ??
+					(showInfoAdministrationsMillKaf = new RelayCommand(obj =>
+					{
+						LKS_3._0.View.InfoAdministrationMilKaf Info = new View.InfoAdministrationMilKaf(ref DataBase);
+						
+					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+			}
+		}
+		
+		public RelayCommand ShowPastSboriCommand
         {
             get
             {

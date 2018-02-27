@@ -176,7 +176,6 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Deb
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DataBaseStudents.db
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.manifest
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.application
-D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.g.cs
@@ -211,3 +210,5 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe.manifest
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
