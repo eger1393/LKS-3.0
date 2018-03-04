@@ -11,10 +11,14 @@ using System.Windows;
 
 
 namespace LKS_3._0.ViewModel
+	
 {
+	// TODO ВЫнести в отдельный класс
 	public enum RadioOptions
+		// TODO есть красивая идея с массивом имен файлов (реализовать ее и переделать нумерацию с нуля (Option1 = 0))
 	{
-		Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10, Option11, Option12, Option13, None
+		Option1 = 0, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10,
+		Option11, Option12, Option13, Option14, Option15, None
 	}
 
 	public class EnumToBooleanConverter : IValueConverter
@@ -42,7 +46,8 @@ namespace LKS_3._0.ViewModel
 		Student selectedStudent;
 
 		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None,
-			radioOptionsJernal = RadioOptions.None;
+			radioOptionsJernal = RadioOptions.None,
+			radioOptionsLKS = RadioOptions.None;
 		Troop selectedTroopDocOnTroop,
 			selectedTroopJernal;
 
@@ -256,7 +261,7 @@ namespace LKS_3._0.ViewModel
                                             List<Student> tempList = new List<Student>();
                                             tempList.Add(SelectedStudent);
 
-                                            switch (radioOptionsJernal)
+                                            switch (RadioOptionsLKS)
                                             {
                                                 case RadioOptions.Option1:
                                                     {
@@ -421,6 +426,20 @@ namespace LKS_3._0.ViewModel
 			set
 			{
 				selectedStudent = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public RadioOptions RadioOptionsLKS
+		{
+			get
+			{
+				return radioOptionsLKS;
+			}
+
+			set
+			{
+				radioOptionsLKS = value;
 				OnPropertyChanged();
 			}
 		}

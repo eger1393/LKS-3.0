@@ -28,7 +28,7 @@ namespace LKS_3._0.Model
         private string middleName, // Фамилия
             firstName, // Имя
             lastName, // Отчество
-            coolness, // Девичья фамилия
+            coolness, // Звание
             rank; // Дата рождения
         private bool order, prepod, officer;
 
@@ -44,7 +44,7 @@ namespace LKS_3._0.Model
         }
 
         [RusName("Должность")]
-        public string Rank // Номер мобильного телефона
+        public string Rank 
         {
             get
             {
@@ -57,7 +57,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Фамилия")]
-        public string MiddleName // Фамилия
+        public string MiddleName 
         {
             get
             {
@@ -70,7 +70,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Имя")]
-        public string FirstName // Имя
+        public string FirstName
         {
             get
             {
@@ -83,7 +83,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Отчество")]
-        public string LastName // Отчество
+        public string LastName
         {
             get
             {

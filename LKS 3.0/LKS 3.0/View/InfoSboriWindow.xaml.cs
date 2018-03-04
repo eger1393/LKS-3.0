@@ -33,15 +33,16 @@ namespace LKS_3._0.View
 
             DataContext = temp_VM;
 
-            TroopComboBox.ItemsSource = _troops.Select(u => u.NumberTroop);
+			temp_VM.Troops = _troops;//.Select(u => u.NumberTroop);
             TroopComboBoxAll.ItemsSource = TroopComboBox.ItemsSource;
-            TroopComboBoxOneWeek.ItemsSource = TroopComboBox.ItemsSource;
-            TroopComboBoxTwoWeek.ItemsSource = TroopComboBox.ItemsSource;
-            TroopComboBoxThreeWeek.ItemsSource = TroopComboBox.ItemsSource;
-            TroopComboBoxFourWeek.ItemsSource = TroopComboBox.ItemsSource;
-            TroopComboBoxFiveWeek.ItemsSource = TroopComboBox.ItemsSource;
+            //TroopComboBoxOneWeek.ItemsSource = TroopComboBox.ItemsSource;
+            //TroopComboBoxTwoWeek.ItemsSource = TroopComboBox.ItemsSource;
+            //TroopComboBoxThreeWeek.ItemsSource = TroopComboBox.ItemsSource;
+            //TroopComboBoxFourWeek.ItemsSource = TroopComboBox.ItemsSource;
+            //TroopComboBoxFiveWeek.ItemsSource = TroopComboBox.ItemsSource;
         }
 
+		//TODO Отрефакторить
         private void Binding_columns()
         {
             Type T = typeof(Model.Admin);

@@ -18,12 +18,13 @@ namespace LKS_3._0.ViewModel
     {
         private ApplicationContext temp_DataBase;
 
-        public Model.Summer SelectedSummerSbori
+        public Model.Summer SelectedSummerSbori 
         {
             get; set;
         }
 
-        private RelayCommand saveCommand;
+        private RelayCommand saveCommand,
+			create;
 
         BindingList<Model.Admin> _admins;
 
@@ -31,8 +32,151 @@ namespace LKS_3._0.ViewModel
 
         BindingList<Prepod> prepods;
         Model.Admin selectAdmin;
+		BindingList<Troop> troops;
 
-        public RelayCommand SaveCommand
+		//
+		private Troop selectedTroop;
+		private RadioOptions radioOption = RadioOptions.None;
+
+		// путь к шаблонам (строки - вкладки, столбцы - конкретные шаблоны)
+		// TODO переделать исспользуя не массив
+		string[,] pathTemplate = 
+		{
+			{ // 0 вкладка
+				"Сборы_Альфа_список.docx",
+				"none",//
+				"Сборы_журнал.docx",
+				"Именной_список_на_сборы.docx",
+				"Сборы_инстр_по_ТБ.docx",
+				"Сборы_вечерняя_проверка.docx",
+				"none",//
+				"Сборы_ВПД.docx",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			},
+			{ // 1 
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			},
+			{ // 2
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			},
+			{ // 3 вкладка
+				"Сборы_лист_нарядов.docx",
+				"Сборы_марш_15км.docx",
+				"Сборы_ведомость_закрепления_оружия.docx",
+				"Сборы_ведомость_осмотра_нач_медом.docx",
+				"Сборы_заявка_мыло.docx",
+				"Сборы_заявка_сахар.docx",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			},
+			{ // 4 вкладка
+				"Сборы_Метание_гранат.docx",
+				"Сборы_присяга_список.docx",
+				"none",//
+				"Сборы_бег_100.docx",
+				"Сборы_бег_1000.docx",
+				"Сборы_бег_3000.docx",
+				"Сборы_ведомость_по_всем_нормативам.docx",
+				"Сборы_челночный_бег.docx",
+				"Сборы_отжимания.docx",
+				"Сборы_подтягивания.docx",
+				"Сборы_стрельба_АК.docx",
+				"Сборы_стрельба_ПМ.docx",
+				"Сборы_Список_проинструктированных_по_ТБ.docx",
+				"Сборы_заявка_БТУ.docx",
+				"Сборы_сдавшие_экзамен.docx",
+			},
+			{ // 5
+				"Сборы_список_ТБ_на_БТУ.docx",
+				"Сборы_характеристика.docx",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			},
+		};
+		//
+
+		public RelayCommand Creatte
+		{
+			get
+			{
+				return create ??
+					(create = new RelayCommand(obj =>
+				   {
+					   if(SelectedTroop == null)
+					   {
+						   MessageBox.Show("Ошибка, выбирите взвод!");
+						   return;
+					   }
+					   if(pathTemplate[(int)obj, (int)radioOption] != "none")
+					   {
+						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
+						   tempList.Add(selectedTroop);
+						   Model.Templates temp = new Model.Templates(
+							   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+							   null, null, tempList);
+					   }
+					   else
+					   {
+						   MessageBox.Show("Ошибка, неверный шаблон шаблон!");
+					   }
+				   }));
+			}
+		}
+
+
+		public RelayCommand SaveCommand
         {
             get
             {
@@ -131,11 +275,55 @@ namespace LKS_3._0.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public RadioOptions RadioOption
+		{
+			get
+			{
+				return radioOption;
+			}
+
+			set
+			{
+				radioOption = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public Troop SelectedTroop
+		{
+			get
+			{
+				return selectedTroop;
+			}
+
+			set
+			{
+				selectedTroop = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public BindingList<Troop> Troops
+		{
+			get
+			{
+				return troops;
+			}
+
+			set
+			{
+				troops = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+
     }
 }

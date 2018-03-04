@@ -234,13 +234,13 @@
                                 <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <RadioButton GroupName="DocOnTroop" Content="Форма допуска" Grid.Row="0"
-                                         IsChecked="{Binding RadioOptionsJernal, Converter={StaticResource enumBooleanConverter}, 
+                                         IsChecked="{Binding RadioOptionsLKS, Converter={StaticResource enumBooleanConverter}, 
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Лист изучения кандидата на призыв" Grid.Row="1"
-                                         IsChecked="{Binding RadioOptionsJernal, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding RadioOptionsLKS, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Личная карточка студента" Grid.Row="2"
-                                         IsChecked="{Binding RadioOptionsJernal, Converter={StaticResource enumBooleanConverter},
+                                         IsChecked="{Binding RadioOptionsLKS, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
                         </Grid>
                     </GroupBox>
