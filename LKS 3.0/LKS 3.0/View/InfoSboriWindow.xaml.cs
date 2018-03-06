@@ -33,7 +33,7 @@ namespace LKS_3._0.View
 
             DataContext = temp_VM;
 
-			temp_VM.Troops = _troops;//.Select(u => u.NumberTroop);
+			temp_VM.Troops = new BindingList<Troop>(_troops.Where(obj => obj.SboriTroop == true).ToList());//.Select(u => u.NumberTroop);
             TroopComboBoxAll.ItemsSource = TroopComboBox.ItemsSource;
             //TroopComboBoxOneWeek.ItemsSource = TroopComboBox.ItemsSource;
             //TroopComboBoxTwoWeek.ItemsSource = TroopComboBox.ItemsSource;

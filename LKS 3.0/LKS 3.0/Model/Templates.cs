@@ -51,7 +51,15 @@ namespace LKS_3._0.Model
 			{
 				this.students = Students;
 			}
-			selectedStudent = students.First(); // устанавливаем выбранного стуента
+			try
+			{
+				selectedStudent = students.First(); // устанавливаем выбранного стуента
+			}
+			catch(System.InvalidOperationException ex)
+			{
+				//System.Windows.MessageBox.Show(ex + "\nВо взводе нет студентов!");
+				return;
+			}
 			changeSelectedStudent(); // меняем мать и отца студента
 
 			////
