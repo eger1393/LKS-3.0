@@ -361,8 +361,12 @@ namespace LKS_3._0
 					(showInfoAdministrationsMillKaf = new RelayCommand(obj =>
 					{
 						LKS_3._0.View.InfoAdministrationMilKaf Info = new View.InfoAdministrationMilKaf(ref DataBase);
-						
-					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                        if (Info.ShowDialog() == true)
+                        {
+
+                        }
+
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
 			}
 		}
 		

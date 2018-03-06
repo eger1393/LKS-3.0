@@ -8,10 +8,10 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0.Model
 {
-	public partial class AdministrationMilitaryDepartment : INotifyPropertyChanged
+	public partial class Department : INotifyPropertyChanged
 	{
 
-		public AdministrationMilitaryDepartment()
+		public Department()
 		{
 
 		}

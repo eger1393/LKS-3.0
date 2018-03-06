@@ -131,7 +131,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Model\Admin.cs" />
-    <Compile Include="Model\AdministrationMilitaryDepartment.cs" />
+    <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Summer.cs" />
     <Compile Include="Model\Templates.cs" />
     <Compile Include="ProgMode.cs" />
