@@ -24,7 +24,7 @@ namespace LKS_3._0.Model
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
-		Model.AdministrationMilitaryDepartments adminInfo; // Военком и нач кафедры
+		Model.Department adminInfo; // Военком и нач кафедры
 
 		// TODO
 		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
@@ -57,9 +57,9 @@ namespace LKS_3._0.Model
 			////
 			DataBase = temp_DataBase;
 			DataBase.Summers.Load();
-			DataBase.AdministrationMilitaryDepartments.Load();
+			DataBase.Departments.Load();
 			summer = DataBase.Summers.Local.ToList().First(); // в summers должна быть только одна запись!
-			adminInfo = DataBase.AdministrationMilitaryDepartments.Local.ToList().First();
+			adminInfo = DataBase.Departments.Local.ToList().First();
 			
 			
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
