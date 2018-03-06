@@ -60,6 +60,7 @@ namespace LKS_3._0
             Troop = TroopName;
             Rank = "Отсутствует";
             Status = "Обучается";
+            BloodType = "Не знаю";
             Kurs = 2;
             Skill1 = false;
             Skill2 = false;

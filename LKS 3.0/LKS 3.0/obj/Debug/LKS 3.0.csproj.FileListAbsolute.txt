@@ -213,3 +213,5 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
