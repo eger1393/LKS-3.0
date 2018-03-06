@@ -30,9 +30,9 @@ namespace LKS_3._0.View
 		public InfoAdministrationMilKaf(ref ApplicationContext DB)
 		{
 			db = DB; // получил ссылку на базу данных
-			db.AdministrationMilitaryDepartments.Load();
+            db.Departments.Load();
 
-			this.DataContext = db.AdministrationMilitaryDepartments.Local.First();
+			this.DataContext = db.Departments.Local.First();
 
 			InitializeComponent();
 		}
@@ -41,6 +41,7 @@ namespace LKS_3._0.View
 		{
 			db.Entry(this.DataContext).State = EntityState.Modified;
 			db.SaveChanges();
+            DialogResult = true;
 		}
 	}
 }

@@ -361,8 +361,12 @@ namespace LKS_3._0
 					(showInfoAdministrationsMillKaf = new RelayCommand(obj =>
 					{
 						LKS_3._0.View.InfoAdministrationMilKaf Info = new View.InfoAdministrationMilKaf(ref DataBase);
-						
-					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                        if (Info.ShowDialog() == true)
+                        {
+
+                        }
+
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
 			}
 		}
 		
@@ -694,7 +698,6 @@ namespace LKS_3._0
 
         private void Export2MaevDB()
         {
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"Log.txt");
             int counter = 0;
             string path = Environment.CurrentDirectory + "/maev_new.mdb"; ;
             try
@@ -721,9 +724,8 @@ namespace LKS_3._0
                     connection_string = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=" + path + ";";
                     break;
             }
-            //var odbc_connection = new OdbcConnection(connection_string);
-            var odbc_connection = new OleDbConnection(connection_string);
 
+            var odbc_connection = new OleDbConnection(connection_string);
             try
             {
                 odbc_connection.Open();
@@ -733,23 +735,26 @@ namespace LKS_3._0
                 MessageBox.Show(e.Message);
                 return;
             }
+
+
             //Очищаем файл-шаблон
             var cmd = new OleDbCommand("DELETE FROM КПУ"); //КПУ
             cmd.Connection = odbc_connection;
             cmd.ExecuteNonQuery();
 
+
             //Выбираем студентов на экспорт, которые буду на сборах
             var students_to_export = Students.Where(u => u.Status == "На сборах");
-            //System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\ExportToMDBLogs.txt");
 
+       
             //Запрос добавления студента в таблицу КПУ, сначала основные данные
             foreach (var s in students_to_export)
             {
-                //MessageBox.Show("vtnrf"+s.FirstName+s.ID+s.Group);
-                //file.WriteLine(s.FirstName);
+
+
                 cmd.CommandText = String.Format(@"INSERT INTO КПУ (Фамилия,Имя,Отчество,К_НАЦ)
 SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE национальность='{3}'",
-                                                    s.LastName, s.FirstName, s.MiddleName, s.Nationality.ToLower());
+                                                    s.LastName, s.FirstName, s.MiddleName, s.Nationality != null ? s.Nationality : "Русский");
 
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "SELECT @@Identity";
@@ -759,11 +764,10 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                 int id = reader.GetInt32(0);
                 reader.Close();
 
-                String birthplace = s.PlaceBirthday;
-                if (birthplace.Length == 0)
-                    birthplace = "Неизвестно";
-           
+                String birthplace = s.PlaceBirthday != null ? birthplace = s.PlaceBirthday : birthplace = "Неизвестно";
+
                 //Дописываем даты
+                s.Birthday = s.Birthday.Length > 0 ? s.Birthday : "01.01.1990";
                 cmd.CommandText = String.Format(@"UPDATE КПУ SET [Дата рождения]={0}, " +
                     "[М/рождения]='{1}' WHERE к_код={2}", "# "+ s.Birthday[6] + s.Birthday[7] + s.Birthday[8] + s.Birthday[9]+"-"+ s.Birthday[3] + s.Birthday[4]+"-"+ s.Birthday[0] + s.Birthday[1] + " 12.00.00#", birthplace, id);
                 cmd.ExecuteNonQuery();
@@ -773,17 +777,17 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                     speciality_name = "Неизвестно",
                     cell_number = "Неизвестно";
 
-                if (s.PlaceOfResidence.Length > 0)
+                if (s.PlaceOfResidence != null)
                     home_address = s.PlaceOfResidence;
 
-                if (s.HomePhone.Length > 5)
+                if (s.HomePhone != null)
                     phone_number = s.HomePhone;
-                else if (s.MobilePhone.Length > 5)
+                else if (s.MobilePhone != null)
                     phone_number = s.MobilePhone;
 
-                if (s.MobilePhone.Length > 5)
+                if (s.MobilePhone != null)
                     cell_number = s.MobilePhone;
-                else if (s.HomePhone.Length > 5)
+                else if (s.HomePhone != null)
                     cell_number = s.HomePhone;
 
 
@@ -793,48 +797,53 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
                 var name_dp = NameToDP(s);
 
-
-                //OleDbCommand SqlCom = new OleDbCommand("SELECT * FROM 1Users where LastName = @LastName", odbc_connection);
-                //SqlCom.Parameters.Add("@LastName", OleDbType.WChar).Value = 1;
-
-                //Дописываем остальную информацию
-                cmd.CommandText = string.Format(@"UPDATE КПУ SET ВУЗ='{0}',[Год окончания ВУЗа]='{1}',[Год окончания В/К]='{2}',[Состоит на учете]='{3}',[Специальность воен]='{4}',[Рост]='{5}',[Одежда]='{6}',[Одежда размер]='{7}',[Головной убор]='{8}',[Противогаз]='{9}',[Домашний адрес]='{10}',[Телефон]='{11}',[Группа крови]='{12}',[Факультет]='{13}',[Специальность гр]='{14}',[Обувь]='{15}',[Фамилия ДП]='{16}',[Имя ДП]='{17}',[Отчество ДП]='{18}',ВУС = '{19}',[в/кафедра] = '{20}' WHERE к_код=" + id,
-"\"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)\"(МАИ)",
-                    s.YearOfEndMAI,
-                    s.YearOfEndVK,
-                    s.Rectal.Length > 0 ? s.Rectal : "Неизвестно",
-                    "Боевое применение частей и подразделений войсковой ПВО",
-                    s.Growth,
-                    s.ClothihgSize,
-                    s.ClothihgSize,
-                    s.CapSize,
-                    s.MaskSize.Length > 0 ? "№" + s.MaskSize : "№0",
-                    home_address + " т. " + cell_number,
-                    phone_number,
-                    s.BloodType == "Не знаю" ? "2+" : s.BloodType,
-                    s.Faculty,
-                    speciality_name,
-                    s.ShoeSize,
-                    name_dp[0],
-                    name_dp[2],
-                    name_dp[1],
-                    "0426000",
-                    "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)\"(МАИ)");
-                /*"годен к военной службе"*/ /*[Категория годности] = '{21}'*/
-
+                
                 try
                 {
-                    cmd.ExecuteNonQuery();
+                    //Дописываем остальную информацию
+                    cmd.CommandText = "UPDATE КПУ SET ВУЗ=@var1,[Год окончания ВУЗа]=@var2,[Год окончания В/К]=@var3,[Состоит на учете]=@var4,[Специальность воен]=@var5,[Рост]=@var6,[Одежда]=@var7,[Одежда размер]=@var8,[Головной убор]=@var9,[Противогаз]=@var10,[Домашний адрес]=@var11,[Телефон]=@var12,[Группа крови]=@var13,[Факультет]=@var14,[Специальность гр]=@var15,[Обувь]=@var16,[Фамилия ДП]=@var17,[Имя ДП]=@var18,[Отчество ДП]=@var19,ВУС =@var20,[В/кафедра]=@var21 WHERE к_код=@var22";
+
+                    cmd.Parameters.Add("@var1", OleDbType.Char).Value = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
+                    cmd.Parameters.Add("@var2", OleDbType.Char).Value = s.YearOfEndMAI != null ? s.YearOfEndMAI : "1990";
+                    cmd.Parameters.Add("@var3", OleDbType.Char).Value = s.YearOfEndVK != null ? s.YearOfEndVK : "1990";
+                    cmd.Parameters.Add("@var4", OleDbType.Char).Value = s.Rectal != null ? s.Rectal : "Неизвестно";
+                    cmd.Parameters.Add("@var5", OleDbType.Char).Value = "Боевое применение частей и подразделений войсковой ПВО";
+
+                    cmd.Parameters.Add("@var6", OleDbType.Char).Value = s.Growth != null ? s.Growth : "0";
+                    cmd.Parameters.Add("@var7", OleDbType.Char).Value = s.ClothihgSize != null ? s.ClothihgSize : "0";
+                    cmd.Parameters.Add("@var8", OleDbType.Char).Value = s.ClothihgSize != null ? s.ClothihgSize : "0";
+                    cmd.Parameters.Add("@var9", OleDbType.Char).Value = s.CapSize != null ? s.CapSize : "0";
+                    cmd.Parameters.Add("@var10", OleDbType.Char).Value = s.MaskSize != null ? "№" + s.MaskSize : "№0";
+
+                    cmd.Parameters.Add("@var11", OleDbType.Char).Value = home_address + " т. " + cell_number;
+                    cmd.Parameters.Add("@var12", OleDbType.Char).Value = phone_number;
+                    cmd.Parameters.Add("@var13", OleDbType.Char).Value = s.BloodType.Length > 3 ? "2+" : s.BloodType;
+                    cmd.Parameters.Add("@var14", OleDbType.Char).Value = s.Faculty != null ? s.Faculty : "0";
+                    cmd.Parameters.Add("@var15", OleDbType.Char).Value = speciality_name != null ? speciality_name : "Нет";
+
+                    cmd.Parameters.Add("@var16", OleDbType.Char).Value = s.ShoeSize != null ? s.ShoeSize : "43";
+                    cmd.Parameters.Add("@var17", OleDbType.Char).Value = name_dp[0];
+                    cmd.Parameters.Add("@var18", OleDbType.Char).Value = name_dp[2];
+                    cmd.Parameters.Add("@var19", OleDbType.Char).Value = name_dp[1];
+                    cmd.Parameters.Add("@var20", OleDbType.Char).Value = "042600";
+
+                    cmd.Parameters.Add("@var21", OleDbType.Char).Value = "Военная кафедра МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
+                    cmd.Parameters.Add("@var22", OleDbType.Char).Value = id.ToString();
+
+                    /*"годен к военной службе"*/ /*[Категория годности] = '{21}'*/
+
+                    
                 }
                 catch (OleDbException e)
                 {
-                    
+                    MessageBox.Show(e.Message, "Ошибка!");
                 }
-                
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
 
                 //Дописываем значния языков
                 //cmd.CommandText = String.Format(@"UPDATE КПУ SET ");
-                int i = 1;
+                //int i = 1;
                 //foreach (var k in s.Languages.Keys)
                 //{
                 //    if (k == "русский")
@@ -873,20 +882,20 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                 //    i++;
                 //}
 
-                if (i != 1)
-                {
-                    cmd.CommandText += " WHERE к_код=" + id.ToString();
+                //if (i != 1)
+                //{
+                //    cmd.CommandText += " WHERE к_код=" + id.ToString();
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + cmd.CommandText);
-                        break;
-                    }
-                }
+                //    try
+                //    {
+                //        cmd.ExecuteNonQuery();
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        MessageBox.Show(e.Message + "\n" + cmd.CommandText);
+                //        break;
+                //    }
+                //}
 
                 String[] parenting_levels = { "Мать", "Отец", "Отчим", "Мачеха", "Брат", "Сестра", "Жена", "Сын", "Дочь" };
 
@@ -936,7 +945,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
 
             odbc_connection.Close();
-            file.Close();
+
             MessageBox.Show(String.Format("Студентов экспортировано: {0}", counter), "Готово");
         }
 

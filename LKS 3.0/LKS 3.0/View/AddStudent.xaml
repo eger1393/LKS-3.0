@@ -179,7 +179,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}">
+            <TabItem Header="Личные данные" DataContext="{Binding AddedStudent}" Height="23" VerticalAlignment="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170*" />
@@ -256,15 +256,15 @@
                                 <Label Grid.Column="2" Grid.Row="2" Content="Размер противогаза" />
 
                                 <ComboBox x:Name="BloodType" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding BloodType}" IsEditable="True" IsSynchronizedWithCurrentItem="True">
-                                    <ListBoxItem Content="1 положительная" />
-                                    <ListBoxItem Content="1 отрицательная" />
-                                    <ListBoxItem Content="2 положительная" />
-                                    <ListBoxItem Content="2 отрицательная" />
-                                    <ListBoxItem Content="3 положительная" />
-                                    <ListBoxItem Content="3 отрицательная" />
-                                    <ListBoxItem Content="4 положительная" />
-                                    <ListBoxItem Content="4 отрицательная" />
-                                    <ListBoxItem Content="незнаю" />
+                                    <ListBoxItem Content="1+" />
+                                    <ListBoxItem Content="1-" />
+                                    <ListBoxItem Content="2+" />
+                                    <ListBoxItem Content="2-" />
+                                    <ListBoxItem Content="3+" />
+                                    <ListBoxItem Content="3-" />
+                                    <ListBoxItem Content="4+" />
+                                    <ListBoxItem Content="4-" />
+                                    <ListBoxItem Content="Не знаю" />
                                 </ComboBox>
                                 <TextBox x:Name="Growth" Grid.Column="1" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding Growth}"/>
                                 <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2"  Text="{Binding ClothihgSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
