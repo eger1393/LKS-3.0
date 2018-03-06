@@ -31,10 +31,15 @@ namespace LKS_3._0.ViewModel
 			startTheTemplate,
 			selectTemplate;
 
-		public CreateReportViewModel(BindingList<Student> students,
+		//TODO
+		ApplicationContext temp_DataBase;
+
+		public CreateReportViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> students,
 			BindingList<Troop> troops,
 			BindingList<Prepod> prepods )
 		{
+			//TODO
+			this.temp_DataBase = temp_DataBase;
 			this.students = new BindingList<Student>();
 			this.troops = new BindingList<Troop>();
 			this.prepods = new BindingList<Prepod>();
@@ -94,7 +99,7 @@ namespace LKS_3._0.ViewModel
 								tempStud.Add(item);
 								if (FileName != "" && selectedStudents.Count != 0)
 								{
-									Model.Templates temp = new Model.Templates(FileName, tempStud, null, null);
+									Model.Templates temp = new Model.Templates(FileName, ref temp_DataBase, tempStud, null, null);
 								}
 							}
 						}
@@ -108,7 +113,7 @@ namespace LKS_3._0.ViewModel
 									tempTroop.Add(item);
 									if (FileName != "" && selectedTroops.Count != 0)
 									{
-										Model.Templates temp = new Model.Templates(FileName, null, null, tempTroop);
+										Model.Templates temp = new Model.Templates(FileName, ref temp_DataBase, null, null, tempTroop);
 									}
 								}
 							}
@@ -117,7 +122,7 @@ namespace LKS_3._0.ViewModel
 								if (FileName != "" && (selectedTroops.Count != 0 || selectedStudents.Count != 0))
 								{
 
-									Model.Templates temp = new Model.Templates(FileName, selectedStudents.ToList(), null, SelectedTroops.ToList());
+									Model.Templates temp = new Model.Templates(FileName, ref temp_DataBase, selectedStudents.ToList(), null, SelectedTroops.ToList());
 								}
 								else
 								{

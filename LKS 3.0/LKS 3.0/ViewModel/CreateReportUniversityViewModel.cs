@@ -51,11 +51,16 @@ namespace LKS_3._0.ViewModel
 		Troop selectedTroopDocOnTroop,
 			selectedTroopJernal;
 
+		//TODO
+		ApplicationContext temp_DataBase;
+
 		private RelayCommand create,
 			cancel;
-
-		public CreateReportUniversityViewModel(BindingList<Student> students, BindingList<Troop> troops)
+		//TODO
+		public CreateReportUniversityViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> troops)
 		{
+			//TODO
+			this.temp_DataBase = temp_DataBase;
 			this.students = new BindingList<Student>();
 			this.troops = new BindingList<Troop>();
 
@@ -103,28 +108,28 @@ namespace LKS_3._0.ViewModel
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Список_взвода.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Список_должностных_лиц_взводов.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Условия_обучения_в_вузе.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option4:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Тематический_контроль.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option5:
@@ -160,35 +165,35 @@ namespace LKS_3._0.ViewModel
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Журнал_обложка.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Журнал_целиком.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3: // TODO узать где эти шаблоны
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Наряды_взыскания_инструктажи.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option4:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Посещаемость.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option5:
 													{
 														Model.Templates temp = new Model.Templates(
 															System.IO.Path.GetFullPath(@".\Templates\Список_взвода_для_журнала.docx"),
-															null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
 													}
                                                     break;
                                                 case RadioOptions.None:
@@ -222,14 +227,14 @@ namespace LKS_3._0.ViewModel
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Анкета.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Анкета_шабон.docx"),
-                                                            null, null, tempList);
+															ref temp_DataBase, null, null, tempList);
                                                     }
                                                     break;
                                            
@@ -267,21 +272,21 @@ namespace LKS_3._0.ViewModel
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\ЛКС_Форма_допуска.docx"),
-															tempList, null, null);
+															ref temp_DataBase, tempList, null, null);
                                                     }
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Лист_изучения_кандидата_на_призыв.docx"),
-															tempList, null, null);
+															ref temp_DataBase, tempList, null, null);
                                                     }
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
                                                         Model.Templates temp = new Model.Templates(
                                                             System.IO.Path.GetFullPath(@".\Templates\Личная_карточка_студента.docx"),
-															tempList, null, null);
+															ref temp_DataBase, tempList, null, null);
                                                     }
                                                     break;
 

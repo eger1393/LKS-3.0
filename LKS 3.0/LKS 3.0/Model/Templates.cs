@@ -10,6 +10,7 @@ using DocumentFormat.OpenXml.Packaging;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
+using System.Data.Entity;
 
 
 namespace LKS_3._0.Model
@@ -23,8 +24,12 @@ namespace LKS_3._0.Model
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
+		Model.AdministrationMilitaryDepartments adminInfo; // Военком и нач кафедры
 
-		public Templates(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
+		// TODO
+		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
+
+		public Templates(string fileName, ref ApplicationContext temp_DataBase, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
 		{   //TODO отрефактрить этот код
 			// КОСТЫЛЬ
 			if (Students == null)
@@ -48,7 +53,14 @@ namespace LKS_3._0.Model
 			}
 			selectedStudent = students.First(); // устанавливаем выбранного стуента
 			changeSelectedStudent(); // меняем мать и отца студента
-			summer = charges;
+
+			////
+			DataBase = temp_DataBase;
+			DataBase.Summers.Load();
+			DataBase.AdministrationMilitaryDepartments.Load();
+			summer = DataBase.Summers.Local.ToList().First(); // в summers должна быть только одна запись!
+			adminInfo = DataBase.AdministrationMilitaryDepartments.Local.ToList().First();
+			
 			
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
@@ -970,54 +982,86 @@ namespace LKS_3._0.Model
 				}
 			}
 
-			if (summer == null) // ИЗМЕНИТЬ НА НЕ РАВНО
+			if (summer != null) // ИЗМЕНИТЬ НА НЕ РАВНО
 			{
 				if (command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
 				{
-					return "123"; // тестовая строчка, УДАЛИТЬ!
+					//return "123"; // тестовая строчка, УДАЛИТЬ!
 					return summer.NumberofOrder;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ДАТА ПРИКАЗА")
 				{
-					return "12.05.12"; // тестовая строчка, УДАЛИТЬ!
+					//return "12.05.12"; // тестовая строчка, УДАЛИТЬ!
 					return summer.DateOfOrder;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ДАТА НАЧАЛА")
 				{
-					return "10.05.12"; // тестовая строчка, УДАЛИТЬ!
+					//return "10.05.12"; // тестовая строчка, УДАЛИТЬ!
 					return summer.DateBeginSbori;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ДАТА ОКОНЧАНИЯ")
 				{
-					return "30.06.12"; // тестовая строчка, УДАЛИТЬ!
+					//return "30.06.12"; // тестовая строчка, УДАЛИТЬ!
 					return summer.DateEndSbori;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
 				{
-					return "25.06.12"; // тестовая строчка, УДАЛИТЬ!
+					//return "25.06.12"; // тестовая строчка, УДАЛИТЬ!
 					return summer.DatePrisyaga;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ДАТА ЭКЗАМЕНА")
 				{
-					return "26.06.12"; // тестовая строчка, УДАЛИТЬ!
+					//return "26.06.12"; // тестовая строчка, УДАЛИТЬ!
 					return summer.DateExamen;
 				}
 
 				if (command.ToUpper() == "СБОРЫ НОМЕР ЧАСТИ")
 				{
-					return "321"; // тестовая строчка, УДАЛИТЬ!
+					//return "321"; // тестовая строчка, УДАЛИТЬ!
 					return summer.NumberVK;
 				}
 
 				if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
 				{
-					return "г. Москва"; // тестовая строчка, УДАЛИТЬ!
+					//return "г. Москва"; // тестовая строчка, УДАЛИТЬ!
 					return summer.LocationVK;
+				}
+			}
+			if(adminInfo != null)
+			{
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
+				{
+					return adminInfo.HeadMilitaryDepartmentInitials;
+				}
+
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
+				{
+					return adminInfo.HeadMilitaryDepartmentRank;
+				}
+
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
+				{
+					return adminInfo.HeadMilitaryDepartmentPost;
+				}
+
+				if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
+				{
+					return adminInfo.WarriorInitials;
+				}
+
+				if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
+				{
+					return adminInfo.WarriorRank;
+				}
+
+				if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
+				{
+					return adminInfo.WarrioirPost;
 				}
 			}
 

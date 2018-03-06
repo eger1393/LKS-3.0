@@ -261,7 +261,7 @@ namespace LKS_3._0
 					(createReportUniversityCommand = new RelayCommand(obj =>
 				   {
 					   View.CreateReportUniversity Wind = new View.CreateReportUniversity(
-						   new ViewModel.CreateReportUniversityViewModel(Students, Troops));
+						   new ViewModel.CreateReportUniversityViewModel(ref DataBase, Students, Troops));
 					   Wind.Show();
 				   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
 			}
@@ -513,7 +513,7 @@ namespace LKS_3._0
                 return createReportCommand ??
                   (createReportCommand = new RelayCommand(obj =>
                   {
-                      CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(Students, Troops, null));
+                      CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(ref DataBase, Students, Troops, null));
                       CR_Window.Show();
                   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }

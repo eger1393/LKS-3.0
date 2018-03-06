@@ -17,7 +17,7 @@ namespace LKS_3._0
 		public DbSet<Relative> Relatives { get; set; }
 		public DbSet<Prepod> Prepods { get; set; }
 		public DbSet<Troop> Troops { get; set; }
-		public DbSet<Model.AdministrationMilitaryDepartment> AdministrationMilitaryDepartments { get; set;}
+		public DbSet<Model.AdministrationMilitaryDepartments> AdministrationMilitaryDepartments { get; set;}
         public DbSet<Model.Summer> Summers { get; set; }
     
         public DbSet<Model.Admin> Admins { get; set; }

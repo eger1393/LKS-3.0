@@ -238,7 +238,6 @@ namespace LKS_3._0
 					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
 				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
 				jpegBitmapEncoder.QualityLevel = 100;
-				//BitmapImage tt = Photo.Source as BitmapImage;
 				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
 				FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
 				jpegBitmapEncoder.Save(fileStream);

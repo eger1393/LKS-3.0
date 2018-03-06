@@ -38,6 +38,8 @@ namespace LKS_3._0.ViewModel
 		private Troop selectedTroop;
 		private RadioOptions radioOption = RadioOptions.None;
 
+		
+
 		// путь к шаблонам (строки - вкладки, столбцы - конкретные шаблоны)
 		// TODO переделать исспользуя не массив
 		string[,] pathTemplate = 
@@ -165,7 +167,7 @@ namespace LKS_3._0.ViewModel
 						   tempList.Add(selectedTroop);
 						   Model.Templates temp = new Model.Templates(
 							   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
-							   null, null, tempList);
+							   ref temp_DataBase, null, null, tempList);
 					   }
 					   else
 					   {

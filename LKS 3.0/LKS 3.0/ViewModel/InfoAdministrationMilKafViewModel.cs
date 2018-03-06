@@ -21,7 +21,7 @@ namespace LKS_3._0.ViewModel
 		}
 
 		private RelayCommand saveChangedCommand;
-		private Model.AdministrationMilitaryDepartment administrationMillKaf;
+		private Model.AdministrationMilitaryDepartments administrationMillKaf;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -42,7 +42,7 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public AdministrationMilitaryDepartment AdministrationMillKaf
+		public AdministrationMilitaryDepartments AdministrationMillKaf
 		{
 			get
 			{
