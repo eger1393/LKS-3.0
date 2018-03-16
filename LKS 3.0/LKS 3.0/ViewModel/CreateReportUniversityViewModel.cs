@@ -312,9 +312,9 @@ namespace LKS_3._0.ViewModel
                                     }
                             }
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Неизвестная ошибка!", "Внимание!");
+                            MessageBox.Show("Неизвестная ошибка!\n" + ex.Message, "Внимание!");
                         }
                     }));
 			}
