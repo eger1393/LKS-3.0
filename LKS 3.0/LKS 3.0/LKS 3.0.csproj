@@ -193,6 +193,9 @@
     <Compile Include="View\NewSbori.xaml.cs">
       <DependentUpon>NewSbori.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ProgressBar.xaml.cs">
+      <DependentUpon>ProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SummerOrders.xaml.cs">
       <DependentUpon>SummerOrders.xaml</DependentUpon>
     </Compile>
@@ -259,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewSbori.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

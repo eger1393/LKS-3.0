@@ -26,6 +26,7 @@ namespace LKS_3._0
    
     public class ApplicationViewModel : INotifyPropertyChanged, IDisposable
     {
+        const int PROG_VALUE = 10;
         public ApplicationContext DataBase;
 
 		private RelayCommand addCommand,
@@ -699,6 +700,11 @@ namespace LKS_3._0
         private void Export2MaevDB()
         {
             int counter = 0;
+
+            View.ProgressBar ProgressWin = new View.ProgressBar();
+            ProgressWin.Show();
+            var Progress = ProgressWin.Progress_Bar;
+
             string path = Environment.CurrentDirectory + "/maev_new.mdb"; ;
             try
             {
@@ -729,6 +735,7 @@ namespace LKS_3._0
             try
             {
                 odbc_connection.Open();
+                
             }
             catch (Exception e)
             {
@@ -797,11 +804,10 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
                 var name_dp = NameToDP(s);
 
-                
                 try
                 {
                     //Дописываем остальную информацию
-                    cmd.CommandText = "UPDATE КПУ SET ВУЗ=@var1,[Год окончания ВУЗа]=@var2,[Год окончания В/К]=@var3,[Состоит на учете]=@var4,[Специальность воен]=@var5,[Рост]=@var6,[Одежда]=@var7,[Одежда размер]=@var8,[Головной убор]=@var9,[Противогаз]=@var10,[Домашний адрес]=@var11,[Телефон]=@var12,[Группа крови]=@var13,[Факультет]=@var14,[Специальность гр]=@var15,[Обувь]=@var16,[Фамилия ДП]=@var17,[Имя ДП]=@var18,[Отчество ДП]=@var19,ВУС =@var20,[В/кафедра]=@var21 WHERE к_код=@var22";
+                    cmd.CommandText = "UPDATE КПУ SET ВУЗ=@var1,[Год окончания ВУЗа]=@var2,[Год окончания В/К]=@var3,[Состоит на учете]=@var4,[Специальность воен]=@var5,[Рост]=@var6,[Одежда]=@var7,[Одежда размер]=@var8,[Головной убор]=@var9,[Противогаз]=@var10,[Домашний адрес]=@var11,[Телефон]=@var12,[Группа крови]=@var13,[Факультет]=@var14,[Специальность гр]=@var15,[Обувь]=@var16,[Фамилия ДП]=@var17,[Имя ДП]=@var18,[Отчество ДП]=@var19,ВУС =@var20,[В/кафедра]=@var21, [№ приказа]=@var22, [дата приказа]=@var23 WHERE к_код=@var24";
 
                     cmd.Parameters.Add("@var1", OleDbType.Char).Value = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
                     cmd.Parameters.Add("@var2", OleDbType.Char).Value = s.YearOfEndMAI != null ? s.YearOfEndMAI : "1990";
@@ -828,7 +834,9 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                     cmd.Parameters.Add("@var20", OleDbType.Char).Value = "042600";
 
                     cmd.Parameters.Add("@var21", OleDbType.Char).Value = "Военная кафедра МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
-                    cmd.Parameters.Add("@var22", OleDbType.Char).Value = id.ToString();
+                    cmd.Parameters.Add("@var22", OleDbType.Char).Value = s.NumberOfOrder != null ? s.NumberOfOrder : "Нет";
+                    cmd.Parameters.Add("@var23", OleDbType.Char).Value = s.DateOfOrder != "" ? Convert.ToDateTime(s.DateOfOrder) : Convert.ToDateTime("01.01.1990");
+                    cmd.Parameters.Add("@var24", OleDbType.Char).Value = id.ToString();
 
                     /*"годен к военной службе"*/ /*[Категория годности] = '{21}'*/
 
@@ -946,7 +954,13 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
             odbc_connection.Close();
 
-            MessageBox.Show(String.Format("Студентов экспортировано: {0}", counter), "Готово");
+  
+            MessageBoxResult res = MessageBox.Show(String.Format("Студентов экспортировано: {0}", counter), "Успешно!", MessageBoxButton.OK);
+            if (res.ToString() == "OK")
+            {
+                ProgressWin.Close();
+            }
+            
         }
 
 
@@ -976,6 +990,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                       View.ChangeKurs wind = new View.ChangeKurs(Students);
                       wind.ShowDialog();
                       DataBase.SaveChanges();
+                      
                   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }

@@ -14,11 +14,6 @@ using System.Windows;
 
 namespace LKS_3._0.ViewModel
 {
-
-    //ПРИ ПЕРЕЩЕЛКИВАНИИ ВЗВОДОВ САМ ПО СЕБЕ ЗАПОЛНЯЕТСЯ ОТВ. ПРЕПОДАВАТЕЛЬ, ИСПРАВИТЬ!
-
-
-
     public class EditTroopViewModel : INotifyPropertyChanged
     {
         public ApplicationContext DataBaseTr;

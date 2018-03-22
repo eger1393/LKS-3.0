@@ -93,7 +93,7 @@ namespace LKS_3._0
 
                       if (addPrepodWindow.ShowDialog() == true)
                       { 
-                          Prepods.Add(temp_prepod);
+                          //Prepods.Add(temp_prepod);
                           DataBasePr.Entry(temp_prepod).State = EntityState.Modified;
                           DataBasePr.SaveChanges();
                           SelectedPrepod = temp_prepod;

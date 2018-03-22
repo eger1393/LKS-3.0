@@ -47,7 +47,7 @@ namespace LKS_3._0.View
             foreach (PropertyInfo el in Property_Arr)
             {
 
-
+                TroopGrid.IsReadOnly = true;
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
                 if (temp_attribute != null)
                 {
@@ -55,6 +55,7 @@ namespace LKS_3._0.View
                     {
                         DataGridCheckBoxColumn _temp_column = new DataGridCheckBoxColumn();
                         _temp_column.Header = temp_attribute.Get_RussianTittle;
+                        _temp_column.IsReadOnly = false;
                         Binding _myNewBindDef = new Binding(el.Name);
                         _temp_column.Binding = _myNewBindDef;
                         TroopGrid.Columns.Add(_temp_column);
@@ -63,7 +64,7 @@ namespace LKS_3._0.View
                     {
                         DataGridComboBoxColumn _temp_column = new DataGridComboBoxColumn();
                         _temp_column.Header = temp_attribute.Get_RussianTittle;
-
+                        _temp_column.IsReadOnly = false;
                         Binding _myNewBindDef = new Binding(el.Name);
                         _temp_column.ItemsSource = days;
                         _temp_column.TextBinding = _myNewBindDef;
@@ -83,7 +84,7 @@ namespace LKS_3._0.View
                     {
                         DataGridTextColumn temp_column = new DataGridTextColumn();
                         temp_column.Header = temp_attribute.Get_RussianTittle;
-
+                        temp_column.IsReadOnly = false;
                         Binding myNewBindDef = new Binding(el.Name);
                         temp_column.Binding = myNewBindDef;
                         TroopGrid.Columns.Add(temp_column);
