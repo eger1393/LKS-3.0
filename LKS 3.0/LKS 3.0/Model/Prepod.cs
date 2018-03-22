@@ -11,8 +11,10 @@ namespace LKS_3._0
         public static int _count;
 
         private int ID;
-       
-        public int Id
+		private string signaturePath;
+
+
+		public int Id
         {
             get
             {
@@ -34,6 +36,18 @@ namespace LKS_3._0
 		public string initials()
 		{
 			return FirstName + " " + MiddleName[0] + ". " + LastName[0] + ".";
+		}
+
+		public string SignaturePath
+		{
+			get
+			{
+				return AppDomain.CurrentDomain.BaseDirectory + signaturePath;
+			}
+			set
+			{
+				signaturePath = value;
+			}
 		}
 
 		[RusName("Фамилия")]

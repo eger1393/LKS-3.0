@@ -287,14 +287,23 @@ namespace LKS_3._0.Model
 				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
 				{
 					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
-					if (valueCommand == "ФОТО")
+					if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
 					{
-						// скопипастил вставку картинок тупо из мдсн
+						string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
+						if(valueCommand == "ФОТО")
+						{
+							path = selectedStudent.ImagePath;
+						}
+						else
+						{
+							path = selectedTrop.ResponsiblePrepod.SignaturePath;
+						}
+						// скопипастил вставку картинок из мдсн
 						MainDocumentPart mainPart = doc.MainDocumentPart;
 						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
 						try
 						{
-							using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+							using (FileStream stream = new FileStream(path, FileMode.Open))
 							{
 								imagePart.FeedData(stream);
 							}
