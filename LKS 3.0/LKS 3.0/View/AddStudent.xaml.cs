@@ -35,7 +35,7 @@ namespace LKS_3._0
 		{
 			InitializeComponent();
 
-            CbTroop.ItemsSource = temp_DataBase.Troops.Where(u => u.SboriTroop == false).Select(u => u.NumberTroop).Distinct().ToList();
+            CbTroop.ItemsSource = temp_DataBase.Troops.Local.Where(c => c.SboriTroop == false && c.NumberTroop != null).Select(u => u.NumberTroop).ToList();
 
             CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.Group).Distinct().ToList();
 
@@ -47,9 +47,7 @@ namespace LKS_3._0
 
             CbRank.ItemsSource = Troop.Ranks;
 
-            viewModel = new AddStudentViewModel(ref temp_DataBase);
-
-			viewModel.AddedStudent = temp;
+            viewModel = new AddStudentViewModel(ref temp_DataBase, ref temp);
 
             DataContext = viewModel;
 
@@ -231,19 +229,19 @@ namespace LKS_3._0
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 
-            if (ImageBitmapFrame != null)
-			{
-				string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
-				if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
-					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
-				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
-				jpegBitmapEncoder.QualityLevel = 100;
-				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
-				jpegBitmapEncoder.Save(fileStream);
-				fileStream.Close();
-				viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
-			}
+            //         if (ImageBitmapFrame != null)
+            //{
+            //	string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
+            //	if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+            //		File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
+            //	JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
+            //	jpegBitmapEncoder.QualityLevel = 100;
+            //	jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
+            //	FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
+            //	jpegBitmapEncoder.Save(fileStream);
+            //	fileStream.Close();
+            //	viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
+            //}
 
             if(viewModel.AddedStudent.MiddleName == null)
             {
@@ -270,6 +268,18 @@ namespace LKS_3._0
             DialogResult = false;
 
             Close();
+        }
+
+        private void CbTroop_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (viewModel != null)
+                viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = CbTroop.Text; 
+        }
+
+        private void CbTroop_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (viewModel != null)
+                CbTroop.Text = viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
         }
     }
 }

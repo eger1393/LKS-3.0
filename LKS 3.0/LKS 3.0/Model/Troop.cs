@@ -20,11 +20,14 @@ namespace LKS_3._0
 
         public Student PlatoonCommander;
 
-        public BindingList<Student> ListStudents;
+        private BindingList<Student> students;
+
+        public BindingList<Prepod> Prepods;
 
         private bool sboriTroop;
 
-        private int ID, ID_RP, ID_PC, staffCount;
+        private int ID, staffCount;
+        private int? ID_RP, ID_PC;
 
         public static List<string> Ranks = new List<string>() { "КВ",
         "КО1",
@@ -36,18 +39,16 @@ namespace LKS_3._0
         "Отсутствует" };
         public Troop()
         {
-            StaffCount = 0;
-            ListStudents = new BindingList<Student>();
-            StaffCount = ListStudents.Count;
+            Students = new BindingList<Student>();
+            StaffCount = Students.Count;
             ID_RP = 0;
             ID_PC = 0;
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
-            StaffCount = 0;
-            ListStudents = new BindingList<Student>();
-            StaffCount = ListStudents.Count;
+            Students = new BindingList<Student>();
+            StaffCount = Students.Count;
             ID_RP = 0;
             ID_PC = 0;
         }
@@ -108,7 +109,7 @@ namespace LKS_3._0
         }
 
 
-        public int Id_RP
+        public int? Id_RP
         {
             get
             {
@@ -124,7 +125,7 @@ namespace LKS_3._0
             }
         }
 
-        public int Id_PC
+        public int? Id_PC
         {
             get
             {
@@ -169,9 +170,20 @@ namespace LKS_3._0
             }
         }
 
- 
+        public virtual BindingList<Student> Students
+        {
+            get
+            {
+                return students;
+            }
 
-		override public string ToString()
+            set
+            {
+                students = value;
+            }
+        }
+
+        override public string ToString()
 		{
 			return numberTroop;
 		}

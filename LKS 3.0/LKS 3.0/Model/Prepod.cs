@@ -23,6 +23,10 @@ namespace LKS_3._0
                 ID = value;
             }
         }
+
+        public int? TroopId { get; set; }
+        public Troop Troop { get; set; }
+
         public Prepod()
         {
             FirstName = "";

@@ -45,7 +45,7 @@ namespace LKS_3._0.Model
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().ListStudents.ToList();
+				this.students = troops.First().Students.ToList();
 				selectedTrop = troops.First();
 			}
 			else
@@ -58,7 +58,7 @@ namespace LKS_3._0.Model
 			}
 			catch(System.InvalidOperationException ex)
 			{
-				System.Windows.MessageBox.Show("Во взводе нет студентов!");
+				System.Windows.MessageBox.Show("Во взводе нет студентов!", ex.Message);
 				return;
 			}
 			changeSelectedStudent(); // меняем мать и отца студента
@@ -161,9 +161,9 @@ namespace LKS_3._0.Model
 								{
 									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
 									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
-									for (int i = 0; i < selectedStudent.ListRelatives.Count; i++) // проходим по всем родственникам
+									for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
 									{
-										selectedRelative = selectedStudent.ListRelatives[i];
+										selectedRelative = selectedStudent.Relatives[i];
 										stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
 										rowIndex++; // перешли на след строку
 									} 
@@ -220,9 +220,9 @@ namespace LKS_3._0.Model
 								{
 									row.Descendants<SdtElement>().ToList().Find(obj =>
 									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
-									for (int i = 0; i < selectedStudent.ListRelatives.Count; i++)
+									for (int i = 0; i < selectedStudent.Relatives.Count; i++)
 									{
-										selectedRelative = selectedStudent.ListRelatives[i];
+										selectedRelative = selectedStudent.Relatives[i];
 										// Модифицировани строку с закладками и добавили ее к таблице
 										table.AppendChild(stringHandlintWithAdditionRows(table, row.Clone() as TableRow, i));
 									} // закончили создание таблицы
@@ -569,7 +569,7 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop;
+				return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
@@ -964,7 +964,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
-						return selectedTrop.PlatoonCommander.Troop;
+						return selectedTrop.NumberTroop;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
@@ -1272,7 +1272,7 @@ namespace LKS_3._0.Model
 
 		void changeTroop()
 		{
-			students = selectedTrop.ListStudents.ToList();
+			students = selectedTrop.Students.ToList();
 			selectedStudent = students.First();
 			changeSelectedStudent();
 		}
@@ -1281,13 +1281,13 @@ namespace LKS_3._0.Model
 		{
 			selectedStudentMather = null;
 			selectedStudentFather = null;
-			if (selectedStudent.ListRelatives != null)
+			if (selectedStudent.Relatives != null)
 			{
-				if (selectedStudent.ListRelatives.Count != 0)
+				if (selectedStudent.Relatives.Count != 0)
 				{
-					selectedRelative = selectedStudent.ListRelatives.First();
+					selectedRelative = selectedStudent.Relatives.First();
 				}
-				foreach (Relative item in selectedStudent.ListRelatives)
+				foreach (Relative item in selectedStudent.Relatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
 					{

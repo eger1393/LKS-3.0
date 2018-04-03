@@ -76,9 +76,7 @@
                 <MenuItem Header="Удалить студента" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=StudentsGrid, Path=SelectedItem}">
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Преподаватели">
-                <MenuItem Header="Редактировать" Command="{Binding EditPrepodsCommand}">
-                </MenuItem>
+            <MenuItem Header="Преподаватели" Command="{Binding EditPrepodsCommand}">
             </MenuItem>
             <MenuItem Header="Взвода" Command="{Binding EditTroopCommand}"/>
             <MenuItem Header="Сборы">

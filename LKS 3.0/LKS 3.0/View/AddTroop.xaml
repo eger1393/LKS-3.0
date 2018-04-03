@@ -1,0 +1,31 @@
+﻿<Window x:Class="LKS_3._0.View.AddTroop"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0.View"
+        mc:Ignorable="d"
+       Title="Редактирование/Добавление" Height="270" Width="310.008">
+
+    <StackPanel>
+        <Label x:Name="label" Content="Номер взвода"/>
+        <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding NumberTroop}"/>
+        <Label x:Name="label1" Content="ВУС"/>
+        <TextBox x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="{Binding Vus}"/>
+        <Label x:Name="label2" Content="Взвод для сборов?"/>
+        <CheckBox x:Name="checkBox_2" Content="Да" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"  IsChecked="{Binding SboriTroop}"/>
+        <Label x:Name="label3" Content="День прихода"/>
+        <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Stretch"  Grid.Row="17" VerticalAlignment="Top" Height="20" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding Day}">
+            <ListBoxItem Content="Пн" />
+            <ListBoxItem Content="Вт" />
+            <ListBoxItem Content="Ср" />
+            <ListBoxItem Content="Чт" />
+            <ListBoxItem Content="Пт" />
+        </ComboBox>
+
+
+        <Button x:Name="button" Content="Ok" Click="button_Click" Margin="0,15,0,0"/>
+
+
+    </StackPanel>
+</Window>

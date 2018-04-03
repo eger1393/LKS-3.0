@@ -24,6 +24,8 @@
 
 
         <Menu x:Name="Main_Menu" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="4">
+            <MenuItem Header="Добавить новый взвод" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=TroopGrid, Path=SelectedItem}">
+            </MenuItem>
             <MenuItem Header="Удалить выбранный взвод" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=TroopGrid, Path=SelectedItem}">
 
             </MenuItem>
@@ -38,6 +40,11 @@
                 CommandParameter="{Binding ElementName=TroopGrid, Path=SelectedItem}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectTroop}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Label x:Name="labelKO" Content="Командир взвода" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Left"/>
 

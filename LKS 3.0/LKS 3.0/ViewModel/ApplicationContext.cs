@@ -9,7 +9,7 @@ namespace LKS_3._0
 {
 	public class ApplicationContext : DbContext
 	{
-		public ApplicationContext() : base("DefaultConnection")
+		public ApplicationContext() : base("db_vkConnectionString")
 		{
 
 		}

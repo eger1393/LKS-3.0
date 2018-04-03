@@ -23,8 +23,14 @@ namespace LKS_3._0
     }
     public class Student:INotifyPropertyChanged
     {
-        public BindingList<Relative> ListRelatives;
+        private BindingList<Relative> relatives;
+
+        public BindingList<Troop> Troop { get; set; }
+
+        
+
         public static int _count;
+
 		private string imagePath;
 
 		public string initials()
@@ -45,7 +51,15 @@ namespace LKS_3._0
                 return ToString();
             }
         }
-       
+
+
+        public void Update_IdRelatives()
+        {
+            foreach (var item in Relatives)
+            {
+                item.StudentId = this.Id;
+            }
+        }
         public Student() // Конструктор по умолчанию
         {
             Skill1 = false;
@@ -54,10 +68,13 @@ namespace LKS_3._0
             Skill4 = false;
             Skill5 = false;
             Skill6 = false;
+            Troop = new BindingList<Troop>();
         }
-        public Student(string TroopName) // Конструктор с выбранным взводом
+        public Student(Troop troop) // Конструктор с выбранным взводом
         {
-            Troop = TroopName;
+            Troop = new BindingList<Troop>();
+            Relatives = new BindingList<Relative>();
+            Troop.Add(troop);
             Rank = "Отсутствует";
             Status = "Обучается";
             BloodType = "Не знаю";
@@ -90,9 +107,19 @@ namespace LKS_3._0
         [RusName("Отчество")]
         public string LastName // Отчество
         { get; set; }
-        [RusName("Взвод")]
-        public string Troop // Взвод
-        { get; set; }
+        //[RusName("Взвод")]
+        //public string NumTroop
+        //{
+        //    get
+        //    {
+        //        return Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
+        //    }
+
+        //    set
+        //    {
+        //        Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = value;
+        //    }
+        //}
         [RusName("Должность")]
         public string Rank // Звание студента (перечисление)
         { get; set; }
@@ -174,8 +201,8 @@ namespace LKS_3._0
 		public string FamiliStatys
         { get; set; }
 
-
-
+        //public string NumSboriTroop
+        //{ get; set; }
         public string Two_MobilePhone
         { get; set; }
         public string Note
@@ -184,8 +211,8 @@ namespace LKS_3._0
         {
 			get
 			{
-				//return imagePath;
-				return AppDomain.CurrentDomain.BaseDirectory + imagePath;
+				return imagePath;
+				//return AppDomain.CurrentDomain.BaseDirectory + imagePath;
 			}
 			set
 			{
@@ -235,9 +262,21 @@ namespace LKS_3._0
         public string Status
         { get; set; }
 
-        public string NumSboriTroop
-        { get; set; }
+       
 
+        public virtual BindingList<Relative> Relatives
+        {
+            get
+            {
+                return relatives;
+            }
 
+            set
+            {
+                relatives = value;
+            }
+        }
+
+        
     }
 }

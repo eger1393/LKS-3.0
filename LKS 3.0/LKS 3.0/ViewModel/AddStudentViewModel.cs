@@ -14,21 +14,21 @@ namespace LKS_3._0
 	{
         public ApplicationContext DataBaseR;
 
-        public AddStudentViewModel(ref ApplicationContext temp_database)
+        public AddStudentViewModel(ref ApplicationContext temp_database, ref Student temp)
         {
             DataBaseR = temp_database;
-
-            DataBaseR.Relatives.Load();
-
-            Relative._count = DataBaseR.Relatives.Count();
-
-            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
-
+            AddedStudent = temp;
+            Relatives = AddedStudent.Relatives;
             AddedRelative = new Relative();
+
+            //Relatives = new BindingList<Relative>(DataBaseR.Relatives.Local.Where(u => u.StudentId == AddedStudent.Id).ToList());
+            //Relatives = AddedStudent.Relatives;
+            //Relative._count = DataBaseR.Relatives.Count();
+
         }
 
         RelayCommand addRelativeCommand, editRelativeCommand, deleteRelativeCommand, saveChangeCommand;
-        private IEnumerable<Relative> relatives;
+        private BindingList<Relative> relatives;
         private Student addedStudent;
         private Relative selectedRelative;
         private Relative addedRelative;
@@ -40,25 +40,25 @@ namespace LKS_3._0
 				return addRelativeCommand ??
 				  (addRelativeCommand = new RelayCommand((add_relative) =>
 				  {
-                      if (add_relative == null) return;
-                      // получаем выделенный объект
+                      
                       Relative temp_relative = add_relative as Relative;
+                      if (temp_relative.FirstName == null) return;
+                      if(DataBaseR.Entry(temp_relative).State == EntityState.Modified)
+                      {
+                          DataBaseR.SaveChanges();
+                      }
+                      else
+                      {
+                          //temp_relative.StudentId = AddedStudent.Id;
+                          DataBaseR.Relatives.Add(temp_relative);
+                          Relatives.Add(temp_relative);
+                          DataBaseR.SaveChanges();
+                          //Relatives = new BindingList<Relative>(DataBaseR.Relatives.Local.Where(u => u.StudentId == AddedStudent.Id).ToList());
+                          Relatives = AddedStudent.Relatives;
+                      }
 
-                      Relative._count++;
 
-                      temp_relative.IdStudent = AddedStudent.Id;
-
-                      temp_relative.Id = Relative._count;
-
-                      DataBaseR.Relatives.Add(temp_relative);
-
-                      DataBaseR.SaveChanges();
-
-                      SelectedRelative = Relatives.Last();
-
-					  AddedRelative = new Relative();
-
-                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
+                      AddedRelative = new Relative();
                   }));
 			}
 			
@@ -74,11 +74,10 @@ namespace LKS_3._0
                       if (selectedItem == null) return;
                       // получаем выделенный объект
                       Relative temp_relative = selectedItem as Relative;
+
                       AddedRelative = temp_relative;
 
-                      DataBaseR.Relatives.Remove(temp_relative);
-                      DataBaseR.SaveChanges();
-                      Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
+                      DataBaseR.Entry(AddedRelative).State = EntityState.Modified;
                   }));
             }
         }
@@ -98,9 +97,12 @@ namespace LKS_3._0
                         {
                             Relative temp_relative = selectedItem as Relative;
                             DataBaseR.Relatives.Remove(temp_relative);
+                            Relatives.Remove(temp_relative);
                             DataBaseR.SaveChanges();
-                            Relative._count--;
-                            Relatives = DataBaseR.Relatives.Local.Where(u => u.IdStudent == AddedStudent.Id);
+                            //Relative._count--;
+                            //Relatives = DataBaseR.Relatives.Local.Where(u => u.StudentId == AddedStudent.Id);
+                            //Relatives = new BindingList<Relative>(DataBaseR.Relatives.Local.Where(u => u.StudentId == AddedStudent.Id).ToList());
+                            Relatives = AddedStudent.Relatives;
                         }
                         else if (res.ToString() == "No")
                         {
@@ -120,21 +122,15 @@ namespace LKS_3._0
                 return saveChangeCommand ??
                     (saveChangeCommand = new RelayCommand(selectedItem =>
                     {
-                        if (AddedStudent.Id == 0)
-                        {
-                            Student._count++;
-                            AddedStudent.Id = Student._count;
-                        }
-
-                        AddedStudent.ListRelatives = new BindingList<Relative>(Relatives.Where(u => u.IdStudent == AddedStudent.Id).ToList());
-
                         AddedStudent.Collness = "Студент";
+
+                        DataBaseR.SaveChanges();
                     }));
             }
 
         }
 
-        public IEnumerable<Relative> Relatives
+        public BindingList<Relative> Relatives
         {
             get
             {

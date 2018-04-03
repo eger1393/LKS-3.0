@@ -28,13 +28,13 @@ namespace LKS_3._0.View
     {
 
         string[] days = { "Пн", "Вт", "Ср", "Чт", "Пт" };
-        public EditTroop(ref ApplicationContext temp_database, BindingList<Troop> _troops)
+        public EditTroop(ref ApplicationContext temp_database)
         {
             InitializeComponent();
 
             comboBoxPrepods.ItemsSource = temp_database.Prepods.Local.ToBindingList();
 
-            DataContext = new ViewModel.EditTroopViewModel(ref temp_database, _troops);
+            DataContext = new ViewModel.EditTroopViewModel(ref temp_database);
 
             Binding_columns();
 

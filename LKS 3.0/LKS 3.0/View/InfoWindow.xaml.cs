@@ -41,7 +41,7 @@ namespace LKS_3._0.View
                     }
                 default:
                     {
-                        textBlockAll.Text = Students.Where(u => u.Troop == comboBoxInfo.Text).Count().ToString();
+                        textBlockAll.Text = Students.Where(u => u.Troop[0].NumberTroop == comboBoxInfo.Text).Count().ToString();
                         break;
                     }
 
@@ -49,7 +49,7 @@ namespace LKS_3._0.View
 
             if (comboBoxInfo.SelectedIndex != 0)
             {
-                temp_students = new BindingList<Student>(Students.Where(u => u.Troop == comboBoxInfo.Text).ToList());
+                temp_students = new BindingList<Student>(Students.Where(u => u.Troop[0].NumberTroop == comboBoxInfo.Text).ToList());
             }
             else
             {

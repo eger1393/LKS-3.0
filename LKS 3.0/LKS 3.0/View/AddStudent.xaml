@@ -63,14 +63,15 @@
                     <Label Grid.Column="2" Grid.Row="8" Content="Дата приказа" />
                     <Label Grid.Column="2" Grid.Row="9" Content="Военкомат"/>
                     <Label Grid.Column="2" Grid.Row="10" Content="Должность во взводе"/>
-                    
+
 
                     <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
-                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3" Text="{Binding Troop}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="1">
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3"  IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="1" SelectionChanged="CbTroop_SelectionChanged" Loaded="CbTroop_Loaded">
 
                     </ComboBox>
+                    <!--DataContext="{Binding Troop}"-->
                     <TextBox x:Name="TbYearOfRecepit" Grid.Column="1" Grid.Row="4" PreviewTextInput="TbOnlyDigit_PreviewTextInput" MaxLength="4">
                         <TextBox.Text>
                             <Binding Path="YearOfAddMAI" NotifyOnValidationError="True">
@@ -130,7 +131,7 @@
                     </ComboBox>
 
                     <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
-                      
+
                     </ComboBox>
 
                     <ComboBox x:Name="CbSpecInst" Grid.Column="3" Grid.Row="4" Text="{Binding SpecInst}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
@@ -156,7 +157,7 @@
                         <ListBoxItem Content="4"/>
                     </ComboBox>
                     <ComboBox x:Name="CbSpeciality" Grid.Column="3" Grid.Row="3" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
-                      
+
                     </ComboBox>
                     <ComboBox x:Name="CbConditions" Grid.Column="3" Grid.Row="5" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="Бюджетное"/>
@@ -336,7 +337,7 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="RelativeDataGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource ="{Binding Relatives}" SelectedItem="{Binding SelectedRelative}" HorizontalGridLinesBrush="DarkGray" RowBackground="LightGray"
                                Height="Auto" ColumnWidth="Auto" IsReadOnly="True" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" />
-                    <Button x:Name="BRelativeAdd" Grid.Row="1" Grid.Column="0" Command="{Binding AddRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding AddedRelative}" Content="Добавить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+                    <Button x:Name="BRelativeAdd" Grid.Row="1" Grid.Column="0" Command="{Binding AddRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding AddedRelative}" Content="Добавить/Сохр. изменения" Margin="24,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="185"/>
                     <Button x:Name="BRelativeEdit" Grid.Row="1" Grid.Column="1" Command="{Binding EditRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding SelectedRelative}" Content="Редактировать" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
                     <Button x:Name="BRelativeDelete" Grid.Row="1" Grid.Column="2" Command="{Binding DeleteRelative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" CommandParameter="{Binding SelectedRelative}" Content="Удалить" Margin="46,5,0,0" Height="37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
                     <Grid Grid.Row="2" Grid.ColumnSpan="3" DataContext="{Binding AddedRelative, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
@@ -407,6 +408,7 @@
         </TabControl>
         <Button x:Name="Save" Content="Сохранить" Margin="446,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Command="{Binding SaveChange}"  Click="Save_Click"/>
         <Button x:Name="Cnacel" Content="Отмена" Margin="567,535,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Click="Cnacel_Click"/>
+        <Label x:Name="Save_Copy" Margin="1,516,0,0" Height="13" VerticalAlignment="Top" HorizontalAlignment="Left" Width="690" Background="#FF252222"/>
 
     </Grid>
 
