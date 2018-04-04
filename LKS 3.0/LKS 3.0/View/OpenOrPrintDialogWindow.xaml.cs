@@ -15,28 +15,18 @@ using System.Windows.Shapes;
 namespace LKS_3._0.View
 {
 	/// <summary>
-	/// Логика взаимодействия для CreateReportUniversity.xaml
+	/// Логика взаимодействия для OpenOrPrintDialogWindow.xaml
 	/// </summary>
-	public partial class CreateReportUniversity : Window
+	public partial class OpenOrPrintDialogWindow : Window
 	{
-		ViewModel.CreateReportUniversityViewModel ViewModel;
-		public CreateReportUniversity(ViewModel.CreateReportUniversityViewModel VM)
+		ViewModel.OpenOrPrintDialogViewModel ViewModel;
+		public OpenOrPrintDialogWindow(ViewModel.OpenOrPrintDialogViewModel VM)
 		{
 			InitializeComponent();
-
 			ViewModel = VM;
 			DataContext = ViewModel;
 			if (ViewModel.CloseAction == null)
 				ViewModel.CloseAction = new Action(() => this.Close());
-
-		}
-
-		private void TbOnlyDigit_PreviewTextInput(object sender, TextCompositionEventArgs e)
-		{
-			if (!char.IsDigit(e.Text.ToString()[0]))
-			{
-				e.Handled = true;
-			}
 		}
 	}
 }

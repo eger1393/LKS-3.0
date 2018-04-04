@@ -219,8 +219,8 @@ namespace LKS_3._0
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
-				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad); // TODO немного костыля																														 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
-				Photo.Source = ImageBitmapFrame.CloneCurrentValue();//BitmapFrame.Create(streamOpenImage,BitmapCreateOptions.None,BitmapCacheOption.OnLoad); // записали фото 
+				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);																									 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
+				Photo.Source = ImageBitmapFrame.CloneCurrentValue(); // записали фото 
 				
 			
 			}
@@ -229,21 +229,23 @@ namespace LKS_3._0
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 
-            //         if (ImageBitmapFrame != null)
-            //{
-            //	string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
-            //	if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
-            //		File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
-            //	JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
-            //	jpegBitmapEncoder.QualityLevel = 100;
-            //	jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-            //	FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
-            //	jpegBitmapEncoder.Save(fileStream);
-            //	fileStream.Close();
-            //	viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
-            //}
+            if (ImageBitmapFrame != null)
+			{
+				string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
+				if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+				{
+					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
+				}
+				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
+				jpegBitmapEncoder.QualityLevel = 100;
+				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
+				FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
+				jpegBitmapEncoder.Save(fileStream);
+				fileStream.Close();
+				viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
+			}
 
-            if(viewModel.AddedStudent.MiddleName == null)
+            if(viewModel.AddedStudent.MiddleName == null) // почему именно фамилия??
             {
                 MessageBox.Show("Заполните поле фамилии!","Ошибка!");
             }

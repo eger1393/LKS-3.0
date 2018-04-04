@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing.Printing;
 using System.Collections.Generic;
+//using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,9 @@ using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.Data.Entity;
+
+using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
+
 
 
 namespace LKS_3._0.Model
@@ -27,12 +32,11 @@ namespace LKS_3._0.Model
 		Model.Department adminInfo; // Военком и нач кафедры
 		List<Admin> admins; // список администрации на сборах
 
-		// TODO
+		// Неуверен всетаки надо ли передавать ссылка на БД
 		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
 
 		public Templates(string fileName, ref ApplicationContext temp_DataBase, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
 		{   //TODO отрефактрить этот код
-			// КОСТЫЛЬ
 			if (Students == null)
 			{
 				Students = new List<Student>();
@@ -45,7 +49,7 @@ namespace LKS_3._0.Model
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().Students.ToList();
+				this.students = troops.First().ListStudents.ToList();
 				selectedTrop = troops.First();
 			}
 			else
@@ -56,9 +60,9 @@ namespace LKS_3._0.Model
 			{
 				selectedStudent = students.First(); // устанавливаем выбранного стуента
 			}
-			catch(System.InvalidOperationException ex)
+			catch (System.InvalidOperationException ex)
 			{
-				System.Windows.MessageBox.Show("Во взводе нет студентов!", ex.Message);
+				System.Windows.MessageBox.Show("Во взводе нет студентов!/n" + ex.Message);
 				return;
 			}
 			changeSelectedStudent(); // меняем мать и отца студента
@@ -71,11 +75,11 @@ namespace LKS_3._0.Model
 			summer = DataBase.Summers.Local.ToList().First(); // в summers должна быть только одна запись!
 			adminInfo = DataBase.Departments.Local.ToList().First();
 			admins = DataBase.Admins.Local.ToList();
-			
+
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
-			// добавили название файла в предложенное название
-			dlg.FileName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.LastIndexOf('.') - fileName.LastIndexOf('\\') - 1) + " "; 
+													   // добавили название файла в предложенное название
+			dlg.FileName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.LastIndexOf('.') - fileName.LastIndexOf('\\') - 1) + " ";
 			if (troops.Count == 0)
 			{
 				dlg.FileName += students.First().MiddleName;
@@ -125,51 +129,60 @@ namespace LKS_3._0.Model
 								}
 
 								// проверяем кам заполнять таблицу (студентами, взводами или родственниками)
-								// СТУДЕНТЫ
-								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ") != null)
+								string type = null;
+
+								type = tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
+								 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
+
+								if (type != null)
 								{
 									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ").Remove();
-									for (int i = 0; i < students.Count; i++) // проходим по всем студентам
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == type).Remove(); // удалили лишнюю закладку
+									switch (type)
 									{
-										selectedStudent = students[i];
-										changeSelectedStudent();
-										stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
-										rowIndex++; // перешли на след строку
-									} 
-									break; // закончили работу с таблицей
+										case "СТУДЕНТЫ":
+											{
+												for (int i = 0; i < students.Count; i++) // проходим по всем студентам
+												{
+													selectedStudent = students[i];
+													changeSelectedStudent();
+													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													rowIndex++; // перешли на след строку
+												}
+												break;
+											}
+										case "ВЗВОДА":
+											{
+												for (int i = 0; i < troops.Count; i++) // проходим по всем взводам
+												{
+													selectedTrop = troops[i];
+													changeTroop();
+													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													rowIndex++; // перешли на след строку
+												}
+												break;
+											}
+										case "РОДСТВЕННИКИ":
+											{
+												for (int i = 0; i < selectedStudent.ListRelatives.Count; i++) // проходим по всем родственникам
+												{
+													selectedRelative = selectedStudent.ListRelatives[i];
+													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													rowIndex++; // перешли на след строку
+												}
+												break;
+											}
+										default:
+											{
+												System.Windows.MessageBox.Show("Ошибра в типе таблицы!");
+												break;
+											}
+									}
 								}
-								// ВЗВОДА
-								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА") != null)
-								{
-									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА").Remove();
-									for (int i = 0; i < troops.Count; i++) // проходим по всем взводам
-									{
-										selectedTrop = troops[i];
-										changeTroop();
-										stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
-										rowIndex++; // перешли на след строку
-									} 
-									break; // закончили работу с таблицей
-								}
-								//РОДСТВЕННИКИ
-								if (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") != null)
-								{
-									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
-									for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
-									{
-										selectedRelative = selectedStudent.Relatives[i];
-										stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
-										rowIndex++; // перешли на след строку
-									} 
-									break; // закончили работу с таблицей
-								}
-								break; // если есть закладки но нет меток (С, В, или Р) то заканчиваем обработку таблицы 
+
 							}
 							rowIndex++; // если нет закладок то переходим на след строку
 						}
@@ -180,58 +193,83 @@ namespace LKS_3._0.Model
 						{
 							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
 							{
-								// Студенты
-								if (row.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ") != null)
+
+								string type = null;
+								try
 								{
-									// удалили лишнюю комаду
-									row.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ").Remove();
-									for (int i = 0; i < students.Count; i++)
-									{
-										selectedStudent = students[i];
-										changeSelectedStudent();
-										// Модифицировани строку с закладками и добавили ее к таблице
-										table.AppendChild(stringHandlintWithAdditionRows(table, row.Clone() as TableRow, i));
-									} // закончили создание таблицы
-									// удалили исходную строку с закладками(она не трогалась т.к. выступала в качестве шаблона)
-									row.Parent.RemoveChild(row); 
-									break; // закончили работу с таблицей
+									type = row.Descendants<SdtElement>().ToList().Find(obj =>
+									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
+									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
+									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
+									 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
 								}
-								// Взвода
-								if (row.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА") != null)
+								//TODO Обработать исключения, если файнд вернул false
+								catch (NullReferenceException ex) // 
 								{
-									row.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА").Remove();
-									for (int i = 0; i < troops.Count; i++)
-									{
-										selectedTrop = troops[i];
-										changeTroop();
-										// Модифицировани строку с закладками и добавили ее к таблице
-										table.AppendChild(stringHandlintWithAdditionRows(table, row.Clone() as TableRow, i));
-									} // закончили создание таблицы
-									row.Parent.RemoveChild(row); 
-									break; // закончили работу с таблицей
-								}
-								//Родственники
-								if (row.Descendants<SdtElement>().ToList().Find(obj =>
-								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") != null)
-								{
-									row.Descendants<SdtElement>().ToList().Find(obj =>
-									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ").Remove();
-									for (int i = 0; i < selectedStudent.Relatives.Count; i++)
-									{
-										selectedRelative = selectedStudent.Relatives[i];
-										// Модифицировани строку с закладками и добавили ее к таблице
-										table.AppendChild(stringHandlintWithAdditionRows(table, row.Clone() as TableRow, i));
-									} // закончили создание таблицы
-									row.Parent.RemoveChild(row);
-									break; // закончили работу с таблицей
+									type = null; // в таблицу не надо заполнять повторяющимися стрками(она исспользуется просто как форматирование)
 								}
 
+								if (type != null)
+								{
+									row.Descendants<SdtElement>().ToList().Find(obj =>
+									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == type).Remove(); // удалили лишнюю закладку
+									switch (type)
+									{
+										case "СТУДЕНТЫ":
+											{
+												for (int i = 0; i < students.Count; i++) // проходим по всем студентам
+												{
+													selectedStudent = students[i];
+													changeSelectedStudent();
+													TableRow tempRow = row.Clone() as TableRow;
+													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+													{
+														BookmarkingToCommand(formattedText, i);
+													}
+													table.AppendChild(tempRow);
+												}
+												row.Parent.RemoveChild(row);
+												break;
+											}
+										case "ВЗВОДА":
+											{
+												for (int i = 0; i < troops.Count; i++) // проходим по всем взводам
+												{
+													selectedTrop = troops[i];
+													changeTroop();
+													TableRow tempRow = row.Clone() as TableRow;
+													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+													{
+														BookmarkingToCommand(formattedText, i);
+													}
+													table.AppendChild(tempRow);
+												}
+												row.Parent.RemoveChild(row);
+												break;
+											}
+										case "РОДСТВЕННИКИ":
+											{
+												for (int i = 0; i < selectedStudent.ListRelatives.Count; i++) // проходим по всем родственникам
+												{
+													selectedRelative = selectedStudent.ListRelatives[i];
+													TableRow tempRow = row.Clone() as TableRow;
+													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+													{
+														BookmarkingToCommand(formattedText, i);
+													}
+													table.AppendChild(tempRow);
+												}
+												row.Parent.RemoveChild(row);
+												break;
+											}
+										default:
+											{
+												System.Windows.MessageBox.Show("Ошибра в типе таблицы!");
+												break;
+											}
+									}
+								}
 							}
-
 						}
 					}
 				}
@@ -246,14 +284,23 @@ namespace LKS_3._0.Model
 				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
 				{
 					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
-					if (valueCommand == "ФОТО")
+					if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
 					{
-						// скопипастил вставку картинок тупо из мдсн
+						string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
+						if (valueCommand == "ФОТО")
+						{
+							path = selectedStudent.ImagePath;
+						}
+						else
+						{
+							path = selectedTrop.ResponsiblePrepod.SignaturePath;
+						}
+						// скопипастил вставку картинок из мдсн
 						MainDocumentPart mainPart = doc.MainDocumentPart;
 						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
 						try
 						{
-							using (FileStream stream = new FileStream(selectedStudent.ImagePath, FileMode.Open))
+							using (FileStream stream = new FileStream(path, FileMode.Open))
 							{
 								imagePart.FeedData(stream);
 							}
@@ -261,27 +308,49 @@ namespace LKS_3._0.Model
 						}
 						catch (System.NotSupportedException ex)
 						{
-							
+
 							System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
 							continue;
 						}
 						continue;
 					}
-					if (valueCommand != "false")
-					{
-						Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
-						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
-						formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
-																				   // и заменил закладку обычным текстом
-					}
+
+					Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
+					(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+					formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																			   // и заменил закладку обычным текстом
 				}
 			}
-			System.Windows.MessageBox.Show("Готово!");
+			View.OpenOrPrintDialogWindow window = new View.OpenOrPrintDialogWindow(
+				new ViewModel.OpenOrPrintDialogViewModel(dlg.FileName));
+			window.ShowDialog();
+		}
+		/// <summary>
+		/// Печать файла
+		/// </summary>
+		/// <param name="path">Путь к файлу</param>
+		/// <param name="count">Кол-во копий</param>
+		public static void PrintDocument(string path, int count)
+		{
+			try
+			{
+				WORD.Application app = new WORD.Application();
+				app.Documents.Open(path);
+				dynamic dlg = app.Dialogs[WORD.WdWordDialog.wdDialogFilePrint];
+				dlg.NumCopies = count;
+				dlg.Show();
+				app.ActiveDocument.Close();
+				app.Quit();
+			}
+			catch
+			{
+
+			}
+
+
 		}
 
-
-
-		private static void AddImageToBody(SdtElement formattedText, string relationshipId)
+		private void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
 			// скопипастил код из МДСН 
 			var element =
@@ -350,40 +419,35 @@ namespace LKS_3._0.Model
 			// Append the reference to body, the element should be in a Run.
 			formattedText.Parent.ReplaceChild(new Run(element), formattedText);
 		}
+
 		/// <summary>
-		/// Модификация таблицы с добавлением новых строк
+		/// Замена закладки на команду
 		/// </summary>
-		/// <param name="table">ссылка на таблицу</param>
-		/// <param name="tempRow">копия строки с закладками</param>
+		/// <param name="formattedText">Закладка</param>
 		/// <param name="i">Номер строки в таблице(нужно для команды №)</param>
-		/// <returns>Возвращает модифицированную строку с командами(все закладки заменены на нужные значения)</returns>
-		private TableRow stringHandlintWithAdditionRows(Table table, TableRow tempRow, int i)
+		private void BookmarkingToCommand(SdtElement formattedText, int i)
 		{
-			// модифицировал копию строки
-			foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
+			string valueCommand;
+			if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
 			{
-				string valueCommand;
-				if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
-				{
-					valueCommand = (i + 1).ToString();
-				}
-				else
-				{
-					valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
-				}
-				
-					// TODO Добавить обработку ситуации когда в закладке нет текста)
-					Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
-					(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
-					if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОВАЯ СТРОКА")
-					{
-						tempRun.AppendChild(new Break());
-					}
-					formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
-																			   // и заменил закладку обычным текстом
-				
+				valueCommand = (i + 1).ToString();
 			}
-			return tempRow;
+			else
+			{
+				valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+			}
+
+			// В закладке всегда есть элемент Run (он создается вордом даже в том случае если там нет текста
+			Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
+			(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
+			if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОВАЯ СТРОКА")
+			{
+				tempRun.AppendChild(new Break());
+			}
+			formattedText.Parent.ReplaceChild(tempRun, formattedText); // взял родителя закладки,
+																	   // и заменил закладку обычным текстом
+
+
 		}
 
 		/// <summary>
@@ -393,12 +457,12 @@ namespace LKS_3._0.Model
 		/// <param name="rowIndex">Индекс строки</param>
 		/// <param name="tempRow">Шаблонная строка</param>
 		/// <param name="i">Номер строки в таблице(нужно для команды №)</param>
-		private void stringHandling(Table table, int rowIndex,TableRow tempRow, int i)
+		private void stringHandling(Table table, int rowIndex, TableRow tempRow, int i)
 		{
 			// перечеслитель для перебора ячеек в строке которая назодится в таблице(изначально он стоит ДО нулевой позиции
 			IEnumerator<TableCell> IEcell = table.Elements<TableRow>().ToList()[rowIndex].
-											Descendants<TableCell>().ToList().GetEnumerator();  
-			foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам
+											Descendants<TableCell>().ToList().GetEnumerator();
+			foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам во временной строке
 			{
 				IEcell.MoveNext();// передвинули перечеслитель
 				if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
@@ -408,21 +472,8 @@ namespace LKS_3._0.Model
 					IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
 					foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
 					{
-						string valueCommand;
-						if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
-						{
-							valueCommand = (i + 1).ToString();
-						}
-						else
-						{
-							valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
-						}
+						BookmarkingToCommand(formattedText, i);
 
-						// TODO Добавить обработку ситуации когда в закладке нет текста)
-						Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
-						(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
-						// взял родителя закладки, и заменил закладку обычным текстом
-						formattedText.Parent.ReplaceChild(tempRun, formattedText); 
 					}
 				}
 			}
@@ -569,7 +620,7 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
+				return selectedStudent.Troop;
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
@@ -964,7 +1015,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
-						return selectedTrop.NumberTroop;
+						return selectedTrop.PlatoonCommander.Troop;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
@@ -1036,7 +1087,7 @@ namespace LKS_3._0.Model
 					return summer.LocationVK;
 				}
 			}
-			if(adminInfo != null)
+			if (adminInfo != null)
 			{
 				if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
 				{
@@ -1068,7 +1119,7 @@ namespace LKS_3._0.Model
 					return adminInfo.WarrioirPost;
 				}
 			}
-			if(admins != null)
+			if (admins != null)
 			{
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
 				{
@@ -1077,7 +1128,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ФАМИЛИЯ")
 				{
-					return admins.Find(u=>u.Rank == "Начальник штаба").MiddleName;
+					return admins.Find(u => u.Rank == "Начальник штаба").MiddleName;
 				}
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ОТЧЕСТВО")
@@ -1272,7 +1323,7 @@ namespace LKS_3._0.Model
 
 		void changeTroop()
 		{
-			students = selectedTrop.Students.ToList();
+			students = selectedTrop.ListStudents.ToList();
 			selectedStudent = students.First();
 			changeSelectedStudent();
 		}
@@ -1281,13 +1332,13 @@ namespace LKS_3._0.Model
 		{
 			selectedStudentMather = null;
 			selectedStudentFather = null;
-			if (selectedStudent.Relatives != null)
+			if (selectedStudent.ListRelatives != null)
 			{
-				if (selectedStudent.Relatives.Count != 0)
+				if (selectedStudent.ListRelatives.Count != 0)
 				{
-					selectedRelative = selectedStudent.Relatives.First();
+					selectedRelative = selectedStudent.ListRelatives.First();
 				}
-				foreach (Relative item in selectedStudent.Relatives)
+				foreach (Relative item in selectedStudent.ListRelatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
 					{
