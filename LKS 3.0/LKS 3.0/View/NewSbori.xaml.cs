@@ -27,9 +27,9 @@ namespace LKS_3._0.View
 
             DataBaseSb = temp_DataBase;
 
-            comboBoxCurrent.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.ToString().Count() > 1);
+            comboBoxCurrent.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.SboriTroop == false);
 
-            comboBoxSbori.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.ToString().Count() == 1);
+            comboBoxSbori.ItemsSource = DataBaseSb.Troops.Local.Where(u => u.SboriTroop == true);
 
             comboBoxPrepods.ItemsSource = DataBaseSb.Prepods.Local.ToBindingList();
 
@@ -45,10 +45,7 @@ namespace LKS_3._0.View
                 DialogResult = true;
                 Close();
             }
-            else if (res.ToString() == "No")
-            {
-                DataBaseSb.SaveChanges();
-            }
+            
        
         }
 

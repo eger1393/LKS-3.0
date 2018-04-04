@@ -14,11 +14,6 @@ using System.Windows;
 
 namespace LKS_3._0.ViewModel
 {
-
-    //ПРИ ПЕРЕЩЕЛКИВАНИИ ВЗВОДОВ САМ ПО СЕБЕ ЗАПОЛНЯЕТСЯ ОТВ. ПРЕПОДАВАТЕЛЬ, ИСПРАВИТЬ!
-
-
-
     public class EditTroopViewModel : INotifyPropertyChanged
     {
         public ApplicationContext DataBaseTr;
@@ -30,20 +25,18 @@ namespace LKS_3._0.ViewModel
 
       
 
-        public EditTroopViewModel(ref ApplicationContext temp_DB, BindingList<Troop> troops)
+        public EditTroopViewModel(ref ApplicationContext temp_DB)
         {
             DataBaseTr = temp_DB;
-            Troops = troops;
+            Troops = temp_DB.Troops.Local.ToBindingList();
+
             foreach (var item in Troops)
             {
-                item.StaffCount = item.ListStudents.Count;
+                item.StaffCount = item.Students.Count;
             }
         }
 
-        RelayCommand saveChangeCommand;
-        RelayCommand deleteCommand;
-        RelayCommand exelentCommand;
-        RelayCommand updatePCCommand, updateRPCommand;
+        private RelayCommand saveChangeCommand,deleteCommand,exelentCommand,updatePCCommand, updateRPCommand,editCommand,addCommand;
 
         public RelayCommand SaveChangeCommand
         {
@@ -57,7 +50,7 @@ namespace LKS_3._0.ViewModel
 
                       Troop temp_t = selectedItem as Troop;
 
-                      SelectTroopListStudent = temp_t.ListStudents;
+                      SelectTroopListStudent = temp_t.Students;
                       SelectStudent = temp_t.PlatoonCommander;
                       SelectPrepod = temp_t.ResponsiblePrepod;
 
@@ -65,7 +58,50 @@ namespace LKS_3._0.ViewModel
             }
         }
 
-      
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                      if (selectedItem == null) return;
+                      // получаем выделенный объект
+                      Troop temp_troop = selectedItem as Troop;
+
+                      View.AddTroop addTroopWindow = new View.AddTroop(temp_troop);
+
+                      if (addTroopWindow.ShowDialog() == true)
+                      {
+                          DataBaseTr.Entry(temp_troop).State = EntityState.Modified;
+                          DataBaseTr.SaveChanges();
+                          SelectTroop = temp_troop;
+                      }
+                  }));
+            }
+        }
+
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ??
+                  (addCommand = new RelayCommand((selectedItem) =>
+                  {
+                      Troop temp_troop = new Troop();
+                      View.AddTroop addTroopWindow = new View.AddTroop(temp_troop);
+
+                      if (addTroopWindow.ShowDialog() == true)
+                      {
+                          DataBaseTr.Troops.Add(temp_troop);
+                          DataBaseTr.SaveChanges();
+                          SelectTroop = temp_troop;
+                          Troops = DataBaseTr.Troops.Local.ToBindingList();
+                          
+                      }
+                  }));
+            }
+        }
 
         public RelayCommand DeleteCommand
         {
@@ -81,12 +117,13 @@ namespace LKS_3._0.ViewModel
                         if (res.ToString() == "Yes")
                             {
                                 Troop temp = selectedItem as Troop;
-                                DataBaseTr.Students.RemoveRange(SelectTroop.ListStudents);
+                                DataBaseTr.Students.RemoveRange(SelectTroop.Students);
                                 DataBaseTr.Troops.Remove(temp);
                                 DataBaseTr.SaveChanges();
-                                Troop._count--;
-                                Troops = DataBaseTr.Troops.Local.ToBindingList();
-                            }
+                                //Troop._count--;
+                                
+                                
+                        }
                         else if (res.ToString() == "No")
                             {
                                 deleteCommand = null;
@@ -107,9 +144,9 @@ namespace LKS_3._0.ViewModel
                   {
                       foreach (var item in Troops)
                       {
-                          foreach (var item2 in item.ListStudents)
+                          foreach (var item2 in item.Students)
                           {
-                              item2.Troop = item.NumberTroop;
+                              item2.Troop[0] = item;
                           }
                       }
                       DataBaseTr.SaveChanges();
@@ -129,7 +166,7 @@ namespace LKS_3._0.ViewModel
 
                       Student temp = selectedItem as Student;
 
-                      Student last_PC = SelectTroop.ListStudents.FirstOrDefault(u => u.Rank == "КО");
+                      Student last_PC = SelectTroop.Students.FirstOrDefault(u => u.Rank == "КО");
                       if(last_PC != null)
                       {
                           last_PC.Rank = "Отсутсвует";

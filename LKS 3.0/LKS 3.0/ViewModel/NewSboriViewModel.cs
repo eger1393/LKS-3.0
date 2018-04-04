@@ -59,23 +59,23 @@ namespace LKS_3._0.ViewModel
         private void Update()
         {
 
-            foreach (Troop item in Troops)
-            {
-                if (item.SboriTroop)
-                {
-                    item.ListStudents = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
-                }
-                else
-                {
-                    item.ListStudents = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.Troop == item.NumberTroop).ToList());
-                }
-            }
+            //foreach (Troop item in Troops)
+            //{
+            //    if (item.SboriTroop)
+            //    {
+            //        item.Students = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
+            //    }
+            //    else
+            //    {
+            //        item.Students = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.Troop.NumberTroop == item.NumberTroop).ToList());
+            //    }
+            //}
 
-            ListStudentsTroopSbori = Select_TroopSbori.ListStudents;
+            ListStudentsTroopSbori = Select_TroopSbori.Students;
             Select_TroopSbori.StaffCount = ListStudentsTroopSbori.Count;
 
 
-            ListStudentsTroopCurrent = Select_TroopCurrent.ListStudents;
+            ListStudentsTroopCurrent = Select_TroopCurrent.Students;
             Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
 
             SelectPrepod = Select_TroopSbori.ResponsiblePrepod;
@@ -117,7 +117,7 @@ namespace LKS_3._0.ViewModel
 
             set
             {
-                listStudentsTroopCurrent = new BindingList<Student>(value.Where(u => u.NumSboriTroop == null).ToList());
+                listStudentsTroopCurrent = new BindingList<Student>(value.Where(u => u.Status == "Обучается").ToList());
                 OnPropertyChanged();
             }
         }
@@ -167,7 +167,7 @@ namespace LKS_3._0.ViewModel
 
                      select_TroopCurrent = obj as Troop;
 
-                     ListStudentsTroopCurrent = Select_TroopCurrent.ListStudents;
+                     ListStudentsTroopCurrent = Select_TroopCurrent.Students;
 
                  }));
             }
@@ -198,11 +198,11 @@ namespace LKS_3._0.ViewModel
                     foreach (var item in collection)
                     {
                         item.Status = "На сборах";
-                        item.NumSboriTroop = Select_TroopSbori.NumberTroop;
-                        Select_TroopSbori.ListStudents.Add(item);
+                        item.Troop.Add(Select_TroopSbori);
+                        Select_TroopSbori.Students.Add(item);
                     }
 
-                    Select_TroopSbori.ListStudents = new BindingList<Student>(Select_TroopSbori.ListStudents.Distinct().ToList());
+                    //Select_TroopSbori.Students = new BindingList<Student>(Select_TroopSbori.Students.Distinct().ToList());
                     Update();
 
                 }));
@@ -278,12 +278,13 @@ namespace LKS_3._0.ViewModel
 
                     foreach (var item in collection)
                     {
-                        item.NumSboriTroop = null;
                         item.Status = "Обучается";
-                        Select_TroopSbori.ListStudents.Remove(item);
+                        item.Troop.Remove(Select_TroopSbori);
+                        Select_TroopSbori.Students.Remove(item);
                     }
 
                     Update();
+                   
 
                 }));
             }

@@ -71,7 +71,8 @@ namespace LKS_3._0.ViewModel
 		//TODO
 		ApplicationContext temp_DataBase;
 
-		private RelayCommand create, close;
+        private RelayCommand create;
+			//cancel;
 		//TODO
 		public CreateReportUniversityViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> troops)
 		{
@@ -400,8 +401,8 @@ namespace LKS_3._0.ViewModel
 			set
 			{
 				selectedTroopDocOnTroop = value;
-				TroopStudents = value.ListStudents;
-				OnPropertyChanged();
+                TroopStudents = value.Students;
+                OnPropertyChanged();
 			}
 		}
 

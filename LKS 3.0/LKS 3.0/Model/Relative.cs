@@ -43,10 +43,13 @@ namespace LKS_3._0
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 
-        public int IdStudent
+       
+        public int? StudentId
         { get; set; }
+        public Student Student { get; set; }
 
-		public string initials()
+
+        public string initials()
 		{
 			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 		}

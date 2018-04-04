@@ -9,9 +9,9 @@
 
     <StackPanel>
         <Label x:Name="label" Content="Фамилия"/>
-        <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding FirstName}"/>
+        <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" Text="{Binding MiddleName}"/>
         <Label x:Name="label1" Content="Имя"/>
-        <TextBox x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="{Binding MiddleName}"/>
+        <TextBox x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="{Binding FirstName}"/>
         <Label x:Name="label2" Content="Отчество"/>
         <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="{Binding LastName}"/>
         <Label x:Name="label3" Content="Звание"/>

@@ -28,7 +28,7 @@ namespace LKS_3._0
 			selectedRelative;
 		Troop selectedTrop;
 
-		Dictionary<string, string> command; // массив комманд
+		//Dictionary<string, string> command; // массив комманд
 
 		public Templates2(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
 		{
@@ -45,7 +45,7 @@ namespace LKS_3._0
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().ListStudents.ToList();
+				this.students = troops.First().Students.ToList();
 				selectedTrop = troops.First();
 			}
 			else
@@ -171,7 +171,7 @@ namespace LKS_3._0
 							if (tableCommand.Find(obj => obj.command.ToUpper() == "$Р$") != null)
 							{
 								int num = 0;
-								foreach (Relative relativeItem in selectedStudent.ListRelatives)
+								foreach (Relative relativeItem in selectedStudent.Relatives)
 								{
 									selectedRelative = relativeItem; // переделать
 									selectedTable.Rows.Add();
@@ -276,7 +276,7 @@ namespace LKS_3._0
 				{ "$АДРЕСРЕГИСТРАЦИИ$", selectedStudent.PlaceOfRegestration },
 				{ "$ШКОЛА$", selectedStudent.School },
 				{ "$ДОЛЖНОСТЬ$", selectedStudent.Rank },
-				{ "$ВЗВОД$", selectedStudent.Troop },
+				//{ "$ВЗВОД$", selectedStudent.Troop },
 				{ "$ИНИЦИАЛЫ$", selectedStudent.initials() },
 				{ "$СЛУЖБАВВС$", selectedStudent.Military },
 				{ "$СЕМЕЙНЫЙСТАТУС$", selectedStudent.FamiliStatys },
@@ -353,7 +353,7 @@ namespace LKS_3._0
 				{ "$TCOMPLACEREGISTR$", selectedTrop.PlatoonCommander.PlaceOfRegestration },
 				{ "$TCOMSCHOOL$", selectedTrop.PlatoonCommander.School },
 				{ "$TCOMRANK$", selectedTrop.PlatoonCommander.Rank },
-				{ "$TCOMTROOP$", selectedTrop.PlatoonCommander.Troop },
+				//{ "$TCOMTROOP$", selectedTrop.PlatoonCommander.Troop },
 				{ "$TCOMINIT$", selectedTrop.PlatoonCommander.initials() },
 
 				{ "$S$", "" },
@@ -498,7 +498,7 @@ namespace LKS_3._0
 
 			if (command.ToUpper() == "$ВЗВОД$")
 			{
-				return selectedStudent.Troop;
+				return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
 			}
 
 			if (command.ToUpper() == "$ИНИЦИАЛЫ$")
@@ -894,7 +894,7 @@ namespace LKS_3._0
 
 					if (command.ToUpper() == "$ВЗКОМВЗВОД$")
 					{
-						return selectedTrop.PlatoonCommander.Troop;
+						return selectedTrop.NumberTroop;
 					}
 
 					if (command.ToUpper() == "$ВЗКОМИНИЦИАЛЫ$")
@@ -938,7 +938,7 @@ namespace LKS_3._0
 
 		void changeTroop()
 		{
-			students = selectedTrop.ListStudents.ToList();
+			students = selectedTrop.Students.ToList();
 			selectedStudent = students.First();
 			changeSelectedStudent();
 		}
@@ -948,13 +948,13 @@ namespace LKS_3._0
 
 			selectedStudentMather = null;
 			selectedStudentFather = null;
-			if (selectedStudent.ListRelatives != null)
+			if (selectedStudent.Relatives != null)
 			{
-				if (selectedStudent.ListRelatives.Count != 0)
+				if (selectedStudent.Relatives.Count != 0)
 				{
-					selectedRelative = selectedStudent.ListRelatives.First();
+					selectedRelative = selectedStudent.Relatives.First();
 				}
-				foreach (Relative item in selectedStudent.ListRelatives)
+				foreach (Relative item in selectedStudent.Relatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
 					{

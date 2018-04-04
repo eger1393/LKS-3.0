@@ -32,15 +32,17 @@ namespace LKS_3._0
 
         BindingList<Troop> _Troops;
 
-        public TroopChange(ref ApplicationContext database, BindingList<Troop> Troops)
+        public TroopChange(ref ApplicationContext database)
         {
             InitializeComponent();
 
-            _Troops = Troops;
-
             temp_database = database;
 
-            CbTroop.ItemsSource = temp_database.Troops.Local.Where(u => u.SboriTroop == false).ToList();
+            _Troops = temp_database.Troops.Local.ToBindingList();
+
+            
+
+            CbTroop.ItemsSource = _Troops.Where(u => u.SboriTroop == false && u.NumberTroop != null).Distinct().ToList();
         }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)

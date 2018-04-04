@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-        Title="Изменение курса обучения" Height="158.742" Width="339.161">
+        Title="Изменение курса обучения" Height="158.742" Width="339.161" WindowStartupLocation="CenterScreen">
     <StackPanel Margin="0,20,0,0" >
         <RadioButton x:Name="radioButtonNext" Content="Перевести всех на курс вперед" HorizontalAlignment="Left" Margin="10,5,0,0" />
         <RadioButton x:Name="radioButtonPrev" Content="Перевести всех на курс назад" HorizontalAlignment="Left" Margin="10,5,0,0" />

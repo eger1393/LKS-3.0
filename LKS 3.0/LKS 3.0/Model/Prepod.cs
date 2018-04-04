@@ -25,6 +25,10 @@ namespace LKS_3._0
                 ID = value;
             }
         }
+
+        public int? TroopId { get; set; }
+        public Troop Troop { get; set; }
+
         public Prepod()
         {
             FirstName = "";
@@ -35,7 +39,7 @@ namespace LKS_3._0
 
 		public string initials()
 		{
-			return FirstName + " " + MiddleName[0] + ". " + LastName[0] + ".";
+			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 		}
 
 		public string SignaturePath
