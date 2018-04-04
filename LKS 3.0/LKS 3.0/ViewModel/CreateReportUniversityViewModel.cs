@@ -71,7 +71,7 @@ namespace LKS_3._0.ViewModel
 		//TODO
 		ApplicationContext temp_DataBase;
 
-        private RelayCommand create;
+        private RelayCommand create, close;
 			//cancel;
 		//TODO
 		public CreateReportUniversityViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> troops)

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\
 LKS_3._0
 none
 false
 DEBUG;TRACE
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\App.xaml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\App.xaml
 201277920292
 
 491550918921
-81-893741316
+802064469248
 View\AddNoteStudent.xaml;View\AddPrepod.xaml;View\AddStudent.xaml;View\AddTroop.xaml;View\ChangeKurs.xaml;View\ChangeRankWindow.xaml;View\CheckPass.xaml;View\CreateReport.xaml;View\CreateReportUniversity.xaml;View\EditPrepods.xaml;MainWindow.xaml;View\EditTroop.xaml;View\InfoAdministrationMilKaf.xaml;View\InfoSboriWindow.xaml;View\InfoWindow.xaml;View\NewSbori.xaml;View\ProgressBar.xaml;View\SummerOrders.xaml;View\TroopChange.xaml;View\WindowDatabase.xaml;
 
 False
