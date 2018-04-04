@@ -49,7 +49,7 @@ namespace LKS_3._0.Model
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().ListStudents.ToList();
+				this.students = troops.First().Students.ToList();
 				selectedTrop = troops.First();
 			}
 			else
@@ -167,9 +167,9 @@ namespace LKS_3._0.Model
 											}
 										case "РОДСТВЕННИКИ":
 											{
-												for (int i = 0; i < selectedStudent.ListRelatives.Count; i++) // проходим по всем родственникам
+												for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
 												{
-													selectedRelative = selectedStudent.ListRelatives[i];
+													selectedRelative = selectedStudent.Relatives[i];
 													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
 													rowIndex++; // перешли на след строку
 												}
@@ -249,9 +249,9 @@ namespace LKS_3._0.Model
 											}
 										case "РОДСТВЕННИКИ":
 											{
-												for (int i = 0; i < selectedStudent.ListRelatives.Count; i++) // проходим по всем родственникам
+												for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
 												{
-													selectedRelative = selectedStudent.ListRelatives[i];
+													selectedRelative = selectedStudent.Relatives[i];
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
@@ -620,7 +620,7 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop;
+				return "1";//selectedStudent.Troop;
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
@@ -1015,7 +1015,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
-						return selectedTrop.PlatoonCommander.Troop;
+						return "1";//selectedTrop.PlatoonCommander.Troop;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
@@ -1323,7 +1323,7 @@ namespace LKS_3._0.Model
 
 		void changeTroop()
 		{
-			students = selectedTrop.ListStudents.ToList();
+			students = selectedTrop.Students.ToList();
 			selectedStudent = students.First();
 			changeSelectedStudent();
 		}
@@ -1332,13 +1332,13 @@ namespace LKS_3._0.Model
 		{
 			selectedStudentMather = null;
 			selectedStudentFather = null;
-			if (selectedStudent.ListRelatives != null)
+			if (selectedStudent.Relatives != null)
 			{
-				if (selectedStudent.ListRelatives.Count != 0)
+				if (selectedStudent.Relatives.Count != 0)
 				{
-					selectedRelative = selectedStudent.ListRelatives.First();
+					selectedRelative = selectedStudent.Relatives.First();
 				}
-				foreach (Relative item in selectedStudent.ListRelatives)
+				foreach (Relative item in selectedStudent.Relatives)
 				{
 					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
 					{
