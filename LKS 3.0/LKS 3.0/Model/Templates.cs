@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing.Printing;
 using System.Collections.Generic;
+//using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,9 @@ using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.Data.Entity;
+
+using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
+
 
 
 namespace LKS_3._0.Model
@@ -27,12 +32,11 @@ namespace LKS_3._0.Model
 		Model.Department adminInfo; // Военком и нач кафедры
 		List<Admin> admins; // список администрации на сборах
 
-		// TODO
+		// Неуверен всетаки надо ли передавать ссылка на БД
 		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
 
 		public Templates(string fileName, ref ApplicationContext temp_DataBase, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
 		{   //TODO отрефактрить этот код
-			// КОСТЫЛЬ
 			if (Students == null)
 			{
 				Students = new List<Student>();
@@ -58,7 +62,7 @@ namespace LKS_3._0.Model
 			}
 			catch (System.InvalidOperationException ex)
 			{
-				System.Windows.MessageBox.Show("Во взводе нет студентов!");
+				System.Windows.MessageBox.Show("Во взводе нет студентов!/n" + ex.Message);
 				return;
 			}
 			changeSelectedStudent(); // меняем мать и отца студента
@@ -126,21 +130,14 @@ namespace LKS_3._0.Model
 
 								// проверяем кам заполнять таблицу (студентами, взводами или родственниками)
 								string type = null;
-								try
-								{
-									type = (tempRow.Descendants<SdtElement>().ToList().Find(obj =>
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") as SdtElement)
-									 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
-								}
-								//TODO Обработать исключения, если файнд вернул false
-								catch (ArgumentNullException ex)
-								{
 
-								}
+								type = tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
+								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
+								 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
 
-									if (type != null)
+								if (type != null)
 								{
 									tempRow.Descendants<SdtElement>().ToList().Find(obj =>
 									obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == type).Remove(); // удалили лишнюю закладку
@@ -185,7 +182,7 @@ namespace LKS_3._0.Model
 											}
 									}
 								}
-									
+
 							}
 							rowIndex++; // если нет закладок то переходим на след строку
 						}
@@ -200,10 +197,10 @@ namespace LKS_3._0.Model
 								string type = null;
 								try
 								{
-									type = (row.Descendants<SdtElement>().ToList().Find(obj =>
+									type = row.Descendants<SdtElement>().ToList().Find(obj =>
 									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
 									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ") as SdtElement)
+									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
 									 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
 								}
 								//TODO Обработать исключения, если файнд вернул false
@@ -290,7 +287,7 @@ namespace LKS_3._0.Model
 					if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
 					{
 						string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
-						if(valueCommand == "ФОТО")
+						if (valueCommand == "ФОТО")
 						{
 							path = selectedStudent.ImagePath;
 						}
@@ -324,10 +321,36 @@ namespace LKS_3._0.Model
 																			   // и заменил закладку обычным текстом
 				}
 			}
-			System.Windows.MessageBox.Show("Готово!");
+			View.OpenOrPrintDialogWindow window = new View.OpenOrPrintDialogWindow(
+				new ViewModel.OpenOrPrintDialogViewModel(dlg.FileName));
+			window.ShowDialog();
+		}
+		/// <summary>
+		/// Печать файла
+		/// </summary>
+		/// <param name="path">Путь к файлу</param>
+		/// <param name="count">Кол-во копий</param>
+		public static void PrintDocument(string path, int count)
+		{
+			try
+			{
+				WORD.Application app = new WORD.Application();
+				app.Documents.Open(path);
+				dynamic dlg = app.Dialogs[WORD.WdWordDialog.wdDialogFilePrint];
+				dlg.NumCopies = count;
+				dlg.Show();
+				app.ActiveDocument.Close();
+				app.Quit();
+			}
+			catch
+			{
+
+			}
+
+
 		}
 
-		private static void AddImageToBody(SdtElement formattedText, string relationshipId)
+		private void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
 			// скопипастил код из МДСН 
 			var element =
@@ -414,7 +437,7 @@ namespace LKS_3._0.Model
 				valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
 			}
 
-			// TODO Добавить обработку ситуации когда в закладке нет текста)
+			// В закладке всегда есть элемент Run (он создается вордом даже в том случае если там нет текста
 			Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run;
 			(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
 			if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОВАЯ СТРОКА")
@@ -450,7 +473,7 @@ namespace LKS_3._0.Model
 					foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
 					{
 						BookmarkingToCommand(formattedText, i);
-						
+
 					}
 				}
 			}
