@@ -205,12 +205,19 @@ namespace LKS_3._0
         { get; set; }
         public string Note
         { get; set; }
+		public string FullImagePath
+		{
+			get
+			{
+				return AppDomain.CurrentDomain.BaseDirectory + ImagePath;
+			}
+		}
         public string ImagePath
         {
 			get
 			{
 				//return imagePath;
-				return AppDomain.CurrentDomain.BaseDirectory + imagePath;
+				return imagePath;
 			}
 			set
 			{
