@@ -1178,7 +1178,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
             else
             {
-                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\mysql2sqlite\\DataBaseVK.sqlite" };
+                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK.sqlite" };
                 DataBaseContext = new ApplicationContext(str_connect);
             }
 
