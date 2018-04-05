@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="База данных ВК" WindowState="Maximized" Width="1440" Height="900" >
+        Title="База данных ВК" WindowState="Maximized" Width="1440" Height="900" Closed="W_Data_Closed" >
     <!--Closing="W_Data_Closing"-->
     <Window.Resources>
         <Style x:Key="Default">
@@ -37,6 +37,7 @@
         <Menu x:Name="Main_Menu" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <MenuItem Header="Настройки">
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
+                <MenuItem Header="Синхронизировать с удаленной базой" Command="{Binding SynchronizeDB}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Вид">
                 <Grid Width="278" Height="23">
@@ -176,9 +177,9 @@
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
             <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
 
-            <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1" Content="{Binding Troop}" Margin="2" />
+            <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1" Content="{Binding NumTroop}" Margin="2" />
             <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Content="{Binding Rank}" Margin="2"/>
-            <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding Group}" Margin="2"/>
+            <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding InstGroup}" Margin="2"/>
             <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Content="{Binding MobilePhone}" Margin="2"/>
             <Label x:Name="Label_bote" Grid.Row="6" Grid.Column="1" Content="{Binding Note}" Margin="2"/>
 

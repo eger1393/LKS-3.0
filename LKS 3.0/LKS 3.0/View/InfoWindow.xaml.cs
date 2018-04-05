@@ -69,7 +69,7 @@ namespace LKS_3._0.View
 
                 case 1:
                     {
-                        textBlockKrit.Text = temp_students.Where(u => u.Group == comboBoxValue.Text).Count().ToString();
+                        textBlockKrit.Text = temp_students.Where(u => u.InstGroup == comboBoxValue.Text).Count().ToString();
                         break;
                     }
 

@@ -60,6 +60,12 @@ namespace LKS_3._0
                 item.StudentId = this.Id;
             }
         }
+
+        public string NumberTroop()
+        {
+            return Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
+        }
+
         public Student() // Конструктор по умолчанию
         {
             Skill1 = false;
@@ -107,19 +113,14 @@ namespace LKS_3._0
         [RusName("Отчество")]
         public string LastName // Отчество
         { get; set; }
-        //[RusName("Взвод")]
-        //public string NumTroop
-        //{
-        //    get
-        //    {
-        //        return Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
-        //    }
-
-        //    set
-        //    {
-        //        Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = value;
-        //    }
-        //}
+        [RusName("Взвод")]
+        public string NumTroop
+        {
+            get
+            {
+                return NumberTroop();
+            }
+        }
         [RusName("Должность")]
         public string Rank // Звание студента (перечисление)
         { get; set; }
@@ -127,7 +128,7 @@ namespace LKS_3._0
         public string SpecialityName // Название специальности
         { get; set; }
         [RusName("Группа")]
-        public string Group
+        public string InstGroup
         { get; set; }
         [RusName("Курс")]
         public int Kurs // факультет
@@ -200,9 +201,6 @@ namespace LKS_3._0
         [RusName("Семейное положение")]
 		public string FamiliStatys
         { get; set; }
-
-        //public string NumSboriTroop
-        //{ get; set; }
         public string Two_MobilePhone
         { get; set; }
         public string Note

@@ -52,7 +52,7 @@ namespace LKS_3._0.ViewModel
 
                       SelectTroopListStudent = temp_t.Students;
                       SelectStudent = temp_t.PlatoonCommander;
-                      SelectPrepod = temp_t.ResponsiblePrepod;
+                      SelectPrepod = temp_t.Prepod;
 
                   }));
             }
@@ -142,13 +142,13 @@ namespace LKS_3._0.ViewModel
                 return exelentCommand ??
                   (exelentCommand = new RelayCommand((selectedItem) =>
                   {
-                      foreach (var item in Troops)
-                      {
-                          foreach (var item2 in item.Students)
-                          {
-                              item2.Troop[0] = item;
-                          }
-                      }
+                      //foreach (var item in Troops)
+                      //{
+                      //    foreach (var item2 in item.Students)
+                      //    {
+                      //        item2.Troop[0] = item;
+                      //    }
+                      //}
                       DataBaseTr.SaveChanges();
                   }));
             }
@@ -166,13 +166,13 @@ namespace LKS_3._0.ViewModel
 
                       Student temp = selectedItem as Student;
 
-                      Student last_PC = SelectTroop.Students.FirstOrDefault(u => u.Rank == "КО");
+                      Student last_PC = SelectTroop.PlatoonCommander;
                       if(last_PC != null)
                       {
-                          last_PC.Rank = "Отсутсвует";
+                          last_PC.Rank = Troop.Ranks[7];
                       }
                      
-                      temp.Rank = "КО";
+                      temp.Rank = Troop.Ranks[0];
                       SelectTroop.Id_PC = temp.Id;
                       SelectTroop.PlatoonCommander = temp;
                 
@@ -194,8 +194,8 @@ namespace LKS_3._0.ViewModel
 
                       Prepod temp = selectedItem as Prepod;
 
-                      SelectTroop.Id_RP = temp.Id;
-                      SelectTroop.ResponsiblePrepod = temp;
+                      //SelectTroop.PrepodId = temp.Id;
+                      SelectTroop.Prepod = temp;
 
 
                   }));

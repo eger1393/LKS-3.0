@@ -148,7 +148,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <ComboBox x:Name="CbGroup" Grid.Column="3" Grid.Row="1" Text="{Binding Group}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbGroup" Grid.Column="3" Grid.Row="1" Text="{Binding InstGroup}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                     </ComboBox>
                     <ComboBox x:Name="CbFacility" Grid.Column="3" Grid.Row="2" Text="{Binding Faculty}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
                         <ListBoxItem Content="1"/>

@@ -24,26 +24,26 @@ namespace LKS_3._0
 
             Prepods = DataBasePr.Prepods.Local.ToBindingList();
 
-            Prepod._count = Prepods.Count();
+            //Prepod._count = Prepods.Count();
 
             Troops = DataBasePr.Troops.Local.ToBindingList();
 
-            foreach (var item in Prepods)
-            {
-                IEnumerable<Troop> TroopsTemp;
+            //foreach (var item in Prepods)
+            //{
+            //    IEnumerable<Troop> TroopsTemp;
 
-                TroopsTemp = Troops.Where(u => u.Id_RP == item.Id);
+            //    TroopsTemp = Troops.Where(u => u.PrepodId == item.Id);
 
-                foreach (var item2 in TroopsTemp)
-                {
-                    if (item.AdditionalInfo == "")
-                    {
-                        item.AdditionalInfo += item2.NumberTroop.ToString() + " взвод ";
-                    }
+            //    foreach (var item2 in TroopsTemp)
+            //    {
+            //        if (item.AdditionalInfo == "")
+            //        {
+            //            item.AdditionalInfo += item2.NumberTroop.ToString() + " взвод ";
+            //        }
 
-                }
+            //    }
 
-            }
+            //}
         }
 
         private Prepod selectedPrepod; // Выбранный препод
@@ -138,12 +138,12 @@ namespace LKS_3._0
                             Prepod prepod = selectedPrepod as Prepod;
                             Prepods.Remove(prepod);
 
-                            var Select_Troop = Troops.Where(u => u.Id_RP == prepod.Id);
-                            foreach (var item in Select_Troop)
-                            {
-                                item.Id_RP = 0;
-                                item.ResponsiblePrepod = new Prepod();
-                            }
+                            //var Select_Troop = Troops.Where(u => u.PrepodId == prepod.Id);
+                            //foreach (var item in Select_Troop)
+                            //{
+                            //    item.PrepodId = 0;
+                            //    item.Prepod = new Prepod();
+                            //}
                                
                             DataBasePr.SaveChanges();
                         }

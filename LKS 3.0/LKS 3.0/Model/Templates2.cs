@@ -256,7 +256,7 @@ namespace LKS_3._0
 				{ "$ФАМИЛИЯ$", selectedStudent.MiddleName },
 				{ "$ОТЧЕСТВО$", selectedStudent.LastName },
 				{ "$ФАКУЛЬТЕТ$", selectedStudent.Faculty },
-				{ "$ГРУППА$", selectedStudent.Group },
+				{ "$ГРУППА$", selectedStudent.InstGroup },
 				{ "$ВУС$", selectedStudent.SpecialityName },
 				{ "$УСЛОБУЧ$", selectedStudent.ConditionsOfEducation },
 				{ "$СРБАЛЛ$", selectedStudent.AvarageScore },
@@ -322,18 +322,18 @@ namespace LKS_3._0
 				{ "$ВЗНОМЕР$", selectedTrop.NumberTroop },
 
 				{ "$ВЗКОЛВОЧЕЛ$", selectedTrop.StaffCount.ToString() },
-				{ "$ВЗПИМЯ$",selectedTrop.ResponsiblePrepod.FirstName },
-				{ "$ВЗПФАМИЛИЯ$", selectedTrop.ResponsiblePrepod.MiddleName },
-				{ "$ВЗПОТЧЕСТВО$", selectedTrop.ResponsiblePrepod.LastName },
-				{ "$ВЗПЗВАНИЕ$", selectedTrop.ResponsiblePrepod.Coolness },
-				{ "$ВЗПДОЛЖНОСТЬ$", selectedTrop.ResponsiblePrepod.PrepodRank },
-				{ "$ВЗПИНИЦИАЛЫ$",selectedTrop.ResponsiblePrepod.initials() },
+				{ "$ВЗПИМЯ$",selectedTrop.Prepod.FirstName },
+				{ "$ВЗПФАМИЛИЯ$", selectedTrop.Prepod.MiddleName },
+				{ "$ВЗПОТЧЕСТВО$", selectedTrop.Prepod.LastName },
+				{ "$ВЗПЗВАНИЕ$", selectedTrop.Prepod.Coolness },
+				{ "$ВЗПДОЛЖНОСТЬ$", selectedTrop.Prepod.PrepodRank },
+				{ "$ВЗПИНИЦИАЛЫ$",selectedTrop.Prepod.initials() },
 
 				{ "$ВЗКОМИМЯ$", selectedTrop.PlatoonCommander.FirstName },
 				{ "$ВЗКОМФАМИЛИЯ$", selectedTrop.PlatoonCommander.MiddleName },
 				{ "$TCOMLNAME$", selectedTrop.PlatoonCommander.LastName },
 				{ "$TCOMFACULTY$", selectedTrop.PlatoonCommander.Faculty },
-				{ "$TCOMGROUP$", selectedTrop.PlatoonCommander.Group },
+				{ "$TCOMGROUP$", selectedTrop.PlatoonCommander.InstGroup },
 				{ "$TCOMSPNAME$", selectedTrop.PlatoonCommander.SpecialityName },
 				{ "$TCOMCONDEDUC$", selectedTrop.PlatoonCommander.ConditionsOfEducation },
 				{ "$TCOMAVERSCORE$", selectedTrop.PlatoonCommander.AvarageScore },
@@ -397,7 +397,7 @@ namespace LKS_3._0
 
 			if (command.ToUpper() == "$ГРУППА$")
 			{
-				return selectedStudent.Group;
+				return selectedStudent.InstGroup;
 			}
 
 			if (command.ToUpper() == "$ВУС$")
@@ -729,36 +729,36 @@ namespace LKS_3._0
 					return "";
 				}
 
-				if (selectedTrop.ResponsiblePrepod != null)
+				if (selectedTrop.Prepod != null)
 				{
 					if (command.ToUpper() == "$ВЗПИМЯ$")
 					{
-						return selectedTrop.ResponsiblePrepod.FirstName;
+						return selectedTrop.Prepod.FirstName;
 					}
 
 					if (command.ToUpper() == "$ВЗПФАМИЛИЯ$")
 					{
-						return selectedTrop.ResponsiblePrepod.MiddleName;
+						return selectedTrop.Prepod.MiddleName;
 					}
 
 					if (command.ToUpper() == "$ВЗПОТЧЕСТВО$")
 					{
-						return selectedTrop.ResponsiblePrepod.LastName;
+						return selectedTrop.Prepod.LastName;
 					}
 
 					if (command.ToUpper() == "$ВЗПЗВАНИЕ$")
 					{
-						return selectedTrop.ResponsiblePrepod.Coolness;
+						return selectedTrop.Prepod.Coolness;
 					}
 
 					if (command.ToUpper() == "$ВЗПДОЛЖНОСТЬ$")
 					{
-						return selectedTrop.ResponsiblePrepod.PrepodRank;
+						return selectedTrop.Prepod.PrepodRank;
 					}
 
 					if (command.ToUpper() == "$ВЗПИНИЦИАЛЫ$")
 					{
-						return selectedTrop.ResponsiblePrepod.initials();
+						return selectedTrop.Prepod.initials();
 					}
 				}
 
@@ -793,7 +793,7 @@ namespace LKS_3._0
 
 					if (command.ToUpper() == "$ВЗКОМГРУППА$")
 					{
-						return selectedTrop.PlatoonCommander.Group;
+						return selectedTrop.PlatoonCommander.InstGroup;
 					}
 
 					if (command.ToUpper() == "$ВЗКОМВУС$")

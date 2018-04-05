@@ -27,12 +27,13 @@ namespace LKS_3._0
 
     public partial class WindowDatabase : Window
     {
+        bool connect;
         
-        
-        public WindowDatabase(bool flag)
+        public WindowDatabase(bool flag, bool connect)
         {
             InitializeComponent();
 
+            this.connect = connect;
 
             if (flag)
             {
@@ -45,7 +46,7 @@ namespace LKS_3._0
 
             }
 
-            DataContext = new ApplicationViewModel();
+            DataContext = new ApplicationViewModel(connect);
 
             Binding_columns();
             
@@ -72,10 +73,6 @@ namespace LKS_3._0
             }
         }
 
-        //private void W_Data_Closing(object sender, CancelEventArgs e)
-        //{
-        //    System.Diagnostics.Process.GetCurrentProcess().Kill();
-        //}
 
         private void FindBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -134,6 +131,20 @@ namespace LKS_3._0
             _3.IsChecked = false;
             _4.IsChecked = false;
             _5.IsChecked = false;
+        }
+
+        private void W_Data_Closed(object sender, EventArgs e)
+        {
+            if (connect)
+            {
+                UpdateLocalDataBase();
+            }
+        }
+
+        public void UpdateLocalDataBase()
+        {
+            System.Diagnostics.Process _Process = null;
+            _Process = System.Diagnostics.Process.Start(@"mysql2sqlite\\mysql2sqlite.exe");
         }
     }
   

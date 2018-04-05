@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
@@ -11,10 +13,10 @@ namespace LKS_3._0
         public static int _count;
 
         private int ID;
-		private string signaturePath;
+        private string signaturePath;
 
 
-		public int Id
+        public int Id
         {
             get
             {
@@ -25,9 +27,7 @@ namespace LKS_3._0
                 ID = value;
             }
         }
-
-        public int? TroopId { get; set; }
-        public Troop Troop { get; set; }
+        public BindingList<Troop> Troops { get; set; }
 
         public Prepod()
         {
@@ -35,6 +35,7 @@ namespace LKS_3._0
             MiddleName = "";
             LastName = "";
             Coolness = "";
+            Troops = new BindingList<Troop>();
         }
 
 		public string initials()
@@ -73,7 +74,14 @@ namespace LKS_3._0
         [RusName("Должность")]
         public string PrepodRank
         { get; set; }
-
+        [RusName("Взвода")]
+        public string TroopsInfo
+        {
+            get
+            {
+               return Info();
+            }
+        }
         [RusName("Дополнительно")]
         public string AdditionalInfo
         { get; set; }
@@ -81,6 +89,16 @@ namespace LKS_3._0
         public override string ToString()
         {
             return Coolness + " " + MiddleName + " " + FirstName[0] + ". " + LastName[0]+ ". ";
+        }
+
+        public string Info()
+        {
+            string str = "";
+            foreach (var item in Troops)
+            {
+                str += item.NumberTroop +  " взвод; ";
+            }
+            return str;
         }
     }
 }
