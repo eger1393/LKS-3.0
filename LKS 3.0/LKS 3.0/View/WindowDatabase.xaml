@@ -37,7 +37,9 @@
         <Menu x:Name="Main_Menu" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <MenuItem Header="Настройки">
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
-                <MenuItem Header="Синхронизировать с удаленной базой" Command="{Binding SynchronizeDB}" ></MenuItem>
+                <MenuItem Header="Подключение к удаленной базе" Command="{Binding SettingDB}" ></MenuItem>
+                <MenuItem Header="Перезагрузка данных" Command="{Binding UploadDB}" ></MenuItem>
+                
             </MenuItem>
             <MenuItem Header="Вид">
                 <Grid Width="278" Height="23">

@@ -30,7 +30,7 @@ namespace LKS_3._0
         const int PROG_VALUE = 10;
         public ApplicationContext DataBaseContext;
         bool connect;
-        
+
         private RelayCommand addCommand,
             createReportCommand,
             findCommand,
@@ -56,7 +56,8 @@ namespace LKS_3._0
             createReportUniversityCommand,
             ordersCommand,
             showInfoAdministrationsMillKaf,
-            synchronizeDB;
+            settingDB,
+            uploadDB;
 
         private Student selectedStudent;
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
@@ -66,6 +67,7 @@ namespace LKS_3._0
         private BindingList<Troop> troops;
         private BindingList<string> list_Troop, list_Mname, list_Rank, list_Group;
         string maev_path = Environment.CurrentDirectory + "/maev.mdb";
+
 
         public string SelectedValueFind_T
         {
@@ -288,18 +290,31 @@ namespace LKS_3._0
 					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
 			}
 		}
-        //public RelayCommand SynchronizeDB
-        //{
-        //    get
-        //    {
-        //        return synchronizeDB ??
-        //            (synchronizeDB = new RelayCommand(obj =>
-        //            {
-        //                System.Diagnostics.Process _Process = null;
-        //                _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
-        //            }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
-        //    }
-        //}
+        public RelayCommand SettingDB
+        {
+            get
+            {
+                return settingDB ??
+                    (settingDB = new RelayCommand(obj =>
+                    {
+                        View.WindowSetting Wind = new View.WindowSetting();
+                        Wind.Show();
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+            }
+        }
+        public RelayCommand UploadDB
+        {
+            get
+            {
+                return uploadDB ??
+                    (uploadDB = new RelayCommand(obj =>
+                    {
+                        DataBaseContext.Dispose();
+                        Connect_DB(connect);
+                    }));
+            }
+        }
+
         public RelayCommand ShowAllCommand
         {
             get
@@ -1086,9 +1101,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 		public void Load_DB()
 		{
-            DataBaseContext.Database.Log = (s => System.Diagnostics.Debug.WriteLine(s));
-
-
+            
             //Troops = new BindingList<Troop>(DataBaseContext.Troops.Include(c => c.Students).ToList());
 
             //Students = new BindingList<Student>(Troops.SelectMany(c => c.Students).ToList());
@@ -1135,10 +1148,8 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
         }
 
-
-
-		public ApplicationViewModel(bool _connect)
-		{
+        public void Connect_DB(bool _connect)
+        {
             this.connect = _connect;
             View.ProgressBar ProgressWin = new View.ProgressBar();
             ProgressWin.Show();
@@ -1149,7 +1160,8 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка!", "Ошибка подключения!");
+                MessageBox.Show("Ошибка подключения! Проверьте настройки подключения!", "Ошибка!");
+                ProgressWin.Close();
                 return;
             }
 
@@ -1161,20 +1173,23 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка!", "Ошибка загрузки данных!");
+                MessageBox.Show("Ошибка загрузки данных!", "Ошибка!");
+                ProgressWin.Close();
                 return;
             }
-        
-
-            //ProgressWin.DialogResult = true;
             ProgressWin.Close();
-		}
+        }
+
+		public ApplicationViewModel(bool _connect)
+		{
+            Connect_DB(_connect);
+        }
 
         public void CreateConnection(bool connect)
         {
             if(connect)
             {
-                var str_connect = new MySql.Data.MySqlClient.MySqlConnection() { ConnectionString = "server=localhost;user id=root;database=db_vk" };
+                var str_connect = new MySql.Data.MySqlClient.MySqlConnection() { ConnectionString = "server="+Properties.Settings.Default.Server+";user id="+Properties.Settings.Default.User+";database=db_vk" };
                 DataBaseContext = new ApplicationContext(str_connect);
             }
             else

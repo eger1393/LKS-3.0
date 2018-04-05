@@ -1,0 +1,17 @@
+﻿<Window x:Class="LKS_3._0.View.WindowSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LKS_3._0.View"
+        mc:Ignorable="d"
+        Title="WindowSetting" Height="200" Width="300" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <Label x:Name="label" Content="Настройки подключения" HorizontalAlignment="Center"/>
+        <Label x:Name="label1" Content="Cервер"/>
+        <TextBox x:Name="textBox_server" Height="23" TextWrapping="Wrap" Text="localhost"/>
+        <Label x:Name="label2" Content="Пользователь"/>
+        <TextBox x:Name="textBox_user" Height="23" TextWrapping="Wrap" Text="root"/>
+        <Button x:Name="button_save" Content="Сохранить" Click="button_save_Click"/>
+    </StackPanel>
+</Window>

@@ -109,7 +109,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Доведение приказа")]
-        public bool Order
+        public bool Orders
         {
             get
             {
