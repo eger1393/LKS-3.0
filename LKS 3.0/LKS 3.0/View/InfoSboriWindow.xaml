@@ -24,6 +24,9 @@
                     </Grid.RowDefinitions>
                     <Button x:Name="button"   Content="Создать" Grid.Column="1" Grid.Row="1" Margin="0,0,222,0" HorizontalAlignment="Right" Width="174"
                              Command="{Binding Creatte}" CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"/>
+                    <Button Content="Отмена" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Cancel}"/>
+
                     <GroupBox Grid.Column="0" Header="Документ">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -160,7 +163,8 @@
                     </Grid.RowDefinitions>
                     <Button   Content="Создать" Grid.Column="1" Margin="0,0,222,10" HorizontalAlignment="Right" Width="174"
                              Command="{Binding Creatte}" CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}" Height="31" VerticalAlignment="Bottom"/>
-
+                    <Button   Content="Отмена" Grid.Column="1" Margin="0,0,19,10" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Cancel}" Height="31" VerticalAlignment="Bottom"/>
                     <GroupBox Grid.Column="0" Header="Документ">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -212,6 +216,8 @@
                     </Grid.RowDefinitions>
                     <Button   Content="Создать" Grid.Column="1" Margin="0,0,222,10" HorizontalAlignment="Right" Width="174"
                              Command="{Binding Creatte}" CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}" Height="31" VerticalAlignment="Bottom"/>
+                    <Button   Content="Отмена" Grid.Column="1" Margin="0,0,19,10" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Cancel}" Height="31" VerticalAlignment="Bottom"/>
                     <GroupBox Grid.Column="0" Header="Документ">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -298,6 +304,8 @@
                     </Grid.RowDefinitions>
                     <Button   Content="Создать" Grid.Column="1" Margin="0,0,222,10" HorizontalAlignment="Right" Width="174"
                              Command="{Binding Creatte}" CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}" Height="31" VerticalAlignment="Bottom"/>
+                    <Button   Content="Отмена" Grid.Column="1" Margin="0,0,19,10" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Cancel}" Height="31" VerticalAlignment="Bottom"/>
                     <GroupBox Grid.Column="0" Header="Документ">
                         <Grid>
                             <Grid.RowDefinitions>

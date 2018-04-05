@@ -24,9 +24,10 @@ namespace LKS_3._0.ViewModel
         }
 
         private RelayCommand saveCommand,
-			create;
+			create, cancel;
+		public Action CloseAction { get; set; }
 
-        BindingList<Model.Admin> _admins;
+		BindingList<Model.Admin> _admins;
 
         BindingList<Student> students;
 
@@ -329,6 +330,17 @@ namespace LKS_3._0.ViewModel
 			{
 				troops = value;
 				OnPropertyChanged();
+			}
+		}
+
+		public RelayCommand Cancel
+		{
+			get
+			{
+				return cancel ?? (cancel = new RelayCommand(obj =>
+				{
+					CloseAction();
+				}));
 			}
 		}
 

@@ -35,12 +35,9 @@ namespace LKS_3._0.View
 
 			temp_VM.Troops = new BindingList<Troop>(_troops.Where(obj => obj.SboriTroop == true).ToList());//.Select(u => u.NumberTroop);
             TroopComboBoxAll.ItemsSource = TroopComboBox.ItemsSource;
-            //TroopComboBoxOneWeek.ItemsSource = TroopComboBox.ItemsSource;
-            //TroopComboBoxTwoWeek.ItemsSource = TroopComboBox.ItemsSource;
-            //TroopComboBoxThreeWeek.ItemsSource = TroopComboBox.ItemsSource;
-            //TroopComboBoxFourWeek.ItemsSource = TroopComboBox.ItemsSource;
-            //TroopComboBoxFiveWeek.ItemsSource = TroopComboBox.ItemsSource;
-        }
+			if (temp_VM.CloseAction == null)
+				temp_VM.CloseAction = new Action(() => this.Close());
+		}
 
 		//TODO Отрефакторить
         private void Binding_columns()
