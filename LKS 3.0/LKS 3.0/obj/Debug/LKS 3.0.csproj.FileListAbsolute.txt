@@ -216,3 +216,6 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.baml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache

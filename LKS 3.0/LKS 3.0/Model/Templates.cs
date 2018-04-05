@@ -204,7 +204,7 @@ namespace LKS_3._0.Model
 									 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
 								}
 								//TODO Обработать исключения, если файнд вернул false
-								catch (NullReferenceException ex) // 
+								catch (NullReferenceException) // 
 								{
 									type = null; // в таблицу не надо заполнять повторяющимися стрками(она исспользуется просто как форматирование)
 								}
@@ -306,6 +306,11 @@ namespace LKS_3._0.Model
 							}
 							AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
 						}
+						catch (System.IO.FileNotFoundException ex)
+						{
+							System.Windows.MessageBox.Show(ex.Message + "/n ФОТО не найдено!");
+
+						}
 						catch (System.NotSupportedException ex)
 						{
 
@@ -325,31 +330,6 @@ namespace LKS_3._0.Model
 				new ViewModel.OpenOrPrintDialogViewModel(dlg.FileName));
 			window.ShowDialog();
 		}
-		/// <summary>
-		/// Печать файла
-		/// </summary>
-		/// <param name="path">Путь к файлу</param>
-		/// <param name="count">Кол-во копий</param>
-		public static void PrintDocument(string path, int count)
-		{
-			try
-			{
-				WORD.Application app = new WORD.Application();
-				app.Documents.Open(path);
-				dynamic dlg = app.Dialogs[WORD.WdWordDialog.wdDialogFilePrint];
-				dlg.NumCopies = count;
-				dlg.Show();
-				app.ActiveDocument.Close();
-				app.Quit();
-			}
-			catch
-			{
-
-			}
-
-
-		}
-
 		private void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
 			// скопипастил код из МДСН 
@@ -620,7 +600,7 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return "1";//selectedStudent.Troop;
+				return selectedStudent.Troop.First(u=>u.SboriTroop==false).NumberTroop;
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
@@ -1015,7 +995,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
-						return "1";//selectedTrop.PlatoonCommander.Troop;
+						return selectedTrop.NumberTroop;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")

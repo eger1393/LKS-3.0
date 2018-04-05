@@ -265,14 +265,14 @@ namespace LKS_3._0.ViewModel
 										{
 											case RadioOptions.Option1:
 												{
-													Model.Templates.PrintDocument(
-														System.IO.Path.GetFullPath(@".\Templates\Анкета.docx"), count);
+													ViewModel.OpenOrPrintDialogViewModel.PrintOrOpenDocument(
+														System.IO.Path.GetFullPath(@".\Templates\Анкета.docx"), count, true);
 													break;
 												}
 											case RadioOptions.Option2:
 												{
-													Model.Templates.PrintDocument(
-														System.IO.Path.GetFullPath(@".\Templates\Анкета_шабон.docx"), count);
+													ViewModel.OpenOrPrintDialogViewModel.PrintOrOpenDocument(
+														System.IO.Path.GetFullPath(@".\Templates\Анкета_шабон.docx"), count, true);
 													break;
 												}
 											case RadioOptions.None:

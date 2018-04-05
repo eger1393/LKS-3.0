@@ -218,6 +218,7 @@ namespace LKS_3._0
 			dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
+				//File.Copy(dlg.FileName, "temp.jpg", true);
 				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
 				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);																									 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
 				Photo.Source = ImageBitmapFrame.CloneCurrentValue(); // записали фото 
@@ -231,18 +232,25 @@ namespace LKS_3._0
 
             if (ImageBitmapFrame != null)
 			{
-				string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
-				if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+				try
 				{
-					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
+					string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
+					if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+					{
+						File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
+					}
+					JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
+					jpegBitmapEncoder.QualityLevel = 100;
+					jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
+					FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
+					jpegBitmapEncoder.Save(fileStream);
+					fileStream.Close();
+					viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
 				}
-				JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
-				jpegBitmapEncoder.QualityLevel = 100;
-				jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-				FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
-				jpegBitmapEncoder.Save(fileStream);
-				fileStream.Close();
-				viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
+				catch(System.IO.IOException)//TODO
+				{
+					System.Windows.MessageBox.Show("Переместите или переименуйте фотографию!");
+				}
 			}
 
             if(viewModel.AddedStudent.MiddleName == null) // почему именно фамилия??

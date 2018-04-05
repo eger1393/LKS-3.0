@@ -211,8 +211,8 @@ namespace LKS_3._0
         {
 			get
 			{
-				return imagePath;
-				//return AppDomain.CurrentDomain.BaseDirectory + imagePath;
+				//return imagePath;
+				return AppDomain.CurrentDomain.BaseDirectory + imagePath;
 			}
 			set
 			{

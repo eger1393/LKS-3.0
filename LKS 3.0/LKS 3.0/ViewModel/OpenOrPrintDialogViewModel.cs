@@ -15,7 +15,7 @@ namespace LKS_3._0.ViewModel
 		private string filePath;
 		private int count;
 
-		private RelayCommand open, print, close;
+		private RelayCommand open, print, closeForm;
 		public Action CloseAction { get; set; }
 		/// <summary>
 		/// После создания шаблона вызывается окно с различными вариантами действий: открыть шаблон в ворде
@@ -28,11 +28,11 @@ namespace LKS_3._0.ViewModel
 			this.filePath = FilePath;
 			this.count = count;
 		}
-		public RelayCommand Close
+		public RelayCommand CloseForm
 		{
 			get
 			{
-				return close ?? (close = new RelayCommand(obj =>
+				return closeForm ?? (closeForm = new RelayCommand(obj =>
 				{
 					CloseAction();
 				}));

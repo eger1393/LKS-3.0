@@ -11,13 +11,13 @@
             <RowDefinition Height="0.7*"/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" TextWrapping="Wrap">
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Run Text="Создание шаблона:"/>
             <Run Text="{Binding FileName,Mode=OneWay}"/>
             <Run Text=" завершено!"/>
         </TextBlock>
         <Button x:Name="Open" Content="Открыть" Grid.Row="1" Margin="10,25,243,10" Command="{Binding Open}"/>
         <Button x:Name="Print" Content="Печать" Grid.Row="1" Margin="131,25,121,10" Command="{Binding Print}"/>
-        <Button x:Name="Close" Content="Закрыть" Grid.Row="1" Margin="255,25,10,10" Command="{Binding Close}"/>
+        <Button x:Name="CloseForm" Content="Закрыть" Grid.Row="1" Margin="255,25,10,10" Command="{Binding CloseForm}"/>
     </Grid>
 </Window>
