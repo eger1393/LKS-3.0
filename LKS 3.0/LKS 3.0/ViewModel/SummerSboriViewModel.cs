@@ -24,9 +24,10 @@ namespace LKS_3._0.ViewModel
         }
 
         private RelayCommand saveCommand,
-			create;
+			create, cancel;
+		public Action CloseAction { get; set; }
 
-        BindingList<Model.Admin> _admins;
+		BindingList<Model.Admin> _admins;
 
         BindingList<Student> students;
 
@@ -165,9 +166,22 @@ namespace LKS_3._0.ViewModel
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
-						   Model.Templates temp = new Model.Templates(
-							   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
-							   ref temp_DataBase, null, null, tempList);
+						   if ((int)obj == 5 && (int)radioOption == 1)
+						   {
+							   foreach(Student ob in selectedTroop.Students)
+							   {
+								   List<Student> tempStudent = new List<Student>();
+								   tempStudent.Add(ob);
+								   Model.Templates temp = new Model.Templates(
+								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   ref temp_DataBase, tempStudent, null, null);
+							   }
+						   }else
+						   {
+							   Model.Templates temp = new Model.Templates(
+								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   ref temp_DataBase, null, null, tempList);
+						   }
 					   }
 					   else
 					   {
@@ -316,6 +330,17 @@ namespace LKS_3._0.ViewModel
 			{
 				troops = value;
 				OnPropertyChanged();
+			}
+		}
+
+		public RelayCommand Cancel
+		{
+			get
+			{
+				return cancel ?? (cancel = new RelayCommand(obj =>
+				{
+					CloseAction();
+				}));
 			}
 		}
 
