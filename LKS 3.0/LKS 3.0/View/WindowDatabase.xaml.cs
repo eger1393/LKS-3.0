@@ -144,7 +144,7 @@ namespace LKS_3._0
         public void UpdateLocalDataBase()
         {
             System.Diagnostics.Process _Process = null;
-            _Process = System.Diagnostics.Process.Start(@"mysql2sqlite\\mysql2sqlite.exe");
+            _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
         }
     }
   
