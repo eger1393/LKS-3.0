@@ -399,7 +399,7 @@
             </TabItem>
             <TabItem Header="Фотография" DataContext="{Binding AddedStudent}">
                 <Grid>
-                    <Image x:Name="Photo" Margin="10,5,444,267" Source="{Binding ImagePath}"/>
+                    <Image x:Name="Photo" Margin="10,5,444,267" Source="{Binding FullImagePath}"/>
                     <Button x:Name="UploadPhoto" Content="Загрузить фотографию" HorizontalAlignment="Left" Height="44" Margin="23,306,0,0" VerticalAlignment="Top" Width="189" Click="UploadPhoto_Click"/>
 
                 </Grid>

@@ -225,3 +225,12 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Deb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DataBaseVK.sqlite
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_Content.g.cs
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DataBaseVK.sqlite
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.EF6.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.Linq.dll
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_Content.g.cs
+D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.baml
