@@ -133,10 +133,8 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <CheckBox  Content="Инициалы" Grid.Row="0" IsChecked="{Binding PrintOnDemand, Converter={StaticResource checkBoxToBoolConverter},
-                                ConverterParameter=3}"/>
-                            <CheckBox  Content="Год рождения" Grid.Row="1" IsChecked="{Binding PrintOnDemand, Converter={StaticResource checkBoxToBoolConverter},
-                                ConverterParameter=1}"/>
+                            <CheckBox  Content="Инициалы" Grid.Row="0" />
+                            <CheckBox  Content="Год рождения" Grid.Row="1" />
                             <CheckBox  Content="Адрес регистрации" Grid.Row="2" IsChecked="{Binding Path = PrintOnDemand.ElementAt(2).Value}"/>
                             <CheckBox  Content="Домашний телефон" Grid.Row="3" IsChecked="{Binding Path = PrintOnDemand.ElementAt(3).Value}"/>
                             <CheckBox  Content="Мобильный телефон" Grid.Row="4"/>

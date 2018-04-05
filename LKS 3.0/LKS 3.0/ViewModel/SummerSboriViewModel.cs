@@ -165,9 +165,22 @@ namespace LKS_3._0.ViewModel
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
-						   Model.Templates temp = new Model.Templates(
-							   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
-							   ref temp_DataBase, null, null, tempList);
+						   if ((int)obj == 5 && (int)radioOption == 1)
+						   {
+							   foreach(Student ob in selectedTroop.Students)
+							   {
+								   List<Student> tempStudent = new List<Student>();
+								   tempStudent.Add(ob);
+								   Model.Templates temp = new Model.Templates(
+								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   ref temp_DataBase, tempStudent, null, null);
+							   }
+						   }else
+						   {
+							   Model.Templates temp = new Model.Templates(
+								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   ref temp_DataBase, null, null, tempList);
+						   }
 					   }
 					   else
 					   {
