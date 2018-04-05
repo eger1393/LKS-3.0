@@ -30,6 +30,7 @@ namespace LKS_3._0
         const int PROG_VALUE = 10;
         public ApplicationContext DataBaseContext;
         bool connect;
+        
         private RelayCommand addCommand,
             createReportCommand,
             findCommand,
@@ -487,23 +488,23 @@ namespace LKS_3._0
 		{
 			get
 			{
-				return editCommand ??
-				  (editCommand = new RelayCommand((selectedItem) =>
-				  {
-					  if (selectedItem == null) return;
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                  if (selectedItem == null) return;
 
-                      // получаем выделенный объект
-                      Student temp_student = selectedItem as Student;
-                      AddStudent addStudentWindow = new AddStudent(temp_student, ref DataBaseContext);
+                  // получаем выделенный объект
+                  Student temp_student = selectedItem as Student;
+                  AddStudent addStudentWindow = new AddStudent(temp_student, ref DataBaseContext);
 
-                      if (addStudentWindow.ShowDialog() == true)
-                      {
+                  if (addStudentWindow.ShowDialog() == true)
+                  {
 
-                          //DataBase.Students.Add(temp_student);
-                          DataBaseContext.Entry(temp_student).State = EntityState.Modified;
-                          DataBaseContext.ChangeTracker.DetectChanges();
-                          DataBaseContext.SaveChanges();
-                          Students = new BindingList<Student>(Students.Skip(0).ToList());
+                      //DataBase.Students.Add(temp_student);
+                      DataBaseContext.Entry(temp_student).State = EntityState.Modified;
+                      DataBaseContext.SaveChanges();
+                      
+                      Students = new BindingList<Student>(Students.Skip(0).ToList());
 
                           //Troop temp_Troop = DataBase.Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop.NumberTroop);
                           //temp_Troop.Students = new BindingList<Student>(DataBase.Students.Where(u => u.Troop.NumberTroop == temp_Troop.NumberTroop).ToList());
