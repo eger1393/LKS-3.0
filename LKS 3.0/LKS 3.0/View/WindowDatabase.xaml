@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="База данных ВК" WindowState="Maximized" Width="1440" Height="900" >
+        Title="База данных ВК" WindowState="Maximized" Width="1440" Height="900" Closed="W_Data_Closed" >
     <!--Closing="W_Data_Closing"-->
     <Window.Resources>
         <Style x:Key="Default">

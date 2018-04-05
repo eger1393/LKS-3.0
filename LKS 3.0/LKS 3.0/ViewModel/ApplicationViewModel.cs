@@ -29,7 +29,7 @@ namespace LKS_3._0
     {
         const int PROG_VALUE = 10;
         public ApplicationContext DataBaseContext;
-
+        bool connect;
         private RelayCommand addCommand,
             createReportCommand,
             findCommand,
@@ -1136,8 +1136,9 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 
 
-		public ApplicationViewModel(bool connect)
+		public ApplicationViewModel(bool _connect)
 		{
+            this.connect = _connect;
             View.ProgressBar ProgressWin = new View.ProgressBar();
             ProgressWin.Show();
 
@@ -1173,23 +1174,18 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             if(connect)
             {
                 var str_connect = new MySql.Data.MySqlClient.MySqlConnection() { ConnectionString = "server=localhost;user id=root;database=db_vk" };
-                UpdateLocalDataBase();
                 DataBaseContext = new ApplicationContext(str_connect);
             }
             else
             {
-                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK.sqlite" };
+                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\mysql2sqlite\\DataBaseVK.sqlite" };
                 DataBaseContext = new ApplicationContext(str_connect);
             }
 
             
         }
 
-        public void UpdateLocalDataBase()
-        {
-            System.Diagnostics.Process _Process = null;
-            _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
-        }
+        
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
