@@ -42,8 +42,17 @@ namespace LKS_3._0.View
             MessageBoxResult res = MessageBox.Show("Закрыть окно?", "Внимание!", MessageBoxButton.YesNo);
             if (res.ToString() == "Yes")
             {
-                DialogResult = true;
-                Close();
+                if(comboBoxPrepods.SelectedItem == null)
+                {
+                    MessageBox.Show("Выберите отв. преподавателя!", "Ошибка!");
+                    return;
+                }
+                else
+                {
+                    DialogResult = true;
+                    Close();
+                }
+              
             }
             
        

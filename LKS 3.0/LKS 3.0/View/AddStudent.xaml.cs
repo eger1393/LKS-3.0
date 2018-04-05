@@ -37,7 +37,7 @@ namespace LKS_3._0
 
             CbTroop.ItemsSource = temp_DataBase.Troops.Local.Where(c => c.SboriTroop == false && c.NumberTroop != null).Select(u => u.NumberTroop).ToList();
 
-            CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.Group).Distinct().ToList();
+            CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.InstGroup).Distinct().ToList();
 
             CbRectal.ItemsSource = temp_DataBase.Students.Select(u => u.Rectal).Distinct().ToList();
 
@@ -231,7 +231,7 @@ namespace LKS_3._0
 
             if (ImageBitmapFrame != null)
 			{
-				string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
+				string ImagePath = @"Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
 				if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
 				{
 					File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
@@ -245,7 +245,7 @@ namespace LKS_3._0
 				viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
 			}
 
-            if(viewModel.AddedStudent.MiddleName == null) // почему именно фамилия??
+            if(string.IsNullOrEmpty(viewModel.AddedStudent.MiddleName)) // почему именно фамилия??
             {
                 MessageBox.Show("Заполните поле фамилии!","Ошибка!");
             }

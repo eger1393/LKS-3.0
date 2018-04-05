@@ -216,3 +216,10 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DataBaseVK.sqlite

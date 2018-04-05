@@ -21,6 +21,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Data.OleDb;
 
+
 namespace LKS_3._0
 {
    
@@ -29,31 +30,32 @@ namespace LKS_3._0
         const int PROG_VALUE = 10;
         public ApplicationContext DataBaseContext;
 
-		private RelayCommand addCommand,
-			createReportCommand,
-			findCommand,
-			editCommand,
-			deleteCommand,
-			saveChangeCommand,
-			checkPassCommand,
-			editPrepodsCommand,
-			showTraineesCommand,
-			showDetachedCommand,
-			showNaSboriCommand,
-			showPastSboriCommand,
-			showAllCommand,
-			addNoteCommand,
-			troopCheck,
-			newSboricommand,
-			editTroopCommand,
-			changeRankCommand,
-			exportCommand,
-			infoSboriCommand,
-			closeAllWordFile,
-			changeKursCommand,
-			createReportUniversityCommand,
-			ordersCommand,
-			showInfoAdministrationsMillKaf;
+        private RelayCommand addCommand,
+            createReportCommand,
+            findCommand,
+            editCommand,
+            deleteCommand,
+            saveChangeCommand,
+            checkPassCommand,
+            editPrepodsCommand,
+            showTraineesCommand,
+            showDetachedCommand,
+            showNaSboriCommand,
+            showPastSboriCommand,
+            showAllCommand,
+            addNoteCommand,
+            troopCheck,
+            newSboricommand,
+            editTroopCommand,
+            changeRankCommand,
+            exportCommand,
+            infoSboriCommand,
+            closeAllWordFile,
+            changeKursCommand,
+            createReportUniversityCommand,
+            ordersCommand,
+            showInfoAdministrationsMillKaf,
+            synchronizeDB;
 
         private Student selectedStudent;
         private string ValueFind_T, ValueFind_G, ValueFind_M, ValueFind_R;
@@ -72,14 +74,15 @@ namespace LKS_3._0
             }
             set
             {
+                ValueFind_T = value;
                 if (value == null)
                 {
                     Students = DataBaseContext.Students.Local.ToBindingList();
                 }
 
-                List_Group = new BindingList<string>(DataBaseContext.Students.Local.Where(u => u.Troop[0].NumberTroop == value).Select(u => u.Group).Distinct().ToList());
+                //List_Group = new BindingList<string>(DataBaseContext.Students.Local.Where(u => u.Troop.FirstOrDefault(z => z.SboriTroop == false).NumberTroop == value).Select(u => u.InstGroup).Distinct().ToList());
 
-				ValueFind_T = value;
+				
 			}
 
         }
@@ -91,12 +94,13 @@ namespace LKS_3._0
             }
             set
             {
+                ValueFind_G = value;
                 if (value == null)
                 {
                     Students = DataBaseContext.Students.Local.ToBindingList();
                 }
-                List_Mname = new BindingList<string>(DataBaseContext.Students.Local.Where(u => u.Group == value).Select(u => u.MiddleName).Distinct().ToList());
-                ValueFind_G = value;
+                //List_Mname = new BindingList<string>(DataBaseContext.Students.Local.Where(u => u.InstGroup == value).Select(u => u.MiddleName).Distinct().ToList());
+                
             }
         }
         public string SelectedValueFind_M
@@ -107,11 +111,12 @@ namespace LKS_3._0
                         }
             set
                         {
+                ValueFind_M = value;
                 if (value == null)
                 {
                     Students = DataBaseContext.Students.Local.ToBindingList();
                         }
-                ValueFind_M = value;
+                
             }
         }
         public string SelectedValueFind_R
@@ -122,11 +127,12 @@ namespace LKS_3._0
                         }
             set
                         {
+                ValueFind_R = value;
                 if (value == null)
                 {
                     Students = DataBaseContext.Students.Local.ToBindingList();
                         }
-                ValueFind_R = value;
+                
                 }
         }
 
@@ -247,7 +253,7 @@ namespace LKS_3._0
         {
             List_Troop = new BindingList<string>(Troops.Where(u => u.SboriTroop == false).Select(u => u.NumberTroop).ToList());
 
-            List_Group = new BindingList<string>(Students.Select(u => u.Group).Distinct().ToList());
+            List_Group = new BindingList<string>(Students.Select(u => u.InstGroup).Distinct().ToList());
 
             List_Mname = new BindingList<string>(Students.Select(u => u.MiddleName).Distinct().ToList());
 
@@ -281,7 +287,18 @@ namespace LKS_3._0
 					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
 			}
 		}
-
+        //public RelayCommand SynchronizeDB
+        //{
+        //    get
+        //    {
+        //        return synchronizeDB ??
+        //            (synchronizeDB = new RelayCommand(obj =>
+        //            {
+        //                System.Diagnostics.Process _Process = null;
+        //                _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
+        //            }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+        //    }
+        //}
         public RelayCommand ShowAllCommand
         {
             get
@@ -556,14 +573,14 @@ namespace LKS_3._0
 
 
                          
-                        Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop[0].NumberTroop);
-                        temp.Students.Remove(temp_student);
-                        temp.StaffCount = temp.Students.Count;
+                        //Troop temp = Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop[0].NumberTroop);
+                        //temp.Students.Remove(temp_student);
+                        //temp.StaffCount = temp.Students.Count;
 
-                         if (temp.PlatoonCommander == temp_student)
-                         {
-                             temp.Id_PC = 0;
-                         }
+                         //if (temp.PlatoonCommander == temp_student)
+                         //{
+                         //    temp.Id_PC = 0;
+                         //}
 
                          DataBaseContext.SaveChanges();
 
@@ -587,14 +604,31 @@ namespace LKS_3._0
 				return findCommand ??
 									(findCommand = new RelayCommand(select =>
 									{
+                                        var result = Students;
 
+                                        if (!string.IsNullOrEmpty(SelectedValueFind_T))
+                                        {
+                                            result = new BindingList<Student>(result.Where(u => u.Troop.FirstOrDefault(c => c.SboriTroop == false).NumberTroop == SelectedValueFind_T).ToList());
+                                        }
+                                        if (!string.IsNullOrEmpty(SelectedValueFind_G))
+                                        {
+                                            result = new BindingList<Student>(result.Where(u => u.InstGroup == SelectedValueFind_G).ToList());
+                                        }
+                                        if (!string.IsNullOrEmpty(SelectedValueFind_R))
+                                        {
+                                            result = new BindingList<Student>(result.Where(u => u.Rank == SelectedValueFind_R).ToList());
+                                        }
+                                        if (!string.IsNullOrEmpty(SelectedValueFind_M))
+                                        {
+                                            result = new BindingList<Student>(result.Where(u => u.MiddleName == SelectedValueFind_M).ToList());
+                                        }
 
-                                            Students = new BindingList<Student>(DataBaseContext.Students.Local.Where(u => u.Troop[0].NumberTroop == SelectedValueFind_T || u.Group == SelectedValueFind_G || u.Rank == SelectedValueFind_R || u.MiddleName == SelectedValueFind_M).ToList());
-                                            if (Students.Count() == 0)
-                                                    {
-                                                MessageBox.Show("Ни один студент не найден!", "Ошибка!");
-                                            }
-                                        }, (obj) => SelectedValueFind_G != null || SelectedValueFind_T != null || SelectedValueFind_M != null || SelectedValueFind_R != null));
+                                        Students = result;
+                                        if (Students.Count() == 0)
+                                        {
+                                            MessageBox.Show("Ни один студент не найден!", "Ошибка!");
+                                        }
+                                    }));
                 
                 
             }
@@ -974,6 +1008,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             MessageBoxResult res = MessageBox.Show(String.Format("Студентов экспортировано: {0}", counter), "Успешно!", MessageBoxButton.OK);
             if (res.ToString() == "OK")
             {
+                //ProgressWin.DialogResult = true;
                 ProgressWin.Close();
             }
             
@@ -1050,9 +1085,6 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 		public void Load_DB()
 		{
-
-            DataBaseContext = new ApplicationContext();
-
             DataBaseContext.Database.Log = (s => System.Diagnostics.Debug.WriteLine(s));
 
 
@@ -1068,6 +1100,8 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
             BindingList<Relative> Relatives = new BindingList<Relative>(Students.SelectMany(c => c.Relatives).ToList());
 
+            BindingList<Prepod> Prepods = new BindingList<Prepod>(DataBaseContext.Prepods.Include(c => c.Troops).ToList());
+
             //Student._count = DataBaseContext.Students.Count();
 
             DataBaseContext.Relatives.Load();
@@ -1082,11 +1116,11 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
             foreach (Troop item in Troops)
             {
-                if (item.Id_RP != 0)
-                {
-                    item.ResponsiblePrepod = DataBaseContext.Prepods.Local.FirstOrDefault(u => u.Id == item.Id_RP);
+                //if (item.PrepodId != 0)
+                //{
+                //    item.Prepod = DataBaseContext.Prepods.Local.FirstOrDefault(u => u.Id == item.PrepodId);
 
-                }
+                //}
                 if (item.Id_PC != 0)
                 {
                     item.PlatoonCommander = Students.FirstOrDefault(u => u.Id == item.Id_PC);
@@ -1102,14 +1136,60 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 
 
-		public ApplicationViewModel()
+		public ApplicationViewModel(bool connect)
 		{
-			Load_DB();
+            View.ProgressBar ProgressWin = new View.ProgressBar();
+            ProgressWin.Show();
 
-			Update_List();
+            try
+            {
+                CreateConnection(connect);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка!", "Ошибка подключения!");
+                return;
+            }
+
+            try
+            {
+                Load_DB();
+
+                Update_List();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка!", "Ошибка загрузки данных!");
+                return;
+            }
+        
+
+            //ProgressWin.DialogResult = true;
+            ProgressWin.Close();
 		}
 
+        public void CreateConnection(bool connect)
+        {
+            if(connect)
+            {
+                var str_connect = new MySql.Data.MySqlClient.MySqlConnection() { ConnectionString = "server=localhost;user id=root;database=db_vk" };
+                UpdateLocalDataBase();
+                DataBaseContext = new ApplicationContext(str_connect);
+            }
+            else
+            {
+                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK.sqlite" };
+                DataBaseContext = new ApplicationContext(str_connect);
+            }
 
+            
+        }
+
+        public void UpdateLocalDataBase()
+        {
+            System.Diagnostics.Process _Process = null;
+            _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
+        }
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{

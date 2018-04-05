@@ -16,18 +16,18 @@ namespace LKS_3._0
 
         private string numberTroop, day, vus;
 
-        public Prepod ResponsiblePrepod;
+        
 
         public Student PlatoonCommander;
 
         private BindingList<Student> students;
 
-        public BindingList<Prepod> Prepods;
+       
 
         private bool sboriTroop;
 
         private int ID, staffCount;
-        private int? ID_RP, ID_PC;
+        private int? IDPrepod, ID_PC;
 
         public static List<string> Ranks = new List<string>() { "КВ",
         "КО1",
@@ -41,7 +41,7 @@ namespace LKS_3._0
         {
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            ID_RP = 0;
+            IDPrepod = 0;
             ID_PC = 0;
         }
         public Troop(string temp_TroopNumber)
@@ -49,7 +49,7 @@ namespace LKS_3._0
             NumberTroop = temp_TroopNumber;
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            ID_RP = 0;
+            IDPrepod = 0;
             ID_PC = 0;
         }
         public int Id
@@ -109,22 +109,23 @@ namespace LKS_3._0
         }
 
 
-        public int? Id_RP
+        public int? PrepodId
         {
             get
             {
-                return ID_RP;
+                return IDPrepod;
             }
             set
             {
-                if(value == 0)
-                {
-                    PlatoonCommander = null;
-                }
-                ID_RP = value;
+                //if(value == 0)
+                //{
+                //    Prepod = null;
+                //}
+                IDPrepod = value;
             }
         }
 
+        public  Prepod Prepod { get; set; }
         public int? Id_PC
         {
             get
@@ -135,7 +136,7 @@ namespace LKS_3._0
             {
                 if (value == 0)
                 {
-                    ResponsiblePrepod = null;
+                    PlatoonCommander = null;
                 }
                 ID_PC = value;
             }

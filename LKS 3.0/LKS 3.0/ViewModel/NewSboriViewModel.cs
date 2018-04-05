@@ -50,7 +50,7 @@ namespace LKS_3._0.ViewModel
 
             Select_TroopSbori = Troops.FirstOrDefault(u => u.NumberTroop == "1");
 
-            SelectPrepod = Select_TroopSbori.ResponsiblePrepod;
+            SelectPrepod = Select_TroopSbori.Prepod;
 
             Update();
 
@@ -78,7 +78,7 @@ namespace LKS_3._0.ViewModel
             ListStudentsTroopCurrent = Select_TroopCurrent.Students;
             Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
 
-            SelectPrepod = Select_TroopSbori.ResponsiblePrepod;
+            SelectPrepod = Select_TroopSbori.Prepod;
         }
         public BindingList<Troop> Troops
         {
@@ -148,8 +148,8 @@ namespace LKS_3._0.ViewModel
 
                       Prepod temp = selectedItem as Prepod;
 
-                      Select_TroopSbori.Id_RP = temp.Id;
-                      Select_TroopSbori.ResponsiblePrepod = temp;
+                      //Select_TroopSbori.PrepodId = temp.Id;
+                      Select_TroopSbori.Prepod = temp;
 
                   }));
             }
@@ -297,15 +297,9 @@ namespace LKS_3._0.ViewModel
                 return exelentCommand ??
                 (exelentCommand = new RelayCommand(obj =>
                 {
-                    if (obj == null)
-                    {
-                        MessageBox.Show("Выберите отв. преподавателя!", "Ошибка!");
-                        return;
-                    }
-
+                    if (obj == null) return;
                     Prepod temp_prepod = obj as Prepod;
-
-                    Select_TroopSbori.Id_RP = temp_prepod.Id;
+                    Select_TroopSbori.Prepod = temp_prepod;
 
                 }));
             }

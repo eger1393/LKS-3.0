@@ -293,7 +293,7 @@ namespace LKS_3._0.Model
 						}
 						else
 						{
-							path = selectedTrop.ResponsiblePrepod.SignaturePath;
+							path = selectedTrop.Prepod.SignaturePath;
 						}
 						// скопипастил вставку картинок из мдсн
 						MainDocumentPart mainPart = doc.MainDocumentPart;
@@ -519,7 +519,7 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ГРУППА")
 			{
-				return selectedStudent.Group;
+				return selectedStudent.InstGroup;
 			}
 
 			if (command.ToUpper() == "ВУС")
@@ -850,36 +850,36 @@ namespace LKS_3._0.Model
 					return selectedTrop.Vus;
 				}
 
-				if (selectedTrop.ResponsiblePrepod != null)
+				if (selectedTrop.Prepod != null)
 				{
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИМЯ")
 					{
-						return selectedTrop.ResponsiblePrepod.FirstName;
+						return selectedTrop.Prepod.FirstName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ФАМИЛИЯ")
 					{
-						return selectedTrop.ResponsiblePrepod.MiddleName;
+						return selectedTrop.Prepod.MiddleName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ОТЧЕСТВО")
 					{
-						return selectedTrop.ResponsiblePrepod.LastName;
+						return selectedTrop.Prepod.LastName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ЗВАНИЕ")
 					{
-						return selectedTrop.ResponsiblePrepod.Coolness;
+						return selectedTrop.Prepod.Coolness;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ДОЛЖНОСТЬ")
 					{
-						return selectedTrop.ResponsiblePrepod.PrepodRank;
+						return selectedTrop.Prepod.PrepodRank;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИНИЦИАЛЫ")
 					{
-						return selectedTrop.ResponsiblePrepod.initials();
+						return selectedTrop.Prepod.initials();
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
@@ -914,7 +914,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГРУППА")
 					{
-						return selectedTrop.PlatoonCommander.Group;
+						return selectedTrop.PlatoonCommander.InstGroup;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВУС")

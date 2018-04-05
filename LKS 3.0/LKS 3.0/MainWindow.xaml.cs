@@ -24,6 +24,7 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+        public bool connect;
         public MainWindow()
 		{
 			InitializeComponent();
@@ -57,7 +58,7 @@ namespace LKS_3._0
             if(RB_User.IsChecked == true)
             {
                 MessageBox.Show("Вход как студент!");
-                WindowDatabase Window_Data = new WindowDatabase(false);
+                WindowDatabase Window_Data = new WindowDatabase(false, connect);
                 Window_Data.Show();
 
                 Close();
@@ -67,7 +68,7 @@ namespace LKS_3._0
                 if (PB_Password.Password == Pass.Value)
                 {
                     MessageBox.Show("Вход с полным доступом!", "Успешно!");
-                    WindowDatabase Window_Data = new WindowDatabase(true);
+                    WindowDatabase Window_Data = new WindowDatabase(true, connect);
                     Window_Data.Show();
 
                     Close();
@@ -82,6 +83,16 @@ namespace LKS_3._0
             {
                 MessageBox.Show("Выберите вариант входа");
             }
+        }
+
+        private void RB_Global_Checked(object sender, RoutedEventArgs e)
+        {
+            connect = true;
+        }
+
+        private void RB_Local_Checked(object sender, RoutedEventArgs e)
+        {
+            connect = false;
         }
     }
 }
