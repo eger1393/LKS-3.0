@@ -289,11 +289,11 @@ namespace LKS_3._0.Model
 						string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
 						if (valueCommand == "ФОТО")
 						{
-							path = selectedStudent.ImagePath;
+							path = selectedStudent.FullImagePath;
 						}
 						else
 						{
-							path = selectedTrop.Prepod.SignaturePath;
+							path = selectedTrop.Prepod.FullSignaturePath;
 						}
 						// скопипастил вставку картинок из мдсн
 						MainDocumentPart mainPart = doc.MainDocumentPart;
@@ -336,7 +336,7 @@ namespace LKS_3._0.Model
 			var element =
 				 new Drawing(
 					 new DW.Inline(
-						 new DW.Extent() { Cx = 990000L, Cy = 792000L },
+						 new DW.Extent() { Cx = 990000L, Cy = 1100000L },
 						 new DW.EffectExtent()
 						 {
 							 LeftEdge = 0L,
@@ -380,7 +380,7 @@ namespace LKS_3._0.Model
 									 new PIC.ShapeProperties(
 										 new A.Transform2D(
 											 new A.Offset() { X = 0L, Y = 0L },
-											 new A.Extents() { Cx = 990000L, Cy = 792000L }),
+											 new A.Extents() { Cx = 990000L, Cy = 1100000L }),
 										 new A.PresetGeometry(
 											 new A.AdjustValueList()
 										 )

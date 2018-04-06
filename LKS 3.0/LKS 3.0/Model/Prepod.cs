@@ -43,11 +43,18 @@ namespace LKS_3._0
 			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 		}
 
+		public string FullSignaturePath
+		{
+			get
+			{
+				return AppDomain.CurrentDomain.BaseDirectory + SignaturePath;
+			}
+		}
 		public string SignaturePath
 		{
 			get
 			{
-				return AppDomain.CurrentDomain.BaseDirectory + signaturePath;
+				return signaturePath;
 			}
 			set
 			{
