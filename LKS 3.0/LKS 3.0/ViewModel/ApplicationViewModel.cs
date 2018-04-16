@@ -714,7 +714,107 @@ namespace LKS_3._0
         }
 
 
+        private void ImportForAcsess()
+        {
+            string path = Environment.CurrentDirectory + "/sold.mdb"; ;
+            string connection_string = "Provider=Microsoft.JET.OLEDB.4.0;data source=" + path + "";
 
+            string sqlExpression = "SELECT * FROM КПУ";
+            using (var odbc_connection = new OleDbConnection(connection_string))
+            {
+                odbc_connection.Open();
+                OleDbCommand command = new OleDbCommand(sqlExpression, odbc_connection);
+                OleDbDataReader reader = command.ExecuteReader();
+                //Troop t_troop = new Troop("999");
+                //Troops.Add(t_troop);
+                //while (reader.Read())
+                //{
+
+                //    Student temp_student = new Student(t_troop);
+                //    temp_student.FirstName = (string)reader["Имя"];
+                //    temp_student.MiddleName = (string)reader["Фамилия"];
+                //    temp_student.LastName = (string)reader["Отчество"];
+                //    temp_student.Nationality = "русский";
+                //    temp_student.Birthday = Convert.ToDateTime(reader["Дата рождения"]).ToShortDateString();
+                //    temp_student.PlaceBirthday = (string)reader["М/рождения"];
+                //    temp_student.Collness = "лейтенант";
+                //    temp_student.SpecialityName = (string)reader["ВУС"];
+                //    //temp_student.MiddleName = (string)reader["ВУЗ"];
+                //    temp_student.YearOfEndMAI = reader["Год окончания ВУЗа"].ToString();
+                //    temp_student.YearOfEndVK = reader["Год окончания В/К"].ToString();
+                //    temp_student.ForeignLanguage = "английским";
+                //    temp_student.LanguageRank = "читает и переводит со словарем";
+                //    temp_student.Military = "нет";
+                //    temp_student.Rectal = (string)reader["Состоит на учете"];
+                //    temp_student.FamiliStatys = "холост";
+                //    temp_student.PlaceOfRegestration = (string)reader["Домашний адрес"];
+                //    temp_student.Growth = (string)reader["Рост"];
+                //    //temp_student.ClothihgSize = (string)reader["Одежда"];
+                //    temp_student.ClothihgSize = (string)reader["Одежда размер"];
+                //    temp_student.CapSize = (string)reader["Головной убор"];
+                //    temp_student.ShoeSize = (string)reader["Обувь"];
+                //    temp_student.MaskSize = (string)reader["Противогаз"];
+                //    temp_student.BloodType = (string)reader["Группа крови"];
+                //    temp_student.MobilePhone = (string)reader["Телефон"];
+                //    temp_student.SpecInst = (string)reader["Специальность гр"];
+
+                //    DataBaseContext.Students.Add(temp_student);
+
+                //    string middle_name_r = (string)reader["Фамилия б/р"];
+                //    try
+                //    {
+                //        var item = Students.First(u => ((u.MiddleName == middle_name_r)
+                //   || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
+                //        Relative temp_r = new Relative();
+                //        temp_r.MiddleName = (string)reader["Фамилия б/р"];
+                //        temp_r.FirstName = (string)reader["Имя б/р"];
+                //        temp_r.LastName = (string)reader["Отчество б/р"];
+                //        temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
+                //        temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
+                //        item.Relatives.Add(temp_r);
+                //        item.Update_IdRelatives();
+                //    }
+                //    catch (Exception)
+                //    {
+
+                //    }
+
+                //}
+
+
+
+                //List<Student> students = Troops.First(u => u.NumberTroop == "888").Students.ToList();
+
+                while (reader.Read())
+                {
+                    string middle_name_r = (string)reader["Фамилия б/р"];
+                    try
+                    {
+                        var item = Students.First(u => ((u.MiddleName == middle_name_r)
+                   || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
+                        Relative temp_r = new Relative();
+                        temp_r.MiddleName = (string)reader["Фамилия б/р"];
+                        temp_r.FirstName = (string)reader["Имя б/р"];
+                        temp_r.LastName = (string)reader["Отчество б/р"];
+                        temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
+                        temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
+                        item.Relatives.Add(temp_r);
+                        item.Update_IdRelatives();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+                }
+
+                ////}
+
+                DataBaseContext.SaveChanges();
+                odbc_connection.Close();
+
+            }
+        }
 
 		public RelayCommand ExportCommand
 		{
@@ -723,8 +823,9 @@ namespace LKS_3._0
 				return exportCommand ??
 					(exportCommand = new RelayCommand(obj =>
 					{
-						Export2MaevDB();
-					}));
+                        Export2MaevDB();
+                        //ImportForAcsess();
+                    }));
 			}
 		}
 
@@ -1165,18 +1266,18 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                 return;
             }
 
-            try
-            {
+            //try
+            //{
                 Load_DB();
 
                 Update_List();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка загрузки данных!", "Ошибка!");
-                ProgressWin.Close();
-                return;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Ошибка загрузки данных!", "Ошибка!");
+            //    ProgressWin.Close();
+            //    return;
+            //}
             ProgressWin.Close();
         }
 

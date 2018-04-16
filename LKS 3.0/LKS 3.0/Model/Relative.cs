@@ -120,7 +120,7 @@ namespace LKS_3._0
 			}
 		}
 		[RusName("Дата рождения")]
-		public string Birthday // Номер мобильного телефона
+		public string Birthday 
 		{
 			get
 			{
