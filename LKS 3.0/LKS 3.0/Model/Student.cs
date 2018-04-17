@@ -74,6 +74,16 @@ namespace LKS_3._0
             Skill4 = false;
             Skill5 = false;
             Skill6 = false;
+            Zapas = true;
+            Exhortation = false;
+            ProjectOrder = true;
+            VUS = "042600";
+            WhoseOrder = "МО РФ";
+            VO = "МВО";
+            VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
+            VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
+            Fighting = "не участвовал";
+            SpecialityName = "Боевое применение частей и подразделений войсковой ПВО";
             Troop = new BindingList<Troop>();
         }
         public Student(Troop troop) // Конструктор с выбранным взводом
@@ -91,6 +101,16 @@ namespace LKS_3._0
             Skill4 = false;
             Skill5 = false;
             Skill6 = false;
+            Zapas = true;
+            Exhortation = false;
+            ProjectOrder = true;
+            VUS = "042600";
+            WhoseOrder = "МО РФ";
+            VO = "МВО";
+            VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
+            VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
+            SpecialityName = "Боевое применение частей и подразделений войсковой ПВО";
+            Fighting = "не участвовал";
         }
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -124,7 +144,6 @@ namespace LKS_3._0
         [RusName("Должность")]
         public string Rank // Звание студента (перечисление)
         { get; set; }
-        [RusName("ВУС")]
         public string SpecialityName // Название специальности
         { get; set; }
         [RusName("Группа")]
@@ -240,6 +259,26 @@ namespace LKS_3._0
         public bool Skill6
         { get; set; }
 
+        public bool Zapas
+        { get; set; }
+        public bool Exhortation
+        { get; set; }
+        public bool ProjectOrder
+        { get; set; }
+
+        public string WhoseOrder
+        { get; set; }
+        public string VO
+        { get; set; }
+        public string VuzName
+        { get; set; }
+        public string VkName
+        { get; set; }
+        public string Fighting
+        { get; set; }
+
+        public string VUS // код специальности
+        { get; set; }
         public string BloodType
         { get; set; }
 

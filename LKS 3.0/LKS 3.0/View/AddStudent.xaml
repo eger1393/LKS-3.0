@@ -122,12 +122,13 @@
                         <ListBoxItem Content="Годен"/>
                         <ListBoxItem Content="Прошел службу в ВС"/>
                         <ListBoxItem Content="Негоден"/>
+                        <ListBoxItem Content="нет"/>
                     </ComboBox>
 
                     <ComboBox x:Name="CbFamilyStatus" Grid.Column="1" Grid.Row="10" Text="{Binding FamiliStatys}" IsSynchronizedWithCurrentItem="True" Margin="2">
-                        <ListBoxItem Content="Женат"/>
-                        <ListBoxItem Content="Замужем"/>
-                        <ListBoxItem Content="Холост"/>
+                        <ListBoxItem Content="женат"/>
+                        <ListBoxItem Content="замужем"/>
+                        <ListBoxItem Content="холост"/>
                     </ComboBox>
 
                     <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
@@ -156,7 +157,7 @@
                         <ListBoxItem Content="3"/>
                         <ListBoxItem Content="4"/>
                     </ComboBox>
-                    <ComboBox x:Name="CbSpeciality" Grid.Column="3" Grid.Row="3" Text="{Binding SpecialityName}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbSpeciality" Grid.Column="3" Grid.Row="3" Text="{Binding VUS}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
 
                     </ComboBox>
                     <ComboBox x:Name="CbConditions" Grid.Column="3" Grid.Row="5" Text="{Binding ConditionsOfEducation}" IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2">
@@ -307,17 +308,18 @@
                     </GroupBox>
                     <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
                     <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left"  Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding ForeignLanguage}">
-                        <ListBoxItem Content="Английский" />
-                        <ListBoxItem Content="Немецкий" />
-                        <ListBoxItem Content="Французский" />
-                        <ListBoxItem Content="Испанский" />
-                        <ListBoxItem Content="Итальянский" />
+                        <ListBoxItem Content="английским" />
+                        <ListBoxItem Content="немецким" />
+                        <ListBoxItem Content="французским" />
+                        <ListBoxItem Content="испанским" />
+                        <ListBoxItem Content="итальянским" />
                     </ComboBox>
                     <Label x:Name="label_language_rank" Content="Степень:"  Grid.Row="16" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="70" Grid.RowSpan="2" Margin="90,25,0,0"/>
                     <ComboBox x:Name="comboBox_language_rank" HorizontalAlignment="Left" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" Text="{Binding LanguageRank}">
                         <ListBoxItem Content="Свободный" />
                         <ListBoxItem Content="Читаю тех. литературу" />
-                        <ListBoxItem Content="Читаю со словарем" />
+                        <ListBoxItem Content="читает и переводит со словарем" />
+                        <ListBoxItem Content="читает и может объясняться" />
                         <ListBoxItem Content="Начальный" />
                     </ComboBox>
                 </Grid>
@@ -368,22 +370,22 @@
                         <TextBlock Grid.Row="5" Grid.Column="2" Text="Мобильный телефон" />
 
                         <ComboBox x:Name="ComboBoxRelationDegree" Grid.Column="1" Grid.Row="0" FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding RelationDegree}">
-                            <ListBoxItem Content="Мать" />
-                            <ListBoxItem Content="Отец" />
-                            <ListBoxItem Content="Отчим" />
-                            <ListBoxItem Content="Мачеха" />
-                            <ListBoxItem Content="Брат" />
-                            <ListBoxItem Content="Сестра" />
-                            <ListBoxItem Content="Жена" />
-                            <ListBoxItem Content="Сын" />
-                            <ListBoxItem Content="Дочь" />
-                            <ListBoxItem Content="Опекун" />
+                            <ListBoxItem Content="мать" />
+                            <ListBoxItem Content="отец" />
+                            <ListBoxItem Content="отчим" />
+                            <ListBoxItem Content="мачеха" />
+                            <ListBoxItem Content="брат" />
+                            <ListBoxItem Content="сестра" />
+                            <ListBoxItem Content="жена" />
+                            <ListBoxItem Content="сын" />
+                            <ListBoxItem Content="дочь" />
+                            <ListBoxItem Content="опекун" />
                         </ComboBox>
                         <TextBox x:Name="TbRelativeMName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                         <TextBox x:Name="TbRelativeFName" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding FirstName}"  PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                         <TextBox x:Name="TbRelativeLName" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                         <TextBox x:Name="TbRelativeMidenName" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Text="{Binding MaidenName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
-                        <DatePicker x:Name="TbRelativeDateOfBirth" Grid.Column="1" Grid.Row="5" Text="{Binding Birthday, StringFormat=\{0:d\}}"/>
+                        <DatePicker x:Name="TbRelativeDateOfBirth" Grid.Column="1" Grid.Row="5" Text="{Binding Birthday, Mode=TwoWay, StringFormat=\{0:d\}}"/>
 
                         <ComboBox x:Name="ComboBoxRelatibeHealthStaatus" Grid.Column="3" Grid.Row="0"  FontSize="14" FontFamily="Times New Roman" Margin="2" Text="{Binding HealthStatus}">
                             <ListBoxItem Content="Здоров" />
