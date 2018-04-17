@@ -333,7 +333,7 @@
                               ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop, Mode=TwoWay}"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="4 неделя">
+            <TabItem Header="Отчетные документы">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -342,47 +342,50 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <GroupBox x:Name="DocsFourWeek"  Header="Документы" HorizontalAlignment="Stretch">
-                        <ListBox x:Name="DocsBoxFourWeek"/>
-                    </GroupBox>
-                    <Label x:Name="labelFourWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
-                    <ComboBox x:Name="TroopComboBoxFourWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="5 неделя">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="0,2*"/>
-                    </Grid.RowDefinitions>
-
-                    <GroupBox x:Name="DocsFiveWeek"  Header="Документы" HorizontalAlignment="Stretch">
-                        <ListBox x:Name="DocsBoxFiveWeek"/>
-                    </GroupBox>
-                    <Label x:Name="labelFiveWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
-                    <ComboBox x:Name="TroopComboBoxFiveWeek" Grid.Column="1" FontSize="16" Width="170" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Общие документы">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <GroupBox x:Name="DocsAll"  Header="Документы" HorizontalAlignment="Stretch">
-                        <ListBox x:Name="DocsAllBox"/>
+                    <Button   Content="Создать" Grid.Column="1" Margin="0,0,222,10" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Creatte}" CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}" Height="31" VerticalAlignment="Bottom"/>
+                    <Button   Content="Отмена" Grid.Column="1" Margin="0,0,19,10" HorizontalAlignment="Right" Width="174"
+                             Command="{Binding Cancel}" Height="31" VerticalAlignment="Bottom"/>
+                    <GroupBox Grid.Column="0" Header="Документ">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <RadioButton GroupName="DocOnTroop" Content="ВПД" Grid.Row="0"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter}, 
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Именной список сдавших экзамены" Grid.Row="1"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Именной список" Grid.Row="2"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Отчет о результатах аттестации" Grid.Row="3"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option4}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Протокол №1" Grid.Row="4"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option5}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Удостоверение о приписке" Grid.Row="5"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option6}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Характеристика" Grid.Row="6"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option7}}"/>
+                        </Grid>
                     </GroupBox>
                     <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
-                    <ComboBox x:Name="TroopComboBoxAll" Grid.Column="1" FontSize="16" Width="170" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                    <ComboBox x:Name="TroopComboBoxAll" Grid.Column="1" FontSize="16" Width="170" Height="25" 
+                              HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"
+                              ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop, Mode=TwoWay}"/>
                 </Grid>
             </TabItem>
 

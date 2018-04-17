@@ -147,6 +147,23 @@ namespace LKS_3._0.ViewModel
 				"none",
 				"none",
 			},
+			{ // 5
+				"ВПД.docx",
+				"Сборы_характеристика.docx",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+			}
 		};
 		//
 

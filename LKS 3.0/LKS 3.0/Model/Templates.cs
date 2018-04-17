@@ -224,7 +224,7 @@ namespace LKS_3._0.Model
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
-														BookmarkingToCommand(formattedText, i);
+														BookmarkToCommand(formattedText, i);
 													}
 													table.AppendChild(tempRow);
 												}
@@ -240,7 +240,7 @@ namespace LKS_3._0.Model
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
-														BookmarkingToCommand(formattedText, i);
+														BookmarkToCommand(formattedText, i);
 													}
 													table.AppendChild(tempRow);
 												}
@@ -255,7 +255,7 @@ namespace LKS_3._0.Model
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
-														BookmarkingToCommand(formattedText, i);
+														BookmarkToCommand(formattedText, i);
 													}
 													table.AppendChild(tempRow);
 												}
@@ -405,7 +405,7 @@ namespace LKS_3._0.Model
 		/// </summary>
 		/// <param name="formattedText">Закладка</param>
 		/// <param name="i">Номер строки в таблице(нужно для команды №)</param>
-		private void BookmarkingToCommand(SdtElement formattedText, int i)
+		private void BookmarkToCommand(SdtElement formattedText, int i)
 		{
 			string valueCommand;
 			if (formattedText.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "НОМЕР")
@@ -452,7 +452,7 @@ namespace LKS_3._0.Model
 					IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
 					foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
 					{
-						BookmarkingToCommand(formattedText, i);
+						BookmarkToCommand(formattedText, i);
 
 					}
 				}
@@ -490,6 +490,21 @@ namespace LKS_3._0.Model
 			if (command.ToUpper() == "ОТЧЕСТВО")
 			{
 				return selectedStudent.LastName;
+			}
+
+			if (command.ToUpper() == "ИМЯББ")
+			{
+				return selectedStudent.FirstName.ToUpper();
+			}
+
+			if (command.ToUpper() == "ФАМИЛИЯББ")
+			{
+				return selectedStudent.MiddleName.ToUpper();
+			}
+
+			if (command.ToUpper() == "ОТЧЕСТВОББ")
+			{
+				return selectedStudent.LastName.ToUpper();
 			}
 
 			if (command.ToUpper() == "ФАКУЛЬТЕТ")
@@ -1025,7 +1040,7 @@ namespace LKS_3._0.Model
 				}
 			}
 
-			if (summer != null) // ИЗМЕНИТЬ НА НЕ РАВНО
+			if (summer != null) 
 			{
 				if (command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
 				{

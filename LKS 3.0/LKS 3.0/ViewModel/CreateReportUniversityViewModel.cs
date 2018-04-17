@@ -292,6 +292,11 @@ namespace LKS_3._0.ViewModel
 									{
 										if (SelectedTroop != null)
 										{
+											if(selectedStudent == null)
+											{
+												System.Windows.MessageBox.Show("Ошибка, выберите студента!");
+												break;
+											}
 											List<Student> tempList = new List<Student>();
 											tempList.Add(SelectedStudent);
 
@@ -319,9 +324,6 @@ namespace LKS_3._0.ViewModel
 													}
 													break;
 
-												case RadioOptions.Option5:
-													System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
-													break;
 												case RadioOptions.None:
 													{
 														System.Windows.MessageBox.Show("Выберите шаблон!");
