@@ -21,17 +21,36 @@ namespace LKS_3._0
         Заместитель_журналиста,
         Студент
     }
-    public class Student:INotifyPropertyChanged
-    {
-        private BindingList<Relative> relatives;
 
-        public BindingList<Troop> Troop { get; set; }
+	public enum Assessment
+	{
+		неудовлетв = 2,
+		удовлетв,
+		хорошо,
+		отлично
+	}
 
-        
+	public class Student : INotifyPropertyChanged
+	{
+		private BindingList<Relative> relatives;
+		public BindingList<Troop> Troop { get; set; } // Тоха какого хуя в студенте есть список взводов?
+													  // Вот сейчас по моему всякая логика модели сдохла нахер, это вообще не нормально.
 
-        public static int _count;
+		public static int _count;
 
 		private string imagePath;
+
+		static private string[] assessmentEnum = { // Перевод оценок из цифр в обозначения
+			"неудовлетв",
+			"удовлетв",
+			"хорошо",
+			"отлично"
+		};
+		private string assessmentProtocolOneTheory, assessmentProtocolOnePractice, assessmentProtocolOneFinal,
+			assessmentCharacteristicMilitaryTechnicalTraining,
+			assessmentCharacteristicTacticalSpecialTraining,
+			assessmentCharacteristicMilitarySpeialTraining,
+			assessmentCharacteristicFinal;
 
 		public string initials()
 		{
@@ -305,9 +324,153 @@ namespace LKS_3._0
         public string Status
         { get; set; }
 
-       
+		public string AssessmentProtocolOneTheory
+		{
+			get
+			{
+				if(assessmentProtocolOneTheory.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentProtocolOneTheory) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if(new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentProtocolOneTheory = value;
+				else
+				{
+					assessmentProtocolOneTheory = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
 
-        public virtual BindingList<Relative> Relatives
+		public string AssessmentProtocolOnePractice
+		{
+			get
+			{
+				if (assessmentProtocolOnePractice.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentProtocolOnePractice) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentProtocolOnePractice = value;
+				else
+				{
+					assessmentProtocolOnePractice = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+		public string AssessmentProtocolOneFinal
+		{
+			get
+			{
+				if (assessmentProtocolOneFinal.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentProtocolOneFinal) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentProtocolOneFinal = value;
+				else
+				{
+					assessmentProtocolOneFinal = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+		public string AssessmentCharacteristicMilitaryTechnicalTraining
+		{
+			get
+			{
+				if (assessmentCharacteristicMilitaryTechnicalTraining.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitaryTechnicalTraining) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentCharacteristicMilitaryTechnicalTraining = value;
+				else
+				{
+					assessmentCharacteristicMilitaryTechnicalTraining = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+
+		public string AssessmentCharacteristicTacticalSpecialTraining
+		{
+			get
+			{
+				if (assessmentCharacteristicTacticalSpecialTraining.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicTacticalSpecialTraining) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentCharacteristicTacticalSpecialTraining = value;
+				else
+				{
+					assessmentCharacteristicTacticalSpecialTraining = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+
+		public string AssessmentCharacteristicMilitarySpeialTraining
+		{
+			get
+			{
+				if (assessmentCharacteristicMilitarySpeialTraining.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitarySpeialTraining) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentCharacteristicMilitarySpeialTraining = value;
+				else
+				{
+					assessmentCharacteristicMilitarySpeialTraining = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+
+		public string AssessmentCharacteristicFinal
+		{
+			get
+			{
+				if (assessmentCharacteristicFinal.Length != 0)
+					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicFinal) - 2];
+				else
+					return "Отсутствует";
+			}
+			set
+			{
+				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+					assessmentCharacteristicFinal = value;
+				else
+				{
+					assessmentCharacteristicFinal = "";
+					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+				}
+			}
+		}
+
+
+		public virtual BindingList<Relative> Relatives
         {
             get
             {

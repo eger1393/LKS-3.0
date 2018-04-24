@@ -40,8 +40,17 @@ namespace LKS_3._0.Model
         }
         public string initials()
         {
-            return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
-        }
+			try
+			{
+				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+			}
+			catch(System.IndexOutOfRangeException ex)
+			{
+				System.Windows.MessageBox.Show("Данные об администрации заполнены не полностью!\n" + ex.Message);
+				return "";
+			}
+
+		}
 
         [RusName("Должность")]
         public string Rank 

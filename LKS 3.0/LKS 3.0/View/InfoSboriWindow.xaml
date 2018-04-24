@@ -386,6 +386,8 @@
                     <ComboBox x:Name="TroopComboBoxAll" Grid.Column="1" FontSize="16" Width="170" Height="25" 
                               HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0"
                               ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop, Mode=TwoWay}"/>
+                    <Button Content="Оценки" Margin="21,0,0,15"
+                             Command="{Binding Assessments}" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="152"/>
                 </Grid>
             </TabItem>
 

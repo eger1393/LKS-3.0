@@ -91,7 +91,16 @@ namespace LKS_3._0.Model
 
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				File.Copy(fileName, dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+				try
+				{
+					File.Copy(fileName, dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+				}
+				catch(System.IO.FileNotFoundException ex)
+				{
+					System.Windows.MessageBox.Show("Файл шаблона не найден, проверьте наличие файла"
+						+ ex.FileName + "в папке Templates\n" + ex.Message);
+					return;
+				}
 			}
 			else
 			{

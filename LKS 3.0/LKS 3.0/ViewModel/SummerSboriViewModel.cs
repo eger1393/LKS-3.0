@@ -24,7 +24,7 @@ namespace LKS_3._0.ViewModel
         }
 
         private RelayCommand saveCommand,
-			create, cancel;
+			create, cancel, assessments;
 		public Action CloseAction { get; set; }
 
 		BindingList<Model.Admin> _admins;
@@ -149,11 +149,11 @@ namespace LKS_3._0.ViewModel
 			},
 			{ // 5
 				"ВПД.docx",
-				"Сборы_характеристика.docx",
+				"Именной список сдавших экзамен.docx",
+				"Именной список.docx",
 				"none",
 				"none",
-				"none",
-				"none",
+				"Удостоверение о приписке.docx",
 				"none",
 				"none",
 				"none",
@@ -361,12 +361,24 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
+		public RelayCommand Assessments
+		{
+			get
+			{
+				return assessments?? (assessments = new RelayCommand(obj =>
+				{
+				View.SummerFeesAssessmentForControl window = 
+					new View.SummerFeesAssessmentForControl(new SummerFeesAssessmentForControlViewModel(selectedTroop));
+					window.ShowDialog();
+				}));
+			}
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+		}
 
 
     }
