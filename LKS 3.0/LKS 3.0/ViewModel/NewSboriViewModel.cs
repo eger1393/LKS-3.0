@@ -48,7 +48,9 @@ namespace LKS_3._0.ViewModel
 
             Select_TroopCurrent = new Troop();
 
-            Select_TroopSbori = Troops.FirstOrDefault(u => u.NumberTroop == "1");
+            Troop troop_tmp = Troops.FirstOrDefault(u => u.SboriTroop == true);
+
+            Select_TroopSbori = troop_tmp == null ? new Troop("1") : troop_tmp;
 
             SelectPrepod = Select_TroopSbori.Prepod;
 

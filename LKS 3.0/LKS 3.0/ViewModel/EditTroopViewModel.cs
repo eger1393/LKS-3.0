@@ -70,7 +70,7 @@ namespace LKS_3._0.ViewModel
                       Troop temp_troop = selectedItem as Troop;
 
                       View.AddTroop addTroopWindow = new View.AddTroop(temp_troop);
-
+                    
                       if (addTroopWindow.ShowDialog() == true)
                       {
                           DataBaseTr.Entry(temp_troop).State = EntityState.Modified;
@@ -90,7 +90,7 @@ namespace LKS_3._0.ViewModel
                   {
                       Troop temp_troop = new Troop();
                       View.AddTroop addTroopWindow = new View.AddTroop(temp_troop);
-
+                      
                       if (addTroopWindow.ShowDialog() == true)
                       {
                           DataBaseTr.Troops.Add(temp_troop);

@@ -41,16 +41,16 @@ namespace LKS_3._0
         {
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            IDPrepod = 0;
-            ID_PC = 0;
+            IDPrepod = null;
+            ID_PC = null;
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            IDPrepod = 0;
-            ID_PC = 0;
+            IDPrepod = null;
+            ID_PC = null;
         }
         public int Id
         {

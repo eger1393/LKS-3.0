@@ -237,3 +237,5 @@ D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.baml
