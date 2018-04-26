@@ -24,7 +24,7 @@ namespace LKS_3._0
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        public bool connect;
+        public bool connect = false;
         public MainWindow()
 		{
 			InitializeComponent();
@@ -54,7 +54,7 @@ namespace LKS_3._0
         }
 
         private void B_Input_Click(object sender, RoutedEventArgs e)
-        {
+        {           
             if(RB_User.IsChecked == true)
             {
                 MessageBox.Show("Вход как студент!");

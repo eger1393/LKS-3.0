@@ -11,7 +11,7 @@
         <Label Content="Выберите вариант подключения:" Margin="0,10,0,0" HorizontalAlignment="Center"/>
         <StackPanel HorizontalAlignment="Left" Margin="10,10,0,0">
             <RadioButton x:Name="RB_Global" Content="Удаленное подключение" Checked="RB_Global_Checked" />
-            <RadioButton x:Name="RB_Local" Content="Автономная работа" Checked="RB_Local_Checked"/>
+            <RadioButton x:Name="RB_Local" Content="Автономная работа" Checked="RB_Local_Checked" IsChecked="True"/>
         </StackPanel>
         
         <Label Content="Выберите вариант входа:" Margin="0,10,0,0" HorizontalAlignment="Center"/>
