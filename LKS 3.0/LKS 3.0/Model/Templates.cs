@@ -101,6 +101,11 @@ namespace LKS_3._0.Model
 						+ ex.FileName + "в папке Templates\n" + ex.Message);
 					return;
 				}
+				catch (System.IO.IOException ex)
+				{
+					System.Windows.MessageBox.Show("Ошибка с файлом шаблона, или с перезаписью файла!\n" + ex.Message);
+					return;
+				}
 			}
 			else
 			{
@@ -541,6 +546,11 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВУС")
 			{
+				return selectedStudent.VUS;
+			}
+
+			if (command.ToUpper() == "ВУС (ПОЛНОЕ НАИМЕНОВАНИЕ)")
+			{
 				return selectedStudent.SpecialityName;
 			}
 
@@ -637,7 +647,13 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
+				try
+				{
+					return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
+				}catch(System.InvalidOperationException )
+				{
+					return selectedStudent.Troop.First().NumberTroop;
+				}
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
@@ -902,42 +918,61 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ? 
+						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5 %")
 				{
-					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5)/ selectedTrop.Students.Count * 100).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
+						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
+						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4 %")
 				{
-					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) / selectedTrop.Students.Count * 100).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
+						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
+						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3 %")
 				{
-					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) / selectedTrop.Students.Count * 100).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
+						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 2).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
+						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2 %")
 				{
-					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 2) / selectedTrop.Students.Count * 100).ToString();
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
+						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
+				{
+					return selectedTrop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal > 2)).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 СРЕДНИЙ БАЛЛ")
+				{
+					return (Convert.ToDouble(selectedTrop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u=>u.AssessmentProtocolOneFinal)) /
+						 selectedTrop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2))).ToString("#.#");
 				}
 
 				if (selectedTrop.Prepod != null)
@@ -1175,6 +1210,11 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
 				{
 					return summer.LocationVK;
+				}
+
+				if(command.ToUpper() == "СБОРЫ ДЛИТЕЛЬНОСТЬ")
+				{
+					return (Convert.ToDateTime(summer.DateBeginSbori) - Convert.ToDateTime(summer.DateEndSbori)).ToString();
 				}
 			}
 			if (admins != null)

@@ -147,14 +147,14 @@ namespace LKS_3._0.ViewModel
 				"none",
 				"none",
 			},
-			{ // 5
+			{ // 6
 				"ВПД.docx",
 				"Именной список сдавших экзамен.docx",
 				"Именной список.docx",
-				"none",
-				"none",
+				"Отчет о результатах аттестации.docx",
+				"Протокол1.docx",
 				"Удостоверение о приписке.docx",
-				"none",
+				"ХАРАКТЕРИСТИКА.docx",
 				"none",
 				"none",
 				"none",
@@ -183,7 +183,7 @@ namespace LKS_3._0.ViewModel
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
-						   if ((int)obj == 5 && (int)radioOption == 1)
+						   if (((int)obj == 5 && (int)radioOption == 1) || ((int)obj == 6 && (int)radioOption == 6))
 						   {
 							   foreach (Student ob in selectedTroop.Students)
 							   {
