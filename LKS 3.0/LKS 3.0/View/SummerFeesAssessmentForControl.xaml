@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LKS_3._0.View"
         xmlns:myns="clr-namespace:DataBinding"
         mc:Ignorable="d"
-        Title="Оценки" Height="600" Width="950">
+        Title="Оценки" Height="586.592" Width="1136.034">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -21,20 +21,19 @@
     RowBackground="LightGray" Grid.Row="1" VerticalAlignment="Top" Width="auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ФИО" Width="100" Binding="{Binding Initials, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Теоретические знания" Width="100" Binding="{Binding Path=AssessmentProtocolOneTheory,
-                    NotifyOnValidationError=True}" IsReadOnly="False">
-
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Практические умения" Width="100" Binding="{Binding Path=AssessmentProtocolOnePractice}"/>
-                <DataGridTextColumn Header="Общая оценка" Width="100" Binding="{Binding Path=AssessmentProtocolOneFinal}"/>
-                <DataGridTextColumn Header="Военно-техническая подготовка" Width="100" Binding="{Binding Path=AssessmentCharacteristicMilitaryTechnicalTraining}"/>
-                <DataGridTextColumn Header="Тактико-специальная подготовка" Width="100" Binding="{Binding Path=AssessmentCharacteristicTacticalSpecialTraining}"/>
-                <DataGridTextColumn Header="Военно- специальная подготовка" Width="100" Binding="{Binding Path=AssessmentCharacteristicMilitarySpeialTraining}"/>
-                <DataGridTextColumn Header="Общая оценка" Width="100" Binding="{Binding Path=AssessmentCharacteristicFinal}"/>
+                <DataGridTextColumn Header="Теоретические знания" Binding="{Binding Path=AssessmentProtocolOneTheory,
+                    NotifyOnValidationError=True}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Практические умения" Binding="{Binding Path=AssessmentProtocolOnePractice}"/>
+                <DataGridTextColumn Header="Общая оценка" Binding="{Binding Path=AssessmentProtocolOneFinal}"/>
+                <DataGridTextColumn Header="Военно-техническая подготовка" Binding="{Binding Path=AssessmentCharacteristicMilitaryTechnicalTraining}"/>
+                <DataGridTextColumn Header="Тактико-специальная подготовка" Binding="{Binding Path=AssessmentCharacteristicTacticalSpecialTraining}"/>
+                <DataGridTextColumn Header="Военно- специальная подготовка" Binding="{Binding Path=AssessmentCharacteristicMilitarySpeialTraining}"/>
+                <DataGridTextColumn Header="Общая оценка" Binding="{Binding Path=AssessmentCharacteristicFinal}"/>
             </DataGrid.Columns>
 
         </DataGrid>
         <Button Grid.Row="2" Content="Сохранить" Margin="0,0,172,10" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103" Click="Button_Click"/>
         <Button Grid.Row="2" Content="Закрыть" Command="{Binding Close}" Margin="0,0,33,10" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
+        <Label x:Name="label" Content="Список оценок по взводу" HorizontalAlignment="Center" Margin="294,14,301,0" VerticalAlignment="Top" Width="203" FontSize="16"/>
     </Grid>
 </Window>
