@@ -13,7 +13,7 @@
         <Label x:Name="label1" Content="ВУС"/>
         <TextBox x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="{Binding Vus}"/>
         <Label x:Name="label2" Content="Взвод для сборов?"/>
-        <CheckBox x:Name="checkBox_2" Content="Да" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"  IsChecked="{Binding SboriTroop}"/>
+        <CheckBox x:Name="checkBox_Sbori" Content="Да" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"  IsChecked="{Binding SboriTroop}"/>
         <Label x:Name="label3" Content="День прихода"/>
         <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Stretch"  Grid.Row="17" VerticalAlignment="Top" Height="20" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding Day}">
             <ListBoxItem Content="Пн" />

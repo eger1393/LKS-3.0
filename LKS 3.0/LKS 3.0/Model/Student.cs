@@ -107,6 +107,7 @@ namespace LKS_3._0
             Zapas = true;
             Exhortation = false;
             ProjectOrder = true;
+            Birthday = "";
             VUS = "042600";
             WhoseOrder = "МО РФ";
             VO = "МВО";
@@ -125,6 +126,7 @@ namespace LKS_3._0
             Status = "Обучается";
             BloodType = "Не знаю";
             Kurs = 2;
+            Birthday = "";
             Skill1 = false;
             Skill2 = false;
             Skill3 = false;

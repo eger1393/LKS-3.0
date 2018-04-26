@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-        Title="InfoAdministrationMilKaf" SizeToContent="WidthAndHeight">
+        Title="InfoAdministrationMilKaf" SizeToContent="WidthAndHeight" MinHeight="300">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Times New Roman"/>
@@ -71,10 +71,10 @@
         <TextBox x:Name="Rect_Middle" Grid.Column="5" Grid.Row="2" Text ="" Width="126"/>
         <TextBox x:Name="Rect_First" Grid.Column="5" Grid.Row="3" Text ="" Width="126"/>
         <TextBox x:Name="Rect_Last" Grid.Column="5" Grid.Row="4" Text ="" Width="126"/>
-        
 
-        <Button x:Name="Save" Content="Сохранить" Grid.Column="2" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Top" Width="81" Click="Save_Click"/>
-        <Button x:Name="Cancel" Content="Отмена" Grid.Column="3" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Top" Width="82"/>
+
+        <Button x:Name="Save" Content="Сохранить" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Bottom" Width="81" Click="Save_Click" Grid.ColumnSpan="2" Margin="10,0,100,-59"/>
+        <Button x:Name="Cancel" Content="Отмена" Grid.Column="5" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Bottom" Width="82" Margin="41,0,7,-58" Click="Cancel_Click"/>
 
 
     </Grid>

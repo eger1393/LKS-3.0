@@ -25,33 +25,62 @@ namespace LKS_3._0.View
 	/// Логика взаимодействия для InfoAdministrationMilKaf.xaml
 	/// </summary>
 	public partial class InfoAdministrationMilKaf : Window
-	{
-		ApplicationContext db;
-        
-		public InfoAdministrationMilKaf(ref ApplicationContext DB)
+    {
+        Model.Admin Rect, War, Nach;
+        ApplicationContext db;
+        public InfoAdministrationMilKaf(ref ApplicationContext DB)
 		{
 			InitializeComponent();
-            var temp1 = DB.Admins.FirstOrDefault(u => u.Collness == "Ректор МАИ НИУ");
-            var temp2 = DB.Admins.FirstOrDefault(u => u.Collness == "Военный коммисар");
-            var temp3 = DB.Admins.FirstOrDefault(u => u.Collness == "Начальник факультета военного обучения");
 
-            VK_First.Text = temp2.FirstName;
-            VK_Middle.Text = temp2.MiddleName;
-            VK_Last.Text = temp2.LastName;
-            VK_Rank.Text = temp2.Rank;
 
-            War_First.Text = temp3.FirstName;
-            War_Middle.Text = temp3.MiddleName;
-            War_Last.Text = temp3.LastName;
-            
+            db = DB;
+
+            Rect = DB.Admins.FirstOrDefault(u => u.Rank == "Ректор МАИ НИУ");
+            War = DB.Admins.FirstOrDefault(u => u.Rank == "Военный коммисар");
+            Nach = DB.Admins.FirstOrDefault(u => u.Rank == "Начальник факультета военного обучения");
+
+            VK_First.Text = Nach.FirstName;
+            VK_Middle.Text = Nach.MiddleName;
+            VK_Last.Text = Nach.LastName;
+            VK_Rank.Text = Nach.Rank;
+
+            War_First.Text = War.FirstName;
+            War_Middle.Text = War.MiddleName;
+            War_Last.Text = War.LastName;
+            War_Rank.Text = War.Rank;
+
+            Rect_First.Text = Rect.FirstName;
+            Rect_Middle.Text = Rect.MiddleName;
+            Rect_Last.Text = Rect.LastName;
+
 
         }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-			//db.Entry(this.DataContext).State = EntityState.Modified;
-			//db.SaveChanges();
-   //         DialogResult = true;
-		}
-	}
+            Nach.FirstName = VK_First.Text;
+            Nach.MiddleName = VK_Middle.Text;
+            Nach.LastName = VK_Last.Text;
+            Nach.Rank = VK_Rank.Text;
+
+            War.FirstName = War_First.Text;
+            War.MiddleName = War_Middle.Text;
+            War.LastName = War_Last.Text;
+            War.Rank = War_Rank.Text;
+
+            Rect.FirstName = Rect_First.Text;
+            Rect.MiddleName = Rect_Middle.Text;
+            Rect.LastName = Rect_Last.Text;
+
+            DialogResult = true;
+            db.SaveChanges();
+            Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+    }
 }
