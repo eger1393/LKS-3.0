@@ -29,7 +29,7 @@ namespace LKS_3._0.Model
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
-		Model.Department adminInfo; // Военком и нач кафедры
+		//Model.Department adminInfo; // Военком и нач кафедры
 		List<Admin> admins; // список администрации на сборах
 
 		// Неуверен всетаки надо ли передавать ссылка на БД
@@ -70,10 +70,10 @@ namespace LKS_3._0.Model
 			////
 			DataBase = temp_DataBase;
 			DataBase.Summers.Load();
-			DataBase.Departments.Load();
+			//DataBase.Departments.Load();
 			DataBase.Admins.Load();
 			summer = DataBase.Summers.Local.ToList().First(); // в summers должна быть только одна запись!
-			adminInfo = DataBase.Departments.Local.ToList().First();
+			//adminInfo = DataBase.Departments.Local.ToList().First();
 			admins = DataBase.Admins.Local.ToList();
 
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
@@ -1177,41 +1177,38 @@ namespace LKS_3._0.Model
 					return summer.LocationVK;
 				}
 			}
-			if (adminInfo != null)
-			{
-				if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
-				{
-					return adminInfo.HeadMilitaryDepartmentInitials;
-				}
-
-				if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
-				{
-					return adminInfo.HeadMilitaryDepartmentRank;
-				}
-
-				if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
-				{
-					return adminInfo.HeadMilitaryDepartmentPost;
-				}
-
-				if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
-				{
-					return adminInfo.WarriorInitials;
-				}
-
-				if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
-				{
-					return adminInfo.WarriorRank;
-				}
-
-				if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
-				{
-					return adminInfo.WarrioirPost;
-				}
-			}
 			if (admins != null)
 			{
-				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
+                {
+                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").initials();
+                }
+
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
+                {
+                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Collness;
+                }
+
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
+                {
+                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Rank;
+                }
+
+                if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
+                {
+                    return admins.Find(u => u.Rank == "Военный коммисар").initials();
+                }
+
+                if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
+                {
+                    return admins.Find(u => u.Rank == "Военный коммисар").Collness;
+                }
+
+                if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
+                {
+                    return admins.Find(u => u.Rank == "Военный коммисар").Rank;
+                }
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
 				{
 					return admins.Find(u => u.Rank == "Начальник штаба").FirstName;
 				}

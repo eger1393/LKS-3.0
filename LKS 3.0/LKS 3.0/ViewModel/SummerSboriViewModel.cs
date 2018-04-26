@@ -23,9 +23,9 @@ namespace LKS_3._0.ViewModel
 			get; set;
 		}
 
-		private RelayCommand saveCommand,
-			create, cancel, assessments;
-		public Action CloseAction { get; set; }
+        private RelayCommand saveCommand,
+            create, cancel, assessments, editCommand;
+        public Action CloseAction { get; set; }
 
 		BindingList<Model.Admin> _admins;
 
@@ -218,6 +218,7 @@ namespace LKS_3._0.ViewModel
 					(saveCommand = new RelayCommand(obj =>
 					{
 						this.temp_DataBase.SaveChanges();
+                        MessageBox.Show("Изменения сохранены!", "Успешно!");
 					}));
 			}
 		}
@@ -395,7 +396,30 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                      if (selectedItem == null) return;
+                      // получаем выделенный объект
+                      Model.Admin temp_admin = selectedItem as Model.Admin;
+
+                      View.AddAdmin addWindow = new View.AddAdmin(temp_admin);
+
+                      if (addWindow.ShowDialog() == true)
+                      {
+                          //Prepods.Add(temp_prepod);
+                          temp_DataBase.Entry(temp_admin).State = EntityState.Modified;
+                          temp_DataBase.SaveChanges();
+                          SelectedAdmin = temp_admin;
+                      }
+                  }));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

@@ -10,10 +10,13 @@ namespace LKS_3._0.Model
 {
     public partial class Admin : INotifyPropertyChanged
     {
-        public static int _count;
-
         private int ID;
-
+        public Admin()
+        {
+            order = false;
+            prepod = false;
+            officer = false;
+        }
         public int Id
         {
             get
@@ -30,7 +33,7 @@ namespace LKS_3._0.Model
             lastName, // Отчество
             coolness, // Звание
             rank; // Дата рождения
-        private bool order, prepod, officer;
+        private bool? order, prepod, officer;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -118,7 +121,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Доведение приказа")]
-        public bool Orders
+        public bool? Orders
         {
             get
             {
@@ -133,7 +136,7 @@ namespace LKS_3._0.Model
         }
 
         [RusName("Преподаватель")]
-        public bool Prepod
+        public bool? Prepod
         {
             get
             {
@@ -148,7 +151,7 @@ namespace LKS_3._0.Model
         }
 
         [RusName("Офицер ФВО")]
-        public bool Officer
+        public bool? Officer
         {
             get
             {

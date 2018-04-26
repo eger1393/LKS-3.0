@@ -133,12 +133,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\SummerFeesAssessmentForControlViewModel.cs" />
+    <Compile Include="View\AddAdmin.xaml.cs">
+      <DependentUpon>AddAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SummerFeesAssessmentForControl.xaml.cs">
       <DependentUpon>SummerFeesAssessmentForControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WindowSetting.xaml.cs">
       <DependentUpon>WindowSetting.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AddAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddNoteStudent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,7 +159,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Model\Admin.cs" />
-    <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Summer.cs" />
     <Compile Include="Model\Templates.cs" />
     <Compile Include="ProgMode.cs" />

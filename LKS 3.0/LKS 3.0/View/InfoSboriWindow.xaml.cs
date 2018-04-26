@@ -42,8 +42,9 @@ namespace LKS_3._0.View
         private void Binding_columns()
         {
             Type T = typeof(Model.Admin);
-            Type B = typeof(bool);
+            Type B = typeof(bool?);
             PropertyInfo[] Property_Arr = T.GetProperties();
+            AdminDataGrid.IsReadOnly = true;
             foreach (PropertyInfo el in Property_Arr)
             {
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
@@ -55,7 +56,6 @@ namespace LKS_3._0.View
 
                     Binding _myNewBindDef = new Binding(el.Name);
                     _temp_column.Binding = _myNewBindDef;
-
                     AdminDataGrid.Columns.Add(_temp_column);
                 }
                 else if(temp_attribute != null)
@@ -66,9 +66,11 @@ namespace LKS_3._0.View
 
                     Binding myNewBindDef = new Binding(el.Name);
                     temp_column.Binding = myNewBindDef;
-
+                 
                     AdminDataGrid.Columns.Add(temp_column);
                 }
+               
+
             }
         }
 
