@@ -1222,6 +1222,16 @@ namespace LKS_3._0.Model
 					return summer.TittleOrder;
 				}
 
+				if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ")
+				{
+					return summer.Bmp_kr;
+				}
+
+				if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ ПОЛНОЕ")
+				{
+					return summer.Bmp_full;
+				}
+
 
 			}
 			if (admins != null)
@@ -1430,6 +1440,76 @@ namespace LKS_3._0.Model
 					return admins.Find(u => u.Rank == "Начальник штаба войсковой части").Collness;
 				}
 
+				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 1").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 1").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 2").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 2").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 3").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 3").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 4").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 4").Collness;
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 5").initials();
+				}
+
+				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Член комиссии 5").Collness;
+				}
+
 				if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ1")
 				{
 					return "1";
@@ -1448,6 +1528,11 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ4")
 				{
 					return "1";
+				}
+
+				if (command.ToUpper() == "РЕКТОР ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Ректор МАИ НИУ").initials();
 				}
 
 			}
