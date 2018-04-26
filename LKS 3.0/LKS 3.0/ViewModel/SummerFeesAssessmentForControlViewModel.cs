@@ -23,8 +23,20 @@ namespace LKS_3._0.ViewModel
 			this.troop = troop;
             Students = troop.Students;
 		}
-
-        public BindingList<Student> Students { get => students; set => students = value; }
+		RelayCommand close;
+		public Action CloseAction { get; set; }
+		public RelayCommand Close
+		{
+			get
+			{
+				return close ?? (close = new RelayCommand(obj =>
+				  {
+					  CloseAction();
+				  }));
+			}
+		}
+		
+		public BindingList<Student> Students { get { return students; } set { students = value; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")

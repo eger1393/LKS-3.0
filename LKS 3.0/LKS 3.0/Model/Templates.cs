@@ -95,7 +95,7 @@ namespace LKS_3._0.Model
 				{
 					File.Copy(fileName, dlg.FileName, true); // создали выходной файл и теперь работаем с ним
 				}
-				catch(System.IO.FileNotFoundException ex)
+				catch (System.IO.FileNotFoundException ex)
 				{
 					System.Windows.MessageBox.Show("Файл шаблона не найден, проверьте наличие файла"
 						+ ex.FileName + "в папке Templates\n" + ex.Message);
@@ -468,6 +468,19 @@ namespace LKS_3._0.Model
 			}
 		}
 
+		private string toAssessment(int num)
+		{
+			string[] assessmentEnum = { // Перевод оценок из цифр в обозначения
+			"неудовлетв",
+			"удовлетв",
+			"хорошо",
+			"отлично"
+			};
+			if (num >= 2 && num <= 5)
+				return assessmentEnum[num - 2];
+			else
+				return num.ToString();
+		}
 		private string findCommand(string command)
 		{
 			if (command.ToUpper() == "НОВАЯ СТРОКА")
@@ -624,12 +637,12 @@ namespace LKS_3._0.Model
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop.First(u=>u.SboriTroop==false).NumberTroop;
+				return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
 			{
-				return selectedStudent.initials();
+				return selectedStudent.Initials;
 			}
 
 			if (command.ToUpper() == "СЛУЖБА В ВС")
@@ -652,7 +665,40 @@ namespace LKS_3._0.Model
 				return selectedStudent.SpecInst;
 			}
 
+			if (command.ToUpper() == "ПРОТОКОЛ 1 ТЕОРЕТИЧЕСКИЕ ЗНАНИЯ")
+			{
+				return toAssessment(selectedStudent.AssessmentProtocolOneTheory);
+			}
 
+			if (command.ToUpper() == "ПРОТОКОЛ 1 ПРАКТИЧЕСКИЕ УМЕНИЯ")
+			{
+				return toAssessment(selectedStudent.AssessmentProtocolOnePractice);
+			}
+
+			if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА")
+			{
+				return toAssessment(selectedStudent.AssessmentProtocolOneFinal);
+			}
+
+			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-ТЕХНИЧЕСКАЯ ПОДГОТОВКА")
+			{
+				return toAssessment(selectedStudent.AssessmentCharacteristicMilitaryTechnicalTraining);
+			}
+
+			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ТАКТИКО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
+			{
+				return toAssessment(selectedStudent.AssessmentCharacteristicTacticalSpecialTraining);
+			}
+
+			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
+			{
+				return toAssessment(selectedStudent.AssessmentCharacteristicMilitarySpeialTraining);
+			}
+
+			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ОБЩАЯ ОЦЕНКА")
+			{
+				return toAssessment(selectedStudent.AssessmentCharacteristicFinal);
+			}
 
 			//
 			//БЛОК РОДСТВЕННИКОВ
@@ -854,6 +900,46 @@ namespace LKS_3._0.Model
 					return selectedTrop.Vus;
 				}
 
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
+				{
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5 %")
+				{
+					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5)/ selectedTrop.Students.Count * 100).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4")
+				{
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4 %")
+				{
+					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) / selectedTrop.Students.Count * 100).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3")
+				{
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3 %")
+				{
+					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) / selectedTrop.Students.Count * 100).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2")
+				{
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 2).ToString();
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2 %")
+				{
+					return (selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 2) / selectedTrop.Students.Count * 100).ToString();
+				}
+
 				if (selectedTrop.Prepod != null)
 				{
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИМЯ")
@@ -1024,7 +1110,7 @@ namespace LKS_3._0.Model
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
 					{
-						return selectedTrop.PlatoonCommander.initials();
+						return selectedTrop.PlatoonCommander.Initials;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР СЛУЖБА В ВС")
@@ -1049,7 +1135,7 @@ namespace LKS_3._0.Model
 				}
 			}
 
-			if (summer != null) 
+			if (summer != null)
 			{
 				if (command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
 				{

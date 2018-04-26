@@ -14,36 +14,36 @@ using System.Windows;
 
 namespace LKS_3._0.ViewModel
 {
-    class SummerSboriViewModel : INotifyPropertyChanged
-    {
-        private ApplicationContext temp_DataBase;
+	class SummerSboriViewModel : INotifyPropertyChanged
+	{
+		private ApplicationContext temp_DataBase;
 
-        public Model.Summer SelectedSummerSbori 
-        {
-            get; set;
-        }
+		public Model.Summer SelectedSummerSbori
+		{
+			get; set;
+		}
 
-        private RelayCommand saveCommand,
+		private RelayCommand saveCommand,
 			create, cancel, assessments;
 		public Action CloseAction { get; set; }
 
 		BindingList<Model.Admin> _admins;
 
-        BindingList<Student> students;
+		BindingList<Student> students;
 
-        BindingList<Prepod> prepods;
-        Model.Admin selectAdmin;
+		BindingList<Prepod> prepods;
+		Model.Admin selectAdmin;
 		BindingList<Troop> troops;
 
 		//
 		private Troop selectedTroop;
 		private RadioOptions radioOption = RadioOptions.None;
 
-		
+
 
 		// путь к шаблонам (строки - вкладки, столбцы - конкретные шаблоны)
 		// TODO переделать исспользуя не массив
-		string[,] pathTemplate = 
+		string[,] pathTemplate =
 		{
 			{ // 0 вкладка
 				"Сборы_Альфа_список.docx",
@@ -174,18 +174,18 @@ namespace LKS_3._0.ViewModel
 				return create ??
 					(create = new RelayCommand(obj =>
 				   {
-					   if(SelectedTroop == null)
+					   if (SelectedTroop == null)
 					   {
 						   MessageBox.Show("Ошибка, выбирите взвод!");
 						   return;
 					   }
-					   if(pathTemplate[(int)obj, (int)radioOption] != "none")
+					   if (pathTemplate[(int)obj, (int)radioOption] != "none")
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
 						   if ((int)obj == 5 && (int)radioOption == 1)
 						   {
-							   foreach(Student ob in selectedTroop.Students)
+							   foreach (Student ob in selectedTroop.Students)
 							   {
 								   List<Student> tempStudent = new List<Student>();
 								   tempStudent.Add(ob);
@@ -193,7 +193,8 @@ namespace LKS_3._0.ViewModel
 								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
 								   ref temp_DataBase, tempStudent, null, null);
 							   }
-						   }else
+						   }
+						   else
 						   {
 							   Model.Templates temp = new Model.Templates(
 								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
@@ -210,103 +211,103 @@ namespace LKS_3._0.ViewModel
 
 
 		public RelayCommand SaveCommand
-        {
-            get
-            {
-                return saveCommand ??
-                    (saveCommand = new RelayCommand(obj =>
-                    {
-                        this.temp_DataBase.SaveChanges();
-                    }));
-            }
-        }
-        public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops)
-        {
-            this.temp_DataBase = temp_DataBase;
+		{
+			get
+			{
+				return saveCommand ??
+					(saveCommand = new RelayCommand(obj =>
+					{
+						this.temp_DataBase.SaveChanges();
+					}));
+			}
+		}
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops)
+		{
+			this.temp_DataBase = temp_DataBase;
 
-            this.temp_DataBase.Summers.Load();
+			this.temp_DataBase.Summers.Load();
 
-            this.temp_DataBase.Admins.Load();
+			this.temp_DataBase.Admins.Load();
 
-            SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
+			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
-            SelectedSummerSbori.listTroops = _troops;
+			SelectedSummerSbori.listTroops = _troops;
 
-            Students = _students;
+			Students = _students;
 
-            Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
-        }
-        public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
-        {
-            this.temp_DataBase = temp_DataBase;
+			Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
+		}
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
+		{
+			this.temp_DataBase = temp_DataBase;
 
-            this.temp_DataBase.Summers.Load();
+			this.temp_DataBase.Summers.Load();
 
-            this.temp_DataBase.Admins.Load();
+			this.temp_DataBase.Admins.Load();
 
-            SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
+			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
-            SelectedSummerSbori.listTroops = _troops;
+			SelectedSummerSbori.listTroops = _troops;
 
-            Admins = this.temp_DataBase.Admins.Local.ToBindingList();
-        }
+			Admins = this.temp_DataBase.Admins.Local.ToBindingList();
+		}
 
-        public BindingList<Model.Admin> Admins
-        {
-            get
-            {
-                return _admins;
-            }
+		public BindingList<Model.Admin> Admins
+		{
+			get
+			{
+				return _admins;
+			}
 
-            set
-            {
-                _admins = value;
-                OnPropertyChanged();
-            }
-        }
+			set
+			{
+				_admins = value;
+				OnPropertyChanged();
+			}
+		}
 
 
-        public Model.Admin SelectedAdmin
-        {
-            get
-            {
-                return selectAdmin;
-            }
+		public Model.Admin SelectedAdmin
+		{
+			get
+			{
+				return selectAdmin;
+			}
 
-            set
-            {
-                selectAdmin = value;
-                OnPropertyChanged();
-            }
-        }
+			set
+			{
+				selectAdmin = value;
+				OnPropertyChanged();
+			}
+		}
 
-        public BindingList<Student> Students
-        {
-            get
-            {
-                return students;
-            }
+		public BindingList<Student> Students
+		{
+			get
+			{
+				return students;
+			}
 
-            set
-            {
-                students = value;
-                OnPropertyChanged();
-            }
-        }
+			set
+			{
+				students = value;
+				OnPropertyChanged();
+			}
+		}
 
-        public BindingList<Prepod> Prepods
-        {
-            get
-            {
-                return prepods;
-            }
+		public BindingList<Prepod> Prepods
+		{
+			get
+			{
+				return prepods;
+			}
 
-            set
-            {
-                prepods = value;
-                OnPropertyChanged();
-            }
-        }
+			set
+			{
+				prepods = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public RadioOptions RadioOption
 		{
@@ -365,33 +366,41 @@ namespace LKS_3._0.ViewModel
 		{
 			get
 			{
-				return assessments?? (assessments = new RelayCommand(obj =>
-				{
-                    if(SelectedTroop == null)
-                    {
-                        MessageBox.Show("Ошибка! Выберите взвод!","Внимание!");
-                    }
-                    else
-                    {
-                        View.SummerFeesAssessmentForControl window =
-                    new View.SummerFeesAssessmentForControl(SelectedTroop);
+				return assessments ?? (assessments = new RelayCommand(obj =>
+				 {
+					 if (SelectedTroop == null)
+					 {
+						 MessageBox.Show("Ошибка! Выберите взвод!", "Внимание!");
+					 }
+					 else
+					 {
+						 try
+						 {
+							 View.SummerFeesAssessmentForControl window =
+						 new View.SummerFeesAssessmentForControl(SelectedTroop);
 
-                        if (window.ShowDialog() == true)
-                        {
-                            temp_DataBase.SaveChanges();
-                        }
-                    }
-				
-				}));
+							 if (window.ShowDialog() == true)
+							 {
+								 temp_DataBase.SaveChanges();
+							 }
+						 }
+						 catch (Exception ex)
+						 {
+							 System.Windows.MessageBox.Show(ex.Message);
+						 }
+
+					 }
+
+				 }));
 			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
+		public void OnPropertyChanged([CallerMemberName]string prop = "")
+		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 
 
-    }
+	}
 }

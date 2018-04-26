@@ -21,37 +21,44 @@ namespace LKS_3._0.View
 	public partial class SummerFeesAssessmentForControl : Window
 	{
 		ViewModel.SummerFeesAssessmentForControlViewModel viewModel;
-        public SummerFeesAssessmentForControl(Troop temp_troop)
+		public SummerFeesAssessmentForControl(Troop temp_troop)
 		{
-			
 			InitializeComponent();
 
-            viewModel = new ViewModel.SummerFeesAssessmentForControlViewModel(temp_troop);
+			viewModel = new ViewModel.SummerFeesAssessmentForControlViewModel(temp_troop);
 
-            DataContext = viewModel;
+			DataContext = viewModel;
 
-            Binding_columns();
-        }
+			if (viewModel.CloseAction == null)
+				viewModel.CloseAction = new Action(() => this.Close());
+			//Binding_columns();
+		}
 
-        private void Binding_columns()
-        {
-            string[] columns = { "Фамилия", "Имя", "Отчество" };
-            Type T = typeof(Student);
-            PropertyInfo[] Property_Arr = T.GetProperties();
-            foreach (PropertyInfo el in Property_Arr)
-            {
+		private void Binding_columns()
+		{
+			string[] columns = { "Фамилия", "Имя", "Отчество", "1", "2", "3", "4", "5", "6", "7" };
+			Type T = typeof(Student);
+			PropertyInfo[] Property_Arr = T.GetProperties();
+			foreach (PropertyInfo el in Property_Arr)
+			{
 
-                dataGridStudents.IsReadOnly = false;
-                RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
-                if ((temp_attribute != null) && (columns.FirstOrDefault(u => u == temp_attribute.Get_RussianTittle) != null))
-                {
-                    DataGridTextColumn temp_column = new DataGridTextColumn();
-                    temp_column.Header = temp_attribute.Get_RussianTittle;
-                    Binding myNewBindDef = new Binding(el.Name);
-                    temp_column.Binding = myNewBindDef;
-                    dataGridStudents.Columns.Add(temp_column);
-                }
-            }
-        }
-    }
+				dataGridStudents.IsReadOnly = false;
+				RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+				if ((temp_attribute != null) && (columns.FirstOrDefault(u => u == temp_attribute.Get_RussianTittle) != null))
+				{
+					DataGridTextColumn temp_column = new DataGridTextColumn();
+					temp_column.Header = temp_attribute.Get_RussianTittle;
+					Binding myNewBindDef = new Binding(el.Name);
+					temp_column.Binding = myNewBindDef;
+					dataGridStudents.Columns.Add(temp_column);
+				}
+			}
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			this.DialogResult = true;
+			Close();
+		}
+	}
 }

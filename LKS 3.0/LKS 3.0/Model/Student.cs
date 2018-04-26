@@ -46,15 +46,18 @@ namespace LKS_3._0
 			"хорошо",
 			"отлично"
 		};
-		private string assessmentProtocolOneTheory, assessmentProtocolOnePractice, assessmentProtocolOneFinal,
-			assessmentCharacteristicMilitaryTechnicalTraining,
-			assessmentCharacteristicTacticalSpecialTraining,
-			assessmentCharacteristicMilitarySpeialTraining,
-			assessmentCharacteristicFinal;
+		//private string assessmentProtocolOneTheory, assessmentProtocolOnePractice, assessmentProtocolOneFinal,
+		//	assessmentCharacteristicMilitaryTechnicalTraining,
+		//	assessmentCharacteristicTacticalSpecialTraining,
+		//	assessmentCharacteristicMilitarySpeialTraining,
+		//	assessmentCharacteristicFinal;
 
-		public string initials()
+		public string Initials
 		{
-			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+			get
+			{
+				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+			}
 		}
 
         public override string ToString()
@@ -332,150 +335,43 @@ namespace LKS_3._0
         public string Status
         { get; set; }
 
-		public string AssessmentProtocolOneTheory
-		{
-			get
-			{
-				if(assessmentProtocolOneTheory.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentProtocolOneTheory) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if(new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentProtocolOneTheory = value;
-				else
-				{
-					assessmentProtocolOneTheory = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
+		public int AssessmentProtocolOneTheory
+		{ get; set; }
 
-		public string AssessmentProtocolOnePractice
-		{
-			get
-			{
-				if (assessmentProtocolOnePractice.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentProtocolOnePractice) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentProtocolOnePractice = value;
-				else
-				{
-					assessmentProtocolOnePractice = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
-		public string AssessmentProtocolOneFinal
-		{
-			get
-			{
-				if (assessmentProtocolOneFinal.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentProtocolOneFinal) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentProtocolOneFinal = value;
-				else
-				{
-					assessmentProtocolOneFinal = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
-		public string AssessmentCharacteristicMilitaryTechnicalTraining
-		{
-			get
-			{
-				if (assessmentCharacteristicMilitaryTechnicalTraining.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitaryTechnicalTraining) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentCharacteristicMilitaryTechnicalTraining = value;
-				else
-				{
-					assessmentCharacteristicMilitaryTechnicalTraining = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
+		public int AssessmentProtocolOnePractice
+		{ get; set; }
+		public int AssessmentProtocolOneFinal
+		{ get; set; }
+		public int AssessmentCharacteristicMilitaryTechnicalTraining
+		{ get; set; }
+		//{
+		//	get
+		//	{
+		//		if (assessmentCharacteristicMilitaryTechnicalTraining.Length == 1)
+		//			return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitaryTechnicalTraining) - 2];
+		//		else
+		//			return "Отсутствует";
+		//	}
+		//	set
+		//	{
+		//		if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+		//			assessmentCharacteristicMilitaryTechnicalTraining = value;
+		//		else
+		//		{
+		//			assessmentCharacteristicMilitaryTechnicalTraining = "";
+		//			//throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
+		//		}
+		//	}
+		//}
 
-		public string AssessmentCharacteristicTacticalSpecialTraining
-		{
-			get
-			{
-				if (assessmentCharacteristicTacticalSpecialTraining.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicTacticalSpecialTraining) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentCharacteristicTacticalSpecialTraining = value;
-				else
-				{
-					assessmentCharacteristicTacticalSpecialTraining = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
+		public int AssessmentCharacteristicTacticalSpecialTraining
+		{ get; set; }
 
-		public string AssessmentCharacteristicMilitarySpeialTraining
-		{
-			get
-			{
-				if (assessmentCharacteristicMilitarySpeialTraining.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitarySpeialTraining) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentCharacteristicMilitarySpeialTraining = value;
-				else
-				{
-					assessmentCharacteristicMilitarySpeialTraining = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
+		public int AssessmentCharacteristicMilitarySpeialTraining
+		{ get; set; }
 
-		public string AssessmentCharacteristicFinal
-		{
-			get
-			{
-				if (assessmentCharacteristicFinal.Length != 0)
-					return assessmentEnum[Convert.ToInt32(assessmentCharacteristicFinal) - 2];
-				else
-					return "Отсутствует";
-			}
-			set
-			{
-				if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-					assessmentCharacteristicFinal = value;
-				else
-				{
-					assessmentCharacteristicFinal = "";
-					throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-				}
-			}
-		}
+		public int AssessmentCharacteristicFinal
+		{ get; set; }
 
 
 		public virtual BindingList<Relative> Relatives

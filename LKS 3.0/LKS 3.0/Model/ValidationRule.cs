@@ -42,5 +42,18 @@ namespace DataBinding
 		}
 	}
 
-	//public class 
+	public class ValidationAssessmentRule : ValidationRule
+	{
+		public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+		{
+			if (new[] { "", "2", "3", "4", "5" }.Contains(value))
+			{
+				return ValidationResult.ValidResult;
+			}
+			else
+			{
+				return new ValidationResult(false, "Введено недопустимое значение.");
+			}
+		}
+	}
 }

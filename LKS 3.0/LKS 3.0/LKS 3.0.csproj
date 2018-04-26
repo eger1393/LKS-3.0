@@ -201,7 +201,6 @@
     <Compile Include="Model\RusNameAttribute.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Model\TableCommand.cs" />
-    <Compile Include="Model\Templates2.cs" />
     <Compile Include="Model\Troop.cs" />
     <Compile Include="View\EditTroop.xaml.cs">
       <DependentUpon>EditTroop.xaml</DependentUpon>
