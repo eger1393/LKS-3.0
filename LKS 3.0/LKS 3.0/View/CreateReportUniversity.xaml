@@ -110,7 +110,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Печать по требованию">
+            <!--<TabItem Header="Печать по требованию">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.5*"/>
@@ -162,7 +162,7 @@
                         </Grid>
                     </GroupBox>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Анкеты">
                 <Grid>
                     <Grid.ColumnDefinitions>
