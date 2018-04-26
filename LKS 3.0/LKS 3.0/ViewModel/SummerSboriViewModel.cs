@@ -203,7 +203,7 @@ namespace LKS_3._0.ViewModel
 					   }
 					   else
 					   {
-						   MessageBox.Show("Ошибка, неверный шаблон шаблон!");
+						   MessageBox.Show("Ошибка, неверный шаблон!");
 					   }
 				   }));
 			}

@@ -253,7 +253,18 @@ namespace LKS_3._0
 				}
 			}
 
-            if(string.IsNullOrEmpty(viewModel.AddedStudent.MiddleName)) // почему именно фамилия??
+            var tmp = viewModel.AddedStudent.Troop.FirstOrDefault(u => u.PlatoonCommander == viewModel.AddedStudent);
+
+            if (CbRank.Text == "КВ")
+            {
+                viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).PlatoonCommander = viewModel.AddedStudent;
+            }
+            else if(tmp != null)
+            {
+                tmp.PlatoonCommander = null;
+            }
+
+            if (string.IsNullOrEmpty(viewModel.AddedStudent.MiddleName)) // почему именно фамилия??
             {
                 MessageBox.Show("Заполните поле фамилии!","Ошибка!");
             }

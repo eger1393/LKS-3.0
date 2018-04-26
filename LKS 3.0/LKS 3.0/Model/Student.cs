@@ -240,15 +240,13 @@ namespace LKS_3._0
         [RusName("Адрес прописки")]
         public string PlaceOfRegestration
         { get; set; }
-        [RusName("Школа")]
-        public string School
-        { get; set; }
         [RusName("Служба в ВС")]
 		public string Military
         { get; set; }
-
         [RusName("Семейное положение")]
 		public string FamiliStatys
+        { get; set; }
+        public string School
         { get; set; }
         public string Two_MobilePhone
         { get; set; }

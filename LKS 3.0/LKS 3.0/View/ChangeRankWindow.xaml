@@ -9,7 +9,7 @@
     <StackPanel x:Name="stackPanel" Background="#FFD4D3D3">
         <Label x:Name="labelFIO" Margin="0,10,0,0" FontSize="16"/>
         <ComboBox x:Name="comboBoxRank" Margin="0,15,0,0" >
-            <ListBoxItem Content="КО"/>
+            <ListBoxItem Content="КВ"/>
             <ListBoxItem Content="КО1"/>
             <ListBoxItem Content="КО2"/>
             <ListBoxItem Content="КО3"/>

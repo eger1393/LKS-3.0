@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-        Title="InfoAdministrationMilKaf" Height="332.979" Width="603.191">
+        Title="InfoAdministrationMilKaf" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Times New Roman"/>
@@ -21,13 +21,15 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+
             <RowDefinition Height="30"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
@@ -38,24 +40,41 @@
                Grid.RowSpan="2" VerticalContentAlignment="Center"/>
         <Label Grid.Column="2" Grid.Row="0" Content="Военный комисар" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" 
                Grid.RowSpan="2" VerticalContentAlignment="Center"/>
+        <Label Grid.Column="4" Grid.Row="0" Content="Ректор МАИ НИУ" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" 
+               Grid.RowSpan="2" VerticalContentAlignment="Center"/>
 
-        <Label Grid.Column="0" Grid.Row="2" Content="Фамилия и инициалы"/>
-        <Label Grid.Column="0" Grid.Row="3" Content="Звание" />
-        <Label Grid.Column="0" Grid.Row="4" Content="Должность"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Фамилия"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Имя"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Отчество"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Звание" />
 
-        <Label Grid.Column="2" Grid.Row="2" Content="Фамилия и инициалы"/>
-        <Label Grid.Column="2" Grid.Row="3" Content="Звание" />
-        <Label Grid.Column="2" Grid.Row="4" Content="Должность"/>
+        <Label Grid.Column="2" Grid.Row="2" Content="Фамилия"/>
+        <Label Grid.Column="2" Grid.Row="3" Content="Имя"/>
+        <Label Grid.Column="2" Grid.Row="4" Content="Отчество"/>
+        <Label Grid.Column="2" Grid.Row="5" Content="Звание" />
 
-        <TextBox x:Name="VKInitials" Grid.Column="1" Grid.Row="2" Text ="{Binding HeadMilitaryDepartmentInitials}"/>
-        <TextBox x:Name="VKRank" Grid.Column="1" Grid.Row="3" Text ="{Binding HeadMilitaryDepartmentRank}"/>
-        <TextBox x:Name="VKPost" Grid.Column="1" Grid.Row="4" Text ="{Binding HeadMilitaryDepartmentPost}"/>
+        <Label Grid.Column="4" Grid.Row="2" Content="Фамилия"/>
+        <Label Grid.Column="4" Grid.Row="3" Content="Имя"/>
+        <Label Grid.Column="4" Grid.Row="4" Content="Отчество"/>
 
-        <TextBox x:Name="WarriorInitials" Grid.Column="3" Grid.Row="2" Text ="{Binding WarriorInitials}"/>
-        <TextBox x:Name="WarriorRank" Grid.Column="3" Grid.Row="3" Text ="{Binding WarriorRank}"/>
-        <TextBox x:Name="WarriorPost" Grid.Column="3" Grid.Row="4" Text ="{Binding WarriorPost}"/>
-        <Button x:Name="Save" Content="Сохранить" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="57,51,0,-55" Grid.Row="7" VerticalAlignment="Top" Width="81" Click="Save_Click"/>
-        <Button x:Name="Cancel" Content="Отмена" Grid.Column="3" HorizontalAlignment="Left" Height="30" Margin="48,51,0,-55" Grid.Row="7" VerticalAlignment="Top" Width="82"/>
+
+        <TextBox x:Name="VK_Middle" Grid.Column="1" Grid.Row="2" Text ="" Width="126"/>
+        <TextBox x:Name="VK_First" Grid.Column="1" Grid.Row="3" Text ="" Width="126"/>
+        <TextBox x:Name="VK_Last" Grid.Column="1" Grid.Row="4" Text ="" Width="126"/>
+        <TextBox x:Name="VK_Rank" Grid.Column="1" Grid.Row="5" Text =""/>
+
+        <TextBox x:Name="War_Middle" Grid.Column="3" Grid.Row="2" Text ="" Width="126"/>
+        <TextBox x:Name="War_First" Grid.Column="3" Grid.Row="3" Text ="" Width="126"/>
+        <TextBox x:Name="War_Last" Grid.Column="3" Grid.Row="4" Text ="" Width="126"/>
+        <TextBox x:Name="War_Rank" Grid.Column="3" Grid.Row="5" Text =""/>
+
+        <TextBox x:Name="Rect_Middle" Grid.Column="5" Grid.Row="2" Text ="" Width="126"/>
+        <TextBox x:Name="Rect_First" Grid.Column="5" Grid.Row="3" Text ="" Width="126"/>
+        <TextBox x:Name="Rect_Last" Grid.Column="5" Grid.Row="4" Text ="" Width="126"/>
+        
+
+        <Button x:Name="Save" Content="Сохранить" Grid.Column="2" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Top" Width="81" Click="Save_Click"/>
+        <Button x:Name="Cancel" Content="Отмена" Grid.Column="3" HorizontalAlignment="Center" Height="25"  Grid.Row="6" VerticalAlignment="Top" Width="82"/>
 
 
     </Grid>

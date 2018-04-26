@@ -34,6 +34,19 @@ namespace LKS_3._0.View
             if(comboBoxRank.Text != "")
             {
                 selec_st.Rank = comboBoxRank.Text;
+
+                if(comboBoxRank.Text == "КВ")
+                {
+                    selec_st.Troop.FirstOrDefault(u => u.SboriTroop == false).PlatoonCommander = selec_st;
+                }
+
+
+                var tmp = selec_st.Troop.FirstOrDefault(u => u.PlatoonCommander == selec_st);
+                if(tmp != null && comboBoxRank.Text != "КВ")
+                {
+                    tmp.PlatoonCommander = null;
+                }
+
                 DialogResult = true;
                 Close();
             }
