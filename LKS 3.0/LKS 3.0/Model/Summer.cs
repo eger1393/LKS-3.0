@@ -10,7 +10,7 @@ namespace LKS_3._0.Model
 {
     public partial class Summer : INotifyPropertyChanged
     {
-        private string numberofOrder, dateOfOrder, dateBeginSbori, dateEndSbori, datePrisyaga, dateExamen, numberVK, locationVK, tittleOrder, amountToExam, bmp;
+        private string numberofOrder, dateOfOrder, dateBeginSbori, dateEndSbori, datePrisyaga, dateExamen, numberVK, locationVK, tittleOrder, bmp_kr, bmp_full;
 
         private int Id;
 
@@ -154,29 +154,29 @@ namespace LKS_3._0.Model
             }
         }
 
-        public string AmountToExam
+        public string Bmp_kr
         {
             get
             {
-                return amountToExam;
+                return bmp_kr;
             }
 
             set
             {
-                amountToExam = value;
+                bmp_kr = value;
             }
         }
 
-        public string Bmp
+        public string Bmp_full
         {
             get
             {
-                return bmp;
+                return bmp_full;
             }
 
             set
             {
-                bmp = value;
+                bmp_full = value;
             }
         }
 
