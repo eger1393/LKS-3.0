@@ -26,22 +26,22 @@ namespace LKS_3._0.View
 	/// </summary>
 	public partial class InfoAdministrationMilKaf : Window
 	{
-		ApplicationContext db;
+		//ApplicationContext db;
 		public InfoAdministrationMilKaf(ref ApplicationContext DB)
 		{
-			db = DB; // получил ссылку на базу данных
-            db.Departments.Load();
+			//db = DB; // получил ссылку на базу данных
+   //         db.Departments.Load();
 
-			this.DataContext = db.Departments.Local.First();
+			//this.DataContext = db.Departments.Local.First();
 
 			InitializeComponent();
 		}
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-			db.Entry(this.DataContext).State = EntityState.Modified;
-			db.SaveChanges();
-            DialogResult = true;
+			//db.Entry(this.DataContext).State = EntityState.Modified;
+			//db.SaveChanges();
+   //         DialogResult = true;
 		}
 	}
 }
