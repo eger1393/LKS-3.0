@@ -82,7 +82,15 @@ namespace LKS_3._0
 
         public string NumberTroop()
         {
-            return Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
+            var temp_troop = Troop.FirstOrDefault(u => u.SboriTroop == false);
+            if (temp_troop != null)
+            {
+                return temp_troop.NumberTroop;
+            }
+            else
+            {
+                return Troop.FirstOrDefault(u => u.SboriTroop == true).NumberTroop;
+            }
         }
 
         public Student() // Конструктор по умолчанию
