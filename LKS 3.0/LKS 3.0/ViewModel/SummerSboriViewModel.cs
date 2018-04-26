@@ -367,9 +367,21 @@ namespace LKS_3._0.ViewModel
 			{
 				return assessments?? (assessments = new RelayCommand(obj =>
 				{
-				View.SummerFeesAssessmentForControl window = 
-					new View.SummerFeesAssessmentForControl(new SummerFeesAssessmentForControlViewModel(selectedTroop));
-					window.ShowDialog();
+                    if(SelectedTroop == null)
+                    {
+                        MessageBox.Show("Ошибка! Выберите взвод!","Внимание!");
+                    }
+                    else
+                    {
+                        View.SummerFeesAssessmentForControl window =
+                    new View.SummerFeesAssessmentForControl(SelectedTroop);
+
+                        if (window.ShowDialog() == true)
+                        {
+                            temp_DataBase.SaveChanges();
+                        }
+                    }
+				
 				}));
 			}
 		}

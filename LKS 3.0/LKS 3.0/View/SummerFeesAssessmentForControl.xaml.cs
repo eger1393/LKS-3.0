@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace LKS_3._0.View
 {
@@ -20,11 +21,37 @@ namespace LKS_3._0.View
 	public partial class SummerFeesAssessmentForControl : Window
 	{
 		ViewModel.SummerFeesAssessmentForControlViewModel viewModel;
-		public SummerFeesAssessmentForControl(ViewModel.SummerFeesAssessmentForControlViewModel VM)
+        public SummerFeesAssessmentForControl(Troop temp_troop)
 		{
-			viewModel = VM;
-			this.DataContext = viewModel;
+			
 			InitializeComponent();
-		}
-	}
+
+            viewModel = new ViewModel.SummerFeesAssessmentForControlViewModel(temp_troop);
+
+            DataContext = viewModel;
+
+            Binding_columns();
+        }
+
+        private void Binding_columns()
+        {
+            string[] columns = { "Фамилия", "Имя", "Отчество" };
+            Type T = typeof(Student);
+            PropertyInfo[] Property_Arr = T.GetProperties();
+            foreach (PropertyInfo el in Property_Arr)
+            {
+
+                dataGridStudents.IsReadOnly = false;
+                RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
+                if ((temp_attribute != null) && (columns.FirstOrDefault(u => u == temp_attribute.Get_RussianTittle) != null))
+                {
+                    DataGridTextColumn temp_column = new DataGridTextColumn();
+                    temp_column.Header = temp_attribute.Get_RussianTittle;
+                    Binding myNewBindDef = new Binding(el.Name);
+                    temp_column.Binding = myNewBindDef;
+                    dataGridStudents.Columns.Add(temp_column);
+                }
+            }
+        }
+    }
 }

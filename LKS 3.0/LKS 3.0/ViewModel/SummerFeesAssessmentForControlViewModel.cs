@@ -15,13 +15,18 @@ namespace LKS_3._0.ViewModel
 
 	public class SummerFeesAssessmentForControlViewModel : INotifyPropertyChanged
 	{
-		Troop troop; // переданный взвод
+		Troop troop;// переданный взвод
+        BindingList<Student> students;
 
 		public SummerFeesAssessmentForControlViewModel(Troop troop)
 		{
 			this.troop = troop;
+            Students = troop.Students;
 		}
-		public event PropertyChangedEventHandler PropertyChanged;
+
+        public BindingList<Student> Students { get => students; set => students = value; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

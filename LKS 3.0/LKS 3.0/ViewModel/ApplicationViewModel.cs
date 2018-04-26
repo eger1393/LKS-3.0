@@ -27,7 +27,6 @@ namespace LKS_3._0
    
     public class ApplicationViewModel : INotifyPropertyChanged, IDisposable
     {
-        const int PROG_VALUE = 10;
         public ApplicationContext DataBaseContext;
         bool connect;
 
@@ -268,13 +267,22 @@ namespace LKS_3._0
 		{
 			get
 			{
-				return createReportUniversityCommand ??
-					(createReportUniversityCommand = new RelayCommand(obj =>
-				   {
-					   View.CreateReportUniversity Wind = new View.CreateReportUniversity(
-						   new ViewModel.CreateReportUniversityViewModel(ref DataBaseContext, Students, Troops));
-					   Wind.Show();
-				   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                try
+                {
+                    return createReportUniversityCommand ??
+                    (createReportUniversityCommand = new RelayCommand(obj =>
+                    {
+                        View.CreateReportUniversity Wind = new View.CreateReportUniversity(
+                            new ViewModel.CreateReportUniversityViewModel(ref DataBaseContext, Students, Troops));
+                        Wind.Show();
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Перезапустите программу", "Внимание!");
+                    return null;
+                }
+				
 			}
 		}
 
@@ -282,13 +290,20 @@ namespace LKS_3._0
 		{
 			get
 			{
+                try { 
 				return closeAllWordFile ??
 					(closeAllWordFile = new RelayCommand(obj =>
 					{
 						System.Diagnostics.Process Process2 = null;
 						Process2 = System.Diagnostics.Process.Start(@"clean.bat");
 					}, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
-			}
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка! Закройте окна Microsoft Word вручную", "Внимание!");
+                    return null;
+                }
+            }
 		}
         public RelayCommand SettingDB
         {
@@ -427,26 +442,36 @@ namespace LKS_3._0
         {
             get
             {
-                return newSboricommand ??
-                 (newSboricommand = new RelayCommand(obj =>
-                 {
+                try
+                {
+                    return newSboricommand ??
+                (newSboricommand = new RelayCommand(obj =>
+                {
+                    View.NewSbori NewSboriWindow = new View.NewSbori(ref DataBaseContext);
+
+                    if (NewSboriWindow.ShowDialog() == true)
+                    {
+                        DataBaseContext.SaveChanges();
+                    }
 
 
-                     View.NewSbori NewSboriWindow = new View.NewSbori (ref DataBaseContext);
-
-                     if(NewSboriWindow.ShowDialog() == true)
-                     {
-                         DataBaseContext.SaveChanges();
-                     }
-
-
-                 },(obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                    }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Попробуйте еще раз", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
+               
             }
         }
         public RelayCommand EditPrepodsCommand
         {
             get
             {
+                try {
                 return editPrepodsCommand ??
                  (editPrepodsCommand = new RelayCommand(obj =>
                  {
@@ -458,12 +483,21 @@ namespace LKS_3._0
 
 
 				 }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
-			}
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Попробуйте еще раз", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
+            }
 		}
 		public RelayCommand AddCommand
 		{
 			get
 			{
+                try {
 				return addCommand ??
 				  (addCommand = new RelayCommand(obj =>
 				  {
@@ -490,19 +524,24 @@ namespace LKS_3._0
                           Students = SelectedTroop.Students;
 
                           SelectedTroop.StaffCount = SelectedTroop.Students.Count;
-
-
-
-
                       }
 
 				  }));
-			}
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка при добавлении студента! Проверьте вводимые данные и попробуйте еще раз!", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
+            }
 		}
 		public RelayCommand EditCommand
 		{
 			get
 			{
+                try { 
                 return editCommand ??
                   (editCommand = new RelayCommand((selectedItem) =>
                   {
@@ -514,20 +553,21 @@ namespace LKS_3._0
 
                   if (addStudentWindow.ShowDialog() == true)
                   {
-
-                      //DataBase.Students.Add(temp_student);
                       DataBaseContext.Entry(temp_student).State = EntityState.Modified;
                       DataBaseContext.SaveChanges();
                       
                       Students = new BindingList<Student>(Students.Skip(0).ToList());
-
-                          //Troop temp_Troop = DataBase.Troops.FirstOrDefault(u => u.NumberTroop == temp_student.Troop.NumberTroop);
-                          //temp_Troop.Students = new BindingList<Student>(DataBase.Students.Where(u => u.Troop.NumberTroop == temp_Troop.NumberTroop).ToList());
-                          //temp_Troop.StaffCount = temp_Troop.Students.Count;
-
-                          SelectedStudent = temp_student;
+                      SelectedStudent = temp_student;
                       }                     
                   }));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка при редактировании! Попробуйте еще раз.", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
             }
         }
         public RelayCommand CheckPassword
@@ -560,18 +600,28 @@ namespace LKS_3._0
         {
             get
             {
+                try { 
                 return createReportCommand ??
                   (createReportCommand = new RelayCommand(obj =>
                   {
                       CreateReport CR_Window = new CreateReport(new ViewModel.CreateReportViewModel(ref DataBaseContext, Students, Troops, null));
                       CR_Window.Show();
                   }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Попробуйте еще раз", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
             }
         }
         public RelayCommand DeleteCommand
         {
             get
             {
+                try { 
                 return deleteCommand ??
                  (deleteCommand = new RelayCommand(selectedItem =>
                  {
@@ -608,7 +658,13 @@ namespace LKS_3._0
                      }
 
 				 }, (obj) => Students.Count() > 0 && (ProgMode.ProgramMode == ProgramMode.Admin)));
-			}
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка при удалении! Перезапустите программу и попробуйте еще раз", "Внимание!");
+                    return null;
+                }
+            }
 
 		}
 		public RelayCommand FindCommand
@@ -654,30 +710,42 @@ namespace LKS_3._0
         {
             get
             {
-                return troopCheck ??
-                    (troopCheck = new RelayCommand(obj =>
-                    {
-                        TroopChange window_TC = new TroopChange(ref DataBaseContext);
+                try
+                {
+                    return troopCheck ??
+                        (troopCheck = new RelayCommand(obj =>
+                        {
+                            TroopChange window_TC = new TroopChange(ref DataBaseContext);
 
-						if (window_TC.ShowDialog() == true)
-						{
-							SelectedTroop = window_TC.troop_change();
+                            if (window_TC.ShowDialog() == true)
+                            {
+                                SelectedTroop = window_TC.troop_change();
 
-							window_TC.Close();
+                                window_TC.Close();
 
-                            Students = SelectedTroop.Students;
+                                Students = SelectedTroop.Students;
 
-							SelectTroopNumber = SelectedTroop.NumberTroop;
+                                SelectTroopNumber = SelectedTroop.NumberTroop;
 
-						}
-					}));
-			}
+                            }
+                        }));
+                
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Попробуйте еще раз", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
+}
 		}
 
         public RelayCommand EditTroopCommand
         {
             get
             {
+                try { 
                 return editTroopCommand ??
                     (editTroopCommand = new RelayCommand(obj =>
                     {
@@ -688,6 +756,14 @@ namespace LKS_3._0
                             DataBaseContext.SaveChanges();
                         }
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Попробуйте еще раз", "Внимание!");
+                    object obj = new Object();
+                    UploadDB.Execute(obj);
+                    return null;
+                }
             }
         }
 
@@ -695,22 +771,30 @@ namespace LKS_3._0
 		{
 			get
 			{
-				return changeRankCommand ??
-					(changeRankCommand = new RelayCommand(selectedItem =>
-					{
-						if (selectedItem == null) return;
-
-						Student temp_student = selectedItem as Student;
-
-						View.ChangeRankWindow window = new View.ChangeRankWindow(temp_student);
-
-                        if (window.ShowDialog() == true)
+                try
+                {
+                    return changeRankCommand ??
+                        (changeRankCommand = new RelayCommand(selectedItem =>
                         {
-                            DataBaseContext.SaveChanges();
-                            Students = new BindingList<Student>(Students.Skip(0).ToList());
-                        }
-                    },(obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
-            }
+                            if (selectedItem == null) return;
+
+                            Student temp_student = selectedItem as Student;
+
+                            View.ChangeRankWindow window = new View.ChangeRankWindow(temp_student);
+
+                            if (window.ShowDialog() == true)
+                            {
+                                DataBaseContext.SaveChanges();
+                                Students = new BindingList<Student>(Students.Skip(0).ToList());
+                            }
+                        }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Неизвестная ошибка! Перезапустите программу", "Внимание!");
+                    return null;
+                }
+}
         }
 
 
@@ -725,65 +809,64 @@ namespace LKS_3._0
                 odbc_connection.Open();
                 OleDbCommand command = new OleDbCommand(sqlExpression, odbc_connection);
                 OleDbDataReader reader = command.ExecuteReader();
-                //Troop t_troop = new Troop("999");
-                //Troops.Add(t_troop);
-                //while (reader.Read())
-                //{
+                Troop t_troop = new Troop("111");
+                Troops.Add(t_troop);
+                while (reader.Read())
+                {
 
-                //    Student temp_student = new Student(t_troop);
-                //    temp_student.FirstName = (string)reader["Имя"];
-                //    temp_student.MiddleName = (string)reader["Фамилия"];
-                //    temp_student.LastName = (string)reader["Отчество"];
-                //    temp_student.Nationality = "русский";
-                //    temp_student.Birthday = Convert.ToDateTime(reader["Дата рождения"]).ToShortDateString();
-                //    temp_student.PlaceBirthday = (string)reader["М/рождения"];
-                //    temp_student.Collness = "лейтенант";
-                //    temp_student.SpecialityName = (string)reader["ВУС"];
-                //    //temp_student.MiddleName = (string)reader["ВУЗ"];
-                //    temp_student.YearOfEndMAI = reader["Год окончания ВУЗа"].ToString();
-                //    temp_student.YearOfEndVK = reader["Год окончания В/К"].ToString();
-                //    temp_student.ForeignLanguage = "английским";
-                //    temp_student.LanguageRank = "читает и переводит со словарем";
-                //    temp_student.Military = "нет";
-                //    temp_student.Rectal = (string)reader["Состоит на учете"];
-                //    temp_student.FamiliStatys = "холост";
-                //    temp_student.PlaceOfRegestration = (string)reader["Домашний адрес"];
-                //    temp_student.Growth = (string)reader["Рост"];
-                //    //temp_student.ClothihgSize = (string)reader["Одежда"];
-                //    temp_student.ClothihgSize = (string)reader["Одежда размер"];
-                //    temp_student.CapSize = (string)reader["Головной убор"];
-                //    temp_student.ShoeSize = (string)reader["Обувь"];
-                //    temp_student.MaskSize = (string)reader["Противогаз"];
-                //    temp_student.BloodType = (string)reader["Группа крови"];
-                //    temp_student.MobilePhone = (string)reader["Телефон"];
-                //    temp_student.SpecInst = (string)reader["Специальность гр"];
+                    Student temp_student = new Student(t_troop);
+                    temp_student.FirstName = (string)reader["Имя"];
+                    temp_student.MiddleName = (string)reader["Фамилия"];
+                    temp_student.LastName = (string)reader["Отчество"];
+                    temp_student.Nationality = "русский";
+                    temp_student.Birthday = Convert.ToDateTime(reader["Дата рождения"]).ToShortDateString();
+                    temp_student.PlaceBirthday = (string)reader["М/рождения"];
+                    temp_student.Collness = "лейтенант";
+                    temp_student.SpecialityName = (string)reader["ВУС"];
+                    temp_student.YearOfEndMAI = reader["Год окончания ВУЗа"].ToString();
+                    temp_student.YearOfEndVK = reader["Год окончания В/К"].ToString();
+                    temp_student.ForeignLanguage = "английским";
+                    temp_student.LanguageRank = "читает и переводит со словарем";
+                    temp_student.Military = "нет";
+                    temp_student.Rectal = (string)reader["Состоит на учете"];
+                    temp_student.FamiliStatys = "холост";
+                    temp_student.PlaceOfRegestration = (string)reader["Домашний адрес"];
+                    temp_student.Growth = (string)reader["Рост"];
+                    //temp_student.ClothihgSize = (string)reader["Одежда"];
+                    temp_student.ClothihgSize = (string)reader["Одежда размер"];
+                    temp_student.CapSize = (string)reader["Головной убор"];
+                    temp_student.ShoeSize = (string)reader["Обувь"];
+                    temp_student.MaskSize = (string)reader["Противогаз"];
+                    temp_student.BloodType = (string)reader["Группа крови"];
+                    temp_student.MobilePhone = (string)reader["Телефон"];
+                    temp_student.SpecInst = (string)reader["Специальность гр"];
 
-                //    DataBaseContext.Students.Add(temp_student);
+                    DataBaseContext.Students.Add(temp_student);
 
-                //    string middle_name_r = (string)reader["Фамилия б/р"];
-                //    try
-                //    {
-                //        var item = Students.First(u => ((u.MiddleName == middle_name_r)
-                //   || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
-                //        Relative temp_r = new Relative();
-                //        temp_r.MiddleName = (string)reader["Фамилия б/р"];
-                //        temp_r.FirstName = (string)reader["Имя б/р"];
-                //        temp_r.LastName = (string)reader["Отчество б/р"];
-                //        temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
-                //        temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
-                //        item.Relatives.Add(temp_r);
-                //        item.Update_IdRelatives();
-                //    }
-                //    catch (Exception)
-                //    {
+                    string middle_name_r = (string)reader["Фамилия б/р"];
+                    try
+                    {
+                        var item = Students.First(u => ((u.MiddleName == middle_name_r)
+                   || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
+                        Relative temp_r = new Relative();
+                        temp_r.MiddleName = (string)reader["Фамилия б/р"];
+                        temp_r.FirstName = (string)reader["Имя б/р"];
+                        temp_r.LastName = (string)reader["Отчество б/р"];
+                        temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
+                        temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
+                        item.Relatives.Add(temp_r);
+                        item.Update_IdRelatives();
+                    }
+                    catch (Exception)
+                    {
 
-                //    }
+                    }
 
-                //}
-
+                }
 
 
-                //List<Student> students = Troops.First(u => u.NumberTroop == "888").Students.ToList();
+
+                List<Student> students = Troops.First(u => u.NumberTroop == "111").Students.ToList();
 
                 while (reader.Read())
                 {
