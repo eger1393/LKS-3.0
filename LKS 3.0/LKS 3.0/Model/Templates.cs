@@ -1216,6 +1216,13 @@ namespace LKS_3._0.Model
 				{
 					return (Convert.ToDateTime(summer.DateBeginSbori) - Convert.ToDateTime(summer.DateEndSbori)).ToString();
 				}
+
+				if(command.ToUpper() == "СБОРЫ ТЕКСТ ПРИКАЗА")
+				{
+					return summer.TittleOrder;
+				}
+
+
 			}
 			if (admins != null)
 			{
