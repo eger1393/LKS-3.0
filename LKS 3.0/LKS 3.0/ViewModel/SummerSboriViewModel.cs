@@ -116,7 +116,7 @@ namespace LKS_3._0.ViewModel
 			{ // 4 вкладка
 				"Сборы_Метание_гранат.docx",
 				"Сборы_присяга_список.docx",
-				"none",//
+				"Присяга индивидуальная.docx",//
 				"Сборы_бег_100.docx",
 				"Сборы_бег_1000.docx",
 				"Сборы_бег_3000.docx",
@@ -183,12 +183,20 @@ namespace LKS_3._0.ViewModel
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
-						   if (((int)obj == 5 && (int)radioOption == 1) || ((int)obj == 6 && (int)radioOption == 6))
+						   if ((int)obj == 4 && (int)radioOption == 2)
 						   {
-							   foreach (Student ob in selectedTroop.Students)
+							   for (int i = 0; i < selectedTroop.Students.Count; i += 2)
 							   {
 								   List<Student> tempStudent = new List<Student>();
-								   tempStudent.Add(ob);
+								   tempStudent.Add(selectedTroop.Students[i]);
+								   if (i != selectedTroop.Students.Count - 1)
+								   {
+									   tempStudent.Add(selectedTroop.Students[i + 1]);
+								   }
+								   else
+								   {
+									   tempStudent.Add(selectedTroop.Students[i]);
+								   }
 								   Model.Templates temp = new Model.Templates(
 								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
 								   ref temp_DataBase, tempStudent, null, null);
@@ -196,9 +204,23 @@ namespace LKS_3._0.ViewModel
 						   }
 						   else
 						   {
-							   Model.Templates temp = new Model.Templates(
-								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
-								   ref temp_DataBase, null, null, tempList);
+							   if (((int)obj == 5 && (int)radioOption == 1) || ((int)obj == 6 && (int)radioOption == 6))
+							   {
+								   foreach (Student ob in selectedTroop.Students)
+								   {
+									   List<Student> tempStudent = new List<Student>();
+									   tempStudent.Add(ob);
+									   Model.Templates temp = new Model.Templates(
+									   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+									   ref temp_DataBase, tempStudent, null, null);
+								   }
+							   }
+							   else
+							   {
+								   Model.Templates temp = new Model.Templates(
+									   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+									   ref temp_DataBase, null, null, tempList);
+							   }
 						   }
 					   }
 					   else

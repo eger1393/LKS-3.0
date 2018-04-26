@@ -493,6 +493,12 @@ namespace LKS_3._0.Model
 				return "";
 			}
 
+			if (command.ToUpper() == "СЛЕДУЮЩИЙ СТУДЕНТ")
+			{
+				selectedStudent = students[1]; // костыль
+				return "";
+			}
+
 			if (command.ToUpper() == "ТЕКУЩАЯ ДАТА")
 			{
 				return DateTime.Now.ToString("dd.MM.yyyy");
