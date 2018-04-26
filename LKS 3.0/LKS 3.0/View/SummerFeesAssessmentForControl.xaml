@@ -22,7 +22,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ФИО" Width="100" Binding="{Binding Initials, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Теоретические знания" Width="100" Binding="{Binding Path=AssessmentProtocolOneTheory,
-                    NotifyOnValidationError=True}">
+                    NotifyOnValidationError=True}" IsReadOnly="False">
 
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Практические умения" Width="100" Binding="{Binding Path=AssessmentProtocolOnePractice}"/>

@@ -368,7 +368,6 @@
                               ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop, Mode=TwoWay}"/>
                 </Grid>
             </TabItem>
-          
             <TabItem Header="Отчетные документы">
                 <Grid>
                     <Grid.ColumnDefinitions>
