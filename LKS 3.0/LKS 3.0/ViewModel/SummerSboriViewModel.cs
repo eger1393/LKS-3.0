@@ -12,8 +12,14 @@ using System.Reflection;
 using System.Data.Entity;
 using System.Windows;
 
+
 namespace LKS_3._0.ViewModel
 {
+	public enum RadioSortOptions
+	{
+		None = 0, MidleName, Group
+	}
+
 	class SummerSboriViewModel : INotifyPropertyChanged
 	{
 		private ApplicationContext temp_DataBase;
@@ -38,6 +44,7 @@ namespace LKS_3._0.ViewModel
 		//
 		private Troop selectedTroop;
 		private RadioOptions radioOption = RadioOptions.None;
+		private RadioSortOptions sort = RadioSortOptions.None;
 
 
 
@@ -183,6 +190,11 @@ namespace LKS_3._0.ViewModel
 					   {
 						   List<Troop> tempList = new List<Troop>(); // в шаблоны надо передавать список
 						   tempList.Add(selectedTroop);
+						   if (Sort != RadioSortOptions.None)
+						   {
+							   tempList.First().Students = new BindingList<Student>(tempList.First().Students
+									.OrderBy(ob => Sort == RadioSortOptions.MidleName?ob.MiddleName : ob.InstGroup).ToList());
+							}
 						   if ((int)obj == 4 && (int)radioOption == 2)
 						   {
 							   for (int i = 0; i < selectedTroop.Students.Count; i += 2)
@@ -441,7 +453,10 @@ namespace LKS_3._0.ViewModel
                   }));
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+		public RadioSortOptions Sort { get => sort; set { sort = value; OnPropertyChanged(); } }
+
+		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

@@ -74,9 +74,6 @@ namespace LKS_3._0.View
             }
         }
 
-        private void ОКbutton_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
-    }
+       
+	}
 }
