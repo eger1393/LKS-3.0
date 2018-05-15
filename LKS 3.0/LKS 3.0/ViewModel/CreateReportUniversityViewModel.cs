@@ -64,6 +64,8 @@ namespace LKS_3._0.ViewModel
 		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None,
 			radioOptionsJernal = RadioOptions.None,
 			radioOptionsLKS = RadioOptions.None;
+
+		private RadioSortOptions sort = RadioSortOptions.None;
 		Troop selectedTroopDocOnTroop,
 			selectedTroopJernal;
 		private int count; // кол-во документов для печати
@@ -145,6 +147,11 @@ namespace LKS_3._0.ViewModel
 										{
 											List<Troop> tempList = new List<Troop>();
 											tempList.Add(selectedTroopDocOnTroop);
+											if (Sort != RadioSortOptions.None)
+											{
+												tempList.First().Students = new BindingList<Student>(tempList.First().Students
+													 .OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+											}
 
 											switch (radioOptionsDocOnTroop)
 											{
@@ -203,6 +210,11 @@ namespace LKS_3._0.ViewModel
 										{
 											List<Troop> tempList = new List<Troop>();
 											tempList.Add(SelectedTroop);
+											if (Sort != RadioSortOptions.None)
+											{
+												tempList.First().Students = new BindingList<Student>(tempList.First().Students
+													 .OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+											}
 
 											switch (radioOptionsJernal)
 											{
@@ -507,6 +519,8 @@ namespace LKS_3._0.ViewModel
 				OnPropertyChanged();
 			}
 		}
+
+		public RadioSortOptions Sort { get => sort; set { sort = value; OnPropertyChanged(); } }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")

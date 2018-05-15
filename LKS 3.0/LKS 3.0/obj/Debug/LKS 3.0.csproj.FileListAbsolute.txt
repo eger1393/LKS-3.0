@@ -322,3 +322,95 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Deb
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.baml
 D:\projects\Git\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.manifest
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.application
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.Entity.EF6.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.EF6.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.Linq.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll.config
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\de\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\en\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\es\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\it\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoWindow.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerOrders.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_Content.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoWindow.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerOrders.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.cache
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CoreCompileInputs.cache
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe.manifest
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb

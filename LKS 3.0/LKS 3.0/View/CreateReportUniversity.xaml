@@ -58,6 +58,15 @@
                                 <RowDefinition Height="25"/>
                             </Grid.RowDefinitions>
                             <ComboBox Grid.Row="0" ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop}"/>
+                            <RadioButton Grid.Row="1" Content="По фамилии" 
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay, 
+                         ConverterParameter={x:Static VievModel:RadioSortOptions.MidleName}}" HorizontalAlignment="Left" Width="92" Height="24" VerticalAlignment="Top"/>
+                            <RadioButton Grid.Row="1" Content="По группе"
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay,
+                                ConverterParameter={x:Static VievModel:RadioSortOptions.Group}}" HorizontalAlignment="Left" Width="81" Height="24" VerticalAlignment="Top" Margin="97,0,0,0"/>
+                            <RadioButton Grid.Row="1" Content="Нет"
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay,
+                                ConverterParameter={x:Static VievModel:RadioSortOptions.None}}" HorizontalAlignment="Left" Width="45" Margin="178,0,0,0"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -106,6 +115,15 @@
                                 <RowDefinition Height="25"/>
                             </Grid.RowDefinitions>
                             <ComboBox Grid.Row="0" ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop}"/>
+                            <RadioButton Grid.Row="1" Content="По фамилии" 
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay, 
+                         ConverterParameter={x:Static VievModel:RadioSortOptions.MidleName}}" HorizontalAlignment="Left" Width="92" Height="24" VerticalAlignment="Top"/>
+                            <RadioButton Grid.Row="1" Content="По группе"
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay,
+                                ConverterParameter={x:Static VievModel:RadioSortOptions.Group}}" HorizontalAlignment="Left" Width="81" Height="24" VerticalAlignment="Top" Margin="97,0,0,0"/>
+                            <RadioButton Grid.Row="1" Content="Нет"
+                                 IsChecked="{Binding Sort, Converter={StaticResource enumBooleanConverter}, Mode=TwoWay,
+                                ConverterParameter={x:Static VievModel:RadioSortOptions.None}}" HorizontalAlignment="Left" Width="45" Margin="178,0,0,0"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
