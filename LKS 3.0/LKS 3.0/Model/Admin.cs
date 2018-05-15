@@ -49,7 +49,7 @@ namespace LKS_3._0.Model
 			}
 			catch(System.IndexOutOfRangeException ex)
 			{
-				System.Windows.MessageBox.Show("Данные об администрации заполнены не полностью!\n" + ex.Message);
+				System.Windows.MessageBox.Show("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n" /*+ ex.Message*/);
 				return "";
 			}
 
