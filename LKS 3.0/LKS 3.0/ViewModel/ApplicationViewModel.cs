@@ -1226,7 +1226,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                     {
 						if(data)
 						{
-							LKS_3._0.View.InfoSboriWindowOff Info = new View.InfoSboriWindowOff(ref DataBaseContext, Troops);
+							LKS_3._0.View.InfoSboriWindowOff Info = new View.InfoSboriWindowOff(ref DataBaseContext, Troops, data);
 							if (Info.ShowDialog() == true)
 							{
 								DataBaseContext.SaveChanges();
@@ -1234,12 +1234,13 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 						}
 						else
 						{
-							//LKS_3._0.View.InfoSboriWindowOff Info = new View.I
-							//if (Info.ShowDialog() == true)
-							//{
-							//	DataBaseContext.SaveChanges();
-							//}
-						}
+                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data)
+
+                            if (Info.ShowDialog() == true)
+                            {
+                                DataBaseContext.SaveChanges();
+                            }
+                        }
                         
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
