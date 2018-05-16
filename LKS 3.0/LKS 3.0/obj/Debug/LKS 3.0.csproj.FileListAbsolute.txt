@@ -414,3 +414,4 @@ D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
