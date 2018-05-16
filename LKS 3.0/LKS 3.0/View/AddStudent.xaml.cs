@@ -293,8 +293,13 @@ namespace LKS_3._0
 
         private void CbTroop_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (viewModel != null)
-                viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = CbTroop.Text; 
+			if (viewModel != null)
+			{
+				viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = CbTroop.Text;
+				viewModel.AddedStudent.Troop.Remove(viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false));
+				viewModel.AddedStudent.Troop.Add(viewModel.DataBaseR.Troops.First(ob => ob.NumberTroop == CbTroop.Text));
+			}
+			
         }
 
         private void CbTroop_Loaded(object sender, RoutedEventArgs e)
