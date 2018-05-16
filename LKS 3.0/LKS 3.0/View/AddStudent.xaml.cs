@@ -41,7 +41,7 @@ namespace LKS_3._0
 
             CbRectal.ItemsSource = temp_DataBase.Students.Select(u => u.Rectal).Distinct().ToList();
 
-            CbSpeciality.ItemsSource = temp_DataBase.Students.Select(u => u.SpecialityName).Distinct().ToList();
+            CbSpeciality.ItemsSource = temp_DataBase.Students.Select(u => u.VUS).Distinct().ToList();
 
             CbSpecInst.ItemsSource = temp_DataBase.Students.Select(u => u.SpecInst).Distinct().ToList();
 

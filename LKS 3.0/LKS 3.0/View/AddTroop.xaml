@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         mc:Ignorable="d"
-       Title="Редактирование/Добавление" Height="270" Width="310.008">
+       Title="Редактирование/Добавление" Height="270" Width="310.008" WindowStartupLocation="CenterScreen">
 
     <StackPanel>
         <Label x:Name="label" Content="Номер взвода"/>
