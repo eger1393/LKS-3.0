@@ -16,12 +16,12 @@ using System.Windows;
 namespace LKS_3._0.View
 {
     /// <summary>
-    /// Логика взаимодействия для InfoSboriWindow.xaml
+    /// Логика взаимодействия для InfoSboriWindowOff.xaml
     /// </summary>
-    public partial class InfoSboriWindow : Window
+    public partial class InfoSboriWindowOff : Window
     {
         ApplicationContext DataBaseSb;
-        public InfoSboriWindow(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
+        public InfoSboriWindowOff(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
         {
             InitializeComponent();
 
