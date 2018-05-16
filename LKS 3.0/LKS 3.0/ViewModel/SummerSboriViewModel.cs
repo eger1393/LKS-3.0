@@ -23,7 +23,7 @@ namespace LKS_3._0.ViewModel
 	class SummerSboriViewModel : INotifyPropertyChanged
 	{
 		private ApplicationContext temp_DataBase;
-
+        public string path_template;
 		public Model.Summer SelectedSummerSbori
 		{
 			get; set;
@@ -210,7 +210,7 @@ namespace LKS_3._0.ViewModel
 									   tempStudent.Add(selectedTroop.Students[i]);
 								   }
 								   Model.Templates temp = new Model.Templates(
-								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
 								   ref temp_DataBase, tempStudent, null, null);
 							   }
 						   }
@@ -223,7 +223,7 @@ namespace LKS_3._0.ViewModel
 									   List<Student> tempStudent = new List<Student>();
 									   tempStudent.Add(ob);
 									   Model.Templates temp = new Model.Templates(
-									   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+									   System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
 									   ref temp_DataBase, tempStudent, null, null);
 								   }
 							   }
@@ -249,14 +249,14 @@ namespace LKS_3._0.ViewModel
 											   troopsTemp.First().Students.Add(it);
 										   }
 										   Model.Templates temp = new Model.Templates(
-										   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+										   System.IO.Path.GetFullPath(@".\"+path_template+"\\" + pathTemplate[(int)obj, (int)radioOption]),
 										   ref temp_DataBase, null, null, troopsTemp);
 									   }
 								   }
 								   else
 								   {
 									   Model.Templates temp = new Model.Templates(
-										   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+										   System.IO.Path.GetFullPath(@".\" +path_template+ "\\" + pathTemplate[(int)obj, (int)radioOption]),
 										   ref temp_DataBase, null, null, tempList);
 								   }
 							   }
@@ -283,13 +283,22 @@ namespace LKS_3._0.ViewModel
 					}));
 			}
 		}
-		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops)
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops, bool data)
 		{
 			this.temp_DataBase = temp_DataBase;
 
 			this.temp_DataBase.Summers.Load();
 
 			this.temp_DataBase.Admins.Load();
+
+            if(data)
+            {
+                path_template = "TemplatesOff";
+            }
+            else
+            {
+                path_template = "TeplatesSold";
+            }
 
 			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
@@ -299,7 +308,7 @@ namespace LKS_3._0.ViewModel
 
 			Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
 		}
-		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops, bool data)
 		{
 			this.temp_DataBase = temp_DataBase;
 
@@ -307,7 +316,16 @@ namespace LKS_3._0.ViewModel
 
 			this.temp_DataBase.Admins.Load();
 
-			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
+            if (data)
+            {
+                path_template = "TemplatesOff";
+            }
+            else
+            {
+                path_template = "TeplatesSold";
+            }
+
+            SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
 			SelectedSummerSbori.listTroops = _troops;
 

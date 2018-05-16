@@ -136,6 +136,9 @@
     <Compile Include="View\AddAdmin.xaml.cs">
       <DependentUpon>AddAdmin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\InfoSboriWindowSold.xaml.cs">
+      <DependentUpon>InfoSboriWindowSold.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SummerFeesAssessmentForControl.xaml.cs">
       <DependentUpon>SummerFeesAssessmentForControl.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\InfoSboriWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoSboriWindowSold.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

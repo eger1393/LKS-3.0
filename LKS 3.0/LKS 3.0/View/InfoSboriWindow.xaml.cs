@@ -21,7 +21,7 @@ namespace LKS_3._0.View
     public partial class InfoSboriWindowOff : Window
     {
         ApplicationContext DataBaseSb;
-        public InfoSboriWindowOff(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
+        public InfoSboriWindowOff(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops, bool data)
         {
             InitializeComponent();
 
@@ -29,7 +29,7 @@ namespace LKS_3._0.View
                 
             DataBaseSb = temp_DataBase;
 
-            ViewModel.SummerSboriViewModel temp_VM  = new ViewModel.SummerSboriViewModel(ref temp_DataBase, _troops);
+            ViewModel.SummerSboriViewModel temp_VM  = new ViewModel.SummerSboriViewModel(ref temp_DataBase, _troops, data);
 
             DataContext = temp_VM;
 
