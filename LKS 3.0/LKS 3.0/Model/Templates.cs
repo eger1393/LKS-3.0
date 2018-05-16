@@ -1259,17 +1259,17 @@ namespace LKS_3._0.Model
 
                 if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
                 {
-                    return admins.Find(u => u.Rank == "Военный коммисар").initials();
+                    return admins.Find(u => u.Rank == "Военный комиссар").initials();
                 }
 
                 if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
                 {
-                    return admins.Find(u => u.Rank == "Военный коммисар").Collness;
+                    return admins.Find(u => u.Rank == "Военный комиссар").Collness;
                 }
 
                 if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
                 {
-                    return admins.Find(u => u.Rank == "Военный коммисар").Rank;
+                    return admins.Find(u => u.Rank == "Военный комиссар").Rank;
                 }
                 if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
 				{
