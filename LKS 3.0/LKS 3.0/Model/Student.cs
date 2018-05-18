@@ -92,7 +92,8 @@ namespace LKS_3._0
             }
             else
             {
-                return Troop.FirstOrDefault(u => u.SboriTroop == true).NumberTroop;
+                return "None";
+                //return Troop.FirstOrDefault(u => u.SboriTroop == true).NumberTroop;
             }
         }
 

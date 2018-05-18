@@ -35,7 +35,7 @@ namespace LKS_3._0
 		{
 			InitializeComponent();
 
-            CbTroop.ItemsSource = temp_DataBase.Troops.Local.Where(c => c.SboriTroop == false && c.NumberTroop != null).Select(u => u.NumberTroop).ToList();
+            CbTroop.ItemsSource = temp_DataBase.Troops.Local.Where(c => c.SboriTroop == false && c.NumberTroop != null).ToList();
 
             CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.InstGroup).Distinct().ToList();
 
@@ -293,8 +293,12 @@ namespace LKS_3._0
 
         private void CbTroop_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (viewModel != null)
-                viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop = CbTroop.Text; 
+			if (viewModel != null)
+			{  
+                viewModel.AddedStudent.Troop.Remove(viewModel.AddedStudent.Troop.First(u => u.SboriTroop == false));
+                viewModel.AddedStudent.Troop.Add((Troop)CbTroop.SelectedItem);
+            }
+			
         }
 
         private void CbTroop_Loaded(object sender, RoutedEventArgs e)

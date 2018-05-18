@@ -23,15 +23,15 @@ namespace LKS_3._0.ViewModel
 	class SummerSboriViewModel : INotifyPropertyChanged
 	{
 		private ApplicationContext temp_DataBase;
-
+        public string path_template;
 		public Model.Summer SelectedSummerSbori
 		{
 			get; set;
 		}
 
-        private RelayCommand saveCommand,
-            create, cancel, assessments, editCommand;
-        public Action CloseAction { get; set; }
+		private RelayCommand saveCommand,
+			create, cancel, assessments, editCommand;
+		public Action CloseAction { get; set; }
 
 		BindingList<Model.Admin> _admins;
 
@@ -193,8 +193,8 @@ namespace LKS_3._0.ViewModel
 						   if (Sort != RadioSortOptions.None)
 						   {
 							   tempList.First().Students = new BindingList<Student>(tempList.First().Students
-									.OrderBy(ob => Sort == RadioSortOptions.MidleName?ob.MiddleName : ob.InstGroup).ToList());
-							}
+									.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+						   }
 						   if ((int)obj == 4 && (int)radioOption == 2)
 						   {
 							   for (int i = 0; i < selectedTroop.Students.Count; i += 2)
@@ -210,7 +210,7 @@ namespace LKS_3._0.ViewModel
 									   tempStudent.Add(selectedTroop.Students[i]);
 								   }
 								   Model.Templates temp = new Model.Templates(
-								   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+								   System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
 								   ref temp_DataBase, tempStudent, null, null);
 							   }
 						   }
@@ -223,15 +223,42 @@ namespace LKS_3._0.ViewModel
 									   List<Student> tempStudent = new List<Student>();
 									   tempStudent.Add(ob);
 									   Model.Templates temp = new Model.Templates(
-									   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
+									   System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
 									   ref temp_DataBase, tempStudent, null, null);
 								   }
 							   }
 							   else
 							   {
-								   Model.Templates temp = new Model.Templates(
-									   System.IO.Path.GetFullPath(@".\Templates\" + pathTemplate[(int)obj, (int)radioOption]),
-									   ref temp_DataBase, null, null, tempList);
+								   if ((int)obj == 6 && (int)radioOption == 4)
+								   {
+									   List<string> groupNum = new List<string>();
+									   foreach (var item in tempList.First().Students)
+									   {
+										   if (!groupNum.Contains(item.InstGroup))
+										   {
+											   groupNum.Add(item.InstGroup);
+										   }
+									   }
+									   foreach (var item in groupNum)
+									   {
+										   List<Troop> troopsTemp = new List<Troop>();
+										   troopsTemp.Add(new Troop() { Vus = tempList.First().Vus});
+										   troopsTemp.First().Students = new BindingList<Student>();
+										   foreach (var it in temp_DataBase.Students.Where(ob => ob.InstGroup == item).ToList())
+										   {
+											   troopsTemp.First().Students.Add(it);
+										   }
+										   Model.Templates temp = new Model.Templates(
+										   System.IO.Path.GetFullPath(@".\"+path_template+"\\" + pathTemplate[(int)obj, (int)radioOption]),
+										   ref temp_DataBase, null, null, troopsTemp);
+									   }
+								   }
+								   else
+								   {
+									   Model.Templates temp = new Model.Templates(
+										   System.IO.Path.GetFullPath(@".\" +path_template+ "\\" + pathTemplate[(int)obj, (int)radioOption]),
+										   ref temp_DataBase, null, null, tempList);
+								   }
 							   }
 						   }
 					   }
@@ -252,17 +279,26 @@ namespace LKS_3._0.ViewModel
 					(saveCommand = new RelayCommand(obj =>
 					{
 						this.temp_DataBase.SaveChanges();
-                        MessageBox.Show("Изменения сохранены!", "Успешно!");
+						MessageBox.Show("Изменения сохранены!", "Успешно!");
 					}));
 			}
 		}
-		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops)
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> _students, BindingList<Troop> _troops, bool data)
 		{
 			this.temp_DataBase = temp_DataBase;
 
 			this.temp_DataBase.Summers.Load();
 
 			this.temp_DataBase.Admins.Load();
+
+            if(data)
+            {
+                path_template = "TemplatesOff";
+            }
+            else
+            {
+                path_template = "TeplatesSold";
+            }
 
 			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
@@ -272,7 +308,7 @@ namespace LKS_3._0.ViewModel
 
 			Prepods = this.temp_DataBase.Prepods.Local.ToBindingList();
 		}
-		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops)
+		public SummerSboriViewModel(ref ApplicationContext temp_DataBase, BindingList<Troop> _troops, bool data)
 		{
 			this.temp_DataBase = temp_DataBase;
 
@@ -280,7 +316,16 @@ namespace LKS_3._0.ViewModel
 
 			this.temp_DataBase.Admins.Load();
 
-			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
+            if (data)
+            {
+                path_template = "TemplatesOff";
+            }
+            else
+            {
+                path_template = "TeplatesSold";
+            }
+
+            SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
 
 			SelectedSummerSbori.listTroops = _troops;
 
@@ -430,29 +475,29 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-        public RelayCommand EditCommand
-        {
-            get
-            {
-                return editCommand ??
-                  (editCommand = new RelayCommand((selectedItem) =>
-                  {
-                      if (selectedItem == null) return;
-                      // получаем выделенный объект
-                      Model.Admin temp_admin = selectedItem as Model.Admin;
+		public RelayCommand EditCommand
+		{
+			get
+			{
+				return editCommand ??
+				  (editCommand = new RelayCommand((selectedItem) =>
+				  {
+					  if (selectedItem == null) return;
+					  // получаем выделенный объект
+					  Model.Admin temp_admin = selectedItem as Model.Admin;
 
-                      View.AddAdmin addWindow = new View.AddAdmin(temp_admin);
+					  View.AddAdmin addWindow = new View.AddAdmin(temp_admin);
 
-                      if (addWindow.ShowDialog() == true)
-                      {
-                          //Prepods.Add(temp_prepod);
-                          temp_DataBase.Entry(temp_admin).State = EntityState.Modified;
-                          temp_DataBase.SaveChanges();
-                          SelectedAdmin = temp_admin;
-                      }
-                  }));
-            }
-        }
+					  if (addWindow.ShowDialog() == true)
+					  {
+						  //Prepods.Add(temp_prepod);
+						  temp_DataBase.Entry(temp_admin).State = EntityState.Modified;
+						  temp_DataBase.SaveChanges();
+						  SelectedAdmin = temp_admin;
+					  }
+				  }));
+			}
+		}
 
 		public RadioSortOptions Sort
         {

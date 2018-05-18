@@ -68,7 +68,7 @@
                     <TextBox x:Name="TbMName" Grid.Column="1" Grid.Row="0" Text ="{Binding MiddleName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18"/>
                     <TextBox x:Name="TbFName" Grid.Column="1" Grid.Row="1"  Text="{Binding FirstName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
                     <TextBox x:Name="TbLName" Grid.Column="1" Grid.Row="2"  Text="{Binding LastName}" PreviewTextInput="TbOnlyLetter_PreviewTextInput" MaxLength="18" />
-                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3"  IsEditable="True" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="1" SelectionChanged="CbTroop_SelectionChanged" Loaded="CbTroop_Loaded">
+                    <ComboBox x:Name="CbTroop" Grid.Column="1" Grid.Row="3"  IsEditable="False" IsSynchronizedWithCurrentItem="True" Margin="2" Grid.ColumnSpan="1" SelectionChanged="CbTroop_SelectionChanged" Loaded="CbTroop_Loaded">
 
                     </ComboBox>
                     <!--DataContext="{Binding Troop}"-->

@@ -29,7 +29,7 @@ namespace LKS_3._0
     {
         bool connect;
         
-        public WindowDatabase(bool flag, bool connect)
+        public WindowDatabase(bool flag, bool connect, bool data)
         {
             InitializeComponent();
 
@@ -46,7 +46,7 @@ namespace LKS_3._0
 
             }
 
-            DataContext = new ApplicationViewModel(connect);
+            DataContext = new ApplicationViewModel(connect, data);
 
             Binding_columns();
             

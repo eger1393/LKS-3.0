@@ -28,7 +28,7 @@ namespace LKS_3._0
     public class ApplicationViewModel : INotifyPropertyChanged, IDisposable
     {
         public ApplicationContext DataBaseContext;
-        bool connect;
+		bool connect, data;
 
         private RelayCommand addCommand,
             createReportCommand,
@@ -325,7 +325,7 @@ namespace LKS_3._0
                     (uploadDB = new RelayCommand(obj =>
                     {
                         DataBaseContext.Dispose();
-                        Connect_DB(connect);
+                        Connect_DB(connect, data);
                     }));
             }
         }
@@ -755,7 +755,7 @@ namespace LKS_3._0
                         {
                             DataBaseContext.SaveChanges();
                             DataBaseContext.Dispose();
-                            Connect_DB(connect);
+                            Connect_DB(connect, data);
                         }
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
                 }
@@ -1224,11 +1224,24 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                 return infoSboriCommand ??
                     (infoSboriCommand = new RelayCommand(obj =>
                     {
-                        LKS_3._0.View.InfoSboriWindow Info = new View.InfoSboriWindow(ref DataBaseContext, Troops);
-                        if (Info.ShowDialog() == true)
-                        {
-                            DataBaseContext.SaveChanges();
+						if(data)
+						{
+							LKS_3._0.View.InfoSboriWindowOff Info = new View.InfoSboriWindowOff(ref DataBaseContext, Troops, data);
+							if (Info.ShowDialog() == true)
+							{
+								DataBaseContext.SaveChanges();
+							}
+						}
+						else
+						{
+                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data)
+
+                            if (Info.ShowDialog() == true)
+                            {
+                                DataBaseContext.SaveChanges();
+                            }
                         }
+                        
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
             }
         }
@@ -1334,15 +1347,16 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
         }
 
-        public void Connect_DB(bool _connect)
+        public void Connect_DB(bool _connect, bool _data)
         {
             this.connect = _connect;
+			this.data = _data;
             View.ProgressBar ProgressWin = new View.ProgressBar();
             ProgressWin.Show();
 
             try
             {
-                CreateConnection(connect);
+                CreateConnection(connect, data);
             }
             catch (Exception)
             {
@@ -1366,12 +1380,12 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             ProgressWin.Close();
         }
 
-		public ApplicationViewModel(bool _connect)
+		public ApplicationViewModel(bool _connect, bool _data)
 		{
-            Connect_DB(_connect);
+            Connect_DB(_connect, _data);
         }
 
-        public void CreateConnection(bool connect)
+        public void CreateConnection(bool connect, bool data)
         {
             if(connect)
             {
@@ -1380,8 +1394,18 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
             else
             {
-                var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK.sqlite" };
-                DataBaseContext = new ApplicationContext(str_connect);
+				if(data)
+				{
+					var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK_Off.sqlite" };
+					DataBaseContext = new ApplicationContext(str_connect);
+				}
+				else
+				{
+					var str_connect = new System.Data.SQLite.SQLiteConnection() { ConnectionString = "Data Source=.\\DataBaseVK_Sold.sqlite" };
+					DataBaseContext = new ApplicationContext(str_connect);
+				}
+				
+                
             }
 
             
