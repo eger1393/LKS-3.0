@@ -754,6 +754,8 @@ namespace LKS_3._0
                         if (window_TC.ShowDialog() == true)
                         {
                             DataBaseContext.SaveChanges();
+                            DataBaseContext.Dispose();
+                            Connect_DB(connect);
                         }
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
                 }

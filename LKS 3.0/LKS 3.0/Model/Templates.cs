@@ -545,7 +545,12 @@ namespace LKS_3._0.Model
 				return selectedStudent.Faculty;
 			}
 
-			if (command.ToUpper() == "ГРУППА")
+            if (command.ToUpper() == "КУРС")
+            {
+                return selectedStudent.Kurs.ToString();
+            }
+
+            if (command.ToUpper() == "ГРУППА")
 			{
 				return selectedStudent.InstGroup;
 			}

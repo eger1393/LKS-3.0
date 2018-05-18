@@ -520,9 +520,20 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public RadioSortOptions Sort { get => sort; set { sort = value; OnPropertyChanged(); } }
+        public RadioSortOptions Sort
+        {
+            get
+            {
+                return sort;
+            }
+            set
+            {
+                sort = value;
+                OnPropertyChanged();
+            }
+        }
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			if (PropertyChanged != null)
