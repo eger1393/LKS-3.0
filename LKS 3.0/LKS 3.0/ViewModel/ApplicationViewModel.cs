@@ -1234,7 +1234,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 						}
 						else
 						{
-                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data)
+                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data);
 
                             if (Info.ShowDialog() == true)
                             {
