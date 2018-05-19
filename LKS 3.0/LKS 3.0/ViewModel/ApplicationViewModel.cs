@@ -676,7 +676,7 @@ namespace LKS_3._0
 				return findCommand ??
 									(findCommand = new RelayCommand(select =>
 									{
-                                        var result = Students;
+                                        var result = new BindingList<Student>(DataBaseContext.Students.ToList());
 
                                         if (!string.IsNullOrEmpty(SelectedValueFind_T))
                                         {

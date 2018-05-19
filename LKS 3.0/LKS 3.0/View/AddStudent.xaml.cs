@@ -45,6 +45,8 @@ namespace LKS_3._0
 
             CbSpecInst.ItemsSource = temp_DataBase.Students.Select(u => u.SpecInst).Distinct().ToList();
 
+            comboBox_foreign_language.ItemsSource = temp_DataBase.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
+
             CbRank.ItemsSource = Troop.Ranks;
 
             viewModel = new AddStudentViewModel(ref temp_DataBase, ref temp);
