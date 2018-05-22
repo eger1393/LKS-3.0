@@ -1234,7 +1234,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 						}
 						else
 						{
-                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data)
+							View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data);
 
                             if (Info.ShowDialog() == true)
                             {
@@ -1289,7 +1289,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                   (ordersCommand = new RelayCommand(obj =>
                   {
                       BindingList<Student> _temp_students = new BindingList<Student>(Students.Where(u => u.Status == "На сборах").ToList());
-                      View.SummerOrders win = new View.SummerOrders(ref DataBaseContext, _temp_students, Troops);
+                      View.SummerOrders win = new View.SummerOrders(ref DataBaseContext, _temp_students, Troops, data);
 
 					  win.ShowDialog();
 

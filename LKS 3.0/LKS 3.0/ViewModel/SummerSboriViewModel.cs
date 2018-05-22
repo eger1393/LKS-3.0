@@ -161,7 +161,7 @@ namespace LKS_3._0.ViewModel
 				"Отчет о результатах аттестации.docx",
 				"Протокол1.docx",
 				"Удостоверение о приписке.docx",
-				"ХАРАКТЕРИСТИКА.docx",
+				"Аттестация.docx",
 				"none",
 				"none",
 				"none",
@@ -297,7 +297,7 @@ namespace LKS_3._0.ViewModel
             }
             else
             {
-                path_template = "TeplatesSold";
+                path_template = "TemplatesSold";
             }
 
 			SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();
@@ -322,7 +322,7 @@ namespace LKS_3._0.ViewModel
             }
             else
             {
-                path_template = "TeplatesSold";
+                path_template = "TemplatesSold";
             }
 
             SelectedSummerSbori = this.temp_DataBase.Summers.FirstOrDefault();

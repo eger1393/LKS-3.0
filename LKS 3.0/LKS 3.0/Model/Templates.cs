@@ -453,23 +453,29 @@ namespace LKS_3._0.Model
 		/// <param name="i">Номер строки в таблице(нужно для команды №)</param>
 		private void stringHandling(Table table, int rowIndex, TableRow tempRow, int i)
 		{
-			// перечеслитель для перебора ячеек в строке которая назодится в таблице(изначально он стоит ДО нулевой позиции
-			IEnumerator<TableCell> IEcell = table.Elements<TableRow>().ToList()[rowIndex].
-											Descendants<TableCell>().ToList().GetEnumerator();
-			foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам во временной строке
+			try
 			{
-				IEcell.MoveNext();// передвинули перечеслитель
-				if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
+				// перечеслитель для перебора ячеек в строке которая назодится в таблице(изначально он стоит ДО нулевой позиции
+				IEnumerator<TableCell> IEcell = table.Elements<TableRow>().ToList()[rowIndex].
+												Descendants<TableCell>().ToList().GetEnumerator();
+				foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам во временной строке
 				{
-					// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
-					TableCell tempCell = cell.Clone() as TableCell;
-					IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
-					foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+					IEcell.MoveNext();// передвинули перечеслитель
+					if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
 					{
-						BookmarkToCommand(formattedText, i);
+						// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
+						TableCell tempCell = cell.Clone() as TableCell;
+						IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+						foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
+						{
+							BookmarkToCommand(formattedText, i);
 
+						}
 					}
 				}
+			}catch(IndexOutOfRangeException ex)
+			{
+				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}
 		}
 

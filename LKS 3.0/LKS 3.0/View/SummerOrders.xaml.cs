@@ -20,7 +20,7 @@ namespace LKS_3._0.View
     public partial class SummerOrders : Window
     {
         ApplicationContext DataBaseSb;
-        public SummerOrders(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> _troops)
+        public SummerOrders(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> _troops, bool data)
         {
             InitializeComponent();
 
@@ -28,7 +28,7 @@ namespace LKS_3._0.View
 
             DataBaseSb = temp_DataBase;
 
-            ViewModel.SummerSboriViewModel temp_VM = new ViewModel.SummerSboriViewModel(ref temp_DataBase, students, _troops);
+            ViewModel.SummerSboriViewModel temp_VM = new ViewModel.SummerSboriViewModel(ref temp_DataBase, students, _troops, data);
 
             DataContext = temp_VM;
 

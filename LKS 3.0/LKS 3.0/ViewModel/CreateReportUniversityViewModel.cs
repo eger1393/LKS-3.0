@@ -271,7 +271,7 @@ namespace LKS_3._0.ViewModel
 										break;
 									}
 								// ПЕЧАТЬ по требованию(узнать что это??)
-								case 3: //  АНКЕТЫ
+								case 2: //  АНКЕТЫ
 									{
 										switch (radioOptionsJernal)
 										{
@@ -300,7 +300,7 @@ namespace LKS_3._0.ViewModel
 										}
 										break;
 									}
-								case 4: // ЛКС
+								case 3: // ЛКС
 									{
 										if (SelectedTroop != null)
 										{
