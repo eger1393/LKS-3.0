@@ -36,7 +36,7 @@ namespace LKS_3._0
         "Старший_секретчик",
         "Секретчик",
         "Журналист",
-        "Отсутствует" };
+        " " };
         public Troop()
         {
             Students = new BindingList<Student>();

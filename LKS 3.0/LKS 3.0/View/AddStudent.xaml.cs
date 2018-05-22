@@ -255,6 +255,8 @@ namespace LKS_3._0
 				}
 			}
 
+
+
             var tmp = viewModel.AddedStudent.Troop.FirstOrDefault(u => u.PlatoonCommander == viewModel.AddedStudent);
 
             if (CbRank.Text == "КВ")
@@ -264,6 +266,7 @@ namespace LKS_3._0
             else if(tmp != null)
             {
                 tmp.PlatoonCommander = null;
+                tmp.Id_PC = null;
             }
 
             if (string.IsNullOrEmpty(viewModel.AddedStudent.MiddleName)) // почему именно фамилия??

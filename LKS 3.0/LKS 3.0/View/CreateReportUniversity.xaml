@@ -36,13 +36,13 @@
                             <RadioButton GroupName="DocOnTroop" Content="Список взвода" Grid.Row="0"
                                          IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter}, 
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Список должностных лиц взводов" Grid.Row="1"
+                            <!--<RadioButton GroupName="DocOnTroop" Content="Список должностных лиц взводов" Grid.Row="1"
                                          IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Условия обучения" Grid.Row="2"
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>-->
+                            <RadioButton GroupName="DocOnTroop" Content="Условия обучения" Grid.Row="1"
                                          IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Тематический контроль" Grid.Row="3"
+                            <RadioButton GroupName="DocOnTroop" Content="Тематический контроль" Grid.Row="2"
                                          IsChecked="{Binding RadioOptionsDocOnTroop, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option4}}"/>
                         </Grid>

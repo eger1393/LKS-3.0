@@ -42,8 +42,10 @@ namespace LKS_3._0.View
 
 
                 var tmp = selec_st.Troop.FirstOrDefault(u => u.PlatoonCommander == selec_st);
+
                 if(tmp != null && comboBoxRank.Text != "КВ")
                 {
+                    tmp.Id_PC = null;
                     tmp.PlatoonCommander = null;
                 }
 

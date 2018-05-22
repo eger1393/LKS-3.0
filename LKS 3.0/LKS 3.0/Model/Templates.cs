@@ -331,7 +331,13 @@ namespace LKS_3._0.Model
 							System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
 							continue;
 						}
-						continue;
+                        catch (Exception ex)
+                        {
+
+                            System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
+                            continue;
+                        }
+                        continue;
 					}
 
 					Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка

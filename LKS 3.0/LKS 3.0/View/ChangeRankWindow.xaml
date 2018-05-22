@@ -16,7 +16,7 @@
             <ListBoxItem Content="Журналист"/>
             <ListBoxItem Content="Зам. журналиста"/>
             <ListBoxItem Content="Секретчик"/>
-            <ListBoxItem Content="Отсутствует"/>
+            <ListBoxItem Content=" "/>
         </ComboBox>
         <Button x:Name="buttonOK" Content="Готово" Margin="0,15,0,0" Click="buttonOK_Click"/>
 

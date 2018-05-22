@@ -43,27 +43,27 @@
                             <RadioButton GroupName="DocOnTroop" Content="Список личного состава" Grid.Row="0"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter}, 
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Именной список граждан, направленных на уч. сборы (по взводам)" Grid.Row="1"
+                            <!--<RadioButton GroupName="DocOnTroop" Content="Именной список граждан, направленных на уч. сборы (по взводам)" Grid.Row="1"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Журнал учебного взвода" Grid.Row="2"
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>-->
+                            <RadioButton GroupName="DocOnTroop" Content="Журнал учебного взвода" Grid.Row="1"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Именной список направленых на сборы" Grid.Row="3"
+                            <RadioButton GroupName="DocOnTroop" Content="Именной список направленых на сборы" Grid.Row="2"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option4}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Список л.с. проинструктированного по треб. безопасности" Grid.Row="4"
+                            <RadioButton GroupName="DocOnTroop" Content="Список л.с. проинструктированного по треб. безопасности" Grid.Row="3"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option5}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Именной список для вечерней проверки" Grid.Row="5"
+                            <RadioButton GroupName="DocOnTroop" Content="Именной список для вечерней проверки" Grid.Row="4"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option6}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Список взвода" Grid.Row="6"
+                            <!--<RadioButton GroupName="DocOnTroop" Content="Список взвода" Grid.Row="5"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option7}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="ВПД" Grid.Row="7"
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option7}}"/>-->
+                            <!--<RadioButton GroupName="DocOnTroop" Content="ВПД" Grid.Row="7"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option8}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option8}}"/>-->
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
@@ -386,9 +386,9 @@
                             <RadioButton GroupName="DocOnTroop" Content="Список ТБ на БТУ" Grid.Row="0"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter}, 
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Характеристика" Grid.Row="1"
+                            <!--<RadioButton GroupName="DocOnTroop" Content="Характеристика" Grid.Row="1"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>-->
                         </Grid>
                     </GroupBox>
                     <Label x:Name="labelThreeWeek" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>
@@ -453,7 +453,7 @@
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option6}}"/>
                             <RadioButton GroupName="DocOnTroop" Content="Характеристика" Grid.Row="6"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option7}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option8}}"/>
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>

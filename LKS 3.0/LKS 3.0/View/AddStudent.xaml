@@ -270,11 +270,15 @@
                                 </ComboBox>
                                 <TextBox x:Name="Growth" Grid.Column="1" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding Growth}"/>
                                 <ComboBox x:Name="ClothingSize" Grid.Column="1" Grid.Row="2" FontSize="14" FontFamily="Times New Roman" Margin="2"  Text="{Binding ClothihgSize}" IsEditable="True" IsSynchronizedWithCurrentItem="True" >
-                                    <ListBoxItem Content="S" />
-                                    <ListBoxItem Content="M" />
-                                    <ListBoxItem Content="L" />
-                                    <ListBoxItem Content="XL" />
-                                    <ListBoxItem Content="XXL" />
+                                    <ListBoxItem Content="40" />
+                                    <ListBoxItem Content="42" />
+                                    <ListBoxItem Content="44" />
+                                    <ListBoxItem Content="46" />
+                                    <ListBoxItem Content="48" />
+                                    <ListBoxItem Content="50" />
+                                    <ListBoxItem Content="52" />
+                                    <ListBoxItem Content="54" />
+                                    <ListBoxItem Content="56" />
                                 </ComboBox>
                                 <TextBox x:Name="ShoeSize" Grid.Column="4" Grid.Row="0" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding ShoeSize}" />
                                 <TextBox x:Name="HeadgearSize" Grid.Column="4" Grid.Row="1" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Grid.ColumnSpan="1" Text="{Binding CapSize}"/>

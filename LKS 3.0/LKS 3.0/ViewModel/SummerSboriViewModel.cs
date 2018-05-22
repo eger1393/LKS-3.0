@@ -139,7 +139,7 @@ namespace LKS_3._0.ViewModel
 			},
 			{ // 5
 				"Сборы_список_ТБ_на_БТУ.docx",
-				"Сборы_характеристика.docx",
+                "ХАРАКТЕРИСТИКА.docx",
 				"none",
 				"none",
 				"none",
@@ -162,7 +162,7 @@ namespace LKS_3._0.ViewModel
 				"Протокол1.docx",
 				"Удостоверение о приписке.docx",
 				"Аттестация.docx",
-				"none",
+                "ХАРАКТЕРИСТИКА.docx",
 				"none",
 				"none",
 				"none",

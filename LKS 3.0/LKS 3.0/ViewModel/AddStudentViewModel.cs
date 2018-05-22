@@ -42,7 +42,13 @@ namespace LKS_3._0
 				  {
                       
                       Relative temp_relative = add_relative as Relative;
-                      if (temp_relative.FirstName == null) return;
+                      if (temp_relative.FirstName == null || temp_relative.MiddleName == null || temp_relative.RelationDegree == null || temp_relative.HealthStatus == null)
+                      {
+                          MessageBox.Show("Заполните обязательные поля!");
+                          return;
+                      }
+
+                  
                       if(DataBaseR.Entry(temp_relative).State == EntityState.Modified)
                       {
                           DataBaseR.SaveChanges();
@@ -72,8 +78,14 @@ namespace LKS_3._0
                   (editRelativeCommand = new RelayCommand((selectedItem) =>
                   {
                       if (selectedItem == null) return;
-                      // получаем выделенный объект
+                      
                       Relative temp_relative = selectedItem as Relative;
+
+                      if (temp_relative.FirstName == null || temp_relative.MiddleName == null || temp_relative.RelationDegree == null || temp_relative.HealthStatus == null)
+                      {
+                          MessageBox.Show("Заполните обязательные поля!");
+                          return;
+                      }
 
                       AddedRelative = temp_relative;
 

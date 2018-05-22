@@ -649,6 +649,8 @@ namespace LKS_3._0
                          //}
 
                          DataBaseContext.SaveChanges();
+                         Students = new BindingList<Student>(Students.Skip(0).ToList());
+                         //Students = new BindingList<Student>(DataBaseContext.Students.ToList());
 
                      }
                      else if (res.ToString() == "No")
