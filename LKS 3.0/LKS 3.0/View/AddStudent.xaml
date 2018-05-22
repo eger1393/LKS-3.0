@@ -131,7 +131,7 @@
                         <ListBoxItem Content="холост"/>
                     </ComboBox>
 
-                    <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2">
+                    <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2" IsEditable="True">
 
                     </ComboBox>
 
@@ -307,12 +307,12 @@
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label_foreign_language" Content="Степень владения иностранными языками" HorizontalAlignment="Left" Grid.Row="16" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="250" Height="29" Grid.RowSpan="2"/>
-                    <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left"  Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding ForeignLanguage}">
-                        <ListBoxItem Content="английским" />
+                    <ComboBox x:Name="comboBox_foreign_language" HorizontalAlignment="Left"  Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding ForeignLanguage}" IsEditable="True">
+                        <!--<ListBoxItem Content="английским" />
                         <ListBoxItem Content="немецким" />
                         <ListBoxItem Content="французским" />
                         <ListBoxItem Content="испанским" />
-                        <ListBoxItem Content="итальянским" />
+                        <ListBoxItem Content="итальянским" />-->
                     </ComboBox>
                     <Label x:Name="label_language_rank" Content="Степень:"  Grid.Row="16" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="70" Grid.RowSpan="2" Margin="90,25,0,0"/>
                     <ComboBox x:Name="comboBox_language_rank" HorizontalAlignment="Left" Grid.Row="17" VerticalAlignment="Top" Width="241" Height="25" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" Text="{Binding LanguageRank}">
@@ -357,14 +357,14 @@
                             <RowDefinition Height="25"/>
                             <RowDefinition Height="25"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Степень родства" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия" />
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Степень родства*" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия*" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя*" />
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество" />
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="Девичья фамлия" />
-                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Дата рождения" />
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Дата рождения*" />
 
-                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Состояние здоровья" />
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Состояние здоровья*" />
                         <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="Почтовый индекс,адрес места жительства" TextWrapping="Wrap" Padding="5"/>
                         <TextBlock Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Text="Почтовый индекс,адрес места регистрации" TextWrapping="Wrap" Padding="5"/>
                         <TextBlock Grid.Row="5" Grid.Column="2" Text="Мобильный телефон" />

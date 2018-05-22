@@ -28,7 +28,7 @@ namespace LKS_3._0.View
 
             DataBaseSb = temp_DataBase;
 
-            ViewModel.SummerSboriViewModel temp_VM = new ViewModel.SummerSboriViewModel(ref temp_DataBase, students, _troops, data);
+            ViewModel.SummerSboriViewModel temp_VM = new ViewModel.SummerSboriViewModel(ref temp_DataBase, students, _troops,true);
 
             DataContext = temp_VM;
 

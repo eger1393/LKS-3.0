@@ -676,7 +676,7 @@ namespace LKS_3._0
 				return findCommand ??
 									(findCommand = new RelayCommand(select =>
 									{
-                                        var result = Students;
+                                        var result = new BindingList<Student>(DataBaseContext.Students.ToList());
 
                                         if (!string.IsNullOrEmpty(SelectedValueFind_T))
                                         {
@@ -1234,7 +1234,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 						}
 						else
 						{
-							View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data);
+                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data);
 
                             if (Info.ShowDialog() == true)
                             {

@@ -27,7 +27,7 @@ namespace LKS_3._0.View
     public partial class EditTroop : Window
     {
 
-        string[] days = { "Пн", "Вт", "Ср", "Чт", "Пт" };
+        string[] days = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" };
         public EditTroop(ref ApplicationContext temp_database)
         {
             InitializeComponent();
