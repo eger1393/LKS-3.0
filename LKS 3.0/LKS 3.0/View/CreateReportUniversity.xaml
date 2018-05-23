@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0.View"
         xmlns:VievModel="clr-namespace:LKS_3._0.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         Title="Создание отчета" Height="414" Width="630">
     <Window.Resources>
@@ -248,7 +250,13 @@
 
                             </Grid.RowDefinitions>
                             <ComboBox Grid.Row="0" ItemsSource="{Binding Troops}" SelectedItem="{Binding SelectedTroop}"/>
-                            <ListBox x:Name="listBoxStudents" SelectionMode="Single"  ItemsSource="{Binding TroopStudents}" SelectedItem="{Binding SelectedStudent}" Grid.Row="1"/>
+                            <ListBox x:Name="listBoxStudents" SelectionMode="Multiple"  ItemsSource="{Binding TroopStudents}" Grid.Row="1">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectedItems" Value="{Binding Path=SelectedItems, ElementName=listBoxStudents}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListBox>
                         </Grid>
                     </GroupBox>
                 </Grid>
