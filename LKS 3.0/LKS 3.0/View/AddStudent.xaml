@@ -131,7 +131,7 @@
                         <ListBoxItem Content="холост"/>
                     </ComboBox>
 
-                    <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" IsSynchronizedWithCurrentItem="True" Margin="2" IsEditable="True">
+                    <ComboBox x:Name="CbRank" Grid.Column="3" Grid.Row="10" Text="{Binding Rank}" Margin="2" IsEditable="True">
 
                     </ComboBox>
 

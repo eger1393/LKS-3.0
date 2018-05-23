@@ -112,6 +112,7 @@ namespace LKS_3._0
             VUS = "042600";
             WhoseOrder = "МО РФ";
             VO = "МВО";
+            Rank = " ";
             VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
             VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
             Fighting = "не участвовал";
@@ -123,7 +124,7 @@ namespace LKS_3._0
             Troop = new BindingList<Troop>();
             Relatives = new BindingList<Relative>();
             Troop.Add(troop);
-            Rank = "Отсутствует";
+            Rank = " ";
             Status = "Обучается";
             BloodType = "Не знаю";
             Kurs = 2;

@@ -216,7 +216,7 @@ namespace LKS_3._0.ViewModel
 						   }
 						   else
 						   {
-							   if (((int)obj == 5 && (int)radioOption == 1) || ((int)obj == 6 && (int)radioOption == 6))
+							   if (((int)obj == 5 && (int)radioOption == 1) || ((int)obj == 6 && (int)radioOption == 6)|| ((int)obj == 6 && (int)radioOption == 7))
 							   {
 								   foreach (Student ob in selectedTroop.Students)
 								   {

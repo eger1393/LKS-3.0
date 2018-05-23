@@ -169,10 +169,10 @@ namespace LKS_3._0.ViewModel
                       Student last_PC = SelectTroop.PlatoonCommander;
                       if(last_PC != null)
                       {
-                          last_PC.Rank = Troop.Ranks[7];
+                          last_PC.Rank = Troop.Ranks[0];
                       }
                      
-                      temp.Rank = Troop.Ranks[0];
+                      temp.Rank = Troop.Ranks[1];
                       SelectTroop.Id_PC = temp.Id;
                       SelectTroop.PlatoonCommander = temp;
                 
