@@ -959,7 +959,7 @@ namespace LKS_3._0
             ProgressWin.Show();
             //var Progress = ProgressWin.Progress_Bar;
 
-            string path = Environment.CurrentDirectory + "/maev_new.mdb"; ;
+            string path = Environment.CurrentDirectory + @"\TeacherSignature\"  + "maev_new.mdb";
             try
             {
                 File.Copy(maev_path, path, true);

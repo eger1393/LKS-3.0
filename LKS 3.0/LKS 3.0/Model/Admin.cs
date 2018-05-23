@@ -17,6 +17,7 @@ namespace LKS_3._0.Model
             prepod = false;
             officer = false;
         }
+        [RusName("ID")]
         public int Id
         {
             get
