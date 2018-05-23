@@ -38,5 +38,15 @@ namespace LKS_3._0.View
 				e.Handled = true;
 			}
 		}
+
+		private void SelectAll_Click(object sender, RoutedEventArgs e)
+		{
+			listBoxStudents.SelectAll();
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			listBoxStudents.SelectedIndex = -1;
+		}
 	}
 }

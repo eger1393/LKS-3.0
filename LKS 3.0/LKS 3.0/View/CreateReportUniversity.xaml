@@ -257,6 +257,8 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ListBox>
+                            <Button x:Name="SelectAll" Content="Выделить всех" Margin="10,0,131,0" Grid.Row="2" Click="SelectAll_Click"/>
+                            <Button Content="Снять выделение" Margin="118,0,10,0" Grid.Row="2" Click="Button_Click"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
