@@ -120,10 +120,12 @@ namespace LKS_3._0.ViewModel
                                 DataBaseTr.Students.RemoveRange(SelectTroop.Students);
                                 DataBaseTr.Troops.Remove(temp);
                                 DataBaseTr.SaveChanges();
+                                //SelectPrepod = new Prepod();
+
                                 //Troop._count--;
-                                
-                                
-                        }
+
+
+    }
                         else if (res.ToString() == "No")
                             {
                                 deleteCommand = null;

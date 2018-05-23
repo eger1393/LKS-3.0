@@ -21,6 +21,7 @@
             <ListBoxItem Content="Ср" />
             <ListBoxItem Content="Чт" />
             <ListBoxItem Content="Пт" />
+            <ListBoxItem Content="Сб" />
         </ComboBox>
 
 
