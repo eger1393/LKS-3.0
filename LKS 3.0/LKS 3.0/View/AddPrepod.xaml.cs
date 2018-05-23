@@ -29,6 +29,12 @@ namespace LKS_3._0
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                MessageBox.Show("Заполните обязательные поля!");
+                return;
+            }
+
             DialogResult = true;
             Close();
         }
@@ -51,6 +57,7 @@ namespace LKS_3._0
 				}
 					(DataContext as Prepod).SignaturePath = imagePath;
 			}
-		}
+
+        }
 	}
 }

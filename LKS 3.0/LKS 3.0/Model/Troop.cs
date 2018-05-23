@@ -29,14 +29,13 @@ namespace LKS_3._0
         private int ID, staffCount;
         private int? IDPrepod, ID_PC;
 
-        public static List<string> Ranks = new List<string>() { "КВ",
+        public static List<string> Ranks = new List<string>() { " ","КВ",
         "КО1",
         "КО2",
         "КО3",
         "Старший_секретчик",
         "Секретчик",
-        "Журналист",
-        " " };
+        "Журналист", };
         public Troop()
         {
             Students = new BindingList<Student>();
