@@ -57,7 +57,7 @@ namespace LKS_3._0.ViewModel
 
 		private BindingList<Troop> troops;
 
-		private Student selectedStudent;
+		private BindingList<Student> selectedStudent = new BindingList<Student>();
 
 		private Dictionary<string, bool> printOnDemand; // Массив значений чекбоксов(для вкладки печать по требованию)
 
@@ -304,46 +304,63 @@ namespace LKS_3._0.ViewModel
 									{
 										if (SelectedTroop != null)
 										{
-											if(selectedStudent == null)
+											if(selectedStudent.Count == 0)
 											{
-												System.Windows.MessageBox.Show("Ошибка, выберите студента!");
+												MessageBoxResult res = System.Windows.MessageBox.Show("Студенты не выбранны, хотите создать шаблон для всех студентов взвода?","Выбор",MessageBoxButton.YesNo);
+												if(res.ToString() == "Yes")
+												{
+													selectedStudent = SelectedTroop.Students;
+												}
+												else
+												{
+													break;
+												}
+											}
+											if(RadioOptionsLKS == RadioOptions.None)
+											{
+												System.Windows.MessageBox.Show("Выберите шаблон!");
 												break;
 											}
-											List<Student> tempList = new List<Student>();
-											tempList.Add(SelectedStudent);
-
-											switch (RadioOptionsLKS)
+											foreach (var item in selectedStudent)
 											{
-												case RadioOptions.Option1:
-													{
-														Model.Templates temp = new Model.Templates(
-															System.IO.Path.GetFullPath(@".\Templates\ЛКС_Форма_допуска.docx"),
-															ref temp_DataBase, tempList, null, null);
-													}
-													break;
-												case RadioOptions.Option2:
-													{
-														Model.Templates temp = new Model.Templates(
-															System.IO.Path.GetFullPath(@".\Templates\Лист_изучения_кандидата_на_призыв.docx"),
-															ref temp_DataBase, tempList, null, null);
-													}
-													break;
-												case RadioOptions.Option3:
-													{
-														Model.Templates temp = new Model.Templates(
-															System.IO.Path.GetFullPath(@".\Templates\Личная_карточка_студента.docx"),
-															ref temp_DataBase, tempList, null, null);
-													}
-													break;
 
-												case RadioOptions.None:
-													{
-														System.Windows.MessageBox.Show("Выберите шаблон!");
-													}
-													break;
-												default:
-													System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
-													break;
+
+												List<Student> tempList = new List<Student>();
+												tempList.Add(item);
+
+												switch (RadioOptionsLKS)
+												{
+													case RadioOptions.Option1:
+														{
+															Model.Templates temp = new Model.Templates(
+																System.IO.Path.GetFullPath(@".\Templates\ЛКС_Форма_допуска.docx"),
+																ref temp_DataBase, tempList, null, null);
+														}
+														break;
+													case RadioOptions.Option2:
+														{
+															Model.Templates temp = new Model.Templates(
+																System.IO.Path.GetFullPath(@".\Templates\Лист_изучения_кандидата_на_призыв.docx"),
+																ref temp_DataBase, tempList, null, null);
+														}
+														break;
+													case RadioOptions.Option3:
+														{
+															Model.Templates temp = new Model.Templates(
+																System.IO.Path.GetFullPath(@".\Templates\Личная_карточка_студента.docx"),
+																ref temp_DataBase, tempList, null, null);
+														}
+														break;
+
+													case RadioOptions.None:
+														{
+															System.Windows.MessageBox.Show("Выберите шаблон!");
+														}
+														break;
+													default:
+														System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+														break;
+												}
 											}
 
 										}
@@ -464,7 +481,7 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public Student SelectedStudent
+		public BindingList<Student> SelectedStudent
 		{
 			get
 			{
@@ -475,6 +492,22 @@ namespace LKS_3._0.ViewModel
 			{
 				selectedStudent = value;
 				OnPropertyChanged();
+			}
+		}
+
+		public System.Collections.IList SelectedItems
+		{
+			get
+			{
+				return SelectedStudent;
+			}
+			set
+			{
+				SelectedStudent.Clear();
+				foreach (Student model in value)
+				{
+					SelectedStudent.Add(model);
+				}
 			}
 		}
 
