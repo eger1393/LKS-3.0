@@ -341,16 +341,6 @@ D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll.config
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\de\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\en\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\es\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\fr\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\it\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ja\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
@@ -501,3 +491,8 @@ C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.Gene
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CoreCompileInputs.cache
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe.manifest
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.xml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.g.cs
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.baml

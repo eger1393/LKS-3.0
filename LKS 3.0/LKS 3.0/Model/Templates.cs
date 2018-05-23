@@ -483,6 +483,10 @@ namespace LKS_3._0.Model
 			{
 				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
+			}
 		}
 
 		private string toAssessment(int num)
