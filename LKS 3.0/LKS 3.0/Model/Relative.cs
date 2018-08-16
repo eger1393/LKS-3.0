@@ -8,23 +8,9 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
-	public partial class Relative:INotifyPropertyChanged
+	public partial class Relative : INotifyPropertyChanged
 	{
-        public static int _count;
-
-        private int ID;
-
-        public int Id
-        {
-            get
-            {
-                return ID;
-            }
-            set
-            {
-                ID = value;
-            }
-        }
+        public int Id { get; set; }
         private string middleName, // Фамилия
 			firstName, // Имя
 			lastName, // Отчество
@@ -35,27 +21,25 @@ namespace LKS_3._0
 			mobilePhone, // мобильный телефон 
 			relationDegree, // степень родства
 			healthStatus; // состояние здоровья
-
-		public event PropertyChangedEventHandler PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName]string prop = "")
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
-		}
-
-       
         public int? StudentId
         { get; set; }
         public Student Student { get; set; }
 
 
-        public string initials()
+        public string Initials
 		{
-			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+            get
+            {
+                if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+                {
+                    throw new Exception("Данные родсвенниках! В созданном файле могут отсутствовать данные!\n");
+                }
+                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+            }
 		}
 
 		[RusName("Фамилия")]
-		public string MiddleName // Фамилия
+		public string MiddleName 
 		{
 			get
 			{
@@ -68,7 +52,7 @@ namespace LKS_3._0
 			}
 		}
 		[RusName("Имя")]
-		public string FirstName // Имя
+		public string FirstName 
 		{
 			get
 			{
@@ -81,7 +65,7 @@ namespace LKS_3._0
 			}
 		}
 		[RusName("Отчество")]
-		public string LastName // Отчество
+		public string LastName 
 		{
 			get
 			{
@@ -184,5 +168,11 @@ namespace LKS_3._0
 				OnPropertyChanged();
 			}
 		}
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

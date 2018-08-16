@@ -14,22 +14,17 @@ namespace LKS_3._0.ViewModel
 	class InfoAdministrationMilKafViewModel : INotifyPropertyChanged
 	{
 		public ApplicationContext DataBaseR;
-
 		public InfoAdministrationMilKafViewModel(ref ApplicationContext DataBase)
 		{
 			DataBaseR = DataBase;
 		}
-
 		private RelayCommand saveChangedCommand;
-		//private Model.Department administrationMillKaf;
-
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")
 		{
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
-
 		public RelayCommand SaveChangedCommand
 		{
 			get
@@ -41,19 +36,5 @@ namespace LKS_3._0.ViewModel
 					}));
 			}
 		}
-
-		//public Department AdministrationMillKaf
-		//{
-		//	get
-		//	{
-		//		return administrationMillKaf;
-		//	}
-
-		//	set
-		//	{
-		//		administrationMillKaf = value;
-		//		OnPropertyChanged();
-		//	}
-		//}
 	}
 }

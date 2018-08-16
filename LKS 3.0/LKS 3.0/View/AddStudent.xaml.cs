@@ -308,8 +308,7 @@ namespace LKS_3._0
 
         private void CbTroop_Loaded(object sender, RoutedEventArgs e)
         {
-            if (viewModel != null)
-                CbTroop.Text = viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).NumberTroop;
+                CbTroop.Text = viewModel?.AddedStudent?.Troop?.FirstOrDefault(u => u.SboriTroop == false)?.NumberTroop;
         }
     }
 }

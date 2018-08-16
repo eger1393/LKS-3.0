@@ -14,7 +14,7 @@ using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.Data.Entity;
 
-using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
+//using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
 
 
 
@@ -800,7 +800,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "РОД ИНИЦИАЛЫ")
 				{
-					return selectedRelative.initials();
+                    return selectedRelative.Initials;
 				}
 			}
 			//Мать
@@ -858,8 +858,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "МАТЬ ИНИЦИАЛЫ")
 				{
-					return selectedStudentMather.initials();
-				}
+					return selectedStudentMather.Initials;
+                }
 			}
 			// ОТЕЦ(ОТЧИМ)
 			if (selectedStudentFather != null)
@@ -916,8 +916,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "ОТЕЦ ИНИЦИАЛЫ")
 				{
-					return selectedStudentFather.initials();
-				}
+					return selectedStudentFather.Initials;
+                }
 			}
 
 			// Взвод
@@ -1265,7 +1265,7 @@ namespace LKS_3._0.Model
 			{
                 if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
                 {
-                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").initials();
+                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Initials;
                 }
 
                 if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
@@ -1280,7 +1280,7 @@ namespace LKS_3._0.Model
 
                 if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
                 {
-                    return admins.Find(u => u.Rank == "Военный комиссар").initials();
+                    return admins.Find(u => u.Rank == "Военный комиссар").Initials;
                 }
 
                 if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
@@ -1314,8 +1314,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Начальник штаба").initials();
-				}
+					return admins.Find(u => u.Rank == "Начальник штаба").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИМЯ")
 				{
@@ -1334,8 +1334,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").initials();
-				}
+					return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ЗВАНИЕ")
 				{
@@ -1359,28 +1359,27 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").initials();
-				}
+					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ЗВАНИЕ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Collness;
 				}
 
-				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
-				{
-					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").initials();
-				}
-
-				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
+                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
+                {
+                    return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Initials;
+                }
+                    if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Collness;
 				}
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по вооружению").initials();
-				}
+					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по вооружению").Initials;
+                    }
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ЗВАНИЕ")
 				{
@@ -1389,8 +1388,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Начальник медицинсокй части учебного сбора").initials();
-				}
+					return admins.Find(u => u.Rank == "Начальник медицинсокй части учебного сбора").Initials;
+                    }
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ЗВАНИЕ")
 				{
@@ -1399,8 +1398,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Командир учебной батареи").initials();
-				}
+					return admins.Find(u => u.Rank == "Командир учебной батареи").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ЗВАНИЕ")
 				{
@@ -1439,8 +1438,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ СТАРШИНА ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Старшина учебного взвода").initials();
-				}
+					return admins.Find(u => u.Rank == "Старшина учебного взвода").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ СТАРШИНА ЗВАНИЕ")
 				{
@@ -1449,8 +1448,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Командир войсковой части").initials();
-				}
+					return admins.Find(u => u.Rank == "Командир войсковой части").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ЗВАНИЕ")
 				{
@@ -1459,8 +1458,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Начальник штаба войсковой части").initials();
-				}
+					return admins.Find(u => u.Rank == "Начальник штаба войсковой части").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ЗВАНИЕ")
 				{
@@ -1469,8 +1468,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").initials();
-				}
+					return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ЗВАНИЕ")
 				{
@@ -1479,8 +1478,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").initials();
-				}
+					return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ЗВАНИЕ")
 				{
@@ -1489,8 +1488,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Член комиссии 1").initials();
-				}
+					return admins.Find(u => u.Rank == "Член комиссии 1").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ЗВАНИЕ")
 				{
@@ -1499,8 +1498,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Член комиссии 2").initials();
-				}
+					return admins.Find(u => u.Rank == "Член комиссии 2").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ЗВАНИЕ")
 				{
@@ -1509,8 +1508,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Член комиссии 3").initials();
-				}
+					return admins.Find(u => u.Rank == "Член комиссии 3").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ЗВАНИЕ")
 				{
@@ -1519,8 +1518,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Член комиссии 4").initials();
-				}
+					return admins.Find(u => u.Rank == "Член комиссии 4").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ЗВАНИЕ")
 				{
@@ -1529,8 +1528,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Член комиссии 5").initials();
-				}
+					return admins.Find(u => u.Rank == "Член комиссии 5").Initials;
+                }
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ЗВАНИЕ")
 				{
@@ -1559,8 +1558,8 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "РЕКТОР ИНИЦИАЛЫ")
 				{
-					return admins.Find(u => u.Rank == "Ректор МАИ НИУ").initials();
-				}
+					return admins.Find(u => u.Rank == "Ректор МАИ НИУ").Initials;
+                }
 
 			}
 

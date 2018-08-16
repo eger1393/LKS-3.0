@@ -10,7 +10,7 @@ namespace LKS_3._0.Model
 {
     public partial class Summer : INotifyPropertyChanged
     {
-        private string numberofOrder, dateOfOrder, dateBeginSbori, dateEndSbori, datePrisyaga, dateExamen, numberVK, locationVK, tittleOrder, bmp_kr, bmp_full;
+        private string numberofOrder, dateOfOrder, dateBeginSbori, dateEndSbori, datePrisyaga, dateExamen, numberVK, locationVK;
 
         private int Id;
 
@@ -141,50 +141,16 @@ namespace LKS_3._0.Model
             }
         }
 
-        public string TittleOrder
-        {
-            get
-            {
-                return tittleOrder;
-            }
+        public string TittleOrder { get; set; }
 
-            set
-            {
-                tittleOrder = value;
-            }
-        }
+        public string Bmp_kr { get; set; }
 
-        public string Bmp_kr
-        {
-            get
-            {
-                return bmp_kr;
-            }
-
-            set
-            {
-                bmp_kr = value;
-            }
-        }
-
-        public string Bmp_full
-        {
-            get
-            {
-                return bmp_full;
-            }
-
-            set
-            {
-                bmp_full = value;
-            }
-        }
+        public string Bmp_full { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

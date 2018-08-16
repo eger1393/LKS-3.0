@@ -26,7 +26,7 @@ namespace LKS_3._0.View
 
             selec_st = SelectStudent;
 
-            labelFIO.Content = selec_st.ToString();
+            labelFIO.Content = selec_st.Initials;
 
             comboBoxRank.ItemsSource = Troop.Ranks;
         }

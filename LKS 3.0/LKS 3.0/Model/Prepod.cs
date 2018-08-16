@@ -15,8 +15,16 @@ namespace LKS_3._0
         private int ID;
         private string signaturePath;
 
-
-        public int Id
+        public Prepod()
+        {
+            FirstName = "";
+            MiddleName = "";
+            LastName = "";
+            Coolness = "";
+            Troops = new BindingList<Troop>();
+        }
+        public BindingList<Troop> Troops { get; set; }
+        public int Id // TODO зачем здесь есть поле?
         {
             get
             {
@@ -27,30 +35,22 @@ namespace LKS_3._0
                 ID = value;
             }
         }
-        public BindingList<Troop> Troops { get; set; }
-
-        public Prepod()
-        {
-            FirstName = "";
-            MiddleName = "";
-            LastName = "";
-            Coolness = "";
-            Troops = new BindingList<Troop>();
-        }
-
 		public string initials()
 		{
 			return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 		}
 
-		public string FullSignaturePath
+		public string FullSignaturePath // Не уверен насчет целесообразности этого
 		{
 			get
 			{
 				return AppDomain.CurrentDomain.BaseDirectory + SignaturePath;
 			}
 		}
-		public string SignaturePath
+        /// <summary>
+        /// путь к фотографии подписи
+        /// </summary>
+		public string SignaturePath // TODO зачем здесь есть поле?
 		{
 			get
 			{
@@ -86,27 +86,17 @@ namespace LKS_3._0
         {
             get
             {
-               return Info();
+                StringBuilder str = new StringBuilder();
+                foreach (var item in Troops)
+                {
+                    str.Append(item.NumberTroop + " взвод; ");
+                }
+                return str.ToString();
             }
         }
         [RusName("Дополнительно")]
         public string AdditionalInfo
         { get; set; }
-
-        public override string ToString()
-        {
-            return Coolness + " " + MiddleName + " " + FirstName[0] + ". " + LastName[0]+ ". ";
-        }
-
-        public string Info()
-        {
-            string str = "";
-            foreach (var item in Troops)
-            {
-                str += item.NumberTroop +  " взвод; ";
-            }
-            return str;
-        }
     }
 }
 
