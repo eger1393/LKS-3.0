@@ -504,11 +504,9 @@ C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.g.cs
-C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.g.cs
-C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.g.cs
@@ -573,11 +571,9 @@ C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.baml
-C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CheckPass.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.baml
-C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.baml
@@ -599,4 +595,7 @@ C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
-C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
+C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangePass.g.cs
+C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.g.cs
+C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangePass.baml
+C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.baml
