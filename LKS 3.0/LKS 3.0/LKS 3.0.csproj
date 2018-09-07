@@ -73,6 +73,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
@@ -131,6 +134,27 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.2.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.5.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration, Version=5.1.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation, Version=2.1.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net45\Unity.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -140,6 +164,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrasturture\IRepository.cs" />
     <Compile Include="ViewModel\SummerFeesAssessmentForControlViewModel.cs" />
     <Compile Include="View\AddAdmin.xaml.cs">
       <DependentUpon>AddAdmin.xaml</DependentUpon>
@@ -187,7 +212,7 @@
       <DependentUpon>AddPrepod.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddStudentViewModel.cs" />
-    <Compile Include="ViewModel\ApplicationContext.cs" />
+    <Compile Include="Infrasturture\ApplicationContext.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="View\AddTroop.xaml.cs">
       <DependentUpon>AddTroop.xaml</DependentUpon>
@@ -198,8 +223,8 @@
     <Compile Include="View\ChangeRankWindow.xaml.cs">
       <DependentUpon>ChangeRankWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CheckPass.xaml.cs">
-      <DependentUpon>CheckPass.xaml</DependentUpon>
+    <Compile Include="View\ChangePass.xaml.cs">
+      <DependentUpon>ChangePass.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CreateReport.xaml.cs">
       <DependentUpon>CreateReport.xaml</DependentUpon>
@@ -217,7 +242,6 @@
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="Model\RusNameAttribute.cs" />
     <Compile Include="Model\Student.cs" />
-    <Compile Include="Model\TableCommand.cs" />
     <Compile Include="Model\Troop.cs" />
     <Compile Include="View\EditTroop.xaml.cs">
       <DependentUpon>EditTroop.xaml</DependentUpon>
@@ -262,7 +286,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CheckPass.xaml">
+    <Page Include="View\ChangePass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +302,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -289,7 +313,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

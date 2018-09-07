@@ -514,7 +514,7 @@ namespace LKS_3._0
                       {
                           DataBaseContext.Students.Add(temp_student);
 
-                          temp_student.Update_IdRelatives();
+                          temp_student.UpdateIdRelatives();
 
                           DataBaseContext.SaveChanges();
 
@@ -859,7 +859,7 @@ namespace LKS_3._0
                         temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
                         temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
                         item.Relatives.Add(temp_r);
-                        item.Update_IdRelatives();
+                        item.UpdateIdRelatives();
                     }
                     catch (Exception)
                     {
@@ -886,7 +886,7 @@ namespace LKS_3._0
                         temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
                         temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
                         item.Relatives.Add(temp_r);
-                        item.Update_IdRelatives();
+                        item.UpdateIdRelatives();
                     }
                     catch (Exception)
                     {

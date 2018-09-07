@@ -29,35 +29,34 @@ namespace LKS_3._0.Model
                 ID = value;
             }
         }
+        // Параметры для свойств
         private string middleName, // Фамилия
             firstName, // Имя
             lastName, // Отчество
             coolness, // Звание
-            rank; // Дата рождения
-        private bool? order, prepod, officer;
-
+            rank; // Должность
+        private bool? order, // Доведение приказа
+            prepod, // Преподаватель
+            officer; // Офицер ФВО
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        /// <summary>
+        /// Инициалы ("Сидоров С. С.")
+        /// </summary>
+        public string Initials
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        public string initials()
-        {
-			try
-			{
-				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
-			}
-			catch(System.IndexOutOfRangeException ex)
-			{
-				System.Windows.MessageBox.Show("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n" /*+ ex.Message*/);
-				return "";
-			}
+            get
+            {
+                if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+                {
+                    throw new Exception("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n");
+                }
+                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+            }
 
-		}
+        }
 
         [RusName("Должность")]
-        public string Rank 
+        public string Rank
         {
             get
             {
@@ -70,7 +69,7 @@ namespace LKS_3._0.Model
             }
         }
         [RusName("Фамилия")]
-        public string MiddleName 
+        public string MiddleName
         {
             get
             {
@@ -164,6 +163,11 @@ namespace LKS_3._0.Model
                 officer = value;
                 OnPropertyChanged();
             }
+        }
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -8,26 +8,24 @@ using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
-  
 
-    public partial class Troop:INotifyPropertyChanged
+
+    public partial class Troop : INotifyPropertyChanged
     {
-        public static int _count;
-
         private string numberTroop, day, vus;
 
-        
+
 
         public Student PlatoonCommander;
 
         private BindingList<Student> students;
 
-       
+
 
         private bool sboriTroop;
 
-        private int ID, staffCount;
-        private int? IDPrepod, ID_PC;
+        private int staffCount;
+        private int? ID_PC;
 
         public static List<string> Ranks = new List<string>() { " ","КВ",
         "КО1",
@@ -35,12 +33,13 @@ namespace LKS_3._0
         "КО3",
         "Старший_секретчик",
         "Секретчик",
-        "Журналист", };
+        "Журналист",
+        };
         public Troop()
         {
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            IDPrepod = null;
+            PrepodId = null;
             ID_PC = null;
         }
         public Troop(string temp_TroopNumber)
@@ -48,21 +47,11 @@ namespace LKS_3._0
             NumberTroop = temp_TroopNumber;
             Students = new BindingList<Student>();
             StaffCount = Students.Count;
-            IDPrepod = null;
+            PrepodId = null;
             ID_PC = null;
         }
-        public int Id
-        {
-            get
-            {
-                return ID;
-            }
-            set
-            {
-                ID = value;
-            }
-        }
-       
+        public int Id { get; set; }
+
 
         [RusName("Номер взвода")]
         public string NumberTroop
@@ -108,23 +97,9 @@ namespace LKS_3._0
         }
 
 
-        public int? PrepodId
-        {
-            get
-            {
-                return IDPrepod;
-            }
-            set
-            {
-                //if(value == 0)
-                //{
-                //    Prepod = null;
-                //}
-                IDPrepod = value;
-            }
-        }
+        public int? PrepodId { get; set; }
 
-        public  Prepod Prepod { get; set; }
+        public Prepod Prepod { get; set; }
         public int? Id_PC
         {
             get
@@ -182,16 +157,7 @@ namespace LKS_3._0
                 students = value;
             }
         }
-
-        override public string ToString()
-		{
-			return numberTroop;
-		}
-
-
-
-
-		public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             if (PropertyChanged != null)

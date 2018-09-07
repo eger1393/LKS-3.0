@@ -68,11 +68,11 @@ namespace LKS_3._0
         {
             if(TB_TroopName.Text != "")
             {
-                Troop._count++;
+                //Troop._count++;
 
                 t_troop = new Troop(TB_TroopName.Text);
 
-                t_troop.Id = Troop._count;
+                //t_troop.Id = Troop._count;
 
                 MessageBox.Show("Новый взвод № " + t_troop.NumberTroop + " создан!", "Внимание!");
 

@@ -1,102 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
 {
-    public enum Student_Rank
+    /// <summary>
+    /// Данные о студенте
+    /// </summary>
+    public class Student : INotifyPropertyChanged
     {
-        Командир_взвода = 1,
-        Заместитель_КВ,
-        КО1,
-        КО2,
-        КО3,
-        Журналист,
-        Заместитель_журналиста,
-        Студент
-    }
-
-	public enum Assessment
-	{
-		неудовлетв = 2,
-		удовлетв,
-		хорошо,
-		отлично
-	}
-
-	public class Student : INotifyPropertyChanged
-	{
-		private BindingList<Relative> relatives;
-		public BindingList<Troop> Troop { get; set; } // Тоха какого хуя в студенте есть список взводов?
-													  // Вот сейчас по моему всякая логика модели сдохла нахер, это вообще не нормально.
-
-		public static int _count;
-
-		private string imagePath;
-
-		static private string[] assessmentEnum = { // Перевод оценок из цифр в обозначения
-			"неудовлетв",
-			"удовлетв",
-			"хорошо",
-			"отлично"
-		};
-		//private string assessmentProtocolOneTheory, assessmentProtocolOnePractice, assessmentProtocolOneFinal,
-		//	assessmentCharacteristicMilitaryTechnicalTraining,
-		//	assessmentCharacteristicTacticalSpecialTraining,
-		//	assessmentCharacteristicMilitarySpeialTraining,
-		//	assessmentCharacteristicFinal;
-
-		public string Initials
-		{
-			get
-			{
-				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
-			}
-		}
-
-        public override string ToString()
-        {
-            return String.Format("{0} {1}. {2}.",
-               MiddleName, FirstName[0], LastName[0]);
-        }
-
-         public string str_FIO
-        {
-            get
-            {
-                return ToString();
-            }
-        }
-
-
-        public void Update_IdRelatives()
-        {
-            foreach (var item in Relatives)
-            {
-                item.StudentId = this.Id;
-            }
-        }
-
-        public string NumberTroop()
-        {
-            var temp_troop = Troop.FirstOrDefault(u => u.SboriTroop == false);
-            if (temp_troop != null)
-            {
-                return temp_troop.NumberTroop;
-            }
-            else
-            {
-                return "None";
-                //return Troop.FirstOrDefault(u => u.SboriTroop == true).NumberTroop;
-            }
-        }
-
+        private BindingList<Relative> relatives;
+        public BindingList<Troop> Troop { get; set; }
         public Student() // Конструктор по умолчанию
         {
             Skill1 = false;
@@ -146,237 +61,205 @@ namespace LKS_3._0
             SpecialityName = "Боевое применение частей и подразделений войсковой ПВО";
             Fighting = "не участвовал";
         }
-		public event PropertyChangedEventHandler PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName]string prop = "")
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
-		}
+        static private string[] assessmentEnum = { //TODO
+			"неудовлетв",
+            "удовлетв",
+            "хорошо",
+            "отлично"
+        };
+        public string Initials
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+                {
+                    throw new Exception("Данные родсвенниках! В созданном файле могут отсутствовать данные!\n");
+                }
+                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+            }
+        }
+        public void UpdateIdRelatives() // TODO
+        {
+            foreach (var item in Relatives)
+            {
+                item.StudentId = this.Id;
+            }
+        }
+        public int Id { get; set; }
 
-		public int Id
-        { get; set; }
         [RusName("Звание")]
-        public string Collness
-        { get; set; }
+        public string Collness { get; set; }
+
         [RusName("Фамилия")]
-        public string MiddleName // Фамилия
-        { get; set; }
+        public string MiddleName { get; set; }
+
         [RusName("Имя")]
-        public string FirstName // Имя
-        { get; set; }
+        public string FirstName { get; set; }
+
         [RusName("Отчество")]
-        public string LastName // Отчество
-        { get; set; }
+        public string LastName { get; set; }
+
         [RusName("Взвод")]
         public string NumTroop
         {
             get
             {
-                return NumberTroop();
+                var temp_troop = Troop.FirstOrDefault(u => u.SboriTroop == false);
+                if (temp_troop != null)
+                {
+                    return temp_troop.NumberTroop;
+                }
+                else
+                {
+                    return "None";
+                }
             }
         }
+
         [RusName("Должность")]
-        public string Rank // Звание студента (перечисление)
-        { get; set; }
-        public string SpecialityName // Название специальности
-        { get; set; }
+        public string Rank { get; set; }
+
+        [RusName("Название специальности")]
+        public string SpecialityName { get; set; }
+
         [RusName("Группа")]
-        public string InstGroup
-        { get; set; }
+        public string InstGroup { get; set; }
+
         [RusName("Курс")]
-        public int Kurs // факультет
-        { get; set; }
+        public int Kurs { get; set; }
+
         [RusName("Факультет")]
-        public string Faculty // факультет
-        { get; set; }
+        public string Faculty { get; set; }
 
         [RusName("Специальность в ВУЗе")]
-        public string SpecInst
-        { get; set; }
+        public string SpecInst { get; set; }
+
         [RusName("Условия обучения в ВУЗе")]
-        public string ConditionsOfEducation // условия обучения
-        { get; set; }
+        public string ConditionsOfEducation { get; set; }
+
         [RusName("Средний балл в зач.книжке")]
-        public string AvarageScore // средний балл
-        { get; set; }
+        public string AvarageScore { get; set; }
+
         [RusName("Год поступления в МАИ")]
-        public string YearOfAddMAI
-        { get; set; }
+        public string YearOfAddMAI { get; set; }
+
         [RusName("Год окончания МАИ")]
-        public string YearOfEndMAI
-        { get; set; }
+        public string YearOfEndMAI { get; set; }
+
         [RusName("Год поступления на ВК")]
-        public string YearOfAddVK
-        { get; set; }
+        public string YearOfAddVK { get; set; }
+
         [RusName("Год окончания ВК")]
-        public string YearOfEndVK
-        { get; set; }
+        public string YearOfEndVK { get; set; }
+
         [RusName("№ приказа о приеме")]
-        public string NumberOfOrder // номер приказа
-        { get; set; }
+        public string NumberOfOrder { get; set; }
+
         [RusName("Дата приказа")]
-        public string DateOfOrder
-        { get; set; }
+        public string DateOfOrder { get; set; }
+
         [RusName("Военкомат")]
-        public string Rectal
-        { get; set; }
+        public string Rectal { get; set; }
+
         [RusName("Дата рождения")]
-        public string Birthday // Номер мобильного телефона
-        { get; set; }
+        public string Birthday { get; set; }
+
         [RusName("Место рождения")]
-        public string PlaceBirthday // место рождения
-        { get; set; }
+        public string PlaceBirthday { get; set; }
+
         [RusName("Национальность")]
-        public string Nationality // национальность (перечисление)
-        { get; set; }
+        public string Nationality { get; set; }
+
         [RusName("Гражданство")]
-        public string Citizenship // Гражданство
-        { get; set; }
+        public string Citizenship { get; set; }
+
         [RusName("Дом.телефон")]
-        public string HomePhone // Номер домашнего телефона
-        { get; set; }
+        public string HomePhone { get; set; }
+
         [RusName("Мобильный телефон")]
-        public string MobilePhone
-        { get; set; }
+        public string MobilePhone { get; set; }
+
         [RusName("Адрес проживания")]
-        public string PlaceOfResidence
-        { get; set; }
+        public string PlaceOfResidence { get; set; }
+
         [RusName("Адрес прописки")]
-        public string PlaceOfRegestration
-        { get; set; }
+        public string PlaceOfRegestration { get; set; }
         [RusName("Служба в ВС")]
-		public string Military
-        { get; set; }
+        public string Military { get; set; }
+
         [RusName("Семейное положение")]
-		public string FamiliStatys
-        { get; set; }
-        public string School
-        { get; set; }
-        public string Two_MobilePhone
-        { get; set; }
-        public string Note
-        { get; set; }
-		public string FullImagePath
-		{
-			get
-			{
-				return AppDomain.CurrentDomain.BaseDirectory + ImagePath;
-			}
-		}
-        public string ImagePath
+        public string FamiliStatys { get; set; }
+
+        public string School { get; set; }
+
+        public string Two_MobilePhone { get; set; }
+
+        public string Note { get; set; }
+        /// <summary>
+        /// Полный путь к файлу фотографии
+        /// </summary>
+        public string FullImagePath
         {
-			get
-			{
-				return imagePath;
-			}
-			set
-			{
-				imagePath = value;
-			}
-		}
-        public bool Skill1
-        { get; set; }
+            get
+            {
+                return AppDomain.CurrentDomain.BaseDirectory + ImagePath;
+            }
+        }
+        /// <summary>
+        /// Относительный путь к файлу фотографии
+        /// </summary>
+        public string ImagePath { get; set; }
+        public bool Skill1 { get; set; }
 
-        public bool Skill2
-        { get; set; }
+        public bool Skill2 { get; set; }
 
-        public bool Skill3
-        { get; set; }
-        public bool Skill4
-        { get; set; }
+        public bool Skill3 { get; set; }
+        public bool Skill4 { get; set; }
 
-        public bool Skill5
-        { get; set; }
+        public bool Skill5 { get; set; }
 
-        public bool Skill6
-        { get; set; }
+        public bool Skill6 { get; set; }
 
-        public bool Zapas
-        { get; set; }
-        public bool Exhortation
-        { get; set; }
-        public bool ProjectOrder
-        { get; set; }
+        public bool Zapas { get; set; }
+        public bool Exhortation { get; set; }
+        public bool ProjectOrder { get; set; }
 
-        public string WhoseOrder
-        { get; set; }
-        public string VO
-        { get; set; }
-        public string VuzName
-        { get; set; }
-        public string VkName
-        { get; set; }
-        public string Fighting
-        { get; set; }
+        public string WhoseOrder { get; set; }
+        public string VO { get; set; }
+        public string VuzName { get; set; }
+        public string VkName { get; set; }
+        public string Fighting { get; set; }
 
-        public string VUS // код специальности
-        { get; set; }
-        public string BloodType
-        { get; set; }
+        /// <summary>
+        /// Код специальности
+        /// </summary>
+        public string VUS { get; set; }
+        public string BloodType { get; set; }
 
-        public string Growth
-        { get; set; }
+        public string Growth { get; set; }
 
-        public string ClothihgSize
-        { get; set; }
+        public string ClothihgSize { get; set; }
 
-        public string ShoeSize
-        { get; set; }
-        public string CapSize
-        { get; set; }
+        public string ShoeSize { get; set; }
+        public string CapSize { get; set; }
 
-        public string MaskSize
-        { get; set; }
+        public string MaskSize { get; set; }
 
-        public string ForeignLanguage
-        { get; set; }
+        public string ForeignLanguage { get; set; }
 
-        public string LanguageRank
-        { get; set; }
+        public string LanguageRank { get; set; }
 
-        public string Status
-        { get; set; }
+        public string Status { get; set; }
 
-		public int AssessmentProtocolOneTheory
-		{ get; set; }
+        public int AssessmentProtocolOneTheory { get; set; }
 
-		public int AssessmentProtocolOnePractice
-		{ get; set; }
-		public int AssessmentProtocolOneFinal
-		{ get; set; }
-		public int AssessmentCharacteristicMilitaryTechnicalTraining
-		{ get; set; }
-		//{
-		//	get
-		//	{
-		//		if (assessmentCharacteristicMilitaryTechnicalTraining.Length == 1)
-		//			return assessmentEnum[Convert.ToInt32(assessmentCharacteristicMilitaryTechnicalTraining) - 2];
-		//		else
-		//			return "Отсутствует";
-		//	}
-		//	set
-		//	{
-		//		if (new[] { "", "2", "3", "4", "5" }.Contains(value))
-		//			assessmentCharacteristicMilitaryTechnicalTraining = value;
-		//		else
-		//		{
-		//			assessmentCharacteristicMilitaryTechnicalTraining = "";
-		//			//throw new ArgumentOutOfRangeException(value, "Оценка должна быть 2, 3, 4 или 5");
-		//		}
-		//	}
-		//}
-
-		public int AssessmentCharacteristicTacticalSpecialTraining
-		{ get; set; }
-
-		public int AssessmentCharacteristicMilitarySpeialTraining
-		{ get; set; }
-
-		public int AssessmentCharacteristicFinal
-		{ get; set; }
-
-
-		public virtual BindingList<Relative> Relatives
+        public int AssessmentProtocolOnePractice { get; set; }
+        public int AssessmentProtocolOneFinal { get; set; }
+        public int AssessmentCharacteristicMilitaryTechnicalTraining { get; set; }
+        public int AssessmentCharacteristicTacticalSpecialTraining { get; set; }
+        public int AssessmentCharacteristicMilitarySpeialTraining { get; set; }
+        public int AssessmentCharacteristicFinal { get; set; }
+        public virtual BindingList<Relative> Relatives
         {
             get
             {
@@ -386,9 +269,15 @@ namespace LKS_3._0
             set
             {
                 relatives = value;
+                OnPropertyChanged();
             }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
 
-        
     }
 }
