@@ -599,3 +599,4 @@ C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.g.cs
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangePass.baml
 C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.baml
+C:\Users\administrator.DEMO\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
