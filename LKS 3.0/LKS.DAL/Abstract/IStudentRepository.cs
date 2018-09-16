@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LKS.DAL.Abstract
 {
-	interface IStudentRepository : IRepository<Student>
+	public interface IStudentRepository : IRepository<Student>
 	{
 	}
 }

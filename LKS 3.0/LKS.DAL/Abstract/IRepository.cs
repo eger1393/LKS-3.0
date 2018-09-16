@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LKS.DAL.Abstract
 {
-	interface IRepository<T>
+	public interface IRepository<T>
 	{
 		Task Create(T item);
 		Task CreateRange(ICollection<T> item);
