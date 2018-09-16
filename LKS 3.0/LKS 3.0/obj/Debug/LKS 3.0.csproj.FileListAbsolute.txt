@@ -404,7 +404,6 @@ D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
-D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojResolveAssemblyReference.cache
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
 C:\Users\anton\Desktop\LKS-3.0_Off\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
@@ -496,3 +495,4 @@ D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Inter
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.xml
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.g.cs
 D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.baml
+D:\projects\Git\New\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
