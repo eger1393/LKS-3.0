@@ -35,7 +35,7 @@ namespace LKS_3._0
 		{
 			InitializeComponent();
 
-            CbTroop.ItemsSource = temp_DataBase.Troops.Local.Where(c => c.SboriTroop == false && c.NumberTroop != null).ToList();
+            CbTroop.ItemsSource = temp_DataBase.Troops.Where(c => c.SboriTroop == false && c.NumberTroop != null).ToList();
 
             CbGroup.ItemsSource = temp_DataBase.Students.Select(u => u.InstGroup).Distinct().ToList();
 

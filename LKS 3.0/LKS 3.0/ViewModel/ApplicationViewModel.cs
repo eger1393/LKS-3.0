@@ -52,6 +52,7 @@ namespace LKS_3._0
             infoSboriCommand,
             closeAllWordFile,
             changeKursCommand,
+            isSuspendedСommand,
             createReportUniversityCommand,
             ordersCommand,
             showInfoAdministrationsMillKaf,
@@ -802,6 +803,7 @@ namespace LKS_3._0
         }
 
 
+
         private void ImportForAcsess()
         {
             string path = Environment.CurrentDirectory + "/sold.mdb"; ;
@@ -1248,6 +1250,33 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
             }
         }
 
+        public RelayCommand IsSuspendedСommand
+        {
+            get
+            {
+                return isSuspendedСommand ??
+                  (isSuspendedСommand = new RelayCommand(selectedItem =>
+                  {
+                      if (selectedItem == null) return;
+
+                      Student temp_student = selectedItem as Student;
+                      
+                      if(temp_student.IsSuspended)
+                      {
+                          temp_student.IsSuspended = false;
+                      }
+                      else
+                      {
+                          temp_student.IsSuspended = true;
+                      }
+
+                      DataBaseContext.SaveChanges();
+                      Students = new BindingList<Student>(Students.Skip(0).ToList());
+
+                  }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
+            }
+        }
+
         public RelayCommand ChangeKursCommand
         {
             get
@@ -1302,22 +1331,14 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 		public void Load_DB()
 		{
-            
-            //Troops = new BindingList<Troop>(DataBaseContext.Troops.Include(c => c.Students).ToList());
-
-            //Students = new BindingList<Student>(Troops.SelectMany(c => c.Students).ToList());
 
             Students = new BindingList<Student>(DataBaseContext.Students.Include(c => c.Troop).ToList());
 
             Troops = new BindingList<Troop>(DataBaseContext.Troops.Include(c => c.Students).ToList());
-            
-            //Troops = new BindingList<Troop>(Students.SelectMany(c => c.Troop).ToList());
 
             BindingList<Relative> Relatives = new BindingList<Relative>(Students.SelectMany(c => c.Relatives).ToList());
 
             BindingList<Prepod> Prepods = new BindingList<Prepod>(DataBaseContext.Prepods.Include(c => c.Troops).ToList());
-
-            //Student._count = DataBaseContext.Students.Count();
 
             DataBaseContext.Relatives.Load();
 
@@ -1325,26 +1346,12 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
             SelectedTroop = new Troop();
 
-            //Students = DataBaseContext.Students.Local.ToBindingList();
-
-            //Troops = DataBaseContext.Troops.Local.ToBindingList();
-
             foreach (Troop item in Troops)
             {
-                //if (item.PrepodId != 0)
-                //{
-                //    item.Prepod = DataBaseContext.Prepods.Local.FirstOrDefault(u => u.Id == item.PrepodId);
-
-                //}
                 if (item.Id_PC != 0)
                 {
                     item.PlatoonCommander = Students.FirstOrDefault(u => u.Id == item.Id_PC);
                 }
-                //if (item.SboriTroop)
-                //{
-                //    item.Students = new BindingList<Student>(Students.Where(/*u => u.NumSboriTroop == item.NumberTroop*/u => u.Troop[1] == item).ToList());
-                //    item.StaffCount = item.Students.Count;
-                //}
             }
 
         }

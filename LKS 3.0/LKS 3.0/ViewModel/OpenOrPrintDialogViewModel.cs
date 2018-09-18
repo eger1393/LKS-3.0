@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-//using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
+using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
 
 
 namespace LKS_3._0.ViewModel
@@ -83,22 +83,22 @@ namespace LKS_3._0.ViewModel
 		{
 			try
 			{
-				//WORD.Application app = new WORD.Application();
-				//app.Documents.Open(path);
-				//if (isPrint) // выбранный параметр
-				//{ // печать документа
-				//	dynamic dlg = app.Dialogs[WORD.WdWordDialog.wdDialogFilePrint];
-				//	dlg.NumCopies = count;
-				//	dlg.Show();
-				//	app.ActiveDocument.Close();
-				//	app.Quit();
-				//}
-				//else
-				//{ // открытие документа
-				//	//app.Documents.op
-				//	app.Visible = true;
-				//}
-			}
+                WORD.Application app = new WORD.Application();
+                app.Documents.Open(path);
+                if (isPrint) // выбранный параметр
+                { // печать документа
+                    dynamic dlg = app.Dialogs[WORD.WdWordDialog.wdDialogFilePrint];
+                    dlg.NumCopies = count;
+                    dlg.Show();
+                    app.ActiveDocument.Close();
+                    app.Quit();
+                }
+                else
+                { // открытие документа
+                  //app.Documents.op
+                    app.Visible = true;
+                }
+            }
 			catch (System.Runtime.InteropServices.COMException ex)
 			{
 				System.Windows.MessageBox.Show(ex.Message);

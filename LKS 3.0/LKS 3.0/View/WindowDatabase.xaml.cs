@@ -16,19 +16,19 @@ using System.Windows.Media.Imaging;
 using System.Reflection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Globalization;
 
 namespace LKS_3._0
 {
     /// <summary>
     /// Логика взаимодействия для WindowDatabase.xaml
     /// </summary>
-   
+
 
     public partial class WindowDatabase : Window
     {
         bool connect;
-        
+
         public WindowDatabase(bool flag, bool connect, bool data)
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace LKS_3._0
             if (flag)
             {
                 ProgMode.ProgramMode = ProgramMode.Admin;
-                
+
             }
             else
             {
@@ -49,7 +49,7 @@ namespace LKS_3._0
             DataContext = new ApplicationViewModel(connect, data);
 
             Binding_columns();
-            
+
         }
 
         private void Binding_columns()
@@ -59,7 +59,7 @@ namespace LKS_3._0
             foreach (PropertyInfo el in Property_Arr)
             {
                 RusNameAttribute temp_attribute = (RusNameAttribute)el.GetCustomAttribute(typeof(RusNameAttribute));
-                if (temp_attribute != null &&(temp_attribute.Get_RussianTittle != "Звание"))
+                if (temp_attribute != null && (temp_attribute.Get_RussianTittle != "Звание"))
                 {
                     DataGridTextColumn temp_column = new DataGridTextColumn();
                     temp_column.Header = temp_attribute.Get_RussianTittle;
@@ -69,14 +69,34 @@ namespace LKS_3._0
 
                     StudentsGrid.Columns.Add(temp_column);
                 }
-                
+
             }
         }
 
+        void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+
+            Student student = (Student)e.Row.DataContext;
+
+            if (student.IsSuspended)
+            {
+                e.Row.Background = new SolidColorBrush(Colors.Yellow);
+            }
+            else if (student.Status == "Отстранен")
+            {
+                e.Row.Background = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                e.Row.Background = new SolidColorBrush(Colors.LightGray);
+            }
+                
+        }
 
         private void FindBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
         }
 
         private void _1_Checked(object sender, RoutedEventArgs e)
@@ -147,5 +167,6 @@ namespace LKS_3._0
             _Process = System.Diagnostics.Process.Start(@"mysql2sqlite.exe");
         }
     }
-  
+
+
 }

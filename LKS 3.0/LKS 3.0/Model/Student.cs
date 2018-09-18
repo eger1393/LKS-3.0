@@ -67,13 +67,38 @@ namespace LKS_3._0
             "хорошо",
             "отлично"
         };
+
+    
+        public override string ToString()
+        {
+            try
+            {
+                return String.Format("{0} {1}. {2}.",
+              MiddleName, FirstName[0], LastName[0]);
+            }
+            catch (NullReferenceException)
+            {
+                 System.Windows.MessageBox.Show("Не заполнено ФИО! Могут отсутстовать данные!\n");
+                return "-1";
+            }
+           
+        }
+
+        public string str_FIO
+        {
+            get
+            {
+                return ToString();
+            }
+        }
+
         public string Initials
         {
             get
             {
                 if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
                 {
-                    throw new Exception("Данные родсвенниках! В созданном файле могут отсутствовать данные!\n");
+                    throw new Exception("Не заполнено ФИО! Могут отсутстовать данные!\n");
                 }
                 return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
             }
@@ -118,6 +143,8 @@ namespace LKS_3._0
 
         [RusName("Должность")]
         public string Rank { get; set; }
+
+        public bool IsSuspended { get; set; }
 
         [RusName("Название специальности")]
         public string SpecialityName { get; set; }

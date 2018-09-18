@@ -27,7 +27,7 @@ namespace LKS_3._0
         private int staffCount;
         private int? ID_PC;
 
-        public static List<string> Ranks = new List<string>() { " ","КВ",
+        public static List<string> Ranks = new List<string>() { " ","КВ", "ЗКВ",
         "КО1",
         "КО2",
         "КО3",
@@ -157,6 +157,12 @@ namespace LKS_3._0
                 students = value;
             }
         }
+
+        override public string ToString()
+        {
+            return numberTroop;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

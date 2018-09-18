@@ -22,6 +22,7 @@
             <Setter Property="Control.FontFamily" Value="Times New Roman" />
             <Setter Property="Control.FontSize" Value="13" />
         </Style>
+
     </Window.Resources>
 
     <Grid x:Name="Main_Grid" Background="LightGray">
@@ -39,7 +40,7 @@
                 <MenuItem Header="Сменить пароль" Command="{Binding CheckPassword}" ></MenuItem>
                 <MenuItem Header="Подключение к удаленной базе" Command="{Binding SettingDB}" ></MenuItem>
                 <MenuItem Header="Перезагрузка данных" Command="{Binding UploadDB}" ></MenuItem>
-                
+
             </MenuItem>
             <MenuItem Header="Вид">
                 <Grid Width="278" Height="23">
@@ -96,13 +97,14 @@
 
         </Menu>
 
-        <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray"
+        <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray" LoadingRow="DataGrid_LoadingRow" EnableRowVirtualization="False"
     RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Main}" IsReadOnly="True">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить заметку о студенте" Command="{Binding AddNoteCommand}" CommandParameter="{Binding SelectedStudent}"/>
                     <MenuItem Header="Редактировать данные" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedStudent}"/>
                     <MenuItem Header="Cменить должность" Command="{Binding ChangeRankCommand}" CommandParameter="{Binding SelectedStudent}"/>
+                    <MenuItem Header="Под отстранение (выбрать/убрать)" Command="{Binding IsSuspendedСommand}" CommandParameter="{Binding SelectedStudent}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
@@ -171,22 +173,25 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!--<Label Grid.Column="1" Grid.Row="0" Content="Отв. преподаватель:" FontSize="20" FontWeight="Bold" MinWidth="180" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="95,0,0,0"/>-->
             <Label Grid.Column="0" Grid.Row="0" Content="Выбранный cтудент:" FontSize="20" Grid.ColumnSpan="2" FontWeight="Bold" />
             <!--<Label x:Name="Label_Troop" Grid.Column="2" Grid.Row="0"  Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="246"/>-->
             <Label x:Name="Label_F" Grid.Column="0" Grid.Row="1" Content="ФИО:"/>
-            <Label x:Name="Label_I" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding str_FIO}"/>
+            <Label x:Name="Label_MiddleName" Grid.Column="1" Grid.Row="1" Content="{Binding MiddleName}"/>
+            <Label x:Name="Label_FirstName" Grid.Column="2" Grid.Row="1" Content="{Binding FirstName}"/>
+            <Label x:Name="Label_LastName" Grid.Column="3" Grid.Row="1" Content="{Binding LastName}"/>
 
-            <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1" Content="{Binding NumTroop}" Margin="2" />
-            <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Content="{Binding Rank}" Margin="2"/>
-            <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Content="{Binding InstGroup}" Margin="2"/>
-            <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Content="{Binding MobilePhone}" Margin="2"/>
-            <Label x:Name="Label_bote" Grid.Row="6" Grid.Column="1" Content="{Binding Note}" Margin="2"/>
+            <Label x:Name="Label_vzvod" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="2"  Content="{Binding NumTroop}" Margin="2" />
+            <Label x:Name="Label_rank" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Rank}" Margin="2"/>
+            <Label x:Name="Label_group" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding InstGroup}" Margin="2"/>
+            <Label x:Name="Label_phone" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding MobilePhone}" Margin="2"/>
+            <Label x:Name="Label_bote" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"  Content="{Binding Note}" Margin="2"/>
 
 
-            <Image x:Name="Photo_Student" Source="{Binding FullImagePath}" Grid.Column="3" Grid.RowSpan="7" Margin="0,9,3,3"/>
+            <Image x:Name="Photo_Student" Source="{Binding FullImagePath}" Grid.Column="4" Grid.RowSpan="7" Margin="0,9,3,3"/>
             <Label Grid.Column="0" Grid.Row="2" Content="Взвод №" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="3" Content="Должность:" HorizontalAlignment="Left" Margin="2"/>
             <Label Grid.Column="0" Grid.Row="4" Content="Группа №" HorizontalAlignment="Left" Margin="2"/>

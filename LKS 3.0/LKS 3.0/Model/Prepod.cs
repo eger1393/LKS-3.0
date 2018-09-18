@@ -94,6 +94,12 @@ namespace LKS_3._0
                 return str.ToString();
             }
         }
+
+        public override string ToString()
+        {
+            return Coolness + " " + MiddleName + " " + FirstName[0] + ". " + LastName[0] + ". ";
+        }
+
         [RusName("Дополнительно")]
         public string AdditionalInfo
         { get; set; }
