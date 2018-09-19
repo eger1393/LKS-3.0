@@ -1601,5 +1601,64 @@ namespace LKS_3._0.Model
 				}
 			}
 		}
+		static public void PrintOnDemand(List<String> command)
+		{
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
+													   // добавили название файла в предложенное название
+
+			if (dlg.ShowDialog() == true) // запустили окно
+			{
+				try
+				{
+					File.Copy(@".\Templates\PrintOnDemand.docx", dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+				}
+				catch (System.IO.FileNotFoundException ex)
+				{
+					System.Windows.MessageBox.Show("Файл шаблона не найден, проверьте наличие файла"
+						+ ex.FileName + "в папке Templates\n" + ex.Message);
+					return;
+				}
+				catch (System.IO.IOException ex)
+				{
+					System.Windows.MessageBox.Show("Ошибка с файлом шаблона, или с перезаписью файла!\n" + ex.Message);
+					return;
+				}
+			}
+			else
+			{
+				// TODO show message about fail
+				return;
+			}
+			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true)) // открыли документ
+			{
+				Table table = doc.MainDocumentPart.Document.Body.Elements<Table>().First();
+				if(table == null)
+				{
+					// Error
+					return;
+				}
+				foreach (var item in command)
+				{
+					var tempCell = new TableCell();
+					var tempPar = new Paragraph();
+					var run = new Run();
+					var text = new Text();
+					text.Text = item;
+					run.Append(text);
+					tempPar.Append(run);
+					tempCell.Append(tempPar);
+					table.Descendants<TableRow>().ElementAt(0).AppendChild(tempCell);
+					var el = table.Descendants<TableRow>().ElementAt(1).Descendants<SdtElement>().First().Clone() as SdtElement;
+					el.Descendants<SdtAlias>().First().Val = item;
+					tempCell = new TableCell();
+					tempPar = new Paragraph();
+					tempPar.Append(el);
+					tempCell.Append(tempPar);
+					table.Descendants<TableRow>().ElementAt(1).AppendChild(tempCell);
+				}
+			}
+
+		}
 	}
 }

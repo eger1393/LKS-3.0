@@ -18,8 +18,8 @@ namespace LKS.DAL.Concrete
 		public async Task Create(Student item)
 		{
 			await context.Students.AddAsync(item);
-			await context.SaveChangesAsync();
-			return;
+			context.SaveChanges();
+			//return;
 		}
 
 		public async Task CreateRange(ICollection<Student> item)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace LKS.Models
@@ -59,7 +60,10 @@ namespace LKS.Models
 		}
 		[Key]
 		public string Id { get; set; }
-
+		public virtual List<Relative> Relatives { get; set; }
+		[ForeignKey(nameof(Troop))]
+		public string TroopId { get; set; }
+		public Troop Troop { get; set; }
 		[DisplayName("Звание")]
 		public string Collness { get; set; }
 
@@ -236,10 +240,5 @@ namespace LKS.Models
 
 		public int AssessmentCharacteristicFinal
 		{ get; set; }
-
-
-		public virtual List<Relative> Relatives { get; set; }
-
-
 	}
 }

@@ -38,6 +38,8 @@ namespace LKS.Web
 
 			services.AddTransient<IStudentRepository, StudentRepository>();
 			services.AddTransient<IRelativeRepository, RelativeRepository>();
+			services.AddTransient<ITroopRepository, TroopRepository>();
+			services.AddTransient<IPrepodRepository, PrepodRepository>();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
