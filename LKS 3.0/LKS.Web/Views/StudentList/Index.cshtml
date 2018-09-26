@@ -10,216 +10,235 @@
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead> @* !! При изменении шабки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
+    <thead>
+        @* !! При изменении шапки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MiddleName)
+            <th nowrap>
+                <a href="javascript:setSort('MiddleName')">
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                    <span id="MiddleNameDescRow" style="display:none">▼</span>
+                    <span id="MiddleNameRow" style="display:none">▲</span>
+                </a>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
+            <th nowrap>
+                <a href="javascript:setSort('FirstName')">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                <span id="FirstNameDescRow" style="display:none">▼</span>
+                <span id="FirstNameRow" style="display:none">▲</span>
+            </a>
+        </th>
+        <th nowrap>
+            <a href="javascript:setSort('LastName')">
                 @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
+                <span id="LastNameDescRow" style="display:none">▼</span>
+                <span id="LastNameRow" style="display:none">▲</span>
+            </a>
+        </th>
+        <th nowrap>
+            <a href="javascript:setSort('NumTroop')">
                 @Html.DisplayNameFor(model => model.NumTroop)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rank)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpecialityName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InstGroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Kurs)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Faculty)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpecInst)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConditionsOfEducation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvarageScore)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearOfAddMAI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearOfEndMAI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearOfAddVK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearOfEndVK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rectal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlaceBirthday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nationality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Citizenship)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HomePhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MobilePhonec)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlaceOfResidence)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlaceOfRegestration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Military)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FamiliStatys)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.School)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Two_MobilePhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VuzName)
-            </th>
+                <span id="NumTroopDescRow" style="display:none">▼</span>
+                <span id="NumTroopRow">▲</span>
+            </a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstGroup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kurs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecInst)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConditionsOfEducation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvarageScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfAddMAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfEndMAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfAddVK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfEndVK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rectal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceBirthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nationality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Citizenship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobilePhonec)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceOfResidence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceOfRegestration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Military)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FamiliStatys)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.School)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Two_MobilePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VuzName)
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NumTroop)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Rank)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.SpecialityName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.InstGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Kurs)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Faculty)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.SpecInst)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ConditionsOfEducation)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.AvarageScore)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.YearOfAddMAI)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.YearOfEndMAI)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.YearOfAddVK)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.YearOfEndVK)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NumberOfOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DateOfOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Rectal)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PlaceBirthday)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Nationality)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Citizenship)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.HomePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.MobilePhonec)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PlaceOfResidence)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PlaceOfRegestration)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Military)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FamiliStatys)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.School)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Two_MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.VuzName)
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.MiddleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.NumTroop)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Rank)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.SpecialityName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.InstGroup)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Kurs)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Faculty)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.SpecInst)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.ConditionsOfEducation)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.AvarageScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfAddMAI)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfEndMAI)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfAddVK)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfEndVK)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.NumberOfOrder)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.DateOfOrder)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Rectal)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Birthday)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceBirthday)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Nationality)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Citizenship)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.HomePhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.MobilePhonec)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceOfResidence)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceOfRegestration)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Military)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.FamiliStatys)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.School)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Two_MobilePhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.VuzName)
-                </td>
-            </tr>
-        }
-    </tbody>
+    }
+</tbody>
 </table>
 
 <div id="pagingBox">
 </div>
 <script type="text/javascript">
+    var currentPage = 1, currentSort = 'NumTroop', currentFilter = '';
     $(function () {
-        createPaging(@Model.Count(), 3);
+
+        createPaging(@ViewBag.StudentsCount, 3);
     });
 
     /** Генерирует разметку для пейджинга
@@ -230,19 +249,41 @@
     function createPaging(count, maxCount) {
         let html = '<span>';
         for (let i = 1; i <= Math.ceil(count / maxCount); i++) {
-            html += '<a id="page' + i + '" href="javascript:pageClick(' + i + ')">' + i + '</a> ';
+            html += '<a href="javascript:setPage(' + i + ')">' + i + '</a> ';
         }
+        //id = "page' + i + '"
         html += '</span>';
         $('#pagingBox').append(html);
     }
     /** Событие происходящее при нажатии на другую страницу
      * @@param {number} numPage номер нажатой страницы
      */
-    function pageClick(numPage) {
+    function setPage(numPage) {
+        currentPage = numPage;
+        updateStudentsTable(currentPage, currentSort);
+    }
+
+    function setSort(sort) {
+        $('#' + currentSort + 'Row').toggle();
+
+        if (currentSort == sort) {
+            currentSort = sort + 'Desc';
+        } else {
+            currentSort = sort;
+        }
+        $('#' + currentSort + 'Row').toggle();
+        updateStudentsTable(currentPage, currentSort);
+    }
+
+    /** Обновляем таблицу студентов, применяя текущую сортировку, фильтрацию, страницу
+     * @@param {number} numPage номер страницы
+     * @@param {string} sort параметр сортировки(поле порядок)
+     */
+    function updateStudentsTable(numPage, sort) {
         $.ajax({ // отправляем запрос
             type: 'POST',
             url: '@Url.Action("GetStudents", "StudentList")',
-            data: JSON.stringify({ 'page': numPage}),
+            data: JSON.stringify({ 'page': numPage, 'sort': sort}),
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (data) {
