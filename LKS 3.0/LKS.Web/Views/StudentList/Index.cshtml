@@ -1,0 +1,298 @@
+﻿@model IEnumerable<LKS.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead> @* !! При изменении шабки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumTroop)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kurs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Faculty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecInst)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConditionsOfEducation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvarageScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfAddMAI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfEndMAI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfAddVK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfEndVK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rectal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceBirthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nationality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Citizenship)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobilePhonec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceOfResidence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceOfRegestration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Military)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FamiliStatys)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.School)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Two_MobilePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VuzName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.NumTroop)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Rank)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.SpecialityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.InstGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Kurs)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Faculty)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.SpecInst)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ConditionsOfEducation)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.AvarageScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.YearOfAddMAI)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.YearOfEndMAI)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.YearOfAddVK)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.YearOfEndVK)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.NumberOfOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DateOfOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Rectal)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PlaceBirthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Nationality)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Citizenship)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.HomePhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.MobilePhonec)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PlaceOfResidence)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PlaceOfRegestration)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Military)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.FamiliStatys)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.School)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Two_MobilePhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.VuzName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="pagingBox">
+</div>
+<script type="text/javascript">
+    $(function () {
+        createPaging(@Model.Count(), 3);
+    });
+
+    /** Генерирует разметку для пейджинга
+     *@@param {number} count кол-во элементов в таблице
+     *@@param {number} maxCount максимальное кол-во элементов на одной странице
+     * @@returns {void}
+     */
+    function createPaging(count, maxCount) {
+        let html = '<span>';
+        for (let i = 1; i <= Math.ceil(count / maxCount); i++) {
+            html += '<a id="page' + i + '" href="javascript:pageClick(' + i + ')">' + i + '</a> ';
+        }
+        html += '</span>';
+        $('#pagingBox').append(html);
+    }
+    /** Событие происходящее при нажатии на другую страницу
+     * @@param {number} numPage номер нажатой страницы
+     */
+    function pageClick(numPage) {
+        $.ajax({ // отправляем запрос
+            type: 'POST',
+            url: '@Url.Action("GetStudents", "StudentList")',
+            data: JSON.stringify({ 'page': numPage}),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ok) {
+                        let tbody = $('table>tbody'); // получили тело таблицы
+                        tbody.children().remove(); // удалили записи
+                        data.students.forEach(function (element) {
+                            let row = '<tr><td>' + element.middleName + '</td>' +
+                                '<td>' + element.firstName + '</td>' +
+                                '<td>' + element.lastName + '</td>' +
+                                '<td>' + element.numTroop + '</td>' +
+                                '<td>' + element.rank + '</td>' +
+                                '<td>' + element.specialityName + '</td>' +
+                                '<td>' + element.instGroup + '</td>' +
+                                '<td>' + element.kurs + '</td>'+
+                                '<td>' + element.faculty + '</td>'+
+                                '<td>' + element.specInst + '</td>'+
+                                '<td>' + element.conditionsOfEducation + '</td>'+
+                                '<td>' + element.avarageScore + '</td>'+
+                                '<td>' + element.yearOfAddMAI + '</td>' +
+                                '<td>' + element.yearOfEndMAI + '</td>' +
+                                '<td>' + element.yearOfAddVK + '</td>' +
+                                '<td>' + element.yearOfEndVK + '</td>' +
+                                '<td>' + element.numberOfOrder + '</td>' +
+                                '<td>' + element.dateOfOrder + '</td>' +
+                                '<td>' + element.rectal + '</td>' +
+                                '<td>' + element.birthday + '</td>' +
+                                '<td>' + element.placeBirthday + '</td>' +
+                                '<td>' + element.nationality + '</td>' +
+                                '<td>' + element.citizenship + '</td>' +
+                                '<td>' + element.homePhone + '</td>' +
+                                '<td>' + element.mobilePhonec + '</td>' +
+                                '<td>' + element.placeOfResidence + '</td>' +
+                                '<td>' + element.placeOfRegestration + '</td>' +
+                                '<td>' + element.military + '</td>' +
+                                '<td>' + element.familiStatys + '</td>' +
+                                '<td>' + element.school + '</td>' +
+                                '<td>' + element.two_MobilePhone + '</td>' +
+                                '<td>' + element.vuzName + '</td></tr>';
+                            row = row.replace(new RegExp('null', 'g'), ''); // удалили все null
+                            tbody.append(row);
+                        });
+                    } else {
+                        alert("Произошел сбой");
+                    }
+                },
+                error: function () {
+                    alert("Произошел сбой");
+                }
+            });
+        // TODO process event "page click"
+    }
+</script>
