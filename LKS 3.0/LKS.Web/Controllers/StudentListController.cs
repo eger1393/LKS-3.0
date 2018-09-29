@@ -20,7 +20,6 @@ namespace LKS.Web.Controllers
         public IActionResult Index()
         {
 			var model = studentRepository.GetItems().ToList();//todo
-			ViewBag.StudentsCount = studentRepository.GetItems().Count();
 
 			return View(model);
         }
@@ -28,11 +27,18 @@ namespace LKS.Web.Controllers
 		[HttpPost]
 		public JsonResult GetStudents([FromBody]Newtonsoft.Json.Linq.JObject data)
 		{
+			var students = studentRepository.GetItems();
 			int page;
-			string sort = data.GetValue("sort").ToString();
+			string sort = data.GetValue("sort").ToString(),
+				filter = data.GetValue("filter").ToString(),
+				filterCol = data.GetValue("filterCol").ToString();
+			if (!String.IsNullOrWhiteSpace(filter) && !String.IsNullOrWhiteSpace(filterCol))
+			{
+				students = FilterStudents(students, filter, filterCol);
+			}
 			if (Int32.TryParse(data.GetValue("page").ToString(), out page) && sort != null)
 			{
-				var students = studentRepository.GetItems();
+				
 				students = SortStudents(students, sort);
 
 				students = students.Skip((page - 1) * pageSize).Take(pageSize);
@@ -40,7 +46,20 @@ namespace LKS.Web.Controllers
 			}
 			return Json(new { ok = false });
 		}
-
+		
+		private IQueryable<Student> FilterStudents(IQueryable<Student> students, string filterText, string filterColumn)
+		{
+			filterText = filterText.ToLower();
+			filterColumn = filterColumn.ToLower();
+			switch (filterColumn)
+			{
+				case "middlename": return students.Where(ob => ob.MiddleName.ToLower().Contains(filterText));
+				case "firstname": return students.Where(ob => ob.FirstName.ToLower().Contains(filterText));
+				case "lastname": return students.Where(ob => ob.LastName.ToLower().Contains(filterText));
+				case "numtroop": return students.Where(ob => ob.NumTroop.ToLower().Contains(filterText));
+				default: return students;
+			}
+		}
 		private IQueryable<Student> SortStudents(IQueryable<Student> students, string sort)
 		{
 			sort = sort.ToLower();

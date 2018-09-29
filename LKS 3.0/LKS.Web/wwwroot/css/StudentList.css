@@ -1,0 +1,19 @@
+﻿body {
+}
+
+th span input {
+    border: none;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+    th span input:focus {
+        outline: none;
+        border-bottom: 1px solid #28a2a2;
+    }
+
+th span button {
+    background-image: url(/images/filterIcon.jpg);
+    width: 21px;
+    height: 21px;
+    border: none;
+}
