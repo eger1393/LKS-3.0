@@ -3,8 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link rel="stylesheet" href="~/css/StudentList.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script type="text/javascript" src="~/js/StudentList.js"></script>
+<link rel="stylesheet" href="~/css/StudentList.css" />
+
+
 <h2>Index</h2>
 
 <p>
@@ -21,7 +25,7 @@
                     <span id="MiddleNameRow" style="display:none">▲</span>
                 </a>
                 <br />
-                <span><input type="text" id="MiddleNameFilter" /> <button onclick="javascript:setFilter('MiddleName')"></button></span>
+                <div class="filter"><input type="text" id="MiddleNameFilter" data-id="MiddleName"/> <button onclick="javascript:setFilter('MiddleName')"></button></div>
             </th>
             <th nowrap>
                 <a href="javascript:setSort('FirstName')">
@@ -30,7 +34,7 @@
                     <span id="FirstNameRow" style="display:none">▲</span>
                 </a>
                 <br />
-                <span><input type="text" id="FirstNameFilter" /> <button onclick="javascript:setFilter('FirstName')"></button></span>
+                <div class="filter"><input type="text" id="FirstNameFilter"  data-id="FirstName"/> <button onclick="javascript:setFilter('FirstName')"></button></div>
             </th>
             <th nowrap>
                 <a href="javascript:setSort('LastName')">
@@ -39,7 +43,7 @@
                     <span id="LastNameRow" style="display:none">▲</span>
                 </a>
                 <br />
-                <span><input type="text" id="LastNameFilter" /> <button onclick="javascript:setFilter('LastName')"></button></span>
+                <div class="filter"><input type="text" id="LastNameFilter"  data-id="LastName"/> <button onclick="javascript:setFilter('LastName')"></button></div>
             </th>
             <th nowrap>
                 <a href="javascript:setSort('NumTroop')">
@@ -48,7 +52,7 @@
                     <span id="NumTroopRow">▲</span>
                 </a>
                 <br />
-                <span><input type="text" id="NumTroopFilter" /> <button onclick="javascript:setFilter('NumTroop')"></button></span>
+                <div class="filter"><input type="text" id="NumTroopFilter" data-id="NumTroop" /> <button onclick="javascript:setFilter('NumTroop')"></button></div>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rank)
