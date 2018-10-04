@@ -2,7 +2,12 @@
 $(function () {
 
     updateStudentsTable();
+    $('.filter>input[type=text]').keyup(function (e) {
+        if (e.keyCode == 13) {
+            setFilter($(this).data('id'));
+        }
     });
+});
 
 /** Генерирует разметку для пейджинга
  *@@param {number} count кол-во элементов в таблице
