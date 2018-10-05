@@ -48,7 +48,7 @@ namespace LKS_3._0.Model
 			{
 				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 			}
-			catch(System.IndexOutOfRangeException ex)
+			catch(System.IndexOutOfRangeException)
 			{
 				System.Windows.MessageBox.Show("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n" /*+ ex.Message*/);
 				return "";

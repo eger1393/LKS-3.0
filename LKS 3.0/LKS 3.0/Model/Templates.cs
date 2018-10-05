@@ -480,11 +480,11 @@ namespace LKS_3._0.Model
 					}
 				}
 			}
-			catch (IndexOutOfRangeException ex)
+			catch (IndexOutOfRangeException)
 			{
 				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}
-			catch (ArgumentOutOfRangeException ex)
+			catch (ArgumentOutOfRangeException)
 			{
 				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}

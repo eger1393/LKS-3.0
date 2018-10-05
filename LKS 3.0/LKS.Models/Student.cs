@@ -45,7 +45,7 @@ namespace LKS.Models
 
 			Zapas = true;
 			ProjectOrder = true;
-			Rank = Troop.Rank[0];
+            Rank = " ";
 
 			//подумать где это должно быть
 			WhoseOrder = "МО РФ";
