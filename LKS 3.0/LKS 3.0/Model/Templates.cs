@@ -14,7 +14,7 @@ using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.Data.Entity;
 
-using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
+//using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
 
 
 

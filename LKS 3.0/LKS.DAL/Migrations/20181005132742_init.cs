@@ -7,17 +7,81 @@ namespace LKS.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Cycles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
+                    VUS = table.Column<string>(nullable: true),
+                    VuzName = table.Column<string>(nullable: true),
+                    VkName = table.Column<string>(nullable: true),
+                    SpecialityName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cycles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prepods",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    MiddleName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Coolness = table.Column<string>(nullable: true),
+                    PrepodRank = table.Column<string>(nullable: true),
+                    AdditionalInfo = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prepods", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Troops",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    PlatoonCommanderId = table.Column<string>(nullable: true),
+                    PrepodId = table.Column<string>(nullable: true),
+                    NumberTroop = table.Column<string>(nullable: true),
+                    StaffCount = table.Column<int>(nullable: false),
+                    Vus = table.Column<string>(nullable: true),
+                    SboriTroop = table.Column<bool>(nullable: false),
+                    Day = table.Column<string>(nullable: true),
+                    CycleId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Troops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Troops_Cycles_CycleId",
+                        column: x => x.CycleId,
+                        principalTable: "Cycles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Troops_Prepods_PrepodId",
+                        column: x => x.PrepodId,
+                        principalTable: "Prepods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    TroopId = table.Column<string>(nullable: true),
                     Collness = table.Column<string>(nullable: true),
                     MiddleName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     NumTroop = table.Column<string>(nullable: true),
                     Rank = table.Column<string>(nullable: true),
-                    SpecialityName = table.Column<string>(nullable: true),
                     InstGroup = table.Column<string>(nullable: true),
                     Kurs = table.Column<int>(nullable: false),
                     Faculty = table.Column<string>(nullable: true),
@@ -56,10 +120,7 @@ namespace LKS.DAL.Migrations
                     ProjectOrder = table.Column<bool>(nullable: false),
                     WhoseOrder = table.Column<string>(nullable: true),
                     VO = table.Column<string>(nullable: true),
-                    VuzName = table.Column<string>(nullable: true),
-                    VkName = table.Column<string>(nullable: true),
                     Fighting = table.Column<string>(nullable: true),
-                    VUS = table.Column<string>(nullable: true),
                     BloodType = table.Column<string>(nullable: true),
                     Growth = table.Column<string>(nullable: true),
                     ClothihgSize = table.Column<string>(nullable: true),
@@ -80,6 +141,12 @@ namespace LKS.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_Troops_TroopId",
+                        column: x => x.TroopId,
+                        principalTable: "Troops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,6 +181,21 @@ namespace LKS.DAL.Migrations
                 name: "IX_Relatives_StudentId",
                 table: "Relatives",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_TroopId",
+                table: "Students",
+                column: "TroopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Troops_CycleId",
+                table: "Troops",
+                column: "CycleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Troops_PrepodId",
+                table: "Troops",
+                column: "PrepodId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -123,6 +205,15 @@ namespace LKS.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Troops");
+
+            migrationBuilder.DropTable(
+                name: "Cycles");
+
+            migrationBuilder.DropTable(
+                name: "Prepods");
         }
     }
 }

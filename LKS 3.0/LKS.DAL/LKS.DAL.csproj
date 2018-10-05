@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180916130337_init.cs" />
     <Compile Remove="Migrations\20180919184354_iteration1.cs" />
+    <Compile Remove="Migrations\20180919191745_migration1.cs" />
+    <Compile Remove="Migrations\20181005132200_migr2.cs" />
   </ItemGroup>
 
   <ItemGroup>

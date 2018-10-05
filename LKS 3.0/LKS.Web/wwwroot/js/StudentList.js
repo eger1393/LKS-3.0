@@ -1,12 +1,26 @@
 ﻿var currentPage = 1, currentSort = 'NumTroop', currentFilter = '', currentFilterCol = '';
+var pageSize;
 $(function () {
-
+    pageSize = $('#pageSizeConst').val();
+    if (!pageSize) {
+        pageSize = 20;
+    }
     updateStudentsTable();
-    $('.filter>input[type=text]').keyup(function (e) {
+    $('.input-container>input').keyup(function (e) {
         if (e.keyCode == 13) {
             setFilter($(this).data('id'));
         }
     });
+
+    // Анимация для лейблов
+    $('.input-container>input').focus(function () {
+        $(this).parent().addClass("animation");
+    });
+    $('.input-container>input').blur(function () {
+        if (!$(this).val()) {
+            $(this).parent().removeClass("animation");
+        }
+    })
 });
 
 /** Генерирует разметку для пейджинга
@@ -14,9 +28,9 @@ $(function () {
  *@@param {number} maxCount максимальное кол-во элементов на одной странице
  * @@returns {void}
  */
-function createPaging(count, maxCount) {
+function createPaging(count) {
     let html = '<span>';
-    for (let i = 1; i <= Math.ceil(count / maxCount); i++) {
+    for (let i = 1; i <= Math.ceil(count / pageSize); i++) {
         html += '<a href="javascript:setPage(' + i + ')">' + i + '</a> ';
     }
     //id = "page' + i + '"
@@ -45,7 +59,7 @@ function setSort(sort) {
         currentSort = sort;
     }
     $('#' + currentSort + 'Row').toggle();
-    updateStudentsTable(currentPage, currentSort, currentFilter);
+    updateStudentsTable();
 }
 
 /** Событие происходящее при нажатии на кнопку фильтрации
@@ -58,7 +72,7 @@ function setFilter(filter) {
     currentFilterCol = filter;
     currentFilter = $('#' + filter + 'Filter').val();
     currentPage = 1; // При применении фильтрации, сбрасываем страницу, оставляем сортировку
-    updateStudentsTable(currentPage, currentSort, currentFilter);
+    updateStudentsTable();
 }
 
 /** Обновляем таблицу студентов, применяя текущую сортировку, фильтрацию, страницу
@@ -109,7 +123,7 @@ function updateStudentsTable() {
                         '<td>' + element.vuzName + '</td></tr>';
                     row = row.replace(new RegExp('null', 'g'), ''); // удалили все null
                     tbody.append(row);
-                    createPaging(data.students.length, 3);
+                    createPaging(data.count);
                 });
             } else {
                 alert("Произошел сбой");

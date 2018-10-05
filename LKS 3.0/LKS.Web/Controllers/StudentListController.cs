@@ -20,7 +20,7 @@ namespace LKS.Web.Controllers
         public IActionResult Index()
         {
 			var model = studentRepository.GetItems().ToList();//todo
-
+            ViewBag.pageSize = pageSize;
 			return View(model);
         }
 
@@ -40,9 +40,9 @@ namespace LKS.Web.Controllers
 			{
 				
 				students = SortStudents(students, sort);
-
+                int count = students.Count();
 				students = students.Skip((page - 1) * pageSize).Take(pageSize);
-				return Json(new { ok = true, students = students.ToList() });
+				return Json(new { ok = true, count, students = students.ToList() });
 			}
 			return Json(new { ok = false });
 		}
@@ -78,3 +78,106 @@ namespace LKS.Web.Controllers
 		}
 	}
 }
+
+
+//@foreach(var item in Model)
+//{
+//            < tr >
+//                < td >
+//                    @Html.DisplayFor(model => item.MiddleName)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.FirstName)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.LastName)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.NumTroop)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Rank)
+//                </ td >
+//                @*< td >
+//                    @Html.DisplayFor(model => item.SpecialityName)
+//                </ td > *@
+//                < td >
+//                    @Html.DisplayFor(model => item.InstGroup)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Kurs)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Faculty)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.SpecInst)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.ConditionsOfEducation)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.AvarageScore)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.YearOfAddMAI)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.YearOfEndMAI)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.YearOfAddVK)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.YearOfEndVK)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.NumberOfOrder)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.DateOfOrder)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Rectal)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Birthday)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.PlaceBirthday)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Nationality)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Citizenship)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.HomePhone)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.MobilePhonec)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.PlaceOfResidence)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.PlaceOfRegestration)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Military)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.FamiliStatys)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.School)
+//                </ td >
+//                < td >
+//                    @Html.DisplayFor(model => item.Two_MobilePhone)
+//                </ td >
+//                @*< td >
+//                    @Html.DisplayFor(model => item.VuzName)
+//                </ td > *@
+//            </ tr >
+//        }

@@ -18,6 +18,26 @@ namespace LKS.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LKS.Models.Cycle", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Number");
+
+                    b.Property<string>("SpecialityName");
+
+                    b.Property<string>("VUS");
+
+                    b.Property<string>("VkName");
+
+                    b.Property<string>("VuzName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cycles");
+                });
+
             modelBuilder.Entity("LKS.Models.Prepod", b =>
                 {
                     b.Property<string>("Id")
@@ -37,7 +57,7 @@ namespace LKS.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Prepod");
+                    b.ToTable("Prepods");
                 });
 
             modelBuilder.Entity("LKS.Models.Relative", b =>
@@ -183,8 +203,6 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("SpecInst");
 
-                    b.Property<string>("SpecialityName");
-
                     b.Property<string>("Status");
 
                     b.Property<string>("TroopId");
@@ -192,12 +210,6 @@ namespace LKS.DAL.Migrations
                     b.Property<string>("Two_MobilePhone");
 
                     b.Property<string>("VO");
-
-                    b.Property<string>("VUS");
-
-                    b.Property<string>("VkName");
-
-                    b.Property<string>("VuzName");
 
                     b.Property<string>("WhoseOrder");
 
@@ -223,6 +235,8 @@ namespace LKS.DAL.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CycleId");
+
                     b.Property<string>("Day");
 
                     b.Property<string>("NumberTroop");
@@ -238,6 +252,8 @@ namespace LKS.DAL.Migrations
                     b.Property<string>("Vus");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CycleId");
 
                     b.HasIndex("PrepodId");
 
@@ -260,6 +276,10 @@ namespace LKS.DAL.Migrations
 
             modelBuilder.Entity("LKS.Models.Troop", b =>
                 {
+                    b.HasOne("LKS.Models.Cycle")
+                        .WithMany("Troops")
+                        .HasForeignKey("CycleId");
+
                     b.HasOne("LKS.Models.Prepod", "Prepod")
                         .WithMany("Troops")
                         .HasForeignKey("PrepodId");

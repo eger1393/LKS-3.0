@@ -9,16 +9,58 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LKS.DAL.Migrations
 {
     [DbContext(typeof(LKSDbContext))]
-    [Migration("20180916130337_init")]
+    [Migration("20181005132742_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LKS.Models.Cycle", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Number");
+
+                    b.Property<string>("SpecialityName");
+
+                    b.Property<string>("VUS");
+
+                    b.Property<string>("VkName");
+
+                    b.Property<string>("VuzName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cycles");
+                });
+
+            modelBuilder.Entity("LKS.Models.Prepod", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AdditionalInfo");
+
+                    b.Property<string>("Coolness");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("MiddleName");
+
+                    b.Property<string>("PrepodRank");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prepods");
+                });
 
             modelBuilder.Entity("LKS.Models.Relative", b =>
                 {
@@ -163,19 +205,13 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("SpecInst");
 
-                    b.Property<string>("SpecialityName");
-
                     b.Property<string>("Status");
+
+                    b.Property<string>("TroopId");
 
                     b.Property<string>("Two_MobilePhone");
 
                     b.Property<string>("VO");
-
-                    b.Property<string>("VUS");
-
-                    b.Property<string>("VkName");
-
-                    b.Property<string>("VuzName");
 
                     b.Property<string>("WhoseOrder");
 
@@ -191,7 +227,39 @@ namespace LKS.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TroopId");
+
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("LKS.Models.Troop", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CycleId");
+
+                    b.Property<string>("Day");
+
+                    b.Property<string>("NumberTroop");
+
+                    b.Property<string>("PlatoonCommanderId");
+
+                    b.Property<string>("PrepodId");
+
+                    b.Property<bool>("SboriTroop");
+
+                    b.Property<int>("StaffCount");
+
+                    b.Property<string>("Vus");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CycleId");
+
+                    b.HasIndex("PrepodId");
+
+                    b.ToTable("Troops");
                 });
 
             modelBuilder.Entity("LKS.Models.Relative", b =>
@@ -199,6 +267,24 @@ namespace LKS.DAL.Migrations
                     b.HasOne("LKS.Models.Student", "Student")
                         .WithMany("Relatives")
                         .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("LKS.Models.Student", b =>
+                {
+                    b.HasOne("LKS.Models.Troop", "Troop")
+                        .WithMany("Students")
+                        .HasForeignKey("TroopId");
+                });
+
+            modelBuilder.Entity("LKS.Models.Troop", b =>
+                {
+                    b.HasOne("LKS.Models.Cycle")
+                        .WithMany("Troops")
+                        .HasForeignKey("CycleId");
+
+                    b.HasOne("LKS.Models.Prepod", "Prepod")
+                        .WithMany("Troops")
+                        .HasForeignKey("PrepodId");
                 });
 #pragma warning restore 612, 618
         }

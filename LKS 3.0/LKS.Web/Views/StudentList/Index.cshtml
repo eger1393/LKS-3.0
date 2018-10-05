@@ -8,7 +8,7 @@
 <script type="text/javascript" src="~/js/StudentList.js"></script>
 <link rel="stylesheet" href="~/css/StudentList.css" />
 
-
+<input id="pageSizeConst" type="hidden" value="@ViewBag.pageSize" />
 <h2>Index</h2>
 
 <p>
@@ -19,40 +19,52 @@
         @* !! При изменении шапки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
         <tr>
             <th nowrap>
-                <a href="javascript:setSort('MiddleName')">
-                    @Html.DisplayNameFor(model => model.MiddleName)
-                    <span id="MiddleNameDescRow" style="display:none">▼</span>
-                    <span id="MiddleNameRow" style="display:none">▲</span>
-                </a>
-                <br />
-                <div class="filter"><input type="text" id="MiddleNameFilter" data-id="MiddleName"/> <button onclick="javascript:setFilter('MiddleName')"></button></div>
+                @*<div class="filter"><input type="text" id="MiddleNameFilter" data-id="MiddleName" /> <button onclick="javascript:setFilter('MiddleName')"></button></div>
+        <a href="javascript:setSort('MiddleName')">
+            @Html.DisplayNameFor(model => model.MiddleName)
+            <span id="MiddleNameDescRow" style="display:none">▼</span>
+            <span id="MiddleNameRow" style="display:none">▲</span>
+        </a>*@
+                <p class="input-container">
+                    <input type="text" id="MiddleNameFilter" data-id="MiddleName"/>
+                    <label for="MiddleNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.MiddleName)</label>
+                </p>
             </th>
             <th nowrap>
-                <a href="javascript:setSort('FirstName')">
-                    @Html.DisplayNameFor(model => model.FirstName)
-                    <span id="FirstNameDescRow" style="display:none">▼</span>
-                    <span id="FirstNameRow" style="display:none">▲</span>
-                </a>
-                <br />
-                <div class="filter"><input type="text" id="FirstNameFilter"  data-id="FirstName"/> <button onclick="javascript:setFilter('FirstName')"></button></div>
+                <p class="input-container">
+                    <input type="text" id="FirstNameFilter" data-id="FirstName"/>
+                    <label for="FirstNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.FirstName)</label>
+                </p>
+                @*<a href="javascript:setSort('FirstName')">
+            @Html.DisplayNameFor(model => model.FirstName)
+            <span id="FirstNameDescRow" style="display:none">▼</span>
+            <span id="FirstNameRow" style="display:none">▲</span>
+        </a>
+        <div class="filter"><input type="text" id="FirstNameFilter"  data-id="FirstName"/> <button onclick="javascript:setFilter('FirstName')"></button></div>*@
             </th>
             <th nowrap>
-                <a href="javascript:setSort('LastName')">
-                    @Html.DisplayNameFor(model => model.LastName)
-                    <span id="LastNameDescRow" style="display:none">▼</span>
-                    <span id="LastNameRow" style="display:none">▲</span>
-                </a>
-                <br />
-                <div class="filter"><input type="text" id="LastNameFilter"  data-id="LastName"/> <button onclick="javascript:setFilter('LastName')"></button></div>
+                <p class="input-container">
+                    <input type="text" id="LastNameFilter" data-id="LastName"/>
+                    <label for="LastNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.LastName)</label>
+                </p>
+                @*<a href="javascript:setSort('LastName')">
+            @Html.DisplayNameFor(model => model.LastName)
+            <span id="LastNameDescRow" style="display:none">▼</span>
+            <span id="LastNameRow" style="display:none">▲</span>
+        </a>
+        <div class="filter"><input type="text" id="LastNameFilter"  data-id="LastName"/> <button onclick="javascript:setFilter('LastName')"></button></div>*@
             </th>
             <th nowrap>
-                <a href="javascript:setSort('NumTroop')">
-                    @Html.DisplayNameFor(model => model.NumTroop)
-                    <span id="NumTroopDescRow" style="display:none">▼</span>
-                    <span id="NumTroopRow">▲</span>
-                </a>
-                <br />
-                <div class="filter"><input type="text" id="NumTroopFilter" data-id="NumTroop" /> <button onclick="javascript:setFilter('NumTroop')"></button></div>
+                <p class="input-container">
+                    <input type="text" id="NumTroopFilter" data-id="NumTroop" />
+                    <label for="NumTroopFilter" unselectable="on">@Html.DisplayNameFor(model => model.NumTroop)</label>
+                </p>
+                @*<a href="javascript:setSort('NumTroop')">
+            @Html.DisplayNameFor(model => model.NumTroop)
+            <span id="NumTroopDescRow" style="display:none">▼</span>
+            <span id="NumTroopRow">▲</span>
+        </a>
+        <div class="filter"><input type="text" id="NumTroopFilter" data-id="NumTroop" /> <button onclick="javascript:setFilter('NumTroop')"></button></div>*@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rank)
@@ -61,7 +73,10 @@
                 @Html.DisplayNameFor(model => model.SpecialityName)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.InstGroup)
+                <p class="input-container">
+                    <input type="text" id="input-group" />
+                    <label for="input-group" unselectable="on">@Html.DisplayNameFor(model => model.InstGroup)</label>
+                </p>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Kurs)
@@ -141,112 +156,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.MiddleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.NumTroop)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Rank)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(model => item.SpecialityName)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(model => item.InstGroup)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Kurs)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Faculty)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.SpecInst)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.ConditionsOfEducation)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.AvarageScore)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfAddMAI)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfEndMAI)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfAddVK)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.YearOfEndVK)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.NumberOfOrder)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.DateOfOrder)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Rectal)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Birthday)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceBirthday)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Nationality)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Citizenship)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.HomePhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.MobilePhonec)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceOfResidence)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.PlaceOfRegestration)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Military)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.FamiliStatys)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.School)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Two_MobilePhone)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(model => item.VuzName)
-                </td>*@
-            </tr>
-        }
+        
     </tbody>
 </table>
 
 <div id="pagingBox">
 </div>
-
 
 
