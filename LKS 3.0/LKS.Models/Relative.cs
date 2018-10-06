@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace LKS.Models
 		public string Id { get; set; }
 		[ForeignKey(nameof(Student))]
 		public string StudentId { get; set; }
+		[JsonIgnore]
 		public Student Student { get; set; }
 
 

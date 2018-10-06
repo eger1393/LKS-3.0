@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,17 +32,7 @@ namespace LKS.Models
 	{
 		public Student() // Конструктор по умолчанию
 		{
-			//Разве по умолчанию не false?
-			// Skill1 = false;
-			// Skill2 = false;
-			// Skill3 = false;
-			// Skill4 = false;
-			// Skill5 = false;
-			// Skill6 = false;
-			// Exhortation = false;
 			
-			// Зачем???
-			 Birthday = "";
 
 			Zapas = true;
 			ProjectOrder = true;
@@ -51,12 +42,6 @@ namespace LKS.Models
 			WhoseOrder = "МО РФ";
 			VO = "МВО";
 			Fighting = "не участвовал";
-
-			//Перенес в сущность "цикл"
-			//VUS = "042600";
-			// VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
-			// VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
-			//SpecialityName = "Боевое применение частей и подразделений войсковой ПВО";
 		}
 
 		public string Initials
@@ -68,9 +53,11 @@ namespace LKS.Models
 		}
 		[Key]
 		public string Id { get; set; }
+		[JsonIgnore]
 		public virtual List<Relative> Relatives { get; set; }
 		[ForeignKey(nameof(Troop))]
 		public string TroopId { get; set; }
+		[JsonIgnore]
 		public Troop Troop { get; set; }
 		[DisplayName("Звание")]
 		public string Collness { get; set; }
@@ -85,14 +72,22 @@ namespace LKS.Models
 		public string LastName { get; set; }
 
 		[DisplayName("Взвод")]
-		public string NumTroop { get; set; }
+		public string NumTroop { get
+			{
+				return Troop?.NumberTroop ?? "none";
+			}
+		}
 
 		[DisplayName("Должность")]
 		public string Rank { get; set; }
 
 
-		//public string SpecialityName { get; set; } // МБ убрать это из студента(она всеравно константна)
-		//да, я убрал в цикл
+		public string SpecialityName { get
+			{
+				return Troop?.Cycle?.SpecialityName ?? "none";
+			}
+		}
+
 
 		[DisplayName("Группа")]
 		public string InstGroup { get; set; }

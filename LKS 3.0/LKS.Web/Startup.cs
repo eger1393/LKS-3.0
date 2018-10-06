@@ -40,6 +40,8 @@ namespace LKS.Web
 			services.AddTransient<IRelativeRepository, RelativeRepository>();
 			services.AddTransient<ITroopRepository, TroopRepository>();
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
+			services.AddTransient<ICycleRepository, CycleRepository>();
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
