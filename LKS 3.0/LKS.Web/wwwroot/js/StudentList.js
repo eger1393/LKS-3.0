@@ -1,5 +1,6 @@
 ﻿var currentPage = 1, currentSort = 'NumTroop', currentFilter = '', currentFilterCol = '';
-var cycle = '#'; //Номер цикла, # - корень(все студенты)
+var selectCycle = '#'; //Номер цикла, # - корень(все студенты)
+var selectTroop = ''; // если мы в дереве кликнули на взвод, то действие не должно сбрасываться, если мы сортируем по взводу
 var pageSize;
 $(function () {
     $('#jstree')
@@ -23,17 +24,19 @@ $(function () {
             }
         }).on('changed.jstree', function (e, data) {
             if (data.node.parent == '#') { // клик был по циклу, выбираем цикл, сбрасывам всю сортировку
-                cycle = data.node.id.replace('cycle-','');
+                selectCycle = data.node.id.replace('cycle-', '');
+                selectTroop = '';
                 currentPage = 1;
                 currentSort = 'NumTroop';
                 currentFilter = '';
                 currentFilterCol = '';
             } else {
-                cycle = data.node.parent.replace('cycle-','');
+                selectCycle = data.node.parent.replace('cycle-', '');
+                selectTroop = data.node.text;
                 currentPage = 1;
                 currentSort = 'NumTroop';
-                currentFilter = data.node.text;
-                currentFilterCol = 'NumTroop';
+                currentFilter = '';
+                currentFilterCol = '';
             }
             updateStudentsTable();
         })
@@ -117,7 +120,7 @@ function updateStudentsTable() {
     $.ajax({ // отправляем запрос
         type: 'POST',
         url: '/StudentList/GetStudents',
-        data: JSON.stringify({ 'page': currentPage, 'sort': currentSort, 'filter': currentFilter, 'filterCol': currentFilterCol, 'cycle': cycle }),
+        data: JSON.stringify({ 'page': currentPage, 'sort': currentSort, 'filter': currentFilter, 'filterCol': currentFilterCol, 'selectCycle': selectCycle, 'selectTroop': selectTroop }),
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {
@@ -159,8 +162,8 @@ function updateStudentsTable() {
                         '<td>' + element.vuzName + '</td></tr>';
                     row = row.replace(new RegExp('null', 'g'), ''); // удалили все null
                     tbody.append(row);
-                    createPaging(data.count);
                 });
+                createPaging(data.count);
             } else {
                 alert("Произошел сбой");
             }

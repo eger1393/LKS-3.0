@@ -10,7 +10,7 @@ namespace LKS.Web.Controllers
 {
 	public class StudentListController : Controller
 	{
-		private const int pageSize = 2;
+		private const int pageSize = 20;
 		IStudentRepository studentRepository;
 		ICycleRepository cycleRepository;
 		public StudentListController(IStudentRepository studentRepository, ICycleRepository cycleRepository)
@@ -34,10 +34,15 @@ namespace LKS.Web.Controllers
 			string sort = data.GetValue("sort")?.ToString(),
 				filter = data.GetValue("filter")?.ToString(),
 				filterCol = data.GetValue("filterCol")?.ToString(),
-				cycle = data.GetValue("cycle")?.ToString();
+				cycle = data.GetValue("selectCycle")?.ToString(),
+				troop = data.GetValue("selectTroop")?.ToString();
 			if(!String.IsNullOrWhiteSpace(cycle) && cycle != "#")
 			{
 				students = students.Where(ob => ob.Troop.Cycle.Number == cycle);
+			}
+			if (!String.IsNullOrWhiteSpace(troop))
+			{
+				students = students.Where(ob => ob.Troop.NumberTroop == troop);
 			}
 			if (!String.IsNullOrWhiteSpace(filter) && !String.IsNullOrWhiteSpace(filterCol))
 			{
@@ -113,6 +118,24 @@ namespace LKS.Web.Controllers
 				case "numtroopdesc": return students.OrderByDescending(ob => ob.NumTroop);
 				default: return students.OrderBy(ob => ob.NumTroop);
 			}
+		}
+
+		public OkResult createStudents()
+		{
+			var troops = cycleRepository.GetItems().Include(ob => ob.Troops).FirstOrDefault()?.Troops;
+			System.Collections.Generic.List<Student> students = new System.Collections.Generic.List<Student>();
+			for(int i = 0; i < 10000; i++)
+			{
+				students.Add(new Student
+				{
+					FirstName = "fName" + i,
+					LastName = "lName" + i,
+					MiddleName = "mName" + i,
+					TroopId = "1"
+				});
+			}
+			studentRepository.CreateRange(students);
+			return new OkResult();
 		}
 	}
 }
