@@ -1,6 +1,42 @@
 ﻿var currentPage = 1, currentSort = 'NumTroop', currentFilter = '', currentFilterCol = '';
+var cycle = '#'; //Номер цикла, # - корень(все студенты)
 var pageSize;
 $(function () {
+    $('#jstree')
+        .jstree({
+            "plugins": ["sort", "json_data"],
+            'core': {
+                'themes': {
+                    'icons': false
+                },
+                'strings': {
+                    'Loading ...': ' '
+                },
+                'data': {
+                    'url': function (node) {
+                        return node.id === '#' ? '/StudentList/GetCycle' : '/StudentList/GetCycle?cycleId=' + node.id;
+                    },
+                    'data': function (node) {
+                        return { 'id': node.id };
+                    }
+                }
+            }
+        }).on('changed.jstree', function (e, data) {
+            if (data.node.parent == '#') { // клик был по циклу, выбираем цикл, сбрасывам всю сортировку
+                cycle = data.node.id.replace('cycle-','');
+                currentPage = 1;
+                currentSort = 'NumTroop';
+                currentFilter = '';
+                currentFilterCol = '';
+            } else {
+                cycle = data.node.parent.replace('cycle-','');
+                currentPage = 1;
+                currentSort = 'NumTroop';
+                currentFilter = data.node.text;
+                currentFilterCol = 'NumTroop';
+            }
+            updateStudentsTable();
+        })
     pageSize = $('#pageSizeConst').val();
     if (!pageSize) {
         pageSize = 20;
@@ -81,7 +117,7 @@ function updateStudentsTable() {
     $.ajax({ // отправляем запрос
         type: 'POST',
         url: '/StudentList/GetStudents',
-        data: JSON.stringify({ 'page': currentPage, 'sort': currentSort, 'filter': currentFilter, 'filterCol': currentFilterCol }),
+        data: JSON.stringify({ 'page': currentPage, 'sort': currentSort, 'filter': currentFilter, 'filterCol': currentFilterCol, 'cycle': cycle }),
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {

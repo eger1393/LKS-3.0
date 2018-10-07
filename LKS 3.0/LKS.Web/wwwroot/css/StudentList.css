@@ -65,7 +65,24 @@ p.input-container {
         color: #aaaaaa;
     }
 
+.container {
+    width: auto; /*Убрал отступ у контейнера мастер страницы*/
+}
 
+.student-container{
+    display:flex;
+    flex-direction:row;
+}
+
+    .student-container .nav ul {
+        min-width:30px;
+        padding: 0;
+    }
+    .student-container .content {
+        position: relative;
+        top: -45px;
+        margin-left: 20px;
+    }
 
 /*.filter input {
     width: 80px;

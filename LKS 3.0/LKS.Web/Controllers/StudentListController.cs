@@ -12,8 +12,10 @@ namespace LKS.Web.Controllers
 	{
 		private const int pageSize = 2;
 		IStudentRepository studentRepository;
-		public StudentListController(IStudentRepository studentRepository)
+		ICycleRepository cycleRepository;
+		public StudentListController(IStudentRepository studentRepository, ICycleRepository cycleRepository)
 		{
+			this.cycleRepository = cycleRepository;
 			this.studentRepository = studentRepository;
 		}
 
@@ -29,9 +31,14 @@ namespace LKS.Web.Controllers
 		{
 			var students = studentRepository.GetItems().Include(ob => ob.Troop).ThenInclude(ob => ob.Cycle).AsQueryable();
 			int page;
-			string sort = data.GetValue("sort").ToString(),
-				filter = data.GetValue("filter").ToString(),
-				filterCol = data.GetValue("filterCol").ToString();
+			string sort = data.GetValue("sort")?.ToString(),
+				filter = data.GetValue("filter")?.ToString(),
+				filterCol = data.GetValue("filterCol")?.ToString(),
+				cycle = data.GetValue("cycle")?.ToString();
+			if(!String.IsNullOrWhiteSpace(cycle) && cycle != "#")
+			{
+				students = students.Where(ob => ob.Troop.Cycle.Number == cycle);
+			}
 			if (!String.IsNullOrWhiteSpace(filter) && !String.IsNullOrWhiteSpace(filterCol))
 			{
 				students = FilterStudents(students, filter, filterCol);
@@ -50,6 +57,32 @@ namespace LKS.Web.Controllers
 				});
 			}
 			return Json(new { ok = false });
+		}
+
+		
+		public JsonResult GetCycle(string cycleId = null)
+		{
+			if (cycleId == null || cycleId == "#")
+			{
+				return Json(cycleRepository.GetItems().Select(p => new
+				{
+					id = "cycle-" + p.Id,
+					parent = "#",
+					text = p.Number,
+					children = true,
+				}));
+			}
+			else
+			{
+				string correctCycleId = cycleId.Replace("cycle-", "");
+				return Json(cycleRepository.GetItems().Include(ob => ob.Troops).FirstOrDefault(ob => ob.Id == correctCycleId)?.Troops.Select(p => new
+				{
+					id = "trop-" + p.Id,
+					parent = cycleId,
+					text = p.NumberTroop,
+					children = false,
+				}));
+			}
 		}
 
 		private IQueryable<Student> FilterStudents(IQueryable<Student> students, string filterText, string filterColumn)
