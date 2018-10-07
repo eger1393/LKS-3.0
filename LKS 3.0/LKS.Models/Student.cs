@@ -144,7 +144,7 @@ namespace LKS.Models
 		public string HomePhone { get; set; }
 
 		[DisplayName("Мобильный телефон")]
-		public string MobilePhonec { get; set; }
+		public string MobilePhone { get; set; }
 
 		[DisplayName("Адрес проживания")]
 		public string PlaceOfResidence { get; set; }
