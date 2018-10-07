@@ -1,0 +1,127 @@
+﻿@model LKS.Models.Troop
+
+<style>
+    .modal-box {
+        margin: 30px;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.25), 0 0px 10px rgba(0,0,0,0.22);
+        border-radius: 10px;
+        background-color: white;
+        padding: 30px;
+        width: fit-content;
+        min-width: 400px;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: solid 0.3px black;
+    }
+
+        .modal-box div.form-group.input-container {
+            width: 100px;
+            height: 30px;
+            position: relative;
+            margin: 0;
+            margin-top:40px;
+        }
+
+            .modal-box div.form-group.input-container label {
+                position: absolute;
+                cursor: text;
+                transform: translateY(-10px);
+                transition: transform 0.3s ease;
+                left: 0;
+                bottom: -10px;
+            }
+
+            .modal-box div.form-group.input-container input {
+                width: 100%;
+                transition: 0.6s;
+                border: none;
+                border-bottom: 1px solid #d8d8d8;
+                position: absolute;
+                bottom: 0px;
+                background-color: transparent;
+                font-family: PFEncoreSansPro;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.43;
+                letter-spacing: 0.2px;
+                color: #1b1e2d;
+            }
+
+                .modal-box div.form-group.input-container input:focus {
+                    outline: none;
+                    border-bottom: 1px solid #28a2a2;
+                }
+
+            .modal-box div.form-group.input-container.animation label {
+                transform: translateY(-35px);
+                height: 12px;
+                font-size: 12px;
+                color: #aaaaaa;
+            }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $('.input-container>input').focus(function () {
+            $(this).parent().addClass("animation");
+        });
+        $('.input-container>input').blur(function () {
+            if (!$(this).val()) {
+                $(this).parent().removeClass("animation");
+            }
+        })
+    });
+</script>
+
+<div class="modal-box">
+    <div>
+        <h4>Создание взвода</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group input-container">
+                        <label asp-for="CycleId" >Цикл</label>
+                        <input asp-for="CycleId"  />
+                        <span asp-validation-for="CycleId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group input-container">
+                        <label asp-for="PrepodId" >Преподаватель</label>
+                        <input asp-for="PrepodId" />
+                        <span asp-validation-for="PrepodId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group input-container">
+                        <label asp-for="NumberTroop" >Номер взвода</label>
+                        <input asp-for="NumberTroop" />
+                        <span asp-validation-for="NumberTroop" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="SboriTroop" /> @Html.DisplayNameFor(model => model.SboriTroop)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group input-container">
+                        <label asp-for="Day" >День прихода</label>
+                        <input asp-for="Day" />
+                        <span asp-validation-for="Day" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

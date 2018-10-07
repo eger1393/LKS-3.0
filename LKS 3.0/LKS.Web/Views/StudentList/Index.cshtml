@@ -9,11 +9,6 @@
 <link rel="stylesheet" href="~/css/StudentList.css" />
 
 <input id="pageSizeConst" type="hidden" value="@ViewBag.pageSize" />
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div class="student-container">
     <div class="nav">
         <ul id="jstree" ></ul>
@@ -24,12 +19,7 @@
                 @* !! При изменении шапки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
                 <tr>
                     <th nowrap>
-                        @*<div class="filter"><input type="text" id="MiddleNameFilter" data-id="MiddleName" /> <button onclick="javascript:setFilter('MiddleName')"></button></div>
-                            <a href="javascript:setSort('MiddleName')">
-                                @Html.DisplayNameFor(model => model.MiddleName)
-                                <span id="MiddleNameDescRow" style="display:none">▼</span>
-                                <span id="MiddleNameRow" style="display:none">▲</span>
-                            </a>*@
+                        <span onclick="javascript:setSort('MiddleName')" style="background: url(/images/sort.png) no-repeat; width: 25px; height: 25px; cursor: pointer;"></span>
                         <p class="input-container">
                             <input type="text" id="MiddleNameFilter" data-id="MiddleName" />
                             <label for="MiddleNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.MiddleName)</label>
