@@ -43,16 +43,6 @@ C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Deb
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\de\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\en\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\es\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\fr\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\it\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ja\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ko\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\ru\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\MainWindow.g.cs
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
 C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -592,3 +582,12 @@ C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe.manifest
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 C:\Users\administrator.DEMO\source\repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.g.cs
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.baml
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CoreCompileInputs.cache
+C:\Users\Антон\Documents\GitHubVisualStudio\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
