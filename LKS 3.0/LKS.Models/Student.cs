@@ -157,28 +157,32 @@ namespace LKS.Models
 
 		[DisplayName("Семейное положение")]
 		public string FamiliStatys { get; set; }
-
-		public string School { get; set; }
-		public string Two_MobilePhone { get; set; }
+        [DisplayName("Школа")]
+        public string School { get; set; }
+        [DisplayName("Доп. мобильный телефон")]
+        public string Two_MobilePhone { get; set; }
 		public string Note { get; set; }
 
 		public string ImagePath { get; set; }
-		public bool Skill1
+        [DisplayName("Языки программирования (С,С++,С#)")]
+        public bool Skill1
+		{ get; set; }
+        [DisplayName("Microsoft Office")]
+        public bool Skill2
+		{ get; set; }
+        [DisplayName("Adobe Photoshop")]
+        public bool Skill3
+		{ get; set; }
+        [DisplayName("Электроника, электротехника")]
+        public bool Skill4
+		{ get; set; }
+        [DisplayName("Настройка локальных сетей")]
+        public bool Skill5
+		{ get; set; }
+        [DisplayName("Другие полезные навыки")]
+        public bool Skill6
 		{ get; set; }
 
-		public bool Skill2
-		{ get; set; }
-
-		public bool Skill3
-		{ get; set; }
-		public bool Skill4
-		{ get; set; }
-
-		public bool Skill5
-		{ get; set; }
-
-		public bool Skill6
-		{ get; set; }
 
 		public bool Zapas
 		{ get; set; }
@@ -198,32 +202,37 @@ namespace LKS.Models
 		public string Fighting
 		{ get; set; }
 
-		// public string VUS // код специальности
-		// { get; set; } ПЕРЕНЕС В ЦИКЛ
-		public string BloodType
+        // public string VUS // код специальности
+        // { get; set; } ПЕРЕНЕС В ЦИКЛ
+        [DisplayName("Группа крови")]
+        public string BloodType
+		{ get; set; }
+        [DisplayName("Рост")]
+        public string Growth
+		{ get; set; }
+        [DisplayName("Размер одежды")]
+        public string ClothihgSize
+		{ get; set; }
+        [DisplayName("Размер обуви")]
+        public string ShoeSize
+		{ get; set; }
+        [DisplayName("Размер головного убора")]
+        public string CapSize
+		{ get; set; }
+        [DisplayName("Размер противогаза")]
+        public string MaskSize
 		{ get; set; }
 
-		public string Growth
+
+        [DisplayName("Иностранный язык")]
+        public string ForeignLanguage
+		{ get; set; }
+        [DisplayName("Степень владения")]
+        public string LanguageRank
 		{ get; set; }
 
-		public string ClothihgSize
-		{ get; set; }
-
-		public string ShoeSize
-		{ get; set; }
-		public string CapSize
-		{ get; set; }
-
-		public string MaskSize
-		{ get; set; }
-
-		public string ForeignLanguage
-		{ get; set; }
-
-		public string LanguageRank
-		{ get; set; }
-
-		public string Status
+        [DisplayName("Статус обучения")]
+        public string Status
 		{ get; set; }
 
 		public int AssessmentProtocolOneTheory

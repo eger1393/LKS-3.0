@@ -10,7 +10,6 @@
 
 <!-- Material Design for Bootstrap CSS -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.0/css/bootstrap-select.css" rel="stylesheet" />
 
 <div class="card" style="margin-top: 20px" ;>
     <div class="card-body">
@@ -57,6 +56,11 @@
                                     <label asp-for="NumTroop" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="NumTroop" class="form-control" />
                                     <span asp-validation-for="NumTroop" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Status" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Status" class="form-control" />
+                                    <span asp-validation-for="Status" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Rank" class="bmd-label-floating text-dark"></label>
@@ -140,6 +144,16 @@
                                     <input asp-for="Rectal" class="form-control" />
                                     <span asp-validation-for="Rectal" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <label asp-for="Military" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="Military" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Годен</option>
+                                        <option>Прошел службу в ВС</option>
+                                        <option>Негоден</option>
+                                    </select>
+                                    <span asp-validation-for="Military" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,12 +162,12 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label asp-for="Birthday" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="Birthday" class="form-control" />
+                                    <input asp-for="Birthday" type="date" class="form-control" />
                                     <span asp-validation-for="Birthday" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceBirthday" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="PlaceBirthday" class="form-control" />
+                                    <textarea asp-for="PlaceBirthday" class="form-control" />
                                     <span asp-validation-for="PlaceBirthday" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
@@ -168,33 +182,37 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="HomePhone" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="HomePhone" class="form-control" />
+                                    <input asp-for="HomePhone" type="tel" class="form-control" />
                                     <span asp-validation-for="HomePhone" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="MobilePhone" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="MobilePhone" class="form-control" />
+                                    <input asp-for="MobilePhone" type="tel" class="form-control" />
                                     <span asp-validation-for="MobilePhone" class="text-danger"></span>
                                 </div>
-
+                                <div class="form-group">
+                                    <label asp-for="Two_MobilePhone" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Two_MobilePhone" type="tel" class="form-control" />
+                                    <span asp-validation-for="Two_MobilePhone" class="text-danger"></span>
+                                </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceOfResidence" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="PlaceOfResidence" class="form-control" />
+                                    <textarea asp-for="PlaceOfResidence" class="form-control" />
                                     <span asp-validation-for="PlaceOfResidence" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceOfRegestration" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="PlaceOfRegestration" class="form-control" />
+                                    <textarea asp-for="PlaceOfRegestration" class="form-control" />
                                     <span asp-validation-for="PlaceOfRegestration" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="Military" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="Military" class="form-control" />
-                                    <span asp-validation-for="Military" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
                                     <label asp-for="FamiliStatys" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="FamiliStatys" class="form-control" />
+                                    <select asp-for="FamiliStatys" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Холост</option>
+                                        <option>Женат</option>
+                                        <option>Вдвовец</option>
+                                    </select>
                                     <span asp-validation-for="FamiliStatys" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
@@ -202,60 +220,8 @@
                                     <input asp-for="School" class="form-control" />
                                     <span asp-validation-for="School" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="Two_MobilePhone" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="Two_MobilePhone" class="form-control" />
-                                    <span asp-validation-for="Two_MobilePhone" class="text-danger"></span>
-                                </div>
                             </div>
                             <div class="col-sm">
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill1" /> @Html.DisplayNameFor(model => model.Skill1)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill2" /> @Html.DisplayNameFor(model => model.Skill2)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill3" /> @Html.DisplayNameFor(model => model.Skill3)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill4" /> @Html.DisplayNameFor(model => model.Skill4)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill5" /> @Html.DisplayNameFor(model => model.Skill5)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input asp-for="Skill6" /> @Html.DisplayNameFor(model => model.Skill6)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="BloodType" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="BloodType" class="form-control" />
-                                    <span asp-validation-for="BloodType" class="text-danger"></span>
-                                </div>
                                 <div class="form-group">
                                     <label asp-for="Growth" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="Growth" class="form-control" />
@@ -292,9 +258,57 @@
                                     <span asp-validation-for="LanguageRank" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="Status" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="Status" class="form-control" />
-                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                    <label asp-for="BloodType" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="BloodType" class="form-control" />
+                                    <span asp-validation-for="BloodType" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill1" /> @Html.DisplayNameFor(model => model.Skill1)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill2" /> @Html.DisplayNameFor(model => model.Skill2)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill3" /> @Html.DisplayNameFor(model => model.Skill3)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill4" /> @Html.DisplayNameFor(model => model.Skill4)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill5" /> @Html.DisplayNameFor(model => model.Skill5)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Skill6" /> @Html.DisplayNameFor(model => model.Skill6)
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -400,13 +414,14 @@
         </div>
     </div>
 </div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.0/js/bootstrap-select.js"></script>
 <script>$(document).ready(function () {
     $('body').bootstrapMaterialDesign();
     $('.form-group>select').parent().removeClass("is-filled");
