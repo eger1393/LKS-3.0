@@ -152,14 +152,13 @@ function updateStudentsTable() {
                         '<td>' + element.nationality + '</td>' +
                         '<td>' + element.citizenship + '</td>' +
                         '<td>' + element.homePhone + '</td>' +
-                        '<td>' + element.mobilePhonec + '</td>' +
+                        '<td>' + element.mobilePhone + '</td>' +
                         '<td>' + element.placeOfResidence + '</td>' +
                         '<td>' + element.placeOfRegestration + '</td>' +
                         '<td>' + element.military + '</td>' +
                         '<td>' + element.familiStatys + '</td>' +
                         '<td>' + element.school + '</td>' +
-                        '<td>' + element.two_MobilePhone + '</td>' +
-                        '<td>' + element.vuzName + '</td></tr>';
+                        '<td>' + element.two_MobilePhone + '</td>';
                     row = row.replace(new RegExp('null', 'g'), ''); // удалили все null
                     tbody.append(row);
                 });
