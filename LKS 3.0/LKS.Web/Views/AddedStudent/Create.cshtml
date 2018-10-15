@@ -35,8 +35,8 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="info" role="tabpanel">
                         <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger">   </div>
                             <div class="col-sm">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
                                     <label asp-for="MiddleName" class="bmd-label-floating text-dark "></label>
                                     <input asp-for="MiddleName" class="form-control" />
@@ -53,9 +53,19 @@
                                     <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="NumTroop" class="bmd-label-floating text-dark"></label>
-                                    <input asp-for="NumTroop" class="form-control" />
-                                    <span asp-validation-for="NumTroop" class="text-danger"></span>
+                                    <label asp-for="TroopId" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="TroopId" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option value="1">409</option>
+                                        <option value="2">410</option>
+                                        <option value="3">411</option>
+                                        <option value="4">412</option>
+                                        <option value="5">313</option>
+                                        <option value="6">314</option>
+                                        <option value="7">315</option>
+                                        <option value="8">305c</option>
+
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Status" class="bmd-label-floating text-dark"></label>
@@ -155,19 +165,20 @@
                                     <span asp-validation-for="Military" class="text-danger"></span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="tab-pane" id="personal_data" role="tabpanel">
                         <div class="row">
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <label asp-for="Birthday" class="bmd-label-floating text-dark"></label>
+                                    <label asp-for="Birthday" class="bmd-label-static text-dark"></label>
                                     <input asp-for="Birthday" type="date" class="form-control" />
                                     <span asp-validation-for="Birthday" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceBirthday" class="bmd-label-floating text-dark"></label>
-                                    <textarea asp-for="PlaceBirthday" class="form-control" />
+                                    <textarea asp-for="PlaceBirthday" class="form-control"></textarea>
                                     <span asp-validation-for="PlaceBirthday" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
@@ -185,6 +196,8 @@
                                     <input asp-for="HomePhone" type="tel" class="form-control" />
                                     <span asp-validation-for="HomePhone" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-sm">
                                 <div class="form-group">
                                     <label asp-for="MobilePhone" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="MobilePhone" type="tel" class="form-control" />
@@ -197,12 +210,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceOfResidence" class="bmd-label-floating text-dark"></label>
-                                    <textarea asp-for="PlaceOfResidence" class="form-control" />
+                                    <textarea asp-for="PlaceOfResidence" class="form-control"></textarea>
                                     <span asp-validation-for="PlaceOfResidence" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="PlaceOfRegestration" class="bmd-label-floating text-dark"></label>
-                                    <textarea asp-for="PlaceOfRegestration" class="form-control" />
+                                    <textarea asp-for="PlaceOfRegestration" class="form-control"></textarea>
                                     <span asp-validation-for="PlaceOfRegestration" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
@@ -221,7 +234,12 @@
                                     <span asp-validation-for="School" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-sm">
+
+                        </div>
+
+                        <h3>Биометрия</h3>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label asp-for="Growth" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="Growth" class="form-control" />
@@ -232,6 +250,8 @@
                                     <input asp-for="ClothihgSize" class="form-control" />
                                     <span asp-validation-for="ClothihgSize" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label asp-for="ShoeSize" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="ShoeSize" class="form-control" />
@@ -242,6 +262,8 @@
                                     <input asp-for="CapSize" class="form-control" />
                                     <span asp-validation-for="CapSize" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label asp-for="MaskSize" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="MaskSize" class="form-control" />
@@ -252,6 +274,8 @@
                                     <input asp-for="ForeignLanguage" class="form-control" />
                                     <span asp-validation-for="ForeignLanguage" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label asp-for="LanguageRank" class="bmd-label-floating text-dark"></label>
                                     <input asp-for="LanguageRank" class="form-control" />
@@ -263,60 +287,72 @@
                                     <span asp-validation-for="BloodType" class="text-danger"></span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
-                            <div class="col-lg-1">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill1" /> @Html.DisplayNameFor(model => model.Skill1)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill2" /> @Html.DisplayNameFor(model => model.Skill2)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill3" /> @Html.DisplayNameFor(model => model.Skill3)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill4" /> @Html.DisplayNameFor(model => model.Skill4)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill5" /> @Html.DisplayNameFor(model => model.Skill5)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input asp-for="Skill6" /> @Html.DisplayNameFor(model => model.Skill6)
-                                            </label>
-                                        </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill1" /> @Html.DisplayNameFor(model => model.Skill1)
+                                        </label>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill2" /> @Html.DisplayNameFor(model => model.Skill2)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill3" /> @Html.DisplayNameFor(model => model.Skill3)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill4" /> @Html.DisplayNameFor(model => model.Skill4)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill5" /> @Html.DisplayNameFor(model => model.Skill5)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill6" /> @Html.DisplayNameFor(model => model.Skill6)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+
                     <div class="tab-pane" id="relatives" role="tabpanel">...</div>
                     <div class="tab-pane" id="photo" role="tabpanel">...</div>
-                </div>
 
+                </div>
 
                 @*<div class="form-group">
                         <label asp-for="Note" class="bmd-label-floating text-dark"></label>
@@ -416,13 +452,14 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a role="button" class="btn btn-outline-primary btn-lg" asp-area="" asp-controller="StudentList" asp-action="Index">К списку студентов</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-<script>$(document).ready(function () {
+<script>
+$(document).ready(function () {
     $('body').bootstrapMaterialDesign();
     $('.form-group>select').parent().removeClass("is-filled");
     $('.form-group>select').change(function () {

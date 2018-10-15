@@ -56,7 +56,8 @@ namespace LKS.Models
 		[JsonIgnore]
 		public virtual List<Relative> Relatives { get; set; }
 		[ForeignKey(nameof(Troop))]
-		public string TroopId { get; set; }
+        [DisplayName("Взвод")]
+        public string TroopId { get; set; }
 		[JsonIgnore]
 		public Troop Troop { get; set; }
 		[DisplayName("Звание")]
