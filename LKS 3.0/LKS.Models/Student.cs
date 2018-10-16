@@ -55,22 +55,28 @@ namespace LKS.Models
 		public string Id { get; set; }
 		[JsonIgnore]
 		public virtual List<Relative> Relatives { get; set; }
+
 		[ForeignKey(nameof(Troop))]
         [DisplayName("Взвод")]
+        [Required(ErrorMessage = "Пожалуйста, выберите взвод!")]
         public string TroopId { get; set; }
 		[JsonIgnore]
 		public Troop Troop { get; set; }
+
 		[DisplayName("Звание")]
 		public string Collness { get; set; }
 
 		[DisplayName("Фамилия")]
-		public string MiddleName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите фамилию!")]
+        public string MiddleName { get; set; }
 
 		[DisplayName("Имя")]
-		public string FirstName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите имя!")]
+        public string FirstName { get; set; }
 
 		[DisplayName("Отчество")]
-		public string LastName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите отчество!")]
+        public string LastName { get; set; }
 
 		[DisplayName("Взвод")]
 		public string NumTroop { get
@@ -91,16 +97,20 @@ namespace LKS.Models
 
 
 		[DisplayName("Группа")]
-		public string InstGroup { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите группу!")]
+        public string InstGroup { get; set; }
 
 		[DisplayName("Курс")]
-		public int Kurs { get; set; }
+        [Range(1, 6, ErrorMessage = "Невозможный курс!")]
+        public int Kurs { get; set; }
 
 		[DisplayName("Факультет")]
-		public string Faculty { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, выберите факультет!")]
+        public string Faculty { get; set; }
 
 		[DisplayName("Специальность в ВУЗе")]
-		public string SpecInst { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите специальность!")]
+        public string SpecInst { get; set; }
 
 		[DisplayName("Условия обучения в ВУЗе")]
 		public string ConditionsOfEducation { get; set; }
@@ -109,28 +119,34 @@ namespace LKS.Models
 		public string AvarageScore { get; set; }
 
 		[DisplayName("Год поступления в МАИ")]
-		public string YearOfAddMAI { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfAddMAI { get; set; }
 
 		[DisplayName("Год окончания МАИ")]
-		public string YearOfEndMAI { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfEndMAI { get; set; }
 
 		[DisplayName("Год поступления на ВК")]
-		public string YearOfAddVK { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfAddVK { get; set; }
 
 		[DisplayName("Год окончания ВК")]
-		public string YearOfEndVK { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfEndVK { get; set; }
 
 		[DisplayName("№ приказа о приеме")]
 		public string NumberOfOrder { get; set; }
 
 		[DisplayName("Дата приказа")]
-		public string DateOfOrder { get; set; }
+        public string DateOfOrder { get; set; }
 
 		[DisplayName("Военкомат")]
-		public string Rectal { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, выберите военкомат!")]
+        public string Rectal { get; set; }
 
 		[DisplayName("Дата рождения")]
-		public string Birthday { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите дату рождения!")]
+        public string Birthday { get; set; }
 
 		[DisplayName("Место рождения")]
 		public string PlaceBirthday { get; set; }
@@ -145,7 +161,8 @@ namespace LKS.Models
 		public string HomePhone { get; set; }
 
 		[DisplayName("Мобильный телефон")]
-		public string MobilePhone { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите телефонв!")]
+        public string MobilePhone { get; set; }
 
 		[DisplayName("Адрес проживания")]
 		public string PlaceOfResidence { get; set; }
@@ -233,6 +250,7 @@ namespace LKS.Models
 		{ get; set; }
 
         [DisplayName("Статус обучения")]
+        [Required(ErrorMessage = "Пожалуйста, выберите статус обучения!")]
         public string Status
 		{ get; set; }
 

@@ -19,7 +19,9 @@ namespace LKS.Web.Controllers
         // GET: AddedStudent/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.InstGroups = studentRepository.GetItems().Select(u => u.InstGroup).ToList();
+            
+            return View(); 
         }
 
         // POST: AddedStudent/Create
@@ -27,8 +29,8 @@ namespace LKS.Web.Controllers
         [ValidateAntiForgeryToken]
         public  ActionResult Create(Student student)//IFormCollection collection)
         {
-			studentRepository.Create(student);
-			return RedirectToAction("Create");
+                studentRepository.Create(student);
+                return RedirectToAction("Create");
 		}
 
         // GET: AddedStudent/Edit/5
