@@ -13,8 +13,6 @@ namespace LKS.DAL.Migrations
                     Id = table.Column<string>(nullable: false),
                     Number = table.Column<string>(nullable: true),
                     VUS = table.Column<string>(nullable: true),
-                    VuzName = table.Column<string>(nullable: true),
-                    VkName = table.Column<string>(nullable: true),
                     SpecialityName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -45,13 +43,11 @@ namespace LKS.DAL.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     PlatoonCommanderId = table.Column<string>(nullable: true),
+                    CycleId = table.Column<string>(nullable: true),
                     PrepodId = table.Column<string>(nullable: true),
                     NumberTroop = table.Column<string>(nullable: true),
-                    StaffCount = table.Column<int>(nullable: false),
-                    Vus = table.Column<string>(nullable: true),
                     SboriTroop = table.Column<bool>(nullable: false),
-                    Day = table.Column<string>(nullable: true),
-                    CycleId = table.Column<string>(nullable: true)
+                    Day = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,7 +76,6 @@ namespace LKS.DAL.Migrations
                     MiddleName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    NumTroop = table.Column<string>(nullable: true),
                     Rank = table.Column<string>(nullable: true),
                     InstGroup = table.Column<string>(nullable: true),
                     Kurs = table.Column<int>(nullable: false),
@@ -100,7 +95,7 @@ namespace LKS.DAL.Migrations
                     Nationality = table.Column<string>(nullable: true),
                     Citizenship = table.Column<string>(nullable: true),
                     HomePhone = table.Column<string>(nullable: true),
-                    MobilePhonec = table.Column<string>(nullable: true),
+                    MobilePhone = table.Column<string>(nullable: true),
                     PlaceOfResidence = table.Column<string>(nullable: true),
                     PlaceOfRegestration = table.Column<string>(nullable: true),
                     Military = table.Column<string>(nullable: true),

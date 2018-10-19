@@ -34,12 +34,23 @@ namespace LKS.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			services.AddDbContext<LKSDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // Use SQL Database if in Azure, otherwise, use SQLite
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<LKSDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+            else
+                services.AddDbContext<LKSDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("DefConnection")));
 
-			services.AddTransient<IStudentRepository, StudentRepository>();
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<LKSDbContext>().Database.Migrate();
+
+            services.AddTransient<IStudentRepository, StudentRepository>();
 			services.AddTransient<IRelativeRepository, RelativeRepository>();
 			services.AddTransient<ITroopRepository, TroopRepository>();
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
+			services.AddTransient<ICycleRepository, CycleRepository>();
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 

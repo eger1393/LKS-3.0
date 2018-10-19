@@ -1,52 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LKS.DAL.Abstract;
+﻿using LKS.DAL.Abstract;
 using LKS.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
+using System.Linq;
 
 namespace LKS.Web.Controllers
 {
-    public class StudentListController : Controller
-    {
-		private const int pageSize = 2;
+	public class StudentListController : Controller
+	{
+		private const int pageSize = 20;
 		IStudentRepository studentRepository;
-		public StudentListController(IStudentRepository studentRepository)
+		ICycleRepository cycleRepository;
+		public StudentListController(IStudentRepository studentRepository, ICycleRepository cycleRepository)
 		{
+			this.cycleRepository = cycleRepository;
 			this.studentRepository = studentRepository;
 		}
-		
-        public IActionResult Index()
-        {
+
+		public IActionResult Index()
+		{
 			var model = studentRepository.GetItems().ToList();//todo
-            ViewBag.pageSize = pageSize;
+			ViewBag.pageSize = pageSize;
 			return View(model);
-        }
+		}
 
 		[HttpPost]
 		public JsonResult GetStudents([FromBody]Newtonsoft.Json.Linq.JObject data)
 		{
-			var students = studentRepository.GetItems();
+			var students = studentRepository.GetItems().Include(ob => ob.Troop).ThenInclude(ob => ob.Cycle).AsQueryable();
 			int page;
-			string sort = data.GetValue("sort").ToString(),
-				filter = data.GetValue("filter").ToString(),
-				filterCol = data.GetValue("filterCol").ToString();
+			string sort = data.GetValue("sort")?.ToString(),
+				filter = data.GetValue("filter")?.ToString(),
+				filterCol = data.GetValue("filterCol")?.ToString(),
+				cycle = data.GetValue("selectCycle")?.ToString(),
+				troop = data.GetValue("selectTroop")?.ToString();
+			if(!String.IsNullOrWhiteSpace(cycle) && cycle != "#")
+			{
+				students = students.Where(ob => ob.Troop.Cycle.Number == cycle);
+			}
+			if (!String.IsNullOrWhiteSpace(troop))
+			{
+				students = students.Where(ob => ob.Troop.NumberTroop == troop);
+			}
 			if (!String.IsNullOrWhiteSpace(filter) && !String.IsNullOrWhiteSpace(filterCol))
 			{
 				students = FilterStudents(students, filter, filterCol);
 			}
 			if (Int32.TryParse(data.GetValue("page").ToString(), out page) && sort != null)
 			{
-				
+
 				students = SortStudents(students, sort);
-                int count = students.Count();
+				int count = students.Count();
 				students = students.Skip((page - 1) * pageSize).Take(pageSize);
-				return Json(new { ok = true, count, students = students.ToList() });
+				return Json(new
+				{
+					ok = true,
+					count,
+					students = students.ToList()
+				});
 			}
 			return Json(new { ok = false });
 		}
+
 		
+		public JsonResult GetCycle(string cycleId = null)
+		{
+			if (cycleId == null || cycleId == "#")
+			{
+				return Json(cycleRepository.GetItems().Select(p => new
+				{
+					id = "cycle-" + p.Id,
+					parent = "#",
+					text = p.Number,
+					children = true,
+				}));
+			}
+			else
+			{
+				string correctCycleId = cycleId.Replace("cycle-", "");
+				return Json(cycleRepository.GetItems().Include(ob => ob.Troops).FirstOrDefault(ob => ob.Id == correctCycleId)?.Troops.Select(p => new
+				{
+					id = "trop-" + p.Id,
+					parent = cycleId,
+					text = p.NumberTroop,
+					children = false,
+				}));
+			}
+		}
+
 		private IQueryable<Student> FilterStudents(IQueryable<Student> students, string filterText, string filterColumn)
 		{
 			filterText = filterText.ToLower();
@@ -56,7 +99,7 @@ namespace LKS.Web.Controllers
 				case "middlename": return students.Where(ob => ob.MiddleName.ToLower().Contains(filterText));
 				case "firstname": return students.Where(ob => ob.FirstName.ToLower().Contains(filterText));
 				case "lastname": return students.Where(ob => ob.LastName.ToLower().Contains(filterText));
-				case "numtroop": return students.Where(ob => ob.NumTroop.ToLower().Contains(filterText));
+				case "numtroop": return students.Where(ob => ob.Troop.NumberTroop.ToLower().Contains(filterText));
 				default: return students;
 			}
 		}
@@ -76,108 +119,23 @@ namespace LKS.Web.Controllers
 				default: return students.OrderBy(ob => ob.NumTroop);
 			}
 		}
+
+		public OkResult createStudents()
+		{
+			var troops = cycleRepository.GetItems().Include(ob => ob.Troops).FirstOrDefault()?.Troops;
+			System.Collections.Generic.List<Student> students = new System.Collections.Generic.List<Student>();
+			for(int i = 0; i < 10000; i++)
+			{
+				students.Add(new Student
+				{
+					FirstName = "fName" + i,
+					LastName = "lName" + i,
+					MiddleName = "mName" + i,
+					TroopId = "1"
+				});
+			}
+			studentRepository.CreateRange(students);
+			return new OkResult();
+		}
 	}
 }
-
-
-//@foreach(var item in Model)
-//{
-//            < tr >
-//                < td >
-//                    @Html.DisplayFor(model => item.MiddleName)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.FirstName)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.LastName)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.NumTroop)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Rank)
-//                </ td >
-//                @*< td >
-//                    @Html.DisplayFor(model => item.SpecialityName)
-//                </ td > *@
-//                < td >
-//                    @Html.DisplayFor(model => item.InstGroup)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Kurs)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Faculty)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.SpecInst)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.ConditionsOfEducation)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.AvarageScore)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.YearOfAddMAI)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.YearOfEndMAI)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.YearOfAddVK)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.YearOfEndVK)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.NumberOfOrder)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.DateOfOrder)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Rectal)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Birthday)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.PlaceBirthday)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Nationality)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Citizenship)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.HomePhone)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.MobilePhonec)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.PlaceOfResidence)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.PlaceOfRegestration)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Military)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.FamiliStatys)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.School)
-//                </ td >
-//                < td >
-//                    @Html.DisplayFor(model => item.Two_MobilePhone)
-//                </ td >
-//                @*< td >
-//                    @Html.DisplayFor(model => item.VuzName)
-//                </ td > *@
-//            </ tr >
-//        }

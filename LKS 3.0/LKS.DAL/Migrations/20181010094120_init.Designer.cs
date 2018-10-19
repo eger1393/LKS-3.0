@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LKS.DAL.Migrations
 {
     [DbContext(typeof(LKSDbContext))]
-    [Migration("20181005132742_init")]
+    [Migration("20181010094120_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -30,10 +30,6 @@ namespace LKS.DAL.Migrations
                     b.Property<string>("SpecialityName");
 
                     b.Property<string>("VUS");
-
-                    b.Property<string>("VkName");
-
-                    b.Property<string>("VuzName");
 
                     b.HasKey("Id");
 
@@ -165,13 +161,11 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("Military");
 
-                    b.Property<string>("MobilePhonec");
+                    b.Property<string>("MobilePhone");
 
                     b.Property<string>("Nationality");
 
                     b.Property<string>("Note");
-
-                    b.Property<string>("NumTroop");
 
                     b.Property<string>("NumberOfOrder");
 
@@ -249,10 +243,6 @@ namespace LKS.DAL.Migrations
 
                     b.Property<bool>("SboriTroop");
 
-                    b.Property<int>("StaffCount");
-
-                    b.Property<string>("Vus");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CycleId");
@@ -278,7 +268,7 @@ namespace LKS.DAL.Migrations
 
             modelBuilder.Entity("LKS.Models.Troop", b =>
                 {
-                    b.HasOne("LKS.Models.Cycle")
+                    b.HasOne("LKS.Models.Cycle", "Cycle")
                         .WithMany("Troops")
                         .HasForeignKey("CycleId");
 

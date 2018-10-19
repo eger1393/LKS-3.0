@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,17 +32,7 @@ namespace LKS.Models
 	{
 		public Student() // Конструктор по умолчанию
 		{
-			//Разве по умолчанию не false?
-			// Skill1 = false;
-			// Skill2 = false;
-			// Skill3 = false;
-			// Skill4 = false;
-			// Skill5 = false;
-			// Skill6 = false;
-			// Exhortation = false;
 			
-			// Зачем???
-			 Birthday = "";
 
 			Zapas = true;
 			ProjectOrder = true;
@@ -51,12 +42,6 @@ namespace LKS.Models
 			WhoseOrder = "МО РФ";
 			VO = "МВО";
 			Fighting = "не участвовал";
-
-			//Перенес в сущность "цикл"
-			//VUS = "042600";
-			// VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
-			// VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
-			//SpecialityName = "Боевое применение частей и подразделений войсковой ПВО";
 		}
 
 		public string Initials
@@ -68,43 +53,64 @@ namespace LKS.Models
 		}
 		[Key]
 		public string Id { get; set; }
+		[JsonIgnore]
 		public virtual List<Relative> Relatives { get; set; }
+
 		[ForeignKey(nameof(Troop))]
-		public string TroopId { get; set; }
+        [DisplayName("Взвод")]
+        [Required(ErrorMessage = "Пожалуйста, выберите взвод!")]
+        public string TroopId { get; set; }
+		[JsonIgnore]
 		public Troop Troop { get; set; }
+
 		[DisplayName("Звание")]
 		public string Collness { get; set; }
 
 		[DisplayName("Фамилия")]
-		public string MiddleName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите фамилию!")]
+        public string MiddleName { get; set; }
 
 		[DisplayName("Имя")]
-		public string FirstName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите имя!")]
+        public string FirstName { get; set; }
 
 		[DisplayName("Отчество")]
-		public string LastName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите отчество!")]
+        public string LastName { get; set; }
 
 		[DisplayName("Взвод")]
-		public string NumTroop { get; set; }
+		public string NumTroop { get
+			{
+				return Troop?.NumberTroop ?? "none";
+			}
+		}
 
 		[DisplayName("Должность")]
 		public string Rank { get; set; }
 
 
-		//public string SpecialityName { get; set; } // МБ убрать это из студента(она всеравно константна)
-		//да, я убрал в цикл
+		public string SpecialityName { get
+			{
+				return Troop?.Cycle?.SpecialityName ?? "none";
+			}
+		}
+
 
 		[DisplayName("Группа")]
-		public string InstGroup { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите группу!")]
+        public string InstGroup { get; set; }
 
 		[DisplayName("Курс")]
-		public int Kurs { get; set; }
+        [Range(1, 6, ErrorMessage = "Невозможный курс!")]
+        public int Kurs { get; set; }
 
 		[DisplayName("Факультет")]
-		public string Faculty { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, выберите факультет!")]
+        public string Faculty { get; set; }
 
 		[DisplayName("Специальность в ВУЗе")]
-		public string SpecInst { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите специальность!")]
+        public string SpecInst { get; set; }
 
 		[DisplayName("Условия обучения в ВУЗе")]
 		public string ConditionsOfEducation { get; set; }
@@ -113,28 +119,34 @@ namespace LKS.Models
 		public string AvarageScore { get; set; }
 
 		[DisplayName("Год поступления в МАИ")]
-		public string YearOfAddMAI { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfAddMAI { get; set; }
 
 		[DisplayName("Год окончания МАИ")]
-		public string YearOfEndMAI { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfEndMAI { get; set; }
 
 		[DisplayName("Год поступления на ВК")]
-		public string YearOfAddVK { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfAddVK { get; set; }
 
 		[DisplayName("Год окончания ВК")]
-		public string YearOfEndVK { get; set; }
+        [Range(1950, 2050, ErrorMessage = "Невозможный год!")]
+        public string YearOfEndVK { get; set; }
 
 		[DisplayName("№ приказа о приеме")]
 		public string NumberOfOrder { get; set; }
 
 		[DisplayName("Дата приказа")]
-		public string DateOfOrder { get; set; }
+        public string DateOfOrder { get; set; }
 
 		[DisplayName("Военкомат")]
-		public string Rectal { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, выберите военкомат!")]
+        public string Rectal { get; set; }
 
 		[DisplayName("Дата рождения")]
-		public string Birthday { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите дату рождения!")]
+        public string Birthday { get; set; }
 
 		[DisplayName("Место рождения")]
 		public string PlaceBirthday { get; set; }
@@ -149,7 +161,8 @@ namespace LKS.Models
 		public string HomePhone { get; set; }
 
 		[DisplayName("Мобильный телефон")]
-		public string MobilePhonec { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, введите телефонв!")]
+        public string MobilePhone { get; set; }
 
 		[DisplayName("Адрес проживания")]
 		public string PlaceOfResidence { get; set; }
@@ -162,28 +175,32 @@ namespace LKS.Models
 
 		[DisplayName("Семейное положение")]
 		public string FamiliStatys { get; set; }
-
-		public string School { get; set; }
-		public string Two_MobilePhone { get; set; }
+        [DisplayName("Школа")]
+        public string School { get; set; }
+        [DisplayName("Доп. мобильный телефон")]
+        public string Two_MobilePhone { get; set; }
 		public string Note { get; set; }
 
 		public string ImagePath { get; set; }
-		public bool Skill1
+        [DisplayName("Языки программирования (С,С++,С#)")]
+        public bool Skill1
+		{ get; set; }
+        [DisplayName("Microsoft Office")]
+        public bool Skill2
+		{ get; set; }
+        [DisplayName("Adobe Photoshop")]
+        public bool Skill3
+		{ get; set; }
+        [DisplayName("Электроника, электротехника")]
+        public bool Skill4
+		{ get; set; }
+        [DisplayName("Настройка локальных сетей")]
+        public bool Skill5
+		{ get; set; }
+        [DisplayName("Другие полезные навыки")]
+        public bool Skill6
 		{ get; set; }
 
-		public bool Skill2
-		{ get; set; }
-
-		public bool Skill3
-		{ get; set; }
-		public bool Skill4
-		{ get; set; }
-
-		public bool Skill5
-		{ get; set; }
-
-		public bool Skill6
-		{ get; set; }
 
 		public bool Zapas
 		{ get; set; }
@@ -203,32 +220,38 @@ namespace LKS.Models
 		public string Fighting
 		{ get; set; }
 
-		// public string VUS // код специальности
-		// { get; set; } ПЕРЕНЕС В ЦИКЛ
-		public string BloodType
+        // public string VUS // код специальности
+        // { get; set; } ПЕРЕНЕС В ЦИКЛ
+        [DisplayName("Группа крови")]
+        public string BloodType
+		{ get; set; }
+        [DisplayName("Рост")]
+        public string Growth
+		{ get; set; }
+        [DisplayName("Размер одежды")]
+        public string ClothihgSize
+		{ get; set; }
+        [DisplayName("Размер обуви")]
+        public string ShoeSize
+		{ get; set; }
+        [DisplayName("Размер головного убора")]
+        public string CapSize
+		{ get; set; }
+        [DisplayName("Размер противогаза")]
+        public string MaskSize
 		{ get; set; }
 
-		public string Growth
+
+        [DisplayName("Иностранный язык")]
+        public string ForeignLanguage
+		{ get; set; }
+        [DisplayName("Степень владения")]
+        public string LanguageRank
 		{ get; set; }
 
-		public string ClothihgSize
-		{ get; set; }
-
-		public string ShoeSize
-		{ get; set; }
-		public string CapSize
-		{ get; set; }
-
-		public string MaskSize
-		{ get; set; }
-
-		public string ForeignLanguage
-		{ get; set; }
-
-		public string LanguageRank
-		{ get; set; }
-
-		public string Status
+        [DisplayName("Статус обучения")]
+        [Required(ErrorMessage = "Пожалуйста, выберите статус обучения!")]
+        public string Status
 		{ get; set; }
 
 		public int AssessmentProtocolOneTheory
