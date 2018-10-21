@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace LKS_3._0
@@ -14,41 +14,35 @@ namespace LKS_3._0
     {
         private string numberTroop, day, vus;
 
-
-
-        public Student PlatoonCommander;
-
         private BindingList<Student> students;
 
-
+        public Student PlatoonCommander
+        {
+            get
+            {
+                return this.Students.FirstOrDefault(u => u.Rank == Troop.Ranks[1]);
+            }
+        }
+        public Prepod Prepod { get; set; }
 
         private bool sboriTroop;
-
-        private int staffCount;
-        private int? ID_PC;
 
         public static List<string> Ranks = new List<string>() { " ","КВ", "ЗКВ",
         "КО1",
         "КО2",
         "КО3",
-        "Старший_секретчик",
-        "Секретчик",
-        "Журналист",
+        "СтС",
+        "С",
+        "Ж",
         };
         public Troop()
         {
             Students = new BindingList<Student>();
-            StaffCount = Students.Count;
-            PrepodId = null;
-            ID_PC = null;
         }
         public Troop(string temp_TroopNumber)
         {
             NumberTroop = temp_TroopNumber;
             Students = new BindingList<Student>();
-            StaffCount = Students.Count;
-            PrepodId = null;
-            ID_PC = null;
         }
         public int Id { get; set; }
 
@@ -72,13 +66,9 @@ namespace LKS_3._0
         {
             get
             {
-                return staffCount;
+                return Students.Count();
             }
-            set
-            {
-                staffCount = value;
-                OnPropertyChanged();
-            }
+
         }
 
         [RusName("ВУС")]
@@ -96,25 +86,6 @@ namespace LKS_3._0
             }
         }
 
-
-        public int? PrepodId { get; set; }
-
-        public Prepod Prepod { get; set; }
-        public int? Id_PC
-        {
-            get
-            {
-                return ID_PC;
-            }
-            set
-            {
-                if (value == 0)
-                {
-                    PlatoonCommander = null;
-                }
-                ID_PC = value;
-            }
-        }
         [RusName("Взвод для сборов?")]
         public bool SboriTroop
         {

@@ -524,7 +524,7 @@ namespace LKS_3._0
 
                           Students = SelectedTroop.Students;
 
-                          SelectedTroop.StaffCount = SelectedTroop.Students.Count;
+                          //SelectedTroop.StaffCount = SelectedTroop.Students.Count;
                       }
 
 				  }));
@@ -1346,13 +1346,13 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
             SelectedTroop = new Troop();
 
-            foreach (Troop item in Troops)
-            {
-                if (item.Id_PC != 0)
-                {
-                    item.PlatoonCommander = Students.FirstOrDefault(u => u.Id == item.Id_PC);
-                }
-            }
+            //foreach (Troop item in Troops)
+            //{
+            //    if (item.Id_PC != 0)
+            //    {
+            //        item.PlatoonCommander = Students.FirstOrDefault(u => u.Id == item.Id_PC);
+            //    }
+            //}
 
         }
 

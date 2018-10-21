@@ -261,12 +261,12 @@ namespace LKS_3._0
 
             if (CbRank.Text == "КВ")
             {
-                viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).PlatoonCommander = viewModel.AddedStudent;
+               // viewModel.AddedStudent.Troop.FirstOrDefault(u => u.SboriTroop == false).PlatoonCommander = viewModel.AddedStudent;
             }
             else if(tmp != null)
             {
-                tmp.PlatoonCommander = null;
-                tmp.Id_PC = null;
+                //tmp.PlatoonCommander = null;
+                //tmp.Id_PC = null;
             }
 
             if (string.IsNullOrEmpty(viewModel.AddedStudent.MiddleName)) // почему именно фамилия??

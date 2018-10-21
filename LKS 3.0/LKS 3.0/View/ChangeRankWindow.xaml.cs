@@ -33,24 +33,25 @@ namespace LKS_3._0.View
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-            if(comboBoxRank.Text != "")
+            if (comboBoxRank.Text != "")
             {
-                selec_st.Rank = comboBoxRank.Text;
-
-                if(comboBoxRank.Text == "КВ")
+                if (comboBoxRank.Text == Troop.Ranks[1])
                 {
-                    selec_st.Troop.FirstOrDefault(u => u.SboriTroop == false).PlatoonCommander = selec_st;
+                    Troop select_troop = selec_st.Troop.FirstOrDefault(u => u.SboriTroop == false);
+                    Student last_PC = select_troop.PlatoonCommander;
+                    if (last_PC != null)
+                    {
+                        last_PC.Rank = Troop.Ranks[0];
+                    }
+
+                    selec_st.Rank = Troop.Ranks[1];
+                    //select_troop.Id_PC = selec_st.Id;
+                    //select_troop.PlatoonCommander = selec_st;
                 }
-
-
-                var tmp = selec_st.Troop.FirstOrDefault(u => u.PlatoonCommander == selec_st);
-
-                if(tmp != null && comboBoxRank.Text != "КВ")
+                else
                 {
-                    tmp.Id_PC = null;
-                    tmp.PlatoonCommander = null;
+                    selec_st.Rank = comboBoxRank.Text;
                 }
-
                 DialogResult = true;
                 Close();
             }
@@ -58,7 +59,8 @@ namespace LKS_3._0.View
             {
                 MessageBox.Show("Выберите должность!", "Ошибка!");
             }
-            
+
+
         }
     }
 }

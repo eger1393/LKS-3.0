@@ -105,10 +105,10 @@ namespace LKS_3._0
         }
         public void UpdateIdRelatives() // TODO
         {
-            foreach (var item in Relatives)
-            {
-                item.StudentId = this.Id;
-            }
+            //foreach (var item in Relatives)
+            //{
+            //    item.StudentId = this.Id;
+            //}
         }
         public int Id { get; set; }
 

@@ -74,11 +74,11 @@ namespace LKS_3._0.ViewModel
             //}
 
             ListStudentsTroopSbori = Select_TroopSbori.Students;
-            Select_TroopSbori.StaffCount = ListStudentsTroopSbori.Count;
+            //Select_TroopSbori.StaffCount = ListStudentsTroopSbori.Count;
 
 
             ListStudentsTroopCurrent = Select_TroopCurrent.Students;
-            Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
+            //Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
 
             SelectPrepod = Select_TroopSbori.Prepod;
         }

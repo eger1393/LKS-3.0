@@ -63,9 +63,10 @@ namespace LKS_3._0.ViewModel
 
 		private RadioOptions radioOptionsDocOnTroop = RadioOptions.None,
 			radioOptionsJernal = RadioOptions.None,
-			radioOptionsLKS = RadioOptions.None;
+			radioOptionsLKS = RadioOptions.None,
+            radioOptionsAllDoc = RadioOptions.None;
 
-		private RadioSortOptions sort = RadioSortOptions.None;
+        private RadioSortOptions sort = RadioSortOptions.None;
 		Troop selectedTroopDocOnTroop,
 			selectedTroopJernal;
 		private int count; // кол-во документов для печати
@@ -370,7 +371,64 @@ namespace LKS_3._0.ViewModel
 										}
 										break;
 									}
-							}
+                                case 4: //  Общие документы
+                                    {
+
+                                            List<Student> tempList = Students.ToList();
+                                            
+                                           
+
+                                            switch (radioOptionsAllDoc)
+                                            {
+                                                case RadioOptions.Option1:
+                                                    {
+                                                        tempList = tempList.Where(u => u.Status == "Обучается").ToList();
+                                                        if (Sort != RadioSortOptions.None)
+                                                        {
+                                                            tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+                                                        }
+                                                    Model.Templates temp = new Model.Templates(
+                                                            System.IO.Path.GetFullPath(@".\TemplatesOff\Список обучающихся на цикле.docx"),
+                                                            ref temp_DataBase, tempList, null, null);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option2:
+                                                    {
+                                                        tempList = tempList.Where(u => u.IsSuspended == true).ToList();
+                                                        if (Sort != RadioSortOptions.None)
+                                                        {
+                                                            tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+                                                        }
+                                                    Model.Templates temp = new Model.Templates(
+                                                            System.IO.Path.GetFullPath(@".\TemplatesOff\Список студентов на отчисление.docx"),
+                                                            ref temp_DataBase, tempList, null, null);
+                                                    }
+                                                    break;
+                                                case RadioOptions.Option3:
+                                                    {
+                                                        tempList = tempList.Where(u => u.Status == "Отстранен").ToList();
+                                                        if (Sort != RadioSortOptions.None)
+                                                        {
+                                                            tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+                                                        }
+                                                    Model.Templates temp = new Model.Templates(
+                                                            System.IO.Path.GetFullPath(@".\TemplatesOff\Список отчисленных студентов.docx"),
+                                                            ref temp_DataBase, tempList, null,null);
+                                                    }
+                                                                                              break;
+                                                case RadioOptions.None:
+                                                    {
+                                                        System.Windows.MessageBox.Show("Выберите шаблон!");
+                                                    }
+                                                    break;
+                                                default:
+                                                    System.Windows.MessageBox.Show("Ошибка! Шаблон отсутствует!");
+                                                    break;
+                                            }
+
+                                        break;
+                                    }
+                            }
 						}
 						catch (Exception ex)
 						{
@@ -408,7 +466,22 @@ namespace LKS_3._0.ViewModel
 			}
 		}
 
-		public RadioOptions RadioOptionsDocOnTroop
+        public RadioOptions RadioOptionsAllDoc
+        {
+            get
+            {
+                return radioOptionsAllDoc;
+            }
+
+            set
+            {
+                radioOptionsAllDoc = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public RadioOptions RadioOptionsDocOnTroop
 		{
 			get
 			{

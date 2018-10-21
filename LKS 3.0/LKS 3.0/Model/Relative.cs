@@ -21,8 +21,6 @@ namespace LKS_3._0
 			mobilePhone, // мобильный телефон 
 			relationDegree, // степень родства
 			healthStatus; // состояние здоровья
-        public int? StudentId
-        { get; set; }
         public Student Student { get; set; }
 
 

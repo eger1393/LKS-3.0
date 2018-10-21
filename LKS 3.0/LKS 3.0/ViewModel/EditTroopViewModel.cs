@@ -30,10 +30,10 @@ namespace LKS_3._0.ViewModel
             DataBaseTr = temp_DB;
             Troops = temp_DB.Troops.Local.ToBindingList();
 
-            foreach (var item in Troops)
-            {
-                item.StaffCount = item.Students.Count;
-            }
+            //foreach (var item in Troops)
+            //{
+            //    item.StaffCount = item.Students.Count;
+            //}
         }
 
         private RelayCommand saveChangeCommand,deleteCommand,exelentCommand,updatePCCommand, updateRPCommand,editCommand,addCommand;
@@ -164,7 +164,8 @@ namespace LKS_3._0.ViewModel
                   (updatePCCommand = new RelayCommand((selectedItem) =>
                   {
                       // если ни одного объекта не выделено, выходим
-                      if (selectedItem == null) return;
+                      if ((selectedItem == null)) return;
+
 
                       Student temp = selectedItem as Student;
 
@@ -175,12 +176,12 @@ namespace LKS_3._0.ViewModel
                       }
                      
                       temp.Rank = Troop.Ranks[1];
-                      SelectTroop.Id_PC = temp.Id;
-                      SelectTroop.PlatoonCommander = temp;
-                
+                      //SelectTroop.Id_PC = temp.Id;
+                      //SelectTroop.PlatoonCommander = temp;
 
 
-                  }));
+
+                  },(obj) => SelectStudent != null));
             }
         }
 
@@ -192,7 +193,7 @@ namespace LKS_3._0.ViewModel
                   (updateRPCommand = new RelayCommand((selectedItem) =>
                   {
                       // если ни одного объекта не выделено, выходим
-                      if (selectedItem == null) return;
+                      if ((selectedItem == null)) return;
 
                       Prepod temp = selectedItem as Prepod;
 
@@ -200,7 +201,7 @@ namespace LKS_3._0.ViewModel
                       SelectTroop.Prepod = temp;
 
 
-                  }));
+                  },(obj) => SelectStudent != null));
             }
         }
         public BindingList<Troop> Troops
