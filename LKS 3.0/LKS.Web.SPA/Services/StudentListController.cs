@@ -15,10 +15,10 @@ namespace LKS.Web.SPA.Services
 		IStudentRepository stydentRepository;
 		public StudentListController(IStudentRepository studentRepository)
 		{
-			this.stydentRepository = stydentRepository;
+			this.stydentRepository = studentRepository;
 		}
 
-		[HttpPost]
+		[HttpPost("[action]")]
 		public  async Task<IActionResult> GetStudents()
 		{
 			var data = stydentRepository.GetItems().Take(20).ToList();
