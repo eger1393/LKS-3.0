@@ -11,6 +11,7 @@ class StydentsList extends React.Component<{}, { data: object, }> {
         data: {},
     }
 
+
     getStudents = async () => {
         let self = this
         await axios({
@@ -28,12 +29,11 @@ class StydentsList extends React.Component<{}, { data: object, }> {
                 console.log('ERR!');
             }
         )
+        return;
     }
-
-    componentDidMount() {
-        await this.getStudents();
+    componentWillMount() {
+        this.getStudents();
     }
-
 
     render() {
         return (

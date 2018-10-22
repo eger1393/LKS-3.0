@@ -11,6 +11,7 @@
     <Compile Remove="Migrations\20181005132200_migr2.cs" />
     <Compile Remove="Migrations\20181006113558_migr2.cs" />
     <Compile Remove="Migrations\20181009113459_test2.cs" />
+    <Compile Remove="Migrations\20181010094120_init.cs" />
   </ItemGroup>
 
   <ItemGroup>
