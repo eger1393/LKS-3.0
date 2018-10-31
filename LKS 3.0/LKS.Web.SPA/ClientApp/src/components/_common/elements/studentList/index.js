@@ -4,41 +4,33 @@ import axios from 'axios'
 import Input from '../../Input'
 import { Container } from './styled'
 
-const GET_STUDENTS_URL = '/api/studentList/GetStudents'
+const GET_STUDENTS_URL = '/api/StudentList/GetStudents'
 
 class StydentsList extends React.Component<{}, { data: object, }> {
     state = {
         data: {},
     }
 
+
     getStudents = async () => {
         let self = this
-        await axios({
+        let result = await axios({
             url: GET_STUDENTS_URL,
             method: 'post',
             headers: { 'Content-type': 'text/json; charset=UTF-8' },
-            //data: this.state.fieldsValue['friend-phone'],
-        }).then(
-            function (query) {
-                self.setState({
-                    data: query.data.data
-                });
-            },
-            function (query) {
-                console.log('ERR!');
-            }
-        )
+        });
+        var t = 'test';
+        await result;
+        return true;
     }
-
-    componentDidMount() {
-        await this.getStudents();
+    componentWillMount() {
+       var res = this.getStudents();
     }
-
 
     render() {
         return (
             <Container>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th nowrap>
@@ -74,7 +66,22 @@ class StydentsList extends React.Component<{}, { data: object, }> {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {this.state.data.map(function() {
+                            return (
+                                <tr>
+                                    <th>ob.middleName</th>
+                                    <th>ob.firstName</th>
+                                    <th>ob.lastName</th>
+                                    <td>ob.numTroop</td>
+                                    <td>ob.rank</td>
+                                    <td>ob.specialityName</td>
+                                    <td>ob.instGroup</td>
+                                    <td>ob.kurs</td>
+                                    <td>ob.faculty</td>
+                                    <td>ob.specInst</td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </Container>

@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LKS.DAL.Migrations
 {
     [DbContext(typeof(LKSDbContext))]
-    [Migration("20181010094120_init")]
+    [Migration("20181022065745_'init'")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -113,7 +113,8 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("AvarageScore");
 
-                    b.Property<string>("Birthday");
+                    b.Property<string>("Birthday")
+                        .IsRequired();
 
                     b.Property<string>("BloodType");
 
@@ -131,13 +132,15 @@ namespace LKS.DAL.Migrations
 
                     b.Property<bool>("Exhortation");
 
-                    b.Property<string>("Faculty");
+                    b.Property<string>("Faculty")
+                        .IsRequired();
 
                     b.Property<string>("FamiliStatys");
 
                     b.Property<string>("Fighting");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
                     b.Property<string>("ForeignLanguage");
 
@@ -147,21 +150,25 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("ImagePath");
 
-                    b.Property<string>("InstGroup");
+                    b.Property<string>("InstGroup")
+                        .IsRequired();
 
                     b.Property<int>("Kurs");
 
                     b.Property<string>("LanguageRank");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<string>("MaskSize");
 
-                    b.Property<string>("MiddleName");
+                    b.Property<string>("MiddleName")
+                        .IsRequired();
 
                     b.Property<string>("Military");
 
-                    b.Property<string>("MobilePhone");
+                    b.Property<string>("MobilePhone")
+                        .IsRequired();
 
                     b.Property<string>("Nationality");
 
@@ -179,7 +186,8 @@ namespace LKS.DAL.Migrations
 
                     b.Property<string>("Rank");
 
-                    b.Property<string>("Rectal");
+                    b.Property<string>("Rectal")
+                        .IsRequired();
 
                     b.Property<string>("School");
 
@@ -197,11 +205,14 @@ namespace LKS.DAL.Migrations
 
                     b.Property<bool>("Skill6");
 
-                    b.Property<string>("SpecInst");
+                    b.Property<string>("SpecInst")
+                        .IsRequired();
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .IsRequired();
 
-                    b.Property<string>("TroopId");
+                    b.Property<string>("TroopId")
+                        .IsRequired();
 
                     b.Property<string>("Two_MobilePhone");
 
@@ -263,7 +274,8 @@ namespace LKS.DAL.Migrations
                 {
                     b.HasOne("LKS.Models.Troop", "Troop")
                         .WithMany("Students")
-                        .HasForeignKey("TroopId");
+                        .HasForeignKey("TroopId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LKS.Models.Troop", b =>

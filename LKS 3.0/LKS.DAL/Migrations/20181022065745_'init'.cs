@@ -71,16 +71,16 @@ namespace LKS.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    TroopId = table.Column<string>(nullable: true),
+                    TroopId = table.Column<string>(nullable: false),
                     Collness = table.Column<string>(nullable: true),
-                    MiddleName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    MiddleName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
                     Rank = table.Column<string>(nullable: true),
-                    InstGroup = table.Column<string>(nullable: true),
+                    InstGroup = table.Column<string>(nullable: false),
                     Kurs = table.Column<int>(nullable: false),
-                    Faculty = table.Column<string>(nullable: true),
-                    SpecInst = table.Column<string>(nullable: true),
+                    Faculty = table.Column<string>(nullable: false),
+                    SpecInst = table.Column<string>(nullable: false),
                     ConditionsOfEducation = table.Column<string>(nullable: true),
                     AvarageScore = table.Column<string>(nullable: true),
                     YearOfAddMAI = table.Column<string>(nullable: true),
@@ -89,13 +89,13 @@ namespace LKS.DAL.Migrations
                     YearOfEndVK = table.Column<string>(nullable: true),
                     NumberOfOrder = table.Column<string>(nullable: true),
                     DateOfOrder = table.Column<string>(nullable: true),
-                    Rectal = table.Column<string>(nullable: true),
-                    Birthday = table.Column<string>(nullable: true),
+                    Rectal = table.Column<string>(nullable: false),
+                    Birthday = table.Column<string>(nullable: false),
                     PlaceBirthday = table.Column<string>(nullable: true),
                     Nationality = table.Column<string>(nullable: true),
                     Citizenship = table.Column<string>(nullable: true),
                     HomePhone = table.Column<string>(nullable: true),
-                    MobilePhone = table.Column<string>(nullable: true),
+                    MobilePhone = table.Column<string>(nullable: false),
                     PlaceOfResidence = table.Column<string>(nullable: true),
                     PlaceOfRegestration = table.Column<string>(nullable: true),
                     Military = table.Column<string>(nullable: true),
@@ -124,7 +124,7 @@ namespace LKS.DAL.Migrations
                     MaskSize = table.Column<string>(nullable: true),
                     ForeignLanguage = table.Column<string>(nullable: true),
                     LanguageRank = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: false),
                     AssessmentProtocolOneTheory = table.Column<int>(nullable: false),
                     AssessmentProtocolOnePractice = table.Column<int>(nullable: false),
                     AssessmentProtocolOneFinal = table.Column<int>(nullable: false),
@@ -141,7 +141,7 @@ namespace LKS.DAL.Migrations
                         column: x => x.TroopId,
                         principalTable: "Troops",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
