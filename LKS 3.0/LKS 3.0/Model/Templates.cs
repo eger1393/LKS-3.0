@@ -49,7 +49,7 @@ namespace LKS_3._0.Model
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().Students.ToList();
+                this.students = troops.First().Students.Where(u => u.Status == "Обучается" || u.Status == "На сборах").ToList();
 				selectedTrop = troops.First();
 			}
 			else

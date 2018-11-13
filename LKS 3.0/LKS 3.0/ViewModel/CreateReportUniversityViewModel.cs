@@ -89,6 +89,7 @@ namespace LKS_3._0.ViewModel
 			{
 				foreach (var item in students)
 				{
+                    if(item.Status == "Обучается")
 					this.students.Add(item);
 				}
 			}
@@ -96,6 +97,7 @@ namespace LKS_3._0.ViewModel
 			{
 				foreach (var item in troops)
 				{
+                    if(item.SboriTroop == false)
 					this.troops.Add(item);
 				}
 			}
@@ -147,19 +149,23 @@ namespace LKS_3._0.ViewModel
 										if (selectedTroopDocOnTroop != null) // проверка на выделение взвода
 										{
 											List<Troop> tempList = new List<Troop>();
-											tempList.Add(selectedTroopDocOnTroop);
+                                            tempList.Add(selectedTroopDocOnTroop);
+
 											if (Sort != RadioSortOptions.None)
 											{
 												tempList.First().Students = new BindingList<Student>(tempList.First().Students
 													 .OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
 											}
+                                            
 
-											switch (radioOptionsDocOnTroop)
+                                            switch (radioOptionsDocOnTroop)
 											{
 
 												case RadioOptions.Option1:
 													{
-														Model.Templates temp = new Model.Templates(
+                                                        
+                                                        
+                                                        Model.Templates temp = new Model.Templates(
 															System.IO.Path.GetFullPath(@".\TemplatesOff\Список_взвода.docx"),
 															ref temp_DataBase, null, null, tempList);
 													}

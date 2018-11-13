@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using System.Data.Entity;
+using System.Windows;
 
 namespace LKS_3._0.Model
 {
@@ -48,7 +54,11 @@ namespace LKS_3._0.Model
             {
                 if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
                 {
-                    throw new Exception("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n");
+                   
+                    MessageBox.Show("Данные об администрации заполнены не полностью! В созданном файле могут отсутствовать данные!\n");
+                    MiddleName = "None";
+                    FirstName = "None";
+                    LastName = "None";
                 }
                 return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
             }
