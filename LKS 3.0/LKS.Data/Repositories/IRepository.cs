@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LKS.DAL.Abstract
+namespace LKS.Data.Abstract
 {
 	public interface IRepository<T>
 	{
@@ -14,6 +14,5 @@ namespace LKS.DAL.Abstract
 		Task DeleteRange(ICollection<T> item);
 		Task Update(T item);
 		Task<T> GetItem(string id);
-		IQueryable<T> GetItems();
 	}
 }

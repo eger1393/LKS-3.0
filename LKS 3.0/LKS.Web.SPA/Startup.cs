@@ -1,5 +1,6 @@
-using LKS.DAL.Abstract;
-using LKS.DAL.Concrete;
+using LKS.Data.Abstract;
+using LKS.Data.Concrete;
+using LKS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +31,7 @@ namespace LKS.Web.SPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddDbContext<LKSDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IRelativeRepository, RelativeRepository>();

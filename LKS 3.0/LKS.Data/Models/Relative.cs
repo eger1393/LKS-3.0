@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace LKS.Models
+namespace LKS.Data.Models
 {
 	public partial class Relative
 	{
@@ -14,7 +13,6 @@ namespace LKS.Models
 		public string Id { get; set; }
 		[ForeignKey(nameof(Student))]
 		public string StudentId { get; set; }
-		[JsonIgnore]
 		public Student Student { get; set; }
 
 

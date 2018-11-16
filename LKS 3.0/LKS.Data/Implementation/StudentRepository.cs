@@ -1,17 +1,17 @@
-﻿using LKS.DAL.Abstract;
-using LKS.Models;
+﻿using LKS.Data.Abstract;
+using LKS.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LKS.DAL.Concrete
+namespace LKS.Data.Concrete
 {
 	public class StudentRepository : IStudentRepository
 	{
-		private LKSDbContext context;
-		public StudentRepository(LKSDbContext context)
+		private DataContext context;
+		public StudentRepository(DataContext context)
 		{
 			this.context = context;	
 		}

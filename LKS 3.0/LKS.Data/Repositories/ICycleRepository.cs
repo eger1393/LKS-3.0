@@ -1,9 +1,9 @@
-using LKS.Models;
+using LKS.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LKS.DAL.Abstract
+namespace LKS.Data.Abstract
 {
 	public interface ICycleRepository : IRepository<Cycle>
 	{

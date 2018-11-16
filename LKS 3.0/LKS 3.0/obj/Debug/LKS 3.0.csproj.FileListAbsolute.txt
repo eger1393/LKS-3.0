@@ -629,7 +629,6 @@ C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.pdb
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.Configuration.pdb
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.RegistrationByConvention.pdb
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.ServiceLocation.pdb
-C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs

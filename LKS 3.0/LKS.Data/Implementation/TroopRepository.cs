@@ -1,15 +1,15 @@
-﻿using LKS.DAL.Abstract;
-using LKS.Models;
+﻿using LKS.Data.Abstract;
+using LKS.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LKS.DAL.Concrete
+namespace LKS.Data.Concrete
 {
 	public class TroopRepository : ITroopRepository
 	{
-		private LKSDbContext context;
-		public TroopRepository(LKSDbContext context)
+		private DataContext context;
+		public TroopRepository(DataContext context)
 		{
 			this.context = context;
 		}

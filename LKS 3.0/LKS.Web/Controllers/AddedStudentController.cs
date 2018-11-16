@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.DAL.Abstract;
-using LKS.Models;
+using LKS.Data.Abstract;
+using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +19,7 @@ namespace LKS.Web.Controllers
         // GET: AddedStudent/Create
         public ActionResult Create()
         {
-            ViewBag.InstGroups = studentRepository.GetItems().Select(u => u.InstGroup).ToList();
+            //ViewBag.InstGroups = studentRepository.GetItems().Select(u => u.InstGroup).ToList();
             
             return View(); 
         }

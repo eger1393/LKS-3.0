@@ -1,18 +1,18 @@
-﻿using LKS.DAL.Abstract;
-using LKS.Models;
+﻿using LKS.Data.Abstract;
+using LKS.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LKS.DAL.Concrete
+namespace LKS.Data.Concrete
 {
 	public class PrepodRepository : IPrepodRepository
 
 	{
-		private LKSDbContext context;
-		public PrepodRepository(LKSDbContext context)
+		private DataContext context;
+		public PrepodRepository(DataContext context)
 		{
 			this.context = context;
 		}

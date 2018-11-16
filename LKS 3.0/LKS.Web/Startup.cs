@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.DAL.Abstract;
-using LKS.DAL.Concrete;
+using LKS.Data.Abstract;
+using LKS.Data.Concrete;
+using LKS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,14 +37,14 @@ namespace LKS.Web
 
             // Use SQL Database if in Azure, otherwise, use SQLite
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                services.AddDbContext<LKSDbContext>(options =>
+                services.AddDbContext<DataContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
             else
-                services.AddDbContext<LKSDbContext>(options =>
+                services.AddDbContext<DataContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefConnection")));
 
             // Automatically perform database migration
-            services.BuildServiceProvider().GetService<LKSDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();
 
             services.AddTransient<IStudentRepository, StudentRepository>();
 			services.AddTransient<IRelativeRepository, RelativeRepository>();

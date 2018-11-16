@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LKS.DAL\LKS.DAL.csproj" />
+    <ProjectReference Include="..\LKS.Data\LKS.Data.csproj" />
   </ItemGroup>
 
 </Project>

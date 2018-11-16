@@ -1,15 +1,14 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace LKS.Models
+namespace LKS.Data.Models
 {
 	public partial class Prepod
 	{
 		[Key]
 		public string Id { get; set; }
-		[JsonIgnore]
+
 		public virtual List<Troop> Troops { get; set; }
 		public string Initials
 		{
