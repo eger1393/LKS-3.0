@@ -24,7 +24,10 @@ namespace LKS.Web.SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			// Добавил несеариализуемость обратных связей для возврата моделей
+			services.AddMvc()
+				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+				.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -33,24 +36,17 @@ namespace LKS.Web.SPA
             });
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IStudentRepository, StudentRepository>();
-            services.AddTransient<IRelativeRepository, RelativeRepository>();
-            services.AddTransient<ITroopRepository, TroopRepository>();
-            services.AddTransient<IPrepodRepository, PrepodRepository>();
-        }
+			RegistrationInterfaces(services);
+
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+				app.UseHsts();
+			}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -73,5 +69,13 @@ namespace LKS.Web.SPA
                 }
             });
         }
+
+		private void RegistrationInterfaces(IServiceCollection services)
+		{
+			services.AddTransient<IStudentRepository, StudentRepository>();
+			services.AddTransient<IRelativeRepository, RelativeRepository>();
+			services.AddTransient<ITroopRepository, TroopRepository>();
+			services.AddTransient<IPrepodRepository, PrepodRepository>();
+		}
     }
 }
