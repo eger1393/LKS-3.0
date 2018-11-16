@@ -47,7 +47,7 @@ namespace LKS.Data.Models
 		{
 			get
 			{
-				return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+				return LastName + " " + FirstName[0] + ". " + MiddleName[0] + ".";
 			}
 		}
 		[Key]
@@ -63,13 +63,13 @@ namespace LKS.Data.Models
 		public string Collness { get; set; }
 
 		[DisplayName("Фамилия")]
-        public string MiddleName { get; set; }
+        public string LastName { get; set; }
 
 		[DisplayName("Имя")]
         public string FirstName { get; set; }
 
 		[DisplayName("Отчество")]
-        public string LastName { get; set; }
+        public string MiddleName { get; set; }
 
 		[DisplayName("Взвод")]
 		public string NumTroop { get

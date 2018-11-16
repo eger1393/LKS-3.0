@@ -12,13 +12,24 @@ export const Container = styled.div`
         transform: translateY(-10px);
         transition: transform 0.3s ease;
         left: 0;
-        bottom: 10px;;
+        bottom: 10px;
+        line-height: 1.43;
+        letter-spacing: 0.2px;
+        color: #aaaaaa;
+        font-size: 12px;
+        font-weight: 300;
+        user-select: none;
     }
 
     input {
         width: 100%;
         height: 40px;
         transition: 0.6s;
+        border: none;
+        border-bottom: 1px solid #d8d8d8;
+        font-size: 12px;
+        line-height: 1.43;
+        letter-spacing: 0.2px;
         color: #1b1e2d;
         
         &:focus {
@@ -32,12 +43,13 @@ export const Container = styled.div`
         font-size: 12px;
         font-weight: bold;
         color: #e85e5e;
+        padding-left: 3px;
     }
 
     &.animate label {
         transform: translateY(-40px);
         height: 12px;
-        font-size: 12px;
+        font-size: 12px !important;
         font-weight: 300;
         color: #aaaaaa;
     }

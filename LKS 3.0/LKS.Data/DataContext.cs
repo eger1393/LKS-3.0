@@ -66,8 +66,8 @@ namespace LKS.Data
 					Id = Guid.NewGuid().ToString(),
 					TroopId = i >= 50 ? "1" : "2",
 					FirstName = "Имя" + i,
-					MiddleName = "Фамилия" + i,
-					LastName = "Отчество" + i
+					LastName = "Фамилия" + i,
+					MiddleName = "Отчество" + i
 				});
 			}
 		}
