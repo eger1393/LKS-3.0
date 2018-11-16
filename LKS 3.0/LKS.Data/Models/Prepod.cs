@@ -24,7 +24,7 @@ namespace LKS.Data.Models
 		[DisplayName("Отчество")]
 		public string LastName { get; set; }
 		[DisplayName("Звание")]
-		public string Coolness { get; set; }
+		public Coolness Coolness { get; set; }
 		[DisplayName("Должность")]
 		public string PrepodRank { get; set; }
 		[DisplayName("Дополнительно")]

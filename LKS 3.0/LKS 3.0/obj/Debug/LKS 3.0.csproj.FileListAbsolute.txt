@@ -694,3 +694,4 @@ C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 C:\Users\1\Source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+C:\Users\1\source\Repo\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
