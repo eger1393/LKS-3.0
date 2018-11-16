@@ -29,7 +29,7 @@ namespace LKS_3._0.Model
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
-		//Model.Department adminInfo; // Военком и нач кафедры
+					   //Model.Department adminInfo; // Военком и нач кафедры
 		List<Admin> admins; // список администрации на сборах
 
 		// Неуверен всетаки надо ли передавать ссылка на БД
@@ -73,7 +73,7 @@ namespace LKS_3._0.Model
 			//DataBase.Departments.Load();
 			DataBase.Admins.Load();
 			summer = DataBase.Summers.Local.ToList().First(); // в summers должна быть только одна запись!
-			//adminInfo = DataBase.Departments.Local.ToList().First();
+															  //adminInfo = DataBase.Departments.Local.ToList().First();
 			admins = DataBase.Admins.Local.ToList();
 
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
@@ -331,13 +331,13 @@ namespace LKS_3._0.Model
 							System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
 							continue;
 						}
-                        catch (Exception ex)
-                        {
+						catch (Exception ex)
+						{
 
-                            System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
-                            continue;
-                        }
-                        continue;
+							System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
+							continue;
+						}
+						continue;
 					}
 
 					Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
@@ -479,11 +479,12 @@ namespace LKS_3._0.Model
 						}
 					}
 				}
-			}catch(IndexOutOfRangeException ex)
+			}
+			catch (IndexOutOfRangeException)
 			{
 				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}
-			catch (ArgumentOutOfRangeException ex)
+			catch (ArgumentOutOfRangeException)
 			{
 				System.Windows.MessageBox.Show("Cлишком много студентов во взводе, добавьте пустые строки в шаблон журнала!");
 			}
@@ -561,12 +562,12 @@ namespace LKS_3._0.Model
 				return selectedStudent.Faculty;
 			}
 
-            if (command.ToUpper() == "КУРС")
-            {
-                return selectedStudent.Kurs.ToString();
-            }
+			if (command.ToUpper() == "КУРС")
+			{
+				return selectedStudent.Kurs.ToString();
+			}
 
-            if (command.ToUpper() == "ГРУППА")
+			if (command.ToUpper() == "ГРУППА")
 			{
 				return selectedStudent.InstGroup;
 			}
@@ -677,7 +678,8 @@ namespace LKS_3._0.Model
 				try
 				{
 					return selectedStudent.Troop.First(u => u.SboriTroop == false).NumberTroop;
-				}catch(System.InvalidOperationException )
+				}
+				catch (System.InvalidOperationException)
 				{
 					return selectedStudent.Troop.First().NumberTroop;
 				}
@@ -945,7 +947,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ? 
+					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
 						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
 				}
 
@@ -998,7 +1000,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 СРЕДНИЙ БАЛЛ")
 				{
-					return (Convert.ToDouble(selectedTrop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u=>u.AssessmentProtocolOneFinal)) /
+					return (Convert.ToDouble(selectedTrop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u => u.AssessmentProtocolOneFinal)) /
 						 selectedTrop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2))).ToString("#.#");
 				}
 
@@ -1239,12 +1241,12 @@ namespace LKS_3._0.Model
 					return summer.LocationVK;
 				}
 
-				if(command.ToUpper() == "СБОРЫ ДЛИТЕЛЬНОСТЬ")
+				if (command.ToUpper() == "СБОРЫ ДЛИТЕЛЬНОСТЬ")
 				{
 					return (Convert.ToDateTime(summer.DateBeginSbori) - Convert.ToDateTime(summer.DateEndSbori)).ToString();
 				}
 
-				if(command.ToUpper() == "СБОРЫ ТЕКСТ ПРИКАЗА")
+				if (command.ToUpper() == "СБОРЫ ТЕКСТ ПРИКАЗА")
 				{
 					return summer.TittleOrder;
 				}
@@ -1268,31 +1270,31 @@ namespace LKS_3._0.Model
                     return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Initials;
                 }
 
-                if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
-                {
-                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Collness;
-                }
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Collness;
+				}
 
-                if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
-                {
-                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Rank;
-                }
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
+				{
+					return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Rank;
+				}
 
                 if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
                 {
                     return admins.Find(u => u.Rank == "Военный комиссар").Initials;
                 }
 
-                if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
-                {
-                    return admins.Find(u => u.Rank == "Военный комиссар").Collness;
-                }
+				if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
+				{
+					return admins.Find(u => u.Rank == "Военный комиссар").Collness;
+				}
 
-                if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
-                {
-                    return admins.Find(u => u.Rank == "Военный комиссар").Rank;
-                }
-                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
+				if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
+				{
+					return admins.Find(u => u.Rank == "Военный комиссар").Rank;
+				}
+				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
 				{
 					return admins.Find(u => u.Rank == "Начальник штаба").FirstName;
 				}
@@ -1597,6 +1599,65 @@ namespace LKS_3._0.Model
 					}
 				}
 			}
+		}
+		static public void PrintOnDemand(List<String> command)
+		{
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер
+													   // добавили название файла в предложенное название
+
+			if (dlg.ShowDialog() == true) // запустили окно
+			{
+				try
+				{
+					File.Copy(@".\Templates\PrintOnDemand.docx", dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+				}
+				catch (System.IO.FileNotFoundException ex)
+				{
+					System.Windows.MessageBox.Show("Файл шаблона не найден, проверьте наличие файла"
+						+ ex.FileName + "в папке Templates\n" + ex.Message);
+					return;
+				}
+				catch (System.IO.IOException ex)
+				{
+					System.Windows.MessageBox.Show("Ошибка с файлом шаблона, или с перезаписью файла!\n" + ex.Message);
+					return;
+				}
+			}
+			else
+			{
+				// TODO show message about fail
+				return;
+			}
+			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true)) // открыли документ
+			{
+				Table table = doc.MainDocumentPart.Document.Body.Elements<Table>().First();
+				if(table == null)
+				{
+					// Error
+					return;
+				}
+				foreach (var item in command)
+				{
+					var tempCell = new TableCell();
+					var tempPar = new Paragraph();
+					var run = new Run();
+					var text = new Text();
+					text.Text = item;
+					run.Append(text);
+					tempPar.Append(run);
+					tempCell.Append(tempPar);
+					table.Descendants<TableRow>().ElementAt(0).AppendChild(tempCell);
+					var el = table.Descendants<TableRow>().ElementAt(1).Descendants<SdtElement>().First().Clone() as SdtElement;
+					el.Descendants<SdtAlias>().First().Val = item;
+					tempCell = new TableCell();
+					tempPar = new Paragraph();
+					tempPar.Append(el);
+					tempCell.Append(tempPar);
+					table.Descendants<TableRow>().ElementAt(1).AppendChild(tempCell);
+				}
+			}
+
 		}
 	}
 }

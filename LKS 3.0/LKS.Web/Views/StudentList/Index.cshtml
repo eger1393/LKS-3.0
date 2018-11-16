@@ -1,0 +1,159 @@
+﻿@model IEnumerable<LKS.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script type="text/javascript" src="~/js/StudentList.js"></script>
+<link rel="stylesheet" href="~/css/StudentList.css" />
+
+<input id="pageSizeConst" type="hidden" value="@ViewBag.pageSize" />
+<div class="student-container">
+    <div class="nav">
+        <ul id="jstree"></ul>
+    </div>
+    <div class="content">
+        <table class="table">
+            <thead>
+                @* !! При изменении шапки надо внести изменение в тело таблицы, а так-же в функцию pageClick *@
+                <tr>
+                    <th nowrap>
+                        <span onclick="javascript:setSort('MiddleName')" style="background: url(/images/sort.png) no-repeat; width: 25px; height: 25px; cursor: pointer;"></span>
+                        <p class="input-container">
+                            <input type="text" id="MiddleNameFilter" data-id="MiddleName" />
+                            <label for="MiddleNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.MiddleName)</label>
+                        </p>
+                    </th>
+                    <th nowrap>
+                        <p class="input-container">
+                            <input type="text" id="FirstNameFilter" data-id="FirstName" />
+                            <label for="FirstNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.FirstName)</label>
+                        </p>
+                        @*<a href="javascript:setSort('FirstName')">
+                                @Html.DisplayNameFor(model => model.FirstName)
+                                <span id="FirstNameDescRow" style="display:none">▼</span>
+                                <span id="FirstNameRow" style="display:none">▲</span>
+                            </a>
+                            <div class="filter"><input type="text" id="FirstNameFilter"  data-id="FirstName"/> <button onclick="javascript:setFilter('FirstName')"></button></div>*@
+                    </th>
+                    <th nowrap>
+                        <p class="input-container">
+                            <input type="text" id="LastNameFilter" data-id="LastName" />
+                            <label for="LastNameFilter" unselectable="on">@Html.DisplayNameFor(model => model.LastName)</label>
+                        </p>
+                        @*<a href="javascript:setSort('LastName')">
+                                @Html.DisplayNameFor(model => model.LastName)
+                                <span id="LastNameDescRow" style="display:none">▼</span>
+                                <span id="LastNameRow" style="display:none">▲</span>
+                            </a>
+                            <div class="filter"><input type="text" id="LastNameFilter"  data-id="LastName"/> <button onclick="javascript:setFilter('LastName')"></button></div>*@
+                    </th>
+                    <th nowrap>
+                        <p class="input-container">
+                            <input type="text" id="NumTroopFilter" data-id="NumTroop" />
+                            <label for="NumTroopFilter" unselectable="on">@Html.DisplayNameFor(model => model.NumTroop)</label>
+                        </p>
+                        @*<a href="javascript:setSort('NumTroop')">
+                                @Html.DisplayNameFor(model => model.NumTroop)
+                                <span id="NumTroopDescRow" style="display:none">▼</span>
+                                <span id="NumTroopRow">▲</span>
+                            </a>
+                            <div class="filter"><input type="text" id="NumTroopFilter" data-id="NumTroop" /> <button onclick="javascript:setFilter('NumTroop')"></button></div>*@
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rank)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SpecialityName)
+                    </th>
+                    <th>
+                        <p class="input-container">
+                            <input type="text" id="input-group" />
+                            <label for="input-group" unselectable="on">@Html.DisplayNameFor(model => model.InstGroup)</label>
+                        </p>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Kurs)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Faculty)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SpecInst)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ConditionsOfEducation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AvarageScore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.YearOfAddMAI)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.YearOfEndMAI)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.YearOfAddVK)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.YearOfEndVK)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumberOfOrder)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfOrder)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rectal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Birthday)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlaceBirthday)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nationality)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Citizenship)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HomePhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MobilePhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlaceOfResidence)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PlaceOfRegestration)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Military)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FamiliStatys)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.School)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Two_MobilePhone)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.VuzName)
+                        </th>*@
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="pagingBox">
+        </div>
+    </div>
+</div>
+<a asp-area="" asp-controller="AddedStudent" asp-action="Create" role="button" class="btn btn-primary">Добавить нового студента</a>

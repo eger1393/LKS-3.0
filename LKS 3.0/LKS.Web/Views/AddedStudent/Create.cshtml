@@ -1,0 +1,469 @@
+﻿@model LKS.Models.Student
+@{
+    ViewData["Title"] = "Create student";
+    Layout = "_LayoutAdd";
+
+}
+
+<!-- Material Design for Bootstrap fonts and icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+<!-- Material Design for Bootstrap CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="~/css/StyleAddStudent.css" />
+<div class="card" style="margin-top: 20px" ;>
+    <div class="card-body">
+        <div class="container-fluid">
+            <h2 class="text-center">Добавить студента</h2>
+            <form asp-action="Create">
+                <!-- Навигация вкладок -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Информация о студенте</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#personal_data" role="tab">Личные данные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#relatives" role="tab">Родственники</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#photo" role="tab">Фотография</a>
+                    </li>
+                </ul>
+                <!-- Вкладка панели -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="info" role="tabpanel">
+                        <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger">   </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label asp-for="MiddleName" class="bmd-label-floating text-dark "></label>
+                                    <input asp-for="MiddleName" class="form-control" />
+                                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="FirstName" class="form-control" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="LastName" class="form-control" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TroopId" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="TroopId" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option value="1">409</option>
+                                        <option value="2">410</option>
+                                        <option value="3">411</option>
+                                        <option value="4">412</option>
+                                        <option value="5">313</option>
+                                        <option value="6">314</option>
+                                        <option value="7">315</option>
+                                        <option value="8">305c</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Status" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Status" class="form-control" />
+                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Rank" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="Rank" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Командир взвода</option>
+                                        <option>Заместитель командира взвода</option>
+                                        <option>Журналист</option>
+                                        <option>Старший секретчик</option>
+                                        <option>Секретчик</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="InstGroup" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="InstGroup" class="form-control" />
+                                    <span asp-validation-for="InstGroup" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Kurs" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Kurs" class="form-control" />
+                                    <span asp-validation-for="Kurs" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Faculty" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Faculty" class="form-control" />
+                                    <span asp-validation-for="Faculty" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="SpecInst" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="SpecInst" class="form-control" />
+                                    <span asp-validation-for="SpecInst" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label asp-for="ConditionsOfEducation" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="ConditionsOfEducation" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Бюджетное</option>
+                                        <option>Платное</option>
+                                    </select>
+                                    <span asp-validation-for="ConditionsOfEducation" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AvarageScore" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="AvarageScore" class="form-control" />
+                                    <span asp-validation-for="AvarageScore" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="YearOfAddMAI" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="YearOfAddMAI" class="form-control" />
+                                    <span asp-validation-for="YearOfAddMAI" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="YearOfEndMAI" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="YearOfEndMAI" class="form-control" />
+                                    <span asp-validation-for="YearOfEndMAI" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="YearOfAddVK" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="YearOfAddVK" class="form-control" />
+                                    <span asp-validation-for="YearOfAddVK" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="YearOfEndVK" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="YearOfEndVK" class="form-control" />
+                                    <span asp-validation-for="YearOfEndVK" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="NumberOfOrder" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="NumberOfOrder" class="form-control" />
+                                    <span asp-validation-for="NumberOfOrder" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="DateOfOrder" class="bmd-label-static text-dark"></label>
+                                    <input asp-for="DateOfOrder" type="date" class="form-control" />
+                                    <span asp-validation-for="DateOfOrder" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Rectal" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Rectal" class="form-control" />
+                                    <span asp-validation-for="Rectal" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Military" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="Military" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Годен</option>
+                                        <option>Прошел службу в ВС</option>
+                                        <option>Негоден</option>
+                                    </select>
+                                    <span asp-validation-for="Military" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="personal_data" role="tabpanel">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label asp-for="Birthday" class="bmd-label-static text-dark"></label>
+                                    <input asp-for="Birthday" type="date" class="form-control" />
+                                    <span asp-validation-for="Birthday" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PlaceBirthday" class="bmd-label-floating text-dark"></label>
+                                    <textarea asp-for="PlaceBirthday" class="form-control"></textarea>
+                                    <span asp-validation-for="PlaceBirthday" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Nationality" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Nationality" class="form-control" />
+                                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Citizenship" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Citizenship" class="form-control" />
+                                    <span asp-validation-for="Citizenship" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="HomePhone" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="HomePhone" type="tel" class="form-control" />
+                                    <span asp-validation-for="HomePhone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label asp-for="MobilePhone" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="MobilePhone" type="tel" class="form-control" />
+                                    <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Two_MobilePhone" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Two_MobilePhone" type="tel" class="form-control" />
+                                    <span asp-validation-for="Two_MobilePhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PlaceOfResidence" class="bmd-label-floating text-dark"></label>
+                                    <textarea asp-for="PlaceOfResidence" class="form-control"></textarea>
+                                    <span asp-validation-for="PlaceOfResidence" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PlaceOfRegestration" class="bmd-label-floating text-dark"></label>
+                                    <textarea asp-for="PlaceOfRegestration" class="form-control"></textarea>
+                                    <span asp-validation-for="PlaceOfRegestration" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FamiliStatys" class="bmd-label-floating text-dark"></label>
+                                    <select asp-for="FamiliStatys" class="form-control">
+                                        <option style="display: none;"></option>
+                                        <option>Холост</option>
+                                        <option>Женат</option>
+                                        <option>Вдвовец</option>
+                                    </select>
+                                    <span asp-validation-for="FamiliStatys" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="School" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="School" class="form-control" />
+                                    <span asp-validation-for="School" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <h3>Биометрия</h3>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="Growth" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="Growth" class="form-control" />
+                                    <span asp-validation-for="Growth" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ClothihgSize" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="ClothihgSize" class="form-control" />
+                                    <span asp-validation-for="ClothihgSize" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="ShoeSize" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="ShoeSize" class="form-control" />
+                                    <span asp-validation-for="ShoeSize" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CapSize" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="CapSize" class="form-control" />
+                                    <span asp-validation-for="CapSize" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="MaskSize" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="MaskSize" class="form-control" />
+                                    <span asp-validation-for="MaskSize" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ForeignLanguage" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="ForeignLanguage" class="form-control" />
+                                    <span asp-validation-for="ForeignLanguage" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="LanguageRank" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="LanguageRank" class="form-control" />
+                                    <span asp-validation-for="LanguageRank" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="BloodType" class="bmd-label-floating text-dark"></label>
+                                    <input asp-for="BloodType" class="form-control" />
+                                    <span asp-validation-for="BloodType" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill1" /> @Html.DisplayNameFor(model => model.Skill1)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill2" /> @Html.DisplayNameFor(model => model.Skill2)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill3" /> @Html.DisplayNameFor(model => model.Skill3)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill4" /> @Html.DisplayNameFor(model => model.Skill4)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill5" /> @Html.DisplayNameFor(model => model.Skill5)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Skill6" /> @Html.DisplayNameFor(model => model.Skill6)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="relatives" role="tabpanel">...</div>
+                    <div class="tab-pane" id="photo" role="tabpanel">...</div>
+
+                </div>
+
+                @*<div class="form-group">
+                        <label asp-for="Note" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="Note" class="form-control" />
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImagePath" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="ImagePath" class="form-control" />
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="Zapas" /> @Html.DisplayNameFor(model => model.Zapas)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="Exhortation" /> @Html.DisplayNameFor(model => model.Exhortation)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="ProjectOrder" /> @Html.DisplayNameFor(model => model.ProjectOrder)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WhoseOrder" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="WhoseOrder" class="form-control" />
+                        <span asp-validation-for="WhoseOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="VO" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="VO" class="form-control" />
+                        <span asp-validation-for="VO" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fighting" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="Fighting" class="form-control" />
+                        <span asp-validation-for="Fighting" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="AssessmentProtocolOneTheory" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentProtocolOneTheory" class="form-control" />
+                        <span asp-validation-for="AssessmentProtocolOneTheory" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentProtocolOnePractice" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentProtocolOnePractice" class="form-control" />
+                        <span asp-validation-for="AssessmentProtocolOnePractice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentProtocolOneFinal" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentProtocolOneFinal" class="form-control" />
+                        <span asp-validation-for="AssessmentProtocolOneFinal" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentCharacteristicMilitaryTechnicalTraining" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentCharacteristicMilitaryTechnicalTraining" class="form-control" />
+                        <span asp-validation-for="AssessmentCharacteristicMilitaryTechnicalTraining" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentCharacteristicTacticalSpecialTraining" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentCharacteristicTacticalSpecialTraining" class="form-control" />
+                        <span asp-validation-for="AssessmentCharacteristicTacticalSpecialTraining" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentCharacteristicMilitarySpeialTraining" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentCharacteristicMilitarySpeialTraining" class="form-control" />
+                        <span asp-validation-for="AssessmentCharacteristicMilitarySpeialTraining" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AssessmentCharacteristicFinal" class="bmd-label-floating text-dark"></label>
+                        <input asp-for="AssessmentCharacteristicFinal" class="form-control" />
+                        <span asp-validation-for="AssessmentCharacteristicFinal" class="text-danger"></span>
+                    </div>*@
+                <div class="row">
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <input type="submit" value="Добавить" class="btn btn-outline-success btn-lg">
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a role="button" class="btn btn-outline-primary btn-lg" asp-area="" asp-controller="StudentList" asp-action="Index">К списку студентов</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('body').bootstrapMaterialDesign();
+        $('.form-group>select').parent().removeClass("is-filled");
+        $('.form-group>select').change(function () {
+            $(this).parent().addClass("is-filled");
+        });
+    });</script>
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

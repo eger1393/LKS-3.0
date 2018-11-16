@@ -164,6 +164,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ExportXL.cs" />
     <Compile Include="Infrasturture\IRepository.cs" />
     <Compile Include="ViewModel\SummerFeesAssessmentForControlViewModel.cs" />
     <Compile Include="View\AddAdmin.xaml.cs">

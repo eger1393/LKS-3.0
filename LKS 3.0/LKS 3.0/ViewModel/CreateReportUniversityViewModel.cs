@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows;
-
+using LKS_3._0.Model;
 
 namespace LKS_3._0.ViewModel
 
@@ -79,6 +79,11 @@ namespace LKS_3._0.ViewModel
 		//TODO
 		public CreateReportUniversityViewModel(ref ApplicationContext temp_DataBase, BindingList<Student> students, BindingList<Troop> troops)
 		{
+			List<string> test = new List<string>();
+			test.Add("Фамилия");
+			test.Add("Имя");
+			test.Add("Отчество");
+			Templates.PrintOnDemand(test);
 			count = 0;
 			//TODO
 			this.temp_DataBase = temp_DataBase;
