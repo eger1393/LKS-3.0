@@ -27,8 +27,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\layouts\" />
-    <Folder Include="ClientApp\src\api\" />
-    <Folder Include="ClientApp\src\components\_common\elements\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
