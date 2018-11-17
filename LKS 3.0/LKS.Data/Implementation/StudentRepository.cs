@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Abstract;
 using LKS.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,13 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public IQueryable<Student> GetItems()
+		public List<Student> GetStudents(Dictionary<string,string> filters)
 		{
-			return context.Students;
+			var res = context.Students.Include(ob => ob.Troop).AsQueryable();
+			if (filters != null)
+				filterStudents(filters, ref res);
+
+			return res.ToList();
 		}
 
 		public async Task Update(Student item)
@@ -59,6 +64,39 @@ namespace LKS.Data.Concrete
 			context.Students.Update(item);
 			await context.SaveChangesAsync();
 			return;
+		}
+
+		private void filterStudents(Dictionary<string,string> filters, ref IQueryable<Student> res)
+		{
+			foreach (var item in filters)
+			{
+				switch (item.Key)
+				{
+					case "firstName":
+						res = res.Where(ob => ob.FirstName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					case "lastName":
+						res = res.Where(ob => ob.LastName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					case "middleName":
+						res = res.Where(ob => ob.MiddleName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					case "rank":
+						res = res.Where(ob => ob.Rank.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					case "collness":
+						res = res.Where(ob => ob.Collness.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					case "numTroop":
+						res = res.Where(ob => ob.Troop.NumberTroop.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						break;
+					//case "kurs": // убрал так как он интовый, а мне впадлу парсить значение
+					//	res = res.Where(ob => ob.Kurs == item.Value);
+					//	break;
+					default:
+						break;
+				}
+			}
 		}
 	}
 }

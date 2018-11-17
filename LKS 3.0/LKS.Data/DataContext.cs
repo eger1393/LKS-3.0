@@ -27,6 +27,7 @@ namespace LKS.Data
 
 		private void Seed(ModelBuilder builder)
 		{
+			Random rand = new Random();
 			builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",
@@ -39,8 +40,8 @@ namespace LKS.Data
 			{
 				Id = "1",
 				FirstName = "Иван",
-				MiddleName = "Иванов",
-				LastName = "Иванович",
+				LastName = "Иванов",
+				MiddleName = "Иванович",
 				Coolness = Coolness.Col,
 				PrepodRank = "test"
 			});
@@ -59,15 +60,18 @@ namespace LKS.Data
 				PrepodId = "1"
 			});
 
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 1000; i++)
 			{
 				builder.Entity<Student>().HasData(new Student
 				{
 					Id = Guid.NewGuid().ToString(),
 					TroopId = i >= 50 ? "1" : "2",
-					FirstName = "Имя" + i,
-					LastName = "Фамилия" + i,
-					MiddleName = "Отчество" + i
+					FirstName = "Имя" + rand.Next(100),
+					LastName = "Фамилия" + rand.Next(100),
+					MiddleName = "Отчество" + rand.Next(100),
+					Collness = "Студент",
+					Rank = "Долбаеб",
+					Kurs = 4
 				});
 			}
 		}
