@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Input from '../../../../_common/elements/Input'
 
 import { fetchGetStudentListData } from '../../../../../redux/modules/studentList'
+import { getStudentListFields } from '../../../../../selectors/studentList'
 
 import { Container } from './styled'
 
@@ -30,15 +31,23 @@ class THead extends React.Component {
         }, 500);
     }
 
-    render() {
-        // Захардкодил поля, потом они будут передаваться с основной страницы
-        const fieldArr = [
-            { id: 1, name: 'numTroop', value: 'Номер взвода', isFiltering: true },
-            { id: 2, name: 'collness', value: 'Звание', isFiltering: true },
-            { id: 3, name: 'rank', value: 'Должность', isFiltering: true },
-            { id: 4, name: 'kurs', value: 'Курс', isFiltering: false },
+    componentWillReceiveProps(nextProps) {
+        var self = this;
+        self.setState(prevState => {
+            var filters = [];
+            filters['lastName'] = prevState.filterList['lastName'] ? prevState.filterList['lastName'] : '';
+            filters['firstName'] = prevState.filterList['firstName'] ? prevState.filterList['firstName'] : '';
+            filters['middleName'] = prevState.filterList['middleName'] ? prevState.filterList['middleName'] : '';
+            nextProps.selectedFields.map(ob => {
+                filters[ob.name] = prevState.filterList[ob.name] ? prevState.filterList[ob.name] : '';
+            });
+            return {
+                filterList: { ...filters },
+            };
+        })
+    }
 
-        ]
+    render() {
         return (
             <Container>
                 <tr>
@@ -46,6 +55,7 @@ class THead extends React.Component {
                         <Input
                             type="text"
                             id="lastName"
+                            value={this.state.filterList['lastName']}
                             name="lastName"
                             placeholder="Фамилия"
                             onChange={this.changeField}
@@ -55,6 +65,7 @@ class THead extends React.Component {
                         <Input
                             type="text"
                             id="firstName"
+                            value={this.state.filterList['firstName']}
                             name="firstName"
                             placeholder="Имя"
                             onChange={this.changeField}
@@ -64,18 +75,20 @@ class THead extends React.Component {
                         <Input
                             type="text"
                             id="middleName"
+                            value={this.state.filterList['middleName']}
                             name="middleName"
                             placeholder="Отчество"
                             onChange={this.changeField}
                         />
                     </td>
-                    {fieldArr.map(val => {
+                    {this.props.selectedFields.map(val => {
                         if (val.isFiltering)
                             return (
                                 <td>
                                     <Input
                                         type="text"
                                         id={val.name}
+                                        value={this.state.filterList[val.name]}
                                         name={val.name}
                                         placeholder={val.value}
                                         onChange={this.changeField}
@@ -103,4 +116,8 @@ THead.state = {
     cahngeFilterFlag: PropTypes.number,
 }
 
-export default connect(null, { fetchGetStudentListData })(THead)
+const mapStateToProps = state => ({
+    selectedFields: getStudentListFields(state),
+})
+
+export default connect(mapStateToProps, { fetchGetStudentListData })(THead)

@@ -4,6 +4,7 @@ type InputProps = {
     type: string,
     placeholder: string,
     id: string,
+    value: string,
     isRequired?: boolean,
     error?: boolean,
     onChange?: Function,
@@ -24,7 +25,7 @@ class Input extends React.Component<InputProps> {
 
     Change = event => {
         if (this.props.middlewareValidator === undefined || this.props.middlewareValidator(event)) {
-            this.setState({ value: event.target.value });
+            //this.setState({ value: event.target.value });
             this.props.onChange(event);
         }
     }
@@ -44,7 +45,7 @@ class Input extends React.Component<InputProps> {
                     name={this.props.name}
                     onBlur={this.Blur}
                     onChange={this.Change}
-                    value={this.state.value}
+                    value={this.props.value ? this.props.value: ''}
                     className="sh-control"
                     tabIndex={this.props.tabIndex}
                 />
