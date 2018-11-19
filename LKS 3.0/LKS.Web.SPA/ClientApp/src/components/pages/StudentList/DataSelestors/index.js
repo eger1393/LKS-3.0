@@ -30,20 +30,31 @@ class DataSelectors extends React.Component {
         //this.setState({ selectedFields: [...val.sort((a, b) => a.id - b.id)] });
     }
 
+    
     render() {
         return (
             <Container>
-                <Panel id="DetaSelectorsPanel" defaultExpanded>
-                    <Picky
-                        options={fieldArr}
-                        value={this.props.selectedFields}
-                        onChange={this.changeSelectedFields}
-                        multiple={true}
-                        valueKey="name"
-                        labelKey="value"
-                        numberDisplayed="2"
-                        placeholder=""
-                    />
+                <Panel id="DetaSelectorsPanel">
+                    <Panel.Heading >
+                        <Panel.Title toggle>
+                            Панель настроек таблицы
+                        </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Collapse>
+                        <Panel.Body>
+                                <Picky
+                                    options={fieldArr}
+                                    value={this.props.selectedFields}
+                                    onChange={this.changeSelectedFields}
+                                    multiple={true}
+                                    valueKey="name"
+                                    labelKey="value"
+                                    numberDisplayed="2"
+                                    placeholder=""
+                                />
+                        </Panel.Body>
+                    </Panel.Collapse>
+
                 </Panel>
             </Container>
         );

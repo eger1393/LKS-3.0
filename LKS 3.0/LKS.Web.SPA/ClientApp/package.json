@@ -5,9 +5,9 @@
   "dependencies": {
     "ajv": "^6.0.0",
     "axios": "^0.18.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "*",
     "react": "^16.5.2",
-    "react-bootstrap": "^0.31.5",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
     "react-picky": "^4.0.2",
     "react-redux": "^5.0.6",

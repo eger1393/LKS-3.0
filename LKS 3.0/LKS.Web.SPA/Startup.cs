@@ -34,7 +34,7 @@ namespace LKS.Web.SPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			RegistrationInterfaces(services);
 
