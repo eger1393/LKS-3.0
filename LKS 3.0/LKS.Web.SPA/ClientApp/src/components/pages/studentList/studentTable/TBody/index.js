@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getStudentListData, getStudentListFields } from '../../../../../selectors/studentList'
 
-import { Container } from './styled'
+import { Container, Row } from './styled'
 
 class TBody extends React.Component {
 
@@ -13,15 +13,15 @@ class TBody extends React.Component {
                 {this.props.studentData.length > 0 && (
                     this.props.studentData.map(ob => {
                         return (
-                            <tr>
+                            <Row Status={ob.status}>
                                 <td>
-                                    {ob['lastName']}
+                                    {ob.lastName}
                                 </td>
                                 <td>
-                                    {ob['firstName']}
+                                    {ob.firstName}
                                 </td>
                                 <td>
-                                    {ob['middleName']}
+                                    {ob.middleName}
                                 </td>
                                 {
                                     this.props.selectedFields.map(field => {
@@ -32,7 +32,7 @@ class TBody extends React.Component {
                                         )
                                     })
                                 }
-                            </tr>
+                            </Row>
                         )
                     })
                 )}

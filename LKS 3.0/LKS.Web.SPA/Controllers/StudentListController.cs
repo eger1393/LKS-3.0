@@ -27,12 +27,13 @@ namespace LKS.Web.SPA.Controllers
 			{
 				ob.FirstName,
 				ob.LastName,
-				ob.MiddleName,
+				ob.MiddleName, 
 				ob.Rank,
 				ob.Kurs,
 				ob.NumTroop,
 				numbTroop = ob.Troop?.NumberTroop,
-				ob.Collness
+				ob.Collness,
+				ob.Status,
 
 			});
 			return new JsonResult(new { studentList = studentList.ToArray() });
