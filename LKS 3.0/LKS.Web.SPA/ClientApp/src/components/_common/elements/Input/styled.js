@@ -47,7 +47,7 @@ export const Container = styled.div`
     }
 
     &.animate label {
-        transform: translateY(-40px);
+        transform: translateY(-30px);
         height: 12px;
         font-size: 12px !important;
         font-weight: 300;

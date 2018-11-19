@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Table } from 'react-bootstrap'
 import { fetchGetStudentListData } from '../../../../redux/modules/studentList'
 
 import THead from './THead'
@@ -16,10 +17,10 @@ class StudentTable extends React.Component {
     render() {
         return (
             <Container>
-                <table>
+                <Table bordered condensed hover>
                     <THead />
                     <TBody />
-                </table>
+                </Table>
             </Container>
         );
     }
