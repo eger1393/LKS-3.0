@@ -3,17 +3,23 @@
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
 import { Container } from './styled'
+import CreateTroop from '../../../_common/dialogs/CreateTroop'
 
 class NavBar extends React.Component {
-
-    clickItem = event => { //work
-        console.log('1');
+    state = {
+        openModalWindow: [],
+    }
+    click = (key) => { // work
+        var val = !this.state.openModalWindow[key];
+        this.setState(prevState => ({
+            openModalWindow: { ...prevState.openModalWindow, [key]: val, }
+        }))
     }
 
-    click = (key, event) => { // work
-        console.log(key);
+    hide = data => {
+        console.log(data);
     }
-
+    //onHide={this.click('TroopCreate')}
     render() {
         return (
             <Container>
@@ -28,6 +34,7 @@ class NavBar extends React.Component {
                         </NavDropdown>
                         <NavDropdown title="Взвода">
                             <MenuItem eventKey={'TroopCreate'}>Создать взвод</MenuItem>
+                            <CreateTroop show={this.state.openModalWindow['TroopCreate']} onHide={() => this.click('TroopCreate')} />
                             <MenuItem eventKey={'TroopList'}>Список взводов</MenuItem>
                         </NavDropdown>
                         <NavDropdown title="Отчеты">
