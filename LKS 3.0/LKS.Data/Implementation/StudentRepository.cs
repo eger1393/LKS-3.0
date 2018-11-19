@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Abstract;
 using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

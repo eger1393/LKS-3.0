@@ -1,4 +1,5 @@
 ﻿using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 

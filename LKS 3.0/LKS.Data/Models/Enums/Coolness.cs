@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LKS.Data.Models
+namespace LKS.Data.Models.Enums
 {
 	public enum Coolness
 	{
