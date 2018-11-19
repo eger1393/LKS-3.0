@@ -6,9 +6,14 @@ import { Panel } from 'react-bootstrap'
 import Picky from 'react-picky'
 import 'react-picky/dist/picky.css'
 
-import { Container } from './styled'
-import { fetchSetStudentListFields } from '../../../../redux/modules/studentList'
-import { getStudentListFields } from '../../../../selectors/studentList'
+import { Container, Contant } from './styled'
+import {
+    fetchSetStudentListFields,
+    fetchSetStudentsListFilters,
+    fetchGetStudentListData,
+} from '../../../../redux/modules/studentList'
+
+import { getStudentListFields, getStudentFilters } from '../../../../selectors/studentList'
 
 
 // TODO Вынести в константы 
@@ -21,16 +26,25 @@ const fieldArr = [
 ]
 
 class DataSelectors extends React.Component {
-    //state = {
-    //    selectedFields: [],
-    //}
 
     changeSelectedFields = val => {
+        var self = this;
+        self.props.selectedFields.map(ob => { 
+            // Затираем значение фильтрации в поле, с которого сняли выбор
+            if (!val.includes(ob)) {
+                self.props.fetchSetStudentsListFilters({ fieldName: ob.name, value: '' });
+            }
+        });
         this.props.fetchSetStudentListFields(val.sort((a, b) => a.id - b.id));
-        //this.setState({ selectedFields: [...val.sort((a, b) => a.id - b.id)] });
     }
 
-    
+    changeSelectedStudentFilter = async event => {
+        var name = 'studentType',
+            val = event.target.value;
+        await this.props.fetchSetStudentsListFilters({ fieldName: name, value: val });
+        await this.props.fetchGetStudentListData();
+    }
+
     render() {
         return (
             <Container>
@@ -42,6 +56,16 @@ class DataSelectors extends React.Component {
                     </Panel.Heading>
                     <Panel.Collapse>
                         <Panel.Body>
+                            <Contant>
+                                <select onChange={this.changeSelectedStudentFilter}>
+                                    <option value="all" selected>Все студенты</option>
+                                    <option value="train">Обучаются</option>
+                                    <option value="forDeductions">На отчисление</option>
+                                    <option value="suspended">Отстранены</option>
+                                    <option value="trainingFees">На сборах</option>
+                                    <option value="completedFees">Прошел сборы</option>
+                                </select>
+
                                 <Picky
                                     options={fieldArr}
                                     value={this.props.selectedFields}
@@ -52,6 +76,7 @@ class DataSelectors extends React.Component {
                                     numberDisplayed="2"
                                     placeholder=""
                                 />
+                            </Contant>
                         </Panel.Body>
                     </Panel.Collapse>
 
@@ -63,11 +88,19 @@ class DataSelectors extends React.Component {
 
 DataSelectors.props = {
     selectedFields: PropTypes.array,
+    filters: PropTypes.array,
     fetchSetStudentListFields: PropTypes.func,
+    fetchSetStudentsListFilters: PropTypes.func,
+    fetchGetStudentListData: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
     selectedFields: getStudentListFields(state),
+    filters: getStudentFilters(state),
 })
 
-export default connect(mapStateToProps, { fetchSetStudentListFields })(DataSelectors);
+export default connect(mapStateToProps, {
+    fetchSetStudentListFields,
+    fetchSetStudentsListFilters,
+    fetchGetStudentListData,
+})(DataSelectors);

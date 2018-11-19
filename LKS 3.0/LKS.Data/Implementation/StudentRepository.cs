@@ -90,9 +90,17 @@ namespace LKS.Data.Concrete
 					case "numTroop":
 						res = res.Where(ob => ob.Troop.NumberTroop.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
 						break;
-					//case "kurs": // убрал так как он интовый, а мне впадлу парсить значение
-					//	res = res.Where(ob => ob.Kurs == item.Value);
-					//	break;
+					case "studentType":
+						{
+							if ( item.Value != "all"
+								 && Enum.TryParse(item.Value, true, out StudentStatus status) 
+								 && Enum.IsDefined(typeof(StudentStatus), status)
+								)
+							{
+								res = res.Where(ob => ob.Status == status);
+							}
+								break;
+						}
 					default:
 						break;
 				}

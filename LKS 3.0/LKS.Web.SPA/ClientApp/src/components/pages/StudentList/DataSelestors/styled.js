@@ -13,3 +13,12 @@ export const Container = styled.div`
         }
     }
 `
+
+export const Contant = styled.div`
+    display: flex;
+    flex-direction: row;
+
+    select{
+        margin-right: 30px;
+    }
+`

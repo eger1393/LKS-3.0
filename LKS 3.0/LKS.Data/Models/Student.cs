@@ -231,8 +231,7 @@ namespace LKS.Data.Models
         public string LanguageRank
 		{ get; set; }
 
-        [DisplayName("Статус обучения")]
-        public string Status
+        public StudentStatus Status
 		{ get; set; }
 
 		public int AssessmentProtocolOneTheory

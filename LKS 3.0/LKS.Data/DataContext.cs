@@ -71,7 +71,8 @@ namespace LKS.Data
 					MiddleName = "Отчество" + rand.Next(100),
 					Collness = "Студент",
 					Rank = "Долбаеб",
-					Kurs = 4
+					Kurs = 4,
+					Status = (StudentStatus)rand.Next(0, 4)
 				});
 			}
 		}

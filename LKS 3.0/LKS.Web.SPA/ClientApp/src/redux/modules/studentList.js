@@ -1,6 +1,6 @@
 ﻿const module = 'studentList'
 
-//export const FETCH_SET_STUDENTS_LIST_FILTER = `${module}/FETCH_SET_FILTER`
+export const FETCH_SET_STUDENTS_LIST_FILTERS = `${module}/FETCH_SET_FILTER`
 
 export const FETCH_GET_STUDENT_LIST_DATA = `${module}/FETCH_GET_STUDENT_LIST_DATA`
 export const FETCH_GET_STUDENT_LIST_DATA_SUCCESS = `${module}/FETCH_GET_STUDENT_LIST_DATA_SUCCESS`
@@ -9,7 +9,7 @@ export const FETCH_GET_STUDENT_LIST_DATA_FAILED = `${module}/FETCH_GET_STUDENT_L
 export const FETCH_SET_STUDENT_LIST_FIELDS = `${module}/FETCH_SET_STUDENT_LIST_FIELDS`
 
 const defaultState = {
-    //filtersValue: {},
+    filtersValue: {},
     studentListFields: [],
     studentListData: [],
     dataLoading: false,
@@ -19,14 +19,14 @@ const defaultState = {
 export default function reducer(studentListState = defaultState, action = {}) {
     const { type, payload } = action;
     switch (type) {
-        //case FETCH_SET_STUDENTS_LIST_FILTER:
-        //    return {
-        //        ...studentListState, 
-        //        filtersValue: {
-        //            ...studentListState.filtersValue,
-        //            [payload.fieldName]: payload.value,
-        //        }
-        //    }
+        case FETCH_SET_STUDENTS_LIST_FILTERS:
+            return {
+                ...studentListState, 
+                filtersValue: {
+                    ...studentListState.filtersValue,
+                    [payload.fieldName]: payload.value,
+                }
+            }
         case FETCH_SET_STUDENT_LIST_FIELDS:
             return {
                 ...studentListState,
@@ -55,11 +55,11 @@ export default function reducer(studentListState = defaultState, action = {}) {
     }
 }
 
-////data example {name: 'firstName', value: 'Иван',}
-//export const fetchSetStudentsListFilter = data => ({
-//    type: FETCH_SET_STUDENTS_LIST_FILTER,
-//    payload: data,
-//})
+//data example {fieldName: 'firstName', value: 'Иван',}
+export const fetchSetStudentsListFilters = data => ({
+    type: FETCH_SET_STUDENTS_LIST_FILTERS,
+    payload: data,
+})
 
 export const fetchSetStudentListFields = data => ({
     type: FETCH_SET_STUDENT_LIST_FIELDS,
@@ -68,7 +68,7 @@ export const fetchSetStudentListFields = data => ({
 
 export const fetchGetStudentListData = data => ({
     type: FETCH_GET_STUDENT_LIST_DATA,
-    payload: data,
+    //payload: data,
 })
 
 export const fetchGetStudentListDataSuccess = data => ({
