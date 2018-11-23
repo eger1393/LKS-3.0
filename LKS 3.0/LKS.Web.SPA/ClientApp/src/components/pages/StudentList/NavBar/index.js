@@ -34,7 +34,9 @@ class NavBar extends React.Component {
                         </NavDropdown>
                         <NavDropdown title="Взвода">
                             <MenuItem eventKey={'TroopCreate'}>Создать взвод</MenuItem>
-                            <CreateTroop show={this.state.openModalWindow['TroopCreate']} onHide={() => this.click('TroopCreate')} />
+                            {this.state.openModalWindow['TroopCreate'] && (
+                                <CreateTroop show={this.state.openModalWindow['TroopCreate']} onHide={() => this.click('TroopCreate')} />
+                            )}
                             <MenuItem eventKey={'TroopList'}>Список взводов</MenuItem>
                         </NavDropdown>
                         <NavDropdown title="Отчеты">

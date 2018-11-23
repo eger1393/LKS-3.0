@@ -15,6 +15,7 @@ class Select extends React.Component {
     }
 
     render() {
+        const { value, text} = this.props
         return (
             <Container
                 className={`${this.state.isFocus ? 'animate' : ''} ${
@@ -23,9 +24,9 @@ class Select extends React.Component {
             >
                 <select onChange={this.props.onChange} id={this.props.id} onFocus={this.Focus} onBlur={this.Blur}>
                     <option disabled selected></option>
-                    {this.props.value.map(ob => {
+                    {this.props.data && this.props.data.map(ob => {
                         return (
-                            <option value={ob.id}>{ob.val}</option>
+                            <option value={ob[value]}>{ob[text]}</option>
                         )
                     })}
                 </select>
@@ -46,10 +47,19 @@ class Select extends React.Component {
 Select.props = {
     placeholder: PropTypes.string,
     id: PropTypes.string,
-    value: PropTypes.array,
+    data: PropTypes.array,
+    value: PropTypes.string,
+    text: PropTypes.string,
     isRequired: PropTypes.bool,
     error: PropTypes.bool,
     onChange: PropTypes.func,
+}
+
+Select.defaultProps = {
+    key: 'id',
+    value: 'val',
+    isRequired: false,
+    error: false,
 }
 
 export default Select

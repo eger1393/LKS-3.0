@@ -7,10 +7,13 @@ import Select from '../../elements/Select'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
+import { apiGetCycleList, apiGetPrepodList, apiCreateTroop } from '../../../../api/dialogs'
 
 class CreateTroop extends React.Component {
     state = {
-        fieldValue: [],
+        fieldValue: [], // значение полей формы
+        cycle: [], // список циклов(тянем из бд)
+        prepod: [], // список преподов (тянем из бд)
     }
 
     changeSelect = event => {
@@ -22,9 +25,22 @@ class CreateTroop extends React.Component {
     }
 
     createTroop = () => {
-        alert('done!');
-        this.props.onHide();
+        if (this.validate()) {
+            apiCreateTroop(this.state.fieldValue);
+            this.props.onHide();
+        }
 
+    }
+
+    validate = () => {
+        // TODO add validate fields
+        return true;
+    }
+
+    componentDidMount() {
+        var self = this;
+        apiGetCycleList().then(res => self.setState({ cycle: res }));
+        apiGetPrepodList().then(res => self.setState({ prepod: res }));
     }
 
     render() {
@@ -37,35 +53,24 @@ class CreateTroop extends React.Component {
             { id: 'Friday', val: 'Пятница' },
             { id: 'Saturday', val: 'Суббота' },
         ]
-
-        // дернуть с бека
-        var cycle = [
-            { id: '1', val: '1 цикл' },
-        ]
-
-        // дернуть с бека
-        var prepod = [
-            { id: '1', val: 'Ивано И. А.' },
-            { id: '2', val: 'Петров Петр Петрович' },
-        ]
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <ModalContainer>
                     <FormHead text="Создать взвод" handleClick={this.props.onHide} />
                     <FlexBox>
                         <FlexRow>
-                            <Select id="cycle" value={cycle} placeholder="Цикл" onChange={this.changeSelect} />
-                            <Input id="troopNum"
+                            <Select id="cycleId" data={this.state.cycle} placeholder="Цикл" onChange={this.changeSelect} value="id" text="number" />
+                            <Input id="numberTroop"
                                 type="text"
                                 isRequired={true}
                                 placeholder="Номер взвода"
-                                value={this.state.fieldValue['troopNum']}
+                                value={this.state.fieldValue['numberTroop']}
                                 onChange={this.changeSelect}
                             />
                         </FlexRow>
                         <FlexRow>
-                            <Select id="day" value={day} placeholder="День прихода" onChange={this.changeSelect} />
-                            <Select id="prepod" value={prepod} placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
+                            <Select id="arrivalDay" data={day} value="id" text="val" placeholder="День прихода" onChange={this.changeSelect} />
+                            <Select id="prepodId" data={this.state.prepod} value="id" text="initials" placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
                         </FlexRow>
                     </FlexBox>
                     <div className="form-submit">
