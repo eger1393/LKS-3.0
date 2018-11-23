@@ -1,17 +1,16 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from 'react-bootstrap'
-import Input from '../../elements/Input'
-import Select from '../../elements/Select'
-import FormHead from '../../elements/FormHead'
-import Button from '../../elements/Button'
-import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
+import Input from '../../../elements/Input'
+import Select from '../../../elements/Select'
+import FormHead from '../../../elements/FormHead'
+import Button from '../../../elements/Button'
+import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 
-class CreateTroop extends React.Component {
+class PersonalData extends React.Component {
     state = {
         fieldValue: [],
     }
-
     changeSelect = event => {
         var name = event.target.name ? event.target.name : event.target.id,
             val = event.target.value;
@@ -19,13 +18,6 @@ class CreateTroop extends React.Component {
             fieldValue: { ...prevState.fieldValue, [name]: val, }
         }));
     }
-
-    createTroop = () => {
-        alert('done!');
-        this.props.onHide();
-
-    }
-
     render() {
         // TODO Вынести в константы
         var day = [
@@ -48,9 +40,6 @@ class CreateTroop extends React.Component {
             { id: '2', val: 'Петров Петр Петрович' },
         ]
         return (
-            <Modal show={this.props.show} onHide={this.props.onHide}>
-                <ModalContainer>
-                    <FormHead text="Создать взвод" handleClick={this.props.onHide} />
                     <FlexBox>
                         <FlexRow>
                             <Select id="cycle" value={cycle} placeholder="Цикл" onChange={this.changeSelect} />
@@ -63,26 +52,16 @@ class CreateTroop extends React.Component {
                             />
                         </FlexRow>
                         <FlexRow>
-                            <Select id="day" value={day} placeholder="День прихода" onChange={this.changeSelect} />
-                            <Select id="prepod" value={prepod} placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
+                    <Select id="day" value={day} placeholder="День прихода" onChange={this.changeSelect} />
+                    <Select id="prepod" value={prepod} placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
                         </FlexRow>
                     </FlexBox>
-                    <div className="form-submit">
-                        <Button onClick={this.createTroop} value="Создать" />
-                    </div>
-                </ModalContainer>
-            </Modal>
         );
     }
 }
 
-CreateTroop.props = {
-    show: PropTypes.bool,
-    onHide: PropTypes.func,
-}
-
-CreateTroop.state = {
+PersonalData.state = {
     fieldValue: PropTypes.array,
 }
 
-export default CreateTroop
+export default PersonalData

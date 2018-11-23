@@ -390,7 +390,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="LKS 3.0_TemporaryKey.pfx" />
     <None Include="mysql2sqlite.ini" />
     <None Include="packages.config" />

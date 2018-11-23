@@ -1,6 +1,4 @@
 ﻿import React from 'react'
-
-
 import NavBar from './NavBar'
 import StudentTable from './StudentTable'
 import DataSelectors from './DataSelestors'
@@ -13,8 +11,8 @@ class StydentsList extends React.Component {
         return (
             <Container>
                 <NavBar />
-                <DataSelectors/>
-                <StudentTable/>
+                <DataSelectors />
+                <StudentTable />
             </Container>
         );
     }

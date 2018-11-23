@@ -1,14 +1,16 @@
 ﻿import React from 'react'
-
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-
+import PropTypes from 'prop-types'
 import { Container } from './styled'
 import CreateTroop from '../../../_common/dialogs/CreateTroop'
+import CreateStudent from '../../../_common/dialogs/CreateStudent'
 
 class NavBar extends React.Component {
+
     state = {
         openModalWindow: [],
     }
+
     click = (key) => { // work
         var val = !this.state.openModalWindow[key];
         this.setState(prevState => ({
@@ -19,22 +21,26 @@ class NavBar extends React.Component {
     hide = data => {
         console.log(data);
     }
-    //onHide={this.click('TroopCreate')}
     render() {
         return (
             <Container>
                 <Navbar fixedTop onSelect={this.click}>
                     <Nav>
-                        <NavItem eventKey={'AddStudent'}>
+                        <NavItem eventKey={'StudentCreate'} >
                             Добавить студентов
-                    </NavItem>
-                        <NavDropdown title="Преподователи">
+                        </NavItem>
+                        {this.state.openModalWindow['StudentCreate'] && (
+                            <CreateStudent show={this.state.openModalWindow['StudentCreate']} onHide={() => this.click('StudentCreate')} />
+                        )}
+                        <NavDropdown title="Преподаватели">
                             <MenuItem eventKey={'PrepodCreate'}>Добавить преподавателя</MenuItem>
                             <MenuItem eventKey={'PrepodList'}>Список преподавателей</MenuItem>
                         </NavDropdown>
                         <NavDropdown title="Взвода">
                             <MenuItem eventKey={'TroopCreate'}>Создать взвод</MenuItem>
-                            <CreateTroop show={this.state.openModalWindow['TroopCreate']} onHide={() => this.click('TroopCreate')} />
+                            { this.state.openModalWindow['TroopCreate'] && (
+                                <CreateTroop show={this.state.openModalWindow['TroopCreate']} onHide={() => this.click('TroopCreate')} />
+                            )}
                             <MenuItem eventKey={'TroopList'}>Список взводов</MenuItem>
                         </NavDropdown>
                         <NavDropdown title="Отчеты">
