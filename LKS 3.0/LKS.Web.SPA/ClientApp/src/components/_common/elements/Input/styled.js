@@ -15,8 +15,8 @@ export const Container = styled.div`
         bottom: 10px;
         line-height: 1.43;
         letter-spacing: 0.2px;
-        color: #aaaaaa;
-        font-size: 12px;
+        color: black;
+        font-size: 16px;
         font-weight: 300;
         user-select: none;
     }

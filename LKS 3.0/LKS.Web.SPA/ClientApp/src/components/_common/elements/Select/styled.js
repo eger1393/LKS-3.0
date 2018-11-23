@@ -12,11 +12,10 @@ export const Container = styled.div`
         bottom: 20px;
         line-height: 1.43;
         letter-spacing: 0.2px;
-        color: #aaaaaa;
-        font-size: 12px;
+        font-size: 14px;
         z-index: 1;
-        left: 5px;
-        color: #aaaaaa;
+        //left: 5px;
+        color: black;
         transition: transform 0.3s ease;
     }
 

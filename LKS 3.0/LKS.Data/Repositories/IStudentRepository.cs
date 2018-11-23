@@ -8,5 +8,8 @@ namespace LKS.Data.Abstract
 	public interface IStudentRepository : IRepository<Student>
 	{
 		List<Student> GetStudents(Dictionary<string, string> filters);
-	}
+
+        List<string> GetInstGroupList();
+
+    }
 }

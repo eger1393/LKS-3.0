@@ -39,5 +39,11 @@ namespace LKS.Web.SPA.Controllers
 			return new JsonResult(new { studentList = studentList.ToArray() });
 		}
 
+        [HttpPost("[action]")]
+        public IActionResult GetInstGroupList()
+        {
+            return Ok(_stydentRepository.GetInstGroupList());
+        }
+
     }
 }

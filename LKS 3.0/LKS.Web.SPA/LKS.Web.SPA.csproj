@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\layouts\" />
+    <Folder Include="ClientApp\src\components\_common\dialogs\CreateStudent\PersonalData\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

@@ -107,5 +107,12 @@ namespace LKS.Data.Concrete
 				}
 			}
 		}
-	}
+
+        public List<string> GetInstGroupList()
+        {
+            var res = context.Students.Select(u => u.InstGroup).Distinct().ToList();
+            return res;
+        }
+
+    }
 }
