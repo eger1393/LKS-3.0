@@ -29,7 +29,7 @@ namespace LKS.Web.SPA.Controllers
 				ob.FirstName,
 				ob.LastName,
 				ob.MiddleName, 
-				ob.Rank,
+				ob.Position,
 				ob.Kurs,
 				ob.NumTroop,
 				numbTroop = ob.Troop?.NumberTroop,
@@ -40,5 +40,23 @@ namespace LKS.Web.SPA.Controllers
 			return new JsonResult(new { studentList = studentList.ToArray() });
 		}
 
-    }
+		[HttpPost("[action]")]
+		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+			_stydentRepository.SetStudentStatus(model.id, model.status);
+			return Ok();
+		}
+
+		[HttpPost("[action]")]
+		public IActionResult SetStudentPosition([FromBody]SetStudentPositionModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+			_stydentRepository.SetStudentPosition(model.id, model.position);
+			return Ok();
+		}
+
+	}
 }

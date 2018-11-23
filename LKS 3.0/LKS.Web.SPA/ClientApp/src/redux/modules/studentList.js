@@ -10,6 +10,9 @@ export const FETCH_GET_STUDENT_LIST_DATA_FAILED = `${module}/FETCH_GET_STUDENT_L
 
 export const FETCH_SET_STUDENT_LIST_FIELDS = `${module}/FETCH_SET_STUDENT_LIST_FIELDS`
 
+export const FETCH_SET_STUDENT_STATUS = `${module}/FETCH_SET_STUDENT_STATUS`
+export const FETCH_SET_STUDENT_POSITION = `${module}/FETCH_SET_STUDENT_POSITION`
+
 const defaultState = {
     studentListFilters: {
         filters: {},
@@ -57,6 +60,36 @@ export default function reducer(studentListState = defaultState, action = {}) {
             return {
                 ...studentListState,
                 studentListFields: [...payload],
+            }
+        case FETCH_SET_STUDENT_STATUS:
+            {   // обновляем статус у студента, без вытягивания инфы с сервера
+                var index = studentListState.studentListData.findIndex((val, i, arr) => { return val.id === payload.id });
+                if (index != undefined) {
+                    var Data = [...studentListState.studentListData]; 
+                    Data[index].status = payload.status;
+                    return {
+                        ...studentListState,
+                        studentListData: Data,
+                    }
+                }
+                return {
+                    ...studentListState
+                }
+            }
+        case FETCH_SET_STUDENT_POSITION:
+            {   // обновляем должность у студента, без вытягивания инфы с сервера
+                var index = studentListState.studentListData.findIndex((val, i, arr) => { return val.id === payload.id });
+                if (index != undefined) {
+                    var Data = [...studentListState.studentListData];
+                    Data[index].position = payload.position;
+                    return {
+                        ...studentListState,
+                        studentListData: Data,
+                    }
+                }
+                return {
+                    ...studentListState
+                }
             }
         case FETCH_GET_STUDENT_LIST_DATA:
             return { // при обновлении данных, ставить контент лоадер
@@ -112,4 +145,16 @@ export const fetchGetStudentListDataSuccess = data => ({
 
 export const fetchGetStudentListDataFailed = data => ({
     type: FETCH_GET_STUDENT_LIST_DATA_FAILED,
+})
+
+//{id:'1qwe1', status:2}
+export const fetchSetStudentStatus = data => ({
+    type: FETCH_SET_STUDENT_STATUS,
+    payload: data,
+})
+
+//{id:'1', position:'test'}
+export const fetchSetStudentPosition = data => ({
+    type: FETCH_SET_STUDENT_POSITION,
+    payload: data,
 })

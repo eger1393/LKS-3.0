@@ -101,6 +101,7 @@ function getColor(status){
         case 4: // Прошел сборы
             return '#4de8d0';
         default:
-            return 'black';
+            console.log('ошибка в цвете статуса');
+            return 'white';
     }
 }

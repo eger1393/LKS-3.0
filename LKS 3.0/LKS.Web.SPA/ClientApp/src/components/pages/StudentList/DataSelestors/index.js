@@ -20,7 +20,7 @@ import { getStudentListFields, getStudentListFiltersValue } from '../../../../se
 const fieldArr = [
     { id: 1, name: 'numTroop', value: 'Номер взвода', isFiltering: true },
     { id: 2, name: 'collness', value: 'Звание', isFiltering: true },
-    { id: 3, name: 'rank', value: 'Должность', isFiltering: true },
+    { id: 3, name: 'position', value: 'Должность', isFiltering: false },
     { id: 4, name: 'kurs', value: 'Курс', isFiltering: false },
 
 ]

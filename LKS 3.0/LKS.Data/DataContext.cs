@@ -73,7 +73,7 @@ namespace LKS.Data
 					LastName = "Фамилия" + rand.Next(100),
 					MiddleName = "Отчество" + rand.Next(100),
 					Collness = "Студент",
-					Rank = "Долбаеб",
+					Position = (StudentPosition)rand.Next(0, 5),
 					Kurs = 4,
 					Status = (StudentStatus)rand.Next(0, 4)
 				});

@@ -64,6 +64,20 @@ namespace LKS.Data.Concrete
 			return res.ToList();
 		}
 
+		public async Task SetStudentStatus(string id, StudentStatus status)
+		{
+			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			student.Status = status;
+			context.SaveChanges();
+		}
+
+		public async Task SetStudentPosition(string id, StudentPosition position)
+		{
+			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			student.Position = position;
+			context.SaveChanges();
+		}
+
 		public async Task Update(Student item)
 		{
 			context.Students.Update(item);
@@ -85,9 +99,6 @@ namespace LKS.Data.Concrete
 						break;
 					case "middleName":
 						res = res.Where(ob => ob.MiddleName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
-						break;
-					case "rank":
-						res = res.Where(ob => ob.Rank.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
 						break;
 					case "collness":
 						res = res.Where(ob => ob.Collness.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
