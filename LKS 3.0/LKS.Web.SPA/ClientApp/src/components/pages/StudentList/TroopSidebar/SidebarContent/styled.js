@@ -2,6 +2,15 @@
 
 export const Container = styled.div`
     padding: 0px 10px 0px 10px;
+    min-width: 110px;
+
+    &>h3{
+        cursor: pointer;
+
+        &:hover{
+            font-weight: bold;
+        }
+    }
 
     .TroopItem{
         display: flex;

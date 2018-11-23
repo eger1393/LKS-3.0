@@ -23,7 +23,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetStudentListData([FromBody]GetStudentListDataModel model)
 		{
-			var studentList = _stydentRepository.GetStudents(model.filters).Select(ob => new
+			var studentList = _stydentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
 			{
 				ob.FirstName,
 				ob.LastName,

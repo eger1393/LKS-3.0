@@ -26,5 +26,15 @@ namespace LKS.Web.SPA.Controllers
 			_troopRepository.Create(model);
 			return Ok();
 		}
+
+		[HttpPost("[action]")]
+		public IActionResult GetTroopList()
+		{
+			return Ok(_troopRepository.GetTroops().Select(ob => new
+			{
+				ob.Id,
+				ob.NumberTroop
+			}));
+		}
     }
 }

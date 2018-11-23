@@ -1,6 +1,8 @@
 ﻿const module = 'studentList'
 
-export const FETCH_SET_STUDENTS_LIST_FILTERS = `${module}/FETCH_SET_FILTER`
+export const FETCH_SET_STUDENT_LIST_FILTERS_VALUE = `${module}/FETCH_SET_STUDENT_LIST_FILTERS_VALUE`
+export const FETCH_RESET_STUDENT_LIST_FILTERS_VALUE = `${module}/FETCH_RESET_STUDENT_LIST_FILTERS_VALUE`
+export const FETCH_SET_STUDENT_LIST_FILTERS_SELECT_TROOP = `${module}/FETCH_SET_STUDENT_LIST_FILTERS_SELECT_TROOP`
 
 export const FETCH_GET_STUDENT_LIST_DATA = `${module}/FETCH_GET_STUDENT_LIST_DATA`
 export const FETCH_GET_STUDENT_LIST_DATA_SUCCESS = `${module}/FETCH_GET_STUDENT_LIST_DATA_SUCCESS`
@@ -9,7 +11,10 @@ export const FETCH_GET_STUDENT_LIST_DATA_FAILED = `${module}/FETCH_GET_STUDENT_L
 export const FETCH_SET_STUDENT_LIST_FIELDS = `${module}/FETCH_SET_STUDENT_LIST_FIELDS`
 
 const defaultState = {
-    filtersValue: {},
+    studentListFilters: {
+        filters: {},
+        selectTroop: '',
+    },
     studentListFields: [],
     studentListData: [],
     dataLoading: false,
@@ -19,12 +24,33 @@ const defaultState = {
 export default function reducer(studentListState = defaultState, action = {}) {
     const { type, payload } = action;
     switch (type) {
-        case FETCH_SET_STUDENTS_LIST_FILTERS:
+        case FETCH_SET_STUDENT_LIST_FILTERS_VALUE:
             return {
                 ...studentListState, 
-                filtersValue: {
-                    ...studentListState.filtersValue,
-                    [payload.fieldName]: payload.value,
+                studentListFilters: {
+                    ...studentListState.studentListFilters,
+                    filters: {
+                        ...studentListState.studentListFilters.filters,
+                        [payload.fieldName]: payload.value,
+                    }
+                }
+            }
+
+        case FETCH_RESET_STUDENT_LIST_FILTERS_VALUE:
+            return {
+                ...studentListState,
+                studentListFilters: {
+                    ...studentListState.studentListFilters,
+                    filters: {},
+                }
+            }
+
+        case FETCH_SET_STUDENT_LIST_FILTERS_SELECT_TROOP:
+            return {
+                ...studentListState,
+                studentListFilters: {
+                    ...studentListState.studentListFilters,
+                    selectTroop: payload,
                 }
             }
         case FETCH_SET_STUDENT_LIST_FIELDS:
@@ -56,9 +82,18 @@ export default function reducer(studentListState = defaultState, action = {}) {
 }
 
 //data example {fieldName: 'firstName', value: 'Иван',}
-export const fetchSetStudentsListFilters = data => ({
-    type: FETCH_SET_STUDENTS_LIST_FILTERS,
+export const fetchSetStudentListFiltersValue = data => ({
+    type: FETCH_SET_STUDENT_LIST_FILTERS_VALUE,
     payload: data,
+})
+
+export const fetchResetStudentListFiltersValue = () => ({
+    type: FETCH_RESET_STUDENT_LIST_FILTERS_VALUE,
+})
+
+export const fetchSetStudentListFiltersSelectTroop = troopId => ({
+    type: FETCH_SET_STUDENT_LIST_FILTERS_SELECT_TROOP,
+    payload: troopId, // ид взвода
 })
 
 export const fetchSetStudentListFields = data => ({
@@ -68,7 +103,6 @@ export const fetchSetStudentListFields = data => ({
 
 export const fetchGetStudentListData = data => ({
     type: FETCH_GET_STUDENT_LIST_DATA,
-    //payload: data,
 })
 
 export const fetchGetStudentListDataSuccess = data => ({

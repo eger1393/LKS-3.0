@@ -1,17 +1,24 @@
 ﻿import React from 'react'
-import Sidebar from 'react-sidebar'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
+import Sidebar from 'react-sidebar'
 import SVGIcon from '../../../_common/elements/SVGIcon'
 import SidebarContent from './SidebarContent'
 import { Container, SidebarButton } from './styled'
+
+import { fetchGetStudentListData, fetchSetStudentListFiltersSelectTroop, fetchResetStudentListFiltersValue } from '../../../../redux/modules/studentList'
 
 class TroopSidebar extends React.Component {
     state = {
         sidebarOpen: false,
     }
 
-    selectTroop = id => {
-        console.log(id);
+    selectTroop = async id => {
+        await this.props.fetchSetStudentListFiltersSelectTroop(id);
+        await this.props.fetchResetStudentListFiltersValue({}); // сбросил все фильтры
+        this.props.fetchGetStudentListData();
+        this.toggleSideBar();
     }
 
     toggleSideBar = () => {
@@ -24,7 +31,7 @@ class TroopSidebar extends React.Component {
         return (
             <Container>
                 <Sidebar
-                    sidebar={<SidebarContent selectTroop={this.selectTroop} />}
+                    sidebar={<SidebarContent onClick={this.selectTroop} />}
                     open={this.state.sidebarOpen}
                     onSetOpen={this.toggleSideBar}
                     styles={{ sidebar: { background: "white" } }}
@@ -39,4 +46,10 @@ class TroopSidebar extends React.Component {
     }
 }
 
-export default TroopSidebar
+TroopSidebar.props = {
+    fetchGetStudentListData: PropTypes.func,
+    fetchSetStudentListFiltersSelectTroop: PropTypes.func,
+    fetchResetStudentListFiltersValue: PropTypes.func,
+}
+
+export default connect(null, { fetchGetStudentListData, fetchSetStudentListFiltersSelectTroop, fetchResetStudentListFiltersValue })(TroopSidebar)

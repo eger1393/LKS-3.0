@@ -51,9 +51,13 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string,string> filters)
+		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
 		{
-			var res = context.Students.Include(ob => ob.Troop).AsQueryable();
+			var res = context.Students
+				.Include(ob => ob.Troop)
+				.AsQueryable();
+			if(!String.IsNullOrEmpty(selectTroop))
+				res = res.Where(ob => ob.TroopId == selectTroop);
 			if (filters != null)
 				filterStudents(filters, ref res);
 

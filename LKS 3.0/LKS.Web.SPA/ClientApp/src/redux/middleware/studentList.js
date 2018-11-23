@@ -2,7 +2,7 @@
 
 import { apiGetStudentListData } from '../../api/studentList'
 
-import { getStudentFilters } from '../../selectors/studentList'
+import { getStudentListFilters } from '../../selectors/studentList'
 
 import {
     FETCH_GET_STUDENT_LIST_DATA,
@@ -16,8 +16,8 @@ function* studentList() {
     yield all([
         takeEvery(FETCH_GET_STUDENT_LIST_DATA, function* () {
             try {
-                var filterList = yield select(getStudentFilters);
-                const data = yield call(apiGetStudentListData, { filters: filterList });
+                var filters = yield select(getStudentListFilters);
+                const data = yield call(apiGetStudentListData, filters);
                 yield put(fetchGetStudentListDataSuccess(data));
             } catch{
                 yield put(fetchGetStudentListDataFailed());

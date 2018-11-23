@@ -47,9 +47,9 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public IQueryable<Troop> GetItems()
+		public List<Troop> GetTroops()
 		{
-			return context.Troops;
+			return context.Troops.ToList();
 		}
 
 		public async Task Update(Troop item)
