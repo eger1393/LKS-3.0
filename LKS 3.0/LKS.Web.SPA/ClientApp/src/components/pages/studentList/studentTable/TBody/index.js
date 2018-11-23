@@ -48,13 +48,13 @@ class TBody extends React.Component {
                                 key={ob.id}
                                 collect={this.collect}
                             >
-                                <td>
+                                <td className="fixed-column select-color">
                                     {ob.lastName}
                                 </td>
-                                <td>
+                                <td className="select-color">
                                     {ob.firstName}
                                 </td>
-                                <td>
+                                <td className="select-color">
                                     {ob.middleName}
                                 </td>
                                 {

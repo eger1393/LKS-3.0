@@ -80,13 +80,18 @@ export const Container = styled.tbody`
 `
 
 export const Row = styled.tr`
-    background-color: ${props => getColor(props.Status)};
+    .select-color{
+         color: ${props => getColor(props.Status)};
+    }
+    //.fixed-column{
+    //    position: fixed;
+    //}
 `
 
 function getColor(status){
     switch (status) {
         case 0: // Обучается
-            return 'white';
+            return 'black';
         case 1: // На отчисление
             return '#f7f447';
         case 2: // Отстранен
@@ -96,6 +101,6 @@ function getColor(status){
         case 4: // Прошел сборы
             return '#4de8d0';
         default:
-            return 'white';
+            return 'black';
     }
 }
