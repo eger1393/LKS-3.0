@@ -18,4 +18,9 @@ export const SidebarButton = styled.div`
     top: 45vh;
     left: 5px;
     cursor: pointer;
+    opacity: 0.5;
+
+    &:hover{
+            opacity: 1;
+    }
 `
