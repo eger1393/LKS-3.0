@@ -23,6 +23,8 @@ namespace LKS.Data
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			builder.Entity<Troop>().HasAlternateKey(x => x.NumberTroop);
+
 			Seed(builder);
 		}
 
@@ -49,14 +51,14 @@ namespace LKS.Data
 			builder.Entity<Troop>().HasData(new Troop
 			{
 				Id = "1",
-				CucleId = "1",
+				CycleId = "1",
 				NumberTroop = "410",
 				PrepodId = "1"
 			});
 			builder.Entity<Troop>().HasData(new Troop
 			{
 				Id = "2",
-				CucleId = "1",
+				CycleId = "1",
 				NumberTroop = "520",
 				PrepodId = "1"
 			});

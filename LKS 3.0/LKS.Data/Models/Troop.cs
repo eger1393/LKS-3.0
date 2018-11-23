@@ -18,16 +18,19 @@ namespace LKS.Data.Models
 		/// </summary>
 		public Student PlatoonCommander;
 
+		[Required]
 		[ForeignKey(nameof(Cycle))]
-		public string CucleId { get; set; }
+		public string CycleId { get; set; }
 		public Cycle Cycle { get; set; }
 
+		[Required]
 		[ForeignKey(nameof(Prepod))]
 		public string PrepodId { get; set; }
 		public Prepod Prepod { get; set; }
 
 		public virtual List<Student> Students { get; set; }
-		
+
+		[Required]
 		public string NumberTroop { get; set; }
 
 		/// <summary>
@@ -49,6 +52,7 @@ namespace LKS.Data.Models
 		/// <summary>
 		/// День прихода
 		/// </summary>
+		 [Required]
 		public ArrivalDay ArrivalDay { get; set; }
 	}
 }

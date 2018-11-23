@@ -76,6 +76,7 @@ namespace LKS.Web.SPA
 			services.AddTransient<IRelativeRepository, RelativeRepository>();
 			services.AddTransient<ITroopRepository, TroopRepository>();
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
+			services.AddTransient<ICycleRepository, CycleRepository>();
 		}
     }
 }

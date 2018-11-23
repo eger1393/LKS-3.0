@@ -50,9 +50,9 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public IQueryable<Prepod> GetItems()
+		public List<Prepod> GetItems()
 		{
-			return context.Prepods;
+			return context.Prepods.ToList();
 		}
 
 		public async Task Update(Prepod item)

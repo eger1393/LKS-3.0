@@ -50,9 +50,9 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public IQueryable<Cycle> GetItems()
+		public List<Cycle> GetItems()
 		{
-			return context.Cycles;
+			return context.Cycles.ToList();
 		}
 
 		public async Task Update(Cycle item)

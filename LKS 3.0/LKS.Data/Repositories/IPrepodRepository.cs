@@ -7,5 +7,6 @@ namespace LKS.Data.Abstract
 {
 	public interface IPrepodRepository : IRepository<Prepod>
 	{
+		List<Prepod> GetItems();
 	}
 }
