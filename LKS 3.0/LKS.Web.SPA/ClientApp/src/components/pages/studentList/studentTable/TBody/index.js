@@ -2,10 +2,37 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getStudentListData, getStudentListFields } from '../../../../../selectors/studentList'
+import { ContextMenu, MenuItem, ContextMenuTrigger, SubMenu } from "react-contextmenu";
 
 import { Container, Row } from './styled'
 
 class TBody extends React.Component {
+
+    handleClick = (e, data) => {
+        switch (data.type) {
+            case 'editStudent':
+                {
+                    console.log('editStudent');
+                    break;
+                }
+            case 'changeStatus':
+                {
+                    console.log('changeStatus');
+                    break;
+                }
+            case 'changeRank':
+                {
+                    console.log('changeRank')
+                    break;
+                }
+            default:
+        }
+        console.log(data);
+    }
+
+    collect = props => ({
+        id: props.stydentId,
+    })
 
     render() {
         return (
@@ -13,7 +40,14 @@ class TBody extends React.Component {
                 {this.props.studentData.length > 0 && (
                     this.props.studentData.map(ob => {
                         return (
-                            <Row Status={ob.status}>
+                            <ContextMenuTrigger
+                                renderTag={Row}
+                                attributes={{ Status: ob.status }}
+                                id="stydentMenu"
+                                stydentId={ob.id}
+                                key={ob.id}
+                                collect={this.collect}
+                            >
                                 <td>
                                     {ob.lastName}
                                 </td>
@@ -32,10 +66,27 @@ class TBody extends React.Component {
                                         )
                                     })
                                 }
-                            </Row>
+                            </ContextMenuTrigger>
                         )
                     })
                 )}
+                <ContextMenu id="stydentMenu">
+                    <MenuItem onClick={this.handleClick} data={{ type: 'editStudent' }}>Редактировать студента</MenuItem>
+                    <SubMenu title='Сменить статус'>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeStatus', status: 'train' }}>Обучается</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeStatus', status: 'forDeductions' }}>На отчисление</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeStatus', status: 'suspended' }}>Отстраненый</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeStatus', status: 'trainingFees' }}>На сборах</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeStatus', status: 'completedFees' }}>Прошел сборы</MenuItem>
+                    </SubMenu>
+                    <SubMenu title='Сменить должность'>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeRank', rank: '' }}>SubSubItem 1</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeRank', rank: '' }}>SubSubItem 1</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeRank', rank: '' }}>SubSubItem 1</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeRank', rank: '' }}>SubSubItem 1</MenuItem>
+                        <MenuItem onClick={this.handleClick} data={{ type: 'changeRank', rank: '' }}>SubSubItem 1</MenuItem>
+                    </SubMenu>
+                </ContextMenu>
             </Container>
         );
     }

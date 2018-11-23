@@ -25,6 +25,7 @@ namespace LKS.Web.SPA.Controllers
 		{
 			var studentList = _stydentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
 			{
+				ob.Id,
 				ob.FirstName,
 				ob.LastName,
 				ob.MiddleName, 
