@@ -46,7 +46,7 @@ namespace LKS.Web.SPA.Controllers
             return Ok(_stydentRepository.GetInstGroupList());
         }
 
-    }
+    
 		[HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{

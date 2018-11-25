@@ -12,9 +12,6 @@ namespace LKS.Data.Abstract
 		List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop);
 		Task SetStudentStatus(string id,StudentStatus status);
 		Task SetStudentPosition(string id, StudentPosition position);
-	}
-		List<Student> GetStudents(Dictionary<string, string> filters);
-
         List<string> GetInstGroupList();
 
     }
