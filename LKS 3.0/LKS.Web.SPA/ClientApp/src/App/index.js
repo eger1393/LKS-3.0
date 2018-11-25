@@ -3,5 +3,5 @@ import { Route } from 'react-router';
 import Test from '../components/pages/StudentList'
 
 export default () => (
-        <Route exact path='/' component={Test} />
+    <Route exact path='/' component={Test} />
 );
