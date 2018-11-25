@@ -29,11 +29,6 @@ namespace LKS_3._0.ViewModel
         {
             DataBaseTr = temp_DB;
             Troops = temp_DB.Troops.Local.ToBindingList();
-
-            //foreach (var item in Troops)
-            //{
-            //    item.StaffCount = item.Students.Count;
-            //}
         }
 
         private RelayCommand saveChangeCommand,deleteCommand,exelentCommand,updatePCCommand, updateRPCommand,editCommand,addCommand;
@@ -117,12 +112,20 @@ namespace LKS_3._0.ViewModel
                         if (res.ToString() == "Yes")
                             {
                                 Troop temp = selectedItem as Troop;
-                                DataBaseTr.Students.RemoveRange(SelectTroop.Students);
+                                if(temp.SboriTroop == true)
+                                {
+                                    foreach (var item in temp.Students)
+                                    {
+                                        item.Status = "Обучается";
+                                        item.Troop.Remove(temp);
+                                    }
+                                }
+                                else
+                                {
+                                    DataBaseTr.Students.RemoveRange(SelectTroop.Students);
+                                }
                                 DataBaseTr.Troops.Remove(temp);
                                 DataBaseTr.SaveChanges();
-                                //SelectPrepod = new Prepod();
-
-                                //Troop._count--;
 
 
     }
@@ -144,13 +147,6 @@ namespace LKS_3._0.ViewModel
                 return exelentCommand ??
                   (exelentCommand = new RelayCommand((selectedItem) =>
                   {
-                      //foreach (var item in Troops)
-                      //{
-                      //    foreach (var item2 in item.Students)
-                      //    {
-                      //        item2.Troop[0] = item;
-                      //    }
-                      //}
                       DataBaseTr.SaveChanges();
                   }));
             }
@@ -164,11 +160,8 @@ namespace LKS_3._0.ViewModel
                   (updatePCCommand = new RelayCommand((selectedItem) =>
                   {
                       // если ни одного объекта не выделено, выходим
-                      if ((selectedItem == null)) return;
-
-
+                      if (selectedItem == null) return;
                       Student temp = selectedItem as Student;
-
                       Student last_PC = SelectTroop.PlatoonCommander;
                       if(last_PC != null)
                       {
@@ -176,10 +169,6 @@ namespace LKS_3._0.ViewModel
                       }
                      
                       temp.Rank = Troop.Ranks[1];
-                      //SelectTroop.Id_PC = temp.Id;
-                      //SelectTroop.PlatoonCommander = temp;
-
-
 
                   },(obj) => SelectStudent != null));
             }

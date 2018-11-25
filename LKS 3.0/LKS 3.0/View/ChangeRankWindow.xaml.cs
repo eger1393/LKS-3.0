@@ -45,8 +45,6 @@ namespace LKS_3._0.View
                     }
 
                     selec_st.Rank = Troop.Ranks[1];
-                    //select_troop.Id_PC = selec_st.Id;
-                    //select_troop.PlatoonCommander = selec_st;
                 }
                 else
                 {

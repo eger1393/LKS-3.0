@@ -27,7 +27,7 @@ namespace LKS_3._0
             VUS = "042600";
             WhoseOrder = "МО РФ";
             VO = "МВО";
-            Rank = " ";
+            Rank = LKS_3._0.Troop.Ranks[0];
             VuzName = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)(МАИ)";
             VkName = "Военная кафедра \"МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ (национальный исследовательский университет)\"(МАИ)";
             Fighting = "не участвовал";
@@ -39,7 +39,7 @@ namespace LKS_3._0
             Troop = new BindingList<Troop>();
             Relatives = new BindingList<Relative>();
             Troop.Add(troop);
-            Rank = " ";
+            Rank = LKS_3._0.Troop.Ranks[0];
             Status = "Обучается";
             BloodType = "Не знаю";
             Kurs = 2;
@@ -71,17 +71,15 @@ namespace LKS_3._0
     
         public override string ToString()
         {
-            try
+            if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
             {
-                return String.Format("{0} {1}. {2}.",
-              MiddleName, FirstName[0], LastName[0]);
+
+                System.Windows.MessageBox.Show("Данные заполнены не полностью! В созданном файле могут отсутствовать данные!");
+                MiddleName = "None";
+                FirstName = "None";
+                LastName = "None";
             }
-            catch (NullReferenceException)
-            {
-                 System.Windows.MessageBox.Show("Не заполнено ФИО! Могут отсутстовать данные!\n");
-                return "-1";
-            }
-           
+            return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
         }
 
         public string str_FIO
@@ -98,7 +96,11 @@ namespace LKS_3._0
             {
                 if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
                 {
-                    throw new Exception("Не заполнено ФИО! Могут отсутстовать данные!\n");
+
+                    System.Windows.MessageBox.Show("Данные заполнены не полностью! В созданном файле могут отсутствовать данные!");
+                    MiddleName = "None";
+                    FirstName = "None";
+                    LastName = "None";
                 }
                 return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
             }

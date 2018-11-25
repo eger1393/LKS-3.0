@@ -26,21 +26,15 @@ namespace LKS_3._0
     /// </summary>
     public partial class TroopChange : Window
     {
-        ApplicationContext temp_database;
-
         Troop t_troop;
 
         BindingList<Troop> _Troops;
 
-        public TroopChange(ref ApplicationContext database)
+        public TroopChange(ref ApplicationContext database, BindingList<Troop> troops)
         {
             InitializeComponent();
 
-            temp_database = database;
-
-            _Troops = temp_database.Troops.Local.ToBindingList();
-
-            
+            _Troops = troops;
 
             CbTroop.ItemsSource = _Troops.Where(u => u.SboriTroop == false && u.NumberTroop != null).Distinct().ToList();
         }
@@ -49,7 +43,7 @@ namespace LKS_3._0
         {
             if(CbTroop.Text != "")
             {
-                t_troop = _Troops.FirstOrDefault(u => u.NumberTroop == CbTroop.Text);
+                t_troop = (Troop)CbTroop.SelectedItem;
                 DialogResult = true;
             }
             else
@@ -62,32 +56,6 @@ namespace LKS_3._0
         public Troop troop_change()
         {
             return t_troop;
-        }
-
-        private void Create_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(TB_TroopName.Text != "")
-            {
-                //Troop._count++;
-
-                t_troop = new Troop(TB_TroopName.Text);
-
-                //t_troop.Id = Troop._count;
-
-                MessageBox.Show("Новый взвод № " + t_troop.NumberTroop + " создан!", "Внимание!");
-
-                _Troops.Add(t_troop);
-
-                temp_database.SaveChanges();// оно тут надо или нет???
-
-                DialogResult = true;
-            }
-            else
-            {
-                MessageBox.Show("Введите название взвода!", "Внимание!");
-
-            }
-         
         }
 
         private void TbOnlyDigit_PreviewTextInput(object sender, TextCompositionEventArgs e)

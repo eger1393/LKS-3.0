@@ -14,8 +14,6 @@ using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.Data.Entity;
 
-//using WORD = Microsoft.Office.Interop.Word; // исспользую для печати файла
-
 
 
 namespace LKS_3._0.Model
@@ -29,9 +27,7 @@ namespace LKS_3._0.Model
 			selectedRelative;   //его дорственник
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
-					   //Model.Department adminInfo; // Военком и нач кафедры
 		List<Admin> admins; // список администрации на сборах
-
 		// Неуверен всетаки надо ли передавать ссылка на БД
 		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
 
