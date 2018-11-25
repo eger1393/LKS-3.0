@@ -51,13 +51,31 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string,string> filters)
+		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
 		{
-			var res = context.Students.Include(ob => ob.Troop).AsQueryable();
+			var res = context.Students
+				.Include(ob => ob.Troop)
+				.AsQueryable();
+			if(!String.IsNullOrEmpty(selectTroop))
+				res = res.Where(ob => ob.TroopId == selectTroop);
 			if (filters != null)
 				filterStudents(filters, ref res);
 
 			return res.ToList();
+		}
+
+		public async Task SetStudentStatus(string id, StudentStatus status)
+		{
+			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			student.Status = status;
+			context.SaveChanges();
+		}
+
+		public async Task SetStudentPosition(string id, StudentPosition position)
+		{
+			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			student.Position = position;
+			context.SaveChanges();
 		}
 
 		public async Task Update(Student item)
@@ -81,9 +99,6 @@ namespace LKS.Data.Concrete
 						break;
 					case "middleName":
 						res = res.Where(ob => ob.MiddleName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
-						break;
-					case "rank":
-						res = res.Where(ob => ob.Rank.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
 						break;
 					case "collness":
 						res = res.Where(ob => ob.Collness.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));

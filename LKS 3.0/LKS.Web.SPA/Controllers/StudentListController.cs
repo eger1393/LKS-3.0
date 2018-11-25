@@ -23,12 +23,13 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetStudentListData([FromBody]GetStudentListDataModel model)
 		{
-			var studentList = _stydentRepository.GetStudents(model.filters).Select(ob => new
+			var studentList = _stydentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
 			{
+				ob.Id,
 				ob.FirstName,
 				ob.LastName,
 				ob.MiddleName, 
-				ob.Rank,
+				ob.Position,
 				ob.Kurs,
 				ob.NumTroop,
 				numbTroop = ob.Troop?.NumberTroop,
@@ -46,4 +47,23 @@ namespace LKS.Web.SPA.Controllers
         }
 
     }
+		[HttpPost("[action]")]
+		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+			_stydentRepository.SetStudentStatus(model.id, model.status);
+			return Ok();
+		}
+
+		[HttpPost("[action]")]
+		public IActionResult SetStudentPosition([FromBody]SetStudentPositionModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+			_stydentRepository.SetStudentPosition(model.id, model.position);
+			return Ok();
+		}
+
+	}
 }

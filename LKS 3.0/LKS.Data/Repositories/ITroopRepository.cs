@@ -13,6 +13,6 @@ namespace LKS.Data.Abstract
 {
 	public interface ITroopRepository : IRepository<Troop>
 	{
-        List<Troop> GetItems();
-    }
+		List<Troop> GetTroops();
+	}
 }

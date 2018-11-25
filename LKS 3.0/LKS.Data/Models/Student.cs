@@ -30,14 +30,8 @@ namespace LKS.Data.Models
 
 	public class Student
 	{
-		public Student() // Конструктор по умолчанию
+		public Student()
 		{
-			
-
-			Zapas = true;
-			ProjectOrder = true;
-            Rank = " ";
-
 			//подумать где это должно быть
 			WhoseOrder = "МО РФ";
 			VO = "МВО";
@@ -80,7 +74,7 @@ namespace LKS.Data.Models
 		}
 
 		[DisplayName("Должность")]
-		public string Rank { get; set; }
+		public StudentPosition Position { get; set; }
 
 
 		public string SpecialityName { get

@@ -1,11 +1,21 @@
 ﻿import React from 'react'
+
+import TroopSidebar from './TroopSidebar'
 import NavBar from './NavBar'
 import StudentTable from './StudentTable'
 import DataSelectors from './DataSelestors'
-import { Container } from './styled'
+import { Container} from './styled'
 
 class StydentsList extends React.Component {
+    state = {
+        sidebarOpen: false,
+    }
 
+    toggleSideBar = () => {
+        this.setState(prevState => ({
+            sidebarOpen: !prevState.sidebarOpen,
+        }))
+    }
 
     render() {
         return (
@@ -13,6 +23,7 @@ class StydentsList extends React.Component {
                 <NavBar />
                 <DataSelectors />
                 <StudentTable />
+                <TroopSidebar/>
             </Container>
         );
     }

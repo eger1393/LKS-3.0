@@ -9,18 +9,18 @@ import 'react-picky/dist/picky.css'
 import { Container, Contant } from './styled'
 import {
     fetchSetStudentListFields,
-    fetchSetStudentsListFilters,
+    fetchSetStudentListFiltersValue,
     fetchGetStudentListData,
 } from '../../../../redux/modules/studentList'
 
-import { getStudentListFields, getStudentFilters } from '../../../../selectors/studentList'
+import { getStudentListFields, getStudentListFiltersValue } from '../../../../selectors/studentList'
 
 
 // TODO Вынести в константы 
 const fieldArr = [
     { id: 1, name: 'numTroop', value: 'Номер взвода', isFiltering: true },
     { id: 2, name: 'collness', value: 'Звание', isFiltering: true },
-    { id: 3, name: 'rank', value: 'Должность', isFiltering: true },
+    { id: 3, name: 'position', value: 'Должность', isFiltering: false },
     { id: 4, name: 'kurs', value: 'Курс', isFiltering: false },
 
 ]
@@ -32,17 +32,17 @@ class DataSelectors extends React.Component {
         self.props.selectedFields.map(ob => { 
             // Затираем значение фильтрации в поле, с которого сняли выбор
             if (!val.includes(ob)) {
-                self.props.fetchSetStudentsListFilters({ fieldName: ob.name, value: '' });
+                self.props.fetchSetStudentListFiltersValue({ fieldName: ob.name, value: '' });
             }
         });
         this.props.fetchSetStudentListFields(val.sort((a, b) => a.id - b.id));
     }
 
-    changeSelectedStudentFilter = async event => {
+    changeSelectedStudentFilter = async event => { // выпадашка со статусами студентов
         var name = 'studentType',
             val = event.target.value;
-        await this.props.fetchSetStudentsListFilters({ fieldName: name, value: val });
-        await this.props.fetchGetStudentListData();
+        await this.props.fetchSetStudentListFiltersValue({ fieldName: name, value: val }); // добавили фильтр
+        await this.props.fetchGetStudentListData(); // дернули студентов
     }
 
     render() {
@@ -96,11 +96,11 @@ DataSelectors.props = {
 
 const mapStateToProps = state => ({
     selectedFields: getStudentListFields(state),
-    filters: getStudentFilters(state),
+    filters: getStudentListFiltersValue(state),
 })
 
 export default connect(mapStateToProps, {
     fetchSetStudentListFields,
-    fetchSetStudentsListFilters,
+    fetchSetStudentListFiltersValue,
     fetchGetStudentListData,
 })(DataSelectors);

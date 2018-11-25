@@ -5,12 +5,12 @@ import Input from '../../../../_common/elements/Input'
 
 import {
     fetchGetStudentListData,
-    fetchSetStudentsListFilters
+    fetchSetStudentListFiltersValue
 } from '../../../../../redux/modules/studentList'
 
 import {
     getStudentListFields,
-    getStudentFilters
+    getStudentListFiltersValue
 } from '../../../../../selectors/studentList'
 
 import { Container } from './styled'
@@ -27,7 +27,7 @@ class THead extends React.Component {
         await this.setState(prevState => ({
             cahngeFilterFlag: prevState.cahngeFilterFlag + 1,
         }))
-        await this.props.fetchSetStudentsListFilters({ fieldName: name, value: value });
+        await this.props.fetchSetStudentListFiltersValue({ fieldName: name, value: value });
         setTimeout(() => {
             self.setState(prevState => ({
                 cahngeFilterFlag: prevState.cahngeFilterFlag - 1,
@@ -111,7 +111,7 @@ THead.state = {
 
 const mapStateToProps = state => ({
     selectedFields: getStudentListFields(state),
-    filterList: getStudentFilters(state),
+    filterList: getStudentListFiltersValue(state),
 })
 
-export default connect(mapStateToProps, { fetchGetStudentListData, fetchSetStudentsListFilters })(THead)
+export default connect(mapStateToProps, { fetchGetStudentListData, fetchSetStudentListFiltersValue })(THead)

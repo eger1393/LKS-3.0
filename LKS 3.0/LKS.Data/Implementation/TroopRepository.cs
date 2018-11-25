@@ -47,10 +47,10 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Troop> GetItems()
+		public List<Troop> GetTroops()
 		{
-            return context.Troops.ToList();
-        }
+			return context.Troops.ToList();
+		}
 
 		public async Task Update(Troop item)
 		{
