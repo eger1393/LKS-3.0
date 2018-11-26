@@ -16,9 +16,10 @@ export const Container = styled.div`
         line-height: 1.43;
         letter-spacing: 0.2px;
         color: black;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 300;
         user-select: none;
+        color: #1b1e2d;
     }
 
     input {

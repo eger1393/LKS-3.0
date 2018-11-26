@@ -34,8 +34,8 @@ class Info extends React.Component {
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
         return (
             <FlexBox>
-                <FlexRow>
-                    <FlexBox>
+                <FlexBox>
+                    <FlexRow>
                         <Input id="LastName"
                             type="text"
                             isRequired={true}
@@ -50,6 +50,8 @@ class Info extends React.Component {
                             value={this.state.fieldValue['FirstName']}
                             onChange={this.changeSelect}
                         />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="MiddleName"
                             type="text"
                             isRequired={true}
@@ -63,7 +65,10 @@ class Info extends React.Component {
                             text="numberTroop"
                             isRequired={true}
                             placeholder="Взвод"
-                            onChange={this.changeSelect} />
+                            onChange={this.changeSelect}
+                        />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="Rank"
                             type="text"
                             placeholder="Должность"
@@ -76,14 +81,18 @@ class Info extends React.Component {
                             text="val"
                             isRequired={true}
                             placeholder="Группа"
-                            onChange={this.changeSelect} />
+                            onChange={this.changeSelect}
+                        />
+                    </FlexRow>
+                    <FlexRow>
                         <Select id="Kurs"
                             data={kurs}
                             value="id"
                             text="val"
                             isRequired={true}
                             placeholder="Курс"
-                            onChange={this.changeSelect} />
+                            onChange={this.changeSelect}
+                        />
                         <Input id="Faculty"
                             type="text"
                             isRequired={true}
@@ -91,22 +100,27 @@ class Info extends React.Component {
                             value={this.state.fieldValue['Faculty']}
                             onChange={this.changeSelect}
                         />
+                    </FlexRow>
+                    <FlexRow>
                         <Select id="SpecInst"
-                            data={[{ id: '1', val: 'ИВТ'}]}
+                            data={[{ id: '1', val: 'ИВТ' }]}
                             value="id"
                             text="val"
                             isRequired={true}
                             placeholder="Cпециальность в ВУЗе"
-                            onChange={this.changeSelect} />
-                    </FlexBox> 
-                    <FlexBox>
+                            onChange={this.changeSelect}
+                        />
+
                         <Select id="ConditionsOfEducation"
                             data={сonditionsOfEducation}
                             value="id"
                             text="val"
                             isRequired={true}
                             placeholder="Условия обучения"
-                            onChange={this.changeSelect} />
+                            onChange={this.changeSelect}
+                        />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="AvarageScore"
                             type="text"
                             placeholder="Средний балл зачетки"
@@ -120,6 +134,8 @@ class Info extends React.Component {
                             value={this.state.fieldValue['YearOfAddMAI']}
                             onChange={this.changeSelect}
                         />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="YearOfEndMAI"
                             type="text"
                             placeholder="Год окончания МАИ"
@@ -132,6 +148,8 @@ class Info extends React.Component {
                             value={this.state.fieldValue['YearOfAddVK']}
                             onChange={this.changeSelect}
                         />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="YearOfEndVK"
                             type="text"
                             placeholder="Год окончания ВК"
@@ -144,6 +162,8 @@ class Info extends React.Component {
                             value={this.state.fieldValue['NumberOfOrder']}
                             onChange={this.changeSelect}
                         />
+                    </FlexRow>
+                    <FlexRow>
                         <Input id="DateOfOrder"
                             type="text"
                             placeholder="Дата приказа"
@@ -155,9 +175,10 @@ class Info extends React.Component {
                             value="id"
                             text="val"
                             placeholder="Военкомат"
-                            onChange={this.changeSelect} />
-                    </FlexBox>
-                </FlexRow>               
+                            onChange={this.changeSelect}
+                        />
+                    </FlexRow>
+                </FlexBox>
             </FlexBox>
         );
     }

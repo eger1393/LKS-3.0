@@ -13,10 +13,10 @@ export const Container = styled.div`
         line-height: 1.43;
         letter-spacing: 0.2px;
         font-size: 14px;
-        z-index: 1;
-        //left: 5px;
         color: black;
+        font-weight: 300;
         transition: transform 0.3s ease;
+        color: #1b1e2d;
     }
 
     select{
@@ -25,6 +25,7 @@ export const Container = styled.div`
         border-radius: 1px;
         border: none;
         border-bottom: 1px solid #d8d8d8;
+        color: #1b1e2d;
         &:focus{
             outline: none;
             border-bottom: 1px solid #28a2a2;

@@ -8,6 +8,8 @@ import Button from '../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
 import { apiGetCycleList, apiGetPrepodList, apiCreateTroop } from '../../../../api/dialogs'
 
+import { Container } from './styled'
+
 class CreateTroop extends React.Component {
     state = {
         fieldValue: [], // значение полей формы
@@ -55,26 +57,28 @@ class CreateTroop extends React.Component {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <ModalContainer>
-                    <FormHead text="Создать взвод" handleClick={this.props.onHide} />
-                    <FlexBox>
-                        <FlexRow>
-                            <Select id="cycleId" data={this.state.cycle} placeholder="Цикл" onChange={this.changeSelect} value="id" text="number" />
-                            <Input id="numberTroop"
-                                type="text"
-                                isRequired={true}
-                                placeholder="Номер взвода"
-                                value={this.state.fieldValue['numberTroop']}
-                                onChange={this.changeSelect}
-                            />
-                        </FlexRow>
-                        <FlexRow>
-                            <Select id="arrivalDay" data={day} value="id" text="val" placeholder="День прихода" onChange={this.changeSelect} />
-                            <Select id="prepodId" data={this.state.prepod} value="id" text="initials" placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
-                        </FlexRow>
-                    </FlexBox>
-                    <div className="form-submit">
-                        <Button onClick={this.createTroop} value="Создать" />
-                    </div>
+                    <Container>
+                        <FormHead text="Создать взвод" handleClick={this.props.onHide} />
+                        <FlexBox>
+                            <FlexRow className="flex-row">
+                                <Select id="cycleId" data={this.state.cycle} placeholder="Цикл" onChange={this.changeSelect} value="id" text="number" />
+                                <Input id="numberTroop"
+                                    type="text"
+                                    isRequired={true}
+                                    placeholder="Номер взвода"
+                                    value={this.state.fieldValue['numberTroop']}
+                                    onChange={this.changeSelect}
+                                />
+                            </FlexRow>
+                            <FlexRow className="flex-row">
+                                <Select id="arrivalDay" data={day} value="id" text="val" placeholder="День прихода" onChange={this.changeSelect} />
+                                <Select id="prepodId" data={this.state.prepod} value="id" text="initials" placeholder="Ответственный преподаватель" onChange={this.changeSelect} />
+                            </FlexRow>
+                        </FlexBox>
+                        <div className="form-submit">
+                            <Button onClick={this.createTroop} value="Создать" />
+                        </div>
+                    </Container>
                 </ModalContainer>
             </Modal>
         );
