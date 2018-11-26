@@ -4,6 +4,8 @@ const GET_CYCLE_LIST_URL = '/api/cycle/GetCycleList'
 const GET_TROOP_LIST_URL = '/api/troop/GetTroopList'
 const GET_PREPOD_LIST_URL = '/api/prepod/GetPrepodList'
 const CREATE_TROOP_URL = '/api/troop/CreateTroop'
+const CREATE_STUDENT_URL = '/api/studentList/CreateStudent'
+const GET_INSTGROUP_LIST_URL = '/api/studentList/GetInstGroupList'
 
 export const apiGetCycleList = data =>
     axios.post(GET_CYCLE_LIST_URL, data).then(({ data }) => data);
@@ -17,3 +19,8 @@ export const apiGetPrepodList = data =>
 export const apiCreateTroop = data =>
     axios.post(CREATE_TROOP_URL, data);
 
+export const apiCreateStudent = data =>
+    axios.post(CREATE_STUDENT_URL, data);
+
+export const apiGetInstGroupList = data =>
+    axios.post(GET_INSTGROUP_LIST_URL, data).then(({ data }) => data);

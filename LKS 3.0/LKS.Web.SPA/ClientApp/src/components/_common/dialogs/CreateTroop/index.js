@@ -1,7 +1,6 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from 'react-bootstrap'
-
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
 import FormHead from '../../elements/FormHead'

@@ -8,6 +8,7 @@
     "bootstrap": "*",
     "js-file-download": "^0.4.4",
     "react": "^16.5.2",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^0.32.4",
     "react-contextmenu": "^2.10.0",
     "react-dom": "^16.5.2",

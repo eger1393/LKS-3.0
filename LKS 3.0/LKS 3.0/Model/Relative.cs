@@ -30,7 +30,7 @@ namespace LKS_3._0
             {
                 if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
                 {
-                    throw new Exception("Данные родсвенниках! В созданном файле могут отсутствовать данные!\n");
+                    System.Windows.MessageBox.Show("Заполните данные о родственниках! В созданном файле могут отсутствовать данные!\n");
                 }
                 return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
             }

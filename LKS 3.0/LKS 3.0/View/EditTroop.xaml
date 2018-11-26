@@ -32,7 +32,7 @@
         </Menu>
         <Button x:Name="button_Ok" Content="Готово" Grid.Row="4" FontSize="14.667" VerticalAlignment="Center" Grid.ColumnSpan="4" Margin="150,0" Click="button_Ok_Click" Command="{Binding ExelentCommand}"/>
 
-        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="135" Background="#FFB6B6B6" Margin="0,25,0,0">
+        <DataGrid x:Name="TroopGrid" ItemsSource ="{Binding Troops}" SelectedItem="{Binding SelectTroop}" AutoGenerateColumns="False" Grid.RowSpan="2" Grid.ColumnSpan="4"  ColumnWidth="135" Background="#FF99D69F" Margin="0,25,0,0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction 

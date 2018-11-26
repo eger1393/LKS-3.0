@@ -60,26 +60,8 @@ namespace LKS_3._0.ViewModel
 
         private void Update()
         {
-
-            //foreach (Troop item in Troops)
-            //{
-            //    if (item.SboriTroop)
-            //    {
-            //        item.Students = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.NumSboriTroop == item.NumberTroop).ToList());
-            //    }
-            //    else
-            //    {
-            //        item.Students = new BindingList<Student>(this.temp_DataBase.Students.Local.Where(u => u.Troop.NumberTroop == item.NumberTroop).ToList());
-            //    }
-            //}
-
             ListStudentsTroopSbori = Select_TroopSbori.Students;
-            //Select_TroopSbori.StaffCount = ListStudentsTroopSbori.Count;
-
-
             ListStudentsTroopCurrent = Select_TroopCurrent.Students;
-            //Select_TroopCurrent.StaffCount = ListStudentsTroopCurrent.Count;
-
             SelectPrepod = Select_TroopSbori.Prepod;
         }
         public BindingList<Troop> Troops

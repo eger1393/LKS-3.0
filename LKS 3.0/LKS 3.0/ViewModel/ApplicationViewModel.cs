@@ -718,7 +718,7 @@ namespace LKS_3._0
                     return troopCheck ??
                         (troopCheck = new RelayCommand(obj =>
                         {
-                            TroopChange window_TC = new TroopChange(ref DataBaseContext);
+                            TroopChange window_TC = new TroopChange(ref DataBaseContext, Troops);
 
                             if (window_TC.ShowDialog() == true)
                             {

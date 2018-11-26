@@ -29,7 +29,7 @@ namespace LKS_3._0
 
         private AddStudentViewModel viewModel;
 
-		private BitmapFrame ImageBitmapFrame;
+        private BitmapImage bitmapImage;
 
         public AddStudent(Student temp,ref ApplicationContext temp_DataBase)
 		{
@@ -213,43 +213,58 @@ namespace LKS_3._0
 			}
 		}
 
-		private void UploadPhoto_Click(object sender, RoutedEventArgs e)
+
+        public static BitmapImage GetBitmapImage(string str)
+        {
+            var bitmap = new BitmapImage();
+            using (var stream = new FileStream(str, FileMode.Open, FileAccess.Read))
+            {
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze();
+            }
+            return bitmap;
+        }
+
+        private void UploadPhoto_Click(object sender, RoutedEventArgs e)
 		{
       
 			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
 			dlg.Filter = "Image files (*.jpg, *png)|*.jpg; *png"; // добавили фильтер
 			if (dlg.ShowDialog() == true) // запустили окно
 			{
-				//File.Copy(dlg.FileName, "temp.jpg", true);
-				FileStream streamOpenImage = new FileStream(dlg.FileName, FileMode.Open); // создали новый файловый поток
-				ImageBitmapFrame = BitmapFrame.Create(streamOpenImage, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);																									 // я не нашел как из ImageSource сделать BitmapFrame поэтому просто записываю эту хрень сдесь
-				Photo.Source = ImageBitmapFrame.CloneCurrentValue(); // записали фото 
-				
-			
-			}
+
+                bitmapImage = GetBitmapImage(dlg.FileName);
+                Photo.Source = bitmapImage;
+                
+            }
         }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 
-            if (ImageBitmapFrame != null)
+            if (bitmapImage != null)
 			{
 				try
 				{
-					string ImagePath = @"\Image\" + viewModel.AddedStudent.Id + ".jpg"; // TODO добавить обработку исключениия
-					if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
-					{
-						File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
-					}
-					JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
-					jpegBitmapEncoder.QualityLevel = 100;
-					jpegBitmapEncoder.Frames.Add(ImageBitmapFrame);
-					FileStream fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.CreateNew);
-					jpegBitmapEncoder.Save(fileStream);
-					fileStream.Close();
-					viewModel.AddedStudent.ImagePath = "Image\\" + viewModel.AddedStudent.Id + ".jpg";
-				}
-				catch(System.IO.IOException)//TODO
+					string ImagePath = @"\Image\" + System.IO.Path.GetRandomFileName() + ".jpg"; // TODO добавить обработку исключениия
+
+					//if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + ImagePath))
+					//{
+					//	File.Delete(AppDomain.CurrentDomain.BaseDirectory + ImagePath);
+					//}
+                    
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)Photo.Source));
+                    using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + ImagePath, FileMode.Create))
+                        encoder.Save(stream);
+
+                    viewModel.AddedStudent.ImagePath = ImagePath;
+
+                }
+				catch(System.IO.IOException exc)//TODO
 				{
 					System.Windows.MessageBox.Show("Переместите или переименуйте фотографию!");
 				}

@@ -5,16 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LKS_3._0"
         mc:Ignorable="d"
-        Title="Выбор взвода" Height="224.8" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Выбор взвода" Height="150" Width="250" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-    <StackPanel >
-        <TextBlock Text="Выберите свой взвод:"  TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ComboBox x:Name="CbTroop" IsEditable="True" PreviewTextInput="TbOnlyDigit_PreviewTextInput">
+    <StackPanel VerticalAlignment="Center" >
+        <TextBlock Text="Выберите свой взвод:"  TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
+        <ComboBox x:Name="CbTroop" IsEditable="True" PreviewTextInput="TbOnlyDigit_PreviewTextInput" Margin="0,20,0,0">
         </ComboBox>
-        <Button x:Name="OK_Button" Content="Готово" Margin="0,15,0,0" Click="OK_Button_Click"/>
-        <TextBlock Text="Или создайте новый:"  TextAlignment="Center" Margin="0,15,0,0"/>
-        <TextBox x:Name="TB_TroopName" Text=""  TextAlignment="Center" Margin="0,5,0,0"  PreviewTextInput="TbOnlyDigit_PreviewTextInput"/>
-        <Button x:Name="Create_Button" Content="Создать новый" Margin="0,5,0,0" Click="Create_Button_Click" />
+        <Button x:Name="OK_Button" Content="Готово" Margin="0,20,0,0" Click="OK_Button_Click"/>
     </StackPanel>
 
 </Window>

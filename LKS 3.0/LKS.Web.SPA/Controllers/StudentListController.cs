@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LKS.Data.Abstract;
 using LKS.Web.SPA.Models;
+using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,14 @@ namespace LKS.Web.SPA.Controllers
 			return new JsonResult(new { studentList = studentList.ToArray() });
 		}
 
+        [HttpPost("[action]")]
+        public IActionResult GetInstGroupList()
+        {
+            var obj = _stydentRepository.GetInstGroupList().ToList();
+            return Ok(obj);
+        }
+
+    
 		[HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{
@@ -58,5 +67,14 @@ namespace LKS.Web.SPA.Controllers
 			return Ok();
 		}
 
-	}
+        [HttpPost("[action]")]
+        public IActionResult CreateStudent(Student model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            _stydentRepository.Create(model);
+            return Ok();
+        }
+
+    }
 }
