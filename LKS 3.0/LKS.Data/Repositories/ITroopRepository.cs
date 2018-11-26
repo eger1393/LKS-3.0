@@ -8,5 +8,6 @@ namespace LKS.Data.Abstract
 	public interface ITroopRepository : IRepository<Troop>
 	{
 		List<Troop> GetTroops();
+		Troop GetBuNum(string num);
 	}
 }

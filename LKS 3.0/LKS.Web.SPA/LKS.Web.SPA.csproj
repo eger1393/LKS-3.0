@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LKS.Data\LKS.Data.csproj" />
+    <ProjectReference Include="..\LKS.Infrastructure\LKS.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

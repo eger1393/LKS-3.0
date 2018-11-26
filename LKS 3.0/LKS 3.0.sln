@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LKS.Web", "LKS.Web\LKS.Web.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LKS.Web.SPA", "LKS.Web.SPA\LKS.Web.SPA.csproj", "{8BDFE069-2AE3-48C3-888C-DF38AF82D1F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LKS.Data", "LKS.Data\LKS.Data.csproj", "{6DABDDE4-90A8-4591-8376-16D839E03D2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LKS.Data", "LKS.Data\LKS.Data.csproj", "{6DABDDE4-90A8-4591-8376-16D839E03D2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LKS.Infrastructure", "LKS.Infrastructure\LKS.Infrastructure.csproj", "{D8835FC7-10A1-4942-B901-B96427D48B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{6DABDDE4-90A8-4591-8376-16D839E03D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DABDDE4-90A8-4591-8376-16D839E03D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DABDDE4-90A8-4591-8376-16D839E03D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8835FC7-10A1-4942-B901-B96427D48B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8835FC7-10A1-4942-B901-B96427D48B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8835FC7-10A1-4942-B901-B96427D48B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8835FC7-10A1-4942-B901-B96427D48B60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

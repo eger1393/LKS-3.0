@@ -5,21 +5,28 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { Container } from './styled'
 import CreateTroop from '../../../_common/dialogs/CreateTroop'
 
+import { apiCreateTemplate } from '../../../../api/templates'
+
 class NavBar extends React.Component {
     state = {
         openModalWindow: [],
     }
-    click = (key) => { // work
+    click = async (key) => { // work
         var val = !this.state.openModalWindow[key];
         this.setState(prevState => ({
             openModalWindow: { ...prevState.openModalWindow, [key]: val, }
         }))
+
+        if (key === 'test') { // TODO DELETE
+            var res = apiCreateTemplate();
+            console.log('done');
+        }
     }
 
     hide = data => {
         console.log(data);
     }
-    //onHide={this.click('TroopCreate')}
+
     render() {
         return (
             <Container>
@@ -41,7 +48,7 @@ class NavBar extends React.Component {
                         </NavDropdown>
                         <NavDropdown title="Отчеты">
                             <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
-                            <MenuItem eventKey={'XZ'}>еще что то</MenuItem>
+                            <MenuItem eventKey={'test'}>1 библиотека</MenuItem>
                         </NavDropdown>
                     </Nav>
                 </Navbar>

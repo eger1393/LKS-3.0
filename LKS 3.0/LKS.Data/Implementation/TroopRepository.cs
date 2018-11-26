@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Abstract;
 using LKS.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,6 +51,15 @@ namespace LKS.Data.Concrete
 		public List<Troop> GetTroops()
 		{
 			return context.Troops.ToList();
+		}
+
+		public Troop GetBuNum(string num)
+		{
+			return context.Troops
+				.Include(ob => ob.Students)
+				.Include(ob=>ob.Prepod)
+				//.Include(ob=>ob.PlatoonCommander)
+				.FirstOrDefault(ob => ob.NumberTroop == num);
 		}
 
 		public async Task Update(Troop item)
