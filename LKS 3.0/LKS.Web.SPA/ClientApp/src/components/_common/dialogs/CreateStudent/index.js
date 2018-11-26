@@ -8,7 +8,7 @@ import Button from '../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
 import Info from './Info'
 import { apiCreateStudent } from '../../../../api/dialogs'
-import './StyleSheet.css'
+import { Container } from './styled'
 
 class CreateStudent extends React.Component {
     state = {
@@ -26,14 +26,14 @@ class CreateStudent extends React.Component {
     }
     render() {
         return (
-            <Modal 
+            <Modal
                 show={this.props.show}
                 onHide={this.props.onHide}
-                dialogClassName="custom-modal"
-                >
+            >
                 <ModalContainer>
+                    <Container>
                         <FormHead text="Добавить студента" handleClick={this.props.onHide} />
-                        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
                             <Tab eventKey={1} title="Tab 1">
                                 <Info data={this.state.fieldValue} />
                             </Tab>
@@ -47,6 +47,7 @@ class CreateStudent extends React.Component {
                                 <Button onClick={this.createStudent} value="Создать" />
                             </div>
                         </Tabs>
+                    </Container>
                 </ModalContainer>
             </Modal>
         );

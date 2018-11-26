@@ -10,6 +10,7 @@ type InputProps = {
     onChange?: Function,
     tabIndex: string,
     middlewareValidator?: Function,
+    className: string,
 }
 
 class Input extends React.Component<InputProps> {
@@ -33,7 +34,7 @@ class Input extends React.Component<InputProps> {
     render() {
         return (
             <Container
-                className={`${this.state.isFocus ? 'animate' : ''} ${
+                className={`${this.props.className} ${this.state.isFocus ? 'animate' : ''} ${
                     this.props.error ? 'invalid' : ''
                     }`}
             >
