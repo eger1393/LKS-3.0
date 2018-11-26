@@ -5,6 +5,8 @@ import { Container } from './styled'
 import CreateTroop from '../../../_common/dialogs/CreateTroop'
 import CreateStudent from '../../../_common/dialogs/CreateStudent'
 
+import { apiCreateTemplate } from '../../../../api/templates'
+
 class NavBar extends React.Component {
 
     state = {
@@ -16,11 +18,17 @@ class NavBar extends React.Component {
         this.setState(prevState => ({
             openModalWindow: { ...prevState.openModalWindow, [key]: val, }
         }))
+
+        if (key === 'test') { // TODO DELETE
+            var res = apiCreateTemplate();
+            console.log('done');
+        }
     }
 
     hide = data => {
         console.log(data);
     }
+
     render() {
         return (
             <Container>
@@ -45,7 +53,7 @@ class NavBar extends React.Component {
                         </NavDropdown>
                         <NavDropdown title="Отчеты">
                             <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
-                            <MenuItem eventKey={'XZ'}>еще что то</MenuItem>
+                            <MenuItem eventKey={'test'}>1 библиотека</MenuItem>
                         </NavDropdown>
                     </Nav>
                 </Navbar>
