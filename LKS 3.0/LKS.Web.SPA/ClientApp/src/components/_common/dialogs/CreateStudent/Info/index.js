@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import { Col } from 'react-bootstrap'
 import Input from '../../../elements/Input'
 import Select from '../../../elements/Select'
-import AutocompleteInput from '../../../elements/Autocomplete'
+import Autocomplete from '../../../elements/Autocomplete'
 import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { apiGetTroopList, apiGetInstGroupList, apiGetRectalList, apiCreateStudent } from '../../../../../api/dialogs'
+
+import { Container } from './styled'
 
 class Info extends React.Component {
     state = {
@@ -23,9 +25,11 @@ class Info extends React.Component {
             fieldValue: { ...prevState.fieldValue, [name]: val, }
         }));
     }
-    componentDidMount() {
+    componentWillMount() {
         var self = this;
-        apiGetInstGroupList().then(res => self.setState({ instGroup: res }));
+        apiGetInstGroupList().then(res =>
+            self.setState({ instGroup: res })
+        );
         apiGetTroopList().then(res => self.setState({ troops: res }));
     }
     render() {
@@ -33,8 +37,8 @@ class Info extends React.Component {
         var kurs = [{ id: '1', val: '2' }, { id: '2', val: '3' }, { id: '3', val: '4' }]
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
         return (
-            <FlexBox>
-                <FlexBox>
+            <Container>
+                <FlexBox className="flex-box">
                     <FlexRow>
                         <Input id="LastName"
                             type="text"
@@ -73,16 +77,11 @@ class Info extends React.Component {
                             type="text"
                             placeholder="Должность"
                             value={this.state.fieldValue['Rank']}
-                            onChange={this.changeSelect}
-                        />
-                        <Select id="InstGroup"
-                            data={[{ id: '1', val: '3ВТИ-039' }]}
-                            value="id"
-                            text="val"
-                            isRequired={true}
-                            placeholder="Группа"
-                            onChange={this.changeSelect}
-                        />
+                            onChange={this.changeSelect}/>
+                        {
+                            this.state.instGroup.length != 0 && (<Autocomplete id="InstGroup"
+                            data={this.state.instGroup}
+                        />)}
                     </FlexRow>
                     <FlexRow>
                         <Select id="Kurs"
@@ -110,7 +109,6 @@ class Info extends React.Component {
                             placeholder="Cпециальность в ВУЗе"
                             onChange={this.changeSelect}
                         />
-
                         <Select id="ConditionsOfEducation"
                             data={сonditionsOfEducation}
                             value="id"
@@ -179,7 +177,7 @@ class Info extends React.Component {
                         />
                     </FlexRow>
                 </FlexBox>
-            </FlexBox>
+            </Container>
         );
     }
 }

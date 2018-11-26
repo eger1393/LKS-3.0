@@ -145,8 +145,8 @@ namespace LKS_3._0.ViewModel
 				return create ??
 					(create = new RelayCommand(obj =>
 					{
-						try
-						{
+						//try
+						//{
 							switch ((int)obj)
 							{
 								case 0: // Выбранна 1 вкладка (Документы на взвод)
@@ -440,11 +440,11 @@ namespace LKS_3._0.ViewModel
                                         break;
                                     }
                             }
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show("Неизвестная ошибка!\n" + ex.Message, "Внимание!");
-						}
+						//}
+						//catch (Exception ex)
+						//{
+						//	MessageBox.Show("Неизвестная ошибка!\n" + ex.Message, "Внимание!");
+						//}
 					}));
 			}
 		}

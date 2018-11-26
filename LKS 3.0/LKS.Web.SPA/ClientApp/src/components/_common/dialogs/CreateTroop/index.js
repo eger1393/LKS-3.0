@@ -12,7 +12,7 @@ import { Container } from './styled'
 
 class CreateTroop extends React.Component {
     state = {
-        fieldValue: [], // значение полей формы
+        fieldValue: {}, // значение полей формы
         cycle: [], // список циклов(тянем из бд)
         prepod: [], // список преподов (тянем из бд)
     }

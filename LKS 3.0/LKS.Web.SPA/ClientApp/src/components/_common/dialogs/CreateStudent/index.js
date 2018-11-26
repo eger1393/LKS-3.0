@@ -35,7 +35,7 @@ class CreateStudent extends React.Component {
                         <FormHead text="Добавить студента" handleClick={this.props.onHide} />
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
                             <Tab eventKey={1} title="Tab 1">
-                                <Info data={this.state.fieldValue} />
+                                <Info data={this.state.fieldValue}/>
                             </Tab>
                             <Tab eventKey={2} title="Tab 2" disabled>
                                 Tab 2 content
