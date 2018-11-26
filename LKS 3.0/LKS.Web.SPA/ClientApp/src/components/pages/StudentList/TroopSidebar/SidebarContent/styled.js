@@ -18,7 +18,7 @@ export const Container = styled.div`
         margin: 10px 0 10px 0;
         cursor: pointer;
 
-        &:hover{
+        &:hover, &.selected{
             font-weight: bold;
         }
     }
