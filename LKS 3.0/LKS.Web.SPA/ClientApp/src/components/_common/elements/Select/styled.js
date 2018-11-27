@@ -51,7 +51,7 @@ export const Container = styled.div`
     }
 
     &.invalid {
-        input {
+        select {
             outline: none;
             border-bottom: 1px solid #b73f4e !important;
         }
@@ -65,7 +65,7 @@ export const Container = styled.div`
         display: none;
         position: absolute;
         bottom: 20px;
-        right: 8px;
+        right: -2px;
         font-weight: 500;
         line-height: 1.43;
         letter-spacing: 0.2px;

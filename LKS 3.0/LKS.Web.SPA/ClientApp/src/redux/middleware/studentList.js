@@ -4,10 +4,14 @@ import { apiGetStudentListData, apiSetStudentPosition, apiSetStudentStatus } fro
 
 import { getStudentListFilters } from '../../selectors/studentList'
 
+import { apiGetTroopList } from '../../api/dialogs'
+
 import {
     FETCH_GET_STUDENT_LIST_DATA,
     fetchGetStudentListDataSuccess,
     fetchGetStudentListDataFailed,
+    FETCH_GET_TROOP_NUMBER_LIST,
+    fetchGetTroopNumberListSuccess,
     FETCH_SET_STUDENT_STATUS,
     FETCH_SET_STUDENT_POSITION
 } from '../modules/studentList'
@@ -30,6 +34,14 @@ function* studentList() {
         }),
         takeEvery(FETCH_SET_STUDENT_POSITION, function* (data) {
             yield call(apiSetStudentPosition, data.payload)
+        }),
+        takeEvery(FETCH_GET_TROOP_NUMBER_LIST, function* () {
+            try {
+                const data = yield call(apiGetTroopList);
+                yield put(fetchGetTroopNumberListSuccess(data));
+            } catch{
+                //yield put(fetchGetStudentListDataFailed());
+            }
         }),
     ])
 }

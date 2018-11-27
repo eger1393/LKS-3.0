@@ -13,6 +13,9 @@ export const FETCH_SET_STUDENT_LIST_FIELDS = `${module}/FETCH_SET_STUDENT_LIST_F
 export const FETCH_SET_STUDENT_STATUS = `${module}/FETCH_SET_STUDENT_STATUS`
 export const FETCH_SET_STUDENT_POSITION = `${module}/FETCH_SET_STUDENT_POSITION`
 
+export const FETCH_GET_TROOP_NUMBER_LIST = `${module}/FETCH_GET_TROOP_NUMBER_LIST`
+export const FETCH_GET_TROOP_NUMBER_LIST_SUCCESS = `${module}/FETCH_GET_TROOP_NUMBER_LIST_SUCCESS`
+
 const defaultState = {
     studentListFilters: {
         filters: {},
@@ -22,11 +25,22 @@ const defaultState = {
     studentListData: [],
     dataLoading: false,
     errorLoadingMessage: '',
+    troopNumberList:[],
 }
 
 export default function reducer(studentListState = defaultState, action = {}) {
     const { type, payload } = action;
     switch (type) {
+
+        case FETCH_GET_TROOP_NUMBER_LIST:
+            return { // при обновлении данных, ставить контент лоадер
+                ...studentListState,
+            }
+        case FETCH_GET_TROOP_NUMBER_LIST_SUCCESS:
+            return {
+                ...studentListState,
+                troopNumberList: payload,
+            }
         case FETCH_SET_STUDENT_LIST_FILTERS_VALUE:
             return {
                 ...studentListState, 
@@ -113,6 +127,15 @@ export default function reducer(studentListState = defaultState, action = {}) {
             return studentListState;
     }
 }
+
+export const fetchGetTroopNumberList = data => ({
+    type: FETCH_GET_TROOP_NUMBER_LIST,
+})
+
+export const fetchGetTroopNumberListSuccess = data => ({
+    type: FETCH_GET_TROOP_NUMBER_LIST_SUCCESS,
+    payload: data,
+})
 
 //data example {fieldName: 'firstName', value: 'Иван',}
 export const fetchSetStudentListFiltersValue = data => ({

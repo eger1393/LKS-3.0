@@ -6,4 +6,4 @@ export const getStudentListData = state => _.get(state, ['studentList', 'student
 export const getStudentListFiltersValue = state => _.get(state, ['studentList', 'studentListFilters', 'filters']);
 export const getStudentListFiltersSelectedTroop = state => _.get(state, ['studentList', 'studentListFilters', 'selectTroop']);
 export const getStudentListFilters = state => _.get(state, ['studentList', 'studentListFilters']);
-
+export const getTroopNumberList = state => _.get(state, ['studentList', 'troopNumberList']);

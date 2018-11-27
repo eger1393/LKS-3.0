@@ -10,16 +10,16 @@ const GET_INSTGROUP_LIST_URL = '/api/studentList/GetInstGroupList'
 const GET_TROOP_STUDENTS_LIST_INITIAL = '/api/troop/GetTroopStudentsListInitial'
 
 // return [{id: '12w', number: '4'},]
-export const apiGetCycleList = data =>
-    axios.post(GET_CYCLE_LIST_URL, data).then(({ data }) => data);
+export const apiGetCycleList = () =>
+    axios.post(GET_CYCLE_LIST_URL).then(({ data }) => data);
 
 // return [{id:'1123', numberTroop: '410'},]
-export const apiGetTroopList = data =>
-    axios.post(GET_TROOP_LIST_URL, data).then(({ data }) => data);
+export const apiGetTroopList = () =>
+    axios.post(GET_TROOP_LIST_URL).then(({ data }) => data);
 
 //return [{id: '12eq', initials: 'Иванов И. И.'},]
-export const apiGetPrepodList = data =>
-    axios.post(GET_PREPOD_LIST_URL, data).then(({ data }) => data);
+export const apiGetPrepodList = () =>
+    axios.post(GET_PREPOD_LIST_URL).then(({ data }) => data);
 
 //return [{id: '123', initials: 'Сидоров В. С.'},]
 export const apiGetTroopStudentsListInitial = data =>
