@@ -125,9 +125,26 @@ namespace LKS.Data.Concrete
 
         public List<string> GetInstGroupList()
         {
-            var res = context.Students.Select(u => u.InstGroup).Distinct().ToList();
-            return res;
+            var answer = context.Students.Select(u => u.InstGroup).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
+
         }
 
+        public List<string> GetSpecInstList()
+        {
+            var answer = context.Students.Select(u => u.SpecInst).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
+
+        }
+
+        public List<string> GetRectalList()
+        {
+            var answer = context.Students.Select(u => u.Rectal).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
+           
+        }
     }
 }

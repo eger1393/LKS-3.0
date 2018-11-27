@@ -35,7 +35,7 @@ class NavBar extends React.Component {
                 <Navbar fixedTop onSelect={this.click}>
                     <Nav>
                         <NavItem eventKey={'StudentCreate'} >
-                            Добавить студентов
+                            Добавить студента
                         </NavItem>
                         {this.state.openModalWindow['StudentCreate'] && (
                             <CreateStudent show={this.state.openModalWindow['StudentCreate']} onHide={() => this.click('StudentCreate')} />
