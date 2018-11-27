@@ -63,6 +63,35 @@ namespace LKS.Data.Concrete
 
 			return res.ToList();
 		}
+		public List<Student> GetTrainStudents()
+		{
+			return context.Students
+				.Include(ob => ob.Troop)
+				.Include(ob => ob.Relatives)
+				.Where(ob => ob.Status == StudentStatus.train
+					|| ob.Status == StudentStatus.trainingFees
+					|| ob.Status == StudentStatus.completedFees
+					).ToList();
+
+		}
+
+		public List<Student> GetForDeductionsStudents()
+		{
+			return context.Students
+				.Include(ob => ob.Troop)
+				.Include(ob => ob.Relatives)
+				.Where(ob => ob.Status == StudentStatus.forDeductions).ToList();
+
+		}
+
+		public List<Student> GetSuspendedStudents()
+		{
+			return context.Students
+				.Include(ob => ob.Troop)
+				.Include(ob => ob.Relatives)
+				.Where(ob => ob.Status == StudentStatus.suspended).ToList();
+
+		}
 
 		public async Task SetStudentStatus(string id, StudentStatus status)
 		{
@@ -70,6 +99,7 @@ namespace LKS.Data.Concrete
 			student.Status = status;
 			context.SaveChanges();
 		}
+
 
 		public async Task SetStudentPosition(string id, StudentPosition position)
 		{
