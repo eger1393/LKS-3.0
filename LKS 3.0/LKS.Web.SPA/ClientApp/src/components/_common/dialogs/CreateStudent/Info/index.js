@@ -45,8 +45,10 @@ class Info extends React.Component {
         // TODO Вынести в константы
         var kurs = [{ id: '1', val: '2' }, { id: '2', val: '3' }, { id: '3', val: '4' }]
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
-        var ranks = [{ id: 0, val: "Обучается" }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" },
+        var status = [{ id: 0, val: "Обучается" }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" },
             { id: 3, val: "На сборах" }, { id: 4, val: "Прошел сборы" },]
+        var ranks = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
+            { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" },]
         return (
             <Container>
                 <FlexBox className="flex-box">
@@ -128,12 +130,17 @@ class Info extends React.Component {
                         />
                     </FlexRow>
                     <FlexRow>
-                        <Input id="AvarageScore"
-                            type="text"
-                            placeholder="Средний балл зачетки"
-                            value={this.state.fieldValue['AvarageScore']}
+                        <Select id="Status"
+                            data={status}
+                            value="id"
+                            text="val"
+                            placeholder="Статус обучения"
                             onChange={this.changeSelect}
                         />
+
+                        {//<Input id="AvarageScore" type="text" placeholder="Средний балл зачетки"  value={this.state.fieldValue['AvarageScore']} onChange={this.changeSelect} />
+                        }
+
                         <Input id="YearOfAddMAI"
                             type="text"
                             isRequired={true}
