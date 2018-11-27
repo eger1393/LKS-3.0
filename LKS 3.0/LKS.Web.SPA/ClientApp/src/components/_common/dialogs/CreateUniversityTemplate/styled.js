@@ -18,7 +18,7 @@ export const Container = styled.div`
 `
 
 export const TemplateItem = styled.p`
-    width: 250px;
+    width: 260px;
     label{
         margin-left: 10px;
         cursor: pointer;
