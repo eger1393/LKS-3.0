@@ -44,8 +44,11 @@ namespace LKS.Data.Concrete
 
 		public async Task<Troop> GetItem(string id)
 		{
-			var res = await context.Troops.FindAsync(id);
-			return res;
+			return await context.Troops
+				.Include(ob => ob.Students)
+				.Include(ob => ob.Prepod)
+				//.Include(ob => ob.PlatoonCommander)
+				.FirstOrDefaultAsync(ob => ob.Id == id);
 		}
 
 		public List<Troop> GetTroops()

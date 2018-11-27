@@ -13,7 +13,6 @@ export const Container = styled.div`
         line-height: 1.43;
         letter-spacing: 0.2px;
         font-size: 14px;
-        color: black;
         font-weight: 300;
         transition: transform 0.3s ease;
         color: #1b1e2d;

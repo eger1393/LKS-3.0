@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using LKS.Data.Models;
 using LKS.Data.Models.Enums;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,7 @@ namespace LKS.Infrastructure.Templates
 {
 	public class TemplateProvider
 	{
-
+		readonly AsyncLock mutex = new AsyncLock();
 		List<Student> students; // текущие выбранные студенты(урощает работу с несколькими взводами)
 		Student selectedStudent;    // выбранный студент
 		Relative selectedStudentMather, //его мать
@@ -24,7 +25,17 @@ namespace LKS.Infrastructure.Templates
 							//List<Admin> admins; // список администрации на сборах
 
 
-		public byte[] CreateTemplate(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
+		public async Task<byte[]> CopyFile(string fileName)
+		{
+			var file = new MemoryStream();
+			using (var f = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+			{
+				f?.CopyTo(file);
+			}
+			return file.ToArray();
+		}
+
+		public async Task<byte[]> CreateTemplate(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
 		{
 			if (Students == null)
 			{
@@ -45,14 +56,19 @@ namespace LKS.Infrastructure.Templates
 			{
 				this.students = Students;
 			}
-			selectedStudent = students.First(); // устанавливаем выбранного стуента
+
+			selectedStudent = students?.First(); // устанавливаем выбранного стуента
 
 
+			//using (
 			var file = new MemoryStream();
-			var f = File.Open(fileName, FileMode.Open);
-			f?.CopyTo(file);
-			f.Close();
-
+			//using (await mutex.LockAsync())
+			//{
+			using (var f = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+			{
+				f?.CopyTo(file);
+			}
+			//}
 
 			using (WordprocessingDocument doc = WordprocessingDocument.Open(file, true)) // открыли документ
 			{
@@ -124,7 +140,7 @@ namespace LKS.Infrastructure.Templates
 											}
 										case "РОДСТВЕННИКИ":
 											{
-												for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
+												for (int i = 0; i < selectedStudent?.Relatives?.Count; i++) // проходим по всем родственникам
 												{
 													selectedRelative = selectedStudent.Relatives[i];
 													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
@@ -154,10 +170,10 @@ namespace LKS.Infrastructure.Templates
 								try
 								{
 									type = row.Descendants<SdtElement>().ToList().Find(obj =>
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
-									 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
-									 .Descendants<SdtAlias>().First().Val.ToString().ToUpper(); // получили запись о том, кем заполнять таблицу
+									 obj.Descendants<SdtAlias>()?.First()?.Val?.ToString().ToUpper() == "СТУДЕНТЫ" ||
+									 obj.Descendants<SdtAlias>()?.First()?.Val?.ToString().ToUpper() == "ВЗВОДА" ||
+									 obj.Descendants<SdtAlias>()?.First()?.Val?.ToString().ToUpper() == "РОДСТВЕННИКИ")
+									 ?.Descendants<SdtAlias>()?.First()?.Val?.ToString()?.ToUpper(); // получили запись о том, кем заполнять таблицу
 								}
 								//TODO Обработать исключения, если файнд вернул false
 								catch (NullReferenceException) // 
@@ -291,6 +307,7 @@ namespace LKS.Infrastructure.Templates
 				//doc.Save();
 			}
 			return file.ToArray();
+			////}
 		}
 		private void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
@@ -1514,7 +1531,7 @@ namespace LKS.Infrastructure.Templates
 		{
 			selectedStudentMather = null;
 			selectedStudentFather = null;
-			if (selectedStudent.Relatives != null)
+			if (selectedStudent?.Relatives != null)
 			{
 				if (selectedStudent.Relatives.Count != 0)
 				{

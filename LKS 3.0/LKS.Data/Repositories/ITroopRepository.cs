@@ -15,5 +15,7 @@ namespace LKS.Data.Abstract
 	{
 		List<Troop> GetTroops();
 		Troop GetBuNum(string num);
+
+
 	}
 }

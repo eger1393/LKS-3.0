@@ -36,5 +36,17 @@ namespace LKS.Web.SPA.Controllers
 				ob.NumberTroop
 			}));
 		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetTroopStudentsListInitial(string troopId)
+		{
+			var troop = await _troopRepository.GetItem(troopId);
+
+			return Ok(troop.Students?.Select(ob => new
+			{
+				id = ob.Id,
+				initials = ob.Initials
+			}));
+		}
     }
 }
