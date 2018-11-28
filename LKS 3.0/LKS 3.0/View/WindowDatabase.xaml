@@ -25,7 +25,7 @@
 
     </Window.Resources>
 
-    <Grid x:Name="Main_Grid" Background="LightGray">
+    <Grid x:Name="Main_Grid" Background="#FFEEF4FF">
         <Grid.RowDefinitions>
             <RowDefinition Height="593*"></RowDefinition>
             <RowDefinition Height="277*"></RowDefinition>
@@ -97,8 +97,8 @@
 
         </Menu>
 
-        <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkGray" LoadingRow="DataGrid_LoadingRow" EnableRowVirtualization="False"
-    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Main}" IsReadOnly="True">
+        <DataGrid x:Name="StudentsGrid" HorizontalGridLinesBrush="DarkSeaGreen" LoadingRow="DataGrid_LoadingRow" EnableRowVirtualization="False"
+    RowBackground="LightGray" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan ="2" Panel.ZIndex ="1" Height="Auto" ColumnWidth="Auto" ItemsSource ="{Binding Students}" SelectedItem="{Binding SelectedStudent}" AutoGenerateColumns="False" Margin="0,30,0,0" Style="{DynamicResource Main}" IsReadOnly="True" Background="#FFEBFFE9">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить заметку о студенте" Command="{Binding AddNoteCommand}" CommandParameter="{Binding SelectedStudent}"/>

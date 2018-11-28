@@ -44,7 +44,10 @@ namespace LKS.Web.SPA.Controllers
         [HttpPost("[action]")]
         public IActionResult GetInstGroupList()
         {
-            var obj = _stydentRepository.GetInstGroupList().ToList();
+            var obj = _stydentRepository.GetInstGroupList().Select(ob => new
+            {
+                label = ob
+            });//.ToDictionary<string, string>(ob => ob, ob => ob);
             return Ok(obj);
         }
 
@@ -68,7 +71,7 @@ namespace LKS.Web.SPA.Controllers
 		}
 
         [HttpPost("[action]")]
-        public IActionResult CreateStudent(Student model)
+        public IActionResult CreateStudent([FromBody]Student model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

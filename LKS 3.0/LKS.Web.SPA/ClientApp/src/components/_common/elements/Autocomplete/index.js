@@ -1,51 +1,79 @@
-﻿import Autocomplete from 'react-autocomplete'
-import React from 'react'
+﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import CreatableSelect from 'react-select/lib/Creatable'
 import { Container } from './styled'
 
-export default class AutocompleteInput extends React.Component {
+type State = {
+    options: [{ [string]: string }],
+    value: string | void,
+};
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: this.props.value,
-            isFocus: false,
-        }
-    }
-
-   
-    Focus = event => {
-        this.setState({ isFocus: true })
-    }
-
-    Blur = event => {
-        if (event.target.value === '') this.setState({ isFocus: false })
-    }
-
-    Change = event => {
-        if (this.props.middlewareValidator === undefined || this.props.middlewareValidator(event)) {
-            this.props.onChange(event);
-        }
-    }
-      
+export default class CreatableAdvanced extends Component<*, State> {
+    state = {
+        isLoading: false,
+        options: [],
+        value: undefined,
+    };
+    componentWillMount() {
+        this.setState({ options: this.props.data })
+    };
+    handleChange = (newValue: any, actionMeta: any) => {
+        console.group('Value Changed');
+        console.log(newValue);
+        console.log(`action: ${actionMeta.action}`);
+        console.groupEnd();
+        this.setState({ value: newValue });
+        var val = newValue.label;
+        this.props.onChange({
+            target: {
+                id: this.props.id, value: val,
+            }
+        })
+    };
+    handleCreate = (inputValue: any) => {
+        this.setState({ isLoading: true });
+        console.group('Option created');
+        console.log('Wait a moment...');
+     
+        const { options } = this.state;
+        const newOption = inputValue;
+            console.log(newOption);
+            console.groupEnd();
+            this.setState({
+                isLoading: false,
+                options: [...options, newOption],
+                value: newOption,
+        });
+        var val = inputValue.label;
+        this.props.onChange({
+            target: {
+                id: this.props.id, value: val,
+            }
+        })
+        
+    };
     render() {
+        const { isLoading, options, value } = this.state;
         return (
-            
-            <Autocomplete
-                items={this.props.items}
-                getItemValue={item => item}
-                renderItem={(item) =>
-                    <div>
-                        {item}
-                    </div>
-                }
-                className="sh-control"
-                value={this.props.value}
-                onFocus={this.Focus}
-                onBlur={this.Blur}
-                onChange={e => this.setState({ value: e.target.value })}
-                onSelect={value => this.setState({ value })}
+            <Container>
+                <CreatableSelect className="custom-style"
+                    isClearable
+                    isDisabled={isLoading}
+                    isLoading={isLoading}
+                    onChange={this.handleChange}
+                    onCreateOption={this.handleCreate}
+                    options={options}
+                    value={value}
+                    placeholder={this.props.placeholder}
                 />
-                
-        )
+                </Container>
+        );
     }
+}
+
+CreatableAdvanced.props = {
+    id: PropTypes.string,
+    data: PropTypes.array,
+    onChange: PropTypes.func,
+    placeholder: PropTypes.string,
 }

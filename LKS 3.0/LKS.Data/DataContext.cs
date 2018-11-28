@@ -35,7 +35,10 @@ namespace LKS.Data
 
 		private void Seed(ModelBuilder builder)
 		{
-			Random rand = new Random();
+            string[] SpecInstList = { "ИВТ", "МАТ", "БИ", "ЕНА" };
+            string[] InstGroupList = { "3ВТИ-039", "3ВТИ-037", "3ВТИ-042", "3ВТИ-040" };
+            string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
+            Random rand = new Random();
 			builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",
@@ -84,14 +87,17 @@ namespace LKS.Data
 
 			for (int i = 0; i < 100; i++)
 			{
-				builder.Entity<Student>().HasData(new Student
-				{
-					Id = Guid.NewGuid().ToString(),
-					TroopId = i >= 50 ? "1" : "2",
-					FirstName = "Имя" + rand.Next(100),
-					LastName = "Фамилия" + rand.Next(100),
-					MiddleName = "Отчество" + rand.Next(100),
-					Collness = "Студент",
+                builder.Entity<Student>().HasData(new Student
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    TroopId = i >= 50 ? "1" : "2",
+                    FirstName = "Имя" + rand.Next(100),
+                    LastName = "Фамилия" + rand.Next(100),
+                    MiddleName = "Отчество" + rand.Next(100),
+                    Collness = "Студент",
+                    SpecInst = SpecInstList[rand.Next(0, 4)],
+                    InstGroup = InstGroupList[rand.Next(0, 4)],
+                    Rectal = RectalList[rand.Next(0, 4)],
 					Position = (StudentPosition)rand.Next(0, 5),
 					Kurs = 4,
 					Status = (StudentStatus)rand.Next(0, 4)
@@ -107,6 +113,9 @@ namespace LKS.Data
 					LastName = "Фамилия" + rand.Next(100),
 					MiddleName = "Отчество" + rand.Next(100),
 					Collness = "Студент",
+					SpecInst = SpecInstList[rand.Next(0, 4)],
+					InstGroup = InstGroupList[rand.Next(0, 4)],
+					Rectal = RectalList[rand.Next(0, 4)],
 					Position = (StudentPosition)rand.Next(0, 5),
 					Kurs = 4,
 					Status = (StudentStatus)rand.Next(0, 4)

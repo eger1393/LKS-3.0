@@ -1,19 +1,21 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Col } from 'react-bootstrap'
 import Input from '../../../elements/Input'
-import Select from '../../../elements/Select'
-import AutocompleteInput from '../../../elements/Autocomplete'
-import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
+import Select from '../../../elements/Select'
+import Autocomplete from '../../../elements/Autocomplete'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
-import { apiGetTroopNumberList, apiGetInstGroupList, apiGetRectalList, apiCreateStudent } from '../../../../../api/dialogs'
+import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
+import { apiGetTroopList } from '../../../../../api/dialogs'
+import { Container } from './styled'
 
 class Info extends React.Component {
     state = {
-        fieldValue: this.props.data,
+        fieldValue: {},
         troops: [],
         instGroup: [],
+        specInst: [],
+        rectals: [],
     }
     changeSelect = event => {
         console.log(event)
@@ -23,18 +25,33 @@ class Info extends React.Component {
             fieldValue: { ...prevState.fieldValue, [name]: val, }
         }));
     }
-    componentDidMount() {
+    create = () => {
+        this.props.createStudent(this.state.fieldValue)
+    }
+    componentWillMount() {
         var self = this;
-        apiGetInstGroupList().then(res => self.setState({ instGroup: res }));
-        apiGetTroopNumberList().then(res => self.setState({ troops: res }));
+        apiGetInstGroupList().then(res =>
+            self.setState({ instGroup: res })
+        );
+        apiGetSpecInstList().then(res =>
+            self.setState({ specInst: res })
+        );
+        apiGetRectalList().then(res =>
+            self.setState({ rectals: res })
+        );
+        apiGetTroopList().then(res => self.setState({ troops: res }));
     }
     render() {
         // TODO Вынести в константы
         var kurs = [{ id: '1', val: '2' }, { id: '2', val: '3' }, { id: '3', val: '4' }]
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
+        var status = [{ id: 0, val: "Обучается" }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" },
+            { id: 3, val: "На сборах" }, { id: 4, val: "Прошел сборы" },]
+        var ranks = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
+            { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" },]
         return (
-            <FlexBox>
-                <FlexBox>
+            <Container>
+                <FlexBox className="flex-box">
                     <FlexRow>
                         <Input id="LastName"
                             type="text"
@@ -69,20 +86,17 @@ class Info extends React.Component {
                         />
                     </FlexRow>
                     <FlexRow>
-                        <Input id="Rank"
-                            type="text"
-                            placeholder="Должность"
-                            value={this.state.fieldValue['Rank']}
-                            onChange={this.changeSelect}
-                        />
-                        <Select id="InstGroup"
-                            data={[{ id: '1', val: '3ВТИ-039' }]}
+                        <Select id="Rank"
+                            data={ranks}
                             value="id"
                             text="val"
-                            isRequired={true}
-                            placeholder="Группа"
+                            placeholder="Должность"
                             onChange={this.changeSelect}
                         />
+                        {
+                            this.state.instGroup.length != 0 && (<Autocomplete id="InstGroup"
+                                data={this.state.instGroup} onChange={this.changeSelect} placeholder="Группа"
+                        />)}
                     </FlexRow>
                     <FlexRow>
                         <Select id="Kurs"
@@ -102,15 +116,10 @@ class Info extends React.Component {
                         />
                     </FlexRow>
                     <FlexRow>
-                        <Select id="SpecInst"
-                            data={[{ id: '1', val: 'ИВТ' }]}
-                            value="id"
-                            text="val"
-                            isRequired={true}
-                            placeholder="Cпециальность в ВУЗе"
-                            onChange={this.changeSelect}
-                        />
-
+                            {
+                            this.state.specInst.length != 0 && (<Autocomplete id="SpecInst"
+                                data={this.state.specInst} onChange={this.changeSelect} placeholder="Специальность в ВУЗе"
+                            />)}
                         <Select id="ConditionsOfEducation"
                             data={сonditionsOfEducation}
                             value="id"
@@ -121,12 +130,17 @@ class Info extends React.Component {
                         />
                     </FlexRow>
                     <FlexRow>
-                        <Input id="AvarageScore"
-                            type="text"
-                            placeholder="Средний балл зачетки"
-                            value={this.state.fieldValue['AvarageScore']}
+                        <Select id="Status"
+                            data={status}
+                            value="id"
+                            text="val"
+                            placeholder="Статус обучения"
                             onChange={this.changeSelect}
                         />
+
+                        {//<Input id="AvarageScore" type="text" placeholder="Средний балл зачетки"  value={this.state.fieldValue['AvarageScore']} onChange={this.changeSelect} />
+                        }
+
                         <Input id="YearOfAddMAI"
                             type="text"
                             isRequired={true}
@@ -170,16 +184,15 @@ class Info extends React.Component {
                             value={this.state.fieldValue['DateOfOrder']}
                             onChange={this.changeSelect}
                         />
-                        <Select id="Rectal"
-                            data={[{ id: '1', val: 'Одинцовский' }]}
-                            value="id"
-                            text="val"
-                            placeholder="Военкомат"
-                            onChange={this.changeSelect}
-                        />
-                    </FlexRow>
+                        {
+                            this.state.rectals.length != 0 && (<Autocomplete id="Rectal"
+                                data={this.state.rectals} onChange={this.changeSelect} placeholder="Военкомат"
+                            />)}
+                    </FlexRow>                 
                 </FlexBox>
-            </FlexBox>
+                <Button onClick={this.create} value="Создать" />
+            </Container>
+            
         );
     }
 }

@@ -16,6 +16,8 @@ namespace LKS.Data.Abstract
 		Task SetStudentStatus(string id,StudentStatus status);
 		Task SetStudentPosition(string id, StudentPosition position);
         List<string> GetInstGroupList();
+        List<string> GetSpecInstList();
+        List<string> GetRectalList();
 
     }
 }

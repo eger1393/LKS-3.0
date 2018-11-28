@@ -274,7 +274,7 @@ namespace LKS_3._0.Model
 											}
 										default:
 											{
-												System.Windows.MessageBox.Show("Ошибра в типе таблицы!");
+												System.Windows.MessageBox.Show("Ошибка в типе таблицы!");
 												break;
 											}
 									}
@@ -310,7 +310,7 @@ namespace LKS_3._0.Model
 						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
 						try
 						{
-							using (FileStream stream = new FileStream(path, FileMode.Open))
+							using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
 							{
 								imagePart.FeedData(stream);
 							}

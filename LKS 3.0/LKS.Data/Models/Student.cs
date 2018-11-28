@@ -42,8 +42,14 @@ namespace LKS.Data.Models
 		{
 			get
 			{
-				return LastName + " " + FirstName[0] + ". " + MiddleName[0] + ".";
-			}
+                if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+                {
+                    MiddleName = "None";
+                    FirstName = "None";
+                    LastName = "None";
+                }
+                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+            }
 		}
 		[Key]
 		public string Id { get; set; }

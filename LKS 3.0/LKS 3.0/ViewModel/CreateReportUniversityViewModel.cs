@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
+using System.IO;
 using System.Globalization;
 using System.Windows;
 using LKS_3._0.Model;
@@ -145,8 +146,8 @@ namespace LKS_3._0.ViewModel
 				return create ??
 					(create = new RelayCommand(obj =>
 					{
-						try
-						{
+						//try
+						//{
 							switch ((int)obj)
 							{
 								case 0: // Выбранна 1 вкладка (Документы на взвод)
@@ -289,17 +290,27 @@ namespace LKS_3._0.ViewModel
 										{
 											case RadioOptions.Option1:
 												{
-													ViewModel.OpenOrPrintDialogViewModel.PrintOrOpenDocument(
-														System.IO.Path.GetFullPath(@".\TemplatesOff\Анкета.docx"), count, true);
-													break;
-												}
+                                                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+                                                dlg.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер                                  // добавили название файла в предложенное название
+                                                dlg.FileName = "Анкета на печать.docx";
+                                                if (dlg.ShowDialog() == true)
+                                                {
+
+                                                    File.Copy(System.IO.Path.GetFullPath(@".\TemplatesOff\Анкета.docx"), dlg.FileName, true); // создали выходной файл и теперь работаем с ним
+                                                }
+                                                break;
+                                            }
 											case RadioOptions.Option2:
-												{
-													ViewModel.OpenOrPrintDialogViewModel.PrintOrOpenDocument(
-														System.IO.Path.GetFullPath(@".\TemplatesOff\Анкета_шабон.docx"), count, true);
-													break;
-												}
-											case RadioOptions.None:
+                                                Microsoft.Win32.SaveFileDialog dlg2 = new Microsoft.Win32.SaveFileDialog(); // создали новое диалоговое окно
+                                                dlg2.Filter = "Word files (*.docx)|*.docx"; // добавили фильтер                                  // добавили название файла в предложенное название
+                                                dlg2.FileName = "Шаблон анкеты.docx";
+                                                if (dlg2.ShowDialog() == true)
+                                                {
+
+                                                    File.Copy(System.IO.Path.GetFullPath(@".\TemplatesOff\Анкета_шаблон.docx"), dlg2.FileName, true); // создали выходной файл и теперь работаем с ним
+                                                }
+                                                break;
+                                        case RadioOptions.None:
 												{
 													System.Windows.MessageBox.Show("Выберите шаблон!");
 													break;
@@ -385,7 +396,7 @@ namespace LKS_3._0.ViewModel
                                 case 4: //  Общие документы
                                     {
 
-                                            List<Student> tempList = Students.ToList();
+                                    List<Student> StudentsList = temp_DataBase.Students.ToList();
                                             
                                            
 
@@ -393,7 +404,7 @@ namespace LKS_3._0.ViewModel
                                             {
                                                 case RadioOptions.Option1:
                                                     {
-                                                        tempList = tempList.Where(u => u.Status == "Обучается").ToList();
+                                                        var tempList = StudentsList.Where(u => u.Status == "Обучается").ToList();
                                                         if (Sort != RadioSortOptions.None)
                                                         {
                                                             tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
@@ -405,7 +416,7 @@ namespace LKS_3._0.ViewModel
                                                     break;
                                                 case RadioOptions.Option2:
                                                     {
-                                                        tempList = tempList.Where(u => u.IsSuspended == true).ToList();
+                                                        var tempList = StudentsList.Where(u => u.IsSuspended == true).ToList();
                                                         if (Sort != RadioSortOptions.None)
                                                         {
                                                             tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
@@ -417,7 +428,7 @@ namespace LKS_3._0.ViewModel
                                                     break;
                                                 case RadioOptions.Option3:
                                                     {
-                                                        tempList = tempList.Where(u => u.Status == "Отстранен").ToList();
+                                                        var tempList = StudentsList.Where(u => u.Status == "Отстранен").ToList();
                                                         if (Sort != RadioSortOptions.None)
                                                         {
                                                             tempList = new List<Student>(tempList.OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
@@ -440,11 +451,11 @@ namespace LKS_3._0.ViewModel
                                         break;
                                     }
                             }
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show("Неизвестная ошибка!\n" + ex.Message, "Внимание!");
-						}
+						//}
+						//catch (Exception ex)
+						//{
+						//	MessageBox.Show("Неизвестная ошибка!\n" + ex.Message, "Внимание!");
+						//}
 					}));
 			}
 		}

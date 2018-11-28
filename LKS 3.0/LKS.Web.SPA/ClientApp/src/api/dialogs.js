@@ -7,8 +7,6 @@ const GET_TROOP_FROM_ID_URL = '/api/troop/GetTroop'
 const GET_PREPOD_LIST_URL = '/api/prepod/GetPrepodList'
 const CREATE_TROOP_URL = '/api/troop/CreateTroop'
 const UPADATE_TROOP_URL = '/api/troop/UpdateTroop'
-const CREATE_STUDENT_URL = '/api/studentList/CreateStudent'
-const GET_INSTGROUP_LIST_URL = '/api/studentList/GetInstGroupList'
 
 const GET_TROOP_STUDENTS_LIST_INITIAL = '/api/troop/GetTroopStudentsListInitial'
 
@@ -38,12 +36,6 @@ export const apiCreateTroop = data =>
 export const apiUpdateTroop = data =>
     axios.post(UPADATE_TROOP_URL, data);
 
-
-export const apiCreateStudent = data =>
-    axios.post(CREATE_STUDENT_URL, data);
-
-export const apiGetInstGroupList = data =>
-    axios.post(GET_INSTGROUP_LIST_URL, data).then(({ data }) => data);
 
 // return Troop model
 export const apiGetTroopList = () =>
