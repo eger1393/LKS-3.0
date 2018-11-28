@@ -28,12 +28,45 @@ namespace LKS.Web.SPA.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public IActionResult GetTroopList()
+		public IActionResult UpdateTroop(Troop model)
+		{
+			_troopRepository.Update(model);
+			return Ok();
+		}
+
+		[HttpPost("[action]")]
+		public IActionResult GetTroopNumberList()
 		{
 			return Ok(_troopRepository.GetTroops().Select(ob => new
 			{
 				ob.Id,
 				ob.NumberTroop
+			}));
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetTroop(string id)
+		{
+			var res = await _troopRepository.GetItem(id);
+			return Ok( new
+			{
+				res.NumberTroop,
+				res.CycleId,
+				res.ArrivalDay,
+				res.PrepodId
+			});
+		}
+
+		[HttpPost("[action]")]
+		public IActionResult GetTroopList()
+		{
+			return Ok(_troopRepository.GetTroops().Select(x => new
+			{
+				x.Id,
+				x.ArrivalDay,
+				x.NumberTroop,
+				cycleNumber = x.Cycle.Number,
+				prepodInitials = x.Prepod.Initials
 			}));
 		}
 

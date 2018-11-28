@@ -15,14 +15,14 @@ class Select extends React.Component {
     }
 
     render() {
-        const { value, text} = this.props
+        const { value, text, selectedValue} = this.props
         return (
             <Container
-                className={`${this.state.isFocus ? 'animate' : ''} ${
+                className={`${(this.state.isFocus || selectedValue) ? 'animate' : ''} ${
                     this.props.error ? 'invalid' : ''
                     }`}
             >
-                <select onChange={this.props.onChange} id={this.props.id} onFocus={this.Focus} onBlur={this.Blur}>
+                <select value={selectedValue} onChange={this.props.onChange} id={this.props.id} onFocus={this.Focus} onBlur={this.Blur}>
                     <option disabled selected></option>
                     {this.props.data && this.props.data.map(ob => {
                         return (
@@ -49,6 +49,7 @@ Select.props = {
     id: PropTypes.string,
     data: PropTypes.array,
     value: PropTypes.string,
+    selectedValue: PropTypes.string,
     text: PropTypes.string,
     isRequired: PropTypes.bool,
     error: PropTypes.bool,

@@ -49,7 +49,7 @@ namespace LKS.Data.Models
 		public string Id { get; set; }
 		public virtual List<Relative> Relatives { get; set; }
 
-		[ForeignKey(nameof(Troop))]
+		//[ForeignKey(nameof(Troop))]
         [DisplayName("Взвод")]
         public string TroopId { get; set; }
 		public Troop Troop { get; set; }

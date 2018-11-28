@@ -5,6 +5,7 @@ import { Container } from './styled'
 import CreateTroop from '../../../_common/dialogs/CreateTroop'
 import CreateStudent from '../../../_common/dialogs/CreateStudent'
 import CreateUniversityTemplate from '../../../_common/dialogs/CreateUniversityTemplate'
+import TroopList from '../../../_common/dialogs/TroopList'
 
 
 class NavBar extends React.Component {
@@ -46,6 +47,9 @@ class NavBar extends React.Component {
                                 <CreateTroop show={this.state.openModalWindow.TroopCreate} onHide={() => this.click('TroopCreate')} />
                             )}
                             <MenuItem eventKey={'TroopList'}>Список взводов</MenuItem>
+                            {this.state.openModalWindow.TroopList && (
+                                <TroopList show={this.state.openModalWindow.TroopList} onHide={() => this.click('TroopList')} />
+                            )}
                         </NavDropdown>
                         <NavDropdown title="Отчеты">
                             <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>

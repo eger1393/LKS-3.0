@@ -4,7 +4,7 @@ import { apiGetStudentListData, apiSetStudentPosition, apiSetStudentStatus } fro
 
 import { getStudentListFilters } from '../../selectors/studentList'
 
-import { apiGetTroopList } from '../../api/dialogs'
+import { apiGetTroopNumberList } from '../../api/dialogs'
 
 import {
     FETCH_GET_STUDENT_LIST_DATA,
@@ -37,7 +37,7 @@ function* studentList() {
         }),
         takeEvery(FETCH_GET_TROOP_NUMBER_LIST, function* () {
             try {
-                const data = yield call(apiGetTroopList);
+                const data = yield call(apiGetTroopNumberList);
                 yield put(fetchGetTroopNumberListSuccess(data));
             } catch{
                 //yield put(fetchGetStudentListDataFailed());

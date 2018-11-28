@@ -7,7 +7,7 @@ import AutocompleteInput from '../../../elements/Autocomplete'
 import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
-import { apiGetTroopList, apiGetInstGroupList, apiGetRectalList, apiCreateStudent } from '../../../../../api/dialogs'
+import { apiGetTroopNumberList, apiGetInstGroupList, apiGetRectalList, apiCreateStudent } from '../../../../../api/dialogs'
 
 class Info extends React.Component {
     state = {
@@ -26,7 +26,7 @@ class Info extends React.Component {
     componentDidMount() {
         var self = this;
         apiGetInstGroupList().then(res => self.setState({ instGroup: res }));
-        apiGetTroopList().then(res => self.setState({ troops: res }));
+        apiGetTroopNumberList().then(res => self.setState({ troops: res }));
     }
     render() {
         // TODO Вынести в константы

@@ -10,13 +10,14 @@ namespace LKS.Data.Models
 	{
 		[Key]
 		public string Id { get; set; }
+
 		[ForeignKey(nameof(PlatoonCommander))]
 		public string PlatoonCommanderId { get; set; }
 
 		/// <summary>
 		/// Командир взвода
 		/// </summary>
-		public Student PlatoonCommander;
+		public Student PlatoonCommander { get; set; }
 
 		[Required]
 		[ForeignKey(nameof(Cycle))]

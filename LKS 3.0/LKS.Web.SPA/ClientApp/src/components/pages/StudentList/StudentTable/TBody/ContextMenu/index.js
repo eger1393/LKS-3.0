@@ -46,12 +46,12 @@ class Menu extends React.Component {
                         <MenuItem onClick={this.menuClick} data={{ type: 'changeStatus', status: 4 }}>прошел сборы</MenuItem>
                     </SubMenu>
                     <SubMenu title='Сменить должность'>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '0' }}>командир взвода</MenuItem>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '1' }}>командир 1 отделения</MenuItem>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '2' }}>командир 2 отделения</MenuItem>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '3' }}>командир 3 отделения</MenuItem>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '4' }}>журналист</MenuItem>
-                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: '5' }}>секретчик</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 0 }}>командир взвода</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 1 }}>командир 1 отделения</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 2 }}>командир 2 отделения</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 3 }}>командир 3 отделения</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 4 }}>журналист</MenuItem>
+                        <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 5 }}>секретчик</MenuItem>
                     </SubMenu>
                 </ContextMenu>
             </Container>

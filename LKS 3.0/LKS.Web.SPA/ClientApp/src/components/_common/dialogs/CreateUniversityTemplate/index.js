@@ -5,7 +5,7 @@ import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { ModalContainer } from '../../elements/StyleDialogs/styled'
 
-import { apiGetTroopList } from '../../../../api/dialogs'
+import { apiGetTroopNumberList } from '../../../../api/dialogs'
 import { apiCreateTemplate } from '../../../../api/templates'
 
 import TroopDocument from './TroopDocument'
@@ -50,7 +50,7 @@ class CreateUniversityTemplate extends React.Component {
 
     componentDidMount() {
         var self = this;
-        apiGetTroopList().then(res => self.setState({ troops: res }));
+        apiGetTroopNumberList().then(res => self.setState({ troops: res }));
 
     }
 

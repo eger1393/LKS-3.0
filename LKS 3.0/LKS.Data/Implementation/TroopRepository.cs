@@ -47,13 +47,18 @@ namespace LKS.Data.Concrete
 			return await context.Troops
 				.Include(ob => ob.Students)
 				.Include(ob => ob.Prepod)
-				//.Include(ob => ob.PlatoonCommander)
+				.Include(ob => ob.PlatoonCommander)
 				.FirstOrDefaultAsync(ob => ob.Id == id);
 		}
 
 		public List<Troop> GetTroops()
 		{
-			return context.Troops.ToList();
+			return context.Troops
+				.Include(ob => ob.Cycle)
+				.Include(ob => ob.Prepod)
+				.Include(ob => ob.Students)
+				.Include(ob => ob.PlatoonCommander)
+				.ToList();
 		}
 
 		public Troop GetBuNum(string num)
@@ -67,8 +72,12 @@ namespace LKS.Data.Concrete
 
 		public async Task Update(Troop item)
 		{
-			context.Troops.Update(item);
-			await context.SaveChangesAsync();
+			var troop = context.Troops.FirstOrDefault(x => x.Id == item.Id);
+			troop.NumberTroop = item.NumberTroop;
+			troop.PrepodId = item.PrepodId;
+			troop.CycleId = item.CycleId;
+			troop.ArrivalDay = item.ArrivalDay;
+			context.SaveChanges();
 			return;
 		}
 	}

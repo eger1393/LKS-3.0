@@ -7,7 +7,13 @@ import Select from '../../elements/Select'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
-import { apiGetCycleList, apiGetPrepodList, apiCreateTroop } from '../../../../api/dialogs'
+import {
+    apiGetCycleList,
+    apiGetPrepodList,
+    apiCreateTroop,
+    apiUpdateTroop,
+    apiGetTroopFromId
+} from '../../../../api/dialogs'
 import { fetchGetTroopNumberList } from '../../../../redux/modules/studentList'
 import { getTroopNumberList } from '../../../../selectors/studentList'
 
@@ -33,8 +39,13 @@ class CreateTroop extends React.Component {
 
     createTroop = () => {
         if (this.validate()) {
-            apiCreateTroop(this.state.fieldValue)
-                .then(() => { this.props.fetchGetTroopNumberList(); });
+            if (this.props.troopId) {
+                apiUpdateTroop(this.state.fieldValue)
+                    .then(() => { this.props.fetchGetTroopNumberList(); });
+            } else {
+                apiCreateTroop(this.state.fieldValue)
+                    .then(() => { this.props.fetchGetTroopNumberList(); });
+            }
             this.props.onHide();
         }
 
@@ -77,17 +88,22 @@ class CreateTroop extends React.Component {
         var self = this;
         apiGetCycleList().then(res => self.setState({ cycle: res }));
         apiGetPrepodList().then(res => self.setState({ prepod: res }));
+        if (this.props.troopId) {
+            apiGetTroopFromId({ id: this.props.troopId }).then(res =>
+                self.setState({ fieldValue: { ...res, id: self.props.troopId }}
+                ))
+        }
     }
 
     render() {
         // TODO Вынести в константы
         var day = [
-            { id: 'Monday', val: 'Понедельник' },
-            { id: 'Tuesday', val: 'Вторник' },
-            { id: 'Wednesday', val: 'Среда' },
-            { id: 'Thursday', val: 'Четверг' },
-            { id: 'Friday', val: 'Пятница' },
-            { id: 'Saturday', val: 'Суббота' },
+            { id: '1', val: 'Понедельник' },
+            { id: '2', val: 'Вторник' },
+            { id: '3', val: 'Среда' },
+            { id: '4', val: 'Четверг' },
+            { id: '5', val: 'Пятница' },
+            { id: '6', val: 'Суббота' },
         ]
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
@@ -104,6 +120,7 @@ class CreateTroop extends React.Component {
                                         onChange={this.changeSelect}
                                         value="id"
                                         text="number"
+                                        selectedValue={this.state.fieldValue.cycleId}
                                         error={this.state.error.cycleId}
                                     />
                                     {
@@ -137,6 +154,7 @@ class CreateTroop extends React.Component {
                                         value="id"
                                         text="val"
                                         placeholder="День прихода"
+                                        selectedValue={this.state.fieldValue.arrivalDay}
                                         onChange={this.changeSelect}
                                         error={this.state.error.arrivalDay}
                                     />
@@ -151,6 +169,7 @@ class CreateTroop extends React.Component {
                                         data={this.state.prepod}
                                         value="id" text="initials"
                                         placeholder="Ответственный преподаватель"
+                                        selectedValue={this.state.fieldValue.prepodId}
                                         onChange={this.changeSelect}
                                         error={this.state.error.prepodId}
                                     />
@@ -162,7 +181,7 @@ class CreateTroop extends React.Component {
                             </FlexRow>
                         </FlexBox>
                         <div className="form-submit">
-                            <Button onClick={this.createTroop} value="Создать" />
+                            <Button onClick={this.createTroop} value="Сохранить" />
                         </div>
                     </Container>
                 </ModalContainer>
@@ -174,6 +193,7 @@ class CreateTroop extends React.Component {
 CreateTroop.props = {
     show: PropTypes.bool,
     onHide: PropTypes.func,
+    troopId: PropTypes.string,
     fetchGetTroopNumberList: PropTypes.func,
 }
 

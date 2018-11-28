@@ -34,7 +34,7 @@ class Input extends React.Component<InputProps> {
     render() {
         return (
             <Container
-                className={`${this.props.className} ${this.state.isFocus ? 'animate' : ''} ${
+                className={`${this.props.className} ${(this.state.isFocus || this.props.value) ? 'animate' : ''} ${
                     this.props.error ? 'invalid' : ''
                     }`}
             >
