@@ -38,7 +38,7 @@ namespace LKS_3._0.ViewModel
 			BindingList<Troop> troops,
 			BindingList<Prepod> prepods )
 		{
-			Model.ExportXL export = new Model.ExportXL("", ref temp_DataBase);
+			//Model.ExportXL export = new Model.ExportXL("", ref temp_DataBase);
 			//TODO
 			this.temp_DataBase = temp_DataBase;
 			this.students = new BindingList<Student>();

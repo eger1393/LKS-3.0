@@ -165,7 +165,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ExportXL.cs" />
-    <Compile Include="Infrasturture\IRepository.cs" />
     <Compile Include="ViewModel\SummerFeesAssessmentForControlViewModel.cs" />
     <Compile Include="View\AddAdmin.xaml.cs">
       <DependentUpon>AddAdmin.xaml</DependentUpon>
@@ -418,7 +417,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />
-    <Folder Include="Infrasturture\Abstract\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

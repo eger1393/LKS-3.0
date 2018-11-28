@@ -205,9 +205,9 @@
                             <RadioButton GroupName="DocOnTroop" Content="Образец анкеты" Grid.Row="1"
                                          IsChecked="{Binding RadioOptionsJernal, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>
-                            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="225,96,0,-88" Grid.Row="5" Text="{Binding Count}"
+                            <TextBox Visibility="Hidden" x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="225,96,0,-88" Grid.Row="5" Text="{Binding Count}"
                                      TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="TbOnlyDigit_PreviewTextInput"/>
-                            <Label x:Name="label" Content="Количество" HorizontalAlignment="Left" Margin="111,94,0,-89" Grid.Row="5" VerticalAlignment="Top" Width="106"/>
+                            <Label Visibility="Hidden" x:Name="label" Content="Количество" HorizontalAlignment="Left" Margin="111,94,0,-89" Grid.Row="5" VerticalAlignment="Top" Width="106"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

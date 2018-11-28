@@ -262,7 +262,9 @@ namespace LKS_3._0
                         encoder.Save(stream);
 
                     viewModel.AddedStudent.ImagePath = ImagePath;
-
+                    encoder = null;
+                    Photo.Source = null;
+                    bitmapImage = null;
                 }
 				catch(System.IO.IOException exc)//TODO
 				{

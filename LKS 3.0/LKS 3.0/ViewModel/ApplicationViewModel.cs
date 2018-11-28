@@ -28,7 +28,7 @@ namespace LKS_3._0
     public class ApplicationViewModel : INotifyPropertyChanged, IDisposable
     {
         public ApplicationContext DataBaseContext;
-		bool connect, data;
+		bool connect, database_officer;
 
         private RelayCommand addCommand,
             createReportCommand,
@@ -326,7 +326,7 @@ namespace LKS_3._0
                     (uploadDB = new RelayCommand(obj =>
                     {
                         DataBaseContext.Dispose();
-                        Connect_DB(connect, data);
+                        Connect_DB(connect, database_officer);
                     }));
             }
         }
@@ -515,7 +515,7 @@ namespace LKS_3._0
                       {
                           DataBaseContext.Students.Add(temp_student);
 
-                          temp_student.UpdateIdRelatives();
+                          //temp_student.UpdateIdRelatives();
 
                           DataBaseContext.SaveChanges();
 
@@ -758,7 +758,7 @@ namespace LKS_3._0
                         {
                             DataBaseContext.SaveChanges();
                             DataBaseContext.Dispose();
-                            Connect_DB(connect, data);
+                            Connect_DB(connect, database_officer);
                         }
                     }, (obj) => (ProgMode.ProgramMode == ProgramMode.Admin)));
                 }
@@ -849,24 +849,24 @@ namespace LKS_3._0
 
                     DataBaseContext.Students.Add(temp_student);
 
-                    string middle_name_r = (string)reader["Фамилия б/р"];
-                    try
-                    {
-                        var item = Students.First(u => ((u.MiddleName == middle_name_r)
-                   || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
-                        Relative temp_r = new Relative();
-                        temp_r.MiddleName = (string)reader["Фамилия б/р"];
-                        temp_r.FirstName = (string)reader["Имя б/р"];
-                        temp_r.LastName = (string)reader["Отчество б/р"];
-                        temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
-                        temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
-                        item.Relatives.Add(temp_r);
-                        item.UpdateIdRelatives();
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                   // string middle_name_r = (string)reader["Фамилия б/р"];
+                   // try
+                   // {
+                   //     var item = Students.First(u => ((u.MiddleName == middle_name_r)
+                   //|| (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
+                   //     Relative temp_r = new Relative();
+                   //     temp_r.MiddleName = (string)reader["Фамилия б/р"];
+                   //     temp_r.FirstName = (string)reader["Имя б/р"];
+                   //     temp_r.LastName = (string)reader["Отчество б/р"];
+                   //     temp_r.RelationDegree = (temp_r.MiddleName[temp_r.MiddleName.Count() - 1] == 'а') ? "мать" : "отец";
+                   //     temp_r.Birthday = Convert.ToDateTime(reader["Дата рождения б/р"]).ToShortDateString();
+                   //     item.Relatives.Add(temp_r);
+                   //     item.UpdateIdRelatives();
+                   // }
+                   // catch (Exception)
+                   // {
+                   //     MessageBox.Show("Ошибка импорта!", "Ошибка!");
+                   // }
 
                 }
 
@@ -879,7 +879,7 @@ namespace LKS_3._0
                     string middle_name_r = (string)reader["Фамилия б/р"];
                     try
                     {
-                        var item = Students.First(u => ((u.MiddleName == middle_name_r)
+                        var item = students.First(u => ((u.MiddleName == middle_name_r)
                    || (u.MiddleName == (middle_name_r.ToString().Remove(middle_name_r.ToString().Count() - 1)))));
                         Relative temp_r = new Relative();
                         temp_r.MiddleName = (string)reader["Фамилия б/р"];
@@ -897,7 +897,7 @@ namespace LKS_3._0
 
                 }
 
-                ////}
+            
 
                 DataBaseContext.SaveChanges();
                 odbc_connection.Close();
@@ -961,7 +961,7 @@ namespace LKS_3._0
             ProgressWin.Show();
             //var Progress = ProgressWin.Progress_Bar;
 
-            string path = Environment.CurrentDirectory + @"\TeacherSignature\"  + "maev_new.mdb";
+            string path = Environment.CurrentDirectory + @"\Acsess\"  + "maev_new.mdb";
             try
             {
                 File.Copy(maev_path, path, true);
@@ -1228,9 +1228,9 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                 return infoSboriCommand ??
                     (infoSboriCommand = new RelayCommand(obj =>
                     {
-						if(data)
+						if(database_officer)
 						{
-							LKS_3._0.View.InfoSboriWindowOff Info = new View.InfoSboriWindowOff(ref DataBaseContext, Troops, data);
+							LKS_3._0.View.InfoSboriWindowOff Info = new View.InfoSboriWindowOff(ref DataBaseContext, Troops, database_officer);
 							if (Info.ShowDialog() == true)
 							{
 								DataBaseContext.SaveChanges();
@@ -1238,7 +1238,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 						}
 						else
 						{
-                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, data);
+                            View.InfoSboriWindowSold Info = new View.InfoSboriWindowSold(ref DataBaseContext, Troops, database_officer);
 
                             if (Info.ShowDialog() == true)
                             {
@@ -1320,7 +1320,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
                   (ordersCommand = new RelayCommand(obj =>
                   {
                       BindingList<Student> _temp_students = new BindingList<Student>(Students.Where(u => u.Status == "На сборах").ToList());
-                      View.SummerOrders win = new View.SummerOrders(ref DataBaseContext, _temp_students, Troops, data);
+                      View.SummerOrders win = new View.SummerOrders(ref DataBaseContext, _temp_students, Troops, database_officer);
 
 					  win.ShowDialog();
 
@@ -1359,13 +1359,13 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
         public void Connect_DB(bool _connect, bool _data)
         {
             this.connect = _connect;
-			this.data = _data;
+			this.database_officer = _data;
             View.ProgressBar ProgressWin = new View.ProgressBar();
             ProgressWin.Show();
 
             try
             {
-                CreateConnection(connect, data);
+                CreateConnection(connect, database_officer);
             }
             catch (Exception)
             {
