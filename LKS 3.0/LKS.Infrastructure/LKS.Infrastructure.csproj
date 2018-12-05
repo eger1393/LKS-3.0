@@ -12,4 +12,8 @@
     <ProjectReference Include="..\LKS.Data\LKS.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Templates\TemplateWordFile\" />
+  </ItemGroup>
+
 </Project>
