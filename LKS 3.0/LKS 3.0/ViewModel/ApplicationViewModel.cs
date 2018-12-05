@@ -20,7 +20,7 @@ using System.Data.Odbc;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Data.OleDb;
-
+using LKS_3._0.Model;
 
 namespace LKS_3._0
 {
@@ -49,7 +49,8 @@ namespace LKS_3._0
             editTroopCommand,
             changeRankCommand,
             exportCommand,
-            infoSboriCommand,
+			dataImportFromXL,
+			infoSboriCommand,
             closeAllWordFile,
             changeKursCommand,
             isSuspendedСommand,
@@ -915,6 +916,18 @@ namespace LKS_3._0
                         Export2MaevDB();
                         //ImportForAcsess();
                     }));
+			}
+		}
+
+		public RelayCommand DataImportFromXL
+		{
+			get
+			{
+				return dataImportFromXL ??
+					(dataImportFromXL = new RelayCommand(obj =>
+					{
+						Templates.DataImportFromXL(ref DataBaseContext);
+					}));
 			}
 		}
 

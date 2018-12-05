@@ -1,18 +1,16 @@
-﻿using System;
-using System.Drawing.Printing;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 //using System.Windows.Forms;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
-using System.Data.Entity;
+using xl = DocumentFormat.OpenXml.Spreadsheet;
 
 
 
@@ -28,7 +26,7 @@ namespace LKS_3._0.Model
 		Troop selectedTrop; //выбранный взвод
 		Summer summer; // информация о сборах
 		List<Admin> admins; // список администрации на сборах
-		// Неуверен всетаки надо ли передавать ссылка на БД
+							// Неуверен всетаки надо ли передавать ссылка на БД
 		ApplicationContext DataBase;// ссылка на БД надо отрефакторить код чтобы просто открывать БД, а не передавать ее
 
 		public Templates(string fileName, ref ApplicationContext temp_DataBase, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null, Summer charges = null)
@@ -45,7 +43,7 @@ namespace LKS_3._0.Model
 
 			if (Students.Count == 0 && troops.Count != 0)
 			{
-                this.students = troops.First().Students.Where(u => u.Status == "Обучается" || u.Status == "На сборах").ToList();
+				this.students = troops.First().Students.Where(u => u.Status == "Обучается" || u.Status == "На сборах").ToList();
 				selectedTrop = troops.First();
 			}
 			else
@@ -798,7 +796,7 @@ namespace LKS_3._0.Model
 
 				if (command.ToUpper() == "РОД ИНИЦИАЛЫ")
 				{
-                    return selectedRelative.Initials;
+					return selectedRelative.Initials;
 				}
 			}
 			//Мать
@@ -857,7 +855,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "МАТЬ ИНИЦИАЛЫ")
 				{
 					return selectedStudentMather.Initials;
-                }
+				}
 			}
 			// ОТЕЦ(ОТЧИМ)
 			if (selectedStudentFather != null)
@@ -915,7 +913,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "ОТЕЦ ИНИЦИАЛЫ")
 				{
 					return selectedStudentFather.Initials;
-                }
+				}
 			}
 
 			// Взвод
@@ -1261,10 +1259,10 @@ namespace LKS_3._0.Model
 			}
 			if (admins != null)
 			{
-                if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
-                {
-                    return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Initials;
-                }
+				if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Initials;
+				}
 
 				if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
 				{
@@ -1276,10 +1274,10 @@ namespace LKS_3._0.Model
 					return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Rank;
 				}
 
-                if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
-                {
-                    return admins.Find(u => u.Rank == "Военный комиссар").Initials;
-                }
+				if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Военный комиссар").Initials;
+				}
 
 				if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
 				{
@@ -1313,7 +1311,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Начальник штаба").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИМЯ")
 				{
@@ -1333,7 +1331,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ЗВАНИЕ")
 				{
@@ -1358,18 +1356,18 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ЗВАНИЕ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Collness;
 				}
 
-                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
-                {
-                    return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Initials;
-                }
-                    if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
+				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
+				{
+					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Initials;
+				}
+				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Collness;
 				}
@@ -1377,7 +1375,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по вооружению").Initials;
-                    }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ЗВАНИЕ")
 				{
@@ -1387,7 +1385,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Начальник медицинсокй части учебного сбора").Initials;
-                    }
+				}
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ЗВАНИЕ")
 				{
@@ -1397,7 +1395,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Командир учебной батареи").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ЗВАНИЕ")
 				{
@@ -1437,7 +1435,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ СТАРШИНА ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Старшина учебного взвода").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ СТАРШИНА ЗВАНИЕ")
 				{
@@ -1447,7 +1445,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Командир войсковой части").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ЗВАНИЕ")
 				{
@@ -1457,7 +1455,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Начальник штаба войсковой части").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ЗВАНИЕ")
 				{
@@ -1467,7 +1465,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ЗВАНИЕ")
 				{
@@ -1477,7 +1475,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ЗВАНИЕ")
 				{
@@ -1487,7 +1485,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Член комиссии 1").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ЗВАНИЕ")
 				{
@@ -1497,7 +1495,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Член комиссии 2").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ЗВАНИЕ")
 				{
@@ -1507,7 +1505,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Член комиссии 3").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ЗВАНИЕ")
 				{
@@ -1517,7 +1515,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Член комиссии 4").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ЗВАНИЕ")
 				{
@@ -1527,7 +1525,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Член комиссии 5").Initials;
-                }
+				}
 
 				if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ЗВАНИЕ")
 				{
@@ -1557,7 +1555,7 @@ namespace LKS_3._0.Model
 				if (command.ToUpper() == "РЕКТОР ИНИЦИАЛЫ")
 				{
 					return admins.Find(u => u.Rank == "Ректор МАИ НИУ").Initials;
-                }
+				}
 
 			}
 
@@ -1628,7 +1626,7 @@ namespace LKS_3._0.Model
 			using (WordprocessingDocument doc = WordprocessingDocument.Open(dlg.FileName, true)) // открыли документ
 			{
 				Table table = doc.MainDocumentPart.Document.Body.Elements<Table>().First();
-				if(table == null)
+				if (table == null)
 				{
 					// Error
 					return;
@@ -1654,6 +1652,234 @@ namespace LKS_3._0.Model
 				}
 			}
 
+		}
+
+		/// <summary>
+		/// Временная фигня, зля заполнения базы данных из xl
+		/// </summary>
+		static public void DataImportFromXL(ref ApplicationContext db)
+		{
+			Dictionary<string, Student> students = new Dictionary<string, Student>();
+			Dictionary<string, Relative> mothers, fathers;
+			string troop = null;
+
+			mothers = ReadRelativeFromXl("mother");
+			fathers = ReadRelativeFromXl("father");
+
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Xl files (*.xlsx)|*.xlsx";
+			if (dlg.ShowDialog() == true)
+			{
+				using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(dlg.FileName, false))
+				{
+					WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+					WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+					xl.SheetData sheetData = worksheetPart.Worksheet.Elements<xl.SheetData>().First();
+					var firstCell = sheetData.Elements<xl.Row>().FirstOrDefault().Elements<xl.Cell>().FirstOrDefault();
+					troop = GetCellValue(firstCell, workbookPart);
+					foreach (xl.Row r in sheetData.Elements<xl.Row>().Skip(2))
+					{
+						try
+						{
+							string key = null;
+							var cell = r.Elements<xl.Cell>().GetEnumerator();
+							cell.MoveNext();
+							key = GetCellValue(cell.Current, workbookPart);
+							if (key == null)
+								break;
+							cell.MoveNext();
+
+							string middleName = GetCellValue(cell.Current, workbookPart);
+
+							var student = db.Students.FirstOrDefault(x => x.Troop.Any(ob => ob.NumberTroop == troop) && x.MiddleName == middleName);
+							if(student == null)
+							{
+								student = new Student();
+								student.Relatives = new System.ComponentModel.BindingList<Relative>();
+								student.Troop = new System.ComponentModel.BindingList<Troop>();
+								student.Troop.Add(db.Troops.FirstOrDefault(x => x.NumberTroop == troop));
+								db.Students.Add(student);
+							}
+							student.MiddleName = middleName;
+							cell.MoveNext();
+
+							student.FirstName = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.LastName = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.YearOfAddMAI = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.YearOfEndMAI = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.YearOfAddVK = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.YearOfEndVK = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.Kurs = int.TryParse(GetCellValue(cell.Current, workbookPart), out int kurs)? kurs : 0;
+							cell.MoveNext();
+
+							student.InstGroup = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.Faculty = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.SpecInst = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.ConditionsOfEducation = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.AvarageScore = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.NumberOfOrder = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.DateOfOrder = Double.TryParse(GetCellValue(cell.Current, workbookPart), out double date) ?
+								DateTime.FromOADate(date).ToString("dd.MM.yyyy") : String.Empty;
+							cell.MoveNext();
+
+							student.Rectal = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.Birthday = Double.TryParse(GetCellValue(cell.Current, workbookPart), out double birthDay) ?
+								DateTime.FromOADate(date).ToString("dd.MM.yyyy") : String.Empty;
+							cell.MoveNext();
+
+							student.PlaceBirthday = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.Nationality = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.Citizenship = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.HomePhone = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.MobilePhone = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.PlaceOfResidence = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.PlaceOfRegestration = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							student.School = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+							student.Relatives.Clear();
+							if (mothers.ContainsKey(key))
+								student.Relatives.Add(mothers.FirstOrDefault(x => x.Key == key).Value);
+							if (fathers.ContainsKey(key))
+								student.Relatives.Add(fathers.FirstOrDefault(x => x.Key == key).Value);
+							//students.Add(key, student);
+						}
+						catch (Exception ex)
+						{
+
+						}
+					}
+					db.SaveChanges();
+				}
+			}
+
+		}
+
+		public static Dictionary<string, Relative> ReadRelativeFromXl(string RelationDegree)
+		{
+			Dictionary<string, Relative> res = new Dictionary<string, Relative>();
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog(); // создали новое диалоговое окно
+			dlg.Filter = "Xl files (*.xlsx)|*.xlsx";
+			if (dlg.ShowDialog() == true)
+			{
+				using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(dlg.FileName, false))
+				{
+					WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+					WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+					xl.SheetData sheetData = worksheetPart.Worksheet.Elements<xl.SheetData>().First();
+					foreach (xl.Row r in sheetData.Elements<xl.Row>().Skip(1))
+					{
+						Relative relative = new Relative()
+						{
+							RelationDegree = RelationDegree
+						};
+						try
+						{
+							Student student = new Student();
+							string key = null;
+							var cell = r.Elements<xl.Cell>().GetEnumerator();
+							cell.MoveNext();
+							key = GetCellValue(cell.Current, workbookPart);
+							if (key == null)
+								break;
+							cell.MoveNext();
+
+							relative.MiddleName = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.FirstName = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.LastName = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.Birthday = Double.TryParse(GetCellValue(cell.Current, workbookPart), out double date) ?
+								DateTime.FromOADate(date).ToString("dd.MM.yyyy") : String.Empty;
+							cell.MoveNext();
+
+							relative.HealthStatus = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.PlaceOfResidence = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.PlaceOfRegestration = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							relative.MobilePhone = GetCellValue(cell.Current, workbookPart);
+							cell.MoveNext();
+
+							res.Add(key, relative);
+						}
+						catch (Exception ex)
+						{
+
+						}
+					}
+				}
+			}
+
+			return res;
+		}
+
+		public static string GetCellValue(xl.Cell cell, WorkbookPart workbookPart)
+		{
+			if (cell?.DataType != null && cell?.DataType == xl.CellValues.SharedString)
+			{
+				if (Int32.TryParse(cell.InnerText, out int id))
+				{
+					return GetSharedStringItemById(workbookPart, id).InnerText;
+				}
+				return String.Empty; // Error!
+			}
+			else
+			{
+				return cell?.CellValue?.Text;
+			}
+		}
+
+		public static xl.SharedStringItem GetSharedStringItemById(WorkbookPart workbookPart, int id)
+		{
+			return workbookPart.SharedStringTablePart.SharedStringTable.Elements<xl.SharedStringItem>().ElementAt(id);
 		}
 	}
 }

@@ -94,6 +94,7 @@
                 <MenuItem Header="Закрытие word файлов" Command="{Binding CloseAllWordFile}" />
             </MenuItem>
             <MenuItem Header="Экспорт в маевскую базу" Command="{Binding ExportCommand}"/>
+            <MenuItem Header="Импорт данных из XL" Command="{Binding DataImportFromXL }"/>
 
         </Menu>
 

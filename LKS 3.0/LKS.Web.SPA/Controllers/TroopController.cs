@@ -34,6 +34,13 @@ namespace LKS.Web.SPA.Controllers
 			return Ok();
 		}
 
+		[HttpDelete("[action]")]
+		public IActionResult DeleteTroop(Troop model)
+		{
+			//_troopRepository.Update(model);
+			return Ok();
+		}
+
 		[HttpPost("[action]")]
 		public IActionResult GetTroopNumberList()
 		{
