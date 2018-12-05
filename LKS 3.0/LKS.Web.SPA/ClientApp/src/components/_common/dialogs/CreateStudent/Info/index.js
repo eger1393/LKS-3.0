@@ -1,17 +1,18 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import Input from '../../../elements/Input'
-import Button from '../../../elements/Button'
 import Select from '../../../elements/Select'
 import Autocomplete from '../../../elements/Autocomplete'
+import { connect } from 'react-redux'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
+import { fetchSetValueForStudent } from '../../../../../redux/modules/AddStudent'
+import { getAddStudentFieldsValue  } from '../../../../../selectors/addStudent'
 import { apiGetTroopList } from '../../../../../api/dialogs'
 import { Container } from './styled'
 
 class Info extends React.Component {
     state = {
-        fieldValue: {},
         troops: [],
         instGroup: [],
         specInst: [],
@@ -19,14 +20,11 @@ class Info extends React.Component {
     }
     changeSelect = event => {
         console.log(event)
+
         var name = event.target.name ? event.target.name : event.target.id,
             val = event.target.value;
-        this.setState(prevState => ({
-            fieldValue: { ...prevState.fieldValue, [name]: val, }
-        }));
-    }
-    create = () => {
-        this.props.createStudent(this.state.fieldValue)
+
+        this.props.fetchSetValueForStudent({ name, val });
     }
     componentWillMount() {
         var self = this;
@@ -57,14 +55,14 @@ class Info extends React.Component {
                             type="text"
                             isRequired={true}
                             placeholder="Фамилия"
-                            value={this.state.fieldValue['LastName']}
+                            value={this.props.fieldValue['LastName']}
                             onChange={this.changeSelect}
                         />
                         <Input id="FirstName"
                             type="text"
                             isRequired={true}
                             placeholder="Имя"
-                            value={this.state.fieldValue['FirstName']}
+                            value={this.props.fieldValue['FirstName']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -73,7 +71,7 @@ class Info extends React.Component {
                             type="text"
                             isRequired={true}
                             placeholder="Отчество"
-                            value={this.state.fieldValue['MiddleName']}
+                            value={this.props.fieldValue['MiddleName']}
                             onChange={this.changeSelect}
                         />
                         <Select id="TroopId"
@@ -111,7 +109,7 @@ class Info extends React.Component {
                             type="text"
                             isRequired={true}
                             placeholder="Факультет"
-                            value={this.state.fieldValue['Faculty']}
+                            value={this.props.fieldValue['Faculty']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -145,7 +143,7 @@ class Info extends React.Component {
                             type="text"
                             isRequired={true}
                             placeholder="Год поступления в МАИ"
-                            value={this.state.fieldValue['YearOfAddMAI']}
+                            value={this.props.fieldValue['YearOfAddMAI']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -153,13 +151,13 @@ class Info extends React.Component {
                         <Input id="YearOfEndMAI"
                             type="text"
                             placeholder="Год окончания МАИ"
-                            value={this.state.fieldValue['YearOfEndMAI']}
+                            value={this.props.fieldValue['YearOfEndMAI']}
                             onChange={this.changeSelect}
                         />
                         <Input id="YearOfAddVK"
                             type="text"
                             placeholder="Год поступления на ВК"
-                            value={this.state.fieldValue['YearOfAddVK']}
+                            value={this.props.fieldValue['YearOfAddVK']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -167,13 +165,13 @@ class Info extends React.Component {
                         <Input id="YearOfEndVK"
                             type="text"
                             placeholder="Год окончания ВК"
-                            value={this.state.fieldValue['YearOfEndVK']}
+                            value={this.props.fieldValue['YearOfEndVK']}
                             onChange={this.changeSelect}
                         />
                         <Input id="NumberOfOrder"
                             type="text"
                             placeholder="Номер приказа"
-                            value={this.state.fieldValue['NumberOfOrder']}
+                            value={this.props.fieldValue['NumberOfOrder']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -181,7 +179,7 @@ class Info extends React.Component {
                         <Input id="DateOfOrder"
                             type="text"
                             placeholder="Дата приказа"
-                            value={this.state.fieldValue['DateOfOrder']}
+                            value={this.props.fieldValue['DateOfOrder']}
                             onChange={this.changeSelect}
                         />
                         {
@@ -190,15 +188,22 @@ class Info extends React.Component {
                             />)}
                     </FlexRow>                 
                 </FlexBox>
-                <Button onClick={this.create} value="Создать" />
+
             </Container>
             
         );
     }
 }
 
-Info.state = {
-    fieldValue: PropTypes.array,
+Info.props = {
+    fieldValue: PropTypes.object,
+    setValue: PropTypes.func,
 }
 
-export default Info
+function mapStateToProps(store) {
+    return {
+        fieldValue: getAddStudentFieldsValue(store),
+    }
+}
+
+export default connect(mapStateToProps, { fetchSetValueForStudent })(Info)

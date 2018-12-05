@@ -1,23 +1,22 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Tab, Tabs, Grid } from 'react-bootstrap'
-import Input from '../../elements/Input'
-import Select from '../../elements/Select'
+import { Modal, Tab, Tabs } from 'react-bootstrap'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
-import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
+import {  ModalContainer } from '../../elements/StyleDialogs/styled'
 import Info from './Info'
-import { apiCreateStudent } from '../../../../api/addStudent'
 import { Container } from './styled'
+import { fetchAddNewStudent } from '../../../../redux/modules/AddStudent'
+import { connect } from 'react-redux'
+
 
 class CreateStudent extends React.Component {
     constructor(props) {
         super(props);
         this.createStudent = this.createStudent.bind(this)
     }
-    createStudent = (values) => {
-        
-            apiCreateStudent(values);
+    createStudent = () => {
+            this.props.fetchAddNewStudent();
             this.props.onHide();   
     }
     validate = () => {
@@ -35,7 +34,7 @@ class CreateStudent extends React.Component {
                         <FormHead text="Добавить студента" handleClick={this.props.onHide} />
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
                             <Tab eventKey={1} title="Информация">
-                                <Info createStudent={this.createStudent} />
+                                <Info/>
                             </Tab>
                             <Tab eventKey={2} title="Личные данные" disabled>
                                 Tab 2 content
@@ -50,6 +49,7 @@ class CreateStudent extends React.Component {
                             </div>
                         </Tabs>
                     </Container>
+                    <Button onClick={this.createStudent} value="Создать" />
                 </ModalContainer>
             </Modal>
         );
@@ -62,8 +62,4 @@ CreateStudent.props = {
     createStudent: PropTypes.func,
 }
 
-CreateStudent.state = {
-    fieldValue: PropTypes.array,
-}
-
-export default CreateStudent
+export default connect(null, { fetchAddNewStudent })(CreateStudent)

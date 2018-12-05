@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
  
-.custom-style > div{
+.custom-style > div:first-child{
         width: 100%;
         height: 40px;
         border-radius: 1px;
