@@ -974,7 +974,14 @@ namespace LKS_3._0
             ProgressWin.Show();
             //var Progress = ProgressWin.Progress_Bar;
 
-            string path = Environment.CurrentDirectory + @"\Acsess\"  + "maev_new.mdb";
+            //Выбираем студентов на экспорт
+            while (SelectedTroop.NumberTroop == null)
+            {
+                СheckTroop.Execute(new object());
+            }
+            var students_to_export = SelectedTroop.Students.Where(u => u.Status == "Обучается");
+
+            string path = Environment.CurrentDirectory + @"\Acsess\"  + "maev"+ SelectedTroop.NumberTroop +".mdb";
             try
             {
                 File.Copy(maev_path, path, true);
@@ -1019,8 +1026,7 @@ namespace LKS_3._0
 			cmd.ExecuteNonQuery();
 
 
-			//Выбираем студентов на экспорт, которые буду на сборах
-			var students_to_export = Students.Where(u => u.Status == "На сборах");
+            
 
 
 			//Запрос добавления студента в таблицу КПУ, сначала основные данные
@@ -1030,7 +1036,7 @@ namespace LKS_3._0
 
 				cmd.CommandText = String.Format(@"INSERT INTO КПУ (Фамилия,Имя,Отчество,К_НАЦ)
 SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE национальность='{3}'",
-													s.LastName, s.FirstName, s.MiddleName, s.Nationality != null ? s.Nationality : "Русский");
+													s.MiddleName, s.FirstName, s.LastName, s.Nationality != null ? s.Nationality : "Русский");
 
 				cmd.ExecuteNonQuery();
 				cmd.CommandText = "SELECT @@Identity";
@@ -1053,8 +1059,8 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 					speciality_name = "Неизвестно",
 					cell_number = "Неизвестно";
 
-				if (s.PlaceOfResidence != null)
-					home_address = s.PlaceOfResidence;
+				if (s.PlaceOfRegestration != null)
+					home_address = s.PlaceOfRegestration;
 
 				if (s.HomePhone != null)
 					phone_number = s.HomePhone;
@@ -1068,15 +1074,16 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 
 
-				if (s.SpecialityName.Trim().Length > 0)
-					speciality_name = s.SpecialityName;
-
-				var name_dp = NameToDP(s);
+                if (s.SpecInst?.Trim().Length > 0)
+                    speciality_name = s.SpecInst;
+                else
+                    speciality_name = "Отутствует";
+                var name_dp = NameToDP(s);
 
                 try
                 {
                     //Дописываем остальную информацию
-                    cmd.CommandText = "UPDATE КПУ SET ВУЗ=@var1,[Год окончания ВУЗа]=@var2,[Год окончания В/К]=@var3,[Состоит на учете]=@var4,[Специальность воен]=@var5,[Рост]=@var6,[Одежда]=@var7,[Одежда размер]=@var8,[Головной убор]=@var9,[Противогаз]=@var10,[Домашний адрес]=@var11,[Телефон]=@var12,[Группа крови]=@var13,[Факультет]=@var14,[Специальность гр]=@var15,[Обувь]=@var16,[Фамилия ДП]=@var17,[Имя ДП]=@var18,[Отчество ДП]=@var19,ВУС =@var20,[В/кафедра]=@var21, [№ приказа]=@var22, [дата приказа]=@var23 WHERE к_код=@var24";
+                    cmd.CommandText = "UPDATE КПУ SET ВУЗ=@var1,[Год окончания ВУЗа]=@var2,[Год окончания В/К]=@var3,[Состоит на учете]=@var4,[Специальность воен]=@var5,[Рост]=@var6,[Одежда]=@var7,[Одежда размер]=@var8,[Головной убор]=@var9,[Противогаз]=@var10,[Домашний адрес]=@var11,[Телефон]=@var12,[Группа крови]=@var13,[Факультет]=@var14,[Специальность гр]=@var15,[Обувь]=@var16,[Фамилия ДП]=@var17,[Имя ДП]=@var18,[Отчество ДП]=@var19,ВУС =@var20,[В/кафедра]=@var21, [№ приказа]=@var22, [дата приказа]=@var23,[код годности]=@var24 WHERE к_код=@var25";
 
 					cmd.Parameters.Add("@var1", OleDbType.Char).Value = "МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
 					cmd.Parameters.Add("@var2", OleDbType.Char).Value = s.YearOfEndMAI != null ? s.YearOfEndMAI : "1990";
@@ -1091,8 +1098,8 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 					cmd.Parameters.Add("@var10", OleDbType.Char).Value = s.MaskSize != null ? "№" + s.MaskSize : "№0";
 
 					cmd.Parameters.Add("@var11", OleDbType.Char).Value = home_address + " т. " + cell_number;
-					cmd.Parameters.Add("@var12", OleDbType.Char).Value = phone_number;
-					cmd.Parameters.Add("@var13", OleDbType.Char).Value = s.BloodType.Length > 3 ? "2+" : s.BloodType;
+					cmd.Parameters.Add("@var12", OleDbType.Char).Value = cell_number;
+                    cmd.Parameters.Add("@var13", OleDbType.Char).Value = s.BloodType != null ? s.BloodType : "2+";
 					cmd.Parameters.Add("@var14", OleDbType.Char).Value = s.Faculty != null ? s.Faculty : "0";
 					cmd.Parameters.Add("@var15", OleDbType.Char).Value = speciality_name != null ? speciality_name : "Нет";
 
@@ -1101,11 +1108,11 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 					cmd.Parameters.Add("@var18", OleDbType.Char).Value = name_dp[2];
 					cmd.Parameters.Add("@var19", OleDbType.Char).Value = name_dp[1];
 					cmd.Parameters.Add("@var20", OleDbType.Char).Value = "042600";
-
                     cmd.Parameters.Add("@var21", OleDbType.Char).Value = "Военная кафедра МОСКОВСКИЙ АВИАЦИОННЫЙ ИНСТИТУТ(национальный исследовательский университет)(МАИ)";
                     cmd.Parameters.Add("@var22", OleDbType.Char).Value = s.NumberOfOrder != null ? s.NumberOfOrder : "Нет";
                     cmd.Parameters.Add("@var23", OleDbType.Char).Value = s.DateOfOrder != "" ? Convert.ToDateTime(s.DateOfOrder) : Convert.ToDateTime("01.01.1990");
-                    cmd.Parameters.Add("@var24", OleDbType.Char).Value = id.ToString();
+                    cmd.Parameters.Add("@var24", OleDbType.Integer).Value = 1;
+                    cmd.Parameters.Add("@var25", OleDbType.Char).Value = id.ToString();
 
 					/*"годен к военной службе"*/ /*[Категория годности] = '{21}'*/
 
