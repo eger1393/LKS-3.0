@@ -28,28 +28,60 @@ namespace LKS_3._0.View
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if(radioButtonNext.IsChecked == true)
-            {
-                foreach (var item in students)
-                {
-                    if (item.Kurs < 4)
-                        item.Kurs++;
-                }
-                Close();
-            }
-            else if (radioButtonPrev.IsChecked == true)
-            {
-                foreach (var item in students)
-                {
-                    if (item.Kurs >1)
-                        item.Kurs--;
-                }
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Выберите операцию!", "Ошибка!");
-            }
-        }
+			if(radioButtonNext.IsChecked != true && radioButtonPrev.IsChecked != true)
+			{
+				MessageBox.Show("Выберите операцию!", "Ошибка!");
+				return;
+			}
+
+			foreach (var item in students)
+			{
+				var group = item.InstGroup.Split('-');
+				var sb = new StringBuilder(group[1]);
+				if (Int32.TryParse(sb[0].ToString(), out int kurs))
+				{
+					if (radioButtonNext.IsChecked == true)
+					{
+						//kurs = kurs < 4 ? kurs++ : kurs;
+						kurs++;
+					}
+					else
+					{
+						kurs--;
+						//kurs = kurs > 1 ? kurs-- : kurs;
+					}
+					item.Kurs = kurs;
+					sb[0] = ((char)('0' + kurs));
+					group[1] = sb.ToString();
+					item.InstGroup = string.Join("-", group);
+				}
+			}
+			Close();
+
+			//       if(radioButtonNext.IsChecked == true)
+			//       {
+			//           foreach (var item in students)
+			//           {
+			//if (item.Kurs < 4)
+			//{
+			//	item.Kurs++;
+			//}
+			//           }
+			//           Close();
+			//       }
+			//       else if (radioButtonPrev.IsChecked == true)
+			//       {
+			//           foreach (var item in students)
+			//           {
+			//               if (item.Kurs >1)
+			//                   item.Kurs--;
+			//           }
+			//           Close();
+			//       }
+			//       else
+			//       {
+			//           MessageBox.Show("Выберите операцию!", "Ошибка!");
+			//       }
+		}
     }
 }
