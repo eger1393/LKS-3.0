@@ -8,6 +8,9 @@ type State = {
     value: string | void,
 };
 
+const createOption = (value: string) => ({
+    label: value,
+});
 export default class CreatableAdvanced extends Component<*, State> {
     state = {
         isLoading: false,
@@ -23,7 +26,7 @@ export default class CreatableAdvanced extends Component<*, State> {
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
         this.setState({ value: newValue });
-        var val = newValue.label;
+        var val = (newValue) ? newValue.label : null;
         this.props.onChange({
             target: {
                 id: this.props.id, value: val,
@@ -36,7 +39,7 @@ export default class CreatableAdvanced extends Component<*, State> {
         console.log('Wait a moment...');
      
         const { options } = this.state;
-        const newOption = inputValue;
+        const newOption = createOption(inputValue);
             console.log(newOption);
             console.groupEnd();
             this.setState({
@@ -44,7 +47,7 @@ export default class CreatableAdvanced extends Component<*, State> {
                 options: [...options, newOption],
                 value: newOption,
         });
-        var val = inputValue.label;
+        var val = newOption.label;
         this.props.onChange({
             target: {
                 id: this.props.id, value: val,
