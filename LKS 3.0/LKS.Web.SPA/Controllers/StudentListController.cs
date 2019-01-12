@@ -32,10 +32,10 @@ namespace LKS.Web.SPA.Controllers
 				ob.MiddleName, 
 				ob.Position,
 				ob.Kurs,
-				ob.NumTroop,
-				numbTroop = ob.Troop?.NumberTroop,
+				numTroop = ob.Troop?.NumberTroop,
 				ob.Collness,
 				ob.Status,
+                ob.Relatives,
 
 			});
 			return new JsonResult(new { studentList = studentList.ToArray() });
@@ -47,12 +47,10 @@ namespace LKS.Web.SPA.Controllers
             var obj = _stydentRepository.GetInstGroupList().Select(ob => new
             {
                 label = ob
-            });//.ToDictionary<string, string>(ob => ob, ob => ob);
+            });
             return Ok(obj);
-        }
-
-    
-		[HttpPost("[action]")]
+        }     
+        [HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{
 			if (!ModelState.IsValid)

@@ -51,11 +51,18 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
+        public Student GetStudent(string id)
+        {
+            var res = context.Students.Include(ob => ob.Relatives).FirstOrDefault(u => u.Id == id);
+            return res;
+        }
+
+        public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
 		{
 			var res = context.Students
 				.Include(ob => ob.Troop)
-				.AsQueryable();
+                .Include(ob => ob.Relatives)
+                .AsQueryable();
 			if(!String.IsNullOrEmpty(selectTroop))
 				res = res.Where(ob => ob.TroopId == selectTroop);
 			if (filters != null)
@@ -97,7 +104,7 @@ namespace LKS.Data.Concrete
 		{
 			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
 			student.Status = status;
-			context.SaveChanges();
+            await context.SaveChangesAsync();
 		}
 
 
@@ -105,7 +112,7 @@ namespace LKS.Data.Concrete
 		{
 			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
 			student.Position = position;
-			context.SaveChanges();
+            await context.SaveChangesAsync();
 		}
 
 		public async Task Update(Student item)
@@ -175,6 +182,13 @@ namespace LKS.Data.Concrete
             answer.RemoveAll(string.IsNullOrWhiteSpace);
             return answer;
            
+        }
+
+        public List<string> GetLanguagesList()
+        {
+            var answer = context.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
         }
     }
 }

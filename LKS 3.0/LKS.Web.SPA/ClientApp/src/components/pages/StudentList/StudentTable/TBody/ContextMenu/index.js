@@ -2,18 +2,33 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchSetStudentStatus, fetchSetStudentPosition } from '../../../../../../redux/modules/studentList'
-import { apiSetStudentStatus } from '../../../../../../api/studentList'
-
+import { fetchSetStudent } from '../../../../../../redux/modules/AddStudent'
+import CreateStudent from '../../../../../_common/dialogs/CreateStudent'
 import { ContextMenu, MenuItem, SubMenu } from "react-contextmenu";
 import { Container } from './styled'
 
 class Menu extends React.Component {
+    state = {
+        openModalWindowStudentCreate: false,
+        StudentId: ""
+    }
+
+    OnClick = () => {
+        this.setState(prevState => ({
+            openModalWindowStudentCreate: !prevState.openModalWindowStudentCreate,
+        }))
+    }
 
     menuClick = (e, data) => {
         switch (data.type) {
             case 'editStudent':
                 {
-                    console.log('editStudent');
+                    this.setState(prevState => ({
+                        ...prevState,
+                        StudentId: data.Id,
+                    }))
+                    this.props.fetchSetStudent({ id: data.id });
+                    this.OnClick();
                     break;
                 }
             case 'changeStatus':
@@ -54,6 +69,9 @@ class Menu extends React.Component {
                         <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 5 }}>секретчик</MenuItem>
                     </SubMenu>
                 </ContextMenu>
+                {this.state.openModalWindowStudentCreate && (
+                    <CreateStudent show={this.state.openModalWindowStudentCreate} onHide={this.OnClick} StudentId={this.state.StudentId} />
+                )}
             </Container>
         );
     }
@@ -61,7 +79,8 @@ class Menu extends React.Component {
 
 Menu.props = {
     fetchSetStudentStatus: PropTypes.func,
-    fetchSetStudentPosition: PropTypes.func
+    fetchSetStudentPosition: PropTypes.func,
+    fetchSetStudent: PropTypes.func,
 }
 
-export default connect(null, { fetchSetStudentStatus, fetchSetStudentPosition })(Menu);
+export default connect(null, { fetchSetStudentStatus, fetchSetStudentPosition, fetchSetStudent })(Menu);

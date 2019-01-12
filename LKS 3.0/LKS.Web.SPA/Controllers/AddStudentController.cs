@@ -15,6 +15,7 @@ namespace LKS.Web.SPA.Controllers
     public class AddStudentController : ControllerBase
     {
         private readonly IStudentRepository _stydentRepository;
+        private readonly IRelativeRepository _relativeRepository;
 
         public AddStudentController(IStudentRepository studentRepository)
         {
@@ -29,6 +30,19 @@ namespace LKS.Web.SPA.Controllers
             {
                 label = ob
             });
+            return Ok(obj);
+        }
+        [HttpPost("[action]")]
+        public IActionResult GetLanguagesList()
+        {
+            var obj = _stydentRepository.GetLanguagesList().Select(ob => new
+            {
+                label = ob
+            }).ToList();
+            if(obj.Count()==0)
+            {
+                obj.Add(new { label = "Английский" });
+            }
             return Ok(obj);
         }
         [HttpPost("[action]")]
@@ -50,11 +64,29 @@ namespace LKS.Web.SPA.Controllers
             return Ok(obj);
         }
         [HttpPost("[action]")]
-        public IActionResult CreateStudent([FromBody]Student model)
+        public IActionResult GetStudent([FromBody]GetStudentModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            var obj = _stydentRepository.GetStudent(model.id);
+            return Ok(obj);
+        }
+        [HttpPost("[action]")]
+        public IActionResult CreateStudent([FromBody]Student model)
+        {
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
+            _relativeRepository.CreateRange(model.Relatives);
             _stydentRepository.Create(model);
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult UpdateStudent(Student model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            _stydentRepository.Update(model);
             return Ok();
         }
     }

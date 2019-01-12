@@ -118,7 +118,7 @@ class TroopList extends React.Component {
                             </Contant>
                         </FlexBox>
                         <div className="form-submit">
-                            <Button onClick={this.createTroop} value="Создать" />
+                            <Button onClick={this.toggleWindow} value="Создать" />
                         </div>
                         <ContextMenu id="troopMenu">
                             <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>

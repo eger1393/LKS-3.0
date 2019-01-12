@@ -11,11 +11,12 @@ type State = {
 const createOption = (value: string) => ({
     label: value,
 });
+
 export default class CreatableAdvanced extends Component<*, State> {
     state = {
         isLoading: false,
         options: [],
-        value: undefined,
+        value: this.props.value,
     };
     componentWillMount() {
         this.setState({ options: this.props.data })
@@ -76,7 +77,7 @@ export default class CreatableAdvanced extends Component<*, State> {
 
 CreatableAdvanced.props = {
     id: PropTypes.string,
-    data: PropTypes.array,
+    value: PropTypes.string,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
 }

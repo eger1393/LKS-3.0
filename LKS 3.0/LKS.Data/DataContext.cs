@@ -29,8 +29,9 @@ namespace LKS.Data
 			//builder.Entity<Troop>().HasMany(x => x.Students);
 			//builder.Entity<Student>().HasOne(x => x.Troop).WithOne(x => x.PlatoonCommander);
 			builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.Students);
+            builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
 
-			Seed(builder);
+            Seed(builder);
 		}
 
 		private void Seed(ModelBuilder builder)
@@ -84,8 +85,8 @@ namespace LKS.Data
 				NumberTroop = "510",
 				PrepodId = "1"
 			});
-
-			for (int i = 0; i < 100; i++)
+           
+            for (int i = 0; i < 100; i++)
 			{
                 builder.Entity<Student>().HasData(new Student
                 {
@@ -98,16 +99,16 @@ namespace LKS.Data
                     SpecInst = SpecInstList[rand.Next(0, 4)],
                     InstGroup = InstGroupList[rand.Next(0, 4)],
                     Rectal = RectalList[rand.Next(0, 4)],
-					Position = (StudentPosition)rand.Next(0, 5),
-					Kurs = 4,
-					Status = (StudentStatus)rand.Next(0, 4)
+                    Position = (StudentPosition)rand.Next(0, 5),
+                    Kurs = 4,
+                    Status = (StudentStatus)rand.Next(0, 4),
 				});
 			}
 			for (int i = 0; i < 100; i++)
 			{
-				builder.Entity<Student>().HasData(new Student
-				{
-					Id = Guid.NewGuid().ToString(),
+                builder.Entity<Student>().HasData(new Student
+                {
+                    Id = (i * 182).ToString(),
 					TroopId = i >= 50 ? "3" : "4",
 					FirstName = "Имя" + rand.Next(100),
 					LastName = "Фамилия" + rand.Next(100),
@@ -121,6 +122,17 @@ namespace LKS.Data
 					Status = (StudentStatus)rand.Next(0, 4)
 				});
 			}
-		}
+            for (int i = 0; i < 100; i++)
+            {
+                builder.Entity<Relative>().HasData(new Relative
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    StudentId = (i * 182).ToString(),
+                    FirstName = "Имя" + rand.Next(100),
+                    LastName = "Фамилия" + rand.Next(100),
+                    MiddleName = "Отчество" + rand.Next(100),
+                });
+            }
+        }
 	}
 }
