@@ -3,19 +3,25 @@ using LKS.Data.Concrete;
 using LKS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
+using System.Text;
+using System;
+using System.Threading.Tasks;
+using LKS.Infrastructure.Authenticate;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LKS.Web.SPA
 {
-    public class Startup
+	public class Startup
     {
-        public Startup(IConfiguration configuration)
+		private const string JwtKey = "bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m";
+
+		public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -38,6 +44,7 @@ namespace LKS.Web.SPA
 			services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			RegistrationInterfaces(services);
+			ConfigureAuthentication(services);
 
 		}
 
@@ -79,5 +86,39 @@ namespace LKS.Web.SPA
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
 			services.AddTransient<ICycleRepository, CycleRepository>();
 		}
-    }
+
+		private void ConfigureAuthentication(IServiceCollection services)
+		{
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddJwtBearer(options =>
+				{
+					options.ClaimsIssuer = "LKS-server";
+					options.SaveToken = true;
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuer = true,
+						ValidIssuer = "LKS-server",
+						ValidateAudience = false, //TODO
+						ValidAudience = "LKS-client",
+						ValidateLifetime = true,
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtKey)),
+						ValidateIssuerSigningKey = true,
+						ClockSkew = TimeSpan.Zero
+					};
+					options.Events = new JwtBearerEvents
+					{
+						OnAuthenticationFailed = context =>
+						{
+							if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+							{
+								context.Response.Headers.Add("Token-Expired", "true");
+							}
+							return Task.CompletedTask;
+						}
+					};
+				});
+
+			services.AddSingleton<IJwtAuth>(new JwtAuth(JwtKey, 2592000, "LKS-server", "LKS-app"));
+		}
+	}
 }

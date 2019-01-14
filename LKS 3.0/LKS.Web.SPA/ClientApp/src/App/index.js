@@ -1,7 +1,11 @@
-﻿import React from 'react';
-import { Route } from 'react-router';
-import Test from '../components/pages/StudentList'
+﻿import React, { Component } from 'react'
 
-export default () => (
-    <Route exact path='/' component={Test} />
-);
+import Pages from '../components/pages'
+
+class App extends Component {
+  render() {
+    return <Pages />
+  }
+}
+
+export default App
