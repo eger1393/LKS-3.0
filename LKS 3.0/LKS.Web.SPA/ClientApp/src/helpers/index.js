@@ -17,3 +17,18 @@ export const getArrivalDayValue = val => {
             return '';
     }
 }
+
+export const getCoolnessValue = val => {
+  switch (val) {
+    case 0:
+      return 'Полковник';
+    case 1:
+      return 'Подполковник';
+    case 2:
+      return 'Майор';
+    case 3:
+      return 'Капитан';
+    default:
+      return '';
+  }
+}

@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Abstract;
 using LKS.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,15 +33,21 @@ namespace LKS.Data.Concrete
 
 		public async Task Delete(Prepod item)
 		{
-			context.Prepods.Remove(item);
-			await context.SaveChangesAsync();
+			Prepod prepod = context.Prepods.Include(x => x.Troops).FirstOrDefault(x => x.Id == item.Id);
+			foreach(var troop in prepod?.Troops)
+			{
+				troop.Prepod = null;
+				troop.PrepodId = null;
+			}
+			context.Prepods.Remove(prepod);
+			context.SaveChanges();
 			return;
 		}
 
 		public async Task DeleteRange(ICollection<Prepod> item)
 		{
 			context.Prepods.RemoveRange(item);
-			await context.SaveChangesAsync();
+			context.SaveChanges();
 			return;
 		}
 
@@ -58,7 +65,7 @@ namespace LKS.Data.Concrete
 		public async Task Update(Prepod item)
 		{
 			context.Prepods.Update(item);
-			await context.SaveChangesAsync();
+			context.SaveChanges();
 			return;
 		}
 	}
