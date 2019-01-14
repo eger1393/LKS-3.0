@@ -17,9 +17,10 @@ namespace LKS.Web.SPA.Controllers
         private readonly IStudentRepository _stydentRepository;
         private readonly IRelativeRepository _relativeRepository;
 
-        public AddStudentController(IStudentRepository studentRepository)
+        public AddStudentController(IStudentRepository studentRepository, IRelativeRepository relativeRepository)
         {
             this._stydentRepository = studentRepository;
+            this._relativeRepository = relativeRepository;
         }
 
        
@@ -74,19 +75,18 @@ namespace LKS.Web.SPA.Controllers
         [HttpPost("[action]")]
         public IActionResult CreateStudent([FromBody]Student model)
         {
-            //if (!ModelState.IsValid)
-            //    return BadRequest(ModelState);
-            _relativeRepository.CreateRange(model.Relatives);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             _stydentRepository.Create(model);
             return Ok();
         }
 
         [HttpPost("[action]")]
-        public IActionResult UpdateStudent(Student model)
+        public async Task<IActionResult> UpdateStudent(Student model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            _stydentRepository.Update(model);
+            await _stydentRepository.Update(model);
             return Ok();
         }
     }

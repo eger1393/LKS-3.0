@@ -54,8 +54,7 @@ namespace LKS.Data.Concrete
 		{
 			return context.Prepods.ToList();
 		}
-
-		public async Task Update(Prepod item)
+        public async Task Update(Prepod item)
 		{
 			context.Prepods.Update(item);
 			await context.SaveChangesAsync();

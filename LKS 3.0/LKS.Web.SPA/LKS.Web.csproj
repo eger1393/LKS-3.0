@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\layouts\" />
+    <Folder Include="ClientApp\src\components\_common\dialogs\CreateStudent\Photo\" />
     <Folder Include="ClientApp\src\images\" />
     <Folder Include="Services\" />
   </ItemGroup>

@@ -20,8 +20,9 @@ namespace LKS.Data.Concrete
 		public async Task Create(Student item)
 		{
 			await context.Students.AddAsync(item);
-			context.SaveChanges();
-			//return;
+            await context.Relatives.AddRangeAsync(item.Relatives);
+            context.SaveChanges();
+			return;
 		}
 
 		public async Task CreateRange(ICollection<Student> item)
@@ -115,14 +116,17 @@ namespace LKS.Data.Concrete
             await context.SaveChangesAsync();
 		}
 
-		public async Task Update(Student item)
-		{
-			context.Students.Update(item);
-			await context.SaveChangesAsync();
-			return;
-		}
-
-		private void filterStudents(Dictionary<string,string> filters, ref IQueryable<Student> res)
+        public async Task Update(Student item)
+        {
+            context.Students.Update(item);
+            foreach (var i in item.Relatives)
+            {
+                context.Relatives.Update(i);
+            }
+            await context.SaveChangesAsync();
+            return;
+        }
+        private void filterStudents(Dictionary<string,string> filters, ref IQueryable<Student> res)
 		{
 			foreach (var item in filters)
 			{

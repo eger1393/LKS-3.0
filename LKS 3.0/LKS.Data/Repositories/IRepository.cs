@@ -13,6 +13,6 @@ namespace LKS.Data.Abstract
 		Task Delete(T item);
 		Task DeleteRange(ICollection<T> item);
 		Task Update(T item);
-		Task<T> GetItem(string id);
+        Task<T> GetItem(string id);
 	}
 }

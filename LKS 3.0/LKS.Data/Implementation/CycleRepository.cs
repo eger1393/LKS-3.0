@@ -55,7 +55,7 @@ namespace LKS.Data.Concrete
 			return context.Cycles.ToList();
 		}
 
-		public async Task Update(Cycle item)
+        public async Task Update(Cycle item)
 		{
 			context.Cycles.Update(item);
 			await context.SaveChangesAsync();

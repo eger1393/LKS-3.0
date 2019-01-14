@@ -46,9 +46,12 @@ class Input extends React.Component<InputProps> {
                     name={this.props.name}
                     onBlur={this.Blur}
                     onChange={this.Change}
-                    value={this.props.value ? this.props.value: ''}
+                    value={this.props.value ? this.props.value : ''}
                     className="sh-control"
                     tabIndex={this.props.tabIndex}
+                    min={this.min}
+                    max={this.max}
+                    pattern={this.pattern}
                 />
                 <label
                     htmlFor={this.props.id}

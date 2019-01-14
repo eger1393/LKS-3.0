@@ -8,17 +8,13 @@ import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { fetchSetRelative } from '../../../../../redux/modules/AddStudent'
-
+import { getStudentRelative } from '../../../../../selectors/addStudent'
 import { Container } from './styled'
 
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-}
 
 class CreateRelative extends React.Component {
     state = {
         fieldsValue: {
-            id: getRandomArbitrary(1,100000),
             ...this.props.relative
         },
         error: {},
@@ -35,39 +31,39 @@ class CreateRelative extends React.Component {
         }));
     }
     createRelative = () => {
-        if (true) {
-            this.props.fetchSetRelative({ id: this.state.fieldsValue["id"], value: this.state.fieldsValue })
-            this.props.setRelative({ id: this.state.fieldsValue["id"], value: this.state.fieldsValue })
-                this.props.onHide();
+        if (this.validate()) {
+            this.props.fetchSetRelative({ index: this.props.relativeIndex, values: this.state.fieldsValue })
+            this.props.onHide();
         }
 
     }
 
     validate = () => {
 
-        var val = this.state.fieldValue,
-            troopIsExist = false;
-        (this.props.troops &&
-            this.props.troops.map(ob => {
-            if (ob.numberTroop === val.numberTroop)
-                troopIsExist = true;
-            }))
+        var val = this.state.fieldsValue;
 
-        if (!val.numberTroop
-            || !val.cycleId
-            || !val.arrivalDay
-            || !val.prepodId
-            || troopIsExist
+        if (!val.lastName
+            || !val.firstName
+            || !val.middleName
+            || !val.healthStatus
+            || !val.relationDegree
+            || !val.birthday
+            || !val.placeOfRegestration
+            || !val.mobilePhone
+
         ) {
             this.setState(prevSate => (
                 {
                     error: {
                         ...prevSate.error,
-                        numberTroop: !prevSate.fieldValue.numberTroop,
-                        cycleId: !prevSate.fieldValue.cycleId,
-                        arrivalDay: !prevSate.fieldValue.arrivalDay,
-                        prepodId: !prevSate.fieldValue.prepodId,
-                        troopIsExist: troopIsExist,
+                        lastName: !prevSate.fieldsValue.lastName,
+                        firstName: !prevSate.fieldsValue.firstName,
+                        middleName: !prevSate.fieldsValue.middleName,
+                        healthStatus: !prevSate.fieldsValue.healthStatus,
+                        birthday: !prevSate.fieldsValue.birthday,
+                        relationDegree: !prevSate.fieldsValue.relationDegree,
+                        mobilePhone: !prevSate.fieldsValue.mobilePhone,
+                        placeOfRegestration: !prevSate.fieldsValue.placeOfRegestration,
                     }
                 }
             ))
@@ -100,73 +96,145 @@ class CreateRelative extends React.Component {
                         <FormHead text="Добавить родственника" handleClick={this.props.onHide} />
                         <FlexBox>
                             <FlexRow>
-                                <Input id="LastName"
-                                    type="text"
-                                    isRequired={true}
-                                    placeholder="Фамилия"
-                                    value={this.state.fieldsValue['LastName']}
-                                    onChange={this.changeSelect}
-                                />
-                                <Input id="FirstName"
-                                    type="text"
-                                    isRequired={true}
-                                    placeholder="Имя"
-                                    value={this.state.fieldsValue['FirstName']}
-                                    onChange={this.changeSelect}
-                                />
+                                <div>
+                                    <Input id="lastName"
+                                        type="text"
+                                        isRequired={true}
+                                        placeholder="Фамилия"
+                                        value={this.state.fieldsValue['lastName']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.lastName}
+                                    />
+                                    {
+                                        this.state.error.lastName
+                                        && (<div className="error-message">Введите фамилию!</div>)
+                                    }
+                                </div>
+                                <div>
+                                    <Input id="firstName"
+                                        type="text"
+                                        isRequired={true}
+                                        placeholder="Имя"
+                                        value={this.state.fieldsValue['firstName']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.firstName}
+                                    />
+                                    {
+                                        this.state.error.firstName
+                                        && (<div className="error-message">Введите имя!</div>)
+                                    }
+                                </div>
                             </FlexRow>
-                            <FlexRow>
-                                <Input id="MiddleName"
+                            <FlexRow>                           
+                                <div>
+                                    <Input id="middleName"
+                                        type="text"
+                                        isRequired={true}
+                                        placeholder="Отчество"
+                                        value={this.state.fieldsValue['middleName']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.middleName}
+                                    />
+                                    {
+                                        this.state.error.middleName
+                                        && (<div className="error-message">Введите имя!</div>)
+                                    }
+                                </div>
+                                <Input id="maidenName"
                                     type="text"
-                                    isRequired={true}
-                                    placeholder="Отчество"
-                                    value={this.state.fieldsValue['MiddleName']}
-                                    onChange={this.changeSelect}
-                                />
-                                <Input id="MaidenName"
-                                    type="text"
-                                    isRequired={true}
+                                    isRequired={false}
                                     placeholder="Девичья фамилия"
-                                    value={this.state.fieldsValue['MaidenName']}
+                                    value={this.state.fieldsValue['maidenName']}
                                     onChange={this.changeSelect}
                                 />
                                
                             </FlexRow>
                             <FlexRow>
-                                <Select id="HealthStatus"
-                                    data={healthStatus}
-                                    value="val"
-                                    selectedValue={this.state.fieldsValue['HealthStatus']}
-                                    text="val"
-                                    isRequired={true}
-                                    placeholder="Состояние здоровья"
-                                    onChange={this.changeSelect}
-                                />
-                                <Select id="relationDegreeId"
-                                    data={relationDegree}
-                                    value="val"
-                                    selectedValue={this.state.fieldsValue['RelationDegree']}
-                                    text="val"
-                                    isRequired={true}
-                                    placeholder="Степень родства"
-                                    onChange={this.changeSelect}
-                                />
+                                <div>
+                                    <Select id="healthStatus"
+                                        data={healthStatus}
+                                        value="val"
+                                        selectedValue={this.state.fieldsValue['healthStatus']}
+                                        text="val"
+                                        isRequired={true}
+                                        placeholder="Состояние здоровья"
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.healthStatus}
+                                    />
+                                    {
+                                        this.state.error.healthStatus
+                                        && (<div className="error-message">Введите состояние здоровья!</div>)
+                                    }
+                                </div>
+                                <div>
+                                    <Select id="relationDegree"
+                                        data={relationDegree}
+                                        value="val"
+                                        selectedValue={this.state.fieldsValue['relationDegree']}
+                                        text="val"
+                                        isRequired={true}
+                                        placeholder="Степень родства"
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.relationDegree}
+                                    />
+                                    {
+                                        this.state.error.relationDegree
+                                        && (<div className="error-message">Введите степень родства!</div>)
+                                    }
+                                </div>
                             </FlexRow>
                             <FlexRow>
-                                <Input id="Birthday"
+                                <Input id="placeOfResidence"
                                     type="text"
-                                    isRequired={true}
-                                    placeholder="Дата рождения"
-                                    value={this.state.fieldsValue['Birthday']}
+                                    isRequired={false}
+                                    placeholder="Адрес проживания"
+                                    value={this.state.fieldsValue['placeOfResidence']}
                                     onChange={this.changeSelect}
                                 />
-                                <Input id="MobilePhone"
-                                    type="text"
-                                    isRequired={true}
-                                    placeholder="Мобильный телефон"
-                                    value={this.state.fieldsValue['MobilePhone']}
-                                    onChange={this.changeSelect}
-                                />
+                                <div>
+                                    <Input id="placeOfRegestration"
+                                        type="text"
+                                        isRequired={true}
+                                        placeholder="Адрес регистрации"
+                                        value={this.state.fieldsValue['placeOfRegestration']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.placeOfRegestration}
+                                    />
+                                    {
+                                        this.state.error.placeOfRegestration
+                                        && (<div className="error-message">Введите адрес регистрации!</div>)
+                                    }
+                                </div>
+                            </FlexRow>
+                            <FlexRow>
+                                <div>
+                                    <Input id="birthday"
+                                        type="date"
+                                        isRequired={true}
+                                        placeholder="Дата рождения"
+                                        value={this.state.fieldsValue['birthday']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.birthday}
+                                    />
+                                    {
+                                        this.state.error.birthday
+                                        && (<div className="error-message">Введите дату рождения!</div>)
+                                    }
+                                </div>
+                                <div>
+                                    <Input id="mobilePhone"
+                                        type="tel"
+                                        isRequired={true}
+                                        placeholder="Мобильный телефон"
+                                        value={this.state.fieldsValue['mobilePhone']}
+                                        onChange={this.changeSelect}
+                                        error={this.state.error.mobilePhone}
+                                    />
+                                    {
+                                        this.state.error.mobilePhone
+                                        && (<div className="error-message">Введите мобильный телефон!</div>)
+                                    }
+                                </div>
                             </FlexRow>
                         </FlexBox>
                         <div className="form-submit">
@@ -179,12 +247,19 @@ class CreateRelative extends React.Component {
     }
 }
 
+function mapStateToProps(store, ownProps) {
+    return {
+        relative: getStudentRelative(store, ownProps.relativeIndex)
+    }
+}
+
 CreateRelative.props = {
     show: PropTypes.bool,
     onHide: PropTypes.func,
+    relativeIndex: PropTypes.string,
     relative: PropTypes.object,
     fetchSetRelative: PropTypes.func,
 }
 
 
-export default connect(null, { fetchSetRelative })(CreateRelative)
+export default connect(mapStateToProps, { fetchSetRelative })(CreateRelative)

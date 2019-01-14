@@ -54,11 +54,11 @@ namespace LKS.Data.Concrete
 			return context.Relatives;
 		}
 
-		public async Task Update(Relative item)
-		{
-			context.Relatives.Update(item);
-			await context.SaveChangesAsync();
-			return;
-		}
-	}
+        public async Task Update(Relative item)
+        {
+            context.Relatives.Update(item);
+            await context.SaveChangesAsync();
+            return;
+        }
+    }
 }

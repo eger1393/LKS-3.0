@@ -6,8 +6,8 @@ import Button from '../../elements/Button'
 import {  ModalContainer } from '../../elements/StyleDialogs/styled'
 import Info from './Info'
 import { Container } from './styled'
-import { fetchAddNewStudent, fetchUpdateStudent } from '../../../../redux/modules/AddStudent'
-import { getIsLoading } from '../../../../selectors/addStudent'
+import { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors  } from '../../../../redux/modules/AddStudent'
+import { getIsLoading, getStudentId, getAddStudentFieldsValue } from '../../../../selectors/addStudent'
 import { connect } from 'react-redux'
 import Personal from './Personal';
 import RelativesList from './RelativesList'
@@ -19,19 +19,33 @@ class CreateStudent extends React.Component {
     }
     createStudent = () => {
         if (this.validate()) {
-            if (this.props.StudentId != "") {
+            if (this.props.StudentId != undefined) {
                 this.props.fetchUpdateStudent();
             }
             else {
                 this.props.fetchAddNewStudent();
             }
+            this.props.onHide();
         }
-        this.props.onHide();
+        
     }
     validate = () => {
-        // TODO add validate fields
-        return true;
-    }
+        var val = this.props.fieldsValue;
+            if (!val.lastName
+                || !val.firstName
+                || !val.middleName
+                || !val.troopId
+                || !val.kurs
+                || !val.faculty
+                || !val.rank
+            )
+            {
+                this.props.fetchSetErrors();
+                return false;
+            }
+            return true;
+        }
+    
     render() {
         return (
             !this.props.loading &&
@@ -69,6 +83,7 @@ class CreateStudent extends React.Component {
 CreateStudent.props = {
     show: PropTypes.bool,
     onHide: PropTypes.func,
+    StudentId: PropTypes.string,
     fetchUpdateStudent: PropTypes.func,
     fetchAddNewStudent: PropTypes.func,
     loading: PropTypes.bool,
@@ -77,6 +92,8 @@ CreateStudent.props = {
 function mapStateToProps(store) {
     return {
         loading: getIsLoading(store),
+        StudentId: getStudentId(store),
+        fieldsValue: getAddStudentFieldsValue(store),
     }
 }
-export default connect(mapStateToProps, { fetchAddNewStudent, fetchUpdateStudent })(CreateStudent)
+export default connect(mapStateToProps, { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors })(CreateStudent)

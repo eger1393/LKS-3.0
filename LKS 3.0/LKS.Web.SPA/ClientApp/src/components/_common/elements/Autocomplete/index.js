@@ -3,25 +3,17 @@ import PropTypes from 'prop-types'
 import CreatableSelect from 'react-select/lib/Creatable'
 import { Container } from './styled'
 
-type State = {
-    options: [{ [string]: string }],
-    value: string | void,
-};
 
-const createOption = (value: string) => ({
+const createOption = (value) => ({
     label: value,
 });
 
-export default class CreatableAdvanced extends Component<*, State> {
+export default class CreatableAdvanced extends Component {
     state = {
-        isLoading: false,
-        options: [],
+        options: this.props.data,
         value: this.props.value,
-    };
-    componentWillMount() {
-        this.setState({ options: this.props.data })
-    };
-    handleChange = (newValue: any, actionMeta: any) => {
+    }
+    handleChange = (newValue, actionMeta) => {
         console.group('Value Changed');
         console.log(newValue);
         console.log(`action: ${actionMeta.action}`);
@@ -34,7 +26,7 @@ export default class CreatableAdvanced extends Component<*, State> {
             }
         })
     };
-    handleCreate = (inputValue: any) => {
+    handleCreate = (inputValue) => {
         this.setState({ isLoading: true });
         console.group('Option created');
         console.log('Wait a moment...');
@@ -67,7 +59,7 @@ export default class CreatableAdvanced extends Component<*, State> {
                     onChange={this.handleChange}
                     onCreateOption={this.handleCreate}
                     options={options}
-                    value={value}
+                    value={this.props.data.filter(option => option.label === this.props.value)}
                     placeholder={this.props.placeholder}
                 />
                 </Container>
@@ -78,6 +70,7 @@ export default class CreatableAdvanced extends Component<*, State> {
 CreatableAdvanced.props = {
     id: PropTypes.string,
     value: PropTypes.string,
+    options: PropTypes.Array,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
 }

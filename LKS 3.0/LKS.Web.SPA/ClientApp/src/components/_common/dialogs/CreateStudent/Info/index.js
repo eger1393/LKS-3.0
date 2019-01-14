@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
 import { fetchSetValueForStudent } from '../../../../../redux/modules/AddStudent'
-import { getAddStudentFieldsValue  } from '../../../../../selectors/addStudent'
+import { getAddStudentFieldsValue, getAddStudentErrorValues  } from '../../../../../selectors/addStudent'
 import { apiGetTroopList } from '../../../../../api/dialogs'
 import { Container } from './styled'
 
@@ -24,8 +24,13 @@ class Info extends React.Component {
         var name = event.target.name ? event.target.name : event.target.id,
             val = event.target.value;
 
-        this.props.fetchSetValueForStudent({ name, val });
+        //добавить валидацию значений
+        var error = false;
+        this.props.fetchSetValueForStudent({ name, val, error });
     }
+
+   
+
     componentWillMount() {
         if (this.isUnmounted) {
             return;
@@ -42,9 +47,11 @@ class Info extends React.Component {
         );
         apiGetTroopList().then(res => self.setState({ troops: res }));
     }
+
     componentWillUnmount() {
         this.isUnmounted = true;
     }
+
     render() {
         // TODO Вынести в константы
         var kurs = [{ id: '1', val: '2' }, { id: '2', val: '3' }, { id: '3', val: '4' }]
@@ -56,83 +63,141 @@ class Info extends React.Component {
         var ranks = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
             { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" },]
         return (
+  
             <Container>
                 <FlexBox className="flex-box">
                     <FlexRow>
-                        <Input id="lastName"
-                            type="text"
-                            isRequired={true}
-                            placeholder="Фамилия"
-                            value={this.props.fieldValue['lastName']}
-                            onChange={this.changeSelect}
-                        />
-                        <Input id="firstName"
-                            type="text"
-                            isRequired={true}
-                            placeholder="Имя"
-                            value={this.props.fieldValue['firstName']}
-                            onChange={this.changeSelect}
-                        />
+                        <div>
+                            <Input id="lastName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Фамилия"
+                                value={this.props.fieldsValue['lastName']}
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.lastName}
+                            />
+                            {
+                                this.props.errorValues.lastName
+                                && (<div className="error-message">Введите фамилию!</div>)
+                            }
+                        </div>
+                        <div>
+                            <Input id="firstName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Имя"
+                                value={this.props.fieldsValue['firstName']}
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.firstName}
+                            />
+                            {
+                                this.props.errorValues.firstName
+                                && (<div className="error-message">Введите имя!</div>)
+                            }
+                        </div>
                     </FlexRow>
                     <FlexRow>
-                        <Input id="middleName"
-                            type="text"
-                            isRequired={true}
-                            placeholder="Отчество"
-                            value={this.props.fieldValue['middleName']}
-                            onChange={this.changeSelect}
-                        />
-                        <Select id="troopId"
-                            data={this.state.troops}
-                            value="id"
-                            selectedValue={this.props.fieldValue.troopId}
-                            text="numberTroop"
-                            isRequired={true}
-                            placeholder="Взвод"
-                            onChange={this.changeSelect}
-                        />
+                        <div>
+                            <Input id="middleName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Отчество"
+                                value={this.props.fieldsValue['middleName']}
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.middleName}
+                            />
+                            {
+                                this.props.errorValues.middleName
+                                && (<div className="error-message">Введите отчество!</div>)
+                            }
+                        </div>
+                        <div>
+                            <Select id="troopId"
+                                data={this.state.troops}
+                                value="id"
+                                selectedValue={this.props.fieldsValue.troopId}
+                                text="numberTroop"
+                                isRequired={true}
+                                placeholder="Взвод"
+                                error={this.props.errorValues.troopId}
+                                onChange={this.changeSelect}
+                            />
+                            {
+                                this.props.errorValues.troopId
+                                && (<div className="error-message">Выберите взвод!</div>)
+                            }
+                        </div>
                     </FlexRow>
                     <FlexRow>
-                        <Select id="rank"
-                            data={ranks}
-                            value="id"
-                            text="val"
-                            selectedValue={this.props.fieldValue.rank}
-                            placeholder="Должность"
-                            onChange={this.changeSelect}
-                        />
+                        <div>
+                            <Select id="rank"
+                                data={ranks}
+                                value="id"
+                                text="val"
+                                selectedValue={this.props.fieldsValue.rank}
+                                placeholder="Должность"
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.rank}
+                            />
+                            {
+                                this.props.errorValues.rank
+                                && (<div className="error-message">Выберите должность!</div>)
+                            }
+                        </div>
                         {
-                            this.state.instGroup.length != 0 && (<Autocomplete id="instGroup"
-                                data={this.state.instGroup} onChange={this.changeSelect} placeholder="Группа" value={this.props.fieldValue.instGroup}
+                        this.state.instGroup.length != 0 && (
+                        <Autocomplete id="instGroup"
+                        data={this.state.instGroup}
+                        onChange={this.changeSelect}
+                        placeholder="Группа"
+                        value={this.props.fieldsValue.instGroup}
                         />)}
                     </FlexRow>
                     <FlexRow>
-                        <Select id="kurs"
-                            data={kurs}
-                            value="id"
-                            selectedValue={this.props.fieldValue.kurs}
-                            text="val"
-                            isRequired={true}
-                            placeholder="Курс"
-                            onChange={this.changeSelect}
-                        />
-                        <Input id="Faculty"
-                            type="text"
-                            isRequired={true}
-                            placeholder="Факультет"
-                            value={this.props.fieldValue['faculty']}
-                            onChange={this.changeSelect}
-                        />
+                        <div>
+                            <Select id="kurs"
+                                data={kurs}
+                                value="id"
+                                selectedValue={this.props.fieldsValue.kurs}
+                                text="val"
+                                isRequired={true}
+                                placeholder="Курс"
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.kurs}
+                            />
+                            {
+                                this.props.errorValues.kurs
+                                && (<div className="error-message">Введите курс!</div>)
+                            }
+                        </div>
+                        <div>
+                            <Input id="faculty"
+                                type="number"
+                                isRequired={true}
+                                placeholder="Факультет"
+                                value={this.props.fieldsValue['faculty']}
+                                onChange={this.changeSelect}
+                                error={this.props.errorValues.faculty}
+                            />
+                            {
+                                this.props.errorValues.faculty
+                                && (<div className="error-message">Введите номер факультета!</div>)
+                            }
+                        </div>
                     </FlexRow>
                     <FlexRow>
-                            {
-                            this.state.specInst.length != 0 && (<Autocomplete id="specInst"
-                                data={this.state.specInst} onChange={this.changeSelect} placeholder="Специальность в ВУЗе" value={this.props.fieldValue.specInst}
-                            />)}
+                        {
+                        this.state.specInst.length != 0 && (
+                            <Autocomplete id="specInst"
+                                data={this.state.specInst}
+                                onChange={this.changeSelect}
+                                placeholder="Специальность в ВУЗе"
+                                value={this.props.fieldsValue.specInst}
+                        />)}
                         <Select id="conditionsOfEducation"
                             data={сonditionsOfEducation}
                             value="id"
-                            selectedValue={this.props.fieldValue.conditionsOfEducation}
+                            selectedValue={this.props.fieldsValue.conditionsOfEducation}
                             text="val"
                             isRequired={false}
                             placeholder="Условия обучения"
@@ -143,17 +208,15 @@ class Info extends React.Component {
                         <Select id="status"
                             data={status}
                             value="id"
-                            selectedValue={this.props.fieldValue.status}
+                            selectedValue={this.props.fieldsValue.status}
                             text="val"
                             placeholder="Статус обучения"
                             onChange={this.changeSelect}
                         />
-                                             
                         <Input id="yearOfAddMAI"
                             type="text"
-                            isRequired={true}
                             placeholder="Год поступления в МАИ"
-                            value={this.props.fieldValue['yearOfAddMAI']}
+                            value={this.props.fieldsValue['yearOfAddMAI']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -161,13 +224,13 @@ class Info extends React.Component {
                         <Input id="yearOfEndMAI"
                             type="text"
                             placeholder="Год окончания МАИ"
-                            value={this.props.fieldValue['yearOfEndMAI']}
+                            value={this.props.fieldsValue['yearOfEndMAI']}
                             onChange={this.changeSelect}
                         />
                         <Input id="yearOfAddVK"
                             type="text"
                             placeholder="Год поступления на ВК"
-                            value={this.props.fieldValue['yearOfAddVK']}
+                            value={this.props.fieldsValue['yearOfAddVK']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -175,61 +238,67 @@ class Info extends React.Component {
                         <Input id="yearOfEndVK"
                             type="text"
                             placeholder="Год окончания ВК"
-                            value={this.props.fieldValue['yearOfEndVK']}
+                            value={this.props.fieldsValue['yearOfEndVK']}
                             onChange={this.changeSelect}
                         />
                         <Input id="numberOfOrder"
-                            type="text"
+                            type="number"
                             placeholder="Номер приказа"
-                            value={this.props.fieldValue['numberOfOrder']}
+                            value={this.props.fieldsValue['numberOfOrder']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
                     <FlexRow>
                         <Input id="dateOfOrder"
-                            type="text"
+                            type="date"
                             placeholder="Дата приказа"
-                            value={this.props.fieldValue['dateOfOrder']}
+                            value={this.props.fieldsValue['dateOfOrder']}
                             onChange={this.changeSelect}
                         />
                         {
-                            this.state.rectals.length != 0 && (<Autocomplete id="rectal"
-                                data={this.state.rectals} onChange={this.changeSelect} placeholder="Военкомат" value={this.props.fieldValue.rectal}
+                            this.state.rectals.length != 0 &&
+                            (<Autocomplete id="rectal"
+                                data={this.state.rectals}
+                                onChange={this.changeSelect}
+                                placeholder="Военкомат"
+                                value={this.props.fieldsValue.rectal}
                             />)}
-                    </FlexRow> 
+                    </FlexRow>
                     <FlexRow>
                         <Select id="military"
                             data={military}
                             value="id"
-                            selectedValue={this.props.fieldValue.military}
+                            selectedValue={this.props.fieldsValue.military}
                             text="val"
                             isRequired={false}
                             placeholder="Служба в ВС"
                             onChange={this.changeSelect}
                         />
                         <Input id="avarageScore"
-                            type="text"
+                            type="number"
                             placeholder="Средний балл зачетки"
-                            value={this.props.fieldValue['avarageScore']}
+                            value={this.props.fieldsValue['avarageScore']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
                 </FlexBox>
-
             </Container>
+            
+          
             
         );
     }
 }
 
 Info.props = {
-    fieldValue: PropTypes.object,
-    setValue: PropTypes.func,
+    fieldsValue: PropTypes.object,
+    errorValues: PropTypes.object,
 }
 
 function mapStateToProps(store) {
     return {
-        fieldValue: getAddStudentFieldsValue(store),
+        fieldsValue: getAddStudentFieldsValue(store),
+        errorValues: getAddStudentErrorValues(store),
     }
 }
 

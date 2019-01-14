@@ -11,22 +11,17 @@ import CreateRelative from '../CreateRelative'
 
 class RelativesList extends React.Component {
     state = {
-        relatives: this.props.currentRelatives,
         relativesWindowIsOpen: false,
-        editedRelativeId: ''
+        selectRelativeIndex: undefined,
     }
     toggleWindow = () => {
         this.setState(prevState => ({ relativesWindowIsOpen: !prevState.relativesWindowIsOpen }))
     }
-    collect = props => ({
-        id: props.RelativeId,
-    })
-
-    menuClick = (e, data) => {
+    menuClick = async (e, data) => {
         switch (data.type) {
             case 'editRelative':
                 {
-                    this.setState({ editedRelativeId: data.id });
+                    await this.setState({ selectRelativeIndex: data.RelativeIndex });
                     this.toggleWindow();
                     console.log('editRelative');
                     break;
@@ -39,19 +34,11 @@ class RelativesList extends React.Component {
             default:
         }
     }
-    setRelative = (data) => {
-        this.setState(prevState => (
-            {
-                ...prevState,
-                relatives: [
-                    ...prevState.realtives,
-                    { ...data.value }
-                    ],
-               
-            }))
-    }
+    collect = attr => ({
+        RelativeIndex: attr.relativeIndex,
+    })
     render() {
-        const { relatives } = this.state;
+        const { currentRelatives } = this.props;
         return (
                     <Container>
                         <FlexBox>
@@ -72,52 +59,56 @@ class RelativesList extends React.Component {
                                                 Степень родства
                                             </td>
                                             <td>
+                                                Состояние здоровья
+                                            </td>
+                                            <td>
                                                 Дата рождения
                                             </td>
                                             <td>
                                                 Мобильный телефон
                                             </td>
-                                            <td>
-                                                Адрес проживания
-                                            </td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                {
+                                    
+                                    currentRelatives && currentRelatives.map(function (ob, i) {
                                         {
-                                            relatives && relatives.map(ob => {
-                                                return (
-                                                    <ContextMenuTrigger
-                                                        renderTag="tr"
-                                                        id="relativeMenu"
-                                                        relativeId={ob.id}
-                                                        key={ob.id}
-                                                        collect={this.collect}
-                                                    >
-                                                        <td>
-                                                            {ob.lastName}
-                                                        </td>
-                                                        <td>
-                                                            {ob.firstName}
-                                                        </td>
-                                                        <td>
-                                                            {ob.middleName}
-                                                        </td>
-                                                        <td>
-                                                            {ob.relationDegree}
-                                                        </td>
-                                                        <td>
-                                                            {ob.birthday}
-                                                        </td>
-                                                        <td>
-                                                            {ob.mobilePhone}
-                                                        </td>
-                                                        <td>
-                                                            {ob.placeOfResidence}
-                                                        </td>
-                                                    </ContextMenuTrigger>
-                                                )
-                                            })
+                                            return (
+                                                <ContextMenuTrigger
+                                                    renderTag="tr"
+                                                    id="relativeMenu"
+                                                    relativeIndex={i}
+                                                    key={i}
+                                                    collect={this.collect}
+                                                >
+                                                    <td>
+                                                        {ob.lastName}
+                                                    </td>
+                                                    <td>
+                                                        {ob.firstName}
+                                                    </td>
+                                                    <td>
+                                                        {ob.middleName}
+                                                    </td>
+                                                    <td>
+                                                        {ob.relationDegree}
+                                                    </td>
+                                                    <td>
+                                                        {ob.healthStatus}
+                                                    </td>
+                                                    <td>
+                                                        {ob.birthday}
+                                                    </td>
+                                                    <td>
+                                                        {ob.mobilePhone}
+                                                    </td>
+                                                   
+                                                </ContextMenuTrigger>
+                                            )
                                         }
+                                    }, this)
+                                }
 
                                     </tbody>
                                 </Table>
@@ -127,7 +118,7 @@ class RelativesList extends React.Component {
                         <div className="form-submit">
                             <Button onClick={this.toggleWindow} value="Создать" />
                         </div>
-                        <ContextMenu id="troopMenu">
+                        <ContextMenu id="relativeMenu">
                             <MenuItem onClick={this.menuClick} data={{ type: 'editRelative' }}>Редактировать данные</MenuItem>
                             <MenuItem onClick={this.menuClick} data={{ type: 'deleteRelative' }}>Удалить родственника</MenuItem>
                         </ContextMenu>
@@ -135,7 +126,7 @@ class RelativesList extends React.Component {
                     <CreateRelative
                         show={this.state.relativesWindowIsOpen}
                         onHide={this.toggleWindow}
-                        setRelative={this.setRelative}
+                        relativeIndex={this.state.selectRelativeIndex}
                      />
                         )}
                     </Container>
@@ -148,7 +139,6 @@ RelativesList.props = {
 }
 
 RelativesList.state = {
-    relatives: PropTypes.array,
     relativesWindowIsOpen: PropTypes.func,
     editedRelativeId: PropTypes.string,
 }

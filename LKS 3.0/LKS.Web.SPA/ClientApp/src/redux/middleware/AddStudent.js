@@ -11,14 +11,24 @@ import {
     fetchUpdateStudentSuccess
 } from '../modules/AddStudent'
 
-
-
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 function* addStudent() {
     yield all([
         takeEvery(FETCH_ADD_NEW_STUDENT, function* () {
             try {
-                var newStudent = yield select(getAddStudentFieldsValue);
-                const result = yield call(apiCreateStudent, newStudent);
+                var Student = yield select(getAddStudentFieldsValue);
+                Student.id = guid();
+                var Relatives = Student.relatives.map(function (obj) {
+                    return { ...obj, StudentId: Student.id }
+                })
+                const result = yield call(apiCreateStudent, Student);
                 yield put(fetchAddStudentSuccess(result));
             } catch{
                 yield put(fetchAddStudentFailed());
@@ -34,8 +44,11 @@ function* addStudent() {
         }),
         takeEvery(FETCH_UPDATE_STUDENT, function* () {
             try {
-                var newStudent = yield select(getAddStudentFieldsValue);
-                const result = yield call(apiUpdateStudent, newStudent);
+                var Student = yield select(getAddStudentFieldsValue);
+                var Relatives = Student.relatives.map(function (obj) {
+                    return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
+                })
+                const result = yield call(apiUpdateStudent, Student);
                 yield put(fetchUpdateStudentSuccess(result));
             } catch{
                 //yield put(fetchAddStudentFailed());

@@ -10,7 +10,6 @@ import { Container } from './styled'
 class Menu extends React.Component {
     state = {
         openModalWindowStudentCreate: false,
-        StudentId: ""
     }
 
     OnClick = () => {
@@ -19,15 +18,11 @@ class Menu extends React.Component {
         }))
     }
 
-    menuClick = (e, data) => {
+    menuClick = async (e, data) => {
         switch (data.type) {
             case 'editStudent':
                 {
-                    this.setState(prevState => ({
-                        ...prevState,
-                        StudentId: data.Id,
-                    }))
-                    this.props.fetchSetStudent({ id: data.id });
+                    await this.props.fetchSetStudent({ id: data.id });
                     this.OnClick();
                     break;
                 }
@@ -70,7 +65,7 @@ class Menu extends React.Component {
                     </SubMenu>
                 </ContextMenu>
                 {this.state.openModalWindowStudentCreate && (
-                    <CreateStudent show={this.state.openModalWindowStudentCreate} onHide={this.OnClick} StudentId={this.state.StudentId} />
+                    <CreateStudent show={this.state.openModalWindowStudentCreate} onHide={this.OnClick}/>
                 )}
             </Container>
         );
