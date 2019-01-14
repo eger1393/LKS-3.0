@@ -13,8 +13,8 @@ export const FETCH_SET_STUDENT_LIST_FIELDS = `${module}/FETCH_SET_STUDENT_LIST_F
 export const FETCH_SET_STUDENT_STATUS = `${module}/FETCH_SET_STUDENT_STATUS`
 export const FETCH_SET_STUDENT_POSITION = `${module}/FETCH_SET_STUDENT_POSITION`
 
-export const FETCH_GET_TROOP_NUMBER_LIST = `${module}/FETCH_GET_TROOP_NUMBER_LIST`
-export const FETCH_GET_TROOP_NUMBER_LIST_SUCCESS = `${module}/FETCH_GET_TROOP_NUMBER_LIST_SUCCESS`
+export const FETCH_GET_TROOP_LIST = `${module}/FETCH_GET_TROOP_LIST`
+export const FETCH_GET_TROOP_LIST_SUCCESS = `${module}/FETCH_GET_TROOP_LIST_SUCCESS`
 
 const defaultState = {
     studentListFilters: {
@@ -25,21 +25,21 @@ const defaultState = {
     studentListData: [],
     dataLoading: false,
     errorLoadingMessage: '',
-    troopNumberList:[],
+    troopList:[],
 }
 
 export default function reducer(studentListState = defaultState, action = {}) {
     const { type, payload } = action;
     switch (type) {
 
-        case FETCH_GET_TROOP_NUMBER_LIST:
+        case FETCH_GET_TROOP_LIST:
             return { // при обновлении данных, ставить контент лоадер
                 ...studentListState,
             }
-        case FETCH_GET_TROOP_NUMBER_LIST_SUCCESS:
+        case FETCH_GET_TROOP_LIST_SUCCESS:
             return {
                 ...studentListState,
-                troopNumberList: payload,
+                troopList: payload,
             }
         case FETCH_SET_STUDENT_LIST_FILTERS_VALUE:
             return {
@@ -128,12 +128,12 @@ export default function reducer(studentListState = defaultState, action = {}) {
     }
 }
 
-export const fetchGetTroopNumberList = data => ({
-    type: FETCH_GET_TROOP_NUMBER_LIST,
+export const fetchGetTroopList = data => ({
+    type: FETCH_GET_TROOP_LIST,
 })
 
-export const fetchGetTroopNumberListSuccess = data => ({
-    type: FETCH_GET_TROOP_NUMBER_LIST_SUCCESS,
+export const fetchGetTroopListSuccess = data => ({
+    type: FETCH_GET_TROOP_LIST_SUCCESS,
     payload: data,
 })
 

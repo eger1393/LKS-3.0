@@ -2,15 +2,13 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Modal, Table } from 'react-bootstrap'
-import Input from '../../elements/Input'
-import Select from '../../elements/Select'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { FlexBox, ModalContainer } from '../../elements/StyleDialogs/styled'
-import { apiGetTroopList } from '../../../../api/dialogs'
-import { fetchGetTroopNumberList } from '../../../../redux/modules/studentList'
-import { getTroopNumberList } from '../../../../selectors/studentList'
+import { fetchGetTroopList, fetchGetStudentListData } from '../../../../redux/modules/studentList'
+import { getTroopList } from '../../../../selectors/studentList'
 import { getArrivalDayValue } from '../../../../helpers'
+import { apiDeleteTroop } from '../../../../api/dialogs'
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 import CreateTroop from '../CreateTroop'
@@ -20,15 +18,8 @@ import { Container, Content } from './styled'
 
 class TroopList extends React.Component {
   state = {
-    troop: [],
     troopWindowIsOpen: false,
-    editedTroopId: '',
-    width: 0,
-  }
-
-  constructor(props) {
-    super(props)
-    this.myInput = React.createRef()
+    editedTroopId: null,
   }
 
   toggleWindow = () => {
@@ -36,26 +27,7 @@ class TroopList extends React.Component {
   }
 
   componentDidMount() {
-    var self = this;
-    apiGetTroopList().then(res => {
-      self.setState({ troop: res }
-      )
-    })
-    //this.boundingBox = this.element.getBoundingClientRect();
-
-    //this.setState({
-    //  width: this.myInput.current.offsetWidth
-    //});
-
-    //Observable.fromEvent(this.element, "resize")
-    //  .subscribe(
-    //    () => {
-    //      this.boundingBox = this.element.getBoundingClientRect();
-    //      this.setState({
-    //        width: this.boundingBox.width
-    //      });
-    //    }
-    //  );
+    this.props.fetchGetTroopList()
   }
 
   collect = props => ({
@@ -68,27 +40,30 @@ class TroopList extends React.Component {
         {
           this.setState({ editedTroopId: data.id });
           this.toggleWindow();
-          console.log('editStudent');
           break;
         }
-      case 'deliteTroop':
+      case 'deleteTroop':
         {
-          console.log('deliteTroop');
+          apiDeleteTroop(this.props.troops.find(ob => ob.id == data.id))
+            .then(data => {
+              this.props.fetchGetTroopList();
+              this.props.fetchGetStudentListData();
+            });
           break;
         }
       default:
     }
   }
-    
+
   render() {
-    const { troop } = this.state;
+    const { troops } = this.props;
     return (
       <Modal show={this.props.show} onHide={this.props.onHide}>
         <ModalContainer ref="ModalContainer">
           <Container>
             <FormHead text="Список взводов" handleClick={this.props.onHide} />
             <FlexBox>
-              <Content ref="test2">
+              <Content >
                 <Table bordered condensed hover>
                   <thead>
                     <tr>
@@ -108,7 +83,7 @@ class TroopList extends React.Component {
                   </thead>
                   <tbody>
                     {
-                      troop && troop.map(ob => {
+                      troops && this.refs.ModalContainer && troops.map(ob => {
                         return (
                           <ContextMenuTrigger
                             renderTag="tr"
@@ -142,13 +117,13 @@ class TroopList extends React.Component {
               </Content>
             </FlexBox>
 
-            <div className="form-submit" ref={this.myInput}>
-              <Button onClick={this.createTroop} value="Создать" />
+            <div className="form-submit">
+              <Button onClick={() => this.setState({ troopWindowIsOpen: true, editedTroopId: null })} value="Создать" />
             </div>
             <ContextMenu id="troopMenu">
-                <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>
-                <MenuItem onClick={this.menuClick} data={{ type: 'deliteTroop' }}>Удалить взвод</MenuItem>
-              </ContextMenu>
+              <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>
+              <MenuItem onClick={this.menuClick} data={{ type: 'deleteTroop' }}>Удалить взвод</MenuItem>
+            </ContextMenu>
             {this.state.troopWindowIsOpen && (
               <CreateTroop
                 show={this.state.troopWindowIsOpen}
@@ -166,16 +141,18 @@ class TroopList extends React.Component {
 TroopList.props = {
   show: PropTypes.bool,
   onHide: PropTypes.func,
-  fetchGetTroopNumberList: PropTypes.func,
+  fetchGetTroopList: PropTypes.func,
+  fetchGetStudentListData: PropTypes.func,
 }
 
 TroopList.state = {
-  fieldValue: PropTypes.array,
+  troopWindowIsOpen: PropTypes.bool,
+  editedTroopId: PropTypes.string,
 }
 
 
 const mapStateToProps = state => ({
-  troops: getTroopNumberList(state),
+  troops: getTroopList(state),
 })
 
-export default connect(null, { fetchGetTroopNumberList })(TroopList)
+export default connect(mapStateToProps, { fetchGetTroopList, fetchGetStudentListData })(TroopList)

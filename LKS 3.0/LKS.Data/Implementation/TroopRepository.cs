@@ -30,8 +30,10 @@ namespace LKS.Data.Concrete
 
 		public async Task Delete(Troop item)
 		{
-			context.Troops.Remove(item);
-			await context.SaveChangesAsync();
+			Troop troop = context.Troops.Include(x => x.Students).FirstOrDefault(x => x.Id == item.Id);
+			context.RemoveRange(troop.Students);
+			context.Troops.Remove(troop);
+			context.SaveChanges();
 			return;
 		}
 
@@ -65,7 +67,7 @@ namespace LKS.Data.Concrete
 		{
 			return context.Troops
 				.Include(ob => ob.Students)
-				.Include(ob=>ob.Prepod)
+				.Include(ob => ob.Prepod)
 				//.Include(ob=>ob.PlatoonCommander)
 				.FirstOrDefault(ob => ob.NumberTroop == num);
 		}

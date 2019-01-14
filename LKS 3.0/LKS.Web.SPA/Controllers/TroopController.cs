@@ -37,7 +37,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpDelete("[action]")]
 		public IActionResult DeleteTroop(Troop model)
 		{
-			//_troopRepository.Update(model);
+			_troopRepository.Delete(model);
 			return Ok();
 		}
 
@@ -73,7 +73,9 @@ namespace LKS.Web.SPA.Controllers
 				x.ArrivalDay,
 				x.NumberTroop,
 				cycleNumber = x.Cycle.Number,
-				prepodInitials = x.Prepod.Initials
+				x.CycleId,
+				prepodInitials = x.Prepod.Initials,
+				x.PrepodId
 			}));
 		}
 

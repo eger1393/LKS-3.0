@@ -7,6 +7,7 @@ const GET_TROOP_FROM_ID_URL = '/api/troop/GetTroop'
 const GET_PREPOD_LIST_URL = '/api/prepod/GetPrepodList'
 const CREATE_TROOP_URL = '/api/troop/CreateTroop'
 const UPADATE_TROOP_URL = '/api/troop/UpdateTroop'
+const DELETE_TROOP_URL = '/api/troop/DeleteTroop'
 
 const GET_TROOP_STUDENTS_LIST_INITIAL = '/api/troop/GetTroopStudentsListInitial'
 
@@ -19,7 +20,7 @@ export const apiGetCycleList = () =>
     axios.post(GET_CYCLE_LIST_URL).then(({ data }) => data);
 
 // return [{id:'1123', numberTroop: '410'},]
-export const apiGetTroopNumberList = () =>
+export const apiGetTroopNumberTTTList = () =>
     axios.post(GET_TROOP_NUMBER_LIST_URL).then(({ data }) => data);
 
 //return [{id: '12eq', initials: 'Иванов И. И.'},]
@@ -34,7 +35,10 @@ export const apiCreateTroop = data =>
     axios.post(CREATE_TROOP_URL, data);
 
 export const apiUpdateTroop = data =>
-    axios.post(UPADATE_TROOP_URL, data);
+  axios.post(UPADATE_TROOP_URL, data);
+
+export const apiDeleteTroop = data =>
+  axios.delete(DELETE_TROOP_URL, { data: data });
 
 
 // return Troop model
