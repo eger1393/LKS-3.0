@@ -103,7 +103,14 @@ namespace LKS.Data.Concrete
 
 		public async Task SetStudentPosition(string id, StudentPosition position)
 		{
-			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			Student student = context.Students.Include(x=>x.Troop).ThenInclude(x=>x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
+			if(position == StudentPosition.commander)
+			{
+				if(student.Troop?.PlatoonCommander != null)
+				student.Troop.PlatoonCommander.Position = StudentPosition.none;
+				if(student.Troop != null)
+				student.Troop.PlatoonCommander = student;
+			}
 			student.Position = position;
 			context.SaveChanges();
 		}

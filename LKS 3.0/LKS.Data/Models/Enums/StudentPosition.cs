@@ -35,5 +35,10 @@ namespace LKS.Data.Models.Enums
 		/// Секретчик
 		/// </summary>
 		secretary,
+
+		/// <summary>
+		/// Нет
+		/// </summary>
+		none,
 	}
 }
