@@ -11,6 +11,7 @@ import { getIsLoading, getStudentId, getAddStudentFieldsValue } from '../../../.
 import { connect } from 'react-redux'
 import Personal from './Personal';
 import RelativesList from './RelativesList'
+import Photo from './Photo'
 
 class CreateStudent extends React.Component {
     constructor(props) {
@@ -66,8 +67,8 @@ class CreateStudent extends React.Component {
                             <Tab eventKey={3} title="Родственники">
                                 <RelativesList />
                             </Tab>
-                            <Tab eventKey={4} title="Фотография" disabled>
-                                Tab 4 content
+                            <Tab eventKey={4} title="Фотография">
+                                <Photo/>
                             </Tab>
                             <div className="form-submit">
                             </div>
