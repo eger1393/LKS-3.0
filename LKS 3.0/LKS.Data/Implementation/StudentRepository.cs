@@ -20,8 +20,9 @@ namespace LKS.Data.Concrete
 		public async Task Create(Student item)
 		{
 			await context.Students.AddAsync(item);
-			context.SaveChanges();
-			//return;
+            await context.Relatives.AddRangeAsync(item.Relatives);
+            context.SaveChanges();
+			return;
 		}
 
 		public async Task CreateRange(ICollection<Student> item)
@@ -51,19 +52,27 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
-		{
-			var res = context.Students
-				.Include(ob => ob.Troop)
-				.AsQueryable();
-			if(!String.IsNullOrEmpty(selectTroop))
-				res = res.Where(ob => ob.TroopId == selectTroop);
-			if (filters != null)
-				filterStudents(filters, ref res);
+        public Student GetStudent(string id)
+        {
+            var res = context.Students.Include(ob => ob.Relatives).FirstOrDefault(u => u.Id == id);
+            return res;
+        }
 
-			return res.ToList();
-		}
-		public List<Student> GetTrainStudents()
+        public List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop)
+        {
+            filters = filters.Where(x => !String.IsNullOrEmpty(x.Value)).ToDictionary(x => x.Key, x => x.Value);
+
+            var res = context.Students
+                .Include(ob => ob.Troop)
+                .AsQueryable().ToList(); // todo delete tolist
+            if (!String.IsNullOrEmpty(selectTroop))
+                res = res.Where(ob => ob.TroopId == selectTroop).ToList();
+            if (filters != null)
+                filterStudents(filters, ref res);
+
+            return res.ToList();
+        }
+        public List<Student> GetTrainStudents()
 		{
 			return context.Students
 				.Include(ob => ob.Troop)
@@ -101,23 +110,28 @@ namespace LKS.Data.Concrete
 		}
 
 
-		public async Task SetStudentPosition(string id, StudentPosition position)
-		{
-			Student student = context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
-			if (position == StudentPosition.commander)
-			{
-				if (student.Troop?.PlatoonCommander != null)
-					student.Troop.PlatoonCommander.Position = StudentPosition.none;
-				if (student.Troop != null)
-					student.Troop.PlatoonCommander = student;
-			}
-			student.Position = position;
-			context.SaveChanges();
-		}
+        public async Task SetStudentPosition(string id, StudentPosition position)
+        {
+            Student student = context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
+            if (position == StudentPosition.commander)
+            {
+                if (student.Troop?.PlatoonCommander != null)
+                    student.Troop.PlatoonCommander.Position = StudentPosition.none;
+                if (student.Troop != null)
+                    student.Troop.PlatoonCommander = student;
+            }
+            student.Position = position;
+            context.SaveChanges();
+        }
 
-		public async Task Update(Student item)
+        public async Task Update(Student item)
 		{
-			context.Students.Update(item);
+            foreach (var i in item.Relatives)
+            {
+                context.Relatives.Update(i);
+            }
+            context.Students.Update(item);
+
 			await context.SaveChangesAsync();
 			return;
 		}
@@ -215,18 +229,18 @@ namespace LKS.Data.Concrete
 					case "yearOfEndVK":
 						res = res.Where(ob => ob.YearOfEndVK != null ? ob.YearOfEndVK.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
-					case "studentType":
-						{
-							if (item.Value != "all"
-								 && Enum.TryParse(item.Value, true, out StudentStatus status)
-								 && Enum.IsDefined(typeof(StudentStatus), status)
-								)
-							{
-								res = res.Where(ob => ob.Status == status).ToList();
-							}
-							break;
-						}
-					default:
+                    case "studentType":
+                        {
+                            if (item.Value != "all"
+                                 && Enum.TryParse(item.Value, true, out StudentStatus status)
+                                 && Enum.IsDefined(typeof(StudentStatus), status)
+                                )
+                            {
+                                res = res.Where(ob => ob.Status == status).ToList();
+                            }
+                            break;
+                        }
+                    default:
 						break;
 				}
 			}
