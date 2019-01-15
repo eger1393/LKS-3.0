@@ -68,6 +68,7 @@ namespace LKS_3._0
         private BindingList<Troop> troops;
         private BindingList<string> list_Troop, list_Mname, list_Rank, list_Group;
         string maev_path = Environment.CurrentDirectory + "/maev.mdb";
+		private string showStudentsFilter;
 
 
         public string SelectedValueFind_T
@@ -339,6 +340,7 @@ namespace LKS_3._0
                 return showAllCommand ??
                  (showAllCommand = new RelayCommand(obj =>
                  {
+					 showStudentsFilter = string.Empty;
                      Students = DataBaseContext.Students.Local.ToBindingList();
                      SelectedTroop = new Troop();
                      List_Troop = null;
@@ -357,7 +359,9 @@ namespace LKS_3._0
                 return showTraineesCommand ??
                  (showTraineesCommand = new RelayCommand(obj =>
                  {
-                     if(SelectedTroop.NumberTroop !=  null)
+					 showStudentsFilter = "Обучается";
+
+					 if (SelectedTroop.NumberTroop !=  null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.Students.Where(u => u.Status == "Обучается").ToList());
                      }
@@ -375,7 +379,8 @@ namespace LKS_3._0
                 return showDetachedCommand ??
                  (showDetachedCommand = new RelayCommand(obj =>
                  {
-                     if (SelectedTroop.NumberTroop != null)
+					 showStudentsFilter = "Отстранен";
+					 if (SelectedTroop.NumberTroop != null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.Students.Where(u => u.Status == "Отстранен").ToList());
                      }
@@ -393,7 +398,8 @@ namespace LKS_3._0
                 return showNaSboriCommand ??
                  (showNaSboriCommand = new RelayCommand(obj =>
                  {
-                     if (SelectedTroop.NumberTroop != null)
+					 showStudentsFilter = "На сборах";
+					 if (SelectedTroop.NumberTroop != null)
                      {
                          Students = new BindingList<Student>(SelectedTroop.Students.Where(u => u.Status == "На сборах").ToList());
                      }
@@ -698,7 +704,8 @@ namespace LKS_3._0
                                         {
                                             result = new BindingList<Student>(result.Where(u => u.MiddleName == SelectedValueFind_M).ToList());
                                         }
-
+										if (!string.IsNullOrEmpty(showStudentsFilter))
+											result = new BindingList<Student>(result.Where(x => x.Status == showStudentsFilter).ToList());
                                         Students = result;
                                         if (Students.Count() == 0)
                                         {
@@ -1411,6 +1418,7 @@ SELECT '{0}', '{1}', '{2}', К_НАЦ FROM национальность WHERE н
 
 		public ApplicationViewModel(bool _connect, bool _data)
 		{
+			showStudentsFilter = string.Empty;
             Connect_DB(_connect, _data);
         }
 
