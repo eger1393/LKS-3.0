@@ -5,17 +5,19 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router'
 import createStore from './redux/create';
-import { createBrowserHistory } from 'history';
+import history from './history'
+import { setAuthToken, handleResponse } from './axiosExtensions';
 
 import App from './App';
 
-// Create browser history to use in the Redux store
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const history = createBrowserHistory({ basename: baseUrl });
+if (localStorage.getItem('LKS-jwt-client')) {
+  setAuthToken(localStorage.getItem('LKS-jwt-client'));
+}
 
-// Get the application-wide store instance, prepopulating with state from the server where available.
-const initialState = window.initialReduxState;
+handleResponse();
+
 const store = createStore();
+
 window.store = store;
 
 ReactDOM.render(

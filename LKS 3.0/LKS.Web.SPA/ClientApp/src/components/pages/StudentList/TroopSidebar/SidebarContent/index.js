@@ -2,22 +2,18 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { apiGetTroopNumberList } from '../../../../../api/dialogs'
-import { getStudentListFiltersSelectedTroop, getTroopNumberList } from '../../../../../selectors/studentList'
-import { fetchGetTroopNumberList } from '../../../../../redux/modules/studentList'
+import { apiGetTroopList } from '../../../../../api/dialogs'
+import { getStudentListFiltersSelectedTroop, getTroopList } from '../../../../../selectors/studentList'
+import { fetchGetTroopList } from '../../../../../redux/modules/studentList'
 
 
 import { Container} from './styled'
 
 class SidebarContent extends React.Component {
-    //state = {
-    //    //troop: [],
-    //}
 
     componentDidMount() {
         var self = this;
-        this.props.fetchGetTroopNumberList();
-        //apiGetTroopList().then(res => self.setState({ troop: res }));
+        this.props.fetchGetTroopList();
     }
 
     render() {
@@ -42,12 +38,12 @@ class SidebarContent extends React.Component {
 SidebarContent.props = {
     onClick: PropTypes.func.isReqired,
     selectedTroop: PropTypes.string,
-    fetchGetTroopNumberList: PropTypes.func,
+    fetchGetTroopList: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
     selectedTroop: getStudentListFiltersSelectedTroop(state),
-    troop: getTroopNumberList(state),
+    troop: getTroopList(state),
 })
 
-export default connect(mapStateToProps, { fetchGetTroopNumberList })(SidebarContent)
+export default connect(mapStateToProps, { fetchGetTroopList })(SidebarContent)

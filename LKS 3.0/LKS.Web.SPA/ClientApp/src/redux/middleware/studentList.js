@@ -4,14 +4,15 @@ import { apiGetStudentListData, apiSetStudentPosition, apiSetStudentStatus } fro
 
 import { getStudentListFilters } from '../../selectors/studentList'
 
-import { apiGetTroopNumberList } from '../../api/dialogs'
+import { apiGetTroopList } from '../../api/dialogs'
 
 import {
+  fetchGetStudentListData,
     FETCH_GET_STUDENT_LIST_DATA,
     fetchGetStudentListDataSuccess,
     fetchGetStudentListDataFailed,
-    FETCH_GET_TROOP_NUMBER_LIST,
-    fetchGetTroopNumberListSuccess,
+    FETCH_GET_TROOP_LIST,
+    fetchGetTroopListSuccess,
     FETCH_SET_STUDENT_STATUS,
     FETCH_SET_STUDENT_POSITION
 } from '../modules/studentList'
@@ -33,12 +34,13 @@ function* studentList() {
             yield call(apiSetStudentStatus, data.payload)
         }),
         takeEvery(FETCH_SET_STUDENT_POSITION, function* (data) {
-            yield call(apiSetStudentPosition, data.payload)
+          yield call(apiSetStudentPosition, data.payload)
+          yield put({ type: FETCH_GET_STUDENT_LIST_DATA})
         }),
-        takeEvery(FETCH_GET_TROOP_NUMBER_LIST, function* () {
+        takeEvery(FETCH_GET_TROOP_LIST, function* () {
             try {
-                const data = yield call(apiGetTroopNumberList);
-                yield put(fetchGetTroopNumberListSuccess(data));
+                const data = yield call(apiGetTroopList);
+                yield put(fetchGetTroopListSuccess(data));
             } catch{
                 //yield put(fetchGetStudentListDataFailed());
             }

@@ -24,7 +24,6 @@ namespace LKS.Data.Models
 		public string CycleId { get; set; }
 		public Cycle Cycle { get; set; }
 
-		[Required]
 		[ForeignKey(nameof(Prepod))]
 		public string PrepodId { get; set; }
 		public Prepod Prepod { get; set; }

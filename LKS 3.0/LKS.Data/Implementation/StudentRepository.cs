@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LKS.Data.Concrete
@@ -15,7 +14,7 @@ namespace LKS.Data.Concrete
 		private DataContext context;
 		public StudentRepository(DataContext context)
 		{
-			this.context = context;	
+			this.context = context;
 		}
 		public async Task Create(Student item)
 		{
@@ -51,13 +50,15 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
+		public List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop)
 		{
+			filters = filters.Where(x => !String.IsNullOrEmpty(x.Value)).ToDictionary(x => x.Key, x => x.Value);
+
 			var res = context.Students
 				.Include(ob => ob.Troop)
-				.AsQueryable();
-			if(!String.IsNullOrEmpty(selectTroop))
-				res = res.Where(ob => ob.TroopId == selectTroop);
+				.AsQueryable().ToList(); // todo delete tolist
+			if (!String.IsNullOrEmpty(selectTroop))
+				res = res.Where(ob => ob.TroopId == selectTroop).ToList();
 			if (filters != null)
 				filterStudents(filters, ref res);
 
@@ -103,7 +104,14 @@ namespace LKS.Data.Concrete
 
 		public async Task SetStudentPosition(string id, StudentPosition position)
 		{
-			Student student = context.Students.FirstOrDefault(ob => ob.Id == id);
+			Student student = context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
+			if (position == StudentPosition.commander)
+			{
+				if (student.Troop?.PlatoonCommander != null)
+					student.Troop.PlatoonCommander.Position = StudentPosition.none;
+				if (student.Troop != null)
+					student.Troop.PlatoonCommander = student;
+			}
 			student.Position = position;
 			context.SaveChanges();
 		}
@@ -115,37 +123,109 @@ namespace LKS.Data.Concrete
 			return;
 		}
 
-		private void filterStudents(Dictionary<string,string> filters, ref IQueryable<Student> res)
+		private void filterStudents(Dictionary<string, string> filters, ref List<Student> res)//IQueryable<Student> res)
 		{
 			foreach (var item in filters)
 			{
 				switch (item.Key)
 				{
 					case "firstName":
-						res = res.Where(ob => ob.FirstName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						res = res.Where(ob => ob.FirstName != null ? ob.FirstName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
 					case "lastName":
-						res = res.Where(ob => ob.LastName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						res = res.Where(ob => ob.LastName != null ? ob.LastName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
 					case "middleName":
-						res = res.Where(ob => ob.MiddleName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						res = res.Where(ob => ob.MiddleName != null ? ob.MiddleName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
 					case "collness":
-						res = res.Where(ob => ob.Collness.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						res = res.Where(ob => ob.Collness != null ? ob.Collness.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
 					case "numTroop":
-						res = res.Where(ob => ob.Troop.NumberTroop.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase));
+						res = res.Where(ob => ob.Troop?.NumberTroop != null ? ob.Troop.NumberTroop.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "instGroup":
+						res = res.Where(ob => ob.InstGroup != null ? ob.InstGroup.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "mobilePhone":
+						res = res.Where(ob => ob.MobilePhone != null ? ob.MobilePhone.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "homePhone":
+						res = res.Where(ob => ob.HomePhone != null ? ob.HomePhone.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "faculty":
+						res = res.Where(ob => ob.Faculty != null ? ob.Faculty.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "kurs":
+						{
+							if (Int32.TryParse(item.Value, out int num))
+								res = res.Where(ob => ob.Kurs == num).ToList();
+							break;
+						}
+					case "specInst":
+						res = res.Where(ob => ob.SpecInst != null ? ob.SpecInst.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "conditionsOfEducation":
+						res = res.Where(ob => ob.ConditionsOfEducation != null ? ob.ConditionsOfEducation.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "rectal":
+						res = res.Where(ob => ob.Rectal != null ? ob.Rectal.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "specialityName":
+						res = res.Where(ob => ob.SpecialityName != null ? ob.SpecialityName.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "birthday":
+						res = res.Where(ob => ob.Birthday != null ? ob.Birthday.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "placeBirthday":
+						res = res.Where(ob => ob.PlaceBirthday != null ? ob.PlaceBirthday.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "dateOfOrder":
+						res = res.Where(ob => ob.DateOfOrder != null ? ob.DateOfOrder.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "numberOfOrder":
+						res = res.Where(ob => ob.NumberOfOrder != null ? ob.NumberOfOrder.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "citizenship":
+						res = res.Where(ob => ob.Citizenship != null ? ob.Citizenship.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "nationality":
+						res = res.Where(ob => ob.Nationality != null ? ob.Nationality.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "familiStatys":
+						res = res.Where(ob => ob.FamiliStatys != null ? ob.FamiliStatys.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "placeOfRegestration":
+						res = res.Where(ob => ob.PlaceOfRegestration != null ? ob.PlaceOfRegestration.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "placeOfResidence":
+						res = res.Where(ob => ob.PlaceOfResidence != null ? ob.PlaceOfResidence.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "school":
+						res = res.Where(ob => ob.School != null ? ob.School.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "yearOfAddMAI":
+						res = res.Where(ob => ob.YearOfAddMAI != null ? ob.YearOfAddMAI.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "yearOfAddVK":
+						res = res.Where(ob => ob.YearOfAddVK != null ? ob.YearOfAddVK.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "yearOfEndMAI":
+						res = res.Where(ob => ob.YearOfEndMAI != null ? ob.YearOfEndMAI.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
+						break;
+					case "yearOfEndVK":
+						res = res.Where(ob => ob.YearOfEndVK != null ? ob.YearOfEndVK.Contains(item.Value, StringComparison.InvariantCultureIgnoreCase) : false).ToList();
 						break;
 					case "studentType":
 						{
-							if ( item.Value != "all"
-								 && Enum.TryParse(item.Value, true, out StudentStatus status) 
+							if (item.Value != "all"
+								 && Enum.TryParse(item.Value, true, out StudentStatus status)
 								 && Enum.IsDefined(typeof(StudentStatus), status)
 								)
 							{
-								res = res.Where(ob => ob.Status == status);
+								res = res.Where(ob => ob.Status == status).ToList();
 							}
-								break;
+							break;
 						}
 					default:
 						break;
@@ -153,28 +233,28 @@ namespace LKS.Data.Concrete
 			}
 		}
 
-        public List<string> GetInstGroupList()
-        {
-            var answer = context.Students.Select(u => u.InstGroup).Distinct().ToList();
-            answer.RemoveAll(string.IsNullOrWhiteSpace);
-            return answer;
+		public List<string> GetInstGroupList()
+		{
+			var answer = context.Students.Select(u => u.InstGroup).Distinct().ToList();
+			answer.RemoveAll(string.IsNullOrWhiteSpace);
+			return answer;
 
-        }
+		}
 
-        public List<string> GetSpecInstList()
-        {
-            var answer = context.Students.Select(u => u.SpecInst).Distinct().ToList();
-            answer.RemoveAll(string.IsNullOrWhiteSpace);
-            return answer;
+		public List<string> GetSpecInstList()
+		{
+			var answer = context.Students.Select(u => u.SpecInst).Distinct().ToList();
+			answer.RemoveAll(string.IsNullOrWhiteSpace);
+			return answer;
 
-        }
+		}
 
-        public List<string> GetRectalList()
-        {
-            var answer = context.Students.Select(u => u.Rectal).Distinct().ToList();
-            answer.RemoveAll(string.IsNullOrWhiteSpace);
-            return answer;
-           
-        }
-    }
+		public List<string> GetRectalList()
+		{
+			var answer = context.Students.Select(u => u.Rectal).Distinct().ToList();
+			answer.RemoveAll(string.IsNullOrWhiteSpace);
+			return answer;
+
+		}
+	}
 }
