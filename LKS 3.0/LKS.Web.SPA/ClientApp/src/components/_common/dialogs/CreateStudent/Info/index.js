@@ -60,7 +60,7 @@ class Info extends React.Component {
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
         var status = [{ id: 0, val: "Обучается" }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" },
             { id: 3, val: "На сборах" }, { id: 4, val: "Прошел сборы" },]
-        var ranks = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
+      var positions = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
             { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" },]
         return (
   
@@ -130,17 +130,17 @@ class Info extends React.Component {
                     </FlexRow>
                     <FlexRow>
                         <div>
-                            <Select id="rank"
-                                data={ranks}
+                            <Select id="position"
+                                data={positions}
                                 value="id"
                                 text="val"
-                                selectedValue={this.props.fieldsValue.rank}
+                    selectedValue={this.props.fieldsValue.position}
                                 placeholder="Должность"
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.rank}
+                    error={this.props.errorValues.position}
                             />
                             {
-                                this.props.errorValues.rank
+                    this.props.errorValues.position
                                 && (<div className="error-message">Выберите должность!</div>)
                             }
                         </div>

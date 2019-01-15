@@ -25,7 +25,7 @@ function* addStudent() {
             try {
                 var Student = yield select(getAddStudentFieldsValue);
                 Student.id = guid();
-                var Relatives = Student.relatives.map(function (obj) {
+              Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
                 })
                 const result = yield call(apiCreateStudent, Student);
@@ -44,8 +44,8 @@ function* addStudent() {
         }),
         takeEvery(FETCH_UPDATE_STUDENT, function* () {
             try {
-                var Student = yield select(getAddStudentFieldsValue);
-                var Relatives = Student.relatives.map(function (obj) {
+              var Student = yield select(getAddStudentFieldsValue);
+              Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
                 })
                 const result = yield call(apiUpdateStudent, Student);

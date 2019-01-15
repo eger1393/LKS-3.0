@@ -23,7 +23,7 @@ namespace MassRecruitment.WEB.Controllers
 		{
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			if(model.Login != "Popov" || model.Password != "P@ssw0rd")
+			if(model.Login != "Admin" || model.Password != "Password")
 				return Forbid("Пользователь с данным сочетанием логина/пароля не найден");
 			
 			var token = _auth.CreateToken(model.Login);

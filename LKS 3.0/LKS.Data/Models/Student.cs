@@ -261,5 +261,29 @@ namespace LKS.Data.Models
 
 		public int AssessmentCharacteristicFinal
 		{ get; set; }
+
+		public string GetPositionValue { get
+			{
+				switch (Position)
+				{
+					case StudentPosition.commander:
+						return "КВ";
+					case StudentPosition.firstSquadCommander:
+						return "КО1";
+					case StudentPosition.secondSquadCommander:
+						return "КО2";
+					case StudentPosition.thirdSquadCommander:
+						return "КО3";
+					case StudentPosition.journalist:
+						return "Ж";
+					case StudentPosition.secretary:
+						return "С";
+					case StudentPosition.none:
+						return string.Empty;
+					default:
+						return string.Empty;
+				}
+			}
+		}
 	}
 }

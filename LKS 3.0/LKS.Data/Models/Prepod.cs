@@ -30,5 +30,23 @@ namespace LKS.Data.Models
 		public string PrepodRank { get; set; }
 		[DisplayName("Дополнительно")]
 		public string AdditionalInfo { get; set; }
+
+		public string GetCoolnessValue { get
+			{
+				switch (Coolness)
+				{
+					case Coolness.Col:
+						return "ПК";
+					case Coolness.LtCol:
+						return "ППК";
+					case Coolness.Maj:
+						return "Мр";
+					case Coolness.Capt:
+						return "Кп";
+					default:
+						return string.Empty;
+				}
+			}
+		}
 	}
 }

@@ -54,5 +54,29 @@ namespace LKS.Data.Models
 		/// </summary>
 		 [Required]
 		public ArrivalDay ArrivalDay { get; set; }
+
+		public string GetArrivalDayValue
+		{
+			get
+			{
+				switch (ArrivalDay)
+				{
+					case ArrivalDay.Monday:
+						return "Пн";
+					case ArrivalDay.Tuesday:
+						return "Вт";
+					case ArrivalDay.Wednesday:
+						return "Ср";
+					case ArrivalDay.Thursday:
+						return "Чт";
+					case ArrivalDay.Friday:
+						return "Пт";
+					case ArrivalDay.Saturday:
+						return "Сб";
+					default:
+						return string.Empty;
+				}
+			}
+		}
 	}
 }

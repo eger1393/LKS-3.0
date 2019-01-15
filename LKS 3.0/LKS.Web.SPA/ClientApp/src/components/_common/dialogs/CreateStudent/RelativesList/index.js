@@ -40,7 +40,7 @@ class RelativesList extends React.Component {
     render() {
         const { currentRelatives } = this.props;
         return (
-                    <Container>
+          <Container ref="ModalContainer">
                         <FlexBox>
                             <Contant>
                                 <Table bordered condensed hover>
@@ -71,8 +71,8 @@ class RelativesList extends React.Component {
                                     </thead>
                                     <tbody>
                                 {
-                                    
-                                    currentRelatives && currentRelatives.map(function (ob, i) {
+
+                      currentRelatives && currentRelatives.map(function (ob, i) {
                                         {
                                             return (
                                                 <ContextMenuTrigger
@@ -80,7 +80,9 @@ class RelativesList extends React.Component {
                                                     id="relativeMenu"
                                                     relativeIndex={i}
                                                     key={i}
-                                                    collect={this.collect}
+                                                collect={this.collect}
+                                                //posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
+                                                //posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
                                                 >
                                                     <td>
                                                         {ob.lastName}
