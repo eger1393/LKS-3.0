@@ -47,7 +47,8 @@ namespace LKS.Web.SPA.Controllers
 			return Ok(_troopRepository.GetTroops().Select(ob => new
 			{
 				ob.Id,
-				ob.NumberTroop
+				ob.NumberTroop,
+                ob.Students
 			}));
 		}
 

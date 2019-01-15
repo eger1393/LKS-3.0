@@ -4,7 +4,7 @@ export const Container = styled.div`
     @media (min-width: 768px){  
         .navbar-nav{
             float: unset !important;
-            margin: 7.5px -15px !important;
+            margin: 7.5px -10px !important;
         }
     }
 `

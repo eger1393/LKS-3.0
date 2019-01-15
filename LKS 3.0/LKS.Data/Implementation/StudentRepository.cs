@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LKS.Data.Concrete
@@ -14,7 +15,7 @@ namespace LKS.Data.Concrete
 		private DataContext context;
 		public StudentRepository(DataContext context)
 		{
-			this.context = context;
+			this.context = context;	
 		}
 		public async Task Create(Student item)
 		{
@@ -50,15 +51,13 @@ namespace LKS.Data.Concrete
 			return res;
 		}
 
-		public List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop)
+		public List<Student> GetStudents(Dictionary<string,string> filters, string selectTroop)
 		{
-			filters = filters.Where(x => !String.IsNullOrEmpty(x.Value)).ToDictionary(x => x.Key, x => x.Value);
-
 			var res = context.Students
 				.Include(ob => ob.Troop)
-				.AsQueryable().ToList(); // todo delete tolist
-			if (!String.IsNullOrEmpty(selectTroop))
-				res = res.Where(ob => ob.TroopId == selectTroop).ToList();
+				.AsQueryable();
+			if(!String.IsNullOrEmpty(selectTroop))
+				res = res.Where(ob => ob.TroopId == selectTroop);
 			if (filters != null)
 				filterStudents(filters, ref res);
 
@@ -238,7 +237,7 @@ namespace LKS.Data.Concrete
 			var answer = context.Students.Select(u => u.InstGroup).Distinct().ToList();
 			answer.RemoveAll(string.IsNullOrWhiteSpace);
 			return answer;
-
+       
 		}
 
 		public List<string> GetSpecInstList()
@@ -246,15 +245,22 @@ namespace LKS.Data.Concrete
 			var answer = context.Students.Select(u => u.SpecInst).Distinct().ToList();
 			answer.RemoveAll(string.IsNullOrWhiteSpace);
 			return answer;
-
+    
 		}
 
-		public List<string> GetRectalList()
-		{
-			var answer = context.Students.Select(u => u.Rectal).Distinct().ToList();
-			answer.RemoveAll(string.IsNullOrWhiteSpace);
-			return answer;
+        public List<string> GetRectalList()
+        {
+            var answer = context.Students.Select(u => u.Rectal).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
+           
+        }
 
-		}
-	}
+        public List<string> GetLanguagesList()
+        {
+            var answer = context.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
+            answer.RemoveAll(string.IsNullOrWhiteSpace);
+            return answer;
+        }
+    }
 }

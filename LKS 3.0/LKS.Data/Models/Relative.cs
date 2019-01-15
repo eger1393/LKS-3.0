@@ -7,12 +7,14 @@ using System.Linq;
 
 namespace LKS.Data.Models
 {
-	public partial class Relative
+	public class Relative
 	{
 		[Key]
 		public string Id { get; set; }
-		[ForeignKey(nameof(Student))]
-		public string StudentId { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Student))]
+        public string StudentId { get; set; }
 		public Student Student { get; set; }
 
 

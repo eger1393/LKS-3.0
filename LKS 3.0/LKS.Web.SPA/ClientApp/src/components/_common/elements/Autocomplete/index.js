@@ -3,40 +3,36 @@ import PropTypes from 'prop-types'
 import CreatableSelect from 'react-select/lib/Creatable'
 import { Container } from './styled'
 
-type State = {
-    options: [{ [string]: string }],
-    value: string | void,
-};
 
-export default class CreatableAdvanced extends Component<*, State> {
+const createOption = (value) => ({
+    label: value,
+});
+
+export default class CreatableAdvanced extends Component {
     state = {
-        isLoading: false,
-        options: [],
-        value: undefined,
-    };
-    componentWillMount() {
-        this.setState({ options: this.props.data })
-    };
-    handleChange = (newValue: any, actionMeta: any) => {
+        options: this.props.data,
+        value: this.props.value,
+    }
+    handleChange = (newValue, actionMeta) => {
         console.group('Value Changed');
         console.log(newValue);
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
         this.setState({ value: newValue });
-        var val = newValue.label;
+        var val = (newValue) ? newValue.label : null;
         this.props.onChange({
             target: {
                 id: this.props.id, value: val,
             }
         })
     };
-    handleCreate = (inputValue: any) => {
+    handleCreate = (inputValue) => {
         this.setState({ isLoading: true });
         console.group('Option created');
         console.log('Wait a moment...');
      
         const { options } = this.state;
-        const newOption = inputValue;
+        const newOption = createOption(inputValue);
             console.log(newOption);
             console.groupEnd();
             this.setState({
@@ -44,7 +40,7 @@ export default class CreatableAdvanced extends Component<*, State> {
                 options: [...options, newOption],
                 value: newOption,
         });
-        var val = inputValue.label;
+        var val = newOption.label;
         this.props.onChange({
             target: {
                 id: this.props.id, value: val,
@@ -63,7 +59,7 @@ export default class CreatableAdvanced extends Component<*, State> {
                     onChange={this.handleChange}
                     onCreateOption={this.handleCreate}
                     options={options}
-                    value={value}
+                    value={this.props.data.filter(option => option.label === this.props.value)}
                     placeholder={this.props.placeholder}
                 />
                 </Container>
@@ -73,7 +69,8 @@ export default class CreatableAdvanced extends Component<*, State> {
 
 CreatableAdvanced.props = {
     id: PropTypes.string,
-    data: PropTypes.array,
+    value: PropTypes.string,
+    options: PropTypes.Array,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
 }

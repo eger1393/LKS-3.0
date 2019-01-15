@@ -36,16 +36,24 @@ namespace LKS.Data.Models
 			WhoseOrder = "МО РФ";
 			VO = "МВО";
 			Fighting = "не участвовал";
-		}
+            Collness = "Студент";
+
+        }
 
 		public string Initials
 		{
 			get
 			{
-                if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+                if (String.IsNullOrEmpty(MiddleName))
                 {
                     MiddleName = "None";
+                }
+                if (String.IsNullOrEmpty(FirstName))
+                {
                     FirstName = "None";
+                }
+                if (String.IsNullOrEmpty(LastName))
+                {
                     LastName = "None";
                 }
                 return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
@@ -53,9 +61,9 @@ namespace LKS.Data.Models
 		}
 		[Key]
 		public string Id { get; set; }
+
 		public virtual List<Relative> Relatives { get; set; }
 
-		//[ForeignKey(nameof(Troop))]
         [DisplayName("Взвод")]
         public string TroopId { get; set; }
 		public Troop Troop { get; set; }

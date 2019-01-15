@@ -6,9 +6,12 @@ import Button from '../../elements/Button'
 import {  ModalContainer } from '../../elements/StyleDialogs/styled'
 import Info from './Info'
 import { Container } from './styled'
-import { fetchAddNewStudent } from '../../../../redux/modules/AddStudent'
+import { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors  } from '../../../../redux/modules/AddStudent'
+import { getIsLoading, getStudentId, getAddStudentFieldsValue } from '../../../../selectors/addStudent'
 import { connect } from 'react-redux'
-
+import Personal from './Personal';
+import RelativesList from './RelativesList'
+import Photo from './Photo'
 
 class CreateStudent extends React.Component {
     constructor(props) {
@@ -16,42 +19,64 @@ class CreateStudent extends React.Component {
         this.createStudent = this.createStudent.bind(this)
     }
     createStudent = () => {
-            this.props.fetchAddNewStudent();
-            this.props.onHide();   
+        if (this.validate()) {
+            if (this.props.StudentId != undefined) {
+                this.props.fetchUpdateStudent();
+            }
+            else {
+                this.props.fetchAddNewStudent();
+            }
+            this.props.onHide();
+        }
+        
     }
     validate = () => {
-        // TODO add validate fields
-        return true;
-    }
+        var val = this.props.fieldsValue;
+            if (!val.lastName
+                || !val.firstName
+                || !val.middleName
+                || !val.troopId
+                || !val.kurs
+                || !val.faculty
+                || !val.rank
+            )
+            {
+                this.props.fetchSetErrors();
+                return false;
+            }
+            return true;
+        }
+    
     render() {
         return (
-            <Modal
+            !this.props.loading &&
+            (<Modal
                 show={this.props.show}
                 onHide={this.props.onHide}
             >
                 <ModalContainer>
-                   <Container>
+                    <Container>
                         <FormHead text="Добавить студента" handleClick={this.props.onHide} />
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
                             <Tab eventKey={1} title="Информация">
-                                <Info/>
+                                <Info />
                             </Tab>
-                            <Tab eventKey={2} title="Личные данные" disabled>
-                                Tab 2 content
+                            <Tab eventKey={2} title="Личные данные">
+                                <Personal />
                             </Tab>
-                            <Tab eventKey={3} title="Родственники" disabled>
-                                Tab 3 content
+                            <Tab eventKey={3} title="Родственники">
+                                <RelativesList />
                             </Tab>
-                            <Tab eventKey={4} title="Фотография" disabled>
-                                Tab 4 content
+                            <Tab eventKey={4} title="Фотография">
+                                <Photo/>
                             </Tab>
                             <div className="form-submit">
                             </div>
                         </Tabs>
                     </Container>
-                    <Button onClick={this.createStudent} value="Создать" />
+                    <Button onClick={this.createStudent} value="Сохранить" />
                 </ModalContainer>
-            </Modal>
+            </Modal>)
         );
     }
 }
@@ -59,7 +84,17 @@ class CreateStudent extends React.Component {
 CreateStudent.props = {
     show: PropTypes.bool,
     onHide: PropTypes.func,
-    createStudent: PropTypes.func,
+    StudentId: PropTypes.string,
+    fetchUpdateStudent: PropTypes.func,
+    fetchAddNewStudent: PropTypes.func,
+    loading: PropTypes.bool,
 }
 
-export default connect(null, { fetchAddNewStudent })(CreateStudent)
+function mapStateToProps(store) {
+    return {
+        loading: getIsLoading(store),
+        StudentId: getStudentId(store),
+        fieldsValue: getAddStudentFieldsValue(store),
+    }
+}
+export default connect(mapStateToProps, { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors })(CreateStudent)
