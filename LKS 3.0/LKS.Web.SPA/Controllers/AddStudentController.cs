@@ -7,10 +7,12 @@ using LKS.Web.SPA.Models;
 using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LKS.Web.SPA.Controllers
 {
     [Route("api/[controller]")]
+	[Authorize]
     [ApiController]
     public class AddStudentController : ControllerBase
     {

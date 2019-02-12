@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Abstract;
 using LKS.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace LKS.Web.SPA.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize]
 	[ApiController]
 	public class PrepodController : ControllerBase
 	{
@@ -53,6 +55,7 @@ namespace LKS.Web.SPA.Controllers
 		}
 
 		[HttpPost("[action]")]
+		[Authorize(Roles = "Admin")]
 		public IActionResult CreatePrepod(Prepod model)
 		{
 			_prepodRepository.Create(model);
@@ -60,6 +63,7 @@ namespace LKS.Web.SPA.Controllers
 		}
 
 		[HttpPost("[action]")]
+		[Authorize(Roles = "Admin")]
 		public IActionResult UpdatePrepod(Prepod model)
 		{
 			_prepodRepository.Update(model);
@@ -67,6 +71,7 @@ namespace LKS.Web.SPA.Controllers
 		}
 
 		[HttpDelete("[action]")]
+		[Authorize(Roles = "Admin")]
 		public IActionResult DeletePrepod(Prepod model)
 		{
 			_prepodRepository.Delete(model);

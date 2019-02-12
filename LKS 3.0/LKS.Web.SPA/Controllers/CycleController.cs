@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LKS.Data.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LKS.Web.SPA.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+	[Authorize]
+	[ApiController]
     public class CycleController : ControllerBase
     {
 		private readonly ICycleRepository _cycleRepository;

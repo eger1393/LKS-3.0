@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LKS.Data.Abstract;
 using LKS.Infrastructure.Templates;
 using LKS.Web.SPA.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -15,7 +16,8 @@ using Microsoft.Net.Http.Headers;
 namespace LKS.Web.SPA.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+	[Authorize(Roles = "Admin")]
+	[ApiController]
     public class TemplateController : ControllerBase
     {
 		private readonly ITroopRepository _troopRepository;

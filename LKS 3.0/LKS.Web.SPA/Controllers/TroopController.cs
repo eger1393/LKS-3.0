@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using LKS.Data.Abstract;
 using LKS.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LKS.Web.SPA.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+	[Authorize]
+	[ApiController]
     public class TroopController : ControllerBase
     {
 		private readonly ITroopRepository _troopRepository;
@@ -19,14 +21,16 @@ namespace LKS.Web.SPA.Controllers
 		{
 			_troopRepository = troopRepository;
 		}
-    
-        [HttpPost("[action]")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpPost("[action]")]
 		public IActionResult CreateTroop(Troop model)
 		{
 			_troopRepository.Create(model);
 			return Ok();
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPost("[action]")]
 		public IActionResult UpdateTroop(Troop model)
 		{
@@ -34,6 +38,7 @@ namespace LKS.Web.SPA.Controllers
 			return Ok();
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpDelete("[action]")]
 		public IActionResult DeleteTroop(Troop model)
 		{

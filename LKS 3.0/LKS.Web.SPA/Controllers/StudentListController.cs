@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace LKS.Web.SPA.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+	[Authorize]
+	[ApiController]
     public class StudentListController : Controller
     {
 		private readonly IStudentRepository _stydentRepository;
@@ -74,10 +75,10 @@ namespace LKS.Web.SPA.Controllers
                 label = ob
             });
             return Ok(obj);
-        }     
+        }
 
-		[Authorize]
-        [HttpPost("[action]")]
+		[Authorize(Roles = "Admin")]
+		[HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{
 			if (!ModelState.IsValid)
