@@ -53,7 +53,7 @@ class Login extends React.Component {
     const { errorMessage, isSuccess } = this.props
 
     if (isSuccess) {
-      return (<Redirect to="/studentList" />)
+      return (<Redirect to="/Cabinet" />)
     }
     return (
       <Container>

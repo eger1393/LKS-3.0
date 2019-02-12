@@ -2,9 +2,8 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { apiGetTroopList } from '../../../../../api/dialogs'
-import { getStudentListFiltersSelectedTroop, getTroopList } from '../../../../../selectors/studentList'
-import { fetchGetTroopList } from '../../../../../redux/modules/studentList'
+import { getStudentListFiltersSelectedTroop, getTroopList } from '../../../../selectors/studentList'
+import { fetchGetTroopList } from '../../../../redux/modules/studentList'
 
 
 import { Container} from './styled'

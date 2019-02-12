@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import Sidebar from 'react-sidebar'
-import SVGIcon from '../../../_common/elements/SVGIcon'
+import SVGIcon from '../elements/SVGIcon'
 import SidebarContent from './SidebarContent'
 import { Container, SidebarButton } from './styled'
 
-import { fetchGetStudentListData, fetchSetStudentListFiltersSelectTroop, fetchResetStudentListFiltersValue } from '../../../../redux/modules/studentList'
+import { fetchGetStudentListData, fetchSetStudentListFiltersSelectTroop, fetchResetStudentListFiltersValue } from '../../../redux/modules/studentList'
 
 class TroopSidebar extends React.Component {
     state = {

@@ -1,12 +1,12 @@
 ﻿import React from 'react'
 
-import TroopSidebar from './TroopSidebar'
-import NavBar from './NavBar'
+import TroopSidebar from '../../_common/TroopSidebar'
+import NavBar from '../../_common/NavBar'
 import StudentTable from './StudentTable'
 import DataSelectors from './DataSelestors'
 import { Container} from './styled'
 
-class StydentsList extends React.Component {
+class AdminCabinet extends React.Component {
     state = {
         sidebarOpen: false,
     }
@@ -29,4 +29,4 @@ class StydentsList extends React.Component {
     }
 }
 
-export default StydentsList
+export default AdminCabinet
