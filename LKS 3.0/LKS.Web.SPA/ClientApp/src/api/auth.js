@@ -7,8 +7,9 @@ const getUser_url = '/api/auth/getUser'
 
 export const apiLogin = fetch => {
   return axios.post(login_url, fetch.payload).then(data => {
-    const { token } = data.data
+    const { token, role } = data.data
     localStorage.setItem('LKS-jwt-client', token)
+    localStorage.setItem('role', role);
     setAuthToken(token)
     history.push('/')
     return data.data
@@ -17,10 +18,7 @@ export const apiLogin = fetch => {
 
 export const apiLogout = () => {
   localStorage.removeItem('LKS-jwt-client')
+  localStorage.removeItem('role')
   setAuthToken(false)
   history.go(0)
-}
-
-export const apiGetUser = () => {
-  return axios.get(getUser_url).then(data => ( data.data ));
 }

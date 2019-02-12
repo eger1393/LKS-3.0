@@ -45,13 +45,5 @@ namespace MassRecruitment.WEB.Controllers
 
 			return Ok(token);
 		}
-
-		[Authorize]
-		[HttpGet("[action]")]
-		public IActionResult GetUser()
-		{
-			string role = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")?.Value;
-			return Ok(new { role = role });
-		}
 	}
 }

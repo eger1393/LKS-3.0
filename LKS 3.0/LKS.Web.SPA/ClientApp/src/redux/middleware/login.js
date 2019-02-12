@@ -1,17 +1,14 @@
 ﻿import { all, takeEvery, call, put } from 'redux-saga/effects'
 
-import { apiLogin, apiLogout, apiGetUser } from '../../api/auth'
+import { apiLogin, apiLogout } from '../../api/auth'
 import {
   FETCH_LOGIN,
   FETCH_LOGOUT,
   fetchLoginFailed,
-  fetchLoginSuccess,
-  FETCH_GET_USER,
-  fetchGetUserSuccess,
-  fetchGetUserFailed,
+  fetchLoginSuccess
 } from '../modules/login'
 
-function* login(user) {
+function* login() {
   yield all([
     takeEvery(FETCH_LOGIN, function*(user) {
       try {
@@ -25,14 +22,6 @@ function* login(user) {
       try {
         yield call(apiLogout)
       } catch (error) {}
-    }),
-    takeEvery(FETCH_GET_USER, function* () {
-      try {
-        const data = yield call(apiGetUser)
-        yield put(fetchGetUserSuccess(data))
-      } catch (error) {
-        yield put(fetchGetUserFailed(error))
-      }
     }),
   ])
 }
