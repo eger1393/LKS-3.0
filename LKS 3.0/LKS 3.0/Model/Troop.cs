@@ -66,7 +66,7 @@ namespace LKS_3._0
         {
             get
             {
-                return Students.Count();
+                return Students.Count(u => (u.Status == "Обучается" && u.Status == "На сборах"));
             }
 
         }

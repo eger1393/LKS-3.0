@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import PropTypes from 'prop-types'
+import { apiLogout } from '../../../../api/auth'
 import { Container } from './styled'
 import CreateTroop from '../../../_common/dialogs/CreateTroop'
 import CreateStudent from '../../../_common/dialogs/CreateStudent'
@@ -18,10 +19,14 @@ class NavBar extends React.Component {
 
   click = (key) => { // work
     var val = !this.state.openModalWindow[key];
-    this.setState(prevState => ({
-      openModalWindow: { ...prevState.openModalWindow, [key]: val, }
-    }))
-
+    if (key == 'Exit') {
+      apiLogout();
+    }
+    else {
+      this.setState(prevState => ({
+        openModalWindow: { ...prevState.openModalWindow, [key]: val, }
+      }))
+    }
   }
 
   hide = data => {
@@ -35,7 +40,7 @@ class NavBar extends React.Component {
           <Nav>
             <NavItem eventKey={'StudentCreate'} >
               Добавить студента
-                        </NavItem>
+            </NavItem>
             {this.state.openModalWindow.StudentCreate && (
               <CreateStudent show={this.state.openModalWindow.StudentCreate} onHide={() => this.click('StudentCreate')} />
             )}
@@ -65,6 +70,9 @@ class NavBar extends React.Component {
                 <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
               )}
             </NavDropdown>
+            <NavItem eventKey={'Exit'} style={{ position: 'absolute', right: '10px' }} >
+              Выход
+            </NavItem>
           </Nav>
         </Navbar>
       </Container>

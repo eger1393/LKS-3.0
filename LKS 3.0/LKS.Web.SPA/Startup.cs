@@ -56,27 +56,41 @@ namespace LKS.Web.SPA
 				app.UseHsts();
 			}
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+			app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
+			app.UseMvc().UseWhen(context => true, builder =>
+			{
+				builder.UseSpa(spa =>
+				{
+					spa.Options.SourcePath = "ClientApp";
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+					if (env.IsDevelopment())
+					{
+						spa.UseReactDevelopmentServer(npmScript: "start");
+					}
+				});
+			});
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
-        }
+			//app.UseMvc(routes =>
+			//{
+			//    routes.MapRoute(
+			//        name: "default",
+			//        template: "{controller}/{action=Index}/{id?}");
+			//});
+
+			//app.UseSpa(spa =>
+			//{
+			//    spa.Options.SourcePath = "ClientApp";
+
+			//    if (env.IsDevelopment())
+			//    {
+			//        spa.UseReactDevelopmentServer(npmScript: "start");
+			//    }
+			//});
+		}
 
 		private void RegistrationInterfaces(IServiceCollection services)
 		{

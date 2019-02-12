@@ -1,12 +1,14 @@
 ﻿
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace LKS.Infrastructure.Authenticate
 {
+	
     public class JwtAuth : IJwtAuth
     {
         private readonly string _jwtSecret;
@@ -22,13 +24,14 @@ namespace LKS.Infrastructure.Authenticate
             _audience = audience;
         }
 
-        public AuthenticateModel CreateToken(string id)
+        public AuthenticateModel CreateToken(string id, string role)
         {
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtLifespan);
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, id),
+				new Claim(ClaimTypes.Role, role)
             };
 
             var jwt = new JwtSecurityToken(
@@ -44,10 +47,11 @@ namespace LKS.Infrastructure.Authenticate
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new AuthenticateModel
-            {
-                Token = token,
-                Id = id
+			return new AuthenticateModel
+			{
+				Id = id,
+				Token = token,
+				Role = role
             };
         }
     }

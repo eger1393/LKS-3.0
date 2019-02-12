@@ -7,6 +7,7 @@ using LKS.Web.SPA.Models;
 using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LKS.Web.SPA.Controllers
 {
@@ -74,6 +75,8 @@ namespace LKS.Web.SPA.Controllers
             });
             return Ok(obj);
         }     
+
+		[Authorize]
         [HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{
@@ -83,6 +86,7 @@ namespace LKS.Web.SPA.Controllers
 			return Ok();
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPost("[action]")]
 		public IActionResult SetStudentPosition([FromBody]SetStudentPositionModel model)
 		{

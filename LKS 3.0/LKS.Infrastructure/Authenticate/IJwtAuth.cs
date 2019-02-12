@@ -2,6 +2,7 @@
 {
     public interface IJwtAuth
     {
-        AuthenticateModel CreateToken(string id);
-    }
+		AuthenticateModel CreateToken(string id, string role);
+
+	}
 }
