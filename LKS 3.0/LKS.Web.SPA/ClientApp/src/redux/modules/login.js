@@ -20,7 +20,7 @@ export default function reducer(loginState = defaultState, action = {}) {
     case FETCH_LOGIN_FAILED:
       return {
         ...loginState,
-        errorMessage: 'Введён неверный номер телефона или пароль',
+        errorMessage: 'Введён неверный логин или пароль',
       }
     case FETCH_LOGIN_SUCCESS:
       return {

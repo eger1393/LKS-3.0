@@ -2,8 +2,9 @@
 import { setAuthToken } from '../axiosExtensions'
 import history from '../history'
 
-const login_url = '/api/auth/login'
-const getUser_url = '/api/auth/getUser'
+const login_url = '/api/user/login'
+const getAllUsers_url = '/api/user/getAllUsers'
+const updatePassword_url = '/api/user/updatePassword'
 
 export const apiLogin = fetch => {
   return axios.post(login_url, fetch.payload).then(data => {
@@ -21,4 +22,14 @@ export const apiLogout = () => {
   localStorage.removeItem('role')
   setAuthToken(false)
   history.go(0)
+}
+
+export const apiGetAllUsers = () => {
+  return axios.get(getAllUsers_url).then(data => (data.data))
+}
+
+export const apiUpdatePassword = login => {
+  return axios.get(updatePassword_url, {
+    params: { login: login }
+  }).then(data => (data.data))
 }

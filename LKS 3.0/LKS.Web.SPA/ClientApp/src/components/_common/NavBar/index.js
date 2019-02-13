@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { apiLogout } from '../../../api/auth'
+import { apiLogout } from '../../../api/user'
 import { Container } from './styled'
 import CreateTroop from '../dialogs/CreateTroop'
 import CreateStudent from '../dialogs/CreateStudent'
@@ -9,6 +9,7 @@ import CreateUniversityTemplate from '../dialogs/CreateUniversityTemplate'
 import TroopList from '../dialogs/TroopList'
 import CreatePrepod from '../dialogs/CreatePrepod'
 import PrepodList from '../dialogs/PrepodList'
+import UserList from '../dialogs/UserList'
 
 
 class NavBar extends React.Component {
@@ -73,6 +74,12 @@ class NavBar extends React.Component {
                   <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
                 )}
               </NavDropdown>
+              <NavItem eventKey={'UserList'} >
+                Список пользователей
+              </NavItem>
+              {this.state.openModalWindow.UserList && (
+                <UserList show={this.state.openModalWindow.UserList} onHide={() => this.click('UserList')} />
+              )}
               <NavItem eventKey={'Exit'} style={{ position: 'absolute', right: '10px' }} >
                 Выход
             </NavItem>

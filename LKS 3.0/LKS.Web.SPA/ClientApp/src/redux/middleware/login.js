@@ -1,6 +1,6 @@
 ﻿import { all, takeEvery, call, put } from 'redux-saga/effects'
 
-import { apiLogin, apiLogout } from '../../api/auth'
+import { apiLogin, apiLogout } from '../../api/user'
 import {
   FETCH_LOGIN,
   FETCH_LOGOUT,

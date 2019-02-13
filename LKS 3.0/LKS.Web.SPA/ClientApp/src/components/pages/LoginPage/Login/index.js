@@ -18,9 +18,6 @@ import { PageTitleBlock } from '../styled'
 import { fetchLogin } from '../../../../redux/modules/login'
 import { getErrors, getSuccessLogin } from '../../../../selectors/login'
 
-const StyledInputFieldAdapter = ({ input, meta, maxlength, ...rest }) => (
-  <Input {...input} {...rest} onChange={value => input.onChange(value)} />
-)
 
 class Login extends React.Component {
   state = {
@@ -81,6 +78,9 @@ class Login extends React.Component {
               onChange={this.onChange}
             />
           </InputContainer>
+          <div className="auth-errors">
+            <div>{errorMessage}</div>
+          </div>
           <ButtonContainer>
             <Button type="button" value="Войти" onClick={this.onSubmit} />
           </ButtonContainer>
