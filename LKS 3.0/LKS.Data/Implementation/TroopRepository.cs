@@ -4,19 +4,31 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Data.Providers;
 
 namespace LKS.Data.Implementation
 {
 	public class TroopRepository : ITroopRepository
 	{
 		private DataContext context;
-		public TroopRepository(DataContext context)
+		private readonly IUserRepository _userRepository;
+		private readonly IPasswordProvider _passwordProvider;
+		public TroopRepository(DataContext context, IUserRepository userRepository, IPasswordProvider passwordProvider)
 		{
 			this.context = context;
+			_userRepository = userRepository;
+			_passwordProvider = passwordProvider;
 		}
 		public async Task Create(Troop item)
 		{
 			await context.Troops.AddAsync(item);
+			await _userRepository.Create(new User
+			{
+				Login = "Troop" + item.NumberTroop,
+				Role = "User",
+				TroopId = item.Id,
+				Password = _passwordProvider.GetHash(_passwordProvider.GetRandomPassword(8), "Troop" + item.NumberTroop)
+			});
 			context.SaveChanges();
 			//return;
 		}
@@ -82,6 +94,8 @@ namespace LKS.Data.Implementation
 			troop.PrepodId = item.PrepodId;
 			troop.CycleId = item.CycleId;
 			troop.ArrivalDay = item.ArrivalDay;
+			var user = context.Users.FirstOrDefault(x => x.TroopId == troop.Id);
+			user.Login = "Troop" + troop.NumberTroop;
 			context.SaveChanges();
 			return;
 		}
