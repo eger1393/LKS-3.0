@@ -1,5 +1,6 @@
 ﻿using LKS.Data.Models;
 using LKS.Data.Models.Enums;
+using LKS.Data.Providers;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -7,6 +8,7 @@ namespace LKS.Data
 {
 	public class DataContext : DbContext
 	{
+		private readonly IPasswordProvider _passwordProvider;
 
 		#region Properties
 		public DbSet<Student> Students { get; set; }
@@ -14,22 +16,22 @@ namespace LKS.Data
 		public DbSet<Troop> Troops { get; set; }
 		public DbSet<Prepod> Prepods { get; set; }
 		public DbSet<Cycle> Cycles { get; set; }
+		public DbSet<User> Users { get; set; }
 		#endregion
 
-		public DataContext(DbContextOptions<DataContext> options) : base(options)
+		public DataContext(DbContextOptions<DataContext> options, IPasswordProvider passwordProvider) : base(options)
 		{
+			_passwordProvider = passwordProvider;
 			Database.EnsureCreated();
 		}
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			//builder.Entity<Troop>().HasAlternateKey(x => x.NumberTroop);
 			builder.Entity<Troop>().HasIndex(x => x.NumberTroop).IsUnique();
 			builder.Entity<Troop>().HasOne(x => x.PlatoonCommander);
-			//builder.Entity<Troop>().HasMany(x => x.Students);
-			//builder.Entity<Student>().HasOne(x => x.Troop).WithOne(x => x.PlatoonCommander);
 			builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.Students);
             builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
+			builder.Entity<User>().HasIndex(x => x.TroopId).IsUnique();
 
             Seed(builder);
 		}
@@ -85,8 +87,52 @@ namespace LKS.Data
 				NumberTroop = "510",
 				PrepodId = "1"
 			});
-           
-            for (int i = 0; i < 100; i++)
+
+			builder.Entity<User>().HasData(new User
+			{
+				Id = Guid.NewGuid().ToString(),
+				Login = "Admin",
+				Password = _passwordProvider.GetHash("P@ssw0rd", "Admin"),
+				Role = "Admin"
+			});
+
+			builder.Entity<User>().HasData(new User
+			{
+				Id = Guid.NewGuid().ToString(),
+				Login = "Troop410",
+				Password = _passwordProvider.GetHash("P@ssw0rd", "Troop410"),
+				Role = "User",
+				TroopId = "1"
+			});
+
+			builder.Entity<User>().HasData(new User
+			{
+				Id = Guid.NewGuid().ToString(),
+				Login = "Troop520",
+				Password = _passwordProvider.GetHash("P@ssw0rd", "Troop520"),
+				Role = "User",
+				TroopId = "2"
+			});
+
+			builder.Entity<User>().HasData(new User
+			{
+				Id = Guid.NewGuid().ToString(),
+				Login = "Troop420",
+				Password = _passwordProvider.GetHash("P@ssw0rd", "Troop420"),
+				Role = "User",
+				TroopId = "3"
+			});
+
+			builder.Entity<User>().HasData(new User
+			{
+				Id = Guid.NewGuid().ToString(),
+				Login = "Troop510",
+				Password = _passwordProvider.GetHash("P@ssw0rd", "Troop510"),
+				Role = "User",
+				TroopId = "4"
+			});
+
+			for (int i = 0; i < 100; i++)
 			{
                 builder.Entity<Student>().HasData(new Student
                 {

@@ -1,4 +1,4 @@
-﻿using LKS.Data.Abstract;
+﻿using LKS.Data.Repositories;
 using LKS.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

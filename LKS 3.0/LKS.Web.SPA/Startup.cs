@@ -1,5 +1,5 @@
-using LKS.Data.Abstract;
-using LKS.Data.Concrete;
+using LKS.Data.Repositories;
+using LKS.Data.Implementation;
 using LKS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using LKS.Infrastructure.Authenticate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using LKS.Data.Providers;
 
 namespace LKS.Web.SPA
 {
@@ -99,6 +100,8 @@ namespace LKS.Web.SPA
 			services.AddTransient<ITroopRepository, TroopRepository>();
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
 			services.AddTransient<ICycleRepository, CycleRepository>();
+			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddTransient<IPasswordProvider, PasswordProvider>();
 		}
 
 		private void ConfigureAuthentication(IServiceCollection services)

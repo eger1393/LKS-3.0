@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LKS.Data.Abstract
+namespace LKS.Data.Repositories
 {
 	public interface IRepository<T>
 	{

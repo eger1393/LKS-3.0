@@ -1,4 +1,5 @@
 ﻿
+using LKS.Data.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,15 @@ namespace LKS.Infrastructure.Authenticate
             _audience = audience;
         }
 
-        public AuthenticateModel CreateToken(string id, string role)
+        public AuthenticateModel CreateToken(User user)
         {
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtLifespan);
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name, id),
-				new Claim(ClaimTypes.Role, role)
+			var claims = new[]
+			{
+				new Claim(ClaimTypes.Name, user.Login),
+				new Claim(ClaimTypes.Role, user.Role),
+				new Claim("TroopId", user.TroopId ?? string.Empty)
             };
 
             var jwt = new JwtSecurityToken(
@@ -49,9 +51,10 @@ namespace LKS.Infrastructure.Authenticate
 
 			return new AuthenticateModel
 			{
-				Id = id,
+				Name = user.Login,
 				Token = token,
-				Role = role
+				Role = user.Role,
+				TroopId = user.TroopId
             };
         }
     }

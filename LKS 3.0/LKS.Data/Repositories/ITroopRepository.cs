@@ -1,4 +1,4 @@
-﻿using LKS.Data.Abstract;
+﻿using LKS.Data.Repositories;
 using LKS.Data.Models;
 using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace LKS.Data.Abstract
+namespace LKS.Data.Repositories
 {
 	public interface ITroopRepository : IRepository<Troop>
 	{

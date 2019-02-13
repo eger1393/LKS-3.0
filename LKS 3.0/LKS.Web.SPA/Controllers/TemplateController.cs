@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using LKS.Data.Abstract;
+using LKS.Data.Repositories;
 using LKS.Infrastructure.Templates;
 using LKS.Web.SPA.Models;
 using Microsoft.AspNetCore.Authorization;

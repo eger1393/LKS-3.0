@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.Data.Abstract;
+using LKS.Data.Repositories;
 using LKS.Web.SPA.Models;
 using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +26,15 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetStudentListData([FromBody]GetStudentListDataModel model)
 		{
+			if(User.IsInRole("User"))
+			{
+				string troopId = User.Claims.FirstOrDefault(x => x.Type == "TroopId")?.Value;
+				if (String.IsNullOrEmpty(troopId))
+					return BadRequest("Troop number is null");
+				// установил номер взвода пользователя( чтобы злобные хацкеры не могли вытянуть данные других взводов)
+				model.SelectTroop = troopId;
+			}
+
 			var studentList = _stydentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
 			{
 				ob.Id,

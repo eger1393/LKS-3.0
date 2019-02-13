@@ -1,4 +1,4 @@
-﻿using LKS.Data.Abstract;
+﻿using LKS.Data.Repositories;
 using LKS.Data.Models;
 using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LKS.Data.Concrete
+namespace LKS.Data.Implementation
 {
 	public class StudentRepository : IStudentRepository
 	{

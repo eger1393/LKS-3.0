@@ -1,8 +1,10 @@
-﻿namespace LKS.Infrastructure.Authenticate
+﻿using LKS.Data.Models;
+
+namespace LKS.Infrastructure.Authenticate
 {
     public interface IJwtAuth
     {
-		AuthenticateModel CreateToken(string id, string role);
+		AuthenticateModel CreateToken(User user);
 
 	}
 }

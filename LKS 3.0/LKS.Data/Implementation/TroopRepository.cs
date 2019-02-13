@@ -1,11 +1,11 @@
-﻿using LKS.Data.Abstract;
+﻿using LKS.Data.Repositories;
 using LKS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LKS.Data.Concrete
+namespace LKS.Data.Implementation
 {
 	public class TroopRepository : ITroopRepository
 	{
@@ -31,6 +31,9 @@ namespace LKS.Data.Concrete
 		public async Task Delete(Troop item)
 		{
 			Troop troop = context.Troops.Include(x => x.Students).FirstOrDefault(x => x.Id == item.Id);
+			User user = context.Users.FirstOrDefault(x => x.TroopId == troop.Id);
+			if (user != null)
+				context.Users.Remove(user);
 			context.RemoveRange(troop.Students);
 			context.Troops.Remove(troop);
 			context.SaveChanges();
