@@ -71,18 +71,30 @@ namespace LKS.Web.SPA.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public IActionResult GetTroopList()
+		public async Task<IActionResult> GetTroopList()
 		{
-			return Ok(_troopRepository.GetTroops().Select(x => new
+			if (User.IsInRole("User"))
 			{
-				x.Id,
-				x.ArrivalDay,
-				x.NumberTroop,
-				cycleNumber = x.Cycle.Number,
-				x.CycleId,
-				prepodInitials = x.Prepod.Initials,
-				x.PrepodId
-			}));
+				string troopId = User.Claims.FirstOrDefault(x => x.Type == "TroopId")?.Value;
+				if (String.IsNullOrEmpty(troopId))
+					return BadRequest("Troop number is null");
+				var troop = await _troopRepository.GetItem(troopId);
+
+				return Ok(new Troop[] { troop });
+			}
+			else
+			{
+				return Ok(_troopRepository.GetTroops().Select(x => new
+				{
+					x.Id,
+					x.ArrivalDay,
+					x.NumberTroop,
+					cycleNumber = x.Cycle.Number,
+					x.CycleId,
+					prepodInitials = x.Prepod.Initials,
+					x.PrepodId
+				}));
+			}
 		}
 
 		[HttpGet("[action]")]
