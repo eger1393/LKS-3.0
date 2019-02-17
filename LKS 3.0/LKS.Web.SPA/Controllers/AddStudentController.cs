@@ -8,6 +8,7 @@ using LKS.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using LKS.Web.Models;
 
 namespace LKS.Web.SPA.Controllers
 {
@@ -75,11 +76,11 @@ namespace LKS.Web.SPA.Controllers
             return Ok(obj);
         }
         [HttpPost("[action]")]
-        public IActionResult CreateStudent([FromBody]Student model)
+        public IActionResult CreateStudent([FromBody]SaveStudentModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            _stydentRepository.Create(model);
+            _stydentRepository.Create(model.Student);
             return Ok();
         }
 

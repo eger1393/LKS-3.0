@@ -1,6 +1,6 @@
 ﻿import { all, takeEvery, call, put, select, take } from 'redux-saga/effects'
 import { apiCreateStudent, apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
-import { getAddStudentFieldsValue } from '../../selectors/addStudent'
+import { getAddStudentFieldsValue, getStudentPhoto } from '../../selectors/addStudent'
 import {
     FETCH_ADD_NEW_STUDENT,
     fetchAddStudentSuccess,
@@ -23,12 +23,17 @@ function* addStudent() {
     yield all([
         takeEvery(FETCH_ADD_NEW_STUDENT, function* () {
             try {
-                var Student = yield select(getAddStudentFieldsValue);
+              var Student = yield select(getAddStudentFieldsValue);
+              var Photo = yield select(getStudentPhoto);
+              var data = {
+                Student: Student,
+                Photo: Photo,
+              }
                 Student.id = guid();
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
                 })
-                const result = yield call(apiCreateStudent, Student);
+              const result = yield call(apiCreateStudent, data);
                 yield put(fetchAddStudentSuccess(result));
             } catch{
                 yield put(fetchAddStudentFailed());

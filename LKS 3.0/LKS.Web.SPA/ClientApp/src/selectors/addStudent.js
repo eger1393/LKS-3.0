@@ -7,3 +7,4 @@ export const getAddStudentRelatives = state => _.get(state, ['addStudent', 'fiel
 export const getIsLoading = state => _.get(state, ['loading']);
 export const getStudentRelative = (state, index) => _.get(state, `addStudent.fieldsValue.relatives[${index}]`)
 export const getStudentId = (state) => _.get(state, 'addStudent.fieldsValue[id]')
+export const getStudentPhoto = state => _.get(state, 'addStudent.getStudentPhoto')
