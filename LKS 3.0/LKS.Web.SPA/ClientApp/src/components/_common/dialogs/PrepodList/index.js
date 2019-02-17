@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
+import Modal from '../../ModalDialog'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { FlexBox, ModalContainer } from '../../elements/StyleDialogs/styled'

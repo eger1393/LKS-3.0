@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Tab, Tabs } from 'react-bootstrap'
+import {Tab, Tabs } from 'react-bootstrap'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { ModalContainer } from '../../elements/StyleDialogs/styled'
@@ -12,6 +12,8 @@ import { connect } from 'react-redux'
 import Personal from './Personal';
 import RelativesList from './RelativesList'
 import Photo from './Photo'
+
+import ModalDialog from '../../ModalDialog'
 
 class CreateStudent extends React.Component {
   constructor(props) {
@@ -53,7 +55,7 @@ class CreateStudent extends React.Component {
   render() {
     return (
       !this.props.loading &&
-      (<Modal
+      (<ModalDialog
         show={this.props.show}
         onHide={this.props.onHide}
       >
@@ -79,7 +81,7 @@ class CreateStudent extends React.Component {
           </Container>
           <Button onClick={this.createStudent} value="Сохранить" />
         </ModalContainer>
-      </Modal>)
+      </ModalDialog>)
     );
   }
 }

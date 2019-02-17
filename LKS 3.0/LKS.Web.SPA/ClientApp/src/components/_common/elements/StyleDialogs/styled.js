@@ -3,6 +3,7 @@
 export const FlexBox = styled.div`
     display: flex;
     flex-direction: column;
+    //width: 500px;
 `
 
 export const FlexRow = styled.div`
@@ -10,6 +11,10 @@ export const FlexRow = styled.div`
     flex-direction: row;
     margin-top: 40px;
     justify-content: space-between;
+
+    &>:first-child{
+      margin-right: 40px;
+    }
 
     & > * {
         width: 210px;

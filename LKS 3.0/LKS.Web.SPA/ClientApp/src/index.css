@@ -1,0 +1,14 @@
+﻿body {
+}
+
+.ReactModal__Overlay {
+    overflow: auto;
+}
+
+.ReactModal__Overlay::-webkit-scrollbar {
+    width: 0;
+}
+
+body.ReactModal__Body--open {
+    overflow: hidden;
+}

@@ -3,7 +3,7 @@
 export const Container = styled.div`
     .flex-row{
         & > div{
-            width: 225px;
+            //width: 225px;
         }
     }
 `
