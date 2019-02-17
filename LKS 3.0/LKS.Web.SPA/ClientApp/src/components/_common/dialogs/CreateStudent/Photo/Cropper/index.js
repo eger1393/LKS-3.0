@@ -28,8 +28,8 @@ class ModalCropper extends React.Component {
       maxHeight: 4096,
     });
     var res = document.createElement('canvas');
-    res.width = 448;
-    res.height = 224;
+    res.width = 180;
+    res.height = 220;
     const pica = Pica();
     pica.resize(image, res, {
       unsharpAmount: 200,
@@ -67,7 +67,7 @@ class ModalCropper extends React.Component {
                 preview=".img-preview"
                 guides={false}
                 src={src}
-                aspectRatio={2 / 1}
+                aspectRatio={3 / 4}
                 ref={cropper => { this.cropper = cropper; }}
                 scalable={false}
                 zoomable={true}

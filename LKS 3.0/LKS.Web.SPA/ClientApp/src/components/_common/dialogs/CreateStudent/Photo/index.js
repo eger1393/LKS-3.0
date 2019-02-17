@@ -1,14 +1,8 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import Input from '../../../elements/Input'
-import Select from '../../../elements/Select'
-import Autocomplete from '../../../elements/Autocomplete'
 import { connect } from 'react-redux'
-import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 import { fetchSetStudentPhoto } from '../../../../../redux/modules/AddStudent'
-import { apiGetLanguagesList } from '../../../../../api/addStudent'
-import { getAddStudentFieldsValue, getAddStudentErrorValues } from '../../../../../selectors/addStudent'
-import { Container } from './styled'
+import { getAddStudentFieldValue } from '../../../../../selectors/addStudent'
 
 
 import Cropper from './Cropper'
@@ -36,13 +30,6 @@ class Photo extends React.Component {
     )
   }
 
-  _handleSubmit(e) {
-    //e.preventDefault();
-    //var base64 = this.state.imagePreviewUrl;
-    //this.props.fetchSetValueForStudent({ name: "photo", val: base64, error:false });
-    //console.log('handle uploading-', this.state.file);
-  }
-
   _handleImageChange(e) {
     e.preventDefault();
 
@@ -62,9 +49,10 @@ class Photo extends React.Component {
 
   render() {
     let { imagePreviewUrl, cropperWindow } = this.state;
+    let { imagePath } = this.props;
     let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
+    if (imagePreviewUrl || imagePath) {
+      $imagePreview = (<img src={imagePreviewUrl ? imagePreviewUrl : imagePath} />);
     } else {
       $imagePreview = (<div className="previewText">Выберите изображение</div>);
     }
@@ -82,22 +70,19 @@ class Photo extends React.Component {
         <div className="imgPreview">
           {$imagePreview}
         </div>
-        {cropperWindow && (<Cropper isOpen={cropperWindow} src={imagePreviewUrl} saveImage={this.hadleCropSaveImage}/>)}
+        {cropperWindow && (<Cropper isOpen={cropperWindow} src={imagePreviewUrl} saveImage={this.hadleCropSaveImage} />)}
       </div>
     )
   }
 }
 
 Photo.props = {
-  fieldValue: PropTypes.object,
-  errorValues: PropTypes.object,
+  imagePath: PropTypes.str,
 }
 
-function mapStateToProps(store) {
-  return {
-    fieldValue: getAddStudentFieldsValue(store),
-    errorValues: getAddStudentErrorValues(store),
-  }
-}
+ const mapStateToProps = (store) => ({
+  imagePath: getAddStudentFieldValue(store, 'imagePath')
+})
+
 
 export default connect(mapStateToProps, { fetchSetStudentPhoto })(Photo)

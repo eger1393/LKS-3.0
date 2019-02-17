@@ -25,15 +25,17 @@ function* addStudent() {
             try {
               var Student = yield select(getAddStudentFieldsValue);
               var Photo = yield select(getStudentPhoto);
-              var data = {
-                Student: Student,
-                Photo: Photo,
-              }
+
                 Student.id = guid();
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
-                })
-              const result = yield call(apiCreateStudent, data);
+              })
+              
+              let form = new FormData();
+              form.append('Student', Student);
+              form.append('Photo', Photo);
+
+              const result = yield call(apiCreateStudent, form);
                 yield put(fetchAddStudentSuccess(result));
             } catch{
                 yield put(fetchAddStudentFailed());
@@ -49,11 +51,15 @@ function* addStudent() {
         }),
         takeEvery(FETCH_UPDATE_STUDENT, function* () {
             try {
-              var Student = yield select(getAddStudentFieldsValue);
+              let Student = yield select(getAddStudentFieldsValue);
+              let Photo = yield select(getStudentPhoto);
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
-                })
-                const result = yield call(apiUpdateStudent, Student);
+              })
+              let form = new FormData();
+              Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+              form.append('Photo', Photo);
+              const result = yield call(apiUpdateStudent, form);
                 yield put(fetchUpdateStudentSuccess(result));
             } catch{
                 //yield put(fetchAddStudentFailed());

@@ -38,6 +38,7 @@ const defaultState = {
   },
   errorMessage: '',
   loading: false,
+  studentPhoto: undefined,
 }
 
 export default function reducer(currentStudentState = defaultState, action = {}) {
@@ -55,9 +56,8 @@ export default function reducer(currentStudentState = defaultState, action = {})
     case FETCH_ADD_STUDENT_SUCCESS:
       return {
         ...currentStudentState,
-        fieldsValue: {
-
-        },
+        fieldsValue: {},
+        studentPhoto: undefined,
       }
     case FETCH_ADD_STUDENT_FAILED:
       return {
@@ -114,9 +114,8 @@ export default function reducer(currentStudentState = defaultState, action = {})
     case FETCH_UPDATE_STUDENT_SUCCESS:
       return {
         ...currentStudentState,
-        fieldsValue: {
-
-        },
+        fieldsValue: {},
+        studentPhoto: undefined,
       }
     case FETCH_SET_ERRORS:
       return {

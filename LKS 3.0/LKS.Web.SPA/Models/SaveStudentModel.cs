@@ -13,7 +13,7 @@ namespace LKS.Web.Models
 		[Required]
 		public Student Student { get; set; }
 
-		[Required]
+		//[Required]
 		public IFormFile Photo { get; set; }
 	}
 }
