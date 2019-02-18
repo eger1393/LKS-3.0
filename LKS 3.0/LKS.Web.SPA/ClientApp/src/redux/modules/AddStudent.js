@@ -18,6 +18,8 @@ export const FETCH_CLEAR_STUDENT = `${module}/FETCH_CLEAR_STUDENT`
 
 export const FETCH_SET_ERRORS = `${module}/FETCH_SET_ERRORS`
 
+export const FETCH_SET_STUDENT_PHOTO = `${module}/FETCH_SET_STUDENT_PHOTO`
+
 const defaultState = {
     fieldsValue: {
         relatives: [],
@@ -42,6 +44,7 @@ const defaultState = {
     errorMessage: '',
     errorStudent: false,
     loading: false,
+    studentPhoto: undefined,
 }
 
 export default function reducer(currentStudentState = defaultState, action = {}) {
@@ -57,7 +60,11 @@ export default function reducer(currentStudentState = defaultState, action = {})
                 ...currentStudentState,
                 errorStudent: true,
             }
-
+        case FETCH_SET_STUDENT_PHOTO:
+            return {
+              ...currentStudentState,
+                studentPhoto: payload,
+            }
         case FETCH_CLEAR_STUDENT:
         case FETCH_ADD_STUDENT_SUCCESS:
         case FETCH_UPDATE_STUDENT_SUCCESS:
@@ -164,48 +171,53 @@ export default function reducer(currentStudentState = defaultState, action = {})
     }
 }
 
+export const fetchSetStudentPhoto = photo => ({
+  type: FETCH_SET_STUDENT_PHOTO,
+  payload: photo,
+})
+
 export const fetchAddNewStudent = () => ({
-    type: FETCH_ADD_NEW_STUDENT,
+  type: FETCH_ADD_NEW_STUDENT,
 })
 
 export const fetchAddStudentSuccess = data => ({
-    type: FETCH_ADD_STUDENT_SUCCESS,
-    payload: data,
+  type: FETCH_ADD_STUDENT_SUCCESS,
+  payload: data,
 })
 
 export const fetchAddStudentFailed = data => ({
-    type: FETCH_ADD_STUDENT_FAILED,
+  type: FETCH_ADD_STUDENT_FAILED,
 })
 
 
 export const fetchSetValueForStudent = (data) => ({
-    type: FETCH_SET_VALUE_FOR_STUDENT,
-    payload: data,
+  type: FETCH_SET_VALUE_FOR_STUDENT,
+  payload: data,
 })
 
 // data { index, values }
 export const fetchSetRelative = (data) => ({
-    type: FETCH_SET_RELATIVE,
-    payload: data,
+  type: FETCH_SET_RELATIVE,
+  payload: data,
 })
 
 //data { id }
 export const fetchSetStudent = (data) => ({
-    type: FETCH_SET_STUDENT,
-    payload: data,
+  type: FETCH_SET_STUDENT,
+  payload: data,
 })
 
 export const fetchSetStudentSuccess = (data) => ({
-    type: FETCH_SET_STUDENT_SUCCESS,
-    payload: data,
+  type: FETCH_SET_STUDENT_SUCCESS,
+  payload: data,
 })
 
 export const fetchUpdateStudent = () => ({
-    type: FETCH_UPDATE_STUDENT,
+  type: FETCH_UPDATE_STUDENT,
 })
 
 export const fetchUpdateStudentSuccess = () => ({
-    type: FETCH_UPDATE_STUDENT_SUCCESS,
+  type: FETCH_UPDATE_STUDENT_SUCCESS,
 })
 
 export const fetchUpdateStudentFailed = () => ({

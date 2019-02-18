@@ -53,7 +53,8 @@ namespace LKS.Web.SPA.Controllers
 				default:
 					return BadRequest("Неизвестный шаблон");
 			}
-			var file = await t.CreateTemplate(@"template/" + fileName, Students: students);
+			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template", fileName);
+			var file = await t.CreateTemplate(path, Students: students);
 
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
@@ -68,6 +69,7 @@ namespace LKS.Web.SPA.Controllers
 			troops.Add(troop);
 			TemplateProvider t = new TemplateProvider();
 			string fileName = string.Empty;
+			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
 			byte[] file = null;
 			switch (model.template)
 			{
@@ -101,38 +103,38 @@ namespace LKS.Web.SPA.Controllers
 				case "universityQuestionnaire":
 					{
 						fileName = "Анкета.docx";
-						file = await t.CopyFile(@"template/" + fileName);
+						file = await t.CopyFile(Path.Combine(path ,fileName));
 						break;
 					}
 				case "universitySampleQuestionnaire":
 					{
 						fileName = "Анкета_шабон.docx";
-						file = await t.CopyFile(@"template/" + fileName);
+						file = await t.CopyFile(Path.Combine(path, fileName));
 						break;
 					}
 				case "universityCycleStudentList":
 					{
 						fileName = "Список обучающихся на цикле.docx";
-						file = await t.CreateTemplate(@"template/" + fileName, Students: _studentRepository.GetTrainStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetTrainStudents());
 						break;
 					}
 				case "universityDeductionStudentList":
 					{
 						fileName = "Список студентов на отчисление.docx";
-						file = await t.CreateTemplate(@"template/" + fileName, Students: _studentRepository.GetForDeductionsStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetForDeductionsStudents());
 						break;
 					}
 				case "universityExpellendStudentList":
 					{
 						fileName = "Список отчисленных студентов.docx";
-						file = await t.CreateTemplate(@"template/" + fileName, Students: _studentRepository.GetSuspendedStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetSuspendedStudents());
 						break;
 					}
 				default:
 					return BadRequest("Неизвестный шаблон");
 			}
 			if (file == null)
-				file = await t.CreateTemplate(@"template/" + fileName, troops: troops);
+				file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
 
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 

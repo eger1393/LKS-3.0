@@ -6,8 +6,10 @@ const login_url = '/api/user/login'
 const getAllUsers_url = '/api/user/getAllUsers'
 const updatePassword_url = '/api/user/updatePassword'
 
-export const apiLogin = fetch => {
-  return axios.post(login_url, fetch.payload).then(data => {
+//fetch.payload
+
+export const apiLogin = data => {
+  return axios.post(login_url, data).then(data => {
     const { token, role } = data.data
     localStorage.setItem('LKS-jwt-client', token)
     localStorage.setItem('role', role);

@@ -1,12 +1,11 @@
 ﻿//@flow
 import React from 'react'
-import { Form, Field } from 'react-final-form'
-import { connect } from 'react-redux'
 
 import { Redirect } from 'react-router-dom'
-//import AuthError from '../Common/AuthError'
 import Input from '../../../_common/elements/Input'
 import Button from '../../../_common/elements/Button'
+
+import { apiLogin } from '../../../../api/user'
 
 import {
   LoginFormContainer,
@@ -15,25 +14,24 @@ import {
   Container,
 } from './styled'
 import { PageTitleBlock } from '../styled'
-import { fetchLogin } from '../../../../redux/modules/login'
-import { getErrors, getSuccessLogin } from '../../../../selectors/login'
+
 
 
 class Login extends React.Component {
   state = {
-    isError: false,
+    errorAuth: false,
     login: '',
     password: '',
+    isSuccess: false
   }
 
 
   onSubmit = () => {
+    var self = this
     const { password, login } = this.state
-    //TODO
-    this.props.fetchLogin({
-      Login: login,
-      Password: password,
-    })
+    apiLogin({ password, login })
+      .then(res => self.setState({ isSuccess: true }))
+      .catch(err => self.setState({ errorAuth: true }))
 
     return false;
   }
@@ -47,7 +45,7 @@ class Login extends React.Component {
     }));
   }
   render() {
-    const { errorMessage, isSuccess } = this.props
+    const { errorAuth, isSuccess } = this.state
 
     if (isSuccess) {
       return (<Redirect to="/Cabinet" />)
@@ -78,9 +76,9 @@ class Login extends React.Component {
               onChange={this.onChange}
             />
           </InputContainer>
-          <div className="auth-errors">
-            <div>{errorMessage}</div>
-          </div>
+          { errorAuth && (<div className="auth-errors">
+              <div>Введён неверный логин или пароль</div>
+            </div>)}
           <ButtonContainer>
             <Button type="button" value="Войти" onClick={this.onSubmit} />
           </ButtonContainer>
@@ -89,13 +87,4 @@ class Login extends React.Component {
     )
   }
 }
-
-const mapStateToProps = state => ({
-  errorMessage: getErrors(state),
-  isSuccess: getSuccessLogin(state),
-})
-
-export default connect(
-  mapStateToProps,
-  { fetchLogin }
-)(Login)
+export default Login

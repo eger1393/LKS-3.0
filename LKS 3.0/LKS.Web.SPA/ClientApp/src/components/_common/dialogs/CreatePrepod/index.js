@@ -1,7 +1,6 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Modal } from 'react-bootstrap'
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
 import FormHead from '../../elements/FormHead'
@@ -12,6 +11,8 @@ import {
   apiGetPrepodFromId,
   apiUpdatePrepod
 } from '../../../../api/prepod'
+
+import ModalDialog from '../../ModalDialog'
 
 import { Container } from './styled'
 
@@ -87,7 +88,7 @@ class CreatePrepod extends React.Component {
       { id: '3', val: 'Капитан' },
     ]
     return (
-      <Modal show={this.props.show} onHide={this.props.onHide}>
+      <ModalDialog show={this.props.show} onHide={this.props.onHide}>
         <ModalContainer>
           <Container>
             <FormHead text="Добавить преподавателя" handleClick={this.props.onHide} />
@@ -179,7 +180,7 @@ class CreatePrepod extends React.Component {
             </div>
           </Container>
         </ModalContainer>
-      </Modal>
+      </ModalDialog>
     );
   }
 }

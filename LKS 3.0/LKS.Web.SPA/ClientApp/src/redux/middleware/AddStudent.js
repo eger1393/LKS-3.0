@@ -1,6 +1,6 @@
 ﻿import { all, takeEvery, call, put, select, fork } from 'redux-saga/effects'
 import { apiCreateStudent, apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
-import { getAddStudentFieldsValue } from '../../selectors/addStudent'
+import { getAddStudentFieldsValue, getStudentPhoto } from '../../selectors/addStudent'
 import {
     FETCH_ADD_NEW_STUDENT,
     fetchAddStudentSuccess,
@@ -26,12 +26,19 @@ function* addStudent() {
     yield all([
         takeEvery(FETCH_ADD_NEW_STUDENT, function* () {
             try {
-                var Student = yield select(getAddStudentFieldsValue);
+              var Student = yield select(getAddStudentFieldsValue);
+              var Photo = yield select(getStudentPhoto);
+
                 Student.id = guid();
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
-                })
-                const result = yield call(apiCreateStudent, Student);
+              })
+              
+              let form = new FormData();
+              form.append('Student', Student);
+              form.append('Photo', Photo);
+
+              const result = yield call(apiCreateStudent, form);
                 yield put(fetchGetStudentListData());
                 yield put(fetchAddStudentSuccess(result));
             } catch{
@@ -48,11 +55,15 @@ function* addStudent() {
         }),
         takeEvery(FETCH_UPDATE_STUDENT, function* () {
             try {
-              var Student = yield select(getAddStudentFieldsValue);
+              let Student = yield select(getAddStudentFieldsValue);
+              let Photo = yield select(getStudentPhoto);
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
-                })
-                const result = yield call(apiUpdateStudent, Student);
+              })
+              let form = new FormData();
+              Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+              form.append('Photo', Photo);
+              const result = yield call(apiUpdateStudent, form);
                 yield put(fetchGetStudentListData());
                 yield put(fetchUpdateStudentSuccess(result));
             } catch{

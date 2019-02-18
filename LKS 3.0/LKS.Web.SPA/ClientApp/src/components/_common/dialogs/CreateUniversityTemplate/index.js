@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Tab, Tabs } from 'react-bootstrap'
+import { Tab, Tabs } from 'react-bootstrap'
+import Modal from '../../ModalDialog'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { ModalContainer } from '../../elements/StyleDialogs/styled'

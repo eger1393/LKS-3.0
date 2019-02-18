@@ -1,11 +1,10 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Table } from 'react-bootstrap'
+import Modal from '../../../ModalDialog'
 import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
 import { ModalContainer } from '../../../elements/StyleDialogs/styled'
 
-import { Container } from './styled'
 
 const PasswordWindow = props => (
     <Modal show={props.show} onHide={props.onHide}>

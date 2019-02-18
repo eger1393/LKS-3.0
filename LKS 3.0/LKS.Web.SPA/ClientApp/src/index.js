@@ -10,6 +10,7 @@ import history from './history'
 import { setAuthToken, handleResponse } from './axiosExtensions';
 
 import App from './App';
+import './index.css'
 //import Modal from 'react-modal'
 
 if (localStorage.getItem('LKS-jwt-client')) {
