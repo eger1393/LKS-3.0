@@ -1,6 +1,4 @@
-﻿import { relative } from "path";
-
-const module = 'AddStudent'
+﻿const module = 'AddStudent'
 
 export const FETCH_ADD_NEW_STUDENT = `${module}/FETCH_ADD_NEW_STUDENT`
 export const FETCH_ADD_STUDENT_SUCCESS = `${module}/FETCH_ADD_STUDENT_SUCCESS`
@@ -8,12 +6,15 @@ export const FETCH_ADD_STUDENT_FAILED = `${module}/FETCH_ADD_STUDENT_FAILED`
 
 export const FETCH_UPDATE_STUDENT = `${module}/FETCH_UPDATE_STUDENT`
 export const FETCH_UPDATE_STUDENT_SUCCESS = `${module}/FETCH_UPDATE_STUDENT_SUCCESS`
+export const FETCH_UPDATE_STUDENT_FAILED = `${module}/FETCH_UPDATE_STUDENT_FAILED`
 
 export const FETCH_SET_VALUE_FOR_STUDENT = `${module}/FETCH_SET_VALUE_FOR_STUDENT`
 export const FETCH_SET_STUDENT = `${module}/FETCH_SET_STUDENT`
 export const FETCH_SET_STUDENT_SUCCESS = `${module}/FETCH_SET_STUDENT_SUCCESS`
 
 export const FETCH_SET_RELATIVE = `${module}/FETCH_SET_RELATIVE`
+
+export const FETCH_CLEAR_STUDENT = `${module}/FETCH_CLEAR_STUDENT`
 
 export const FETCH_SET_ERRORS = `${module}/FETCH_SET_ERRORS`
 
@@ -22,19 +23,24 @@ const defaultState = {
         relatives: [],
     },
     errorValues: {
-        lastName: false,
-        firstName: false,
-        middleName: false,
-        troopId: false,
-        position: false,
-        faculty: false,
-        rank: false,
-        birthday: false,
-        placeBirthday: false,
-        mobilePhone: false,
-        placeOfRegestration: false,
+        infoTab: {
+            lastName: false,
+            firstName: false,
+            middleName: false,
+            troopId: false,
+            position: false,
+            faculty: false,
+            rank: false,
+        },
+        personalTab: {
+            birthday: false,
+            placeBirthday: false,
+            mobilePhone: false,
+            placeOfRegestration: false,
+        },
     },
     errorMessage: '',
+    errorStudent: false,
     loading: false,
 }
 
@@ -44,20 +50,51 @@ export default function reducer(currentStudentState = defaultState, action = {})
         case FETCH_ADD_NEW_STUDENT:
             return {
                 ...currentStudentState,
+                errorStudent: true,
             }
+        case FETCH_UPDATE_STUDENT:
+            return {
+                ...currentStudentState,
+                errorStudent: true,
+            }
+
+        case FETCH_CLEAR_STUDENT:
         case FETCH_ADD_STUDENT_SUCCESS:
+        case FETCH_UPDATE_STUDENT_SUCCESS:
             return {
                 ...currentStudentState,
                 fieldsValue: {
                    
                 },
+                errorValues: {
+                    ...currentStudentState.errorValues,
+                    infoTab: {
+                        lastName: false,
+                        firstName: false,
+                        middleName: false,
+                        troopId: false,
+                        position: false,
+                        faculty: false,
+                        rank: false,
+                    },
+                    personalTab: {
+                        birthday: false,
+                        placeBirthday: false,
+                        mobilePhone: false,
+                        placeOfRegestration: false,
+                    },
+                },
+                errorStudent: false,
             }
+
+        case FETCH_UPDATE_STUDENT_FAILED:
         case FETCH_ADD_STUDENT_FAILED:
             return {
                 ...currentStudentState,
-                info: {},
+                errorStudent: true,
                 errorMessage: 'Произошла ошибка!', // обработать этот момент(подумать в какой момент я на серве кидаю ошибки)
             }
+
         case FETCH_SET_VALUE_FOR_STUDENT:
             return {
                 ...currentStudentState,
@@ -100,33 +137,26 @@ export default function reducer(currentStudentState = defaultState, action = {})
                 },
                 loading: false,
             }
-        case FETCH_UPDATE_STUDENT:
-            return {
-                ...currentStudentState,
-            }
-        case FETCH_UPDATE_STUDENT_SUCCESS:
-            return {
-                ...currentStudentState,
-                fieldsValue: {
-                    
-                },
-            }
         case FETCH_SET_ERRORS:
             return {
                 ...currentStudentState,
                 errorValues: {
                     ...currentStudentState.errorValues,
-                    lastName: !currentStudentState.fieldsValue.lastName,
-                    firstName: !currentStudentState.fieldsValue.firstName,
-                    middleName: !currentStudentState.fieldsValue.middleName,
-                    troopId: !currentStudentState.fieldsValue.troopId,
-                    kurs: !currentStudentState.fieldsValue.kurs,
-                    faculty: !currentStudentState.fieldsValue.faculty,
-                     position: !currentStudentState.fieldsValue.position,
-                    birthday: !currentStudentState.fieldsValue.birthday,
-                    placeBirthday: !currentStudentState.fieldsValue.placeBirthday,
-                    mobilePhone: !currentStudentState.fieldsValue.mobilePhone,
-                    placeOfRegestration: !currentStudentState.fieldsValue.placeOfRegestration,
+                    infoTab: {
+                        lastName: !currentStudentState.fieldsValue.lastName,
+                        firstName: !currentStudentState.fieldsValue.firstName,
+                        middleName: !currentStudentState.fieldsValue.middleName,
+                        troopId: !currentStudentState.fieldsValue.troopId,
+                        kurs: !currentStudentState.fieldsValue.kurs,
+                        faculty: !currentStudentState.fieldsValue.faculty,
+                        position: !currentStudentState.fieldsValue.position,
+                    },
+                    personalTab: {
+                        birthday: !currentStudentState.fieldsValue.birthday,
+                        placeBirthday: !currentStudentState.fieldsValue.placeBirthday,
+                        mobilePhone: !currentStudentState.fieldsValue.mobilePhone,
+                        placeOfRegestration: !currentStudentState.fieldsValue.placeOfRegestration,
+                    },
                 }
             }
         default:
@@ -178,7 +208,15 @@ export const fetchUpdateStudentSuccess = () => ({
     type: FETCH_UPDATE_STUDENT_SUCCESS,
 })
 
+export const fetchUpdateStudentFailed = () => ({
+    type: FETCH_UPDATE_STUDENT_FAILED,
+})
+
 export const fetchSetErrors = (data) => ({
     type: FETCH_SET_ERRORS,
     payload: data,
+})
+
+export const fetchClearStudent = () => ({
+    type: FETCH_CLEAR_STUDENT,
 })

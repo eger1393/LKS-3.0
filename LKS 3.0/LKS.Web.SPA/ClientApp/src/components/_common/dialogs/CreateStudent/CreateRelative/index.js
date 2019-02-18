@@ -209,7 +209,8 @@ class CreateRelative extends React.Component {
                             <FlexRow>
                                 <div>
                                     <Input id="birthday"
-                                        type="date"
+                                        type="text"
+                                        date={true}
                                         isRequired={true}
                                         placeholder="Дата рождения"
                                         value={this.state.fieldsValue['birthday']}

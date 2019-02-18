@@ -14,14 +14,17 @@ type InputProps = {
 }
 
 class Input extends React.Component<InputProps> {
-    state = { isFocus: false, value: '' }
+    state = { isFocus: false, value: '', type: this.props.type }
 
     Focus = event => {
+        if (this.props.date == true) this.state.type = 'date'
         this.setState({ isFocus: true })
     }
 
     Blur = event => {
+        if (!this.state.value && this.props.date == true) this.state.type = 'text'
         if (event.target.value === '') this.setState({ isFocus: false })
+        
     }
 
     Change = event => {
@@ -40,7 +43,7 @@ class Input extends React.Component<InputProps> {
             >
                 <input
                     autoComplete={this.props.autocomplete}
-                    type={this.props.type}
+                    type={this.state.type}
                     id={this.props.id}
                     onFocus={this.Focus}
                     name={this.props.name}

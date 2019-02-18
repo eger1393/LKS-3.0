@@ -7,4 +7,8 @@ export const Container = styled.div`
             margin: 7.5px -10px !important;
         }
     }
+    .li a.Error {
+        color: white;
+        background-color: #E32636;
+    }
 `

@@ -35,7 +35,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-
     const isAdmin = localStorage.getItem('role') == 'Admin'
     if (isAdmin)
       return (
