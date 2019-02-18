@@ -12,8 +12,5 @@ export const Container = styled.div`
     max-width: 200px;
     max-height: 200px;
 }
-.li a.Error {
-    color: white;
-        background-color: #E32636;
-}
+.customTubs a[role="tab"] div.Error{ color: red; }
 `

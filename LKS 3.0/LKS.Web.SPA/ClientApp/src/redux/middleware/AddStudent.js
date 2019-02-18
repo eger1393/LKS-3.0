@@ -34,9 +34,9 @@ function* addStudent() {
                     return { ...obj, StudentId: Student.id }
               })
               
-              let form = new FormData();
-              form.append('Student', Student);
-              form.append('Photo', Photo);
+                let form = new FormData();
+                Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+                form.append('Photo', Photo);
 
               const result = yield call(apiCreateStudent, form);
                 yield put(fetchGetStudentListData());

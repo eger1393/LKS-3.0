@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 
 
-const customStyles = {
+const constStyles = {
   content: {
     top: 'calc(100% - 90vh)',
     left: '50%',
@@ -29,14 +29,15 @@ class ModalDialog extends React.Component {
   render() {
     var {
       show,
-      onHide,
+        onHide,
+        customStyles,
       ...rest
     } = this.props;
     return (
       <Modal
         isOpen={show}
-        onRequestClose={onHide}
-        style={customStyles}
+            onRequestClose={onHide}
+            style={ customStyles ? customStyles : constStyles }
         {...rest}
       />
     )

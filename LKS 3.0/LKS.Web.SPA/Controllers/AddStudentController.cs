@@ -76,17 +76,19 @@ namespace LKS.Web.SPA.Controllers
 		public async Task<IActionResult> CreateStudent([FromForm]SaveStudentModel model)
 		{
 			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
-			model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
-			await _stydentRepository.Create(model.Student);
+				return BadRequest(ModelState); if (model.Photo != null)
+            {
+                if (!string.IsNullOrEmpty(model.Student?.ImagePath))
+                    ImageHelper.DeleteImage(model.Student.ImagePath);
+                model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
+            }
+            await _stydentRepository.Create(model.Student);
 			return Ok();
 		}
 
 		[HttpPost("[action]")]
 		public async Task<IActionResult> UpdateStudent([FromForm]SaveStudentModel model)
 		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 

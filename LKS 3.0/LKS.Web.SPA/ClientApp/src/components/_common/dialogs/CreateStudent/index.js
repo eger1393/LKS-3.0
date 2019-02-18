@@ -1,6 +1,6 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
-import {Tab, Tabs } from 'react-bootstrap'
+import { Tab, Tabs, Row, Nav } from 'react-bootstrap'
 import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
 import { ModalContainer } from '../../elements/StyleDialogs/styled'
@@ -12,10 +12,14 @@ import { connect } from 'react-redux'
 import Personal from './Personal';
 import RelativesList from './RelativesList'
 import Photo from './Photo'
+import ModalClose from './CloseOrNot'
 
 import ModalDialog from '../../ModalDialog'
 
 class CreateStudent extends React.Component {
+    state = {
+        closeOrNotWindow: false,
+    };
     constructor(props) {
         super(props);
         this.createStudent = this.createStudent.bind(this)
@@ -40,9 +44,24 @@ class CreateStudent extends React.Component {
         }
 
     }
+    closeOrNotModal = () => {
+        this.setState({
+            closeOrNotWindow: true,
+        })
+    }
+
     closeModal = () => {
+        this.setState({
+            closeOrNotWindow: false,
+        })
         this.props.fetchClearStudent();
         this.props.onHide();
+    }
+
+    cancelClose = () => {
+        this.setState({
+            closeOrNotWindow: false,
+        })
     }
     validate = () => {
         var val = this.props.fieldsValue;
@@ -69,17 +88,16 @@ class CreateStudent extends React.Component {
             !this.props.loading &&
             (<ModalDialog
                 show={this.props.show}
-            //убрал функцию OnHide чтоб окно не закрывалось случайно, закрыть можно по нажатию на X
-
+                onHide={this.closeOrNotModal}
             >
                 <ModalContainer ref="ModalContainer">
                     <Container>
                         <FormHead text="Добавить студента" handleClick={this.closeModal} />
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
-                            <Tab eventKey={1} title="Информация" className={(this.props.errorPersonal ? 'Error' : '')}>
+                            <Tab eventKey={1} title={<div className={(this.props.errorPersonal ? 'Error' : '')} >Информация</div>}>
                                 <Info />
                             </Tab>
-                            <Tab eventKey={2} title="Личные данные" className={(this.props.errorPersonal ? 'Error' : '')}>
+                            <Tab eventKey={2} title={<div className={(this.props.errorPersonal ? 'Error' : '')} >Личные данные</div>}>
                                 <Personal />
                             </Tab>
                             <Tab eventKey={3} title="Родственники">
@@ -93,6 +111,7 @@ class CreateStudent extends React.Component {
                         </Tabs>
                     </Container>
                     <Button onClick={this.createStudent} value="Сохранить" />
+                    {this.state.closeOrNotWindow && (<ModalClose isOpen={this.state.closeOrNotWindow} isOk={this.closeModal} isCancel={this.cancelClose} />)}
                 </ModalContainer>
             </ModalDialog>)
         );
