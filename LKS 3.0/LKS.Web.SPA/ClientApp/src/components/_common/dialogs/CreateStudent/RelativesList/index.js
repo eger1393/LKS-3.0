@@ -1,12 +1,12 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Modal, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import Button from '../../../elements/Button'
 import { getAddStudentRelatives } from '../../../../../selectors/addStudent'
-import { FlexBox, ModalContainer } from '../../../elements/StyleDialogs/styled'
+import { FlexBox } from '../../../elements/StyleDialogs/styled'
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import { Container, Contant } from './styled'
+import { Container, Contant, ButtonStyle } from './styled'
 import CreateRelative from '../CreateRelative'
 
 class RelativesList extends React.Component {
@@ -40,39 +40,39 @@ class RelativesList extends React.Component {
     render() {
         const { currentRelatives } = this.props;
         return (
-          <Container ref="ModalContainer">
-                        <FlexBox>
-                            <Contant>
-                                <Table bordered condensed hover>
-                                    <thead>
-                                        <tr>
-                                            <td>
-                                                Фамилия
+            <Container ref="ModalContainer">
+                <FlexBox>
+                    <Contant>
+                        <Table bordered condensed hover>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Фамилия
                                             </td>
-                                            <td>
-                                                Имя
+                                    <td>
+                                        Имя
                                             </td>
-                                            <td>
-                                                Отчество
+                                    <td>
+                                        Отчество
                                             </td>
-                                            <td>
-                                                Степень родства
+                                    <td>
+                                        Степень родства
                                             </td>
-                                            <td>
-                                                Состояние здоровья
+                                    <td>
+                                        Состояние здоровья
                                             </td>
-                                            <td>
-                                                Дата рождения
+                                    <td>
+                                        Дата рождения
                                             </td>
-                                            <td>
-                                                Мобильный телефон
+                                    <td>
+                                        Мобильный телефон
                                             </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {
 
-                      currentRelatives && currentRelatives.map(function (ob, i) {
+                                    currentRelatives && currentRelatives.map(function (ob, i) {
                                         {
                                             return (
                                                 <ContextMenuTrigger
@@ -80,7 +80,7 @@ class RelativesList extends React.Component {
                                                     id="relativeMenu"
                                                     relativeIndex={i}
                                                     key={i}
-                                                collect={this.collect}
+                                                    collect={this.collect}
                                                 //posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
                                                 //posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
                                                 >
@@ -105,33 +105,33 @@ class RelativesList extends React.Component {
                                                     <td>
                                                         {ob.mobilePhone}
                                                     </td>
-                                                   
+
                                                 </ContextMenuTrigger>
                                             )
                                         }
                                     }, this)
                                 }
 
-                                    </tbody>
-                                </Table>
+                            </tbody>
+                        </Table>
 
-                            </Contant>
-                        </FlexBox>
-                        <div className="form-submit">
-                            <Button onClick={this.toggleWindow} value="Создать" />
-                        </div>
-                        <ContextMenu id="relativeMenu">
-                            <MenuItem onClick={this.menuClick} data={{ type: 'editRelative' }}>Редактировать данные</MenuItem>
-                            <MenuItem onClick={this.menuClick} data={{ type: 'deleteRelative' }}>Удалить родственника</MenuItem>
-                        </ContextMenu>
-                       {this.state.relativesWindowIsOpen && (
+                    </Contant>
+                </FlexBox>
+                <ButtonStyle>
+                    <Button onClick={this.toggleWindow} value="Создать" />
+                </ButtonStyle>
+                <ContextMenu id="relativeMenu">
+                    <MenuItem onClick={this.menuClick} data={{ type: 'editRelative' }}>Редактировать данные</MenuItem>
+                    <MenuItem onClick={this.menuClick} data={{ type: 'deleteRelative' }}>Удалить родственника</MenuItem>
+                </ContextMenu>
+                {this.state.relativesWindowIsOpen && (
                     <CreateRelative
                         show={this.state.relativesWindowIsOpen}
                         onHide={this.toggleWindow}
                         relativeIndex={this.state.selectRelativeIndex}
-                     />
-                        )}
-                    </Container>
+                    />
+                )}
+            </Container>
         );
     }
 }

@@ -54,7 +54,7 @@ class UserList extends React.Component {
       <Modal show={this.props.show} onHide={this.props.onHide}>
         <ModalContainer ref="ModalContainer">
           <Container>
-            <FormHead text="Список взводов" handleClick={this.props.onHide} />
+            <FormHead text="Список пользователей" handleClick={this.props.onHide} />
             <FlexBox>
               <Content >
                 <Table bordered condensed hover>

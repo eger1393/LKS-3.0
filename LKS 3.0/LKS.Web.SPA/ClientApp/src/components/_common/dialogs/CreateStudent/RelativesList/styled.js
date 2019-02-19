@@ -80,3 +80,8 @@ export const Container = styled.div`
 export const Contant = styled.div`
     margin-top: 40px;
 `
+export const ButtonStyle = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+`

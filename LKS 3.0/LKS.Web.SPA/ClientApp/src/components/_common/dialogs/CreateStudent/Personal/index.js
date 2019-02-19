@@ -73,7 +73,7 @@ class Personal extends React.Component {
                                 && (<div className="error-message">Введите место рождения!</div>)
                             }
                         </div>
-                       
+
                     </FlexRow>
                     <FlexRow>
                         <Input id="nationality"
@@ -155,23 +155,23 @@ class Personal extends React.Component {
                             }
                         </div>
                     </FlexRow>
-                    
+
                     <span className="badge badge-light">Биометрия</span>
                     <FlexRow>
                         <Input id="bloodType"
-                                type="text"
+                            type="text"
                             isRequired={false}
-                                placeholder="Группа крови"
-                                value={this.props.fieldValues['bloodType']}
-                                onChange={this.changeSelect}
-                            />
+                            placeholder="Группа крови"
+                            value={this.props.fieldValues['bloodType']}
+                            onChange={this.changeSelect}
+                        />
                         <Input id="growth"
-                                type="number"
+                            type="number"
                             isRequired={false}
-                                placeholder="Рост"
-                                value={this.props.fieldValues['growth']}
-                                onChange={this.changeSelect}
-                            />
+                            placeholder="Рост"
+                            value={this.props.fieldValues['growth']}
+                            onChange={this.changeSelect}
+                        />
                     </FlexRow>
                     <FlexRow>
                         <Input id="clothihgSize"
@@ -221,20 +221,25 @@ class Personal extends React.Component {
                             onChange={this.changeSelect}
                             value={this.props.fieldValues.skill2}
                         />
+                    </FlexRow>
+
+                    <FlexRow>
                         <CheckBox id="skill3"
                             title="Adobe Photoshop"
                             inline={true}
                             onChange={this.changeSelect}
                             value={this.props.fieldValues.skill3}
                         />
-                    </FlexRow>
-                    <FlexRow>
+
                         <CheckBox id="skill4"
                             title="Электроника, электротехника"
                             inline={true}
                             onChange={this.changeSelect}
                             value={this.props.fieldValues.skill4}
                         />
+                    </FlexRow>
+
+                    <FlexRow>
                         <CheckBox id="skill5"
                             title="Настройка локальных сетей"
                             inline={true}
@@ -249,13 +254,13 @@ class Personal extends React.Component {
                         />
                     </FlexRow>
 
-                    <span className="badge badge-light">Иностраные языки</span>
+                    <span className="badge badge-light" >Иностраные языки</span>
                     <FlexRow>
                         {
                             this.state.languages.length != 0 && (<Autocomplete id="foreignLanguage"
                                 data={this.state.languages} onChange={this.changeSelect} placeholder="Иностранный язык" value={this.props.fieldValues.foreignLanguage}
                             />)}
-                            <Select id="languageRank"
+                        <Select id="languageRank"
                             data={languageRanks}
                             value="id"
                             selectedValue={this.props.fieldValues.languageRank}

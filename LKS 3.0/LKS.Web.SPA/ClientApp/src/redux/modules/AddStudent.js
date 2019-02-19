@@ -22,6 +22,17 @@ export const FETCH_SET_STUDENT_PHOTO = `${module}/FETCH_SET_STUDENT_PHOTO`
 
 const defaultState = {
     fieldsValue: {
+        lastName: "Иванов",
+        firstName: "Иван",
+        middleName: "Иванович",
+        troopId: 1,
+        position: "none",
+        faculty: "3",
+        kurs: "4",
+        birthday: "01-01-2000",
+        placeBirthday: "Москва",
+        mobilePhone: "8(999)11-11-11",
+        placeOfRegestration: "Москва",
         relatives: [],
     },
     errorValues: {
@@ -32,7 +43,7 @@ const defaultState = {
             troopId: false,
             position: false,
             faculty: false,
-            rank: false,
+            kurs: false,
         },
         personalTab: {
             birthday: false,
@@ -68,7 +79,18 @@ export default function reducer(currentStudentState = defaultState, action = {})
             return {
                 ...currentStudentState,
                 fieldsValue: {
-                   
+                    lastName: "Иванов",
+                    firstName: "Иван",
+                    middleName: "Иванович",
+                    troopId: 1,
+                    position: 6,
+                    faculty: "3",
+                    kurs: "4",
+                    birthday: "01-01-2000",
+                    placeBirthday: "Москва",
+                    mobilePhone: "8(999)11-11-11",
+                    placeOfRegestration: "Москва",
+                    relatives: [],
                 },
                 errorValues: {
                     ...currentStudentState.errorValues,
@@ -79,7 +101,7 @@ export default function reducer(currentStudentState = defaultState, action = {})
                         troopId: false,
                         position: false,
                         faculty: false,
-                        rank: false,
+                        kurs: false,
                     },
                     personalTab: {
                         birthday: false,

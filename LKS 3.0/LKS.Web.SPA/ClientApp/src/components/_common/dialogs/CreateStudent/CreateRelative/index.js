@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Modal } from 'react-bootstrap'
+import Modal from '../../../ModalDialog'
 import Input from '../../../elements/Input'
 import Select from '../../../elements/Select'
 import FormHead from '../../../elements/FormHead'

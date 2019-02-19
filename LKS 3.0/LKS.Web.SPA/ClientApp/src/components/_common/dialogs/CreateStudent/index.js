@@ -62,8 +62,8 @@ class CreateStudent extends React.Component {
             || !val.middleName
             || !val.troopId
             || !val.kurs
-            || !val.faculty
             || !val.position
+            || !val.faculty
             || !val.birthday
             || !val.placeBirthday
             || !val.mobilePhone

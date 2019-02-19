@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
 import { fetchSetValueForStudent } from '../../../../../redux/modules/AddStudent'
-import { getAddStudentFieldsValue, getAddStudentErrorValues  } from '../../../../../selectors/addStudent'
+import { getAddStudentFieldsValue, getAddStudentErrorValues } from '../../../../../selectors/addStudent'
 import { apiGetTroopList } from '../../../../../api/dialogs'
 import { Container } from './styled'
 
@@ -30,7 +30,7 @@ class Info extends React.Component {
         this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
 
-   
+
 
     componentWillMount() {
         if (this.isUnmounted) {
@@ -59,12 +59,12 @@ class Info extends React.Component {
 
         var military = [{ id: '1', val: 'Годен' }, { id: '2', val: 'Не годен' }, { id: '3', val: 'Прошел службу' }]
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
-        var status = [{ id: 0, val: "Обучается" }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" },
-            { id: 3, val: "На сборах" }, { id: 4, val: "Прошел сборы" },]
-      var positions = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
-            { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" },]
+        var status = [{
+            id: "train", val: "Обучается" }, {id: "forDeductions", val: "На отсчисление"}, { id: "suspended", val: "Отстранен" },{ id: "trainingFees", val: "На сборах" }, {id: "completedFees", val: "Прошел сборы" },]
+        var positions = [{ id: "commander", val: "КВ" }, { id: "firstSquadCommander", val: "КО1" }, { id:"secondSquadCommander", val: "КО2" },
+            {id: "thirdSquadCommander", val: "КО3"}, { id: "journalist", val: "Ж" }, { id: "secretary", val: "С" }, { id: "none", val: "Нет" }]
         return (
-  
+
             <Container>
                 <FlexBox className="flex-box">
                     <FlexRow>
@@ -130,29 +130,24 @@ class Info extends React.Component {
                         </div>
                     </FlexRow>
                     <FlexRow>
-                        <div>
-                            <Select id="position"
-                                data={positions}
-                                value="id"
-                                text="val"
-                                selectedValue={this.props.fieldsValue.position}
-                                placeholder="Должность"
-                                onChange={this.changeSelect}
-                                error={this.props.errorValues.infoTab.position}
-                            />
-                            {
-                                this.props.errorValues.infoTab.position
-                                && (<div className="error-message">Выберите должность!</div>)
-                            }
-                        </div>
+
+                        <Select id="position"
+                            data={positions}
+                            value="id"
+                            text="val"
+                            selectedValue={this.props.fieldsValue.position}
+                            placeholder="Должность"
+                            onChange={this.changeSelect}
+                        />
+
                         {
-                        this.state.instGroup.length != 0 && (
-                        <Autocomplete id="instGroup"
-                        data={this.state.instGroup}
-                        onChange={this.changeSelect}
-                        placeholder="Группа"
-                        value={this.props.fieldsValue.instGroup}
-                        />)}
+                            this.state.instGroup.length != 0 && (
+                                <Autocomplete id="instGroup"
+                                    data={this.state.instGroup}
+                                    onChange={this.changeSelect}
+                                    placeholder="Группа"
+                                    value={this.props.fieldsValue.instGroup}
+                                />)}
                     </FlexRow>
                     <FlexRow>
                         <div>
@@ -188,13 +183,13 @@ class Info extends React.Component {
                     </FlexRow>
                     <FlexRow>
                         {
-                        this.state.specInst.length != 0 && (
-                            <Autocomplete id="specInst"
-                                data={this.state.specInst}
-                                onChange={this.changeSelect}
-                                placeholder="Специальность в ВУЗе"
-                                value={this.props.fieldsValue.specInst}
-                        />)}
+                            this.state.specInst.length != 0 && (
+                                <Autocomplete id="specInst"
+                                    data={this.state.specInst}
+                                    onChange={this.changeSelect}
+                                    placeholder="Специальность в ВУЗе"
+                                    value={this.props.fieldsValue.specInst}
+                                />)}
                         <Select id="conditionsOfEducation"
                             data={сonditionsOfEducation}
                             value="id"
@@ -285,9 +280,9 @@ class Info extends React.Component {
                     </FlexRow>
                 </FlexBox>
             </Container>
-            
-          
-            
+
+
+
         );
     }
 }
