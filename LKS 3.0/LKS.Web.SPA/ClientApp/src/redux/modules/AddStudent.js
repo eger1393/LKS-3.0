@@ -42,7 +42,6 @@ const defaultState = {
         },
     },
     errorMessage: '',
-    errorStudent: false,
     loading: false,
     studentPhoto: undefined,
 }
@@ -53,12 +52,10 @@ export default function reducer(currentStudentState = defaultState, action = {})
         case FETCH_ADD_NEW_STUDENT:
             return {
                 ...currentStudentState,
-                errorStudent: true,
             }
         case FETCH_UPDATE_STUDENT:
             return {
                 ...currentStudentState,
-                errorStudent: true,
             }
         case FETCH_SET_STUDENT_PHOTO:
             return {
@@ -91,31 +88,30 @@ export default function reducer(currentStudentState = defaultState, action = {})
                         placeOfRegestration: false,
                     },
                 },
-                errorStudent: false,
             }
 
         case FETCH_UPDATE_STUDENT_FAILED:
         case FETCH_ADD_STUDENT_FAILED:
             return {
                 ...currentStudentState,
-                errorStudent: true,
                 errorMessage: 'Произошла ошибка!', // обработать этот момент(подумать в какой момент я на серве кидаю ошибки)
             }
 
         case FETCH_SET_VALUE_FOR_STUDENT:
             {
-                //var errorsInfo, errorsPersonal;
-                //if (payload.tab == "infoTab") {
-                //    errorsInfo = [...currentStudentState.errorValues.infoTab];
-                //    errorsInfo[payload.name] = payload.error;
-                //    errorsPersonal = [...currentStudentState.errorValues.personalTab]
-                //}
-                //else if (payload.tab == "personalTab")
-                //{
-                //    errorsPersonal = [...currentStudentState.errorValues.personalTab];
-                //    errorsPersonal[payload.name] = payload.error;
-                //    errorsPersonal = [...currentStudentState.errorValues.infoTab]
-                //}
+                var errorsInfo, errorsPersonal;
+                if (payload.tab == "infoTab") {
+                    errorsInfo = currentStudentState.errorValues.infoTab;
+                    errorsInfo[payload.name] = payload.error;
+                    errorsPersonal = currentStudentState.errorValues.personalTab;
+                }
+                else if (payload.tab == "personalTab")
+                {
+                    errorsPersonal = currentStudentState.errorValues.personalTab;
+                    errorsPersonal[payload.name] = payload.error;
+                    errorsInfo = currentStudentState.errorValues.infoTab;
+                }
+
                 return {
                     ...currentStudentState,
                     fieldsValue: {
@@ -124,11 +120,11 @@ export default function reducer(currentStudentState = defaultState, action = {})
                     },
                     errorValues: {
                         ...currentStudentState.errorValues,
-                        [payload.name]: payload.error,
-                        //infoTab: errorsInfo,
-                        //personalTab: errorsPersonal,
+                        infoTab: errorsInfo,
+                        personalTab: errorsPersonal,
                     }
                 }
+           
             }
            
         case FETCH_SET_RELATIVE:

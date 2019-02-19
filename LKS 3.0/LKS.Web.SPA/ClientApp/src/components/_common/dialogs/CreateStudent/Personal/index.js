@@ -23,7 +23,7 @@ class Personal extends React.Component {
 
         //добавить валидацию значений
         var error = false;
-        var tab = "pesonalTab";
+        var tab = "personalTab";
         this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
     componentWillMount() {
@@ -52,10 +52,10 @@ class Personal extends React.Component {
                                 placeholder="Дата рождения"
                                 value={this.props.fieldValues['birthday']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.personalTab.birthday}
+                                error={this.props.errorValues.personalTab['birthday']}
                             />
                             {
-                                this.props.errorValues.personalTab.birthday
+                                this.props.errorValues.personalTab['birthday']
                                 && (<div className="error-message">Введите дату рождения!</div>)
                             }
                         </div>

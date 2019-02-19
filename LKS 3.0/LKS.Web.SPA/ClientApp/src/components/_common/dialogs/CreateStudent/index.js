@@ -32,15 +32,7 @@ class CreateStudent extends React.Component {
             else {
                 this.props.fetchAddNewStudent();
             }
-
-            if (!this.props.errorStudent) {
-                alert("Успешно!");
-                this.props.onHide();
-            }
-            else {
-                alert("Ошибка!");
-            }
-
+            this.props.onHide();
         }
 
     }
@@ -94,7 +86,7 @@ class CreateStudent extends React.Component {
                     <Container>
                         <FormHead text="Добавить студента" handleClick={this.closeModal} />
                         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" className="customTubs" >
-                            <Tab eventKey={1} title={<div className={(this.props.errorPersonal ? 'Error' : '')} >Информация</div>}>
+                            <Tab eventKey={1} title={<div className={(this.props.errorInfo ? 'Error' : '')} >Информация</div>}>
                                 <Info />
                             </Tab>
                             <Tab eventKey={2} title={<div className={(this.props.errorPersonal ? 'Error' : '')} >Личные данные</div>}>
@@ -125,7 +117,6 @@ CreateStudent.props = {
     fetchUpdateStudent: PropTypes.func,
     fetchAddNewStudent: PropTypes.func,
     loading: PropTypes.bool,
-    errorStudent: PropTypes.bool,
     errorInfo: PropTypes.bool,
     errorPersonal: PropTypes.bool,
 }
@@ -133,7 +124,6 @@ CreateStudent.props = {
 function mapStateToProps(store) {
     return {
         loading: getIsLoading(store),
-        errorStudent: getIsError(store),
         StudentId: getStudentId(store),
         fieldsValue: getAddStudentFieldsValue(store),
         errorInfo: getIsErrorInfo(store),
