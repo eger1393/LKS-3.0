@@ -15,4 +15,15 @@ export const ModalContainer = styled.div`
     border-radius: 2.5px;
     background-color: #ffffff;
     border: solid 0.3px rgba(210, 210, 210, 0.51);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+export const ModalBody = styled.div`
+    display: flex;
+    conten-alogn: center;
+`
+export const ModalFooter = styled.div`
+    justify-content: space-around;
+    display: flex;
 `

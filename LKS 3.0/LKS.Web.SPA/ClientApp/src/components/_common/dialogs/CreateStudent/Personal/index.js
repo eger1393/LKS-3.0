@@ -23,7 +23,8 @@ class Personal extends React.Component {
 
         //добавить валидацию значений
         var error = false;
-        this.props.fetchSetValueForStudent({ name, val, error });
+        var tab = "pesonalTab";
+        this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
     componentWillMount() {
         if (this.isUnmounted) {

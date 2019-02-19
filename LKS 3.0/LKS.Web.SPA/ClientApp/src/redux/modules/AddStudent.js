@@ -103,17 +103,34 @@ export default function reducer(currentStudentState = defaultState, action = {})
             }
 
         case FETCH_SET_VALUE_FOR_STUDENT:
-            return {
-                ...currentStudentState,
-                fieldsValue: {
-                    ...currentStudentState.fieldsValue,
-                    [payload.name]: payload.val,
-                },
-                errorValues: {
-                    ...currentStudentState.errorValues,
-                    [payload.name]: payload.error,
+            {
+                //var errorsInfo, errorsPersonal;
+                //if (payload.tab == "infoTab") {
+                //    errorsInfo = [...currentStudentState.errorValues.infoTab];
+                //    errorsInfo[payload.name] = payload.error;
+                //    errorsPersonal = [...currentStudentState.errorValues.personalTab]
+                //}
+                //else if (payload.tab == "personalTab")
+                //{
+                //    errorsPersonal = [...currentStudentState.errorValues.personalTab];
+                //    errorsPersonal[payload.name] = payload.error;
+                //    errorsPersonal = [...currentStudentState.errorValues.infoTab]
+                //}
+                return {
+                    ...currentStudentState,
+                    fieldsValue: {
+                        ...currentStudentState.fieldsValue,
+                        [payload.name]: payload.val,
+                    },
+                    errorValues: {
+                        ...currentStudentState.errorValues,
+                        [payload.name]: payload.error,
+                        //infoTab: errorsInfo,
+                        //personalTab: errorsPersonal,
+                    }
                 }
             }
+           
         case FETCH_SET_RELATIVE:
             {
                 var relatives;

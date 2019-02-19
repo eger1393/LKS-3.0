@@ -26,7 +26,8 @@ class Info extends React.Component {
 
         //добавить валидацию значений
         var error = false;
-        this.props.fetchSetValueForStudent({ name, val, error });
+        var tab = "infoTab";
+        this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
 
    

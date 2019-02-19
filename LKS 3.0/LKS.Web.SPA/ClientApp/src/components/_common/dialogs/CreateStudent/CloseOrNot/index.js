@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Modal from '../../../../_common/ModalDialog'
 import Button from '../../../elements/Button'
-import { Container, ModalContainer } from './styled'
+import { Container, ModalContainer, ModalBody, ModalFooter } from './styled'
 import FormHead from '../../../elements/FormHead'
 
 export default class ModalClose extends React.Component {
@@ -19,11 +19,13 @@ export default class ModalClose extends React.Component {
                     onHide={isCancel} >
                     <ModalContainer>
                         <FormHead text="Внимание!" handleClick={isCancel} />
-
-                        <p>Вы уверены что хотите закрыть окно? Все несохраненные изменения будут удалены!</p>
-
-                        <Button onClick={isOk} value="Да" />
-                        <Button onClick={isCancel} value="Отмена" />
+                        <ModalBody>
+                            <p>Вы уверены что хотите закрыть окно? Все несохраненные изменения будут удалены!</p>
+                        </ModalBody>
+                        <ModalFooter>
+                                <Button onClick={isOk} value="Да" />
+                                <Button onClick={isCancel} value="Отмена" />
+                        </ModalFooter>
                     </ModalContainer>
                 </Modal>
             </Container>
