@@ -60,9 +60,10 @@ class Info extends React.Component {
         var military = [{ id: '1', val: 'Годен' }, { id: '2', val: 'Не годен' }, { id: '3', val: 'Прошел службу' }]
         var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
         var status = [{
-            id: "train", val: "Обучается" }, {id: "forDeductions", val: "На отсчисление"}, { id: "suspended", val: "Отстранен" },{ id: "trainingFees", val: "На сборах" }, {id: "completedFees", val: "Прошел сборы" },]
-        var positions = [{ id: "commander", val: "КВ" }, { id: "firstSquadCommander", val: "КО1" }, { id:"secondSquadCommander", val: "КО2" },
-            {id: "thirdSquadCommander", val: "КО3"}, { id: "journalist", val: "Ж" }, { id: "secretary", val: "С" }, { id: "none", val: "Нет" }]
+            id: 0, val: "Обучается" }, {id: 1, val: "На отсчисление"}, { id: 2, val: "Отстранен" },{ id: 3, val: "На сборах" }, {id: 4, val: "Прошел сборы" },]
+
+        var positions = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
+            {id: 3, val: "КО3"}, { id: 4, val: "Ж" }, { id: 5, val: "С" }, { id: 6, val: "Нет" }]
         return (
 
             <Container>

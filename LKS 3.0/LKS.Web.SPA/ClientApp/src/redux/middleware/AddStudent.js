@@ -32,8 +32,9 @@ function* addStudent() {
                Student.id = guid();
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
-              })
-              
+                })
+                if (Student.position) { Student.position = parseInt(Student.position) } //подумать-переделать
+                if (Student.status) { Student.status = parseInt(Student.status) } //подумать-переделать
                 let form = new FormData();
               Object.keys(Student).map(key => {
                 if (Student[key])
@@ -62,7 +63,9 @@ function* addStudent() {
               let Photo = yield select(getStudentPhoto);
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
-              })
+                })
+                if (Student.position) { Student.position = parseInt(Student.position) } //подумать-переделать
+                if (Student.status) { Student.status = parseInt(Student.status) } //подумать-переделать
               let form = new FormData();
               Object.keys(Student).map(key => {
                 if (Student[key])

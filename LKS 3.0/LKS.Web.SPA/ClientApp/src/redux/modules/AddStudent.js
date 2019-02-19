@@ -26,7 +26,7 @@ const defaultState = {
         firstName: "Иван",
         middleName: "Иванович",
         troopId: 1,
-        position: "none",
+        position: 6,
         faculty: "3",
         kurs: "4",
         birthday: "01-01-2000",

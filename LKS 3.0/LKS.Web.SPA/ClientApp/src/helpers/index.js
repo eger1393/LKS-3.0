@@ -32,3 +32,31 @@ export const getCoolnessValue = val => {
       return '';
   }
 }
+
+export const getPositionValue = val => {
+    switch (val) {
+        case 'commander':
+        case 0:
+            return 'КВ';
+        case "firstSquadCommander":
+        case 1:
+            return 'КО1';
+        case "secondSquadCommander":
+        case 2:
+            return 'КО2';
+        case "thirdSquadCommander":
+        case 3:
+            return 'КО3';
+        case "journalist":
+        case 4:
+            return 'Ж';
+        case "secretary":
+        case 5:
+            return 'С';
+        case "none":
+        case 6:
+            return 'Нет';
+        default:
+            return '';
+    }
+}
