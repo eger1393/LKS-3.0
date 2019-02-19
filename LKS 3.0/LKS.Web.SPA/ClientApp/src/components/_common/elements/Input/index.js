@@ -29,7 +29,6 @@ class Input extends React.Component<InputProps> {
 
     Change = event => {
         if (this.props.middlewareValidator === undefined || this.props.middlewareValidator(event)) {
-            //this.setState({ value: event.target.value });
             this.props.onChange(event);
         }
     }

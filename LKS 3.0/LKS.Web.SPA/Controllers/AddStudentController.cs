@@ -76,7 +76,8 @@ namespace LKS.Web.SPA.Controllers
 		public async Task<IActionResult> CreateStudent([FromForm]SaveStudentModel model)
 		{
 			if (!ModelState.IsValid)
-				return BadRequest(ModelState); if (model.Photo != null)
+				return BadRequest(ModelState);
+            if (model.Photo != null)
             {
                 if (!string.IsNullOrEmpty(model.Student?.ImagePath))
                     ImageHelper.DeleteImage(model.Student.ImagePath);

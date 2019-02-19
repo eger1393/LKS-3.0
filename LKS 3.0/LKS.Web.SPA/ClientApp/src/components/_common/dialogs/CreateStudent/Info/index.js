@@ -75,10 +75,10 @@ class Info extends React.Component {
                                 placeholder="Фамилия"
                                 value={this.props.fieldsValue['lastName']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.infoTab.lastName}
+                                error={this.props.errorValues['infoTab']['lastName']}
                             />
                             {
-                                this.props.errorValues.infoTab.lastName
+                                this.props.errorValues['infoTab']['lastName']
                                 && (<div className="error-message">Введите фамилию!</div>)
                             }
                         </div>
@@ -89,10 +89,10 @@ class Info extends React.Component {
                                 placeholder="Имя"
                                 value={this.props.fieldsValue['firstName']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.infoTab.firstName}
+                                error={this.props.errorValues['infoTab']['firstName']}
                             />
                             {
-                                this.props.errorValues.infoTab.firstName
+                                this.props.errorValues['infoTab']['firstName']
                                 && (<div className="error-message">Введите имя!</div>)
                             }
                         </div>
@@ -105,10 +105,10 @@ class Info extends React.Component {
                                 placeholder="Отчество"
                                 value={this.props.fieldsValue['middleName']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.infoTab.middleName}
+                                error={this.props.errorValues.infoTab['middleName']}
                             />
                             {
-                                this.props.errorValues.infoTab.middleName
+                                this.props.errorValues.infoTab['middleName']
                                 && (<div className="error-message">Введите отчество!</div>)
                             }
                         </div>
@@ -135,7 +135,7 @@ class Info extends React.Component {
                                 data={positions}
                                 value="id"
                                 text="val"
-                    selectedValue={this.props.fieldsValue.position}
+                                selectedValue={this.props.fieldsValue.position}
                                 placeholder="Должность"
                                 onChange={this.changeSelect}
                                 error={this.props.errorValues.infoTab.position}

@@ -29,7 +29,7 @@ function* addStudent() {
               var Student = yield select(getAddStudentFieldsValue);
               var Photo = yield select(getStudentPhoto);
 
-                Student.id = guid();
+               Student.id = guid();
               Student.relatives = Student.relatives.map(function (obj) {
                     return { ...obj, StudentId: Student.id }
               })
