@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 100%;
+    width: max-content;
     height: 54px;
     position: relative;    
     display: flex;
 
      label {
+        max-height: 40px;
         position: absolute;
         cursor: text;
-        transform: translateY(-10px);
+        transform: translateY(-3px);
         transition: transform 0.3s ease;
         left: 0;
         bottom: 10px;
