@@ -88,20 +88,25 @@ export const Row = styled.tr`
     //}
 `
 
-function getColor(status){
-    switch (status) {
-        case 0: // Обучается
-            return 'black';
-        case 1: // На отчисление
-            return '#f7f447';
-        case 2: // Отстранен
-            return '#e84a4a';
-        case 3: // На сборах
-            return '#81e84e';
-        case 4: // Прошел сборы
-            return '#4de8d0';
-        default:
-            console.log('ошибка в цвете статуса');
-            return 'white';
-    }
+function getColor(status) {
+  switch (status) {
+    case 0:
+    case 'train': // Обучается
+      return 'black';
+    case 1:
+    case 'forDeductions': // На отчисление
+      return '#f7f447';
+    case 2:
+    case 'suspended': // Отстранен
+      return '#e84a4a';
+    case 3:
+    case 'trainingFees': // На сборах
+      return '#81e84e';
+    case 4:
+    case 'completedFees': // Прошел сборы
+      return '#4de8d0';
+    default:
+      console.log('ошибка в цвете статуса');
+      return 'white';
+  }
 }
