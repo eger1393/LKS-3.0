@@ -11,5 +11,6 @@ export const Container = styled.div`
   .imgPreview>img{
     max-width: 200px;
     max-height: 200px;
-  }
+}
+.customTubs a[role="tab"] div.Error{ color: red; }
 `

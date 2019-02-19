@@ -1,4 +1,4 @@
-﻿import { all, takeEvery, call, put, select, take } from 'redux-saga/effects'
+﻿import { all, takeEvery, call, put, select, fork } from 'redux-saga/effects'
 import { apiCreateStudent, apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
 import { getAddStudentFieldsValue, getStudentPhoto } from '../../selectors/addStudent'
 import {
@@ -8,8 +8,11 @@ import {
     FETCH_SET_STUDENT,
     fetchSetStudentSuccess,
     FETCH_UPDATE_STUDENT,
-    fetchUpdateStudentSuccess
+    fetchUpdateStudentSuccess,
+    fetchUpdateStudentFailed
 } from '../modules/AddStudent'
+
+import { fetchGetStudentListData } from '../modules/studentList'
 
 function guid() {
   function s4() {
@@ -31,11 +34,12 @@ function* addStudent() {
                     return { ...obj, StudentId: Student.id }
               })
               
-              let form = new FormData();
-              form.append('Student', Student);
-              form.append('Photo', Photo);
+                let form = new FormData();
+                Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+                form.append('Photo', Photo);
 
               const result = yield call(apiCreateStudent, form);
+                yield put(fetchGetStudentListData());
                 yield put(fetchAddStudentSuccess(result));
             } catch{
                 yield put(fetchAddStudentFailed());
@@ -60,9 +64,10 @@ function* addStudent() {
               Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
               form.append('Photo', Photo);
               const result = yield call(apiUpdateStudent, form);
+                yield put(fetchGetStudentListData());
                 yield put(fetchUpdateStudentSuccess(result));
             } catch{
-                //yield put(fetchAddStudentFailed());
+                yield put(fetchUpdateStudentFailed());
             }
         }),
     ])

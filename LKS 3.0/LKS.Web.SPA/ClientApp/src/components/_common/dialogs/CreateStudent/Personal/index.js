@@ -23,7 +23,8 @@ class Personal extends React.Component {
 
         //добавить валидацию значений
         var error = false;
-        this.props.fetchSetValueForStudent({ name, val, error });
+        var tab = "pesonalTab";
+        this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
     componentWillMount() {
         if (this.isUnmounted) {
@@ -45,15 +46,16 @@ class Personal extends React.Component {
                     <FlexRow>
                         <div>
                             <Input id="birthday"
-                                type="date"
+                                type="text"
+                                date={true}
                                 isRequired={true}
                                 placeholder="Дата рождения"
-                                value={this.props.fieldValue['birthday']}
+                                value={this.props.fieldValues['birthday']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.birthday}
+                                error={this.props.errorValues.personalTab.birthday}
                             />
                             {
-                                this.props.errorValues.birthday
+                                this.props.errorValues.personalTab.birthday
                                 && (<div className="error-message">Введите дату рождения!</div>)
                             }
                         </div>
@@ -62,12 +64,12 @@ class Personal extends React.Component {
                                 type="text"
                                 isRequired={true}
                                 placeholder="Место рождения"
-                                value={this.props.fieldValue['placeBirthday']}
+                                value={this.props.fieldValues['placeBirthday']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.placeBirthday}
+                                error={this.props.errorValues.personalTab.placeBirthday}
                             />
                             {
-                                this.props.errorValues.placeBirthday
+                                this.props.errorValues.personalTab.placeBirthday
                                 && (<div className="error-message">Введите место рождения!</div>)
                             }
                         </div>
@@ -78,14 +80,14 @@ class Personal extends React.Component {
                             type="text"
                             isRequired={false}
                             placeholder="Национальность"
-                            value={this.props.fieldValue['nationality']}
+                            value={this.props.fieldValues['nationality']}
                             onChange={this.changeSelect}
                         />
                         <Input id="citizenship"
                             type="text"
                             isRequired={false}
                             placeholder="Гражданство"
-                            value={this.props.fieldValue['citizenship']}
+                            value={this.props.fieldValues['citizenship']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -94,7 +96,7 @@ class Personal extends React.Component {
                             type="tel"
                             isRequired={false}
                             placeholder="Дом. телефон"
-                            value={this.props.fieldValue['homePhone']}
+                            value={this.props.fieldValues['homePhone']}
                             onChange={this.changeSelect}
                         />
                         <div>
@@ -103,12 +105,12 @@ class Personal extends React.Component {
                                 pattern="(\+?\d[- .]*){7,13}"
                                 isRequired={true}
                                 placeholder="Мобильный телефон"
-                                value={this.props.fieldValue['mobilePhone']}
+                                value={this.props.fieldValues['mobilePhone']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.mobilePhone}
+                                error={this.props.errorValues.personalTab.mobilePhone}
                             />
                             {
-                                this.props.errorValues.mobilePhone
+                                this.props.errorValues.personalTab.mobilePhone
                                 && (<div className="error-message">Введите телефон!</div>)
                             }
                         </div>
@@ -118,14 +120,14 @@ class Personal extends React.Component {
                             type="tel"
                             isRequired={false}
                             placeholder="Дополнительный моб. телефон"
-                            value={this.props.fieldValue['two_MobilePhone']}
+                            value={this.props.fieldValues['two_MobilePhone']}
                             onChange={this.changeSelect}
                         />
                         <Input id="school"
                             type="text"
                             isRequired={false}
                             placeholder="Школа"
-                            value={this.props.fieldValue['school']}
+                            value={this.props.fieldValues['school']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -134,7 +136,7 @@ class Personal extends React.Component {
                             type="text"
                             isRequired={false}
                             placeholder="Адрес проживания"
-                            value={this.props.fieldValue['placeOfResidence']}
+                            value={this.props.fieldValues['placeOfResidence']}
                             onChange={this.changeSelect}
                         />
 
@@ -143,12 +145,12 @@ class Personal extends React.Component {
                                 type="text"
                                 isRequired={true}
                                 placeholder="Адрес регистрации"
-                                value={this.props.fieldValue['placeOfRegestration']}
+                                value={this.props.fieldValues['placeOfRegestration']}
                                 onChange={this.changeSelect}
-                                error={this.props.errorValues.placeOfRegestration}
+                                error={this.props.errorValues.personalTab.placeOfRegestration}
                             />
                             {
-                                this.props.errorValues.placeOfRegestration
+                                this.props.errorValues.personalTab.placeOfRegestration
                                 && (<div className="error-message">Введите адрес регистрации!</div>)
                             }
                         </div>
@@ -160,14 +162,14 @@ class Personal extends React.Component {
                                 type="text"
                             isRequired={false}
                                 placeholder="Группа крови"
-                                value={this.props.fieldValue['bloodType']}
+                                value={this.props.fieldValues['bloodType']}
                                 onChange={this.changeSelect}
                             />
                         <Input id="growth"
                                 type="number"
                             isRequired={false}
                                 placeholder="Рост"
-                                value={this.props.fieldValue['growth']}
+                                value={this.props.fieldValues['growth']}
                                 onChange={this.changeSelect}
                             />
                     </FlexRow>
@@ -176,14 +178,14 @@ class Personal extends React.Component {
                             type="number"
                             isRequired={false}
                             placeholder="Размер одежды"
-                            value={this.props.fieldValue['clothihgSize']}
+                            value={this.props.fieldValues['clothihgSize']}
                             onChange={this.changeSelect}
                         />
                         <Input id="shoeSize"
                             type="number"
                             isRequired={false}
                             placeholder="Размер обуви"
-                            value={this.props.fieldValue['shoeSize']}
+                            value={this.props.fieldValues['shoeSize']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -192,14 +194,14 @@ class Personal extends React.Component {
                             type="number"
                             isRequired={false}
                             placeholder="Размер головного убора"
-                            value={this.props.fieldValue['capSize']}
+                            value={this.props.fieldValues['capSize']}
                             onChange={this.changeSelect}
                         />
                         <Input id="maskSize"
                             type="number"
                             isRequired={false}
                             placeholder="Размер противогаза"
-                            value={this.props.fieldValue['maskSize']}
+                            value={this.props.fieldValues['maskSize']}
                             onChange={this.changeSelect}
                         />
                     </FlexRow>
@@ -211,19 +213,19 @@ class Personal extends React.Component {
                             title="Языки программирования (С,С++,С#)"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill1}
+                            value={this.props.fieldValues.skill1}
                         />
                         <CheckBox id="skill2"
                             title="Microsoft Office"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill2}
+                            value={this.props.fieldValues.skill2}
                         />
                         <CheckBox id="skill3"
                             title="Adobe Photoshop"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill3}
+                            value={this.props.fieldValues.skill3}
                         />
                     </FlexRow>
                     <FlexRow>
@@ -231,19 +233,19 @@ class Personal extends React.Component {
                             title="Электроника, электротехника"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill4}
+                            value={this.props.fieldValues.skill4}
                         />
                         <CheckBox id="skill5"
                             title="Настройка локальных сетей"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill5}
+                            value={this.props.fieldValues.skill5}
                         />
                         <CheckBox id="skill6"
                             title="Другое"
                             inline={true}
                             onChange={this.changeSelect}
-                            value={this.props.fieldValue.skill6}
+                            value={this.props.fieldValues.skill6}
                         />
                     </FlexRow>
 
@@ -251,12 +253,12 @@ class Personal extends React.Component {
                     <FlexRow>
                         {
                             this.state.languages.length != 0 && (<Autocomplete id="foreignLanguage"
-                                data={this.state.languages} onChange={this.changeSelect} placeholder="Иностранный язык" value={this.props.fieldValue.foreignLanguage}
+                                data={this.state.languages} onChange={this.changeSelect} placeholder="Иностранный язык" value={this.props.fieldValues.foreignLanguage}
                             />)}
                             <Select id="languageRank"
                             data={languageRanks}
                             value="id"
-                            selectedValue={this.props.fieldValue.languageRank}
+                            selectedValue={this.props.fieldValues.languageRank}
                             text="val"
                             isRequired={false}
                             placeholder="Степень владения"
@@ -271,13 +273,13 @@ class Personal extends React.Component {
 }
 
 Personal.props = {
-    fieldValue: PropTypes.object,
+    fieldValues: PropTypes.object,
     errorValues: PropTypes.object,
 }
 
 function mapStateToProps(store) {
     return {
-        fieldValue: getAddStudentFieldsValue(store),
+        fieldValues: getAddStudentFieldsValue(store),
         errorValues: getAddStudentErrorValues(store),
     }
 }
