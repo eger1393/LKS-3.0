@@ -35,7 +35,10 @@ function* addStudent() {
               })
               
                 let form = new FormData();
-                Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+              Object.keys(Student).map(key => {
+                if (Student[key])
+                  form.append(`Student[${key}]`, Student[key])
+              });
                 form.append('Photo', Photo);
 
               const result = yield call(apiCreateStudent, form);
@@ -61,7 +64,10 @@ function* addStudent() {
                     return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
               })
               let form = new FormData();
-              Object.keys(Student).map(key => form.append(`Student[${key}]`, Student[key]));
+              Object.keys(Student).map(key => {
+                if (Student[key])
+                  form.append(`Student[${key}]`, Student[key])
+              });
               form.append('Photo', Photo);
               const result = yield call(apiUpdateStudent, form);
                 yield put(fetchGetStudentListData());
