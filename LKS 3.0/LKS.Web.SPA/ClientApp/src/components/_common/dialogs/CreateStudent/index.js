@@ -30,7 +30,8 @@ class CreateStudent extends React.Component {
                 this.props.fetchUpdateStudent();
             }
             else {
-                this.props.fetchAddNewStudent();
+                //this.props.fetchAddNewStudent();
+              this.props.fetchUpdateStudent();
             }
             this.props.onHide();
         }

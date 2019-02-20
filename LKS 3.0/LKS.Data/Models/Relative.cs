@@ -12,7 +12,7 @@ namespace LKS.Data.Models
 		[Key]
 		public string Id { get; set; }
 
-        [Required]
+        //[Required]
         [ForeignKey(nameof(Student))]
         public string StudentId { get; set; }
 		public Student Student { get; set; }

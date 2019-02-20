@@ -100,8 +100,12 @@ namespace LKS.Web.SPA.Controllers
 				model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
 			}
 
-			await _stydentRepository.Update(model.Student);
+			_stydentRepository.CreateStudent(model.Student, model.Relatives);
+			//await _stydentRepository.Update(model.Student);
 			return Ok();
 		}
+
+
+
 	}
 }
