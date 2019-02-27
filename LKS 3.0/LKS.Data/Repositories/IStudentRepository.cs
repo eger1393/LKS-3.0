@@ -10,7 +10,9 @@ namespace LKS.Data.Repositories
 	public interface IStudentRepository : IRepository<Student>
 	{
 		List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop);
-        Student GetStudent(string id);
+		void CreateStudent(Student student, List<Relative> relatives);
+
+		Student GetStudent(string id);
         List<Student> GetTrainStudents();
 		List<Student> GetForDeductionsStudents();
 		List<Student> GetSuspendedStudents();

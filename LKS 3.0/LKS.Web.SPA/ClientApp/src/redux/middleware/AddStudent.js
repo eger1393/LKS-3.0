@@ -1,6 +1,6 @@
 ﻿import { all, takeEvery, call, put, select, fork } from 'redux-saga/effects'
 import { apiCreateStudent, apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
-import { getAddStudentFieldsValue, getStudentPhoto } from '../../selectors/addStudent'
+import { getAddStudentFieldsValue, getStudentPhoto, getAddStudentRelatives } from '../../selectors/addStudent'
 import {
     FETCH_ADD_NEW_STUDENT,
     fetchAddStudentSuccess,
@@ -61,9 +61,10 @@ function* addStudent() {
             try {
               let Student = yield select(getAddStudentFieldsValue);
               let Photo = yield select(getStudentPhoto);
-              Student.relatives = Student.relatives.map(function (obj) {
-                    return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
-                })
+              let Relatives = yield select(getAddStudentRelatives);
+              //Student.relatives = Student.relatives.map(function (obj) {
+              //      return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
+              //  })
                 if (Student.position) { Student.position = parseInt(Student.position) } //подумать-переделать
                 if (Student.status) { Student.status = parseInt(Student.status) } //подумать-переделать
               let form = new FormData();
@@ -72,6 +73,14 @@ function* addStudent() {
                   form.append(`Student[${key}]`, Student[key])
               });
               form.append('Photo', Photo);
+
+              Relatives && Relatives.map((ob, i) => {
+                Object.keys(ob).map(key => {
+                  if (ob[key])
+                    form.append(`Relatives[${i}].${key}`, ob[key])
+                });
+              })
+
               const result = yield call(apiUpdateStudent, form);
                 yield put(fetchGetStudentListData());
                 yield put(fetchUpdateStudentSuccess(result));

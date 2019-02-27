@@ -25,6 +25,29 @@ namespace LKS.Data.Implementation
 			return;
 		}
 
+		public void CreateStudent(Student student, List<Relative> relatives)
+		{
+			if (string.IsNullOrEmpty(student.Id))
+			{
+				context.Students.Add(student);
+				foreach (var item in relatives)
+				{
+					item.StudentId = student.Id;
+				}
+				context.Relatives.AddRange(relatives);
+			}
+			else
+			{
+				context.Students.Update(student);
+				foreach (var item in relatives)
+				{
+					item.StudentId = student.Id;
+				}
+				context.Relatives.UpdateRange(relatives);
+			}
+			context.SaveChanges();
+		}
+
 		public async Task CreateRange(ICollection<Student> item)
 		{
 			await context.Students.AddRangeAsync(item);
