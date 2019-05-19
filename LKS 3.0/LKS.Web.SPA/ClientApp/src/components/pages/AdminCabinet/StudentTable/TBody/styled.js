@@ -95,7 +95,7 @@ function getColor(status) {
       return 'black';
     case 1:
     case 'forDeductions': // На отчисление
-      return '#f7f447';
+      return 'orange';
     case 2:
     case 'suspended': // Отстранен
       return '#e84a4a';

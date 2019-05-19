@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LKS.Data.Providers;
 
 namespace LKS.Data.Implementation
 {
@@ -13,18 +14,34 @@ namespace LKS.Data.Implementation
 
 	{
 		private DataContext context;
-		public PrepodRepository(DataContext context)
+        private readonly IPasswordProvider _passwordProvider;
+
+        public PrepodRepository(DataContext context, IPasswordProvider passwordProvider)
 		{
+            _passwordProvider = passwordProvider;
 			this.context = context;
 		}
-		public async Task Create(Prepod item)
+		public async Task<string> Create(Prepod item, string login)
 		{
 			await context.Prepods.AddAsync(item);
-			context.SaveChanges();
-			//return;
+            string password = _passwordProvider.GetHash(_passwordProvider.GetRandomPassword(8), login);
+            await context.Users.AddAsync(new User
+            {
+                Login = login,
+                Role = "Admin",
+                TroopId = string.Empty,
+                Password = password
+            });
+            context.SaveChanges();
+			return password;
 		}
 
-		public async Task CreateRange(ICollection<Prepod> item)
+        public Task Create(Prepod item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task CreateRange(ICollection<Prepod> item)
 		{
 			await context.Prepods.AddRangeAsync(item);
 			await context.SaveChangesAsync();

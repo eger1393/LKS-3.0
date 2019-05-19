@@ -22,3 +22,13 @@ export const Contant = styled.div`
         margin-right: 30px;
     }
 `
+
+export const Legend = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    &>*{
+        margin-left: 10px;
+    }
+
+`

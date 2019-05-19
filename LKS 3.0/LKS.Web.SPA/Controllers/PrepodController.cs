@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Web.Models;
 
 namespace LKS.Web.SPA.Controllers
 {
@@ -56,9 +57,17 @@ namespace LKS.Web.SPA.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Admin")]
-		public IActionResult CreatePrepod(Prepod model)
+		public IActionResult CreatePrepod(PrepodModel model)
 		{
-			_prepodRepository.Create(model);
+			_prepodRepository.Create(new Prepod {
+                Id = model.Id,
+                AdditionalInfo = model.AdditionalInfo,
+                Coolness = model.Coolness,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName,
+                PrepodRank = model.PrepodRank
+            }, model.Login);
 			return Ok();
 		}
 
