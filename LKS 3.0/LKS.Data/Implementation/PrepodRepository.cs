@@ -1,10 +1,11 @@
 ﻿using System;
-using LKS.Data.Repositories;
-using LKS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Data.Models;
+using LKS.Data.Repositories;
+using LKS.Data.Providers;
 
 namespace LKS.Data.Implementation
 {
@@ -12,17 +13,34 @@ namespace LKS.Data.Implementation
 
 	{
 		private readonly DataContext _context;
-		public PrepodRepository(DataContext context)
-		{
-			this._context = context;
-		}
-		public async Task Create(Prepod item)
-		{
-			await _context.Prepods.AddAsync(item);
-			_context.SaveChanges();
+        private readonly IPasswordProvider _passwordProvider;
+
+        public PrepodRepository(DataContext context, IPasswordProvider passwordProvider)
+        {
+            _passwordProvider = passwordProvider;
+            _context = context;
+        }
+        public async Task<string> Create(Prepod item, string login)
+        {
+            await _context.Prepods.AddAsync(item);
+            string password = _passwordProvider.GetHash(_passwordProvider.GetRandomPassword(8), login);
+            await _context.Users.AddAsync(new User
+            {
+                Login = login,
+                Role = "Admin",
+                TroopId = string.Empty,
+                Password = password
+            });
+            _context.SaveChanges();
+            return password;
         }
 
-		public async Task CreateRange(ICollection<Prepod> item)
+        public Task Create(Prepod item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task CreateRange(ICollection<Prepod> item)
 		{
 			await _context.Prepods.AddRangeAsync(item);
 			await _context.SaveChangesAsync();

@@ -1,10 +1,9 @@
-﻿
-using LKS.Data.Models;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using LKS.Data.Models;
 
 namespace LKS.Infrastructure.Authenticate
 {

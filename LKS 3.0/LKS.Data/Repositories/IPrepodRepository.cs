@@ -1,8 +1,8 @@
-﻿using LKS.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using LKS.Data.Models;
 
 namespace LKS.Data.Repositories
 {

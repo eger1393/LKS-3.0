@@ -1,13 +1,14 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using LKS.Data.Models;
-using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Data.Models;
+using LKS.Data.Models.Enums;
+
 // ReSharper disable StringLiteralTypo
 
 namespace LKS.Infrastructure.Templates

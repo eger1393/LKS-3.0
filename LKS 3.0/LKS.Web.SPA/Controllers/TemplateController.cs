@@ -48,7 +48,7 @@ namespace LKS.Web.Controllers
 					return BadRequest("Неизвестный шаблон");
 			}
 			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template", fileName);
-			var file = await t.CreateTemplate(path, Students: students);
+			var file = await t.CreateTemplate(path, students: students);
 
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
@@ -109,19 +109,19 @@ namespace LKS.Web.Controllers
 				case "universityCycleStudentList":
 					{
 						fileName = "Список обучающихся на цикле.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetTrainStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetTrainStudents());
 						break;
 					}
 				case "universityDeductionStudentList":
 					{
 						fileName = "Список студентов на отчисление.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetForDeductionsStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetForDeductionsStudents());
 						break;
 					}
 				case "universityExpellendStudentList":
 					{
 						fileName = "Список отчисленных студентов.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetSuspendedStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetSuspendedStudents());
 						break;
 					}
 				default:

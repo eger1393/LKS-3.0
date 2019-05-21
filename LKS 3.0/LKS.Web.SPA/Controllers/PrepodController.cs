@@ -1,11 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using LKS.Data.Models;
-using LKS.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+using LKS.Data.Models;
+using LKS.Data.Repositories;
 using LKS.Web.Models;
 
 namespace LKS.Web.Controllers

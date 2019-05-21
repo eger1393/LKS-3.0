@@ -1,14 +1,14 @@
-﻿using LKS.Data.Repositories;
-using LKS.Data.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Data.Models;
+using LKS.Data.Repositories;
 
 namespace LKS.Data.Implementation
 {
 	public class RelativeRepository : IRelativeRepository
 	{
-		private readonly DataContext _context;
+        private readonly DataContext _context;
 		public RelativeRepository(DataContext context)
 		{
 			_context = context;
@@ -37,17 +37,11 @@ namespace LKS.Data.Implementation
 			await _context.SaveChangesAsync();
         }
 
-		public async Task<Relative> GetItem(string id)
-		{
-			var res = await _context.Relatives.FindAsync(id);
-			return res;
-		}
-
-		public IQueryable<Relative> GetItems()
-		{
-			return _context.Relatives;
-		}
-
+        public async Task<Relative> GetItem(string id)
+        {
+            var res = await _context.Relatives.FindAsync(id);
+            return res;
+        }
         public async Task Update(Relative item)
         {
             _context.Relatives.Update(item);

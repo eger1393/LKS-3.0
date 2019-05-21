@@ -1,8 +1,8 @@
-﻿using LKS.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using LKS.Data.Models;
 using LKS.Data.Models.Enums;
 using LKS.Data.Providers;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace LKS.Data
 {

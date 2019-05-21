@@ -1,6 +1,3 @@
-using LKS.Data.Repositories;
-using LKS.Data.Implementation;
-using LKS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using System;
 using System.Threading.Tasks;
+using LKS.Data;
+using LKS.Data.Implementation;
+using LKS.Data.Providers;
+using LKS.Data.Repositories;
 using LKS.Infrastructure.Authenticate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using LKS.Data.Providers;
 
 namespace LKS.Web.SPA
 {

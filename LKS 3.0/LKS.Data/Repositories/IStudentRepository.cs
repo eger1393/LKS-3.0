@@ -1,9 +1,9 @@
-﻿using LKS.Data.Models;
-using LKS.Data.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 
 namespace LKS.Data.Repositories
 {

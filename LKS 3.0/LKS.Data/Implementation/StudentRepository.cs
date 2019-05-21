@@ -1,13 +1,13 @@
-﻿using LKS.Data.Repositories;
-using LKS.Data.Models;
-using LKS.Data.Models.Enums;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using LKS.Data.Helpers;
+using LKS.Data.Models;
+using LKS.Data.Models.Enums;
+using LKS.Data.Repositories;
 
 namespace LKS.Data.Implementation
 {

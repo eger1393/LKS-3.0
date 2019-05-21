@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.Data.Models.Enums;
 using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 
 namespace LKS.Web.SPA.Models
 {
