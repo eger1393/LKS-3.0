@@ -7,8 +7,6 @@ import CreateTroop from '../dialogs/CreateTroop'
 import CreateStudent from '../dialogs/CreateStudent'
 import CreateUniversityTemplate from '../dialogs/CreateUniversityTemplate'
 import TroopList from '../dialogs/TroopList'
-import CreatePrepod from '../dialogs/CreatePrepod'
-import PrepodList from '../dialogs/PrepodList'
 import UserList from '../dialogs/UserList'
 
 
@@ -47,16 +45,6 @@ class NavBar extends React.Component {
               {this.state.openModalWindow.StudentCreate && (
                 <CreateStudent show={this.state.openModalWindow.StudentCreate} onHide={() => this.click('StudentCreate')} />
               )}
-              <NavDropdown title="Преподаватели">
-                <MenuItem eventKey={'PrepodCreate'}>Добавить преподавателя</MenuItem>
-                {this.state.openModalWindow.PrepodCreate && (
-                  <CreatePrepod show={this.state.openModalWindow.PrepodCreate} onHide={() => this.click('PrepodCreate')} />
-                )}
-                <MenuItem eventKey={'PrepodList'}>Список преподавателей</MenuItem>
-                {this.state.openModalWindow.PrepodList && (
-                  <PrepodList show={this.state.openModalWindow.PrepodList} onHide={() => this.click('PrepodList')} />
-                )}
-              </NavDropdown>
               <NavDropdown title="Взвода">
                 <MenuItem eventKey={'TroopCreate'}>Создать взвод</MenuItem>
                 {this.state.openModalWindow.TroopCreate && (
