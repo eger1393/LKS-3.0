@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Templates;
 using LKS.Web.SPA.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
-namespace LKS.Web.SPA.Controllers
+namespace LKS.Web.Controllers
 {
     [Route("api/[controller]")]
 	[Authorize(Roles = "Admin")]
@@ -54,7 +48,7 @@ namespace LKS.Web.SPA.Controllers
 					return BadRequest("Неизвестный шаблон");
 			}
 			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template", fileName);
-			var file = await t.CreateTemplate(path, Students: students);
+			var file = await t.CreateTemplate(path, students: students);
 
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
@@ -115,19 +109,19 @@ namespace LKS.Web.SPA.Controllers
 				case "universityCycleStudentList":
 					{
 						fileName = "Список обучающихся на цикле.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetTrainStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetTrainStudents());
 						break;
 					}
 				case "universityDeductionStudentList":
 					{
 						fileName = "Список студентов на отчисление.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetForDeductionsStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetForDeductionsStudents());
 						break;
 					}
 				case "universityExpellendStudentList":
 					{
 						fileName = "Список отчисленных студентов.docx";
-						file = await t.CreateTemplate(Path.Combine(path, fileName), Students: _studentRepository.GetSuspendedStudents());
+						file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetSuspendedStudents());
 						break;
 					}
 				default:

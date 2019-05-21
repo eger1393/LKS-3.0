@@ -36,14 +36,9 @@ namespace LKS.Data.Models
 		/// <summary>
 		/// Личный состав (чел)
 		/// </summary>
-		public int StaffCount
-		{
-			get
-			{
-				return Students?.Count ?? 0;
-			}
-		}
-		/// <summary>
+		public int StaffCount => Students?.Count ?? 0;
+
+        /// <summary>
 		/// Взвод для сборов?
 		/// </summary>
 		[DisplayName("Взвод для сборов?")]

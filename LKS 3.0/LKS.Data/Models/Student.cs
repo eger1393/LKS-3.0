@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace LKS.Data.Models
 {
@@ -81,24 +79,16 @@ namespace LKS.Data.Models
         public string MiddleName { get; set; }
 
 		[DisplayName("Взвод")]
-		public string NumTroop { get
-			{
-				return Troop?.NumberTroop ?? "none";
-			}
-		}
+		public string NumTroop => Troop?.NumberTroop ?? "none";
 
-		[DisplayName("Должность")]
+        [DisplayName("Должность")]
 		public StudentPosition Position { get; set; }
 
 
-		public string SpecialityName { get
-			{
-				return Troop?.Cycle?.SpecialityName ?? "none";
-			}
-		}
+		public string SpecialityName => Troop?.Cycle?.SpecialityName ?? "none";
 
 
-		[DisplayName("Группа")]
+        [DisplayName("Группа")]
         public string InstGroup { get; set; }
 
 		[DisplayName("Курс")]
@@ -204,15 +194,8 @@ namespace LKS.Data.Models
 		{ get; set; }
 		public string VO
 		{ get; set; }
-		// public string VuzName
-		// { get; set; }
-		// public string VkName
-		// { get; set; } ПЕРЕНЕС В ЦИКЛ
-		public string Fighting
+        public string Fighting
 		{ get; set; }
-
-        // public string VUS // код специальности
-        // { get; set; } ПЕРЕНЕС В ЦИКЛ
         [DisplayName("Группа крови")]
         public string BloodType
 		{ get; set; }

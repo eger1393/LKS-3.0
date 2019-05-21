@@ -1,14 +1,14 @@
-﻿using LKS.Data.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LKS.Data.Models;
 using LKS.Data.Providers;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Authenticate;
 using LKS.WEB.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace MassRecruitment.WEB.Controllers
+namespace LKS.Web.Controllers
 {
 
 	[Route("api/[controller]")]

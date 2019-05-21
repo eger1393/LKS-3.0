@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LKS.Data.Models
 {
-	public partial class Cycle
+	public class Cycle
 	{
 		[Key]
 		public string Id { get; set; }

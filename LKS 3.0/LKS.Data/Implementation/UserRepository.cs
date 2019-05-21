@@ -9,33 +9,32 @@ namespace LKS.Data.Implementation
 {
 	public class UserRepository : IUserRepository
 	{
-		private readonly DataContext context;
+		private readonly DataContext _context;
 
 		public UserRepository(DataContext context)
 		{
-			this.context = context;
+			_context = context;
 		}
 
 		public IQueryable<User> GetAllUsers(string role)
 		{
-			return context.Users.Where(x => x.Role == role);
+			return _context.Users.Where(x => x.Role == role);
 		}
 
 		public async Task Create(User item)
 		{
-			if (!String.IsNullOrEmpty(item.Login))
+			if (!string.IsNullOrEmpty(item.Login))
 			{
-				User user = context.Users.FirstOrDefault(x => x.Login == item.Login);
+				var user = _context.Users.FirstOrDefault(x => x.Login == item.Login);
 				if (user != null)
 				{
 					await Update(item);
 					return;
 				}
 			}
-			context.Users.Add(item);
-			context.SaveChanges();
-			return;
-		}
+			_context.Users.Add(item);
+			_context.SaveChanges();
+        }
 
 		public async Task CreateRange(ICollection<User> item)
 		{
@@ -44,10 +43,9 @@ namespace LKS.Data.Implementation
 
 		public async Task Delete(User item)
 		{
-			context.Users.Remove(item);
-			context.SaveChanges();
-			return;
-		}
+			_context.Users.Remove(item);
+            await _context.SaveChangesAsync();
+        }
 
 		public async Task DeleteRange(ICollection<User> item)
 		{
@@ -56,19 +54,18 @@ namespace LKS.Data.Implementation
 
 		public async Task<User> GetItem(string id)
 		{
-			return context.Users.FirstOrDefault(x => x.Id == id);
+			return _context.Users.FirstOrDefault(x => x.Id == id);
 		}
 
 		public async Task<User> GetByLogin(string login)
 		{
-			return context.Users.FirstOrDefault(x => x.Login == login);
+			return _context.Users.FirstOrDefault(x => x.Login == login);
 		}
 
 		public async Task Update(User item)
 		{
-			context.Users.Update(item);
-			context.SaveChanges();
-			return;
-		}
+			_context.Users.Update(item);
+            await _context.SaveChangesAsync();
+        }
 	}
 }
