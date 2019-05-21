@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Templates;
 using LKS.Web.SPA.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
-namespace LKS.Web.SPA.Controllers
+namespace LKS.Web.Controllers
 {
     [Route("api/[controller]")]
 	[Authorize(Roles = "Admin")]
