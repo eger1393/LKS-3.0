@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace LKS.Data.Models
 {
@@ -12,15 +9,14 @@ namespace LKS.Data.Models
 		[Key]
 		public string Id { get; set; }
 
-        //[Required]
         [ForeignKey(nameof(Student))]
         public string StudentId { get; set; }
 		public Student Student { get; set; }
 
 
-		public string initials()
+		public string Initials()
 		{
-            if (String.IsNullOrEmpty(MiddleName) || String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName))
+            if (string.IsNullOrEmpty(MiddleName) || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName))
             {
                 MiddleName = "None";
                 FirstName = "None";

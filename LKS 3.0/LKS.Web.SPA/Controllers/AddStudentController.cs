@@ -1,25 +1,26 @@
-﻿using LKS.Data.Repositories;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using LKS.Data.Repositories;
 using LKS.Web.Helpers;
 using LKS.Web.Models;
 using LKS.Web.SPA.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace LKS.Web.SPA.Controllers
+namespace LKS.Web.Controllers
 {
 	[Route("api/[controller]")]
 	[Authorize]
 	[ApiController]
 	public class AddStudentController : ControllerBase
 	{
-		private readonly IStudentRepository _stydentRepository;
+		private readonly IStudentRepository _studentRepository;
 		private readonly IRelativeRepository _relativeRepository;
 
 		public AddStudentController(IStudentRepository studentRepository, IRelativeRepository relativeRepository)
 		{
-			this._stydentRepository = studentRepository;
+			this._studentRepository = studentRepository;
 			this._relativeRepository = relativeRepository;
 		}
 
@@ -27,7 +28,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetInstGroupList()
 		{
-			var obj = _stydentRepository.GetInstGroupList().Select(ob => new
+			var obj = _studentRepository.GetInstGroupList().Select(ob => new
 			{
 				label = ob
 			});
@@ -36,7 +37,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetLanguagesList()
 		{
-			var obj = _stydentRepository.GetLanguagesList().Select(ob => new
+			var obj = _studentRepository.GetLanguagesList().Select(ob => new
 			{
 				label = ob
 			}).ToList();
@@ -49,7 +50,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetSpecInstList()
 		{
-			var obj = _stydentRepository.GetSpecInstList().Select(ob => new
+			var obj = _studentRepository.GetSpecInstList().Select(ob => new
 			{
 				label = ob
 			});
@@ -58,7 +59,7 @@ namespace LKS.Web.SPA.Controllers
 		[HttpPost("[action]")]
 		public IActionResult GetRectalList()
 		{
-			var obj = _stydentRepository.GetRectalList().Select(ob => new
+			var obj = _studentRepository.GetRectalList().Select(ob => new
 			{
 				label = ob
 			});
@@ -69,7 +70,7 @@ namespace LKS.Web.SPA.Controllers
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
-			var obj = _stydentRepository.GetStudent(model.id);
+			var obj = _studentRepository.GetStudent(model.id);
 			return Ok(obj);
 		}
 		[HttpPost("[action]")]
@@ -81,9 +82,10 @@ namespace LKS.Web.SPA.Controllers
             {
                 if (!string.IsNullOrEmpty(model.Student?.ImagePath))
                     ImageHelper.DeleteImage(model.Student.ImagePath);
+                Debug.Assert(model.Student != null, "model.Student != null");
                 model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
             }
-            await _stydentRepository.Create(model.Student);
+            await _studentRepository.Create(model.Student);
 			return Ok();
 		}
 
@@ -100,8 +102,8 @@ namespace LKS.Web.SPA.Controllers
 				model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
 			}
 
-			_stydentRepository.CreateStudent(model.Student, model.Relatives);
-			//await _stydentRepository.Update(model.Student);
+			_studentRepository.CreateStudent(model.Student, model.Relatives);
+			//await _studentRepository.Update(model.Student);
 			return Ok();
 		}
 

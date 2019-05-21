@@ -8,18 +8,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+// ReSharper disable StringLiteralTypo
 
 namespace LKS.Infrastructure.Templates
 {
 	public class TemplateProvider
 	{
-		readonly AsyncLock mutex = new AsyncLock();
-		List<Student> students; // текущие выбранные студенты(урощает работу с несколькими взводами)
-		Student selectedStudent;    // выбранный студент
-		Relative selectedStudentMather, //его мать
-			selectedStudentFather,  //его отец
-			selectedRelative;   //его дорственник
-		Troop selectedTrop; //выбранный взвод
+        private readonly AsyncLock _mutex = new AsyncLock();
+        private List<Student> _students; // текущие выбранные студенты(урощает работу с несколькими взводами)
+        private Student _selectedStudent;    // выбранный студент
+
+        private Relative _selectedStudentMather, //его мать
+			_selectedStudentFather,  //его отец
+			_selectedRelative;   //его родственник
+
+        private Troop _selectedTroop; //выбранный взвод
 							//Summer summer; // информация о сборах
 							//			   //Model.Department adminInfo; // Военком и нач кафедры
 							//List<Admin> admins; // список администрации на сборах
@@ -35,11 +38,11 @@ namespace LKS.Infrastructure.Templates
 			return file.ToArray();
 		}
 
-		public async Task<byte[]> CreateTemplate(string fileName, List<Student> Students = null, List<Prepod> prepods = null, List<Troop> troops = null)
+		public async Task<byte[]> CreateTemplate(string fileName, List<Student> students = null, List<Prepod> prepods = null, List<Troop> troops = null)
 		{
-			if (Students == null)
+			if (students == null)
 			{
-				Students = new List<Student>();
+				students = new List<Student>();
 			}
 
 			if (troops == null)
@@ -47,17 +50,17 @@ namespace LKS.Infrastructure.Templates
 				troops = new List<Troop>();
 			}
 
-			if (Students.Count == 0 && troops.Count != 0)
+			if (students.Count == 0 && troops.Count != 0)
 			{
-				this.students = troops.First().Students.Where(u => u.Status == StudentStatus.train || u.Status == StudentStatus.trainingFees).ToList();
-				selectedTrop = troops.First();
+				this._students = troops.First().Students.Where(u => u.Status == StudentStatus.train || u.Status == StudentStatus.trainingFees).ToList();
+				_selectedTroop = troops.First();
 			}
 			else
 			{
-				this.students = Students;
+				this._students = students;
 			}
 
-			selectedStudent = students?.First(); // устанавливаем выбранного стуента
+			_selectedStudent = _students?.First(); // устанавливаем выбранного стуента
 
 
 			//using (
@@ -70,9 +73,9 @@ namespace LKS.Infrastructure.Templates
 			}
 			//}
 
-			using (WordprocessingDocument doc = WordprocessingDocument.Open(file, true)) // открыли документ
+			using (var doc = WordprocessingDocument.Open(file, true)) // открыли документ
 			{
-				foreach (Table table
+				foreach (var table
 					in doc.MainDocumentPart.Document.Body.Elements<Table>()) // проходим все таблицы
 				{
 					if (!table.Descendants<SdtElement>().Any()) // проверка на наличие закладок в текущей таблице
@@ -102,9 +105,9 @@ namespace LKS.Infrastructure.Templates
 								}
 
 								// проверяем кам заполнять таблицу (студентами, взводами или родственниками)
-								string type = null;
+								//string type = null;
 
-								type = tempRow.Descendants<SdtElement>().ToList().Find(obj =>
+								string type = tempRow.Descendants<SdtElement>().ToList().Find(obj =>
 								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
 								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "ВЗВОДА" ||
 								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "РОДСТВЕННИКИ")
@@ -118,11 +121,11 @@ namespace LKS.Infrastructure.Templates
 									{
 										case "СТУДЕНТЫ":
 											{
-												for (int i = 0; i < students.Count; i++) // проходим по всем студентам
+												for (int i = 0; i < _students.Count; i++) // проходим по всем студентам
 												{
-													selectedStudent = students[i];
-													changeSelectedStudent();
-													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													_selectedStudent = _students[i];
+													ChangeSelectedStudent();
+													StringHandling(table, rowIndex, tempRow, i); // функция работы со строками
 													rowIndex++; // перешли на след строку
 												}
 												break;
@@ -131,19 +134,19 @@ namespace LKS.Infrastructure.Templates
 											{
 												for (int i = 0; i < troops.Count; i++) // проходим по всем взводам
 												{
-													selectedTrop = troops[i];
-													changeTroop();
-													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													_selectedTroop = troops[i];
+													ChangeTroop();
+													StringHandling(table, rowIndex, tempRow, i); // функция работы со строками
 													rowIndex++; // перешли на след строку
 												}
 												break;
 											}
 										case "РОДСТВЕННИКИ":
 											{
-												for (int i = 0; i < selectedStudent?.Relatives?.Count; i++) // проходим по всем родственникам
+												for (int i = 0; i < _selectedStudent?.Relatives?.Count; i++) // проходим по всем родственникам
 												{
-													selectedRelative = selectedStudent.Relatives[i];
-													stringHandling(table, rowIndex, tempRow, i); // функция работы со строками
+													_selectedRelative = _selectedStudent.Relatives[i];
+													StringHandling(table, rowIndex, tempRow, i); // функция работы со строками
 													rowIndex++; // перешли на след строку
 												}
 												break;
@@ -164,9 +167,9 @@ namespace LKS.Infrastructure.Templates
 						foreach (TableRow row in table.Elements<TableRow>())
 						{
 							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
-							{
+                            {
 
-								string type = null;
+                                string type;
 								try
 								{
 									type = row.Descendants<SdtElement>().ToList().Find(obj =>
@@ -189,10 +192,10 @@ namespace LKS.Infrastructure.Templates
 									{
 										case "СТУДЕНТЫ":
 											{
-												for (int i = 0; i < students.Count; i++) // проходим по всем студентам
+												for (int i = 0; i < _students.Count; i++) // проходим по всем студентам
 												{
-													selectedStudent = students[i];
-													changeSelectedStudent();
+													_selectedStudent = _students[i];
+													ChangeSelectedStudent();
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
@@ -207,8 +210,8 @@ namespace LKS.Infrastructure.Templates
 											{
 												for (int i = 0; i < troops.Count; i++) // проходим по всем взводам
 												{
-													selectedTrop = troops[i];
-													changeTroop();
+													_selectedTroop = troops[i];
+													ChangeTroop();
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
@@ -221,9 +224,9 @@ namespace LKS.Infrastructure.Templates
 											}
 										case "РОДСТВЕННИКИ":
 											{
-												for (int i = 0; i < selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
+												for (int i = 0; i < _selectedStudent.Relatives.Count; i++) // проходим по всем родственникам
 												{
-													selectedRelative = selectedStudent.Relatives[i];
+													_selectedRelative = _selectedStudent.Relatives[i];
 													TableRow tempRow = row.Clone() as TableRow;
 													foreach (SdtElement formattedText in tempRow.Descendants<SdtElement>().ToList())
 													{
@@ -236,9 +239,8 @@ namespace LKS.Infrastructure.Templates
 											}
 										default:
 											{
-												throw new Exception("Ошибра в типе таблицы!");
-												break;
-											}
+												throw new Exception("Ошибка в типе таблицы!");
+                                            }
 									}
 								}
 							}
@@ -252,11 +254,11 @@ namespace LKS.Infrastructure.Templates
 				// как обычно здесь есть немного магии (без toList может работать не правильно)
 
 				// как всегда небольшой костыль ( сбрасываю исходного студента на начало)(но поидее это не обязательно)
-				selectedStudent = students[0];
-				changeSelectedStudent();
+				_selectedStudent = _students[0];
+				ChangeSelectedStudent();
 				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
 				{
-					string valueCommand = findCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
+					string valueCommand = FindCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
 					//if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
 					//{
 					//	string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
@@ -393,7 +395,7 @@ namespace LKS.Infrastructure.Templates
 			}
 			else
 			{
-				valueCommand = findCommand(formattedText.Descendants<SdtAlias>().First().Val);
+				valueCommand = FindCommand(formattedText.Descendants<SdtAlias>().First().Val);
 			}
 
 			// В закладке всегда есть элемент Run (он создается вордом даже в том случае если там нет текста
@@ -416,21 +418,21 @@ namespace LKS.Infrastructure.Templates
 		/// <param name="rowIndex">Индекс строки</param>
 		/// <param name="tempRow">Шаблонная строка</param>
 		/// <param name="i">Номер строки в таблице(нужно для команды №)</param>
-		private void stringHandling(Table table, int rowIndex, TableRow tempRow, int i)
+		private void StringHandling(Table table, int rowIndex, TableRow tempRow, int i)
 		{
 			try
 			{
 				// перечеслитель для перебора ячеек в строке которая назодится в таблице(изначально он стоит ДО нулевой позиции
-				IEnumerator<TableCell> IEcell = table.Elements<TableRow>().ToList()[rowIndex].
+				IEnumerator<TableCell> ecell = table.Elements<TableRow>().ToList()[rowIndex].
 												Descendants<TableCell>().ToList().GetEnumerator();
 				foreach (TableCell cell in tempRow.Descendants<TableCell>().ToList()) // проходим по всем ячейкам во временной строке
 				{
-					IEcell.MoveNext();// передвинули перечеслитель
+					ecell.MoveNext();// передвинули перечеслитель
 					if (cell.Descendants<SdtElement>().Any()) // проверка на наличие закладок в ячейке
 					{
 						// ссылка на копиию, которой мы заменим текущую выбранную ячейку в строке
 						TableCell tempCell = cell.Clone() as TableCell;
-						IEcell.Current.Parent.ReplaceChild(tempCell, IEcell.Current); // замена
+						ecell.Current.Parent.ReplaceChild(tempCell, ecell.Current); // замена
 						foreach (SdtElement formattedText in tempCell.Descendants<SdtElement>().ToList())
 						{
 							BookmarkToCommand(formattedText, i);
@@ -449,7 +451,7 @@ namespace LKS.Infrastructure.Templates
 			}
 		}
 
-		private string toAssessment(int num)
+		private static string ToAssessment(int num)
 		{
 			string[] assessmentEnum = { // Перевод оценок из цифр в обозначения
 			"неудовлетв",
@@ -462,7 +464,7 @@ namespace LKS.Infrastructure.Templates
 			else
 				return num.ToString();
 		}
-		private string findCommand(string command)
+		private string FindCommand(string command)
 		{
 			if (command.ToUpper() == "НОВАЯ СТРОКА")
 			{
@@ -471,7 +473,7 @@ namespace LKS.Infrastructure.Templates
 
 			if (command.ToUpper() == "СЛЕДУЮЩИЙ СТУДЕНТ")
 			{
-				selectedStudent = students[1]; // костыль
+				_selectedStudent = _students[1]; // костыль
 				return "";
 			}
 
@@ -488,47 +490,47 @@ namespace LKS.Infrastructure.Templates
 			// Студент
 			if (command.ToUpper() == "ИМЯ")
 			{
-				return selectedStudent.FirstName;
+				return _selectedStudent.FirstName;
 			}
 
 			if (command.ToUpper() == "ФАМИЛИЯ")
 			{
-				return selectedStudent.MiddleName;
+				return _selectedStudent.MiddleName;
 			}
 
 			if (command.ToUpper() == "ОТЧЕСТВО")
 			{
-				return selectedStudent.LastName;
+				return _selectedStudent.LastName;
 			}
 
 			if (command.ToUpper() == "ИМЯББ")
 			{
-				return selectedStudent.FirstName.ToUpper();
+				return _selectedStudent.FirstName.ToUpper();
 			}
 
 			if (command.ToUpper() == "ФАМИЛИЯББ")
 			{
-				return selectedStudent.MiddleName.ToUpper();
+				return _selectedStudent.MiddleName.ToUpper();
 			}
 
 			if (command.ToUpper() == "ОТЧЕСТВОББ")
 			{
-				return selectedStudent.LastName.ToUpper();
+				return _selectedStudent.LastName.ToUpper();
 			}
 
 			if (command.ToUpper() == "ФАКУЛЬТЕТ")
 			{
-				return selectedStudent.Faculty;
+				return _selectedStudent.Faculty;
 			}
 
 			if (command.ToUpper() == "КУРС")
 			{
-				return selectedStudent.Kurs.ToString();
+				return _selectedStudent.Kurs.ToString();
 			}
 
 			if (command.ToUpper() == "ГРУППА")
 			{
-				return selectedStudent.InstGroup;
+				return _selectedStudent.InstGroup;
 			}
 
 			//if (command.ToUpper() == "ВУС")
@@ -538,454 +540,454 @@ namespace LKS.Infrastructure.Templates
 
 			if (command.ToUpper() == "ВУС (ПОЛНОЕ НАИМЕНОВАНИЕ)")
 			{
-				return selectedStudent.SpecialityName;
+				return _selectedStudent.SpecialityName;
 			}
 
 			if (command.ToUpper() == "УСЛОВИЯ ОБУЧЕНИЯ")
 			{
-				return selectedStudent.ConditionsOfEducation;
+				return _selectedStudent.ConditionsOfEducation;
 			}
 
 			if (command.ToUpper() == "СРЕДНИЙ БАЛЛ")
 			{
-				return selectedStudent.AvarageScore;
+				return _selectedStudent.AvarageScore;
 			}
 
 			if (command.ToUpper() == "ГОД ПОСТУПЛЕНИЯ В МАИ")
 			{
-				return selectedStudent.YearOfAddMAI;
+				return _selectedStudent.YearOfAddMAI;
 			}
 
 			if (command.ToUpper() == "ГОД ОКОНЧАНИЯ МАИ")
 			{
-				return selectedStudent.YearOfEndMAI;
+				return _selectedStudent.YearOfEndMAI;
 			}
 
 			if (command.ToUpper() == "ГОД ПОСТУПЛЕНИЯ НА КАФЕДРУ")
 			{
-				return selectedStudent.YearOfAddVK;
+				return _selectedStudent.YearOfAddVK;
 			}
 
 			if (command.ToUpper() == "ГОД ОКОНЧАНИЯ КАФЕДРЫ")
 			{
-				return selectedStudent.YearOfEndVK;
+				return _selectedStudent.YearOfEndVK;
 			}
 
 			if (command.ToUpper() == "НОМЕР ПРИКАЗА")
 			{
-				return selectedStudent.NumberOfOrder;
+				return _selectedStudent.NumberOfOrder;
 			}
 
 			if (command.ToUpper() == "ДАТА ПРИКАЗА")
 			{
-				return selectedStudent.DateOfOrder;
+				return _selectedStudent.DateOfOrder;
 			}
 
 			if (command.ToUpper() == "ВОЕНКОМАТ")
 			{
-				return selectedStudent.Rectal;
+				return _selectedStudent.Rectal;
 			}
 
 			if (command.ToUpper() == "ДЕНЬ РОЖДЕНИЯ")
 			{
-				return selectedStudent.Birthday;
+				return _selectedStudent.Birthday;
 			}
 
 			if (command.ToUpper() == "МЕСТО РОЖДЕНИЯ")
 			{
-				return selectedStudent.PlaceBirthday;
+				return _selectedStudent.PlaceBirthday;
 			}
 
 			if (command.ToUpper() == "НАЦИЯ")
 			{
-				return selectedStudent.Nationality;
+				return _selectedStudent.Nationality;
 			}
 
 			if (command.ToUpper() == "ДОМАШНИЙ НОМЕР")
 			{
-				return selectedStudent.HomePhone;
+				return _selectedStudent.HomePhone;
 			}
 
 			if (command.ToUpper() == "МОБИЛЬНЫЙ НОМЕР")
 			{
-				return selectedStudent.MobilePhone;
+				return _selectedStudent.MobilePhone;
 			}
 
 			if (command.ToUpper() == "АДРЕС ПРОЖИВАНИЯ")
 			{
-				return selectedStudent.PlaceOfResidence;
+				return _selectedStudent.PlaceOfResidence;
 			}
 
 			if (command.ToUpper() == "АДРЕС РЕГИСТРАЦИИ")
 			{
-				return selectedStudent.PlaceOfRegestration;
+				return _selectedStudent.PlaceOfRegestration;
 			}
 
 			if (command.ToUpper() == "ШКОЛА")
 			{
-				return selectedStudent.School;
+				return _selectedStudent.School;
 			}
 
 			if (command.ToUpper() == "ДОЛЖНОСТЬ")
 			{
-				return selectedStudent.GetPositionValue;
+				return _selectedStudent.GetPositionValue;
 			}
 
 
 			if (command.ToUpper() == "ВЗВОД")
 			{
-				return selectedStudent.Troop?.NumberTroop ?? "нет";
+				return _selectedStudent.Troop?.NumberTroop ?? "нет";
 			}
 
 			if (command.ToUpper() == "ИНИЦИАЛЫ")
 			{
-				return selectedStudent.Initials;
+				return _selectedStudent.Initials;
 			}
 
 			if (command.ToUpper() == "СЛУЖБА В ВС")
 			{
-				return selectedStudent.Military;
+				return _selectedStudent.Military;
 			}
 
 			if (command.ToUpper() == "СЕМЕЙНЫЙ СТАТУС")
 			{
-				return selectedStudent.FamiliStatys;
+				return _selectedStudent.FamiliStatys;
 			}
 
 			if (command.ToUpper() == "ГРУППА КРОВИ")
 			{
-				return selectedStudent.BloodType;
+				return _selectedStudent.BloodType;
 			}
 
 			if (command.ToUpper() == "СПЕЦИАЛЬНОСТЬ В ИНСТИТУТЕ")
 			{
-				return selectedStudent.SpecInst;
+				return _selectedStudent.SpecInst;
 			}
 
 			if (command.ToUpper() == "ПРОТОКОЛ 1 ТЕОРЕТИЧЕСКИЕ ЗНАНИЯ")
 			{
-				return toAssessment(selectedStudent.AssessmentProtocolOneTheory);
+				return ToAssessment(_selectedStudent.AssessmentProtocolOneTheory);
 			}
 
 			if (command.ToUpper() == "ПРОТОКОЛ 1 ПРАКТИЧЕСКИЕ УМЕНИЯ")
 			{
-				return toAssessment(selectedStudent.AssessmentProtocolOnePractice);
+				return ToAssessment(_selectedStudent.AssessmentProtocolOnePractice);
 			}
 
 			if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА")
 			{
-				return toAssessment(selectedStudent.AssessmentProtocolOneFinal);
+				return ToAssessment(_selectedStudent.AssessmentProtocolOneFinal);
 			}
 
 			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-ТЕХНИЧЕСКАЯ ПОДГОТОВКА")
 			{
-				return toAssessment(selectedStudent.AssessmentCharacteristicMilitaryTechnicalTraining);
+				return ToAssessment(_selectedStudent.AssessmentCharacteristicMilitaryTechnicalTraining);
 			}
 
 			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ТАКТИКО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
 			{
-				return toAssessment(selectedStudent.AssessmentCharacteristicTacticalSpecialTraining);
+				return ToAssessment(_selectedStudent.AssessmentCharacteristicTacticalSpecialTraining);
 			}
 
 			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
 			{
-				return toAssessment(selectedStudent.AssessmentCharacteristicMilitarySpeialTraining);
+				return ToAssessment(_selectedStudent.AssessmentCharacteristicMilitarySpeialTraining);
 			}
 
 			if (command.ToUpper() == "ХАРАКТЕРИСТИКА ОБЩАЯ ОЦЕНКА")
 			{
-				return toAssessment(selectedStudent.AssessmentCharacteristicFinal);
+				return ToAssessment(_selectedStudent.AssessmentCharacteristicFinal);
 			}
 
 			////
 			////БЛОК РОДСТВЕННИКОВ
 			////
-			if (selectedRelative != null)
+			if (_selectedRelative != null)
 			{
 				if (command.ToUpper() == "РОД ИМЯ")
 				{
-					return selectedRelative.FirstName;
+					return _selectedRelative.FirstName;
 				}
 
 				if (command.ToUpper() == "РОД ФАМИЛИЯ")
 				{
-					return selectedRelative.MiddleName;
+					return _selectedRelative.MiddleName;
 				}
 
 				if (command.ToUpper() == "РОД ОТЧЕСТВО")
 				{
-					return selectedRelative.LastName;
+					return _selectedRelative.LastName;
 				}
 
 				if (command.ToUpper() == "РОД ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
-					return selectedRelative.MaidenName;
+					return _selectedRelative.MaidenName;
 				}
 
 				if (command.ToUpper() == "РОД ДЕНЬ РОЖДЕНИЯ")
 				{
-					return selectedRelative.Birthday;
+					return _selectedRelative.Birthday;
 				}
 
 				if (command.ToUpper() == "РОД АДРЕС РЕГЕРИСТРАЦИИ")
 				{
-					return selectedRelative.PlaceOfRegestration;
+					return _selectedRelative.PlaceOfRegestration;
 				}
 
 				if (command.ToUpper() == "РОД АДРЕС ПРОЖИВАНИЯ")
 				{
-					return selectedRelative.PlaceOfResidence;
+					return _selectedRelative.PlaceOfResidence;
 				}
 
 				if (command.ToUpper() == "РОД МОБИЛЬНЫЙ НОМЕР")
 				{
-					return selectedRelative.MobilePhone;
+					return _selectedRelative.MobilePhone;
 				}
 
 				if (command.ToUpper() == "РОД СТЕПЕНЬ РОДСТВА")
 				{
-					return selectedRelative.RelationDegree;
+					return _selectedRelative.RelationDegree;
 				}
 
 				if (command.ToUpper() == "РОД СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
-					return selectedRelative.HealthStatus;
+					return _selectedRelative.HealthStatus;
 				}
 
 				if (command.ToUpper() == "РОД ИНИЦИАЛЫ")
 				{
-					return selectedRelative.initials();
+					return _selectedRelative.Initials();
 				}
 			}
 			//Мать
-			if (selectedStudentMather != null)
+			if (_selectedStudentMather != null)
 			{
 				if (command.ToUpper() == "МАТЬ ИМЯ")
 				{
-					return selectedStudentMather.FirstName;
+					return _selectedStudentMather.FirstName;
 				}
 
 				if (command.ToUpper() == "МАТЬ ФАМИЛИЯ")
 				{
-					return selectedStudentMather.MiddleName;
+					return _selectedStudentMather.MiddleName;
 				}
 
 				if (command.ToUpper() == "МАТЬ ОТЧЕСТВО")
 				{
-					return selectedStudentMather.LastName;
+					return _selectedStudentMather.LastName;
 				}
 
 				if (command.ToUpper() == "МАТЬ ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
-					return selectedStudentMather.MaidenName;
+					return _selectedStudentMather.MaidenName;
 				}
 
 				if (command.ToUpper() == "МАТЬ ДЕНЬ РОЖДЕНИЯ")
 				{
-					return selectedStudentMather.Birthday;
+					return _selectedStudentMather.Birthday;
 				}
 
 				if (command.ToUpper() == "МАТЬ АДРЕС РЕГИСТРАЦИИ")
 				{
-					return selectedStudentMather.PlaceOfRegestration;
+					return _selectedStudentMather.PlaceOfRegestration;
 				}
 
 				if (command.ToUpper() == "МАТЬ АДРЕС ПРОЖИВАНИЯ")
 				{
-					return selectedStudentMather.PlaceOfResidence;
+					return _selectedStudentMather.PlaceOfResidence;
 				}
 
 				if (command.ToUpper() == "МАТЬ МОБИЛЬНЫЙ НОМЕР")
 				{
-					return selectedStudentMather.MobilePhone;
+					return _selectedStudentMather.MobilePhone;
 				}
 
 				if (command.ToUpper() == "МАТЬ СТЕПЕНЬ РОДСТВА")
 				{
-					return selectedStudentMather.RelationDegree;
+					return _selectedStudentMather.RelationDegree;
 				}
 
 				if (command.ToUpper() == "МАТЬ СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
-					return selectedStudentMather.HealthStatus;
+					return _selectedStudentMather.HealthStatus;
 				}
 
 				if (command.ToUpper() == "МАТЬ ИНИЦИАЛЫ")
 				{
-					return selectedStudentMather.initials();
+					return _selectedStudentMather.Initials();
 				}
 			}
 			// ОТЕЦ(ОТЧИМ)
-			if (selectedStudentFather != null)
+			if (_selectedStudentFather != null)
 			{
 				if (command.ToUpper() == "ОТЕЦ ИМЯ")
 				{
-					return selectedStudentFather.FirstName;
+					return _selectedStudentFather.FirstName;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ ФАМИЛИЯ")
 				{
-					return selectedStudentFather.MiddleName;
+					return _selectedStudentFather.MiddleName;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ ОТЧЕСТВО")
 				{
-					return selectedStudentFather.LastName;
+					return _selectedStudentFather.LastName;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ ДЕВИЧЬЯ ФАМИЛИЯ")
 				{
-					return selectedStudentFather.MaidenName;
+					return _selectedStudentFather.MaidenName;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ ДЕНЬ РОЖДЕНИЯ")
 				{
-					return selectedStudentFather.Birthday;
+					return _selectedStudentFather.Birthday;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ АДРЕС РЕГИСТРАЦИИ")
 				{
-					return selectedStudentFather.PlaceOfRegestration;
+					return _selectedStudentFather.PlaceOfRegestration;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ АДРЕС ПРОЖИВАНИЯ")
 				{
-					return selectedStudentFather.PlaceOfResidence;
+					return _selectedStudentFather.PlaceOfResidence;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ МОБИЛЬНЫЙ НОМЕР")
 				{
-					return selectedStudentFather.MobilePhone;
+					return _selectedStudentFather.MobilePhone;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ СТЕПЕНЬ РОДСТВА")
 				{
-					return selectedStudentFather.RelationDegree;
+					return _selectedStudentFather.RelationDegree;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ СОСТОЯНИЕ ЗДОРОВЬЯ")
 				{
-					return selectedStudentFather.HealthStatus;
+					return _selectedStudentFather.HealthStatus;
 				}
 
 				if (command.ToUpper() == "ОТЕЦ ИНИЦИАЛЫ")
 				{
-					return selectedStudentFather.initials();
+					return _selectedStudentFather.Initials();
 				}
 			}
 
 			// Взвод
-			if (selectedTrop != null)
+			if (_selectedTroop != null)
 			{
 				if (command.ToUpper() == "ВЗВОД НОМЕР")
 				{
-					return selectedTrop.NumberTroop;
+					return _selectedTroop.NumberTroop;
 				}
 
 				if (command.ToUpper() == "ВЗВОД КОЛ-ВО ЧЕЛОВЕК")
 				{
-					return selectedTrop.StaffCount.ToString();
+					return _selectedTroop.StaffCount.ToString();
 				}
 
 				if (command.ToUpper() == "ВЗВОД ДЕНЬ ПРИХОДА")
 				{
-					return selectedTrop.GetArrivalDayValue; //TODO
+					return _selectedTroop.GetArrivalDayValue; //TODO
 				}
 
 				if (command.ToUpper() == "ВЗВОД ВУС")
 				{
-					return "123"; // TODO
+					return _selectedTroop.Cycle.VUS; // TODO
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
-						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
+						_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5 %")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
-						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
+						((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
-						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString() : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
+						_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4 %")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
-						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 4))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
+						((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
-						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString() : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
+						_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3 %")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
-						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 3))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
+						((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
-						selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2).ToString() : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
+						_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2).ToString() : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2 %")
 				{
-					return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
-						((double)((selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2))) / selectedTrop.Students.Count * 100).ToString("#.#") : "-";
+					return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
+						((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
 				{
-					return selectedTrop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal > 2)).ToString();
+					return _selectedTroop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal > 2)).ToString();
 				}
 
 				if (command.ToUpper() == "ПРОТОКОЛ 1 СРЕДНИЙ БАЛЛ")
 				{
-					return (Convert.ToDouble(selectedTrop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u => u.AssessmentProtocolOneFinal)) /
-						 selectedTrop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2))).ToString("#.#");
+					return (Convert.ToDouble(_selectedTroop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u => u.AssessmentProtocolOneFinal)) /
+						 _selectedTroop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2))).ToString("#.#");
 				}
 
-				if (selectedTrop.Prepod != null)
+				if (_selectedTroop.Prepod != null)
 				{
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИМЯ")
 					{
-						return selectedTrop.Prepod.FirstName;
+						return _selectedTroop.Prepod.FirstName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ФАМИЛИЯ")
 					{
-						return selectedTrop.Prepod.MiddleName;
+						return _selectedTroop.Prepod.MiddleName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ОТЧЕСТВО")
 					{
-						return selectedTrop.Prepod.LastName;
+						return _selectedTroop.Prepod.LastName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ЗВАНИЕ")
 					{
-						return selectedTrop.Prepod.GetCoolnessValue; // TODO
+						return _selectedTroop.Prepod.GetCoolnessValue; // TODO
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ДОЛЖНОСТЬ")
 					{
-						return selectedTrop.Prepod.PrepodRank;
+						return _selectedTroop.Prepod.PrepodRank;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ИНИЦИАЛЫ")
 					{
-						return selectedTrop.Prepod.Initials;
+						return _selectedTroop.Prepod.Initials;
 					}
 
 					if (command.ToUpper() == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
@@ -995,158 +997,158 @@ namespace LKS.Infrastructure.Templates
 				}
 
 				// Командир взвода
-				if (selectedTrop.PlatoonCommander != null)
+				if (_selectedTroop.PlatoonCommander != null)
 				{
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИМЯ")
 					{
-						return selectedTrop.PlatoonCommander.FirstName;
+						return _selectedTroop.PlatoonCommander.FirstName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ФАМИЛИЯ")
 					{
-						return selectedTrop.PlatoonCommander.MiddleName;
+						return _selectedTroop.PlatoonCommander.MiddleName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ОТЧЕСТВО")
 					{
-						return selectedTrop.PlatoonCommander.LastName;
+						return _selectedTroop.PlatoonCommander.LastName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ФАКУЛЬТЕТ")
 					{
-						return selectedTrop.PlatoonCommander.Faculty;
+						return _selectedTroop.PlatoonCommander.Faculty;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГРУППА")
 					{
-						return selectedTrop.PlatoonCommander.InstGroup;
+						return _selectedTroop.PlatoonCommander.InstGroup;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВУС")
 					{
-						return selectedTrop.PlatoonCommander.SpecialityName;
+						return _selectedTroop.PlatoonCommander.SpecialityName;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР УСЛОВИЯ ОБУЧЕНИЯ")
 					{
-						return selectedTrop.PlatoonCommander.ConditionsOfEducation;
+						return _selectedTroop.PlatoonCommander.ConditionsOfEducation;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР СРЕДНИЙ БАЛЛ")
 					{
-						return selectedTrop.PlatoonCommander.AvarageScore;
+						return _selectedTroop.PlatoonCommander.AvarageScore;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ПОСТУПЛЕНИЯ В МАИ")
 					{
-						return selectedTrop.PlatoonCommander.YearOfAddMAI;
+						return _selectedTroop.PlatoonCommander.YearOfAddMAI;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ОКОНЧАНИЯ МАИ")
 					{
-						return selectedTrop.PlatoonCommander.YearOfEndMAI;
+						return _selectedTroop.PlatoonCommander.YearOfEndMAI;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ПОСТУПЛЕНИЯ НА КАФЕДРУ")
 					{
-						return selectedTrop.PlatoonCommander.YearOfAddVK;
+						return _selectedTroop.PlatoonCommander.YearOfAddVK;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГОД ОКОНЧАНИЯ КАФЕДРЫ")
 					{
-						return selectedTrop.PlatoonCommander.YearOfEndVK;
+						return _selectedTroop.PlatoonCommander.YearOfEndVK;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР НОМЕР ПРИКАЗА")
 					{
-						return selectedTrop.PlatoonCommander.NumberOfOrder;
+						return _selectedTroop.PlatoonCommander.NumberOfOrder;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДАТА ПРИКАЗА")
 					{
-						return selectedTrop.PlatoonCommander.DateOfOrder;
+						return _selectedTroop.PlatoonCommander.DateOfOrder;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВОЕНКОМАТ")
 					{
-						return selectedTrop.PlatoonCommander.Rectal;
+						return _selectedTroop.PlatoonCommander.Rectal;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДЕНЬ РОЖДЕНИЯ")
 					{
-						return selectedTrop.PlatoonCommander.Birthday;
+						return _selectedTroop.PlatoonCommander.Birthday;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР МЕСТО РОЖДЕНИЯ")
 					{
-						return selectedTrop.PlatoonCommander.PlaceBirthday;
+						return _selectedTroop.PlatoonCommander.PlaceBirthday;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР НАЦИЯ")
 					{
-						return selectedTrop.PlatoonCommander.Nationality;
+						return _selectedTroop.PlatoonCommander.Nationality;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДОМАШНИЙ НОМЕР")
 					{
-						return selectedTrop.PlatoonCommander.HomePhone;
+						return _selectedTroop.PlatoonCommander.HomePhone;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР МОБИЛЬНЫЙНОМЕР")
 					{
-						return selectedTrop.PlatoonCommander.MobilePhone;
+						return _selectedTroop.PlatoonCommander.MobilePhone;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР АДРЕС ПРОЖИВАНИЯ")
 					{
-						return selectedTrop.PlatoonCommander.PlaceOfResidence;
+						return _selectedTroop.PlatoonCommander.PlaceOfResidence;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР АДРЕС РЕГИСТРАЦИИ")
 					{
-						return selectedTrop.PlatoonCommander.PlaceOfRegestration;
+						return _selectedTroop.PlatoonCommander.PlaceOfRegestration;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ШКОЛА")
 					{
-						return selectedTrop.PlatoonCommander.School;
+						return _selectedTroop.PlatoonCommander.School;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ДОЛЖНОСТЬ")
 					{
-						return selectedTrop.PlatoonCommander.GetPositionValue; // TODO
+						return _selectedTroop.PlatoonCommander.GetPositionValue; // TODO
 					}
 
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ВЗВОД")
 					{
-						return selectedTrop.NumberTroop;
+						return _selectedTroop.NumberTroop;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ИНИЦИАЛЫ")
 					{
-						return selectedTrop.PlatoonCommander.Initials;
+						return _selectedTroop.PlatoonCommander.Initials;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР СЛУЖБА В ВС")
 					{
-						return selectedTrop.PlatoonCommander.Military;
+						return _selectedTroop.PlatoonCommander.Military;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР СЕМЕЙНЫЙ СТАТУС")
 					{
-						return selectedTrop.PlatoonCommander.FamiliStatys;
+						return _selectedTroop.PlatoonCommander.FamiliStatys;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР ГРУППА КРОВИ")
 					{
-						return selectedTrop.PlatoonCommander.BloodType;
+						return _selectedTroop.PlatoonCommander.BloodType;
 					}
 
 					if (command.ToUpper() == "ВЗВОД КОМАНДИР СПЕЦИАЛЬНОСТЬ В ИНСТИТУТЕ")
 					{
-						return selectedTrop.PlatoonCommander.SpecInst;
+						return _selectedTroop.PlatoonCommander.SpecInst;
 					}
 				}
 			}
@@ -1520,34 +1522,34 @@ namespace LKS.Infrastructure.Templates
 			return "НЕИЗВЕСТНАЯ КОМАНДА";
 		}
 
-		void changeTroop()
+        private void ChangeTroop()
 		{
-			students = selectedTrop.Students.ToList();
-			selectedStudent = students.First();
-			changeSelectedStudent();
+			_students = _selectedTroop.Students.ToList();
+			_selectedStudent = _students.First();
+			ChangeSelectedStudent();
 		}
 
-		void changeSelectedStudent()
+        private void ChangeSelectedStudent()
 		{
-			selectedStudentMather = null;
-			selectedStudentFather = null;
-			if (selectedStudent?.Relatives != null)
+			_selectedStudentMather = null;
+			_selectedStudentFather = null;
+			if (_selectedStudent?.Relatives != null)
 			{
-				if (selectedStudent.Relatives.Count != 0)
+				if (_selectedStudent.Relatives.Count != 0)
 				{
-					selectedRelative = selectedStudent.Relatives.First();
+					_selectedRelative = _selectedStudent.Relatives.First();
 				}
-				foreach (Relative item in selectedStudent.Relatives)
+				foreach (Relative item in _selectedStudent.Relatives)
 				{
-					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && selectedStudentMather == null)
+					if ((item.RelationDegree == "Мать" || item.RelationDegree == "Мачеха") && _selectedStudentMather == null)
 					{
-						selectedStudentMather = item;
+						_selectedStudentMather = item;
 					}
 
 					if ((item.RelationDegree == "Отец" || item.RelationDegree == "Отчим")
-						&& selectedStudentFather == null)
+						&& _selectedStudentFather == null)
 					{
-						selectedStudentFather = item;
+						_selectedStudentFather = item;
 					}
 				}
 			}

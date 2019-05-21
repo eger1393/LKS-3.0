@@ -2,7 +2,6 @@
 using LKS.Data.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -27,7 +26,7 @@ namespace LKS.Infrastructure.Authenticate
 
         public AuthenticateModel CreateToken(User user)
         {
-            var expirationTime = DateTime.UtcNow.AddSeconds(_jwtLifespan);
+            //var expirationTime = DateTime.UtcNow.AddSeconds(_jwtLifespan);
 
 			var claims = new[]
 			{
@@ -37,12 +36,12 @@ namespace LKS.Infrastructure.Authenticate
             };
 
             var jwt = new JwtSecurityToken(
-                issuer: _issuer,
-                audience: _audience,
-                claims: claims,
-                notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromSeconds(_jwtLifespan)),
-                signingCredentials: new SigningCredentials(
+                _issuer,
+                _audience,
+                claims,
+                DateTime.UtcNow,
+                DateTime.UtcNow.Add(TimeSpan.FromSeconds(_jwtLifespan)),
+                new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSecret)),
                     SecurityAlgorithms.HmacSha256
                 ));

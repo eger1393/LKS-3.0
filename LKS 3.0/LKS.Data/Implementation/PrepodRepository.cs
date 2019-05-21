@@ -1,88 +1,68 @@
-﻿using LKS.Data.Repositories;
+﻿using System;
+using LKS.Data.Repositories;
 using LKS.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using LKS.Data.Providers;
 
 namespace LKS.Data.Implementation
 {
 	public class PrepodRepository : IPrepodRepository
 
 	{
-		private DataContext context;
-        private readonly IPasswordProvider _passwordProvider;
-
-        public PrepodRepository(DataContext context, IPasswordProvider passwordProvider)
+		private readonly DataContext _context;
+		public PrepodRepository(DataContext context)
 		{
-            _passwordProvider = passwordProvider;
-			this.context = context;
+			this._context = context;
 		}
-		public async Task<string> Create(Prepod item, string login)
+		public async Task Create(Prepod item)
 		{
-			await context.Prepods.AddAsync(item);
-            string password = _passwordProvider.GetHash(_passwordProvider.GetRandomPassword(8), login);
-            await context.Users.AddAsync(new User
-            {
-                Login = login,
-                Role = "Admin",
-                TroopId = string.Empty,
-                Password = password
-            });
-            context.SaveChanges();
-			return password;
-		}
-
-        public Task Create(Prepod item)
-        {
-            throw new NotImplementedException();
+			await _context.Prepods.AddAsync(item);
+			_context.SaveChanges();
         }
 
-        public async Task CreateRange(ICollection<Prepod> item)
+		public async Task CreateRange(ICollection<Prepod> item)
 		{
-			await context.Prepods.AddRangeAsync(item);
-			await context.SaveChangesAsync();
-			return;
-		}
+			await _context.Prepods.AddRangeAsync(item);
+			await _context.SaveChangesAsync();
+        }
 
 		public async Task Delete(Prepod item)
 		{
-			Prepod prepod = context.Prepods.Include(x => x.Troops).FirstOrDefault(x => x.Id == item.Id);
-			foreach(var troop in prepod?.Troops)
-			{
-				troop.Prepod = null;
-				troop.PrepodId = null;
-			}
-			context.Prepods.Remove(prepod);
-			context.SaveChanges();
+			var prepod = _context.Prepods.Include(x => x.Troops).FirstOrDefault(x => x.Id == item.Id);
+            if (prepod?.Troops != null)
+                foreach (var troop in prepod?.Troops)
+                {
+                    troop.Prepod = null;
+                    troop.PrepodId = null;
+                }
+
+            _context.Prepods.Remove(prepod ?? throw new InvalidOperationException());
+			_context.SaveChanges();
 			return;
 		}
 
 		public async Task DeleteRange(ICollection<Prepod> item)
 		{
-			context.Prepods.RemoveRange(item);
-			context.SaveChanges();
-			return;
-		}
+			_context.Prepods.RemoveRange(item);
+			_context.SaveChanges();
+        }
 
 		public async Task<Prepod> GetItem(string id)
 		{
-			var res = await context.Prepods.FindAsync(id);
+			var res = await _context.Prepods.FindAsync(id);
 			return res;
 		}
 
 		public List<Prepod> GetItems()
 		{
-			return context.Prepods.ToList();
+			return _context.Prepods.ToList();
 		}
         public async Task Update(Prepod item)
 		{
-			context.Prepods.Update(item);
-			context.SaveChanges();
-			return;
-		}
+			_context.Prepods.Update(item);
+			_context.SaveChanges();
+        }
 	}
 }

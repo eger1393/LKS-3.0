@@ -24,7 +24,7 @@ class Info extends React.Component {
         var name = event.target.name ? event.target.name : event.target.id,
             val = event.target.value;
 
-        //добавить валидацию значений
+        //добавить валидацию 
         var error = false;
         var tab = "infoTab";
         this.props.fetchSetValueForStudent({ name, val, error, tab });

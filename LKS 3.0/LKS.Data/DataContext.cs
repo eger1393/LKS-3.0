@@ -6,7 +6,7 @@ using System;
 
 namespace LKS.Data
 {
-	public class DataContext : DbContext
+	public sealed class DataContext : DbContext
 	{
 		private readonly IPasswordProvider _passwordProvider;
 
@@ -19,7 +19,7 @@ namespace LKS.Data
 		public DbSet<User> Users { get; set; }
 		#endregion
 
-		public DataContext(DbContextOptions<DataContext> options, IPasswordProvider passwordProvider) : base(options)
+		public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
 		{
 			_passwordProvider = passwordProvider;
 			Database.EnsureCreated();
@@ -41,7 +41,7 @@ namespace LKS.Data
             string[] SpecInstList = { "ИВТ", "МАТ", "БИ", "ЕНА" };
             string[] InstGroupList = { "3ВТИ-039", "3ВТИ-037", "3ВТИ-042", "3ВТИ-040" };
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
-            Random rand = new Random();
+            var rand = new Random();
 			builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",

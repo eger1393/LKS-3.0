@@ -135,7 +135,7 @@ namespace LKS.Web.SPA
 					};
 				});
 
-			services.AddSingleton<IJwtAuth>(new JwtAuth(JwtKey, 2592000, "LKS-server", "LKS-app"));
+			services.AddSingleton<IJwtAuth>(new JwtAuth(JwtKey, 2592000, "LKS-server", "LKS-client"));
 		}
 	}
 }

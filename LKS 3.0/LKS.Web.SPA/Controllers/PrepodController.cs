@@ -1,12 +1,14 @@
-﻿using LKS.Data.Repositories;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using LKS.Data.Models;
+using LKS.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using LKS.Web.Models;
 
-namespace LKS.Web.SPA.Controllers
+namespace LKS.Web.Controllers
 {
 	[Route("api/[controller]")]
 	[Authorize]
