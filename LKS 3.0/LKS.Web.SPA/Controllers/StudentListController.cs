@@ -13,11 +13,10 @@ namespace LKS.Web.Controllers
 	[ApiController]
     public class StudentListController : Controller
     {
-		private readonly IStudentRepository _stydentRepository;
-
-		public StudentListController(IStudentRepository studentRepository)
+		private readonly IStudentRepository _studentRepository;
+        public StudentListController(IStudentRepository studentRepository)
 		{
-			this._stydentRepository = studentRepository;
+			this._studentRepository = studentRepository;
 		}
 
 		[HttpPost("[action]")]
@@ -32,7 +31,7 @@ namespace LKS.Web.Controllers
 				model.SelectTroop = troopId;
 			}
 
-			var studentList = _stydentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
+			var studentList = _studentRepository.GetStudents(model.Filters, model.SelectTroop).Select(ob => new
 			{
 				ob.Id,
 				ob.FirstName,
@@ -72,45 +71,24 @@ namespace LKS.Web.Controllers
 			});
 			return new JsonResult(new { studentList = studentList.ToArray() });
 		}
-
-        [HttpPost("[action]")]
-        public IActionResult GetInstGroupList()
-        {
-            var obj = _stydentRepository.GetInstGroupList().Select(ob => new
-            {
-                label = ob
-            });
-            return Ok(obj);
-        }
-
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		[HttpPost("[action]")]
 		public IActionResult SetStudentStatus([FromBody]SetStudentStatusModel model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
-			_stydentRepository.SetStudentStatus(model.id, model.status);
+            _studentRepository.SetStudentStatus(model.id, model.status);
 			return Ok();
 		}
-
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		[HttpPost("[action]")]
 		public IActionResult SetStudentPosition([FromBody]SetStudentPositionModel model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
-			_stydentRepository.SetStudentPosition(model.id, model.position);
+            _studentRepository.SetStudentPosition(model.id, model.position);
 			return Ok();
 		}
-
-        [HttpPost("[action]")]
-        public IActionResult CreateStudent([FromBody]Student model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            _stydentRepository.Create(model);
-            return Ok();
-        }
 
     }
 }

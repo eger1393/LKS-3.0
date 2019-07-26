@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using LKS.Data.Helpers;
 using LKS.Data.Repositories;
 using LKS.Web.Helpers;
 using LKS.Web.Models;
@@ -20,8 +21,8 @@ namespace LKS.Web.Controllers
 
 		public AddStudentController(IStudentRepository studentRepository, IRelativeRepository relativeRepository)
 		{
-			this._studentRepository = studentRepository;
-			this._relativeRepository = relativeRepository;
+			_studentRepository = studentRepository;
+			_relativeRepository = relativeRepository;
 		}
 
 
@@ -41,7 +42,7 @@ namespace LKS.Web.Controllers
 			{
 				label = ob
 			}).ToList();
-			if (obj.Count() == 0)
+			if (!obj.Any())
 			{
 				obj.Add(new { label = "Английский" });
 			}
@@ -88,8 +89,7 @@ namespace LKS.Web.Controllers
             await _studentRepository.Create(model.Student);
 			return Ok();
 		}
-
-		[HttpPost("[action]")]
+        [HttpPost("[action]")]
 		public async Task<IActionResult> UpdateStudent([FromForm]SaveStudentModel model)
 		{
 			if (!ModelState.IsValid)
@@ -99,6 +99,7 @@ namespace LKS.Web.Controllers
 			{
 				if (!string.IsNullOrEmpty(model.Student?.ImagePath))
 					ImageHelper.DeleteImage(model.Student.ImagePath);
+                Guard.Argument.IsNotNull(() => model.Student);
 				model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
 			}
 

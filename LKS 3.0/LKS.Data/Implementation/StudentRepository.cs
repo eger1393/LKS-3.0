@@ -87,7 +87,7 @@ namespace LKS.Data.Implementation
                 .AsQueryable().ToList(); // todo delete tolist
             if (!string.IsNullOrEmpty(selectTroop))
                 res = res.Where(ob => ob.TroopId == selectTroop).ToList();
-            if (filters.Count != 0)
+            if (!filters.Any())
                 FilterStudents(filters, ref res);
 
             return res.ToList();

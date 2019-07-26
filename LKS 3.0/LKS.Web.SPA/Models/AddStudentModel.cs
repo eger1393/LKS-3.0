@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LKS.Data.Models;
-using LKS.Data.Models.Enums;
 
-namespace LKS.Web.SPA.Models
+namespace LKS.Web.Models
 {
     public class AddStudentModel
     {

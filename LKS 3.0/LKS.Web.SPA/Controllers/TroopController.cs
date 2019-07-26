@@ -27,24 +27,21 @@ namespace LKS.Web.Controllers
 			_troopRepository.Create(model);
 			return Ok();
 		}
-
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		[HttpPost("[action]")]
 		public IActionResult UpdateTroop(Troop model)
 		{
 			_troopRepository.Update(model);
 			return Ok();
 		}
-
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		[HttpDelete("[action]")]
 		public IActionResult DeleteTroop(Troop model)
 		{
 			_troopRepository.Delete(model);
 			return Ok();
 		}
-
-		[HttpPost("[action]")]
+        [HttpPost("[action]")]
 		public IActionResult GetTroopNumberList()
 		{
 			return Ok(_troopRepository.GetTroops().Select(ob => new
@@ -54,8 +51,7 @@ namespace LKS.Web.Controllers
                 ob.Students
 			}));
 		}
-
-		[HttpGet("[action]")]
+        [HttpGet("[action]")]
 		public async Task<IActionResult> GetTroop(string id)
 		{
 			var res = await _troopRepository.GetItem(id);
@@ -67,8 +63,7 @@ namespace LKS.Web.Controllers
 				res.PrepodId
 			});
 		}
-
-		[HttpPost("[action]")]
+        [HttpPost("[action]")]
 		public async Task<IActionResult> GetTroopList()
 		{
 			if (User.IsInRole("User"))
@@ -94,8 +89,7 @@ namespace LKS.Web.Controllers
 				}));
 			}
 		}
-
-		[HttpGet("[action]")]
+        [HttpGet("[action]")]
 		public async Task<IActionResult> GetTroopStudentsListInitial(string troopId)
 		{
 			var troop = await _troopRepository.GetItem(troopId);

@@ -27,7 +27,7 @@ namespace LKS.Data.Models.Enums
 		thirdSquadCommander,
 
 		/// <summary>
-		/// Журналис
+		/// Журналист
 		/// </summary>
 		journalist,
 

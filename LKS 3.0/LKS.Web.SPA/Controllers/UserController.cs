@@ -39,8 +39,7 @@ namespace LKS.Web.Controllers
 
 			return Ok(token);
 		}
-
-		[HttpGet("[action]")]
+        [HttpGet("[action]")]
 		[Authorize(Roles = "Admin")]
 		public IActionResult UpdatePassword([FromQuery] string login)
 		{
@@ -52,8 +51,7 @@ namespace LKS.Web.Controllers
 			_userRepository.Create(user);
 			return Ok(new { login = user.Login, password });
 		}
-
-		[HttpGet("[action]")]
+        [HttpGet("[action]")]
 		[Authorize(Roles = "Admin")]
 		public IActionResult GetAllUsers()
 		{

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Templates;
+using LKS.Web.Models;
 using LKS.Web.SPA.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,16 +25,19 @@ namespace LKS.Web.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> CreateUniversityLKSTemplate([FromHeader] CreateUniversityTemplateModel model)
+        // ReSharper disable once InconsistentNaming
+
+        public async Task<IActionResult> CreateUniversityLKSTemplate
+            ([FromHeader] CreateUniversityTemplateModel model)
 		{
 			// TODO говнокод, отрефактрить
 			
-			var student = await _studentRepository.GetItem(model.studentId);
+			var student = await _studentRepository.GetItem(model.StudentId);
 			var students = new List<Data.Models.Student>();
 			students.Add(student);
 			TemplateProvider t = new TemplateProvider();
 			string fileName = string.Empty;
-			switch (model.template)
+			switch (model.Template)
 			{
 				case "universityAdmissionForm":
 					fileName = "ЛКС_Форма_допуска.docx";
@@ -53,19 +57,19 @@ namespace LKS.Web.Controllers
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
 		}
-
-		[HttpGet("[action]")]
-		public async Task<IActionResult> CreateUniversityTemplate([FromHeader] CreateUniversityTemplateModel model)
+        [HttpGet("[action]")]
+		public async Task<IActionResult> CreateUniversityTemplate
+            ([FromHeader] CreateUniversityTemplateModel model)
 		{
 			// TODO говнокод, отрефактрить
-			var troop = await _troopRepository.GetItem(model.troopId);
+			var troop = await _troopRepository.GetItem(model.TroopId);
 			var troops = new List<Data.Models.Troop>();
 			troops.Add(troop);
 			TemplateProvider t = new TemplateProvider();
 			string fileName = string.Empty;
 			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
 			byte[] file = null;
-			switch (model.template)
+			switch (model.Template)
 			{
 				// доки для взвода
 				case "universityStudentList":
