@@ -82,7 +82,7 @@ class UserList extends React.Component {
                             posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
                           >
                             <td>
-                              {num}
+                              {num+1}
                             </td>
                             <td>
                               {ob.login}

@@ -55,7 +55,7 @@ class NavBar extends React.Component {
                   <TroopList show={this.state.openModalWindow.TroopList} onHide={() => this.click('TroopList')} />
                 )}
               </NavDropdown>
-              <NavDropdown title="Отчеты">
+              <NavDropdown title="Отчетные документы">
                 <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
                 {this.state.openModalWindow.ReportsVUS && (
                   <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
