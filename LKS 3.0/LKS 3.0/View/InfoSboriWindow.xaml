@@ -29,6 +29,10 @@
 
                     <GroupBox Grid.Column="0" Header="Документ">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="215*"/>
+                                <ColumnDefinition Width="241*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30"/>
                                 <RowDefinition Height="30"/>
@@ -42,25 +46,22 @@
                             </Grid.RowDefinitions>
                             <RadioButton GroupName="DocOnTroop" Content="Список личного состава" Grid.Row="0"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter}, 
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option1}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option1}}" Grid.ColumnSpan="2"/>
                             <!--<RadioButton GroupName="DocOnTroop" Content="Именной список граждан, направленных на уч. сборы (по взводам)" Grid.Row="1"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option2}}"/>-->
                             <RadioButton GroupName="DocOnTroop" Content="Журнал учебного взвода" Grid.Row="1"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option3}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option3}}" Grid.ColumnSpan="2"/>
                             <RadioButton GroupName="DocOnTroop" Content="Именной список направленых на сборы" Grid.Row="2"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option4}}"/>
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option4}}" Grid.ColumnSpan="2"/>
                             <RadioButton GroupName="DocOnTroop" Content="Список л.с. проинструктированного по треб. безопасности" Grid.Row="3"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option5}}"/>
-                            <RadioButton GroupName="DocOnTroop" Content="Именной список для вечерней проверки" Grid.Row="4"
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option5}}" Grid.ColumnSpan="2"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Общий список для вечерней поверки" Grid.Row="4"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option6}}"/>
-                            <!--<RadioButton GroupName="DocOnTroop" Content="Список взвода" Grid.Row="5"
-                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
-                                ConverterParameter={x:Static VievModel:RadioOptions.Option7}}"/>-->
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option6}}" Grid.ColumnSpan="2"/>
                             <!--<RadioButton GroupName="DocOnTroop" Content="ВПД" Grid.Row="7"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option8}}"/>-->
@@ -83,97 +84,100 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Данные о сборах" DataContext="{Binding SelectedSummerSbori}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.3*"/>
-                    </Grid.RowDefinitions>
+            <TabItem Header="Данные о сборах">
+                <StackPanel>
+                    <Grid DataContext="{Binding SelectedSummerSbori}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.3*"/>
+                        </Grid.RowDefinitions>
 
-                    <GroupBox x:Name="DateSbori"  Header="Время проведения сборов" HorizontalAlignment="Stretch" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                        <GroupBox x:Name="DateSbori"  Header="Время проведения сборов" HorizontalAlignment="Stretch" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <Label Content="№ приказа о сборах" Grid.Row="0"/>
-                            <Label Content="Дата приказа" Grid.Row="1"/>
-                            <Label Content="Начало сборов" Grid.Row="2"/>
-                            <Label Content="Конец сборов" Grid.Row="3"/>
-                            <Label Content="День присяги" Grid.Row="4"/>
-                            <Label Content="Экзамен" Grid.Row="6"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberofOrder, Mode=TwoWay}"/>
-                            <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="1" Grid.Row="1"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-                            <DatePicker x:Name="TbDataBeginSbori" Grid.Column="1" Grid.Row="2"  Text="{Binding DateBeginSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-                            <DatePicker x:Name="TbDataEndSbori" Grid.Column="1" Grid.Row="3"  Text="{Binding DateEndSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-                            <DatePicker x:Name="TbDatePrisyaga" Grid.Column="1" Grid.Row="4"  Text="{Binding DatePrisyaga, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-                            <DatePicker x:Name="TbDateExamen" Grid.Column="1" Grid.Row="6"  Text="{Binding DateExamen, Mode=TwoWay, StringFormat=\{0:d\}}"/>
-
-
+                                <Label Content="№ приказа о сборах" Grid.Row="0"/>
+                                <Label Content="Дата приказа" Grid.Row="1"/>
+                                <Label Content="Начало сборов" Grid.Row="2"/>
+                                <Label Content="Конец сборов" Grid.Row="3"/>
+                                <Label Content="День присяги" Grid.Row="4"/>
+                                <Label Content="Экзамен" Grid.Row="6"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberofOrder, Mode=TwoWay}"/>
+                                <DatePicker x:Name="TbDataOrderAdmision" Grid.Column="1" Grid.Row="1"  Text="{Binding DateOfOrder, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                                <DatePicker x:Name="TbDataBeginSbori" Grid.Column="1" Grid.Row="2"  Text="{Binding DateBeginSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                                <DatePicker x:Name="TbDataEndSbori" Grid.Column="1" Grid.Row="3"  Text="{Binding DateEndSbori, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                                <DatePicker x:Name="TbDatePrisyaga" Grid.Column="1" Grid.Row="4"  Text="{Binding DatePrisyaga, Mode=TwoWay, StringFormat=\{0:d\}}"/>
+                                <DatePicker x:Name="TbDateExamen" Grid.Column="1" Grid.Row="6"  Text="{Binding DateExamen, Mode=TwoWay, StringFormat=\{0:d\}}"/>
 
 
-                        </Grid>
-                    </GroupBox>
-                    <GroupBox x:Name="MilitaryBase"  Header="Военная часть" HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Top" MinWidth="200">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
 
-                            <Label Content="№ в/ч" Grid.Row="0"/>
-                            <Label Content="Местоположение в/ч" Grid.Row="1"/>
 
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberVK, Mode=TwoWay}"></TextBox>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LocationVK, Mode=TwoWay}"></TextBox>
-                        </Grid>
-                    </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox x:Name="MilitaryBase"  Header="Военная часть" HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Top" MinWidth="200">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                    <GroupBox x:Name="Any"  Header="Дополнительная информация" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" MinWidth="200">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                                <Label Content="№ в/ч" Grid.Row="0"/>
+                                <Label Content="Местоположение в/ч" Grid.Row="1"/>
 
-                            <Label Content="Боевая машина (полное наименование)" Grid.Row="0"/>
-                            <Label Content="Боевая машина (краткое)" Grid.Row="1"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NumberVK, Mode=TwoWay}"></TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LocationVK, Mode=TwoWay}"></TextBox>
+                            </Grid>
+                        </GroupBox>
 
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Bmp_full, Mode=TwoWay}"></TextBox>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Bmp_kr, Mode=TwoWay}"></TextBox>
-                        </Grid>
-                    </GroupBox>
+                        <GroupBox x:Name="Any"  Header="Дополнительная информация" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" MinWidth="200">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                    <GroupBox x:Name="TextOrder"  Header="Приказ" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="2">
-                        <TextBox x:Name="textBoxOrder" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Text="{Binding TittleOrder, Mode = TwoWay}" />
-                    </GroupBox>
+                                <Label Content="Боевая машина (полное наименование)" Grid.Row="0"/>
+                                <Label Content="Боевая машина (краткое)" Grid.Row="1"/>
 
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Bmp_full, Mode=TwoWay}"></TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Bmp_kr, Mode=TwoWay}"></TextBox>
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox x:Name="TextOrder"  Header="Приказ" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="2">
+                            <TextBox x:Name="textBoxOrder" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Text="{Binding TittleOrder, Mode = TwoWay}" />
+                        </GroupBox>
+
+
+                    </Grid>
                     <Button x:Name="ОКbutton" Content="Сохранить" Command="{Binding SaveCommand}" Grid.Row ="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-                </Grid>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Администрация">
                 <Grid>

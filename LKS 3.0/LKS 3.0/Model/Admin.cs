@@ -46,7 +46,7 @@ namespace LKS_3._0.Model
             officer; // Офицер ФВО
         public event PropertyChangedEventHandler PropertyChanged;
         /// <summary>
-        /// Инициалы ("Сидоров С. С.")
+        /// Инициалы ("С. Сидоров")
         /// </summary>
         public string Initials
         {
@@ -60,7 +60,7 @@ namespace LKS_3._0.Model
                     FirstName = "None";
                     LastName = "None";
                 }
-                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
+                return FirstName[0] + ". " + MiddleName;
             }
 
         }

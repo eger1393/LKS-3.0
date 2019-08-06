@@ -18,6 +18,6 @@
         </TextBlock>
         <Button x:Name="Open" Content="Открыть" Grid.Row="1" Margin="10,25,243,10" Command="{Binding Open}"/>
         <Button x:Name="Print" Content="Печать" Grid.Row="1" Margin="131,25,121,10" Command="{Binding Print}"/>
-        <Button x:Name="CloseForm" Content="Закрыть" Grid.Row="1" Margin="255,25,10,10" Command="{Binding CloseForm}"/>
+        <Button x:Name="CloseForm" Content="Закрыть" Grid.Row="1" Margin="255,25,10,10" Command="{Binding CloseForm}" IsDefault="True"/>
     </Grid>
 </Window>

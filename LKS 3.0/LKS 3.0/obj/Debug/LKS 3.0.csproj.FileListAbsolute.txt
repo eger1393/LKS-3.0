@@ -728,3 +728,107 @@ C:\Users\anton\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.applicatio
 C:\Users\anton\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 C:\Users\anton\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 C:\Users\anton\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.config
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe.manifest
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.application
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.exe
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\LKS 3.0.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\CommonServiceLocator.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Abstractions.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Configuration.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Container.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.Configuration.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.RegistrationByConvention.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.ServiceLocation.dll
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\CommonServiceLocator.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Abstractions.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Configuration.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Container.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.Configuration.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.RegistrationByConvention.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.ServiceLocation.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangePass.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoWindow.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerOrders.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\App.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_Content.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.cache
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0_MarkupCompile.lref
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddPrepod.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddStudent.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddTroop.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeKurs.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangeRankWindow.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ChangePass.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReport.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\CreateReportUniversity.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditPrepods.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\MainWindow.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\EditTroop.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoAdministrationMilKaf.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindow.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoSboriWindowSold.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\InfoWindow.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\NewSbori.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\OpenOrPrintDialogWindow.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\ProgressBar.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerFeesAssessmentForControl.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\SummerOrders.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\TroopChange.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowDatabase.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\WindowSetting.baml
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.g.resources
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS_3._0.Properties.Resources.resources
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.GenerateResource.cache
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CoreCompileInputs.cache
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe.manifest
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.application
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb

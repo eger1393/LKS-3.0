@@ -36,7 +36,7 @@ namespace LKS_3._0
 
             _Troops = troops;
 
-            CbTroop.ItemsSource = _Troops.Where(u => u.SboriTroop == false && u.NumberTroop != null).Distinct().ToList();
+            CbTroop.ItemsSource = _Troops.Where(u => u.NumberTroop != null).Distinct().ToList();
         }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
