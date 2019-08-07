@@ -1222,6 +1222,16 @@ namespace LKS_3._0.Model
                     return summer.DateEndSbori;
                 }
 
+                if (command.ToUpper() == "СБОРЫ ДЕНЬ МЕСЯЦ НАЧАЛА")
+                {
+                    return DateTime.Parse(summer.DateBeginSbori).ToString("dd MMMM");
+                }
+
+                if (command.ToUpper() == "СБОРЫ ДЕНЬ МЕСЯЦ ОКОНЧАНИЯ")
+                {
+                    return DateTime.Parse(summer.DateEndSbori).ToString("dd MMMM");
+                }
+
                 if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
                 {
                     return summer.DatePrisyaga;
@@ -1262,6 +1272,51 @@ namespace LKS_3._0.Model
                     return summer.Bmp_full;
                 }
 
+                if (command.ToUpper() == "CБОРЫ ХАРАК МЕТОД УРОВЕНЬ")
+                {
+                    switch (selectedStudent.AssessmentCharacteristicFinal)
+                    {
+                        case 4:
+                            {
+                                return "хороший";
+                            }
+                        case 5:
+                            {
+                                return "отличный";
+                            }
+                        default:
+                            {
+                                return "cредний";
+                            }
+                    }
+                }
+
+                if (command.ToUpper() == "СБОРЫ ХАРАК ПРОГР УРОВЕНЬ")
+                {
+                    switch (selectedStudent.AssessmentCharacteristicFinal)
+                    {
+                        case 5:
+                        case 4:
+                            {
+                                return "и качественно";
+                            }
+                        default:
+                            {
+                                return string.Empty;
+                            }
+                    }
+                }
+                if (command.ToUpper() == "СБОРЫ ХАРАК ДОЛЖНОСТЬ")
+                {
+                    if (string.IsNullOrWhiteSpace(selectedStudent.Rank))
+                    {
+                        return string.Empty;
+                    }
+                    else
+                    {
+                        return $"Исполнял обязанности {selectedStudent.Rank}.";
+                    }
+                }
 
             }
 

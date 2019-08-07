@@ -766,7 +766,6 @@ C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.Interception.Configuration.pdb
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.RegistrationByConvention.pdb
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\bin\Debug\Unity.ServiceLocation.pdb
-C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.ResolveComReference.cache
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddAdmin.g.cs
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\View\AddNoteStudent.g.cs
@@ -832,3 +831,4 @@ C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.applicatio
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csproj.CopyComplete
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.exe
 C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.pdb
+C:\Users\meant\Source\Repos\LKS-3.0\LKS 3.0\LKS 3.0\obj\Debug\LKS 3.0.csprojAssemblyReference.cache
