@@ -115,8 +115,8 @@ namespace LKS_3._0.ViewModel
             { // 4 вкладка
 				"Сборы_Метание_гранат.docx",
                 "Сборы_присяга_список.docx",
-                "Присяга индивидуальная.docx",//
-				"Сборы_бег_100.docx",
+                "Присяга индивидуальная.docx",
+                "Сборы_бег_100.docx",
                 "Сборы_бег_1000.docx",
                 "Сборы_бег_3000.docx",
                 "Сборы_ведомость_по_всем_нормативам.docx",
@@ -131,7 +131,7 @@ namespace LKS_3._0.ViewModel
             },
             { // 5
 				"Сборы_список_ТБ_на_БТУ.docx",
-                "ХАРАКТЕРИСТИКА.docx",
+                "none",
                 "none",
                 "none",
                 "none",
@@ -151,11 +151,11 @@ namespace LKS_3._0.ViewModel
                 "Именной список сдавших экзамен.docx",
                 "Именной список.docx",
                 "Отчет о результатах аттестации.docx",
-                "Протокол1.docx",
+                "Протокол.docx",
                 "Удостоверение о приписке.docx",
                 "Аттестация.docx",
                 "Характеристика.docx",
-                "none",
+                "Выписка из приказа на экзамен.docx",
                 "none",
                 "none",
                 "none",
@@ -223,36 +223,37 @@ namespace LKS_3._0.ViewModel
                                }
                                else
                                {
-                                   if ((int)obj == 6 && (int)radioOption == 4)
-                                   {
-                                       List<string> groupNum = new List<string>();
-                                       foreach (var item in tempList.First().Students)
-                                       {
-                                           if (!groupNum.Contains(item.InstGroup))
-                                           {
-                                               groupNum.Add(item.InstGroup);
-                                           }
-                                       }
-                                       foreach (var item in groupNum)
-                                       {
-                                           List<Troop> troopsTemp = new List<Troop>();
-                                           troopsTemp.Add(new Troop() { Vus = tempList.First().Vus });
-                                           troopsTemp.First().Students = new BindingList<Student>();
-                                           foreach (var it in temp_DataBase.Students.Where(ob => ob.InstGroup == item).ToList())
-                                           {
-                                               troopsTemp.First().Students.Add(it);
-                                           }
-                                           Model.Templates temp = new Model.Templates(
-                                           System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
-                                           ref temp_DataBase, null, null, troopsTemp);
-                                       }
-                                   }
-                                   else
-                                   {
-                                       Model.Templates temp = new Model.Templates(
-                                           System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
-                                           ref temp_DataBase, null, null, tempList);
-                                   }
+                                   //протокол
+                                   //if ((int)obj == 6 && (int)radioOption == 4)
+                                   //{
+                                   //    List<string> groupNum = new List<string>();
+                                   //    foreach (var item in tempList.First().Students)
+                                   //    {
+                                   //        if (!groupNum.Contains(item.InstGroup))
+                                   //        {
+                                   //            groupNum.Add(item.InstGroup);
+                                   //        }
+                                   //    }
+                                   //    foreach (var item in groupNum)
+                                   //    {
+                                   //        List<Troop> troopsTemp = new List<Troop>();
+                                   //        troopsTemp.Add(new Troop() { Vus = tempList.First().Vus });
+                                   //        troopsTemp.First().Students = new BindingList<Student>();
+                                   //        foreach (var it in temp_DataBase.Students.Where(ob => ob.InstGroup == item).ToList())
+                                   //        {
+                                   //            troopsTemp.First().Students.Add(it);
+                                   //        }
+                                   //        Model.Templates temp = new Model.Templates(
+                                   //        System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
+                                   //        ref temp_DataBase, null, null, troopsTemp);
+                                   //    }
+                                   //}
+                                   //else
+                                   //{
+                                   Model.Templates temp = new Model.Templates(
+                                       System.IO.Path.GetFullPath(@".\" + path_template + "\\" + pathTemplate[(int)obj, (int)radioOption]),
+                                       ref temp_DataBase, null, null, tempList);
+                                   //}
                                }
                            }
                        }

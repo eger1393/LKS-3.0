@@ -1272,9 +1272,9 @@ namespace LKS_3._0.Model
                     return summer.Bmp_full;
                 }
 
-                if (command.ToUpper() == "CБОРЫ ХАРАК МЕТОД УРОВЕНЬ")
+                string SwitchLevel(int level)
                 {
-                    switch (selectedStudent.AssessmentCharacteristicFinal)
+                    switch (level)
                     {
                         case 4:
                             {
@@ -1286,9 +1286,24 @@ namespace LKS_3._0.Model
                             }
                         default:
                             {
-                                return "cредний";
+                                return "удовлетворительный";
                             }
                     }
+                }
+
+                if (command.ToUpper() == "CБОРЫ ХАРАК МЕТОД УРОВЕНЬ")
+                {
+                    return SwitchLevel(selectedStudent.AssessmentProtocolOnePractice);
+                }
+
+                if (command.ToUpper() == "СБОРЫ ХАРАК ТЕОР УРОВЕНЬ")
+                {
+                    return SwitchLevel(selectedStudent.AssessmentProtocolOneTheory);
+                }
+
+                if (command.ToUpper() == "СБОРЫ ХАРАК ФИЗ УРОВЕНЬ")
+                {
+                    return SwitchLevel(selectedStudent.AssessmentProtocolOneFinal); //другая оценка должная быть
                 }
 
                 if (command.ToUpper() == "СБОРЫ ХАРАК ПРОГР УРОВЕНЬ")
@@ -1306,6 +1321,23 @@ namespace LKS_3._0.Model
                             }
                     }
                 }
+
+                if (command.ToUpper() == "СБОРЫ ХАРАК УСТАВ УРОВЕНЬ")
+                {
+                    switch (selectedStudent.AssessmentCharacteristicFinal)
+                    {
+                        case 5:
+                        case 4:
+                            {
+                                return "Общевоинские уставы знает и правильно руководствуется ими в повседневной жизни.";
+                            }
+                        default:
+                            {
+                                return "Общевоинские уставы знает и не всегда правильно руководствуется ими в повседневной жизни.";
+                            }
+                    }
+                }
+
                 if (command.ToUpper() == "СБОРЫ ХАРАК ДОЛЖНОСТЬ")
                 {
                     if (string.IsNullOrWhiteSpace(selectedStudent.Rank))

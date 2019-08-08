@@ -458,6 +458,9 @@
                             <RadioButton GroupName="DocOnTroop" Content="Характеристика" Grid.Row="6"
                                          IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
                                 ConverterParameter={x:Static VievModel:RadioOptions.Option8}}"/>
+                            <RadioButton GroupName="DocOnTroop" Content="Выписка из приказа на экзамен" Grid.Row="7"
+                                         IsChecked="{Binding RadioOption, Converter={StaticResource enumBooleanConverter},
+                                ConverterParameter={x:Static VievModel:RadioOptions.Option9}}"/>
                         </Grid>
                     </GroupBox>
                     <Label x:Name="label2" Content="Взвод" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" FontSize="16" Margin="0,10,0,0"/>

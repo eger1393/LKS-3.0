@@ -35,24 +35,24 @@ namespace LKS_3._0.View
 
             db = DB;
 
-            Rect = DB.Admins.FirstOrDefault(u => u.Id == 17);
-            War = DB.Admins.FirstOrDefault(u => u.Id == 16);
-            Nach = DB.Admins.FirstOrDefault(u => u.Id == 15);
+            Rect = DB.Admins.FirstOrDefault(u => u.Id == 24);
+            War = DB.Admins.FirstOrDefault(u => u.Id == 2);
+            Nach = DB.Admins.FirstOrDefault(u => u.Id == 1);
 
             if(Rect == null)
             {
-                MessageBox.Show("Ошибка! В списке администрации не найден Ректор МАИ НИУ (ID=17)");
-                return;
+                MessageBox.Show("Ошибка! В списке администрации не найден Ректор МАИ НИУ (ID=24)");
+               
             }
             if (War == null)
             {
-                MessageBox.Show("Ошибка! В списке администрации не найден Военный комиссар (ID=16)");
-                return;
+                MessageBox.Show("Ошибка! В списке администрации не найден Военный комиссар (ID=2)");
+                
             }
             if (Nach == null)
             {
-                MessageBox.Show("Ошибка! В списке администрации не найден Начальник факультета военного обучения (ID=15)");
-                return;
+                MessageBox.Show("Ошибка! В списке администрации не найден Начальник факультета военного обучения (ID=1)");
+                
             }
             VK_First.Text = Nach.FirstName;
             VK_Middle.Text = Nach.MiddleName;
