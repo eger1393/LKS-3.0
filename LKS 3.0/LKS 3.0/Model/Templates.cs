@@ -488,8 +488,8 @@ namespace LKS_3._0.Model
         private string toAssessment(int num)
         {
             string[] assessmentEnum = { // Перевод оценок из цифр в обозначения
-			"неудовлетв",
-            "удовлетв",
+			"неуд",
+            "удовл",
             "хорошо",
             "отлично"
             };
@@ -947,7 +947,12 @@ namespace LKS_3._0.Model
                     return selectedTrop.Vus;
                 }
 
-                if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
+				if (command.ToUpper() == "СПИСОК ГРУПП")
+				{
+					return string.Join(", ", selectedTrop.Students.Select(x => x.InstGroup).Distinct());
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
                 {
                     return selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
                         selectedTrop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
