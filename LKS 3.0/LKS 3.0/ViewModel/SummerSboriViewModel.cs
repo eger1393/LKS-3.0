@@ -184,10 +184,10 @@ namespace LKS_3._0.ViewModel
                            tempList.Add(selectedTroop);
                            if (Sort != RadioSortOptions.None)
                            {
-                               //tempList.First().Students = new BindingList<Student>(tempList.First().Students
-                               //    .OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
                                tempList.First().Students = new BindingList<Student>(tempList.First().Students
-                                    .OrderBy(ob => ob.MiddleName).OrderBy(u => u.InstGroup).ToList());
+                                  .OrderBy(ob => Sort == RadioSortOptions.MidleName ? ob.MiddleName : ob.InstGroup).ToList());
+                               //tempList.First().Students = new BindingList<Student>(tempList.First().Students
+                               //     .OrderBy(ob => ob.MiddleName).OrderBy(u => u.InstGroup).ToList());
                            }
                            if ((int)obj == 4 && (int)radioOption == 2)
                            {
