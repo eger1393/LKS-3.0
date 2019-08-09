@@ -57,12 +57,12 @@ namespace LKS_3._0.View
             VK_First.Text = Nach.FirstName;
             VK_Middle.Text = Nach.MiddleName;
             VK_Last.Text = Nach.LastName;
-            VK_Rank.Text = Nach.Rank;
+            VK_Rank.Text = Nach.Collness;
 
             War_First.Text = War.FirstName;
             War_Middle.Text = War.MiddleName;
             War_Last.Text = War.LastName;
-            War_Rank.Text = War.Rank;
+            War_Rank.Text = War.Collness;
 
             Rect_First.Text = Rect.FirstName;
             Rect_Middle.Text = Rect.MiddleName;
@@ -76,12 +76,12 @@ namespace LKS_3._0.View
             Nach.FirstName = VK_First.Text;
             Nach.MiddleName = VK_Middle.Text;
             Nach.LastName = VK_Last.Text;
-            Nach.Rank = VK_Rank.Text;
+            Nach.Collness = VK_Rank.Text;
 
             War.FirstName = War_First.Text;
             War.MiddleName = War_Middle.Text;
             War.LastName = War_Last.Text;
-            War.Rank = War_Rank.Text;
+            War.Collness = War_Rank.Text;
 
             Rect.FirstName = Rect_First.Text;
             Rect.MiddleName = Rect_Middle.Text;

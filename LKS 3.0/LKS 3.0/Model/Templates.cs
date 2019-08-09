@@ -947,7 +947,7 @@ namespace LKS_3._0.Model
                     return selectedTrop.Vus;
                 }
 
-				if (command.ToUpper() == "СПИСОК ГРУПП")
+				if (command.ToUpper() == "ВЗВОД СПИСОК ГРУПП")
 				{
 					return string.Join(", ", selectedTrop.Students.Select(x => x.InstGroup).Distinct());
 				}
