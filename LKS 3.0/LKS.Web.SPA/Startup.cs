@@ -15,6 +15,7 @@ using LKS.Infrastructure.Authenticate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using LKS.Data.Providers;
+using DataBase;
 
 namespace LKS.Web.SPA
 {
@@ -42,7 +43,8 @@ namespace LKS.Web.SPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
-			services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("TestConnection")));
+			//UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
 			RegistrationInterfaces(services);
 			ConfigureAuthentication(services);
