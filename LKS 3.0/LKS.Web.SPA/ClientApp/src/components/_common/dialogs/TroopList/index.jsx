@@ -1,4 +1,4 @@
-﻿import React from 'react'
+﻿import React, {createRef} from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Table } from 'react-bootstrap'
@@ -18,6 +18,11 @@ import { Container, Content } from './styled'
 
 
 class TroopList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.modalRef = createRef()
+  }
+
   state = {
     troopWindowIsOpen: false,
     editedTroopId: null,
@@ -56,11 +61,13 @@ class TroopList extends React.Component {
     }
   }
 
+                            
   render() {
     const { troops } = this.props;
     return (
+      
       <Modal show={this.props.show} onHide={this.props.onHide}>
-        <ModalContainer ref="ModalContainer">
+        <ModalContainer ref={this.modalRef}>
           <Container>
             <FormHead text="Список взводов" handleClick={this.props.onHide} />
             <FlexBox>
@@ -84,7 +91,7 @@ class TroopList extends React.Component {
                   </thead>
                   <tbody>
                     {
-                      troops && this.refs.ModalContainer && troops.map(ob => {
+                      troops && this.modalRef.current && troops.map(ob => {
                         return (
                           <ContextMenuTrigger
                             renderTag="tr"
@@ -92,8 +99,8 @@ class TroopList extends React.Component {
                             troopId={ob.id}
                             key={ob.id}
                             collect={this.collect}
-                            posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
-                            posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
+                            posX={this.modalRef.current.getBoundingClientRect().left - 15}
+                            posY={this.modalRef.current.getBoundingClientRect().top - 7}
                           >
                             <td>
                               {ob.numberTroop}

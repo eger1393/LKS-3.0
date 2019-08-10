@@ -1,4 +1,4 @@
-﻿import React from 'react'
+﻿import React, {createRef} from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'react-bootstrap'
 import Modal from '../../ModalDialog'
@@ -15,6 +15,11 @@ import { Container, Content } from './styled'
 
 
 class PrepodList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.modalRef = createRef()
+  }
+
   state = {
     prepodWindowIsOpen: false,
     editedPrepodId: null,
@@ -59,7 +64,7 @@ class PrepodList extends React.Component {
     const { prepodList } = this.state;
     return (
       <Modal show={this.props.show} onHide={this.props.onHide}>
-        <ModalContainer ref="ModalContainer">
+        <ModalContainer ref={this.modalRef}>
           <Container>
             <FormHead text="Список преподавателей" handleClick={this.props.onHide} />
             <FlexBox>
@@ -89,7 +94,7 @@ class PrepodList extends React.Component {
                   </thead>
                   <tbody>
                     {
-                      prepodList && prepodList.map(ob => {
+                      prepodList && this.modalRef.current && prepodList.map(ob => {
                         return (
                           <ContextMenuTrigger
                             renderTag="tr"
@@ -97,8 +102,8 @@ class PrepodList extends React.Component {
                             troopId={ob.id}
                             key={ob.id}
                             collect={this.collect}
-                            posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
-                            posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
+                            posX={this.modalRef.current.getBoundingClientRect().left - 15}
+                            posY={this.modalRef.current.getBoundingClientRect().top - 7}
                           >
                             <td>
                               {ob.middleName}
