@@ -6,7 +6,7 @@ import Button from '../../elements/Button'
 import { ModalContainer } from '../../elements/StyleDialogs/styled'
 import Info from './Info'
 import { Container } from './styled'
-import { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors, fetchClearStudent } from '../../../../redux/modules/AddStudent'
+import { fetchUpdateStudent, fetchSetErrors, fetchClearStudent } from '../../../../redux/modules/addStudent'
 import { getIsLoading, getStudentId, getAddStudentFieldsValue, getIsError, getIsErrorInfo, getIsErrorPersonal } from '../../../../selectors/addStudent'
 import { connect } from 'react-redux'
 import Personal from './Personal';
@@ -26,13 +26,7 @@ class CreateStudent extends React.Component {
     }
     createStudent = () => {
         if (this.validate()) {
-            if (this.props.StudentId != undefined) {
-                this.props.fetchUpdateStudent();
-            }
-            else {
-                //this.props.fetchAddNewStudent();
-              this.props.fetchUpdateStudent();
-            }
+            this.props.fetchUpdateStudent();
             this.props.onHide();
         }
 
@@ -116,7 +110,6 @@ CreateStudent.props = {
     onHide: PropTypes.func,
     StudentId: PropTypes.string,
     fetchUpdateStudent: PropTypes.func,
-    fetchAddNewStudent: PropTypes.func,
     loading: PropTypes.bool,
     errorInfo: PropTypes.bool,
     errorPersonal: PropTypes.bool,
@@ -131,4 +124,4 @@ function mapStateToProps(store) {
         errorPersonal: getIsErrorPersonal(store),
     }
 }
-export default connect(mapStateToProps, { fetchAddNewStudent, fetchUpdateStudent, fetchSetErrors, fetchClearStudent })(CreateStudent)
+export default connect(mapStateToProps, { fetchUpdateStudent, fetchSetErrors, fetchClearStudent })(CreateStudent)

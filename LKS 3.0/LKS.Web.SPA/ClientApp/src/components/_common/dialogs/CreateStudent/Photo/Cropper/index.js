@@ -9,7 +9,7 @@ import Modal from '../../../../ModalDialog'
 import Button from '../../../../elements/Button'
 //import { FlexBox, FlexRow, ModalContainer } from '../../../../elements/StyleDialogs/styled'
 
-import { fetchSetValueForStudent } from '../../../../../../redux/modules/AddStudent'
+import { fetchSetValueForStudent } from '../../../../../../redux/modules/addStudent'
 
 import { Container, ModalContainer, CropperContainer, ImagePreview, PreviewContainer } from './styled'
 

@@ -1,8 +1,4 @@
-﻿const module = 'AddStudent'
-
-export const FETCH_ADD_NEW_STUDENT = `${module}/FETCH_ADD_NEW_STUDENT`
-export const FETCH_ADD_STUDENT_SUCCESS = `${module}/FETCH_ADD_STUDENT_SUCCESS`
-export const FETCH_ADD_STUDENT_FAILED = `${module}/FETCH_ADD_STUDENT_FAILED`
+﻿const module = 'addStudent'
 
 export const FETCH_UPDATE_STUDENT = `${module}/FETCH_UPDATE_STUDENT`
 export const FETCH_UPDATE_STUDENT_SUCCESS = `${module}/FETCH_UPDATE_STUDENT_SUCCESS`
@@ -61,10 +57,6 @@ const defaultState = {
 export default function reducer(currentStudentState = defaultState, action = {}) {
   const { type, payload } = action;
   switch (type) {
-    case FETCH_ADD_NEW_STUDENT:
-      return {
-        ...currentStudentState,
-      }
     case FETCH_UPDATE_STUDENT:
       return {
         ...currentStudentState,
@@ -75,7 +67,6 @@ export default function reducer(currentStudentState = defaultState, action = {})
         studentPhoto: payload,
       }
     case FETCH_CLEAR_STUDENT:
-    case FETCH_ADD_STUDENT_SUCCESS:
     case FETCH_UPDATE_STUDENT_SUCCESS:
       return {
         ...currentStudentState,
@@ -114,7 +105,6 @@ export default function reducer(currentStudentState = defaultState, action = {})
       }
 
     case FETCH_UPDATE_STUDENT_FAILED:
-    case FETCH_ADD_STUDENT_FAILED:
       return {
         ...currentStudentState,
         errorMessage: 'Произошла ошибка!', // обработать этот момент(подумать в какой момент я на серве кидаю ошибки)
@@ -207,19 +197,6 @@ export default function reducer(currentStudentState = defaultState, action = {})
 export const fetchSetStudentPhoto = photo => ({
   type: FETCH_SET_STUDENT_PHOTO,
   payload: photo,
-})
-
-export const fetchAddNewStudent = () => ({
-  type: FETCH_ADD_NEW_STUDENT,
-})
-
-export const fetchAddStudentSuccess = data => ({
-  type: FETCH_ADD_STUDENT_SUCCESS,
-  payload: data,
-})
-
-export const fetchAddStudentFailed = data => ({
-  type: FETCH_ADD_STUDENT_FAILED,
 })
 
 

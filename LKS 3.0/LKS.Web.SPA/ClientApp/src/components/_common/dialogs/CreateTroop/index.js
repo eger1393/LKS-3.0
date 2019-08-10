@@ -16,6 +16,7 @@ import {
 } from '../../../../api/dialogs'
 import { fetchGetTroopList } from '../../../../redux/modules/studentList'
 import { getTroopList } from '../../../../selectors/studentList'
+import { day } from '../../../../constants/addTroop' 
 
 import { Container } from './styled'
 
@@ -114,15 +115,7 @@ class CreateTroop extends React.Component {
   }
 
   render() {
-    // TODO Вынести в константы
-    var day = [
-      { id: '1', val: 'Понедельник' },
-      { id: '2', val: 'Вторник' },
-      { id: '3', val: 'Среда' },
-      { id: '4', val: 'Четверг' },
-      { id: '5', val: 'Пятница' },
-      { id: '6', val: 'Суббота' },
-    ]
+   
     return (
       <Modal show={this.props.show} onHide={this.props.onHide}>
         <ModalContainer>

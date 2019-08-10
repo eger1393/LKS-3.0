@@ -7,8 +7,9 @@ import Select from '../../../elements/Select'
 import FormHead from '../../../elements/FormHead'
 import Button from '../../../elements/Button'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
-import { fetchSetRelative } from '../../../../../redux/modules/AddStudent'
+import { fetchSetRelative } from '../../../../../redux/modules/addStudent'
 import { getStudentRelative } from '../../../../../selectors/addStudent'
+import { relationDegree, healthStatus } from '../../../../../constants/addStudent'
 import { Container } from './styled'
 
 
@@ -73,22 +74,6 @@ class CreateRelative extends React.Component {
     }
 
     render() {
-        // TODO Вынести в константы
-        var relationDegree = [
-            { id: '1', val: 'Отец' },
-            { id: '2', val: 'Мать' },
-            { id: '3', val: 'Брат' },
-            { id: '4', val: 'Сестра' },
-            { id: '5', val: 'Отчим' },
-            { id: '6', val: 'Мачеха' },
-        ]
-        var healthStatus = [
-            { id: '1', val: 'Здоров' },
-            { id: '2', val: 'Инвалид 1 степени' },
-            { id: '3', val: 'Инвалид 2 степени' },
-            { id: '4', val: 'Инвалид 3 степени' },
-            { id: '5', val: 'Умер' },
-        ]
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <ModalContainer>

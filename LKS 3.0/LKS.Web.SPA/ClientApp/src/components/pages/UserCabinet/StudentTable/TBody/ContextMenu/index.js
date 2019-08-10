@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchSetStudentStatus, fetchSetStudentPosition } from '../../../../../../redux/modules/studentList'
-import { fetchSetStudent } from '../../../../../../redux/modules/AddStudent'
+import { fetchSetStudent } from '../../../../../../redux/modules/addStudent'
 import CreateStudent from '../../../../../_common/dialogs/CreateStudent'
 import { ContextMenu, MenuItem, SubMenu } from "react-contextmenu";
 import { Container } from './styled'

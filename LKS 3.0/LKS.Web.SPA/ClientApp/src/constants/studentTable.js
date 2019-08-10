@@ -28,3 +28,4 @@ export const fieldArr = [
   { id: 25, name: 'yearOfEndVK', value: 'Год окончания ВК', isFiltering: true },
   { id: 26, name: 'collness', value: 'Звание', isFiltering: true },
 ]
+

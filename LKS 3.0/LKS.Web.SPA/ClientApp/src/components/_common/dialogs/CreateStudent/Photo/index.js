@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchSetStudentPhoto } from '../../../../../redux/modules/AddStudent'
+import { fetchSetStudentPhoto } from '../../../../../redux/modules/addStudent'
 import { getAddStudentFieldValue } from '../../../../../selectors/addStudent'
 
 
