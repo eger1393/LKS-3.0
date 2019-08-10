@@ -57,9 +57,6 @@ class NavBar extends React.Component {
                   <TroopList show={this.state.openModalWindow.TroopList} onHide={() => this.click('TroopList')} />
                 )}
               </NavDropdown>
-<<<<<<< Updated upstream:LKS 3.0/LKS.Web.SPA/ClientApp/src/components/_common/NavBar/index.js
-              <NavDropdown title="Отчетные документы">
-=======
               <NavDropdown title="Преподаватели">
                 <MenuItem eventKey={'PrepodCreate'}>Добавить преподавателя</MenuItem>
                 {this.state.openModalWindow.PrepodCreate && (
@@ -71,7 +68,6 @@ class NavBar extends React.Component {
                 )}
               </NavDropdown>
               <NavDropdown title="Отчеты">
->>>>>>> Stashed changes:LKS 3.0/LKS.Web.SPA/ClientApp/src/components/_common/NavBar/index.jsx
                 <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
                 {this.state.openModalWindow.ReportsVUS && (
                   <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
