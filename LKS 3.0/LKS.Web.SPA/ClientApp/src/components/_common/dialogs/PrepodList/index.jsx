@@ -97,8 +97,8 @@ class PrepodList extends React.Component {
                             troopId={ob.id}
                             key={ob.id}
                             collect={this.collect}
-                            posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
-                            posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
+                            posX={this.refs.ModalContainer.offsetParent.offsetLeft}
+                            posY={this.refs.ModalContainer.offsetParent.offsetTop}
                           >
                             <td>
                               {ob.middleName}

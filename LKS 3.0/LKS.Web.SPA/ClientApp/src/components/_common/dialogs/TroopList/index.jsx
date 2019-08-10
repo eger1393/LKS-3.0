@@ -56,10 +56,14 @@ class TroopList extends React.Component {
     }
   }
 
+                            
   render() {
     const { troops } = this.props;
     return (
+      
       <Modal show={this.props.show} onHide={this.props.onHide}>
+        {/* posX={this.refs.ModalContainer.offsetParent.offsetLeft}
+                            posY={this.refs.ModalContainer.offsetParent.offsetTop} */}
         <ModalContainer ref="ModalContainer">
           <Container>
             <FormHead text="Список взводов" handleClick={this.props.onHide} />
@@ -92,8 +96,6 @@ class TroopList extends React.Component {
                             troopId={ob.id}
                             key={ob.id}
                             collect={this.collect}
-                            posX={this.refs.ModalContainer.offsetParent.offsetParent.offsetLeft}
-                            posY={this.refs.ModalContainer.offsetParent.offsetParent.offsetTop}
                           >
                             <td>
                               {ob.numberTroop}

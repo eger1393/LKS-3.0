@@ -8,6 +8,8 @@ import CreateStudent from '../dialogs/CreateStudent'
 import CreateUniversityTemplate from '../dialogs/CreateUniversityTemplate'
 import TroopList from '../dialogs/TroopList'
 import UserList from '../dialogs/UserList'
+import CreatePrepod from '../dialogs/CreatePrepod'
+import PrepodList from '../dialogs/PrepodList'
 
 
 class NavBar extends React.Component {
@@ -55,7 +57,21 @@ class NavBar extends React.Component {
                   <TroopList show={this.state.openModalWindow.TroopList} onHide={() => this.click('TroopList')} />
                 )}
               </NavDropdown>
+<<<<<<< Updated upstream:LKS 3.0/LKS.Web.SPA/ClientApp/src/components/_common/NavBar/index.js
               <NavDropdown title="Отчетные документы">
+=======
+              <NavDropdown title="Преподаватели">
+                <MenuItem eventKey={'PrepodCreate'}>Добавить преподавателя</MenuItem>
+                {this.state.openModalWindow.PrepodCreate && (
+                  <CreatePrepod show={this.state.openModalWindow.PrepodCreate} onHide={() => this.click('PrepodCreate')} />
+                )}
+                <MenuItem eventKey={'PrepodList'}>Список преподавателей</MenuItem>
+                {this.state.openModalWindow.PrepodList && (
+                  <PrepodList show={this.state.openModalWindow.PrepodList} onHide={() => this.click('PrepodList')} />
+                )}
+              </NavDropdown>
+              <NavDropdown title="Отчеты">
+>>>>>>> Stashed changes:LKS 3.0/LKS.Web.SPA/ClientApp/src/components/_common/NavBar/index.jsx
                 <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
                 {this.state.openModalWindow.ReportsVUS && (
                   <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
@@ -91,7 +107,7 @@ class NavBar extends React.Component {
             </Nav>
           </Navbar>
         </Container>
-        );
+      );
   }
 }
 
