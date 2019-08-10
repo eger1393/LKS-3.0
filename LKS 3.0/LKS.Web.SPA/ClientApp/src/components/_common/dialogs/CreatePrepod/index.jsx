@@ -13,7 +13,6 @@ import {
 
 import ModalDialog from '../../ModalDialog'
 import { coolness } from '../../../../constants/addPrepod'
-import { Container } from './styled'
 
 class CreatePrepod extends React.Component {
     state = {
