@@ -6,9 +6,10 @@ import Autocomplete from '../../../elements/Autocomplete'
 import { connect } from 'react-redux'
 import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
 import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
-import { fetchSetValueForStudent } from '../../../../../redux/modules/AddStudent'
+import { fetchSetValueForStudent } from '../../../../../redux/modules/addStudent'
 import { getAddStudentFieldsValue, getAddStudentErrorValues } from '../../../../../selectors/addStudent'
 import { apiGetTroopList } from '../../../../../api/dialogs'
+import { kurs, military, conditionsOfEducation, status, positions } from '../../../../../constants/addStudent'
 import { Container } from './styled'
 
 class Info extends React.Component {
@@ -54,16 +55,6 @@ class Info extends React.Component {
     }
 
     render() {
-        // TODO Вынести в константы
-        var kurs = [{ id: '1', val: '2' }, { id: '2', val: '3' }, { id: '3', val: '4' }]
-
-        var military = [{ id: '1', val: 'Годен' }, { id: '2', val: 'Не годен' }, { id: '3', val: 'Прошел службу' }]
-        var сonditionsOfEducation = [{ id: '1', val: 'Бюджетное' }, { id: '2', val: 'Платное' }]
-        var status = [{
-            id: 0, val: "Обучается" }, {id: 1, val: "На отсчисление"}, { id: 2, val: "Отстранен" },{ id: 3, val: "На сборах" }, {id: 4, val: "Прошел сборы" },]
-
-        var positions = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
-            {id: 3, val: "КО3"}, { id: 4, val: "Ж" }, { id: 5, val: "С" }, { id: 6, val: "Нет" }]
         return (
 
             <Container>
@@ -192,7 +183,7 @@ class Info extends React.Component {
                                     value={this.props.fieldsValue.specInst}
                                 />)}
                         <Select id="conditionsOfEducation"
-                            data={сonditionsOfEducation}
+                            data={conditionsOfEducation}
                             value="id"
                             selectedValue={this.props.fieldsValue.conditionsOfEducation}
                             text="val"

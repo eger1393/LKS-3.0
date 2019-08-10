@@ -1,14 +1,11 @@
 ﻿import axios from 'axios'
 
-const CREATE_STUDENT_URL = '/api/addStudent/CreateStudent'
 const UPDATE_STUDENT_URL = '/api/addStudent/UpdateStudent'
 const GET_STUDENT_URL = '/api/addStudent/GetStudent'
 const GET_INSTGROUP_LIST_URL = '/api/addStudent/GetInstGroupList'
 const GET_SPECINST_LIST_URL = '/api/addStudent/GetSpecInstList'
 const GET_LANGUAGES_LIST_URL = '/api/addStudent/GetLanguagesList'
 const GET_RECTAL_LIST_URL = '/api/addStudent/GetRectalList'
-
-export const apiCreateStudent = data => axios.post(CREATE_STUDENT_URL, data);
 
 export const apiUpdateStudent = data =>
     axios.post(UPDATE_STUDENT_URL, data);

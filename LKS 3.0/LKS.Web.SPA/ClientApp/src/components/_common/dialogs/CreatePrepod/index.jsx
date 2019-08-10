@@ -12,6 +12,8 @@ import {
 } from '../../../../api/prepod'
 
 import ModalDialog from '../../ModalDialog'
+import { coolness } from '../../../../constants/addPrepod'
+import { Container } from './styled'
 
 class CreatePrepod extends React.Component {
     state = {
@@ -79,13 +81,7 @@ class CreatePrepod extends React.Component {
     }
 
     render() {
-        // TODO Вынести в константы
-        var coolness = [
-            { id: '0', val: 'Полковник' },
-            { id: '1', val: 'Подполковник' },
-            { id: '2', val: 'Майор' },
-            { id: '3', val: 'Капитан' },
-        ]
+               
         return (
             <ModalDialog
                 show={this.props.show}

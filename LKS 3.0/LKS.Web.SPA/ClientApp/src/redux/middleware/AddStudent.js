@@ -1,16 +1,13 @@
 ﻿import { all, takeEvery, call, put, select, fork } from 'redux-saga/effects'
-import { apiCreateStudent, apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
+import { apiGetStudent, apiUpdateStudent } from '../../api/addStudent'
 import { getAddStudentFieldsValue, getStudentPhoto, getAddStudentRelatives } from '../../selectors/addStudent'
 import {
-    FETCH_ADD_NEW_STUDENT,
-    fetchAddStudentSuccess,
-    fetchAddStudentFailed,
     FETCH_SET_STUDENT,
     fetchSetStudentSuccess,
     FETCH_UPDATE_STUDENT,
     fetchUpdateStudentSuccess,
     fetchUpdateStudentFailed
-} from '../modules/AddStudent'
+} from '../modules/addStudent'
 
 import { fetchGetStudentListData } from '../modules/studentList'
 
@@ -24,31 +21,6 @@ function guid() {
 }
 function* addStudent() {
     yield all([
-        takeEvery(FETCH_ADD_NEW_STUDENT, function* () {
-            try {
-              var Student = yield select(getAddStudentFieldsValue);
-              var Photo = yield select(getStudentPhoto);
-
-               Student.id = guid();
-              Student.relatives = Student.relatives.map(function (obj) {
-                    return { ...obj, StudentId: Student.id }
-                })
-                if (Student.position) { Student.position = parseInt(Student.position) } //подумать-переделать
-                if (Student.status) { Student.status = parseInt(Student.status) } //подумать-переделать
-                let form = new FormData();
-              Object.keys(Student).map(key => {
-                if (Student[key])
-                  form.append(`Student[${key}]`, Student[key])
-              });
-                form.append('Photo', Photo);
-
-              const result = yield call(apiCreateStudent, form);
-                yield put(fetchGetStudentListData());
-                yield put(fetchAddStudentSuccess(result));
-            } catch{
-                yield put(fetchAddStudentFailed());
-            }
-        }),
         takeEvery(FETCH_SET_STUDENT, function* (data) {
             try {
                 const Student = yield call(apiGetStudent, data.payload);
