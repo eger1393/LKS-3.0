@@ -1,11 +1,10 @@
-﻿import React, {createRef} from 'react'
+﻿import React, { createRef } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Table } from 'react-bootstrap'
-import Modal from '../../ModalDialog'
-import FormHead from '../../elements/FormHead'
+import ModalDialog from '../../ModalDialog'
 import Button from '../../elements/Button'
-import { FlexBox, ModalContainer } from '../../elements/StyleDialogs/styled'
+import { FlexBox } from '../../elements/StyleDialogs/styled'
 import { fetchGetTroopList, fetchGetStudentListData } from '../../../../redux/modules/studentList'
 import { getTroopList } from '../../../../selectors/studentList'
 import { getArrivalDayValue } from '../../../../helpers'
@@ -13,8 +12,6 @@ import { apiDeleteTroop } from '../../../../api/dialogs'
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 import CreateTroop from '../CreateTroop'
-
-import { Container, Content } from './styled'
 
 
 class TroopList extends React.Component {
@@ -61,87 +58,68 @@ class TroopList extends React.Component {
     }
   }
 
-                            
+
   render() {
     const { troops } = this.props;
     return (
-      
-      <Modal show={this.props.show} onHide={this.props.onHide}>
-        <ModalContainer ref={this.modalRef}>
-          <Container>
-            <FormHead text="Список взводов" handleClick={this.props.onHide} />
-            <FlexBox>
-              <Content >
-                <Table bordered condensed hover>
-                  <thead>
-                    <tr>
-                      <td>
-                        Номер взвода
-                                            </td>
-                      <td>
-                        День прихода
-                                            </td>
-                      <td>
-                        Преподаватель
-                                            </td>
-                      <td>
-                        Цикл
-                                            </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      troops && this.modalRef.current && troops.map(ob => {
-                        return (
-                          <ContextMenuTrigger
-                            renderTag="tr"
-                            id="troopMenu"
-                            troopId={ob.id}
-                            key={ob.id}
-                            collect={this.collect}
-                            posX={this.modalRef.current.getBoundingClientRect().left - 15}
-                            posY={this.modalRef.current.getBoundingClientRect().top - 7}
-                          >
-                            <td>
-                              {ob.numberTroop}
-                            </td>
-                            <td>
-                              {getArrivalDayValue(ob.arrivalDay)}
-                            </td>
-                            <td>
-                              {ob.prepodInitials}
-                            </td>
-                            <td>
-                              {ob.cycleNumber}
-                            </td>
-                          </ContextMenuTrigger>
-                        )
-                      })
-                    }
 
-                  </tbody>
-                </Table>
+      <ModalDialog
+        show={this.props.show}
+        onHide={this.props.onHide}
+        header="Список взводов"
+        modalRef={this.modalRef}
+      >
+        <FlexBox>
+          <Table bordered condensed hover>
+            <thead>
+              <tr>
+                <td>Номер взвода</td>
+                <td>День прихода</td>
+                <td>Преподаватель</td>
+                <td>Цикл</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                troops && this.modalRef.current && troops.map(ob => {
+                  return (
+                    <ContextMenuTrigger
+                      renderTag="tr"
+                      id="troopMenu"
+                      troopId={ob.id}
+                      key={ob.id}
+                      collect={this.collect}
+                      posX={this.modalRef.current.getBoundingClientRect().left - 15}
+                      posY={this.modalRef.current.getBoundingClientRect().top - 7}
+                    >
+                      <td>{ob.numberTroop}</td>
+                      <td>{getArrivalDayValue(ob.arrivalDay)}</td>
+                      <td>{ob.prepodInitials}</td>
+                      <td>{ob.cycleNumber}</td>
+                    </ContextMenuTrigger>
+                  )
+                })
+              }
 
-              </Content>
-            </FlexBox>
+            </tbody>
+          </Table>
+        </FlexBox>
 
-            <div className="form-submit">
-              <Button onClick={() => this.setState({ troopWindowIsOpen: true, editedTroopId: null })} value="Создать" />
-            </div>
-            <ContextMenu id="troopMenu">
-              <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>
-              <MenuItem onClick={this.menuClick} data={{ type: 'deleteTroop' }}>Удалить взвод</MenuItem>
-            </ContextMenu>
-            {this.state.troopWindowIsOpen && (
-              <CreateTroop
-                show={this.state.troopWindowIsOpen}
-                onHide={this.toggleWindow}
-                troopId={this.state.editedTroopId}
-              />
-            )}
-          </Container>
-        </ModalContainer>
-      </Modal>
+        <div className="form-submit">
+          <Button onClick={() => this.setState({ troopWindowIsOpen: true, editedTroopId: null })} value="Создать" />
+        </div>
+        <ContextMenu id="troopMenu">
+          <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>
+          <MenuItem onClick={this.menuClick} data={{ type: 'deleteTroop' }}>Удалить взвод</MenuItem>
+        </ContextMenu>
+        {this.state.troopWindowIsOpen && (
+          <CreateTroop
+            show={this.state.troopWindowIsOpen}
+            onHide={this.toggleWindow}
+            troopId={this.state.editedTroopId}
+          />
+        )}
+      </ModalDialog>
     );
   }
 }

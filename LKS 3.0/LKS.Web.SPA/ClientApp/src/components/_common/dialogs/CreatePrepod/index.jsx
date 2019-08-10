@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
-import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
-import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
+import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import {
     apiCreatePrepod,
     apiGetPrepodFromId,
@@ -84,102 +83,101 @@ class CreatePrepod extends React.Component {
     render() {
                
         return (
-            <ModalDialog show={this.props.show} onHide={this.props.onHide}>
-                <ModalContainer>
-                    <Container>
-                        <FormHead text="Добавить преподавателя" handleClick={this.props.onHide} />
-                        <FlexBox>
-                            <FlexRow className="flex-row">
-                                <div>
-                                    <Input id="middleName"
-                                        type="text"
-                                        isRequired={true}
-                                        placeholder="Фамилия"
-                                        value={this.state.fieldValue.middleName}
-                                        onChange={this.changeSelect}
-                                        error={this.state.error.middleName}
-                                    />
-                                    {
-                                        this.state.error.middleName
-                                        && (<div className="error-message">Введите фамилию!</div>)
-                                    }
-                                </div>
-                                <div>
-                                    <Input id="firstName"
-                                        type="text"
-                                        isRequired={true}
-                                        placeholder="Имя"
-                                        value={this.state.fieldValue.firstName}
-                                        onChange={this.changeSelect}
-                                        error={this.state.error.firstName}
-                                    />
-                                    {
-                                        this.state.error.firstName
-                                        && (<div className="error-message">Введите имя!</div>)
-                                    }
-                                </div>
-                            </FlexRow>
-                            <FlexRow className="flex-row">
-                                <div>
-                                    <Input id="lastName"
-                                        type="text"
-                                        isRequired={true}
-                                        placeholder="Отчество"
-                                        value={this.state.fieldValue.lastName}
-                                        onChange={this.changeSelect}
-                                        error={this.state.error.lastName}
-                                    />
-                                    {
-                                        this.state.error.lastName
-                                        && (<div className="error-message">Введите отчество!</div>)
-                                    }
-                                </div>
-                                <div>
-                                    <Select id="coolness"
-                                        data={coolness}
-                                        value="id"
-                                        text="val"
-                                        placeholder="Звание"
-                                        selectedValue={this.state.fieldValue.coolness}
-                                        onChange={this.changeSelect}
-                                        error={this.state.error.coolness}
-                                    />
-                                    {
-                                        this.state.error.coolness
-                                        && (<div className="error-message">Выберите звание!</div>)
-                                    }
-                                </div>
-                            </FlexRow>
-                            <FlexRow className="flex-row">
-                                <div>
-                                    <Input id="prepodRank"
-                                        type="text"
-                                        isRequired={false}
-                                        placeholder="Должность"
-                                        value={this.state.fieldValue.prepodRank}
-                                        onChange={this.changeSelect}
-                                    />
-                                </div>
-                                <div>
-                                    <Input id="login"
-                                        type="text"
-                                        isRequired={true}
-                                        placeholder="Логин"
-                                        value={this.state.fieldValue.login}
-                                        onChange={this.changeSelect}
-                                    />
-                                    {
-                                        this.state.error.login
-                                        && (<div className="error-message">Введите логин!</div>)
-                                    }
-                                </div>
-                            </FlexRow>
-                        </FlexBox>
-                        <div className="form-submit">
-                            <Button onClick={this.create} value="Сохранить" />
+            <ModalDialog
+                show={this.props.show}
+                onHide={this.props.onHide}
+                header="Добавить преподавателя"
+            >
+                <FlexBox>
+                    <FlexRow className="flex-row">
+                        <div>
+                            <Input id="middleName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Фамилия"
+                                value={this.state.fieldValue.middleName}
+                                onChange={this.changeSelect}
+                                error={this.state.error.middleName}
+                            />
+                            {
+                                this.state.error.middleName
+                                && (<div className="error-message">Введите фамилию!</div>)
+                            }
                         </div>
-                    </Container>
-                </ModalContainer>
+                        <div>
+                            <Input id="firstName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Имя"
+                                value={this.state.fieldValue.firstName}
+                                onChange={this.changeSelect}
+                                error={this.state.error.firstName}
+                            />
+                            {
+                                this.state.error.firstName
+                                && (<div className="error-message">Введите имя!</div>)
+                            }
+                        </div>
+                    </FlexRow>
+                    <FlexRow className="flex-row">
+                        <div>
+                            <Input id="lastName"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Отчество"
+                                value={this.state.fieldValue.lastName}
+                                onChange={this.changeSelect}
+                                error={this.state.error.lastName}
+                            />
+                            {
+                                this.state.error.lastName
+                                && (<div className="error-message">Введите отчество!</div>)
+                            }
+                        </div>
+                        <div>
+                            <Select id="coolness"
+                                data={coolness}
+                                value="id"
+                                text="val"
+                                placeholder="Звание"
+                                selectedValue={this.state.fieldValue.coolness}
+                                onChange={this.changeSelect}
+                                error={this.state.error.coolness}
+                            />
+                            {
+                                this.state.error.coolness
+                                && (<div className="error-message">Выберите звание!</div>)
+                            }
+                        </div>
+                    </FlexRow>
+                    <FlexRow className="flex-row">
+                        <div>
+                            <Input id="prepodRank"
+                                type="text"
+                                isRequired={false}
+                                placeholder="Должность"
+                                value={this.state.fieldValue.prepodRank}
+                                onChange={this.changeSelect}
+                            />
+                        </div>
+                        <div>
+                            <Input id="login"
+                                type="text"
+                                isRequired={true}
+                                placeholder="Логин"
+                                value={this.state.fieldValue.login}
+                                onChange={this.changeSelect}
+                            />
+                            {
+                                this.state.error.login
+                                && (<div className="error-message">Введите логин!</div>)
+                            }
+                        </div>
+                    </FlexRow>
+                </FlexBox>
+                <div className="form-submit">
+                    <Button onClick={this.create} value="Сохранить" />
+                </div>
             </ModalDialog>
         );
     }

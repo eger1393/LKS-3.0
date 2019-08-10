@@ -10,7 +10,7 @@ export const Container = styled.div`
 
  .close {
     position: absolute;
-    right: 0px;
+    right: -8px;
     top: 8px;
     width: 14px;
     height: 14px;

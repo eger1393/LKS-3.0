@@ -1,12 +1,11 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Modal from '../../ModalDialog'
+import ModalDialog from '../../ModalDialog'
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
-import FormHead from '../../elements/FormHead'
 import Button from '../../elements/Button'
-import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
+import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import {
   apiGetCycleList,
   apiGetPrepodList,
@@ -117,10 +116,12 @@ class CreateTroop extends React.Component {
   render() {
    
     return (
-      <Modal show={this.props.show} onHide={this.props.onHide}>
-        <ModalContainer>
+      <ModalDialog
+        show={this.props.show}
+        onHide={this.props.onHide}
+        header="Создать взвод"
+      >
           <Container>
-            <FormHead text="Создать взвод" handleClick={this.props.onHide} />
             <FlexBox>
               <FlexRow className="flex-row">
                 <div>
@@ -195,8 +196,7 @@ class CreateTroop extends React.Component {
               <Button onClick={this.createTroop} value="Сохранить" />
             </div>
           </Container>
-        </ModalContainer>
-      </Modal>
+      </ModalDialog>
     );
   }
 }
