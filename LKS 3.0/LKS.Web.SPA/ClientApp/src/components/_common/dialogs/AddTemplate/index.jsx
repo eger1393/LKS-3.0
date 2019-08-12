@@ -1,89 +1,107 @@
-﻿import React, { useState, useEffect } from "react";
-import Select from '../../elements/Select';
+﻿import React  from "react";
 import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import Autocomplete from '../../elements/Autocomplete'
 import { Container } from "../../NavBar/styled";
 
 
-export const AddTemplate = props => {
 
-    let [file, setFile] = useState(null);
 
-    let [categories, setCategory] = useState([]);
+class AddTemplate extends React.Component {
 
-    let [selectedType, setSelectedType] = useState(null);
-
-    let [selectedCategory, setSelectedCategory] = useState(null);
-
-    const templateTypes = ["Первый тип", "Второй тип"];
-
-    useEffect(() => {
-        categories = [{ id: 1, name: "Test" }, { id: 2, name: "Test 2" }];
-       
-    }, []);
-
-    const changeSelect = event => {
+    state = {
+        file: {},
+        categories: [],
+        templateTypes: [],
+        selectedCategoryId: null,
+        selectedTemplateTypeId: null
+    }
+    
+    changeSelect = event => {
         console.log(event)
 
+        var id = event.target.id,
+            val = event.target.value;
+        
+    }
+       
+    componentWillMount() {
+        if (this.isUnmounted) {
+            return;
+        }
+        var self = this;
+        //apiGetInstGroupList().then(res =>
+        //    self.setState({ instGroup: res })
+        //);
+        self.setState({
+            categories: [{ id: 1, value: "1 категория" }, { id: 2, value: "2 категория" }],
+            templateTypes: [{ id: 1, value: "1 тип" }, { id: 2, value: "2 тип" }] })
     }
 
-    const handleImageChange = e => {
+    componentWillUnmount() {
+        this.isUnmounted = true;
+    }
+
+    handleImageChange = e => {
         e.preventDefault();
 
         let reader = new FileReader();
         let file = e.target.files[0];
 
         reader.onloadend = () => {
-            setFile(file)
+            this.setState({file: file})
         }
 
         reader.readAsDataURL(file)
     }
 
-    const handleSave = e => {
+    handleSave = e => {
         e.preventDefault();
         //todo
     }
 
-    return (
-        <Container>
-            <FlexBox className="flex-box">
-                <FlexRow>
-                    <div>
-                        <p>Выберите файл шаблона!</p>
-                        <input className="fileInput"
-                            type="file"
-                            onChange={(e) => handleImageChange(e)} />
+    render() {
+        return (
+            <Container>
+                <FlexBox className="flex-box">
+                    <FlexRow>
+                        <div>
+                            <p>Выберите файл шаблона!</p>
+                            <input className="fileInput"
+                                type="file"
+                                onChange={(e) => this.handleImageChange(e)} />
 
-                    </div>
-                </FlexRow>
-                <FlexRow>
-                    <div>
-                        {
-                            categories && (
-                                <Autocomplete id="listCategories"
-                                    data={categories}
-                                    onChange={e => setSelectedCategory(e.target.value)}
-                                    placeholder="Категория шаблона"
-                                    value={selectedCategory}
-                                />)}
-                    </div>
-                    <div>
-                        templateTypes && (
-                                <Autocomplete id="listTypes"
-                            data={templateTypes}
-                            onChange={e => setSelectedType(e.target.value)}
-                            placeholder="Тип шаблона"
-                            value={selectedType}
-                        />)}
-                    </div>
-                </FlexRow>
-                <FlexRow>
-                    <button className="saveButton"
-                        type="button"
-                        onClick={(e) => handleSave(e)}>Сохранить</button>
-                </FlexRow>
-            </FlexBox>
-        </Container>
-    );
+                        </div>
+                    </FlexRow>
+                    <FlexRow>
+                        <div>
+                            {
+                                this.state.categories.length != 0 && (
+                                    <Autocomplete id="listCategories"
+                                        data={this.state.categories}
+                                        onChange={this.changeSelect}
+                                        placeholder="Категория шаблона"
+                                        value={this.state.selectedCategoryId}
+                                    />)}
+                        </div>
+                        <div>
+                            {
+                                this.state.templateTypes.length != 0 && (
+                                    <Autocomplete id="listTypes"
+                                        data={this.state.templateTypes}
+                                        onChange={this.changeSelect}
+                                        placeholder="Тип шаблона"
+                                        value={this.state.selectedTemplateTypeId}
+                                    />)}
+                        </div>
+                    </FlexRow>
+                    <FlexRow>
+                        <button className="saveButton"
+                            type="button"
+                            onClick={(e) => this.handleSave(e)}>Сохранить</button>
+                    </FlexRow>
+                </FlexBox>
+            </Container>
+        );
+    }
 }
+export default AddTemplate

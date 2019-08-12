@@ -13,7 +13,7 @@ import UserCabinet from './UserCabinet'
 import LoginPage from './LoginPage'
 
 import { Container } from './styled'
-import { AddTemplate } from '../_common/dialogs/AddTemplate';
+import AddTemplate from '../_common/dialogs/AddTemplate';
 
 const Pages = () => {
   const isAdmin = localStorage.getItem('role') === 'Admin'
