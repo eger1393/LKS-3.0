@@ -1,8 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import CreatableSelect from 'react-select/lib/Creatable'
+import CreatableSelect  from 'react-select/creatable'
 import { Container } from './styled'
-
 
 const createOption = (value) => ({
     label: value,
@@ -13,13 +12,12 @@ export default class CreatableAdvanced extends Component {
         options: this.props.data,
         value: this.props.value,
     }
-    handleChange = (newValue, actionMeta) => {
-        console.group('Value Changed');
-        console.log(newValue);
-        console.log(`action: ${actionMeta.action}`);
-        console.groupEnd();
-        this.setState({ value: newValue });
-        var val = (newValue) ? newValue.label : null;
+    handleChange = (setValue, actionMeta) => {
+       
+        this.setState({ value: setValue });
+
+        var val = (setValue) ? setValue.label : null;
+
         this.props.onChange({
             target: {
                 id: this.props.id, value: val,
@@ -27,16 +25,10 @@ export default class CreatableAdvanced extends Component {
         })
     };
     handleCreate = (inputValue) => {
-        this.setState({ isLoading: true });
-        console.group('Option created');
-        console.log('Wait a moment...');
-     
         const { options } = this.state;
         const newOption = createOption(inputValue);
-            console.log(newOption);
-            console.groupEnd();
+
             this.setState({
-                isLoading: false,
                 options: [...options, newOption],
                 value: newOption,
         });
@@ -54,8 +46,6 @@ export default class CreatableAdvanced extends Component {
             <Container>
                 <CreatableSelect className="custom-style"
                     isClearable
-                    isDisabled={isLoading}
-                    isLoading={isLoading}
                     onChange={this.handleChange}
                     onCreateOption={this.handleCreate}
                     options={options}
