@@ -2,6 +2,8 @@
 import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import Autocomplete from '../../elements/Autocomplete'
 import { Container } from "../../NavBar/styled";
+import CreatableSelect from 'react-select/creatable'
+
 
 
 
@@ -12,15 +14,25 @@ class AddTemplate extends React.Component {
         file: {},
         categories: [],
         templateTypes: [],
-        selectedCategoryId: null,
+        selectedCategory: null,
         selectedTemplateTypeId: null
     }
     
-    changeSelect = event => {
+    changeSelectTemplateType = event => {
         console.log(event)
 
-        var id = event.target.id,
-            val = event.target.value;
+        var id = event.target.value;
+          
+        this.setState({ selectedTemplateTypeId: id})
+        
+    }
+
+    changeSelectCategory = event => {
+        console.log(event)
+
+        var id = event.target.value;
+          
+        this.setState({ selectedCategory: id})
         
     }
        
@@ -33,8 +45,8 @@ class AddTemplate extends React.Component {
         //    self.setState({ instGroup: res })
         //);
         self.setState({
-            categories: [{ id: 1, value: "1 категория" }, { id: 2, value: "2 категория" }],
-            templateTypes: [{ id: 1, value: "1 тип" }, { id: 2, value: "2 тип" }] })
+            categories: [{ id: 1, label: "1 категория" }, { id: 2, label: "2 категория" }],
+            templateTypes: [{ value: 1, label: "1 тип" }, { value: 2, label: "2 тип" }] })
     }
 
     componentWillUnmount() {
@@ -78,17 +90,17 @@ class AddTemplate extends React.Component {
                                 this.state.categories.length != 0 && (
                                     <Autocomplete id="listCategories"
                                         data={this.state.categories}
-                                        onChange={this.changeSelect}
+                                        onChange={this.changeSelectCategory}
                                         placeholder="Категория шаблона"
-                                        value={this.state.selectedCategoryId}
+                                        value={this.state.selectedCategory}
                                     />)}
                         </div>
                         <div>
                             {
                                 this.state.templateTypes.length != 0 && (
-                                    <Autocomplete id="listTypes"
-                                        data={this.state.templateTypes}
-                                        onChange={this.changeSelect}
+                                    <CreatableSelect id="listTypes"
+                                        options={this.state.templateTypes}
+                                        onChange={this.changeSelectTemplateType}
                                         placeholder="Тип шаблона"
                                         value={this.state.selectedTemplateTypeId}
                                     />)}
