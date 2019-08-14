@@ -1,18 +1,12 @@
 import React from 'react'
 
 
-import React, { PropTypes } from 'react'
-
-const componentName = props => {
+const TemplateList = props => {
     return (
-        <div>
+        <>
             
-        </div>
-    )
+        </>
+    );
 }
 
-componentName.propTypes = {
-    
-}
-
-export default componentName
+export default TemplateList;

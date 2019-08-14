@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LKS.Data", "LKS.Data\LKS.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LKS.Infrastructure", "LKS.Infrastructure\LKS.Infrastructure.csproj", "{D8835FC7-10A1-4942-B901-B96427D48B60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "DataBase\DataBase.csproj", "{756C0C38-B68F-4FF4-97B1-28887FAD7603}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{D8835FC7-10A1-4942-B901-B96427D48B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8835FC7-10A1-4942-B901-B96427D48B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8835FC7-10A1-4942-B901-B96427D48B60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{756C0C38-B68F-4FF4-97B1-28887FAD7603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{756C0C38-B68F-4FF4-97B1-28887FAD7603}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{756C0C38-B68F-4FF4-97B1-28887FAD7603}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{756C0C38-B68F-4FF4-97B1-28887FAD7603}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
