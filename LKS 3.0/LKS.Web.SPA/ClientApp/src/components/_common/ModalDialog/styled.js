@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
-    padding: 30px;
-
+    padding: 20px;
+    min-width: 400px;
+    
     .error-message{
         width: 100%;
         height: 20px;
@@ -13,8 +14,13 @@ export const ModalContainer = styled.div`
 `
 
 export const Content = styled.div`
-    margin-top: 40px;
+    margin-top: 20px;
 
+    .form-submit{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
     .react-contextmenu {
         background-color: #fff;
         background-clip: padding-box;
