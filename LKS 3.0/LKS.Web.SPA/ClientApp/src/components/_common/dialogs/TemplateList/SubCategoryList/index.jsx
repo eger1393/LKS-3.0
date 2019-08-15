@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Item from '../Item'
 
 import { BackButtonStyled, TitleStyled } from '../styled';
+import TemplateListStore from '../../../../../Store/templateListStore'
+import { observer } from 'mobx-react'
 
-const SubList = props => {
+const SubCategoryList = props => {
     const [subCategotyList, setSubCategoryList] = useState()
     useEffect(() => {
         setSubCategoryList([
@@ -14,17 +16,27 @@ const SubList = props => {
             { name: 'До сборов', id: '4' },
         ])
     }, [])
+
+    const handleSelect = id => () => {
+        TemplateListStore.subCategoryId = id;
+        TemplateListStore.displayedContent = 'TemplateListItems';
+    }
+
     return (
         <>
-            <TitleStyled><BackButtonStyled onClick={props.handleBack}>&#9668;</BackButtonStyled>Выберите подкатегорию</TitleStyled>
+            <TitleStyled>
+                <BackButtonStyled
+                    onClick={() => TemplateListStore.displayedContent = 'CategoryList'}
+                >&#9668;</BackButtonStyled>Выберите подкатегорию
+            </TitleStyled>
             {(
                 subCategotyList && subCategotyList.map(category =>
-                    <Item key={category.id} onClick={props.handleSelect(category.id)}>{category.name}</Item>)
+                    <Item key={category.id} onClick={handleSelect(category.id)}>{category.name}</Item>)
             ) || (
                     <div>Загрузка подкатегорий</div>
-            )}
+                )}
         </>
     );
 }
 
-export default SubList;
+export default observer(SubCategoryList);

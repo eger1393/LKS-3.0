@@ -5,25 +5,26 @@ import { FlexBox, } from '../../elements/StyleDialogs/styled'
 import CategoryList from './CategoryList'
 import SubCategoryList from './SubCategoryList'
 import TemplateListItems from './TemplateList'
+import AdditionalInfo from './AdditionalData'
+
+import TemplateListStore from '../../../../Store/templateListStore'
+import { observer } from 'mobx-react'
 
 const TemplateList = props => {
-    const [displayedContent, setDisplayedContent] = useState('CategoryList')
-    const [payload, setPayload] = useState({});
-    let content = <div>error</div>;
-    const handleBack = contentType => () => setDisplayedContent(contentType);
-    const handleSelect = contentType => payload => () =>{
-        setDisplayedContent(contentType);
-        setPayload(payload);
-    } 
-    switch (displayedContent) {
-        case 'CategoryList':
-            content = <CategoryList handleSelect={handleSelect("SubCategoryList")}/>
-            break;
+    let content;
+    switch (TemplateListStore.displayedContent) {
         case 'SubCategoryList':
-            content = <SubCategoryList handleBack={handleBack('CategoryList')} handleSelect={handleSelect("TemplateListItems")} payload={payload} />
+            content = <SubCategoryList />
             break;
         case 'TemplateListItems':
-            content = <TemplateListItems handleBack={handleBack('SubCategoryList')} payload={payload} />
+            content = <TemplateListItems />
+            break;
+        case 'AdditionalInfo':
+            content = <AdditionalInfo />
+            break;
+        case 'CategoryList':
+        default:
+            content = <CategoryList />
             break;
     }
     return (
@@ -39,4 +40,4 @@ const TemplateList = props => {
     );
 }
 
-export default TemplateList;
+export default observer(TemplateList);

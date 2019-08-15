@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Item from '../Item'
 
-import { BackButtonStyled, TitleStyled } from '../styled';
+import { TitleStyled } from '../styled';
+import TemplateListStore from '../../../../../Store/templateListStore'
+import {observer} from 'mobx-react'
 
 const CategoryList = props => {
     const [categotyList, setCategoryList] = useState()
@@ -14,13 +16,19 @@ const CategoryList = props => {
             {name: 'Кафедра', id: '4'},
         ])
     }, [])
+
+    const handleSelect = id => () =>{
+        TemplateListStore.categoryId = id;
+        TemplateListStore.displayedContent = 'SubCategoryList';
+    }
+
     return (
         <>
             <TitleStyled>Выберите категорию</TitleStyled>
             {
                 (
                     categotyList && categotyList.map(category =>
-                        <Item key={category.id} onClick={props.handleSelect(category.id)}>{category.name}</Item>)
+                        <Item key={category.id} onClick={handleSelect(category.id)}>{category.name}</Item>)
                 ) || (
                     <div>Загрузка категорий</div>
                 )
@@ -29,4 +37,4 @@ const CategoryList = props => {
     );
 }
 
-export default CategoryList;
+export default observer(CategoryList);
