@@ -31,71 +31,8 @@
     <Folder Include="ClientApp\src\components\layouts\" />
     <Folder Include="ClientApp\src\images\" />
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\templates\" />
     <Folder Include="wwwroot\photo\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\template\PrintOnDemand.docx" />
-    <None Include="wwwroot\template\~%24Анкета.docx" />
-    <None Include="wwwroot\template\Алфавитный_учет.docx" />
-    <None Include="wwwroot\template\Алфавитный_учет_&amp;&amp;&amp;.docx" />
-    <None Include="wwwroot\template\Анкета.docx" />
-    <None Include="wwwroot\template\Анкета_шаблон.docx" />
-    <None Include="wwwroot\template\ВПД.docx" />
-    <None Include="wwwroot\template\Журнал_обложка.docx" />
-    <None Include="wwwroot\template\Журнал_целиком.docx" />
-    <None Include="wwwroot\template\Именной список сдавших экзамен.docx" />
-    <None Include="wwwroot\template\Именной список.docx" />
-    <None Include="wwwroot\template\Именной_список_граждан_на_сборах.docx" />
-    <None Include="wwwroot\template\Именной_список_на_сборы.docx" />
-    <None Include="wwwroot\template\Лист_изучения_кандидата_на_призыв.docx" />
-    <None Include="wwwroot\template\Личная_карточка_студента.docx" />
-    <None Include="wwwroot\template\ЛКС_Форма_допуска.docx" />
-    <None Include="wwwroot\template\Отчет о результатах аттестации.docx" />
-    <None Include="wwwroot\template\Присяга индивидуальная.docx" />
-    <None Include="wwwroot\template\ПРОТОКОЛ-Бланк.doc" />
-    <None Include="wwwroot\template\Протокол1.docx" />
-    <None Include="wwwroot\template\Протокол_конкурсного_отбора.docx" />
-    <None Include="wwwroot\template\Сборы_Альфа_список.docx" />
-    <None Include="wwwroot\template\Сборы_бег_100.docx" />
-    <None Include="wwwroot\template\Сборы_бег_1000.docx" />
-    <None Include="wwwroot\template\Сборы_бег_3000.docx" />
-    <None Include="wwwroot\template\Сборы_ведомость_закрепления_оружия.docx" />
-    <None Include="wwwroot\template\Сборы_ведомость_осмотра_нач_медом.docx" />
-    <None Include="wwwroot\template\Сборы_ведомость_по_всем_нормативам.docx" />
-    <None Include="wwwroot\template\Сборы_вечерняя_проверка.docx" />
-    <None Include="wwwroot\template\Сборы_ВПД.docx" />
-    <None Include="wwwroot\template\Сборы_журнал.docx" />
-    <None Include="wwwroot\template\Сборы_заявка_БТУ.docx" />
-    <None Include="wwwroot\template\Сборы_заявка_мыло.docx" />
-    <None Include="wwwroot\template\Сборы_заявка_сахар.docx" />
-    <None Include="wwwroot\template\Сборы_инстр_по_ТБ.docx" />
-    <None Include="wwwroot\template\Сборы_лист_нарядов.docx" />
-    <None Include="wwwroot\template\Сборы_марш_15км.docx" />
-    <None Include="wwwroot\template\Сборы_Метание_гранат.docx" />
-    <None Include="wwwroot\template\Сборы_отжимания.docx" />
-    <None Include="wwwroot\template\Сборы_подтягивания.docx" />
-    <None Include="wwwroot\template\Сборы_присяга_список.docx" />
-    <None Include="wwwroot\template\Сборы_Протокол_1.docx" />
-    <None Include="wwwroot\template\Сборы_сдавшие_экзамен.docx" />
-    <None Include="wwwroot\template\Сборы_список_взвода.docx" />
-    <None Include="wwwroot\template\Сборы_Список_проинструктированных_по_ТБ.docx" />
-    <None Include="wwwroot\template\Сборы_список_ТБ_на_БТУ.docx" />
-    <None Include="wwwroot\template\Сборы_стрельба_АК.docx" />
-    <None Include="wwwroot\template\Сборы_стрельба_ПМ.docx" />
-    <None Include="wwwroot\template\Сборы_характеристика.docx" />
-    <None Include="wwwroot\template\Сборы_челночный_бег.docx" />
-    <None Include="wwwroot\template\Список обучающихся на цикле.docx" />
-    <None Include="wwwroot\template\Список отчисленных студентов.docx" />
-    <None Include="wwwroot\template\Список студентов на отчисление.docx" />
-    <None Include="wwwroot\template\Список_взвода.docx" />
-    <None Include="wwwroot\template\Список_должностных_лиц_взводов.docx" />
-    <None Include="wwwroot\template\Список_не_писавших_заявл_и_не_заполн_анкету.docx" />
-    <None Include="wwwroot\template\Список_не_писавших_НККО.docx" />
-    <None Include="wwwroot\template\Тематический_контроль.docx" />
-    <None Include="wwwroot\template\Удостоверение о приписке.docx" />
-    <None Include="wwwroot\template\Условия_обучения_в_вузе.docx" />
-    <None Include="wwwroot\template\ХАРАКТЕРИСТИКА.docx" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

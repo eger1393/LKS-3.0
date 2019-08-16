@@ -13,7 +13,6 @@ import UserCabinet from './UserCabinet'
 import LoginPage from './LoginPage'
 
 import { Container } from './styled'
-import AddTemplate from '../_common/dialogs/AddTemplate';
 
 const Pages = () => {
   const isAdmin = localStorage.getItem('role') === 'Admin'
@@ -27,7 +26,6 @@ const Pages = () => {
           <Redirect exact from="/" to="/Cabinet" />
           <Route path="/login" component={LoginPage} />
                   <PrivateRoute path="/Cabinet" component={isAdmin ? AdminCabinet : UserCabinet} />
-                  <Route path="/test" component={AddTemplate} />
         </Switch>
       </Container>
     </Router>

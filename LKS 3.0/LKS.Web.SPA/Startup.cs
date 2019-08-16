@@ -101,7 +101,9 @@ namespace LKS.Web.SPA
 			services.AddTransient<IPrepodRepository, PrepodRepository>();
 			services.AddTransient<ICycleRepository, CycleRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
-			services.AddTransient<IPasswordProvider, PasswordProvider>();
+            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<ITemplateRepository, TemplateRepository>();
+            services.AddTransient<IPasswordProvider, PasswordProvider>();
 		}
 
 		private void ConfigureAuthentication(IServiceCollection services)

@@ -70,3 +70,22 @@ export const getPositionValue = val => {
             return '';
     }
 }
+
+export const getTypeTemplateValue = val => {
+  switch (val) {
+    case 'singleStudent':
+    case 0:
+      return 'Один студент';
+    case 'manyStudents':
+    case 1:
+      return 'Список студентов';
+    case 'singleTroop':
+    case 2:
+      return 'Один взвод';
+    case 'manyTroops':
+    case 3:
+      return 'Список взводов';
+    default:
+      return '';
+  }
+}

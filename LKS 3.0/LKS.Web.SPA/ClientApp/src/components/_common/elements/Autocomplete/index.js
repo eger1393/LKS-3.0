@@ -41,7 +41,7 @@ export default class CreatableAdvanced extends Component {
         
     };
     render() {
-        const { isLoading, options, value } = this.state;
+        const { options, value } = this.state;
         return (
             <Container>
                 <CreatableSelect className="custom-style"
@@ -49,7 +49,7 @@ export default class CreatableAdvanced extends Component {
                     onChange={this.handleChange}
                     onCreateOption={this.handleCreate}
                     options={options}
-                    value={this.props.data.filter(option => option.label === this.props.value)}
+                    value={value}
                     placeholder={this.props.placeholder}
                 />
                 </Container>

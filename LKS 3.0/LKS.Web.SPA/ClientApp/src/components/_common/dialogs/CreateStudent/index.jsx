@@ -24,12 +24,7 @@ class CreateStudent extends React.Component {
     }
     createStudent = () => {
         if (this.validate()) {
-            if (this.props.StudentId != undefined) {
-                this.props.fetchUpdateStudent();
-            }
-            else {
-                this.props.fetchUpdateStudent();
-            }
+            this.props.fetchUpdateStudent();
             this.props.onHide();
         }
 

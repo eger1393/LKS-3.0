@@ -17,9 +17,11 @@ namespace LKS.Data
 		public DbSet<Prepod> Prepods { get; set; }
 		public DbSet<Cycle> Cycles { get; set; }
 		public DbSet<User> Users { get; set; }
-		#endregion
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Template> Templates { get; set; }
+        #endregion
 
-		public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
+        public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
 		{
 			_passwordProvider = passwordProvider;
 			Database.EnsureCreated();
@@ -32,6 +34,8 @@ namespace LKS.Data
 			builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.Students);
             builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
 			builder.Entity<User>().HasIndex(x => x.TroopId).IsUnique();
+            builder.Entity<Category>().HasMany(x => x.Subcategories);
+            builder.Entity<Template>().HasOne(x => x.Category);
 
             Seed(builder);
 		}
@@ -45,9 +49,9 @@ namespace LKS.Data
 			builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",
-				Number = "3",
-				SpecialityName = "Тор",
-				VUS = "165000"
+				Number = "4",
+				SpecialityName = "ТОР",
+				VUS = "042600"
 			});
 
 			builder.Entity<Prepod>().HasData(new Prepod

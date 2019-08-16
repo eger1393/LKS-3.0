@@ -11,14 +11,7 @@ import {
 
 import { fetchGetStudentListData } from '../modules/studentList'
 
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
+
 function* addStudent() {
     yield all([
         takeEvery(FETCH_SET_STUDENT, function* (data) {
@@ -34,9 +27,7 @@ function* addStudent() {
               let Student = yield select(getAddStudentFieldsValue);
               let Photo = yield select(getStudentPhoto);
               let Relatives = yield select(getAddStudentRelatives);
-              //Student.relatives = Student.relatives.map(function (obj) {
-              //      return { ...obj, StudentId: (Student.id != undefined ? Student.id : null) }
-              //  })
+             
                 if (Student.position) { Student.position = parseInt(Student.position) } //подумать-переделать
                 if (Student.status) { Student.status = parseInt(Student.status) } //подумать-переделать
               let form = new FormData();
