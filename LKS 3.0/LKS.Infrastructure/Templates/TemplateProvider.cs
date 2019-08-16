@@ -1,13 +1,17 @@
-﻿using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.Data.Models;
-using LKS.Data.Models.Enums;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 // ReSharper disable StringLiteralTypo
 
@@ -15,18 +19,18 @@ namespace LKS.Infrastructure.Templates
 {
 	public class TemplateProvider
 	{
-        private readonly AsyncLock _mutex = new AsyncLock();
-        private List<Student> _students; // текущие выбранные студенты(урощает работу с несколькими взводами)
-        private Student _selectedStudent;    // выбранный студент
+		private readonly AsyncLock _mutex = new AsyncLock();
+		private List<Student> _students; // текущие выбранные студенты(урощает работу с несколькими взводами)
+		private Student _selectedStudent;    // выбранный студент
 
-        private Relative _selectedStudentMather, //его мать
+		private Relative _selectedStudentMather, //его мать
 			_selectedStudentFather,  //его отец
 			_selectedRelative;   //его родственник
 
-        private Troop _selectedTroop; //выбранный взвод
-							//Summer summer; // информация о сборах
-							//			   //Model.Department adminInfo; // Военком и нач кафедры
-							//List<Admin> admins; // список администрации на сборах
+		private Troop _selectedTroop; //выбранный взвод
+									  //Summer summer; // информация о сборах
+									  //			   //Model.Department adminInfo; // Военком и нач кафедры
+									  //List<Admin> admins; // список администрации на сборах
 
 
 		public async Task<byte[]> CopyFile(string fileName)
@@ -63,16 +67,11 @@ namespace LKS.Infrastructure.Templates
 
 			_selectedStudent = _students?.First(); // устанавливаем выбранного стуента
 
-
-			//using (
 			var file = new MemoryStream();
-			//using (await mutex.LockAsync())
-			//{
 			using (var f = File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
 			{
 				f?.CopyTo(file);
 			}
-			//}
 
 			using (var doc = WordprocessingDocument.Open(file, true)) // открыли документ
 			{
@@ -106,7 +105,6 @@ namespace LKS.Infrastructure.Templates
 								}
 
 								// проверяем кам заполнять таблицу (студентами, взводами или родственниками)
-								//string type = null;
 
 								string type = tempRow.Descendants<SdtElement>().ToList().Find(obj =>
 								 obj.Descendants<SdtAlias>().First().Val.ToString().ToUpper() == "СТУДЕНТЫ" ||
@@ -168,9 +166,9 @@ namespace LKS.Infrastructure.Templates
 						foreach (TableRow row in table.Elements<TableRow>())
 						{
 							if (row.Descendants<SdtElement>().Any()) // проверка на наличие закладок в строке
-                            {
+							{
 
-                                string type;
+								string type;
 								try
 								{
 									type = row.Descendants<SdtElement>().ToList().Find(obj =>
@@ -241,7 +239,7 @@ namespace LKS.Infrastructure.Templates
 										default:
 											{
 												throw new Exception("Ошибка в типе таблицы!");
-                                            }
+											}
 									}
 								}
 							}
@@ -260,47 +258,29 @@ namespace LKS.Infrastructure.Templates
 				foreach (SdtElement formattedText in doc.MainDocumentPart.Document.Body.Descendants<SdtElement>().ToList())
 				{
 					string valueCommand = FindCommand(formattedText.SdtProperties.GetFirstChild<SdtAlias>().Val);
-					//if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
-					//{
-					//	string path; // путь к фото( в зависимости от команды либо к фото студента, либо к подписи препода
-					//	if (valueCommand == "ФОТО")
-					//	{
-					//		path = selectedStudent.FullImagePath;
-					//	}
-					//	else
-					//	{
-					//		path = selectedTrop.Prepod.FullSignaturePath;
-					//	}
-					//	// скопипастил вставку картинок из мдсн
-					//	MainDocumentPart mainPart = doc.MainDocumentPart;
-					//	ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
-					//	try
-					//	{
-					//		using (FileStream stream = new FileStream(path, FileMode.Open))
-					//		{
-					//			imagePart.FeedData(stream);
-					//		}
-					//		AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
-					//	}
-					//	catch (System.IO.FileNotFoundException ex)
-					//	{
-					//		System.Windows.MessageBox.Show(ex.Message + "/n ФОТО не найдено!");
+					if (valueCommand == "ФОТО" || valueCommand == "ВЗВОД ПРЕПОДАВАТЕЛЬ ПОДПИСЬ")
+					{
+						string path = _selectedStudent.ImagePath;
+						// скопипастил вставку картинок из мдсн
+						MainDocumentPart mainPart = doc.MainDocumentPart;
+						ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+						try
+						{
+							using (FileStream stream = new FileStream(path, FileMode.Open))
+							{
+								imagePart.FeedData(stream);
+							}
+							AddImageToBody(formattedText, mainPart.GetIdOfPart(imagePart));
+						}
 
-					//	}
-					//	catch (System.NotSupportedException ex)
-					//	{
+						catch (Exception ex)
+						{
 
-					//		System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
-					//		continue;
-					//	}
-					//	catch (Exception ex)
-					//	{
-
-					//		System.Windows.MessageBox.Show(ex.Message + "/n Ошибка чтения ФОТО!");
-					//		continue;
-					//	}
-					//	continue;
-					//}
+							//TODO add logger
+							continue;
+						}
+						continue;
+					}
 
 					Run tempRun = formattedText.Descendants<Run>().First().Clone() as Run; // скопировал первого потомка
 					(tempRun.LastChild as Text).Text = valueCommand; // задаю нужный текст
@@ -315,71 +295,71 @@ namespace LKS.Infrastructure.Templates
 		private void AddImageToBody(SdtElement formattedText, string relationshipId)
 		{
 			// скопипастил код из МДСН 
-			//var element =
-			//	 new Drawing(
-			//		 new DW.Inline(
-			//			 new DW.Extent() { Cx = 990000L, Cy = 1100000L },
-			//			 new DW.EffectExtent()
-			//			 {
-			//				 LeftEdge = 0L,
-			//				 TopEdge = 0L,
-			//				 RightEdge = 0L,
-			//				 BottomEdge = 0L
-			//			 },
-			//			 new DW.DocProperties()
-			//			 {
-			//				 Id = (UInt32Value)1U,
-			//				 Name = "Picture 1"
-			//			 },
-			//			 new DW.NonVisualGraphicFrameDrawingProperties(
-			//				 new A.GraphicFrameLocks() { NoChangeAspect = true }),
-			//			 new A.Graphic(
-			//				 new A.GraphicData(
-			//					 new PIC.Picture(
-			//						 new PIC.NonVisualPictureProperties(
-			//							 new PIC.NonVisualDrawingProperties()
-			//							 {
-			//								 Id = (UInt32Value)0U,
-			//								 Name = "New Bitmap Image.jpg"
-			//							 },
-			//							 new PIC.NonVisualPictureDrawingProperties()),
-			//						 new PIC.BlipFill(
-			//							 new A.Blip(
-			//								 new A.BlipExtensionList(
-			//									 new A.BlipExtension()
-			//									 {
-			//										 Uri =
-			//											"{28A0092B-C50C-407E-A947-70E740481C1C}"
-			//									 })
-			//							 )
-			//							 {
-			//								 Embed = relationshipId,
-			//								 CompressionState =
-			//								 A.BlipCompressionValues.Print
-			//							 },
-			//							 new A.Stretch(
-			//								 new A.FillRectangle())),
-			//						 new PIC.ShapeProperties(
-			//							 new A.Transform2D(
-			//								 new A.Offset() { X = 0L, Y = 0L },
-			//								 new A.Extents() { Cx = 990000L, Cy = 1100000L }),
-			//							 new A.PresetGeometry(
-			//								 new A.AdjustValueList()
-			//							 )
-			//							 { Preset = A.ShapeTypeValues.Rectangle }))
-			//				 )
-			//				 { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-			//		 )
-			//		 {
-			//			 DistanceFromTop = (UInt32Value)0U,
-			//			 DistanceFromBottom = (UInt32Value)0U,
-			//			 DistanceFromLeft = (UInt32Value)0U,
-			//			 DistanceFromRight = (UInt32Value)0U,
-			//			 EditId = "50D07946"
-			//		 });
+			var element =
+				 new Drawing(
+					 new DW.Inline(
+						 new DW.Extent() { Cx = 990000L, Cy = 1100000L },
+						 new DW.EffectExtent()
+						 {
+							 LeftEdge = 0L,
+							 TopEdge = 0L,
+							 RightEdge = 0L,
+							 BottomEdge = 0L
+						 },
+						 new DW.DocProperties()
+						 {
+							 Id = (UInt32Value)1U,
+							 Name = "Picture 1"
+						 },
+						 new DW.NonVisualGraphicFrameDrawingProperties(
+							 new A.GraphicFrameLocks() { NoChangeAspect = true }),
+						 new A.Graphic(
+							 new A.GraphicData(
+								 new PIC.Picture(
+									 new PIC.NonVisualPictureProperties(
+										 new PIC.NonVisualDrawingProperties()
+										 {
+											 Id = (UInt32Value)0U,
+											 Name = "New Bitmap Image.jpg"
+										 },
+										 new PIC.NonVisualPictureDrawingProperties()),
+									 new PIC.BlipFill(
+										 new A.Blip(
+											 new A.BlipExtensionList(
+												 new A.BlipExtension()
+												 {
+													 Uri =
+														"{28A0092B-C50C-407E-A947-70E740481C1C}"
+												 })
+										 )
+										 {
+											 Embed = relationshipId,
+											 CompressionState =
+											 A.BlipCompressionValues.Print
+										 },
+										 new A.Stretch(
+											 new A.FillRectangle())),
+									 new PIC.ShapeProperties(
+										 new A.Transform2D(
+											 new A.Offset() { X = 0L, Y = 0L },
+											 new A.Extents() { Cx = 990000L, Cy = 1100000L }),
+										 new A.PresetGeometry(
+											 new A.AdjustValueList()
+										 )
+										 { Preset = A.ShapeTypeValues.Rectangle }))
+							 )
+							 { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+					 )
+					 {
+						 DistanceFromTop = (UInt32Value)0U,
+						 DistanceFromBottom = (UInt32Value)0U,
+						 DistanceFromLeft = (UInt32Value)0U,
+						 DistanceFromRight = (UInt32Value)0U,
+						 EditId = "50D07946"
+					 });
 
-			//// Append the reference to body, the element should be in a Run.
-			//formattedText.Parent.ReplaceChild(new Run(element), formattedText);
+			// Append the reference to body, the element should be in a Run.
+			formattedText.Parent.ReplaceChild(new Run(element), formattedText);
 		}
 
 		/// <summary>
@@ -1523,14 +1503,14 @@ namespace LKS.Infrastructure.Templates
 			return "НЕИЗВЕСТНАЯ КОМАНДА";
 		}
 
-        private void ChangeTroop()
+		private void ChangeTroop()
 		{
 			_students = _selectedTroop.Students.ToList();
 			_selectedStudent = _students.First();
 			ChangeSelectedStudent();
 		}
 
-        private void ChangeSelectedStudent()
+		private void ChangeSelectedStudent()
 		{
 			_selectedStudentMather = null;
 			_selectedStudentFather = null;

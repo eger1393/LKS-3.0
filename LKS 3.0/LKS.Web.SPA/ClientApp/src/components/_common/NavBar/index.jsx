@@ -11,7 +11,6 @@ import UserList from '../dialogs/UserList'
 import CreatePrepod from '../dialogs/CreatePrepod'
 import PrepodList from '../dialogs/PrepodList'
 import TemplateList from '../dialogs/TemplateList'
-import { AddTemplate } from '../dialogs/AddTemplate';
 import CreateTemplate from '../dialogs/CreateTemplate';
 
 
