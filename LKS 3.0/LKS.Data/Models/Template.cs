@@ -10,6 +10,8 @@ namespace LKS.Data.Models
         [Required]
         public string Name { get; set; }
         [Required]
+        public string CategoryId { get; set; }
+        [Required]
         public Category Category { get; set; }
         [Required]
         public Types Type { get; set; }

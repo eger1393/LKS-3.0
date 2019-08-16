@@ -9,7 +9,6 @@ import AdditionalInfo from './AdditionalData'
 
 import TemplateListStore from '../../../../Store/templateListStore'
 import { observer } from 'mobx-react'
-import templateListStore from '../../../../Store/templateListStore';
 
 const TemplateList = props => {
     let content;
@@ -29,7 +28,7 @@ const TemplateList = props => {
             break;
     }
     const handleHide = () => {
-        templateListStore.setDefaultValue();
+        TemplateListStore.setDefaultValue();
         props.onHide();
     }
     return (

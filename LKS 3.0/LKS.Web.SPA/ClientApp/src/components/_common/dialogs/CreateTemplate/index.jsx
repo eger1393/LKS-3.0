@@ -30,7 +30,13 @@ class CreateTemplate extends React.Component {
         this.setState({ templateName: event.target.value})  
     }
     changeSelectCategory = value => {
-        this.setState({ selectedCategory: value, subcategories: value.subcategories })
+
+        this.setState({ selectedCategory: value })
+        apiGetCategories(value.id)
+        .then(
+            data => this.setState(
+                { subcategories: data.map(x => ({id: x.id, label: x.name}))}
+                )) 
 
         if(this.state.selectedSubcategory != null)
         {
@@ -44,8 +50,11 @@ class CreateTemplate extends React.Component {
     
     componentDidMount() {
         var self = this;
-        apiGetCategories().then(res =>
-            self.setState({ categories: res.filter(x => x.subcategories.length != 0) }));
+        apiGetCategories()
+        .then(
+            data => self.setState(
+                { categories: data.map(x => ({id: x.id, label: x.name}))}
+                ))
         apiGetTypes().then(res =>
                 self.setState({ templateTypes: res.map(x => ({id: x, label: getTypeTemplateValue(x)})) }));
     }
