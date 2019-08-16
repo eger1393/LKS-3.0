@@ -144,12 +144,11 @@ namespace LKS.Web.Controllers
 		{
 			HttpContext.Session.SetString("data", model.json);
 
-
 			return Ok();
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> CreateTemplate()//([FromBody] CreateTemplateModel model)
+		public async Task<IActionResult> CreateTemplate()
 		{
 
 			string json = HttpContext.Session.GetString("data");
@@ -175,33 +174,6 @@ namespace LKS.Web.Controllers
 			//	file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
 			HttpContext.Request.Method = "GET";
 			
-			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
-
-		}
-
-		[HttpPost("[action]")]
-		public async Task<IActionResult> CreateTemplateT()//([FromBody] CreateTemplateModel model)
-		{
-			// TODO говнокод, отрефактрить
-			//var troop = await _troopRepository.GetItem(model.TroopId);
-			//var troops = new List<Data.Models.Troop>();
-			//troops.Add(troop);
-			TemplateProvider t = new TemplateProvider();
-			string fileName = string.Empty;
-			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
-			byte[] file = null;
-			//switch (model.Template)
-			//{
-			//	case "universityQuestionnaire":
-			//		{
-			fileName = "Анкета.docx";
-			file = await t.CopyFile(Path.Combine(path, fileName));
-			//			break;
-			//		}
-			//}
-			//if (file == null)
-			//	file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
-
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
 		}

@@ -37,6 +37,7 @@ const TemplateList = props => {
             show={props.show}
             onHide={handleHide}
             header="Список шаблонов"
+            crossOnly={true}
         >
             <FlexBox>
                 {content}

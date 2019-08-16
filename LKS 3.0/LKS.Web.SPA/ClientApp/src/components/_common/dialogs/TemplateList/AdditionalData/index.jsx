@@ -93,11 +93,11 @@ const AdditionalInfo = props => {
                             placeholder="Выберите студентов"
                             valueKey="id"
                             labelKey="initials"
-                            multiple={selectedTemplate.type === 'manyStudents'}
-                            keepOpen={selectedTemplate.type === 'manyStudents'}
+                            multiple={true}
+                            keepOpen={true}
                             numberDisplayed={4}
                             manySelectedPlaceholder="Выбранно %s элементов"
-                            includeSelectAll={selectedTemplate.type === 'manyStudents'}
+                            includeSelectAll={true}
                             selectAllText="Выбрать всех"
                         />
                     </DropDownContainerStyled>
