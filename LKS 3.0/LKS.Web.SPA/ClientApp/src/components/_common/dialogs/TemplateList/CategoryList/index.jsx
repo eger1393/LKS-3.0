@@ -4,17 +4,19 @@ import Item from '../Item'
 import { TitleStyled } from '../styled';
 import TemplateListStore from '../../../../../Store/templateListStore'
 import {observer} from 'mobx-react'
+import { apiGetCategories } from '../../../../../api/templates'
 
 const CategoryList = props => {
     const [categotyList, setCategoryList] = useState()
     useEffect(() => {
-        setCategoryList([
-            {name: 'Сборы', id: '0'},
-            {name: 'Вуз', id: '1'},
-            {name: 'общее', id: '2'},
-            {name: 'Хрень', id: '3'},
-            {name: 'Кафедра', id: '4'},
-        ])
+        apiGetCategories().then(data => setCategoryList(data))
+        // setCategoryList([
+        //     {name: 'Сборы', id: '0'},
+        //     {name: 'Вуз', id: '1'},
+        //     {name: 'общее', id: '2'},
+        //     {name: 'Хрень', id: '3'},
+        //     {name: 'Кафедра', id: '4'},
+        // ])
     }, [])
 
     const handleSelect = id => () =>{

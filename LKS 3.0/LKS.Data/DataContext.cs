@@ -3,6 +3,7 @@ using System;
 using LKS.Data.Models;
 using LKS.Data.Models.Enums;
 using LKS.Data.Providers;
+using System.Collections.Generic;
 
 namespace LKS.Data
 {
@@ -34,7 +35,7 @@ namespace LKS.Data
 			builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.Students);
             builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
 			builder.Entity<User>().HasIndex(x => x.TroopId).IsUnique();
-            builder.Entity<Category>().HasMany(x => x.Subcategories);
+            builder.Entity<Category>().HasMany(x => x.Subcategories).WithOne().HasForeignKey(x => x.ParentCategoryId);
             builder.Entity<Template>().HasOne(x => x.Category);
 
             Seed(builder);
@@ -46,6 +47,36 @@ namespace LKS.Data
             string[] InstGroupList = { "3ВТИ-039", "3ВТИ-037", "3ВТИ-042", "3ВТИ-040" };
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
             var rand = new Random();
+			builder.Entity<Category>().HasData(new Category()
+			{
+				Id = "1",
+				Name = "Test",
+				ParentCategoryId = null
+			});
+			builder.Entity<Category>().HasData(new Category()
+			{
+				Id = "2",
+				Name = "Test2",
+				ParentCategoryId = null
+			});
+			builder.Entity<Category>().HasData(new Category()
+			{
+				Id = "3",
+				Name = "Test3",
+				ParentCategoryId = "1"
+			});
+			builder.Entity<Category>().HasData(new Category()
+			{
+				Id = "4",
+				Name = "Test4",
+				ParentCategoryId = "1"
+			});
+			builder.Entity<Category>().HasData(new Category()
+			{
+				Id = "5",
+				Name = "Test5",
+				ParentCategoryId = "2"
+			});
 			builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",

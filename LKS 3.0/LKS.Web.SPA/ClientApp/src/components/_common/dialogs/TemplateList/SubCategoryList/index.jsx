@@ -4,17 +4,19 @@ import Item from '../Item'
 import { BackButtonStyled, TitleStyled } from '../styled';
 import TemplateListStore from '../../../../../Store/templateListStore'
 import { observer } from 'mobx-react'
+import { apiGetCategories } from '../../../../../api/templates'
 
 const SubCategoryList = props => {
     const [subCategotyList, setSubCategoryList] = useState()
     useEffect(() => {
-        setSubCategoryList([
-            { name: 'Экзамены', id: '0' },
-            { name: '1 неделя', id: '1' },
-            { name: '2 неделея', id: '2' },
-            { name: 'Отчетные документы', id: '3' },
-            { name: 'До сборов', id: '4' },
-        ])
+        apiGetCategories(TemplateListStore.categoryId).then(data => setSubCategoryList(data))
+        // setSubCategoryList([
+        //     { name: 'Экзамены', id: '0' },
+        //     { name: '1 неделя', id: '1' },
+        //     { name: '2 неделея', id: '2' },
+        //     { name: 'Отчетные документы', id: '3' },
+        //     { name: 'До сборов', id: '4' },
+        // ])
     }, [])
 
     const handleSelect = id => () => {
