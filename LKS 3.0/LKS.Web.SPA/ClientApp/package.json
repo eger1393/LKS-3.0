@@ -55,7 +55,6 @@
     "react-cropper": "^1.2.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "next",
-    "react-file-download": "^0.3.5",
     "react-final-form": "^4.0.2",
     "react-modal": "^3.8.1",
     "react-picky": "^4.0.2",

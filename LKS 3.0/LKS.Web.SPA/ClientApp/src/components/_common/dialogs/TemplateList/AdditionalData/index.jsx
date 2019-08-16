@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Piky from 'react-picky'
+import Button from '../../../elements/Button'
 
 import { BackButtonStyled, TitleStyled } from '../styled';
 import TemplateListStore from '../../../../../Store/templateListStore'
@@ -7,28 +8,53 @@ import { observer } from 'mobx-react'
 import { connect } from 'react-redux'
 import { getStudentListData, getTroopList } from '../../../../../selectors/studentList'
 import { DropDownContainerStyled } from './styled';
+import { apiCreateTemplate, apiSetTemplateData } from '../../../../../api/templates'
 
 const AdditionalInfo = props => {
     const [troopStudents, setTroopStudents] = useState([]);
     const { selectedTemplate } = TemplateListStore;
 
     const handleChangeTroop = data => {
-        console.log(data)
-        TemplateListStore.selectedTroos = data;
-        if (selectedTemplate.type === 'singleStydent' || selectedTemplate.type === 'manyStydent') {
+        if (Array.isArray(data)) {
+            TemplateListStore.selectedTroos = data;
+        }
+        else {
+            TemplateListStore.selectedTroos = [data];
+        }
+        if (selectedTemplate.type === 'singleStudent' || selectedTemplate.type === 'manyStudents') {
             setTroopStudents(props.students.filter(x => x.troopId === data.id));
         }
+        console.log(TemplateListStore.selectedTroos)
     }
 
     const handleChangeStudent = data => {
-        console.log(data)
-        TemplateListStore.selectedStudents = data;
+        if (Array.isArray(data)) {
+            TemplateListStore.selectedStudents = data;
+        }
+        else {
+            TemplateListStore.selectedStudents = [data];
+        }
+        console.log(TemplateListStore.selectedStudents)
     }
 
     const handleBack = () => {
         TemplateListStore.selectedStudents = [];
         TemplateListStore.selectedTroos = [];
         TemplateListStore.displayedContent = 'TemplateListItems'
+    }
+
+    const handleSubmit = () => {
+        // valiate
+
+        let data = {
+            templateId: TemplateListStore.selectedTemplate.id,
+            studentIds: TemplateListStore.selectedStudents.map(x => x.id),
+            troopIds: TemplateListStore.selectedTroos.map(x => x.id),
+        }
+        apiSetTemplateData(data).then(() => {
+            apiCreateTemplate(data);
+        });
+
     }
 
     return (
@@ -48,14 +74,14 @@ const AdditionalInfo = props => {
                     placeholder="Выберите взвод"
                     valueKey="id"
                     labelKey="numberTroop"
-                    multiple={selectedTemplate.type === 'manyTroop'}
-                    keepOpen={selectedTemplate.type === 'manyTroop'}
+                    multiple={selectedTemplate.type === 'manyTroops'}
+                    keepOpen={selectedTemplate.type === 'manyTroops'}
                     numberDisplayed={4}
                     manySelectedPlaceholder="Выбранно %s элементов"
                 />
             </DropDownContainerStyled>
 
-            {(selectedTemplate.type === 'singleStydent' || selectedTemplate.type === 'manyStydent') &&
+            {(selectedTemplate.type === 'singleStudent' || selectedTemplate.type === 'manyStudents') &&
                 (
                     <DropDownContainerStyled>
                         <label htmlFor="student">Студенты</label>
@@ -67,14 +93,18 @@ const AdditionalInfo = props => {
                             placeholder="Выберите студентов"
                             valueKey="id"
                             labelKey="initials"
-                            multiple={selectedTemplate.type === 'manyStydent'}
-                            keepOpen={selectedTemplate.type === 'manyStydent'}
+                            multiple={selectedTemplate.type === 'manyStudents'}
+                            keepOpen={selectedTemplate.type === 'manyStudents'}
                             numberDisplayed={4}
                             manySelectedPlaceholder="Выбранно %s элементов"
+                            includeSelectAll={selectedTemplate.type === 'manyStudents'}
+                            selectAllText="Выбрать всех"
                         />
                     </DropDownContainerStyled>
                 )
             }
+
+            <Button onClick={handleSubmit} value="Создать" />
 
         </>
     );
@@ -82,9 +112,9 @@ const AdditionalInfo = props => {
 
 /*
     singleTroop,
-    manyTroop,
-    singleStydent,
-    manyStydent
+    manyTroops,
+    singleStudent,
+    manyStudents
 
 */
 

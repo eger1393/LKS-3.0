@@ -9,6 +9,7 @@ import AdditionalInfo from './AdditionalData'
 
 import TemplateListStore from '../../../../Store/templateListStore'
 import { observer } from 'mobx-react'
+import templateListStore from '../../../../Store/templateListStore';
 
 const TemplateList = props => {
     let content;
@@ -27,10 +28,14 @@ const TemplateList = props => {
             content = <CategoryList />
             break;
     }
+    const handleHide = () => {
+        templateListStore.setDefaultValue();
+        props.onHide();
+    }
     return (
         <ModalDialog
             show={props.show}
-            onHide={props.onHide}
+            onHide={handleHide}
             header="Список шаблонов"
         >
             <FlexBox>

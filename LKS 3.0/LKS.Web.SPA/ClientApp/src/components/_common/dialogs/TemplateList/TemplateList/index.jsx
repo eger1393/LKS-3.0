@@ -10,9 +10,9 @@ const TemplateList = props => {
     useEffect(() =>{
         setTemplateList([
             {id: '1', name: 'Ведомость', type:'singleTroop'},
-            {id: '2', name: 'Нормативы', type:'manyTroop'},
-            {id: '3', name: 'Присяга', type:'singleStydent'},
-            {id: '4', name: 'Список взвода', type:'manyStydent'},
+            {id: '2', name: 'Нормативы', type:'manyTroops'},
+            {id: '3', name: 'Присяга', type:'singleStudent'},
+            {id: '4', name: 'Список взвода', type:'manyStudents'},
             {id: '5', name: 'Журналы', type:''},
         ])
     }, [])
