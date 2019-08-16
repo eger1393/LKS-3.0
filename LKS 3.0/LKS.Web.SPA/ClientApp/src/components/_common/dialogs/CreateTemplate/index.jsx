@@ -42,20 +42,7 @@ class CreateTemplate extends React.Component {
         this.setState({ selectedSubcategory: value})  
     }
     
-    closeModal = () => {
-        if (this.isUnmounted) {
-            return;
-        }
-        this.setState({
-            successModal: false,
-        })
-        this.props.onHide();
-    }
-
-    componentWillMount() {
-        if (this.isUnmounted) {
-            return;
-        }
+    componentDidMount() {
         var self = this;
         apiGetCategories().then(res =>
             self.setState({ categories: res.filter(x => x.subcategories.length != 0) }));
@@ -63,9 +50,7 @@ class CreateTemplate extends React.Component {
                 self.setState({ templateTypes: res.map(x => ({id: x, label: getTypeTemplateValue(x)})) }));
     }
 
-    componentWillUnmount() {
-        this.isUnmounted = true;
-    }
+
 
     handleFileChange = e => {
         e.preventDefault();
@@ -87,21 +72,21 @@ class CreateTemplate extends React.Component {
             enumType: this.state.selectedTemplateType.id,
             templateName: this.state.templateName,
             templateFile: this.state.file
-        }).then(function () {
-            this.setState({
-                successModal: true,
-            })
-          })
+        });
+        // .then(function () {
+        //     this.setState({
+        //         successModal: true,
+        //     })
+        //   })
     }
     render() {
         return (
-            
             <ModalDialog header="Добавление шаблона" show ={this.props.show} onHide={this.props.onHide} >
                 <FlexBox className="flex-box">
                     <FlexRow>
                         <div>
-                            <label for="fileUpload">Выберите файл шаблона</label>
-                            <input type="file" class="form-control-file" id="fileUpload" style="width: 100%;" onChange={(e) => this.handleFileChange(e)}/>
+                            <label>Выберите файл шаблона</label>
+                            <input type="file" id="fileUpload" style={{width: "100%"}} onChange={(e) => this.handleFileChange(e)}/>
                         </div>
                         
                     </FlexRow>
@@ -158,7 +143,6 @@ class CreateTemplate extends React.Component {
                     <FlexRow>
                         <Button value="Сохранить" onClick={(e) => this.handleSave(e)}/>
                     </FlexRow>
-                   
                 </FlexBox>
              </ModalDialog>
         );
