@@ -10,6 +10,8 @@ import TroopList from '../dialogs/TroopList'
 import UserList from '../dialogs/UserList'
 import CreatePrepod from '../dialogs/CreatePrepod'
 import PrepodList from '../dialogs/PrepodList'
+import TemplateList from '../dialogs/TemplateList'
+import { AddTemplate } from '../dialogs/AddTemplate';
 import CreateTemplate from '../dialogs/CreateTemplate';
 
 
@@ -77,7 +79,10 @@ class NavBar extends React.Component {
                                 {this.state.openModalWindow.ReportsVUS && (
                                     <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
                                 )}
-                                
+                                <MenuItem eventKey={'TemplateList'}>Список шаблонов</MenuItem>
+                                {this.state.openModalWindow.TemplateList && (
+                                    <TemplateList show={this.state.openModalWindow.TemplateList} onHide={() => this.click('TemplateList')} />
+                                )}
                             </NavDropdown>
                             <NavItem eventKey={'UserList'} >
                                 Список пользователей

@@ -1,15 +1,16 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Container = styled.div`
-    font-size: 25px;
-    line-height: 1.12;
-    letter-spacing: 0.4px;
-    color: #14162c;
+export const ItemStyled = styled.div`
     position: relative;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer;
 
- .close {
+    &:hover {
+        font-weight: bolder;
+    }
+`
+
+export const CloseStyled = styled.div`
     position: absolute;
     right: -8px;
     top: 8px;
@@ -35,8 +36,7 @@ export const Container = styled.div`
         transform: rotate(45deg);
     }
 
-     &:after {
+    &:after {
         transform: rotate(-45deg);
     }
-}
 `

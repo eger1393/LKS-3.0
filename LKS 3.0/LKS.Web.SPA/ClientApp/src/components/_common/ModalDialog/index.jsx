@@ -23,11 +23,11 @@ const constStyles = {
 }
 Modal.setAppElement('#root')
 const ModalDialog = props => {
-  var { show, onHide, customStyles, children, header } = props;
+  var { show, onHide, customStyles, children, header, crossOnly } = props;
   return (
     <Modal
       isOpen={show}
-      onRequestClose={onHide}
+      onRequestClose={!crossOnly && onHide}
       style={customStyles || constStyles}
     >
       <ModalContainer ref={props.modalRef}>
@@ -45,5 +45,7 @@ ModalDialog.propTypes = {
   header: PropTypes.string,
   /** Ссылка на контейнер, сейчас исспользуется для фикса смещения контекстного меню */
   modalRef: PropTypes.any,
+  /** При значении true, закрывается только нажатием на крестик */
+  crossOnly: PropTypes.bool,
 }
 export default ModalDialog

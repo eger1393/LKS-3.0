@@ -39,7 +39,7 @@ namespace LKS.Web.Controllers
 				ob.MiddleName, 
 				ob.Position,
 				ob.Kurs,
-          
+				ob.TroopId,
                 numTroop = ob.Troop?.NumberTroop,
 				ob.Collness,
 				ob.Status,//
@@ -67,6 +67,7 @@ namespace LKS.Web.Controllers
 				ob.YearOfAddVK,
 				ob.YearOfEndMAI,
 				ob.YearOfEndVK,
+				ob.Initials,
 
 			});
 			return new JsonResult(new { studentList = studentList.ToArray() });

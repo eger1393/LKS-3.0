@@ -44,6 +44,9 @@ namespace LKS.Web.SPA
             });
 			services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddDistributedMemoryCache();
+			services.AddSession();
+
 			RegistrationInterfaces(services);
 			ConfigureAuthentication(services);
 
@@ -56,7 +59,8 @@ namespace LKS.Web.SPA
             {
 				app.UseHsts();
 			}
-
+			
+			app.UseSession();
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
