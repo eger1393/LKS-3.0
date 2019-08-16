@@ -42,14 +42,9 @@ namespace LKS.Data.Implementation
             throw new NotImplementedException();
         }
 
-        public List<Category> GetCategories()
+        public List<Category> GetCategories(string parentId)
         {
-            var categories = _context.Categories.Include(x => x.Subcategories);
-
-            if (categories == null)
-            { return new List<Category>(); }
-            else
-            { return categories.ToList(); }
+			return _context.Categories.Where(x => x.ParentCategoryId == parentId).ToList();
         }
 
         public Task Update(Category item)

@@ -7,6 +7,6 @@ namespace LKS.Data.Repositories
 {
     public interface ICategoriesRepository : IRepository<Category>
     {
-        List<Category> GetCategories();
+        List<Category> GetCategories(string parentId);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ModalDialog from '../../ModalDialog'
 import Button from '../../elements/Button'
 import { FlexBox, } from '../../elements/StyleDialogs/styled'

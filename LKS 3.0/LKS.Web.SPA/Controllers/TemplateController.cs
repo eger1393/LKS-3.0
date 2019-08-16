@@ -191,8 +191,7 @@ namespace LKS.Web.Controllers
 			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
         }
-
-        [AllowAnonymous]
+		
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdateTemplate([FromForm] AddTemplateModel model)
         {
@@ -213,31 +212,17 @@ namespace LKS.Web.Controllers
 
             return Ok();
         }
-
-        [AllowAnonymous]
+		
         [HttpGet("[action]")]
-        public IActionResult GetCategories()
+        public IActionResult GetCategories(string parentId)
         {
-            var obj = _categoriesRepository.GetCategories().Select(ob => new
-            {
-                id = ob.Id,
-                label = ob.Name,
-                subcategories = ob.Subcategories.Select(u => new { id = u.Id, label = u.Name }),
-            });
-            if (obj == null)
-            {
-                return BadRequest();
-            }
-            return Ok(obj);
+            return Ok(_categoriesRepository.GetCategories(parentId));
         }
-
-        [AllowAnonymous]
+		
         [HttpGet("[action]")]
         public IActionResult GetTypes()
         {
-            var obj = Enum.GetValues(typeof(Types)).OfType<Types>().ToList();
-
-            return Ok(obj);
+            return Ok(Enum.GetValues(typeof(Types)).OfType<Types>().ToList());
         }
 
     }

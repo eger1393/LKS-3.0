@@ -3,7 +3,6 @@ import fileDownload from 'js-file-download'
 
 const CREATE_TELMPLATE_URL = '/api/template/CreateTemplate'
 const SET_TELMPLATE_DATA_URL = '/api/template/SetTemlateData'
-const CREATE_TELMPLATE_LKS_URL = '/api/template/CreateUniversityLKSTemplate'
 const UPDATE_TEMPLATE_URL = '/api/template/UpdateTemplate'
 const GET_CATEGORIES_URL = '/api/template/GetCategories'
 const GET_TYPES_URL = '/api/template/GetTypes'
@@ -17,7 +16,8 @@ const GET_TYPES_URL = '/api/template/GetTypes'
 //     var fileName = res.headers['content-disposition'].split("''")[1];
 //     fileDownload(blob, decodeURIComponent(fileName));
 //   });
-export const apiSetTemplateData = data => axios.post(SET_TELMPLATE_DATA_URL, {json:JSON.stringify(data)});
+
+export const apiSetTemplateData = data => axios.post(SET_TELMPLATE_DATA_URL, { json: JSON.stringify(data) });
 export const apiCreateTemplate = data =>
   axios.get(CREATE_TELMPLATE_URL, {
     responseType: 'arraybuffer',
@@ -27,31 +27,22 @@ export const apiCreateTemplate = data =>
     fileDownload(blob, decodeURIComponent(fileName));
   });
 
-export const apiCreateLKSTemplate = data =>
-  axios.get(CREATE_TELMPLATE_LKS_URL, {
-    responseType: 'arraybuffer',
-    params: { troopId: data.numberTroop, template: data.selectedTemplate, order: data.order, studentId: data.studentId }
-  }).then(res => {
-    var blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-    var fileName = res.headers['content-disposition'].split("''")[1];
-    fileDownload(blob, decodeURIComponent(fileName));
+export const apiCreateLKSTemplate = data => { }
+
+export const apiUpdateTemplate = data => {
+  let form = new FormData();
+  Object.keys(data).map(key => {
+    form.append(`${key}`, data[key])
   });
+  axios.post(UPDATE_TEMPLATE_URL, form);
+}
 
-  export const apiUpdateTemplate = data =>
-  {
-    let form = new FormData();
-              Object.keys(data).map(key => {
-                  form.append(`${key}`, data[key])
-              });
-    axios.post(UPDATE_TEMPLATE_URL, form);
-  }
-    
-  
-  export const apiGetCategories = () =>
-    axios.get(GET_CATEGORIES_URL).then(({ data }) => data);
-  
-    export const apiGetTypes = () =>
-    axios.get(GET_TYPES_URL).then(({ data }) => data);
-  
 
-  
+export const apiGetCategories = (parentId) =>
+  axios.get(GET_CATEGORIES_URL, {params: {parentId}}).then(({ data }) => data);
+
+export const apiGetTypes = () =>
+  axios.get(GET_TYPES_URL).then(({ data }) => data);
+
+
+
