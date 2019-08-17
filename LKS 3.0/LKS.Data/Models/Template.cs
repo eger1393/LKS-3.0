@@ -16,6 +16,6 @@ namespace LKS.Data.Models
         [Required]
         public Types Type { get; set; }
         [Required]
-        public string URL { get; set; }
+        public string URI { get; set; }
     }
 }

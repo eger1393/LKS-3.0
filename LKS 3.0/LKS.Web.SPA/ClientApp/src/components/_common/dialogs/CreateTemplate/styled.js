@@ -8,7 +8,7 @@ div:first-child{
         height: 40px;
         border-radius: 1px;
         border: none;
-        border-bottom: 1px solid #d8d8d8;
+        border-bottom: ${props => props.error ? "solid 1px red" : "1px solid #d8d8d8"};
         color: #1b1e2d;
         font-size: 14px;
         color: black;
@@ -25,4 +25,16 @@ div:first-child{
             }
       }
 
+`
+
+export const ErrorInput = styled.div`
+    width: 100% !important;
+        height: 40px !important;
+        border-radius: 1px !important;
+        border: none !important;
+        border-bottom: ${props => props.error ? "solid 1px red" : "1px solid #d8d8d8"} !important;
+        color: #1b1e2d !important;
+        font-size: 14px !important;
+        color: black !important;
+        font-weight: 300 !important;
 `

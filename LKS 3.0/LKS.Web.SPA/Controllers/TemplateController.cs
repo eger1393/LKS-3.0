@@ -4,15 +4,13 @@ using LKS.Infrastructure.Templates;
 using LKS.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LKS.Web.Controllers
 {
@@ -40,158 +38,158 @@ namespace LKS.Web.Controllers
             _appEnvironment = appEnvironment;
         }
 
-		//[HttpGet("[action]")]
-		//      // ReSharper disable once InconsistentNaming
+        //[HttpGet("[action]")]
+        //      // ReSharper disable once InconsistentNaming
 
-		//      public async Task<IActionResult> CreateUniversityLKSTemplate
-		//          ([FromHeader] CreateUniversityTemplateModel model)
-		//{
-		//	// TODO говнокод, отрефактрить
+        //      public async Task<IActionResult> CreateUniversityLKSTemplate
+        //          ([FromHeader] CreateUniversityTemplateModel model)
+        //{
+        //	// TODO говнокод, отрефактрить
 
-		//	var student = await _studentRepository.GetItem(model.StudentId);
-		//	var students = new List<Data.Models.Student>();
-		//	students.Add(student);
-		//	TemplateProvider t = new TemplateProvider();
-		//	string fileName = string.Empty;
-		//	switch (model.Template)
-		//	{
-		//		case "universityAdmissionForm":
-		//			fileName = "ЛКС_Форма_допуска.docx";
-		//			break;
-		//		case "universityCandidateExamen":
-		//			fileName = "Лист_изучения_кандидата_на_призыв.docx";
-		//			break;
-		//		case "universityLKS":
-		//			fileName = "Личная_карточка_студента.docx";
-		//			break;
-		//		default:
-		//			return BadRequest("Неизвестный шаблон");
-		//	}
-		//	string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template", fileName);
-		//	var file = await t.CreateTemplate(path, students: students);
+        //	var student = await _studentRepository.GetItem(model.StudentId);
+        //	var students = new List<Data.Models.Student>();
+        //	students.Add(student);
+        //	TemplateProvider t = new TemplateProvider();
+        //	string fileName = string.Empty;
+        //	switch (model.Template)
+        //	{
+        //		case "universityAdmissionForm":
+        //			fileName = "ЛКС_Форма_допуска.docx";
+        //			break;
+        //		case "universityCandidateExamen":
+        //			fileName = "Лист_изучения_кандидата_на_призыв.docx";
+        //			break;
+        //		case "universityLKS":
+        //			fileName = "Личная_карточка_студента.docx";
+        //			break;
+        //		default:
+        //			return BadRequest("Неизвестный шаблон");
+        //	}
+        //	string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template", fileName);
+        //	var file = await t.CreateTemplate(path, students: students);
 
-		//	return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+        //	return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
-		//}
-		//      [HttpGet("[action]")]
-		//public async Task<IActionResult> CreateUniversityTemplate
-		//          ([FromHeader] CreateUniversityTemplateModel model)
-		//{
-		//	// TODO говнокод, отрефактрить
-		//	var troop = await _troopRepository.GetItem(model.TroopId);
-		//	var troops = new List<Data.Models.Troop>();
-		//	troops.Add(troop);
-		//	TemplateProvider t = new TemplateProvider();
-		//	string fileName = string.Empty;
-		//	string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
-		//	byte[] file = null;
-		//	switch (model.Template)
-		//	{
-		//		// доки для взвода
-		//		case "universityStudentList":
-		//			fileName = "Список_взвода.docx";
-		//			break;
-		//		case "universityConditionsEducation":
-		//			fileName = "Условия_обучения_в_вузе.docx";
-		//			break;
-		//		case "universityThematicControl":
-		//			fileName = "Тематический_контроль.docx";
-		//			break;
-		//			//журнал
-		//		case "universityJournalCover":
-		//			fileName = "Журнал_обложка.docx";
-		//			break;
-		//		case "universityJournalFull":
-		//			fileName = "Журнал_целиком.docx";
-		//			break;
-		//		case "universityJournalPenalties": // сейчас нет шаблона
-		//			fileName = "Наряды_взыскания_инструктажи.docx";
-		//			break;
-		//		case "universityJournalAttendance":
-		//			fileName = "Посещаемость.docx";
-		//			break;
-		//		case "universityJournalStudentList":
-		//			fileName = "Список_взвода_для_журнала.docx";
-		//			break;
+        //}
+        //      [HttpGet("[action]")]
+        //public async Task<IActionResult> CreateUniversityTemplate
+        //          ([FromHeader] CreateUniversityTemplateModel model)
+        //{
+        //	// TODO говнокод, отрефактрить
+        //	var troop = await _troopRepository.GetItem(model.TroopId);
+        //	var troops = new List<Data.Models.Troop>();
+        //	troops.Add(troop);
+        //	TemplateProvider t = new TemplateProvider();
+        //	string fileName = string.Empty;
+        //	string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
+        //	byte[] file = null;
+        //	switch (model.Template)
+        //	{
+        //		// доки для взвода
+        //		case "universityStudentList":
+        //			fileName = "Список_взвода.docx";
+        //			break;
+        //		case "universityConditionsEducation":
+        //			fileName = "Условия_обучения_в_вузе.docx";
+        //			break;
+        //		case "universityThematicControl":
+        //			fileName = "Тематический_контроль.docx";
+        //			break;
+        //			//журнал
+        //		case "universityJournalCover":
+        //			fileName = "Журнал_обложка.docx";
+        //			break;
+        //		case "universityJournalFull":
+        //			fileName = "Журнал_целиком.docx";
+        //			break;
+        //		case "universityJournalPenalties": // сейчас нет шаблона
+        //			fileName = "Наряды_взыскания_инструктажи.docx";
+        //			break;
+        //		case "universityJournalAttendance":
+        //			fileName = "Посещаемость.docx";
+        //			break;
+        //		case "universityJournalStudentList":
+        //			fileName = "Список_взвода_для_журнала.docx";
+        //			break;
 
-		//		case "universityQuestionnaire":
-		//			{
-		//				fileName = "Анкета.docx";
-		//				file = await t.CopyFile(Path.Combine(path ,fileName));
-		//				break;
-		//			}
-		//		case "universitySampleQuestionnaire":
-		//			{
-		//				fileName = "Анкета_шабон.docx";
-		//				file = await t.CopyFile(Path.Combine(path, fileName));
-		//				break;
-		//			}
-		//		case "universityCycleStudentList":
-		//			{
-		//				fileName = "Список обучающихся на цикле.docx";
-		//				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetTrainStudents());
-		//				break;
-		//			}
-		//		case "universityDeductionStudentList":
-		//			{
-		//				fileName = "Список студентов на отчисление.docx";
-		//				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetForDeductionsStudents());
-		//				break;
-		//			}
-		//		case "universityExpellendStudentList":
-		//			{
-		//				fileName = "Список отчисленных студентов.docx";
-		//				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetSuspendedStudents());
-		//				break;
-		//			}
-		//		default:
-		//			return BadRequest("Неизвестный шаблон");
-		//	}
-		//	if (file == null)
-		//		file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
+        //		case "universityQuestionnaire":
+        //			{
+        //				fileName = "Анкета.docx";
+        //				file = await t.CopyFile(Path.Combine(path ,fileName));
+        //				break;
+        //			}
+        //		case "universitySampleQuestionnaire":
+        //			{
+        //				fileName = "Анкета_шабон.docx";
+        //				file = await t.CopyFile(Path.Combine(path, fileName));
+        //				break;
+        //			}
+        //		case "universityCycleStudentList":
+        //			{
+        //				fileName = "Список обучающихся на цикле.docx";
+        //				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetTrainStudents());
+        //				break;
+        //			}
+        //		case "universityDeductionStudentList":
+        //			{
+        //				fileName = "Список студентов на отчисление.docx";
+        //				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetForDeductionsStudents());
+        //				break;
+        //			}
+        //		case "universityExpellendStudentList":
+        //			{
+        //				fileName = "Список отчисленных студентов.docx";
+        //				file = await t.CreateTemplate(Path.Combine(path, fileName), students: _studentRepository.GetSuspendedStudents());
+        //				break;
+        //			}
+        //		default:
+        //			return BadRequest("Неизвестный шаблон");
+        //	}
+        //	if (file == null)
+        //		file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
 
-		//	return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+        //	return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
-		//}
-		[HttpPost("[action]")]
-		public IActionResult SetTemlateData(SetTemplateData model)
-		{
-			HttpContext.Session.SetString("data", model.json);
+        //}
+        [HttpPost("[action]")]
+        public IActionResult SetTemlateData(SetTemplateData model)
+        {
+            HttpContext.Session.SetString("data", model.json);
 
-			return Ok();
-		}
+            return Ok();
+        }
 
-		[HttpGet("[action]")]
-		public async Task<IActionResult> CreateTemplate()
-		{
+        [HttpGet("[action]")]
+        public async Task<IActionResult> CreateTemplate()
+        {
 
-			string json = HttpContext.Session.GetString("data");
-			var ob = JsonConvert.DeserializeObject<CreateTemplateModel>(json);
-			// TODO говнокод, отрефактрить
-			//var troop = await _troopRepository.GetItem(model.TroopId);
-			//var troops = new List<Data.Models.Troop>();
-			//troops.Add(troop);
-			TemplateProvider t = new TemplateProvider();
-			string fileName = string.Empty;
-			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
-			byte[] file = null;
-			//switch (model.Template)
-			//{
-			//	case "universityQuestionnaire":
-			//		{
-			fileName = "Анкета.docx";
-			file = await t.CopyFile(Path.Combine(path, fileName));
-			//			break;
-			//		}
-			//}
-			//if (file == null)
-			//	file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
-			HttpContext.Request.Method = "GET";
-			
-			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+            string json = HttpContext.Session.GetString("data");
+            var ob = JsonConvert.DeserializeObject<CreateTemplateModel>(json);
+            // TODO говнокод, отрефактрить
+            //var troop = await _troopRepository.GetItem(model.TroopId);
+            //var troops = new List<Data.Models.Troop>();
+            //troops.Add(troop);
+            TemplateProvider t = new TemplateProvider();
+            string fileName = string.Empty;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
+            byte[] file = null;
+            //switch (model.Template)
+            //{
+            //	case "universityQuestionnaire":
+            //		{
+            fileName = "Анкета.docx";
+            file = await t.CopyFile(Path.Combine(path, fileName));
+            //			break;
+            //		}
+            //}
+            //if (file == null)
+            //	file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
+            HttpContext.Request.Method = "GET";
+
+            return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
 
         }
-		
+
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdateTemplate([FromForm] AddTemplateModel model)
         {
@@ -200,25 +198,27 @@ namespace LKS.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            // путь к папке templates
-            string path = "/templates/" + model.templateFile.FileName;
-            // сохраняем файл в папку Files в каталоге wwwroot
+            string uniqueNameTemplate =
+                model.templateName.Replace(" ", "_") + model.templateName.GetHashCode() + ".docx";
+
+            string path = "/templates/" + uniqueNameTemplate;
+
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
             {
                 await model.templateFile.CopyToAsync(fileStream);
             }
 
-            _templateRepository.Create(model.category, model.subcategory, model.enumType, model.templateName, path);
+            _templateRepository.Create((model.categoryId, model.categoryName), (model.subcategoryId, model.subcategoryName), model.enumType, model.templateName, path.Replace("/", "\\").Remove(0, 2));
 
             return Ok();
         }
-		
+
         [HttpGet("[action]")]
         public IActionResult GetCategories(string parentId)
         {
             return Ok(_categoriesRepository.GetCategories(parentId));
         }
-		
+
         [HttpGet("[action]")]
         public IActionResult GetTypes()
         {
