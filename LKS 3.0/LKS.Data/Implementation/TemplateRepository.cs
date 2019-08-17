@@ -22,24 +22,34 @@ namespace LKS.Data.Implementation
             _context.SaveChanges();
         }
 
-        public void Create(string categoryName, string subcategoryName, int type, string templateName, string pathToFile)
+        public void Create((string id, string name) selectCategory, (string id, string name) selectSubcategory, int type, string templateName, string pathToFile)
         {
             TemplateTypes enumType = (TemplateTypes)type;
 
-            var category = _context.Categories.Include(x => x.Subcategories).FirstOrDefault(value => value.Name.ToLower() == categoryName.ToLower());
-            if (category == null)
+            if (selectCategory.id == null)
             {
-                category = new Category() { Name = categoryName };
+                Category temp = new Category()
+                {
+                    Name = selectCategory.name
+                };
+                _context.Categories.Add(temp);
+
+                selectCategory.id = temp.Id;
             }
 
-            var subcategory = category.Subcategories
-                .FirstOrDefault(value => value.Name.ToLower() == subcategoryName.ToLower());
-            if (subcategory == null)
+            if (selectSubcategory.id == null)
             {
-                category.Subcategories.Add(new Category() { Name = subcategoryName });
+                Category temp = new Category()
+                {
+                    Name = selectSubcategory.name,
+                    ParentCategoryId = selectCategory.id
+                };
+                _context.Categories.Add(temp);
+
+                selectSubcategory.id = temp.Id;
             }
 
-            var newTemplate = new Template() { Category = category, Name = templateName, Type = enumType, URL = pathToFile };
+            Template newTemplate = new Template() { CategoryId = selectSubcategory.id, Name = templateName, Type = enumType, URI = pathToFile };
 
             _context.Templates.Add(newTemplate);
             _context.SaveChanges();

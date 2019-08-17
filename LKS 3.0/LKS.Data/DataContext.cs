@@ -87,7 +87,7 @@ namespace LKS.Data
                 CategoryId = "3",
                 Name = "Шаблон 1",
                 Type = TemplateTypes.singleStudent,
-                URL = "/templates/Характеристика.docx"
+                URI = "templates\\Характеристика.docx"
             });
             builder.Entity<Template>().HasData(new Template()
             {
@@ -95,7 +95,7 @@ namespace LKS.Data
                 CategoryId = "5",
                 Name = "Шаблон 2",
                 Type = TemplateTypes.manyStudents,
-                URL = "/templates/Справка о командировке.docx"
+                URI = "templates\\Справка о командировке.docx"
             });
 
 

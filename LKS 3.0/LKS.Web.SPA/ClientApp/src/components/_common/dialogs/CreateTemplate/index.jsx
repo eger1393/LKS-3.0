@@ -3,11 +3,12 @@ import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import ModalDialog from "../../ModalDialog";
-import { Container } from './styled'
+import { Container, ErrorInput } from './styled'
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import {getTypeTemplateValue} from '../../../../helpers/index'
 import { apiUpdateTemplate, apiGetCategories, apiGetTypes } from '../../../../api/templates'
+import SuccessModal from "./SuccessModal";
 
 class CreateTemplate extends React.Component {
 
@@ -16,10 +17,12 @@ class CreateTemplate extends React.Component {
         categories: [],
         subcategories: [],
         templateTypes: [],
-        templateName: null,
+        selectedTemplateName: null,
         selectedCategory: null,
         selectedSubcategory: null,
-        selectedTemplateType: null
+        selectedTemplateType: null,
+        successModal: false,
+        error: {},
     }
     
     changeSelectTemplateType = value => {
@@ -27,8 +30,9 @@ class CreateTemplate extends React.Component {
     }
     changeSelectTemplateName = event =>
     {
-        this.setState({ templateName: event.target.value})  
+        this.setState({ selectedTemplateName: event.target.value})  
     }
+
     changeSelectCategory = value => {
 
         this.setState({ selectedCategory: value })
@@ -43,11 +47,32 @@ class CreateTemplate extends React.Component {
             this.setState({ selectedSubcategory: null})
         }
     }
+    
     changeSelectSubcategory = value =>
     {
         this.setState({ selectedSubcategory: value})  
     }
     
+    handleCreateCategory = value =>
+    {
+        let {subcategories} = this.state;
+        let newOption = ({id:null, label: value})
+        this.setState({
+            subcategories: [...subcategories, newOption],
+            selectedSubcategory: newOption,
+          });
+    }
+
+    handleCreateSubcategory = value =>
+    {
+        let {categories} = this.state;
+        let newOption = ({id:null, label: value})
+        this.setState({
+            categories: [...categories, newOption],
+            selectedCategory: newOption,
+          });
+    }
+
     componentDidMount() {
         var self = this;
         apiGetCategories()
@@ -59,7 +84,20 @@ class CreateTemplate extends React.Component {
                 self.setState({ templateTypes: res.map(x => ({id: x, label: getTypeTemplateValue(x)})) }));
     }
 
+    validate = () => 
+    {   
+        let { selectedCategory,selectedSubcategory,selectedTemplateName,selectedTemplateType } = this.state;
+      
+        let stateErrors = { category: !!selectedCategory,
+            subcategory: !!selectedSubcategory, 
+            name: !!selectedTemplateName,
+        type: !!selectedTemplateType };
 
+        this.setState({ error: stateErrors})
+
+        return Object.keys(stateErrors).every(function(k){ return stateErrors[k] });
+    
+    }
 
     handleFileChange = e => {
         e.preventDefault();
@@ -68,7 +106,7 @@ class CreateTemplate extends React.Component {
         let file = e.target.files[0];
 
         reader.onloadend = () => {
-            this.setState({file: file, templateName: file.name.replace(/\.[^.]+$/, "") })
+            this.setState({file: file, selectedTemplateName: file.name.replace(/\.[^.]+$/, "") })
         }
 
         reader.readAsDataURL(file)
@@ -76,17 +114,33 @@ class CreateTemplate extends React.Component {
 
     handleSave = e =>
     {
-        apiUpdateTemplate({ category: this.state.selectedCategory.label,
-            subcategory: this.state.selectedSubcategory.label, 
-            enumType: this.state.selectedTemplateType.id,
-            templateName: this.state.templateName,
-            templateFile: this.state.file
+        if(this.validate())
+        {
+            var self = this;
+            apiUpdateTemplate({ 
+                categoryId: self.state.selectedСategory.id, 
+                categoryName: self.state.selectedСategory.label,
+                subcategoryId: self.state.selectedSubcategory.id, 
+                subcategoryName: self.state.selectedSubcategory.label,
+                enumType: self.state.selectedTemplateType.id,
+                templateName: self.state.templateName,
+                templateFile: self.state.file
+            })
+            .then(function () {
+                self.setState({
+                    successModal: true,
+                })
+              })
+        }
+        
+    }
+
+    closeModal = e =>
+    {
+        this.setState({
+            successModal: false,
         });
-        // .then(function () {
-        //     this.setState({
-        //         successModal: true,
-        //     })
-        //   })
+        this.props.onHide();
     }
     render() {
         return (
@@ -95,24 +149,25 @@ class CreateTemplate extends React.Component {
                     <FlexRow>
                         <div>
                             <label>Выберите файл шаблона</label>
-                            <input type="file" id="fileUpload" style={{width: "100%"}} onChange={(e) => this.handleFileChange(e)}/>
+                            <input type="file"  id="fileUpload" style={{width: "100%"}} onChange={(e) => this.handleFileChange(e)}/>
                         </div>
                         
                     </FlexRow>
                     <FlexRow>
                     <div>
+                    <ErrorInput error={!this.state.selectedTemplateName}>
                             <Input id="templateName"
                                 type="text"
-                                isRequired={true}
                                 placeholder="Имя шаблона"
-                                value={this.state.templateName}
+                                value={this.state.selectedTemplateName}
                                 onChange={this.changeSelectTemplateName}>
                             </Input>
+                    </ErrorInput>
                         </div>
                         <div>
-                            <Container>
+                            <Container error={!this.state.selectedTemplateType}>
                             {
-                                this.state.templateTypes.length != 0 && (
+                                this.state.templateTypes.length !== 0 && (
                                     <Select isClearable id="listTypes" className="custom-style"
                                         options={this.state.templateTypes}
                                         onChange={this.changeSelectTemplateType}
@@ -120,29 +175,30 @@ class CreateTemplate extends React.Component {
                                         value={this.state.selectedTemplateType}
                                     />)}
                             </Container>
-                           
                         </div>
                     </FlexRow>
                     <FlexRow>
                         <div>
-                        <Container>
+                        <Container error={!this.state.selectedCategory}>
                             {
-                                this.state.categories.length != 0 && (
+                                this.state.categories.length !== 0 && (
                                     <CreatableSelect id="listCategories" className="custom-style"
                                         options={this.state.categories}
                                         onChange={this.changeSelectCategory}
+                                        onCreateOption={this.handleCreateCategory}
                                         placeholder="Основная категория"
                                         value={this.state.selectedCategory}
                                     />)}
                                     </Container>
                         </div>
                         <div>
-                        <Container>
+                        <Container error={!this.state.selectedSubcategory}>
                             {
-                                this.state.categories.length != 0 && (
+                                this.state.categories.length !== 0 && (
                                     <CreatableSelect isClearable id="listSubcategories" className="custom-style"
                                         options={this.state.subcategories}
                                         onChange={this.changeSelectSubcategory}
+                                        onCreateOption={this.handleCreateSubcategory}
                                         placeholder="Категория шаблона"
                                         value={this.state.selectedSubcategory}
                                     />)}
@@ -153,6 +209,7 @@ class CreateTemplate extends React.Component {
                         <Button value="Сохранить" onClick={(e) => this.handleSave(e)}/>
                     </FlexRow>
                 </FlexBox>
+                {this.state.successModal && (<SuccessModal isOpen={this.state.successModal} isOk={this.closeModal} onHide={this.closeModal} />)}
              </ModalDialog>
         );
     }

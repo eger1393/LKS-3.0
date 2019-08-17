@@ -26,7 +26,7 @@ export const apiUpdateTemplate = data => {
   Object.keys(data).map(key => {
     form.append(`${key}`, data[key])
   });
-  axios.post(UPDATE_TEMPLATE_URL, form);
+  return axios.post(UPDATE_TEMPLATE_URL, form);
 }
 
 

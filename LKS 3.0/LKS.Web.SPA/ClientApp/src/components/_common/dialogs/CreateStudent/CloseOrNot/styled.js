@@ -21,7 +21,7 @@ export const ModalContainer = styled.div`
 `
 export const ModalBody = styled.div`
     display: flex;
-    conten-alogn: center;
+    justify-content: center;
 `
 export const ModalFooter = styled.div`
     justify-content: space-around;
