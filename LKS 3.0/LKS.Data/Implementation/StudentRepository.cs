@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LKS.Data.Helpers;
+using LKS.Data.Models;
+using LKS.Data.Models.Enums;
+using LKS.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using LKS.Data.Helpers;
-using LKS.Data.Models;
-using LKS.Data.Models.Enums;
-using LKS.Data.Repositories;
 
 namespace LKS.Data.Implementation
 {
@@ -16,14 +16,14 @@ namespace LKS.Data.Implementation
 		private readonly DataContext _context;
 		public StudentRepository(DataContext context)
 		{
-			_context = context;	
+			_context = context;
 		}
 		public async Task Create(Student item)
 		{
 			await _context.Students.AddAsync(item);
-            await _context.Relatives.AddRangeAsync(item.Relatives);
-            _context.SaveChanges();
-        }
+			await _context.Relatives.AddRangeAsync(item.Relatives);
+			_context.SaveChanges();
+		}
 
 		public void CreateStudent(Student student, List<Relative> relatives)
 		{
@@ -52,19 +52,19 @@ namespace LKS.Data.Implementation
 		{
 			await _context.Students.AddRangeAsync(item);
 			await _context.SaveChangesAsync();
-        }
+		}
 
 		public async Task Delete(Student item)
 		{
 			_context.Students.Remove(item);
 			await _context.SaveChangesAsync();
-        }
+		}
 
 		public async Task DeleteRange(ICollection<Student> item)
 		{
 			_context.Students.RemoveRange(item);
 			await _context.SaveChangesAsync();
-        }
+		}
 
 		public async Task<Student> GetItem(string id)
 		{
@@ -72,27 +72,37 @@ namespace LKS.Data.Implementation
 			return res;
 		}
 
-        public Student GetStudent(string id)
-        {
-            var res = _context.Students.Include(ob => ob.Relatives).FirstOrDefault(u => u.Id == id);
-            return res;
-        }
+		public Student GetStudent(string id)
+		{
+			var res = _context.Students.Include(ob => ob.Relatives).FirstOrDefault(u => u.Id == id);
+			return res;
+		}
 
-        public List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop)
-        {
-            filters = filters.Where(x => !string.IsNullOrEmpty(x.Value)).ToDictionary(x => x.Key, x => x.Value);
+		public List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop)
+		{
+			filters = filters.Where(x => !string.IsNullOrEmpty(x.Value)).ToDictionary(x => x.Key, x => x.Value);
 
-            var res = _context.Students
-                .Include(ob => ob.Troop)
-                .AsQueryable().ToList(); // todo delete tolist
-            if (!string.IsNullOrEmpty(selectTroop))
-                res = res.Where(ob => ob.TroopId == selectTroop).ToList();
-            if (filters.Any())
-                FilterStudents(filters, ref res);
+			var res = _context.Students
+				.Include(ob => ob.Troop)
+				.AsQueryable().ToList(); // todo delete tolist
+			if (!string.IsNullOrEmpty(selectTroop))
+				res = res.Where(ob => ob.TroopId == selectTroop).ToList();
+			if (filters.Any())
+				FilterStudents(filters, ref res);
 
-            return res.ToList();
-        }
-        public List<Student> GetTrainStudents()
+			return res.ToList();
+		}
+
+		public List<Student> GetStudents(List<string> ids)
+		{
+			return _context.Students
+				.Include(x => x.Troop)
+				.Include(x => x.Relatives)
+				.Where(x => ids.Contains(x.Id))
+				.ToList();
+		}
+
+		public List<Student> GetTrainStudents()
 		{
 			return _context.Students
 				.Include(ob => ob.Troop)
@@ -122,42 +132,42 @@ namespace LKS.Data.Implementation
 
 		}
 
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public async Task SetStudentStatus(string id, StudentStatus status)
+		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		public async Task SetStudentStatus(string id, StudentStatus status)
 		{
 			var student = _context.Students.FirstOrDefault(ob => ob.Id == id);
-            Guard.Argument.IsNotNull(() => student);
-            student.Status = status;
-            await _context.SaveChangesAsync();
-        }
+			Guard.Argument.IsNotNull(() => student);
+			student.Status = status;
+			await _context.SaveChangesAsync();
+		}
 
 
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public async Task SetStudentPosition(string id, StudentPosition position)
-        {
-            var student = _context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
-            Guard.Argument.IsNotNull(() => student);
-            if (position == StudentPosition.commander)
-            {
-                if (student.Troop?.PlatoonCommander != null)
-                    student.Troop.PlatoonCommander.Position = StudentPosition.none;
-                if (student.Troop != null)
-                    student.Troop.PlatoonCommander = student;
-            }
-            student.Position = position;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task Update(Student item)
+		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		public async Task SetStudentPosition(string id, StudentPosition position)
 		{
-            foreach (var i in item.Relatives)
-            {
-                _context.Relatives.Update(i);
-            }
-            _context.Students.Update(item);
+			var student = _context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
+			Guard.Argument.IsNotNull(() => student);
+			if (position == StudentPosition.commander)
+			{
+				if (student.Troop?.PlatoonCommander != null)
+					student.Troop.PlatoonCommander.Position = StudentPosition.none;
+				if (student.Troop != null)
+					student.Troop.PlatoonCommander = student;
+			}
+			student.Position = position;
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task Update(Student item)
+		{
+			foreach (var i in item.Relatives)
+			{
+				_context.Relatives.Update(i);
+			}
+			_context.Students.Update(item);
 
 			await _context.SaveChangesAsync();
-        }
+		}
 
 		private static void FilterStudents(Dictionary<string, string> filters, ref List<Student> res)//IQueryable<Student> res)
 		{
@@ -252,18 +262,18 @@ namespace LKS.Data.Implementation
 					case "yearOfEndVK":
 						res = res.Where(ob => ob.YearOfEndVK?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false).ToList();
 						break;
-                    case "studentType":
-                        {
-                            if (value != "all"
-                                 && Enum.TryParse(value, true, out StudentStatus status)
-                                 && Enum.IsDefined(typeof(StudentStatus), status)
-                                )
-                            {
-                                res = res.Where(ob => ob.Status == status).ToList();
-                            }
-                            break;
-                        }
-                }
+					case "studentType":
+						{
+							if (value != "all"
+								 && Enum.TryParse(value, true, out StudentStatus status)
+								 && Enum.IsDefined(typeof(StudentStatus), status)
+								)
+							{
+								res = res.Where(ob => ob.Status == status).ToList();
+							}
+							break;
+						}
+				}
 			}
 		}
 
@@ -272,7 +282,7 @@ namespace LKS.Data.Implementation
 			var answer = _context.Students.Select(u => u.InstGroup).Distinct().ToList();
 			answer.RemoveAll(string.IsNullOrWhiteSpace);
 			return answer;
-       
+
 		}
 
 		public List<string> GetSpecInstList()
@@ -280,22 +290,22 @@ namespace LKS.Data.Implementation
 			var answer = _context.Students.Select(u => u.SpecInst).Distinct().ToList();
 			answer.RemoveAll(string.IsNullOrWhiteSpace);
 			return answer;
-    
+
 		}
 
-        public List<string> GetRectalList()
-        {
-            var answer = _context.Students.Select(u => u.Rectal).Distinct().ToList();
-            answer.RemoveAll(string.IsNullOrWhiteSpace);
-            return answer;
-           
-        }
+		public List<string> GetRectalList()
+		{
+			var answer = _context.Students.Select(u => u.Rectal).Distinct().ToList();
+			answer.RemoveAll(string.IsNullOrWhiteSpace);
+			return answer;
 
-        public List<string> GetLanguagesList()
-        {
-            var answer = _context.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
-            answer.RemoveAll(string.IsNullOrWhiteSpace);
-            return answer;
-        }
-    }
+		}
+
+		public List<string> GetLanguagesList()
+		{
+			var answer = _context.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
+			answer.RemoveAll(string.IsNullOrWhiteSpace);
+			return answer;
+		}
+	}
 }

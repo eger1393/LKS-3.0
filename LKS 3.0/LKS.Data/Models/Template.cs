@@ -14,7 +14,7 @@ namespace LKS.Data.Models
         [Required]
         public Category Category { get; set; }
         [Required]
-        public Types Type { get; set; }
+        public TemplateTypes Type { get; set; }
         [Required]
         public string URL { get; set; }
     }

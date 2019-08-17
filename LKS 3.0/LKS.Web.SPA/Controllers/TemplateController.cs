@@ -1,44 +1,45 @@
-﻿using LKS.Data.Models.Enums;
+﻿using LKS.Data.Models;
+using LKS.Data.Models.Enums;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Templates;
 using LKS.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LKS.Web.Controllers
 {
-    [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
-    [ApiController]
-    public class TemplateController : ControllerBase
-    {
-        private readonly ITroopRepository _troopRepository;
-        private readonly IStudentRepository _studentRepository;
-        private readonly ITemplateRepository _templateRepository;
-        private readonly ICategoriesRepository _categoriesRepository;
-        private readonly IHostingEnvironment _appEnvironment;
+	[Route("api/[controller]")]
+	[Authorize(Roles = "Admin")]
+	[ApiController]
+	public class TemplateController : ControllerBase
+	{
+		private readonly ITroopRepository _troopRepository;
+		private readonly IStudentRepository _studentRepository;
+		private readonly ITemplateRepository _templateRepository;
+		private readonly ICategoriesRepository _categoriesRepository;
+		private readonly IHostingEnvironment _appEnvironment;
 
-        public TemplateController(ITroopRepository troopRepository,
-            IStudentRepository studentRepository,
-            ITemplateRepository templateRepository,
-            ICategoriesRepository categoriesRepository,
-            IHostingEnvironment appEnvironment)
-        {
-            _templateRepository = templateRepository;
-            _studentRepository = studentRepository;
-            _troopRepository = troopRepository;
-            _categoriesRepository = categoriesRepository;
-            _appEnvironment = appEnvironment;
-        }
+		public TemplateController(ITroopRepository troopRepository,
+			IStudentRepository studentRepository,
+			ITemplateRepository templateRepository,
+			ICategoriesRepository categoriesRepository,
+			IHostingEnvironment appEnvironment)
+		{
+			_templateRepository = templateRepository;
+			_studentRepository = studentRepository;
+			_troopRepository = troopRepository;
+			_categoriesRepository = categoriesRepository;
+			_appEnvironment = appEnvironment;
+		}
 
 		//[HttpGet("[action]")]
 		//      // ReSharper disable once InconsistentNaming
@@ -166,64 +167,89 @@ namespace LKS.Web.Controllers
 		{
 
 			string json = HttpContext.Session.GetString("data");
-			var ob = JsonConvert.DeserializeObject<CreateTemplateModel>(json);
+			CreateTemplateModel model = JsonConvert.DeserializeObject<CreateTemplateModel>(json);
+			Template template = await _templateRepository.GetItem(model.templateId);
+			List<Troop> troops = _troopRepository.GetTroops().Where(x => model.troopIds.Contains(x.Id)).ToList();
+			List<Student> students = _studentRepository.GetStudents(model.studentIds);
+
 			// TODO говнокод, отрефактрить
-			//var troop = await _troopRepository.GetItem(model.TroopId);
-			//var troops = new List<Data.Models.Troop>();
-			//troops.Add(troop);
 			TemplateProvider t = new TemplateProvider();
-			string fileName = string.Empty;
-			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "template");
-			byte[] file = null;
-			//switch (model.Template)
-			//{
-			//	case "universityQuestionnaire":
-			//		{
-			fileName = "Анкета.docx";
-			file = await t.CopyFile(Path.Combine(path, fileName));
-			//			break;
-			//		}
-			//}
-			//if (file == null)
-			//	file = await t.CreateTemplate(Path.Combine(path, fileName), troops: troops);
-			HttpContext.Request.Method = "GET";
-			
-			return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+			string fileName = template.Name + ".docx";
+			string path = Path.Combine(_appEnvironment.WebRootPath, template.URL);
+			if (template.Type != TemplateTypes.manyStudents)
+			{
+				byte[] file = await t.CreateTemplate(path, students, troops);
+				return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", template.Name + ".docx");
+			}
+			else
+			{
+				using (var ms = new MemoryStream())
+				{
+					using (var zipArchive = new ZipArchive(ms, ZipArchiveMode.Create, true))
+					{
+						foreach (var item in students)
+						{
+							byte[] file = await t.CreateTemplate(path, new List<Student>() { item }, troops);
+							var entry = zipArchive.CreateEntry(fileName.Replace(".", item.MiddleName + "."), CompressionLevel.Fastest);
+							using (var entryStream = entry.Open())
+							{
+								entryStream.Write(file);
+							}
+						}
+					}
+					return File(ms.ToArray(), "application/zip", template.Name + ".zip");
 
-        }
-		
-        [HttpPost("[action]")]
-        public async Task<IActionResult> UpdateTemplate([FromForm] AddTemplateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+				}
+			}
 
-            // путь к папке templates
-            string path = "/templates/" + model.templateFile.FileName;
-            // сохраняем файл в папку Files в каталоге wwwroot
-            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-            {
-                await model.templateFile.CopyToAsync(fileStream);
-            }
+		}
 
-            _templateRepository.Create(model.category, model.subcategory, model.enumType, model.templateName, path);
+		[HttpPost("[action]")]
+		public async Task<IActionResult> UpdateTemplate([FromForm] AddTemplateModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            return Ok();
-        }
-		
-        [HttpGet("[action]")]
-        public IActionResult GetCategories(string parentId)
-        {
-            return Ok(_categoriesRepository.GetCategories(parentId));
-        }
-		
-        [HttpGet("[action]")]
-        public IActionResult GetTypes()
-        {
-            return Ok(Enum.GetValues(typeof(Types)).OfType<Types>().ToList());
-        }
+			// путь к папке templates
+			string path = "/templates/" + model.templateFile.FileName;
+			// сохраняем файл в папку Files в каталоге wwwroot
+			using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+			{
+				await model.templateFile.CopyToAsync(fileStream);
+			}
 
-    }
+			_templateRepository.Create(model.category, model.subcategory, model.enumType, model.templateName, path);
+
+			return Ok();
+		}
+
+		[HttpGet("[action]")]
+		public IActionResult GetCategories(string parentId)
+		{
+			return Ok(_categoriesRepository.GetCategories(parentId));
+		}
+
+		[HttpGet("[action]")]
+		public IActionResult GetTypes()
+		{
+			return Ok(Enum.GetValues(typeof(TemplateTypes)).OfType<TemplateTypes>().ToList());
+		}
+
+		[HttpGet("[action]")]
+		public IActionResult GetTemplateList(string subCategoryId)
+		{
+			return Ok(_templateRepository.GetTemplates(subCategoryId)
+				.Select(x => new
+				{
+					x.Id,
+					x.Name,
+					Type = x.Type,
+					x.CategoryId
+				}));
+
+		}
+
+	}
 }

@@ -21,8 +21,9 @@ const AdditionalInfo = props => {
         else {
             TemplateListStore.selectedTroos = [data];
         }
-        if (selectedTemplate.type === 'singleStudent' || selectedTemplate.type === 'manyStudents') {
+        if (selectedTemplate.type === 0 || selectedTemplate.type === 1) {
             setTroopStudents(props.students.filter(x => x.troopId === data.id));
+            TemplateListStore.selectedStudents = [];
         }
         console.log(TemplateListStore.selectedTroos)
     }
@@ -74,14 +75,14 @@ const AdditionalInfo = props => {
                     placeholder="Выберите взвод"
                     valueKey="id"
                     labelKey="numberTroop"
-                    multiple={selectedTemplate.type === 'manyTroops'}
-                    keepOpen={selectedTemplate.type === 'manyTroops'}
+                    multiple={selectedTemplate.type === 3}
+                    keepOpen={selectedTemplate.type === 3}
                     numberDisplayed={4}
                     manySelectedPlaceholder="Выбранно %s элементов"
                 />
             </DropDownContainerStyled>
 
-            {(selectedTemplate.type === 'singleStudent' || selectedTemplate.type === 'manyStudents') &&
+            {(selectedTemplate.type === 0 || selectedTemplate.type === 1) &&
                 (
                     <DropDownContainerStyled>
                         <label htmlFor="student">Студенты</label>
@@ -111,10 +112,10 @@ const AdditionalInfo = props => {
 }
 
 /*
-    singleTroop,
-    manyTroops,
-    singleStudent,
-    manyStudents
+    singleTroop = 2,
+    manyTroops = 3,
+    singleStudent = 0,
+    manyStudent = 1
 
 */
 

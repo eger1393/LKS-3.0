@@ -43,7 +43,7 @@ namespace LKS.Infrastructure.Templates
 			return file.ToArray();
 		}
 
-		public async Task<byte[]> CreateTemplate(string fileName, List<Student> students = null, List<Prepod> prepods = null, List<Troop> troops = null)
+		public async Task<byte[]> CreateTemplate(string fileName, List<Student> students = null, List<Troop> troops = null)
 		{
 			if (students == null)
 			{

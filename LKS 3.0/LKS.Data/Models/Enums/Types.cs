@@ -7,7 +7,7 @@ namespace LKS.Data.Models.Enums
     /// <summary>
     /// Типы шаблонов
     /// </summary>
-    public enum Types
+    public enum TemplateTypes
     {
         /// <summary>
         /// Студент
@@ -29,6 +29,5 @@ namespace LKS.Data.Models.Enums
         /// </summary>
         manyTroops
 
-    
     }
 }

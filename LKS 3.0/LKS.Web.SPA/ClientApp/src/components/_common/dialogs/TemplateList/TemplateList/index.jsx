@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Item from '../Item'
 
 import { BackButtonStyled, TitleStyled } from '../styled';
 import TemplateListStore from '../../../../../Store/templateListStore'
 import { observer } from 'mobx-react'
+import { apiGetTemplateList } from '../../../../../api/templates'
+import {getTypeTemplateValue} from '../../../../../helpers/index'
 
 const TemplateList = props => {
     const [templateList, setTemplateList] = useState();
-    useEffect(() =>{
-        setTemplateList([
-            {id: '1', name: 'Ведомость', type:'singleTroop'},
-            {id: '2', name: 'Нормативы', type:'manyTroops'},
-            {id: '3', name: 'Присяга', type:'singleStudent'},
-            {id: '4', name: 'Список взвода', type:'manyStudents'},
-            {id: '5', name: 'Журналы', type:''},
-        ])
+    useEffect(() => {
+        apiGetTemplateList(TemplateListStore.subCategoryId)
+            .then(data => setTemplateList(data))
+        // setTemplateList([
+        //     {id: '1', name: 'Ведомость', type:'singleTroop'},
+        //     {id: '2', name: 'Нормативы', type:'manyTroops'},
+        //     {id: '3', name: 'Присяга', type:'singleStudent'},
+        //     {id: '4', name: 'Список взвода', type:'manyStudents'},
+        //     {id: '5', name: 'Журналы', type:''},
+        // ])
     }, [])
 
     const handleSelect = template => () => {

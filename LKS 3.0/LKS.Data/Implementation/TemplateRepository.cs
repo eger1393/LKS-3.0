@@ -24,7 +24,7 @@ namespace LKS.Data.Implementation
 
         public void Create(string categoryName, string subcategoryName, int type, string templateName, string pathToFile)
         {
-            Types enumType = (Types)type;
+            TemplateTypes enumType = (TemplateTypes)type;
 
             var category = _context.Categories.Include(x => x.Subcategories).FirstOrDefault(value => value.Name.ToLower() == categoryName.ToLower());
             if (category == null)
@@ -62,12 +62,17 @@ namespace LKS.Data.Implementation
 
         public Task<Template> GetItem(string id)
         {
-            throw new NotImplementedException();
+			return _context.Templates.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task Update(Template item)
         {
             throw new NotImplementedException();
         }
+
+		public List<Template> GetTemplates(string subCategoryId)
+		{
+			return _context.Templates.Where(x => x.CategoryId == subCategoryId).ToList();
+		}
     }
 }
