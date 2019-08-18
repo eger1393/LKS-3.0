@@ -4,8 +4,8 @@ import Item from '../Item'
 import { BackButtonStyled, TitleStyled } from '../styled';
 import TemplateListStore from '../../../../../Store/templateListStore'
 import { observer } from 'mobx-react'
-import { apiGetTemplateList } from '../../../../../api/templates'
-import {getTypeTemplateValue} from '../../../../../helpers/index'
+import { apiGetTemplateList, apiDeleteTemplate } from '../../../../../api/templates'
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 const TemplateList = props => {
     const [templateList, setTemplateList] = useState();
@@ -26,6 +26,11 @@ const TemplateList = props => {
         TemplateListStore.displayedContent = 'AdditionalInfo';
     }
 
+    const menuClick = (e, data) => {
+        apiDeleteTemplate(data.id).then(() => TemplateListStore.displayedContent = 'CategoryList');
+        
+    }
+
     return (
         <>
             <TitleStyled>
@@ -35,12 +40,25 @@ const TemplateList = props => {
             </TitleStyled>
             {
                 (
-                    templateList && templateList.map(template =>
-                        <Item key={template.id} onClick={handleSelect(template)}>{template.name}</Item>)
+                    templateList && templateList.map(template => (
+                        <ContextMenuTrigger
+                            renderTag="tr"
+                            id="prepodMenu"
+                            key={template.id}
+                            templateId={template.id}
+                            collect={props => ({id: props.templateId})}
+                            posX={props.modalRef.current.getBoundingClientRect().left - 15}
+                            posY={props.modalRef.current.getBoundingClientRect().top - 7}
+                        >
+                            <Item onClick={handleSelect(template)}>{template.name}</Item>
+                        </ContextMenuTrigger>))
                 ) || (
                     <div>Загрузка категорий</div>
                 )
             }
+            <ContextMenu id="prepodMenu">
+                <MenuItem onClick={menuClick} data={{ type: 'deletePrepod' }}>Удалить шаблон</MenuItem>
+            </ContextMenu>
         </>
     );
 }

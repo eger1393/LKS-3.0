@@ -7,5 +7,6 @@ namespace LKS.Data.Repositories
     {
         void Create((string id, string name) selectСategory, (string id, string name) selectSubcategory, int type, string templateName, string pathToFile);
 		List<Template> GetTemplates(string subCategoryId);
+		void DeleteTemplate(string id);
 	}
 }

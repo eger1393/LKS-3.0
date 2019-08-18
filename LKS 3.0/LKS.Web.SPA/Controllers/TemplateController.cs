@@ -251,5 +251,12 @@ namespace LKS.Web.Controllers
 
 		}
 
+		[HttpDelete("[action]")]
+		public IActionResult DeleteTemplate(string id)
+		{
+			_templateRepository.DeleteTemplate(id);
+			return Ok();
+		}
+
 	}
 }
