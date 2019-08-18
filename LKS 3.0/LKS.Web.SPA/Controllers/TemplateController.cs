@@ -211,7 +211,7 @@ namespace LKS.Web.Controllers
             }
 
             string uniqueNameTemplate =
-                model.templateName.Replace(" ", "_") + model.templateName.GetHashCode() + ".docx";
+                model.templateName.Replace(" ", "_") + "_" + model.templateName.GetHashCode() + ".docx";
 
             string path = "/templates/" + uniqueNameTemplate;
 
@@ -220,7 +220,7 @@ namespace LKS.Web.Controllers
                 await model.templateFile.CopyToAsync(fileStream);
             }
 
-            _templateRepository.Create((model.categoryId, model.categoryName), (model.subcategoryId, model.subcategoryName), model.enumType, model.templateName, path.Replace("/", "\\").Remove(0, 2));
+            _templateRepository.Create((model.categoryId, model.categoryName), (model.subcategoryId, model.subcategoryName), model.enumType, model.templateName, path.Replace("/", "\\").Remove(0, 1));
 
             return Ok();
         }

@@ -26,7 +26,7 @@ namespace LKS.Data.Implementation
         {
             TemplateTypes enumType = (TemplateTypes)type;
 
-            if (selectCategory.id == null)
+            if (string.IsNullOrEmpty(selectCategory.id))
             {
                 Category temp = new Category()
                 {
@@ -37,7 +37,7 @@ namespace LKS.Data.Implementation
                 selectCategory.id = temp.Id;
             }
 
-            if (selectSubcategory.id == null)
+            if (string.IsNullOrEmpty(selectSubcategory.id))
             {
                 Category temp = new Category()
                 {
