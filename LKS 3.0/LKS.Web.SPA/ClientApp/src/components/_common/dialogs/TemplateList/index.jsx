@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef } from 'react'
 import ModalDialog from '../../ModalDialog'
 import Button from '../../elements/Button'
 import { FlexBox, } from '../../elements/StyleDialogs/styled'
@@ -12,12 +12,13 @@ import { observer } from 'mobx-react'
 
 const TemplateList = props => {
     let content;
+    const modalRef = useRef(null)
     switch (TemplateListStore.displayedContent) {
         case 'SubCategoryList':
             content = <SubCategoryList />
             break;
         case 'TemplateListItems':
-            content = <TemplateListItems />
+            content = <TemplateListItems modalRef={modalRef}/>
             break;
         case 'AdditionalInfo':
             content = <AdditionalInfo />
@@ -37,6 +38,7 @@ const TemplateList = props => {
             onHide={handleHide}
             header="Список шаблонов"
             crossOnly={true}
+            modalRef={modalRef}
         >
             <FlexBox>
                 {content}

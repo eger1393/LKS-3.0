@@ -7,6 +7,7 @@ const UPDATE_TEMPLATE_URL = '/api/template/UpdateTemplate'
 const GET_CATEGORIES_URL = '/api/template/GetCategories'
 const GET_TYPES_URL = '/api/template/GetTypes'
 const GET_TEMPLATE_LIST_URL = '/api/template/GetTemplateList'
+const DELETE_TENPLATE_URL = '/api/template/DeleteTemplate'
 
 export const apiSetTemplateData = data => axios.post(SET_TELMPLATE_DATA_URL, { json: JSON.stringify(data) });
 export const apiCreateTemplate = data =>
@@ -15,10 +16,11 @@ export const apiCreateTemplate = data =>
   }).then(res => {
     var blob = new Blob([res.data], { type: res.headers["content-type"] });
     var fileName = res.headers['content-disposition'].split("''")[1];
-    
+
     fileDownload(blob, decodeURIComponent(fileName));
   });
 
+export const apiDeleteTemplate = id => axios.delete(DELETE_TENPLATE_URL, { params: { id } })
 export const apiCreateLKSTemplate = data => { }
 
 export const apiUpdateTemplate = data => {
@@ -37,7 +39,7 @@ export const apiGetTypes = () =>
   axios.get(GET_TYPES_URL).then(({ data }) => data);
 
 export const apiGetTemplateList = (subCategoryId) =>
-  axios.get(GET_TEMPLATE_LIST_URL, {params: {subCategoryId}}).then(({ data }) => data);
+  axios.get(GET_TEMPLATE_LIST_URL, { params: { subCategoryId } }).then(({ data }) => data);
 
 
 
