@@ -286,3 +286,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+LKS 3\.0/LKS\.Web\.SPA/wwwroot/templates/
