@@ -176,7 +176,7 @@ namespace LKS.Web.Controllers
 			TemplateProvider t = new TemplateProvider();
 			string fileName = template.Name + ".docx";
 			string path = Path.Combine(_appEnvironment.WebRootPath, template.URI);
-			if (template.Type != TemplateTypes.manyStudents)
+			if (template.Type != TemplateTypes.singleStudent)
 			{
 				byte[] file = await t.CreateTemplate(path, students, troops);
 				return File(file, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", template.Name + ".docx");
