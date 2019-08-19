@@ -15,15 +15,14 @@ const AdditionalInfo = props => {
     const { selectedTemplate } = TemplateListStore;
 
     const handleChangeTroop = data => {
-        if (Array.isArray(data)) {
-            TemplateListStore.selectedTroos = data;
+        if (!Array.isArray(data)) {
+            data = [data];
         }
-        else {
-            TemplateListStore.selectedTroos = [data];
-        }
+        TemplateListStore.selectedTroos = data;
+
         if (selectedTemplate.type === 0 || selectedTemplate.type === 1) {
-            setTroopStudents(props.students.filter(x => x.troopId === data.id));
-            TemplateListStore.selectedStudents = [];
+            setTroopStudents(props.students.filter(x => data.some(troop => troop.id === x.troopId)));
+            TemplateListStore.selectedStudents = TemplateListStore.selectedStudents.filter(x => data.some(troop => troop.id === x.troopId));
         }
         console.log(TemplateListStore.selectedTroos)
     }
@@ -75,8 +74,8 @@ const AdditionalInfo = props => {
                     placeholder="Выберите взвод"
                     valueKey="id"
                     labelKey="numberTroop"
-                    multiple={selectedTemplate.type === 3}
-                    keepOpen={selectedTemplate.type === 3}
+                    multiple={selectedTemplate.type !== 2}
+                    keepOpen={selectedTemplate.type !== 2}
                     numberDisplayed={4}
                     manySelectedPlaceholder="Выбранно %s элементов"
                 />
