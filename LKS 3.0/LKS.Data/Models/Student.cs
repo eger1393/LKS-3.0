@@ -1,272 +1,354 @@
-﻿using System;
+﻿using LKS.Data.Models.Enums;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using LKS.Data.Models.Enums;
 
 namespace LKS.Data.Models
 {
-	public enum Student_Rank
-	{
-		Командир_взвода = 1,
-		Заместитель_КВ,
-		КО1,
-		КО2,
-		КО3,
-		Журналист,
-		Заместитель_журналиста,
-		Студент
-	}
-
-	public enum Assessment
-	{
-		неудовлетв = 2,
-		удовлетв,
-		хорошо,
-		отлично
-	}
-
-	public class Student
-	{
-		public Student()
-		{
-			//подумать где это должно быть
-			WhoseOrder = "МО РФ";
-			VO = "МВО";
-			Fighting = "не участвовал";
-            Collness = "Студент";
+    public class Student
+    {
+        public Student()
+        {
+            //подумать где это должно быть
+            WhoseOrder = "МО РФ";
+            VO = "МВО";
+            Fighting = "не участвовал";
+            Collness = "Курсант";
 
         }
 
-		public string Initials
-		{
-			get
-			{
-                if (String.IsNullOrEmpty(MiddleName))
-                {
-                    MiddleName = "None";
-                }
-                if (String.IsNullOrEmpty(FirstName))
-                {
-                    FirstName = "None";
-                }
-                if (String.IsNullOrEmpty(LastName))
-                {
-                    LastName = "None";
-                }
-                return MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
-            }
-		}
-		[Key]
-		public string Id { get; set; }
+        public string Initials =>
+        MiddleName + " " + FirstName[0] + ". " + LastName[0] + ".";
 
-		public virtual List<Relative> Relatives { get; set; }
+        [Key]
+        public string Id { get; set; }
 
-        [DisplayName("Взвод")]
+        /// <summary>
+        /// Родственники
+        /// </summary>
+        public virtual List<Relative> Relatives { get; set; }
+
+
         public string TroopId { get; set; }
-		public Troop Troop { get; set; }
+        /// <summary>
+        /// Взвод
+        /// </summary>
+        public Troop Troop { get; set; }
 
-		[DisplayName("Звание")]
-		public string Collness { get; set; }
+        /// <summary>
+        /// Должность
+        /// </summary>
+        public string Collness { get; set; }
 
-		[DisplayName("Фамилия")]
+        /// <summary>
+        /// Отчество
+        /// </summary>
         public string LastName { get; set; }
 
-		[DisplayName("Имя")]
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string FirstName { get; set; }
 
-		[DisplayName("Отчество")]
+        /// <summary>
+        /// Фамилия
+        /// </summary>
         public string MiddleName { get; set; }
 
-		[DisplayName("Взвод")]
-		public string NumTroop => Troop?.NumberTroop ?? "none";
+        /// <summary>
+        /// Номер взвода
+        /// </summary>
+        public string NumTroop => Troop?.NumberTroop ?? "none";
 
-        [DisplayName("Должность")]
-		public StudentPosition Position { get; set; }
+        /// <summary>
+        /// Должность
+        /// </summary>
+        public StudentPosition Position { get; set; }
+
+        /// <summary>
+        /// Статус обучения
+        /// </summary>
+        public StudentStatus Status
+        { get; set; }
+
+        /// <summary>
+        /// Название специальности
+        /// </summary>
+        public string SpecialityName => Troop?.Cycle?.SpecialityName ?? "none";
 
 
-		public string SpecialityName => Troop?.Cycle?.SpecialityName ?? "none";
-
-
-        [DisplayName("Группа")]
+        /// <summary>
+        /// Группа
+        /// </summary>
         public string InstGroup { get; set; }
 
-		[DisplayName("Курс")]
+        /// <summary>
+        /// Курс
+        /// </summary>
         public int Kurs { get; set; }
 
-		[DisplayName("Факультет")]
+        /// <summary>
+        /// Факультет
+        /// </summary>
         public string Faculty { get; set; }
 
-		[DisplayName("Специальность в ВУЗе")]
+        /// <summary>
+        /// Специальность в ВУЗе
+        /// </summary>
         public string SpecInst { get; set; }
 
-		[DisplayName("Условия обучения в ВУЗе")]
-		public string ConditionsOfEducation { get; set; }
+        /// <summary>
+        /// Условия обучения в ВУЗе
+        /// </summary>
+        public string ConditionsOfEducation { get; set; }
 
-		[DisplayName("Средний балл в зач.книжке")]
-		public string AvarageScore { get; set; }
+        /// <summary>
+        /// Средний балл зачетной книжки
+        /// </summary>
+        public string AvarageScore { get; set; }
 
-		[DisplayName("Год поступления в МАИ")]
+        /// <summary>
+        /// Год поступления в МАИ
+        /// </summary>
         public string YearOfAddMAI { get; set; }
 
-		[DisplayName("Год окончания МАИ")]
+        /// <summary>
+        /// Год окончания в МАИ
+        /// </summary>
         public string YearOfEndMAI { get; set; }
 
-		[DisplayName("Год поступления на ВК")]
+        /// <summary>
+        /// Год поступления на ВК
+        /// </summary>
         public string YearOfAddVK { get; set; }
 
-		[DisplayName("Год окончания ВК")]
+        /// <summary>
+        /// Год окончания на ВК
+        /// </summary>
         public string YearOfEndVK { get; set; }
 
-		[DisplayName("№ приказа о приеме")]
-		public string NumberOfOrder { get; set; }
+        /// <summary>
+        /// № приказа о приеме
+        /// </summary>
+        public string NumberOfOrder { get; set; }
 
-		[DisplayName("Дата приказа")]
+        /// <summary>
+        /// Дата приказа
+        /// </summary>
         public string DateOfOrder { get; set; }
 
-		[DisplayName("Военкомат")]
+        /// <summary>
+        /// Военкомат
+        /// </summary>
         public string Rectal { get; set; }
 
-		[DisplayName("Дата рождения")]
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
         public string Birthday { get; set; }
 
-		[DisplayName("Место рождения")]
-		public string PlaceBirthday { get; set; }
+        /// <summary>
+        /// Место рождения
+        /// </summary>
+        public string PlaceBirthday { get; set; }
 
-		[DisplayName("Национальность")]
-		public string Nationality { get; set; }
+        /// <summary>
+        /// Национальность
+        /// </summary>
+        public string Nationality { get; set; }
 
-		[DisplayName("Гражданство")]
-		public string Citizenship { get; set; }
+        /// <summary>
+        /// Гражданство
+        /// </summary>
+        public string Citizenship { get; set; }
 
-		[DisplayName("Дом.телефон")]
-		public string HomePhone { get; set; }
+        /// <summary>
+        /// Дом. телефон
+        /// </summary>
+        public string HomePhone { get; set; }
 
-		[DisplayName("Мобильный телефон")]
+        /// <summary>
+        /// Мобильный телефон
+        /// </summary>
         public string MobilePhone { get; set; }
 
-		[DisplayName("Адрес проживания")]
-		public string PlaceOfResidence { get; set; }
+        /// <summary>
+        /// Адрес проживания
+        /// </summary>
+        public string PlaceOfResidence { get; set; }
 
-		[DisplayName("Адрес прописки")]
-		public string PlaceOfRegestration { get; set; }
+        /// <summary>
+        /// Адрес прописки
+        /// </summary>
+        public string PlaceOfRegestration { get; set; }
 
-		[DisplayName("Служба в ВС")]
-		public string Military { get; set; }
+        /// <summary>
+        /// Служба в ВС
+        /// </summary>
+        public string Military { get; set; }
 
-		[DisplayName("Семейное положение")]
-		public string FamiliStatys { get; set; }
-        [DisplayName("Школа")]
+        /// <summary>
+        /// Семейное положение
+        /// </summary>
+        public string FamiliStatys { get; set; }
+        /// <summary>
+        /// Школа
+        /// </summary>
         public string School { get; set; }
-        [DisplayName("Доп. мобильный телефон")]
+        /// <summary>
+        ///Доп. мобильный телефон
+        /// </summary>
         public string Two_MobilePhone { get; set; }
-		public string Note { get; set; }
+        /// <summary>
+        /// Заметка
+        /// </summary>
+        public string Note { get; set; }
 
-		public string ImagePath { get; set; }
-        [DisplayName("Языки программирования (С,С++,С#)")]
+        /// <summary>
+        /// Путь к фото
+        /// </summary>
+        public string ImagePath { get; set; }
+        /// <summary>
+        /// Языки программирования
+        /// </summary>
         public bool Skill1
-		{ get; set; }
-        [DisplayName("Microsoft Office")]
+        { get; set; }
+        /// <summary>
+        /// Microsoft Office
+        /// </summary>
         public bool Skill2
-		{ get; set; }
-        [DisplayName("Adobe Photoshop")]
+        { get; set; }
+        /// <summary>
+        /// Adobe Photoshop
+        /// </summary>
         public bool Skill3
-		{ get; set; }
-        [DisplayName("Электроника, электротехника")]
+        { get; set; }
+        /// <summary>
+        /// Электроника, электротехника
+        /// </summary>
         public bool Skill4
-		{ get; set; }
-        [DisplayName("Настройка локальных сетей")]
+        { get; set; }
+        /// <summary>
+        /// Настройка локальных сетей
+        /// </summary>
         public bool Skill5
-		{ get; set; }
-        [DisplayName("Другие полезные навыки")]
+        { get; set; }
+        /// <summary>
+        /// Другие полезные навыки
+        /// </summary>
         public bool Skill6
-		{ get; set; }
-
-
-		public bool Zapas
-		{ get; set; }
-		public bool Exhortation
-		{ get; set; }
-		public bool ProjectOrder
-		{ get; set; }
-
-		public string WhoseOrder
-		{ get; set; }
-		public string VO
-		{ get; set; }
+        { get; set; }
+        /// <summary>
+        /// В запасе
+        /// </summary>
+        public bool Zapas
+        { get; set; }
+        /// <summary>
+        /// Призыв
+        /// </summary>
+        public bool Exhortation
+        { get; set; }
+        /// <summary>
+        /// Проект приказа
+        /// </summary>
+        public bool ProjectOrder
+        { get; set; }
+        /// <summary>
+        /// Чей приказ
+        /// </summary>
+        public string WhoseOrder
+        { get; set; }
+        /// <summary>
+        /// ???
+        /// </summary>
+        public string VO
+        { get; set; }
+        /// <summary>
+        /// Военная служба
+        /// </summary>
         public string Fighting
-		{ get; set; }
-        [DisplayName("Группа крови")]
+        { get; set; }
+        /// <summary>
+        /// Группа крови
+        /// </summary>
         public string BloodType
-		{ get; set; }
-        [DisplayName("Рост")]
+        { get; set; }
+        /// <summary>
+        /// Рост
+        /// </summary>
         public string Growth
-		{ get; set; }
-        [DisplayName("Размер одежды")]
+        { get; set; }
+        /// <summary>
+        /// Размер одежды
+        /// </summary>
         public string ClothihgSize
-		{ get; set; }
-        [DisplayName("Размер обуви")]
+        { get; set; }
+        /// <summary>
+        /// Размер обуви
+        /// </summary>
         public string ShoeSize
-		{ get; set; }
-        [DisplayName("Размер головного убора")]
+        { get; set; }
+        /// <summary>
+        /// Размер головного убора
+        /// </summary>
         public string CapSize
-		{ get; set; }
-        [DisplayName("Размер противогаза")]
+        { get; set; }
+        /// <summary>
+        /// Размер противогаза
+        /// </summary>
         public string MaskSize
-		{ get; set; }
-
-
-        [DisplayName("Иностранный язык")]
+        { get; set; }
+        /// <summary>
+        /// Иностранный язык
+        /// </summary>
         public string ForeignLanguage
-		{ get; set; }
-        [DisplayName("Степень владения")]
+        { get; set; }
+        /// <summary>
+        /// Степень владения
+        /// </summary>
         public string LanguageRank
-		{ get; set; }
+        { get; set; }
 
-        public StudentStatus Status
-		{ get; set; }
 
-		public int AssessmentProtocolOneTheory
-		{ get; set; }
 
-		public int AssessmentProtocolOnePractice
-		{ get; set; }
-		public int AssessmentProtocolOneFinal
-		{ get; set; }
-		public int AssessmentCharacteristicMilitaryTechnicalTraining
-		{ get; set; }
+        public int AssessmentProtocolOneTheory
+        { get; set; }
+        public int AssessmentProtocolOnePractice
+        { get; set; }
+        public int AssessmentProtocolOneFinal
+        { get; set; }
+        public int AssessmentCharacteristicMilitaryTechnicalTraining
+        { get; set; }
+        public int AssessmentCharacteristicTacticalSpecialTraining
+        { get; set; }
+        public int AssessmentCharacteristicMilitarySpeialTraining
+        { get; set; }
+        public int AssessmentCharacteristicFinal
+        { get; set; }
 
-		public int AssessmentCharacteristicTacticalSpecialTraining
-		{ get; set; }
-
-		public int AssessmentCharacteristicMilitarySpeialTraining
-		{ get; set; }
-
-		public int AssessmentCharacteristicFinal
-		{ get; set; }
-
-		public string GetPositionValue { get
-			{
-				switch (Position)
-				{
-					case StudentPosition.commander:
-						return "КВ";
-					case StudentPosition.firstSquadCommander:
-						return "КО1";
-					case StudentPosition.secondSquadCommander:
-						return "КО2";
-					case StudentPosition.thirdSquadCommander:
-						return "КО3";
-					case StudentPosition.journalist:
-						return "Ж";
-					case StudentPosition.secretary:
-						return "С";
-					case StudentPosition.none:
-						return string.Empty;
-					default:
-						return string.Empty;
-				}
-			}
-		}
-	}
+        public string GetPositionValue
+        {
+            get
+            {
+                switch (Position)
+                {
+                    case StudentPosition.commander:
+                        return "КВ";
+                    case StudentPosition.firstSquadCommander:
+                        return "КО1";
+                    case StudentPosition.secondSquadCommander:
+                        return "КО2";
+                    case StudentPosition.thirdSquadCommander:
+                        return "КО3";
+                    case StudentPosition.journalist:
+                        return "Ж";
+                    case StudentPosition.secretary:
+                        return "С";
+                    case StudentPosition.none:
+                        return string.Empty;
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+    }
 }

@@ -17,8 +17,9 @@ namespace LKS.Data
         public DbSet<Prepod> Prepods { get; set; }
         public DbSet<Cycle> Cycles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Template> Templates { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         #endregion
 
         public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
@@ -46,6 +47,17 @@ namespace LKS.Data
             string[] InstGroupList = { "3ВТИ-039", "3ВТИ-037", "3ВТИ-042", "3ВТИ-040" };
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
             var rand = new Random();
+
+            builder.Entity<Admin>().HasData(new Admin
+            {
+                Id = "1",
+                Command = "НАЧ_НАЧ",
+                Collness = "Полковник",
+                FirstName = "Иван",
+                LastName = "Иванович",
+                MiddleName = "Иванов",
+                Rank = "Начальник начальников"
+            });
 
             var categoryOneTemplate = new Category()
             {
@@ -80,7 +92,6 @@ namespace LKS.Data
                 ParentCategoryId = "1"
             });
             builder.Entity<Category>().HasData(categoryTwoTemplate);
-
             builder.Entity<Template>().HasData(new Template()
             {
                 Id = "1",

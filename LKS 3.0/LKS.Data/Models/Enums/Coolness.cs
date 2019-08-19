@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LKS.Data.Models.Enums
+﻿namespace LKS.Data.Models.Enums
 {
-	public enum Coolness
-	{
-		/// <summary>
-		/// Полковник
+    public enum Coolness
+    {
+        /// <summary>
+        /// Полковник
+        /// </summary>
+        Col,
+        /// <summary>
+        /// Подполковник
+        /// </summary>
+        LtCol,
+        /// <summary>
+        /// Майор
+        /// </summary>
+        Maj,
+        /// <summary>
+        /// Капитан
+        /// </summary>
+        Capt,
+        /// <summary>
+		/// Лейтенант
 		/// </summary>
-		Col,
-		/// <summary>
-		/// Подполковник
-		/// </summary>
-		LtCol,
-		/// <summary>
-		/// Майор
-		/// </summary>
-		Maj,
-		/// <summary>
-		/// Капитан
-		/// </summary>
-		Capt
-	}
+		Leit
+
+    }
 }
