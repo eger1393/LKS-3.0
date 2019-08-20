@@ -194,8 +194,8 @@ class CreateTroop extends React.Component {
             </FlexRow>
             <FlexRow className="flex-row">
               <CheckBox
-                id="sboriTroop"
-                value={this.state.fieldValue.sboriTroop}
+                id="isSboriTroop"
+                value={this.state.fieldValue.isSboriTroop}
                 title="Возвод для сборов?"
                 onChange={this.changeSelect}
               />
