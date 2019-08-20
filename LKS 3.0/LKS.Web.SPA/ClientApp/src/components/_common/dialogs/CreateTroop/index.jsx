@@ -5,6 +5,7 @@ import ModalDialog from '../../ModalDialog'
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
 import Button from '../../elements/Button'
+import CheckBox from '../../elements/Checkbox'
 import { FlexBox, FlexRow } from '../../elements/StyleDialogs/styled'
 import {
   apiGetCycleList,
@@ -15,7 +16,7 @@ import {
 } from '../../../../api/dialogs'
 import { fetchGetTroopList } from '../../../../redux/modules/studentList'
 import { getTroopList } from '../../../../selectors/studentList'
-import { day } from '../../../../constants/addTroop' 
+import { day } from '../../../../constants/addTroop'
 
 import { Container } from './styled'
 
@@ -114,88 +115,97 @@ class CreateTroop extends React.Component {
   }
 
   render() {
-   
+
     return (
       <ModalDialog
         show={this.props.show}
         onHide={this.props.onHide}
         header="Создать взвод"
       >
-          <Container>
-            <FlexBox>
-              <FlexRow className="flex-row">
-                <div>
-                  <Select
-                    id="cycleId"
-                    data={this.state.cycle}
-                    placeholder="Цикл"
-                    onChange={this.changeSelect}
-                    value="id"
-                    text="number"
-                    selectedValue={this.state.fieldValue.cycleId}
-                    error={this.state.error.cycleId}
-                  />
-                  {
-                    this.state.error.cycleId
-                    && (<div className="error-message">Выберите цикл!</div>)
-                  }
-                </div>
-                <div>
-                  <Input id="numberTroop"
-                    type="text"
-                    isRequired={true}
-                    placeholder="Номер взвода"
-                    value={this.state.fieldValue['numberTroop']}
-                    onChange={this.changeSelect}
-                    error={this.state.error.numberTroop || this.state.error.troopIsExist}
-                  />
-                  {
-                    this.state.error.numberTroop
-                    && (<div className="error-message">Введите номер взвода!</div>)
-                  }
-                  {
-                    this.state.error.troopIsExist
-                    && (<div className="error-message">Данный взвод уже существует!</div>)
-                  }
-                </div>
-              </FlexRow>
-              <FlexRow className="flex-row">
-                <div>
-                  <Select id="arrivalDay"
-                    data={day}
-                    value="id"
-                    text="val"
-                    placeholder="День прихода"
-                    selectedValue={this.state.fieldValue.arrivalDay}
-                    onChange={this.changeSelect}
-                    error={this.state.error.arrivalDay}
-                  />
-                  {
-                    this.state.error.arrivalDay
-                    && (<div className="error-message">Выберите день прихода!</div>)
-                  }
-                </div>
-                <div>
-                  <Select
-                    id="prepodId"
-                    data={this.state.prepod}
-                    value="id" text="initials"
-                    placeholder="Ответственный преподаватель"
-                    selectedValue={this.state.fieldValue.prepodId}
-                    onChange={this.changeSelect}
-                    error={this.state.error.prepodId}
-                  />
-                  {
-                    this.state.error.prepodId
-                    && (<div className="error-message">Выберите преподавателя!</div>)
-                  }
-                </div>
-              </FlexRow>
-            </FlexBox>
-            <div className="form-submit">
-              <Button onClick={this.createTroop} value="Сохранить" />
-            </div>
-          </Container>
+        <Container>
+          <FlexBox>
+            <FlexRow className="flex-row">
+              <div>
+                <Select
+                  id="cycleId"
+                  data={this.state.cycle}
+                  placeholder="Цикл"
+                  onChange={this.changeSelect}
+                  value="id"
+                  text="number"
+                  selectedValue={this.state.fieldValue.cycleId}
+                  error={this.state.error.cycleId}
+                />
+                {
+                  this.state.error.cycleId
+                  && (<div className="error-message">Выберите цикл!</div>)
+                }
+              </div>
+              <div>
+                <Input id="numberTroop"
+                  type="text"
+                  isRequired={true}
+                  placeholder="Номер взвода"
+                  value={this.state.fieldValue['numberTroop']}
+                  onChange={this.changeSelect}
+                  error={this.state.error.numberTroop || this.state.error.troopIsExist}
+                />
+                {
+                  this.state.error.numberTroop
+                  && (<div className="error-message">Введите номер взвода!</div>)
+                }
+                {
+                  this.state.error.troopIsExist
+                  && (<div className="error-message">Данный взвод уже существует!</div>)
+                }
+              </div>
+            </FlexRow>
+            <FlexRow className="flex-row">
+              <div>
+                <Select id="arrivalDay"
+                  data={day}
+                  value="id"
+                  text="val"
+                  placeholder="День прихода"
+                  selectedValue={this.state.fieldValue.arrivalDay}
+                  onChange={this.changeSelect}
+                  error={this.state.error.arrivalDay}
+                />
+                {
+                  this.state.error.arrivalDay
+                  && (<div className="error-message">Выберите день прихода!</div>)
+                }
+              </div>
+              <div>
+                <Select
+                  id="prepodId"
+                  data={this.state.prepod}
+                  value="id" text="initials"
+                  placeholder="Ответственный преподаватель"
+                  selectedValue={this.state.fieldValue.prepodId}
+                  onChange={this.changeSelect}
+                  error={this.state.error.prepodId}
+                />
+                {
+                  this.state.error.prepodId
+                  && (<div className="error-message">Выберите преподавателя!</div>)
+                }
+              </div>
+            </FlexRow>
+            <FlexRow className="flex-row">
+              <CheckBox
+                id="sboriTroop"
+                value={this.state.fieldValue.sboriTroop}
+                title="Возвод для сборов?"
+                onChange={this.changeSelect}
+              />
+              <div />
+            </FlexRow>
+          </FlexBox>
+          <div className="form-submit">
+            <Button onClick={this.createTroop} value="Сохранить" />
+          </div>
+        </Container>
       </ModalDialog>
     );
   }

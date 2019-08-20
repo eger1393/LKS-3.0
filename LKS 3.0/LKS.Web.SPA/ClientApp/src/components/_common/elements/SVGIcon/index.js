@@ -1,7 +1,7 @@
 import React from 'react'
 
-const SVGIcon = ({ name }) => {
-  return <img src={require(`../../../../images/${name}.svg`)} alt={`${name}Img`} />
+const SVGIcon = ({ name, style }) => {
+  return <img src={require(`../../../../images/${name}.svg`)} alt={`${name}Img`} style={style}/>
 }
 
 export default SVGIcon
