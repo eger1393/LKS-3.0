@@ -5,6 +5,9 @@
   "dependencies": {
     "@babel/core": "7.2.2",
     "@svgr/webpack": "4.1.0",
+    "ag-grid": "^18.1.2",
+    "ag-grid-community": "^21.1.1",
+    "ag-grid-react": "^21.1.0",
     "ajv": "^6.0.0",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
@@ -56,6 +59,7 @@
     "react-data-grid": "^6.1.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "next",
+    "react-dom-factories": "^1.0.2",
     "react-final-form": "^4.0.2",
     "react-modal": "^3.8.1",
     "react-picky": "^4.0.2",

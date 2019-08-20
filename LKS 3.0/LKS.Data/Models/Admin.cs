@@ -7,9 +7,6 @@ namespace LKS.Data.Models
 
         public Admin()
         {
-            Order = false;
-            Prepod = false;
-            Officer = false;
         }
 
         [Key]
@@ -48,25 +45,6 @@ namespace LKS.Data.Models
         /// </summary>
         public string Collness
         { get; set; }
-
-        /// <summary>
-        /// Приказ
-        /// </summary>
-        public bool? Order
-        { get; set; }
-
-        /// <summary>
-        /// Преподаватель ФВО
-        /// </summary>
-        public bool? Prepod
-        { get; set; }
-
-        /// <summary>
-        /// Оффицер
-        /// </summary>
-        public bool? Officer
-        {
-            get; set;
-        }
+               
     }
 }

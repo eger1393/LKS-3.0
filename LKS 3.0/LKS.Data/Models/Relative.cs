@@ -22,12 +22,12 @@ namespace LKS.Data.Models
         public string MiddleName { get; set; }
 
         /// <summary>
-        /// Фамилия
+        /// Имя
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Фамилия
+        /// Отчество
         /// </summary>
         public string LastName { get; set; }
 

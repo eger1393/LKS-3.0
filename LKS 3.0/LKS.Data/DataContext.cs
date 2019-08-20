@@ -20,6 +20,7 @@ namespace LKS.Data
         public DbSet<Template> Templates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<SummerSbori> Summers { get; set; }
         #endregion
 
         public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
@@ -32,7 +33,10 @@ namespace LKS.Data
         {
             builder.Entity<Troop>().HasIndex(x => x.NumberTroop).IsUnique();
             builder.Entity<Troop>().HasOne(x => x.PlatoonCommander);
+            builder.Entity<SboriTroop>().HasIndex(x => x.NumberTroop).IsUnique();
+            builder.Entity<SboriTroop>().HasOne(x => x.PlatoonCommander);
             builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.Students);
+            builder.Entity<Student>().HasOne(x => x.SboriTroop).WithMany(x => x.Students);
             builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
             builder.Entity<User>().HasIndex(x => x.TroopId).IsUnique();
             builder.Entity<Category>().HasMany(x => x.Subcategories).WithOne().HasForeignKey(x => x.ParentCategoryId);
@@ -47,6 +51,14 @@ namespace LKS.Data
             string[] InstGroupList = { "3ВТИ-039", "3ВТИ-037", "3ВТИ-042", "3ВТИ-040" };
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
             var rand = new Random();
+
+            builder.Entity<SummerSbori>().HasData(new SummerSbori
+            {
+                Id = "1",
+                NumberofOrder = "12412",
+                TextOrder = "ПРИКАЗЫВАЮ",
+                LocationVK = "Наро-Фоминск"
+            });
 
             builder.Entity<Admin>().HasData(new Admin
             {

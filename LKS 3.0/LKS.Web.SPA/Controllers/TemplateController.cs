@@ -245,7 +245,7 @@ namespace LKS.Web.Controllers
 				{
 					x.Id,
 					x.Name,
-					Type = x.Type,
+                    x.Type,
 					x.CategoryId
 				}));
 

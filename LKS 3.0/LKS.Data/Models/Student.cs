@@ -35,6 +35,11 @@ namespace LKS.Data.Models
         public Troop Troop { get; set; }
 
         /// <summary>
+        /// Взвод на сборах
+        /// </summary>
+        public SboriTroop SboriTroop { get; set; }
+
+        /// <summary>
         /// Должность
         /// </summary>
         public string Collness { get; set; }

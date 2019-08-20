@@ -13,6 +13,7 @@ import UserCabinet from './UserCabinet'
 import LoginPage from './LoginPage'
 
 import { Container } from './styled'
+import AdminList from '../_common/dialogs/InfoSbori/AdminList';
 
 const Pages = () => {
   const isAdmin = localStorage.getItem('role') === 'Admin'
@@ -26,6 +27,7 @@ const Pages = () => {
           <Redirect exact from="/" to="/Cabinet" />
           <Route path="/login" component={LoginPage} />
                   <PrivateRoute path="/Cabinet" component={isAdmin ? AdminCabinet : UserCabinet} />
+          <Route path="/test" component={AdminList}/>
         </Switch>
       </Container>
     </Router>

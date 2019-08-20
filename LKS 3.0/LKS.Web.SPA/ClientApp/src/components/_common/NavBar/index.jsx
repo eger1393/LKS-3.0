@@ -12,6 +12,7 @@ import CreatePrepod from '../dialogs/CreatePrepod'
 import PrepodList from '../dialogs/PrepodList'
 import TemplateList from '../dialogs/TemplateList'
 import CreateTemplate from '../dialogs/CreateTemplate';
+import InfoSbori from '../dialogs/InfoSbori';
 
 
 class NavBar extends React.Component {
@@ -70,22 +71,28 @@ class NavBar extends React.Component {
                                 )}
                             </NavDropdown>
                             <NavDropdown title="Отчеты">
-                            <MenuItem eventKey={'CreateNewTemplate'}>Добавить шаблон</MenuItem>
+                                <MenuItem eventKey={'CreateNewTemplate'}>Добавить шаблон</MenuItem>
                                 {this.state.openModalWindow.CreateNewTemplate && (
                                     <CreateTemplate show={this.state.openModalWindow.CreateNewTemplate} onHide={() => this.click('CreateNewTemplate')} />
                                 )}
-                                <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
+                                {/* <MenuItem eventKey={'ReportsVUS'}>ВУЗ</MenuItem>
                                 {this.state.openModalWindow.ReportsVUS && (
                                     <CreateUniversityTemplate show={this.state.openModalWindow.ReportsVUS} onHide={() => this.click('ReportsVUS')} />
-                                )}
+                                )} */}
                                 <MenuItem eventKey={'TemplateList'}>Список шаблонов</MenuItem>
                                 {this.state.openModalWindow.TemplateList && (
                                     <TemplateList show={this.state.openModalWindow.TemplateList} onHide={() => this.click('TemplateList')} />
                                 )}
                             </NavDropdown>
+                            <NavDropdown title="Сборы">
+                            <MenuItem eventKey={'InfoSbori'}>Информация о сборах</MenuItem>
+                                {this.state.openModalWindow.InfoSbori && (
+                                    <InfoSbori show={this.state.openModalWindow.InfoSbori} onHide={() => this.click('InfoSbori')} />
+                                )}
+                            </NavDropdown>
                             <NavItem eventKey={'UserList'} >
                                 Список пользователей
-              </NavItem>
+                            </NavItem>
                             {this.state.openModalWindow.UserList && (
                                 <UserList show={this.state.openModalWindow.UserList} onHide={() => this.click('UserList')} />
                             )}
