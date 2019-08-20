@@ -7,11 +7,14 @@ namespace LKS.Data.Providers
 {
     public class PasswordProvider : IPasswordProvider
     {
+		// TODO разобраться что не так с хранением хеща в sqlLite и вернуть хеш обратно
+		// Временно храним пароль в открытом виде в бд
         public string GetHash(string password, string salt)
         {
-            var data = Encoding.UTF8.GetBytes(salt + password);
-            var hash = SHA256.Create().ComputeHash(data);
-            return Encoding.UTF8.GetString(hash);
+			//var data = Encoding.Unicode.GetBytes(salt + password);
+			//var hash = SHA256.Create().ComputeHash(data);
+			//return Encoding.Unicode.GetString(hash);
+			return password + salt;
         }
 
         public string GetRandomPassword(int length)

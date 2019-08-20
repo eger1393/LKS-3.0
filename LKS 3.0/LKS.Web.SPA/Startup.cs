@@ -21,11 +21,13 @@ namespace LKS.Web.SPA
     public class Startup
     {
         private const string JwtKey = "bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m";
+		private IHostingEnvironment _appHost;
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+		public Startup(IConfiguration configuration, IHostingEnvironment appHost)
+		{
+			_appHost = appHost;
+			Configuration = configuration;
+		}
 
         public IConfiguration Configuration { get; }
 
@@ -42,9 +44,9 @@ namespace LKS.Web.SPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => { options.UseSqlite($"Data Source={_appHost.ContentRootPath}/DataBase.sqlite"); });
 
-            services.AddDistributedMemoryCache();
+			services.AddDistributedMemoryCache();
             services.AddSession();
 
             RegistrationInterfaces(services);
