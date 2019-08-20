@@ -85,7 +85,8 @@ namespace LKS.Web.Controllers
 					cycleNumber = x.Cycle.Number,
 					x.CycleId,
 					prepodInitials = x.Prepod.Initials,
-					x.PrepodId
+					x.PrepodId,
+					x.SboriTroop
 				}));
 			}
 		}

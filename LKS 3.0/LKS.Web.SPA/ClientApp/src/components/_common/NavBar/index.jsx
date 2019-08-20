@@ -12,6 +12,7 @@ import CreatePrepod from '../dialogs/CreatePrepod'
 import PrepodList from '../dialogs/PrepodList'
 import TemplateList from '../dialogs/TemplateList'
 import CreateTemplate from '../dialogs/CreateTemplate';
+import CreateSbory from '../dialogs/CreateSbory'
 import InfoSbori from '../dialogs/InfoSbori';
 
 
@@ -88,6 +89,12 @@ class NavBar extends React.Component {
                             <MenuItem eventKey={'InfoSbori'}>Информация о сборах</MenuItem>
                                 {this.state.openModalWindow.InfoSbori && (
                                     <InfoSbori show={this.state.openModalWindow.InfoSbori} onHide={() => this.click('InfoSbori')} />
+                                )}
+                            </NavDropdown>
+                            <NavDropdown title="Сборы">
+                            <MenuItem eventKey={'CreateSbory'}>Сформировать сборы</MenuItem>
+                                {this.state.openModalWindow.CreateSbory && (
+                                    <CreateSbory show={this.state.openModalWindow.CreateSbory} onHide={() => this.click('CreateSbory')} />
                                 )}
                             </NavDropdown>
                             <NavItem eventKey={'UserList'} >

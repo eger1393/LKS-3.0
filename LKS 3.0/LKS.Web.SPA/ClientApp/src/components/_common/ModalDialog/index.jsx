@@ -24,11 +24,12 @@ const constStyles = {
 Modal.setAppElement('#root')
 const ModalDialog = props => {
   var { show, onHide, customStyles, children, header, crossOnly } = props;
+  customStyles = customStyles || {};
   return (
     <Modal
       isOpen={show}
       onRequestClose={!crossOnly && onHide}
-      style={customStyles || constStyles}
+      style={{...constStyles, ...customStyles}}
     >
       <ModalContainer ref={props.modalRef}>
         {header && (<FormHead handleClick={onHide}>{header}</FormHead>)}
