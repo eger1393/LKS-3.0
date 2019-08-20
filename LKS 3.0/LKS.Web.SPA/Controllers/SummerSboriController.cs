@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using LKS.Data.Models;
+using LKS.Data.Repositories;
+using LKS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LKS.Web.Controllers
@@ -11,5 +9,24 @@ namespace LKS.Web.Controllers
     [ApiController]
     public class SummerSboriController : ControllerBase
     {
+        private readonly ISummerSboriRepository _summerSboriRepository;
+
+        public SummerSboriController(ISummerSboriRepository summerSboriRepository)
+        {
+            _summerSboriRepository = summerSboriRepository;
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetSummerSboriInfo()
+        {
+            return Ok(_summerSboriRepository.GetItem());
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult Update(SummerSbori model)
+        {
+            _summerSboriRepository.UpdateItem(model);
+            return Ok();
+        }
     }
 }

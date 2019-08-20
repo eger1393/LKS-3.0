@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace LKS.Data.Repositories
 {
-    public interface IAdminRepository : IRepository<Admin>
+    public interface IAdminRepository
     {
-        List<Admin> GetAdmins();
-        bool SetAdmins(List<Admin> admins);
+        IEnumerable<Admin> GetItems();
+        bool UpdateItems(IEnumerable<Admin> items);
+        bool UpdateItem(Admin item);
     }
 }

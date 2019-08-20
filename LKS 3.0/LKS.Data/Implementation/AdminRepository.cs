@@ -2,7 +2,6 @@
 using LKS.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LKS.Data.Implementation
 {
@@ -15,41 +14,16 @@ namespace LKS.Data.Implementation
             _context = context;
         }
 
-        public Task Create(Admin item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task CreateRange(ICollection<Admin> item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task Delete(Admin item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task DeleteRange(ICollection<Admin> item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Admin> GetAdmins()
+        public IEnumerable<Admin> GetItems()
         {
             return _context.Admins.ToList();
         }
 
-        public Task<Admin> GetItem(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool SetAdmins(List<Admin> admins)
+        public bool UpdateItems(IEnumerable<Admin> items)
         {
             try
             {
-                _context.UpdateRange(admins);
+                _context.UpdateRange(items);
                 _context.SaveChanges();
                 return true;
             }
@@ -57,13 +31,20 @@ namespace LKS.Data.Implementation
             {
                 return false;
             }
-
-
         }
 
-        public Task Update(Admin item)
+        public bool UpdateItem(Admin item)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _context.Update(item);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }

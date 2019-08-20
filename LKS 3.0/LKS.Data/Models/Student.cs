@@ -34,10 +34,13 @@ namespace LKS.Data.Models
         /// </summary>
         public Troop Troop { get; set; }
 
+
+        public string SboriTroopId { get; set; }
         /// <summary>
-        /// Взвод на сборах
+        /// Взвод
         /// </summary>
-        public SboriTroop SboriTroop { get; set; }
+        public Troop SboriTroop { get; set; }
+
 
         /// <summary>
         /// Должность

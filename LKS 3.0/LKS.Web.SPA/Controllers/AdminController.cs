@@ -21,7 +21,7 @@ namespace LKS.Web.Controllers
         [HttpGet("[action]")]
         public IActionResult GetAdminList()
         {
-            return Ok(_adminRepository.GetAdmins().Select(x => new
+            return Ok(_adminRepository.GetItems().Select(x => new
             {
                 x.Id,
                 x.Command,
@@ -36,7 +36,7 @@ namespace LKS.Web.Controllers
         [HttpGet("[action]")]
         public IActionResult SetAdminList(SetAdminListModel model)
         {
-            _adminRepository.SetAdmins(model.Admins);
+            _adminRepository.UpdateItems(model.Admins);
             return Ok();
         }
     }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LKS.Data.Models
 {
-    public class Troop : ITroop
+    public class Troop
     {
         [Key]
         public string Id { get; set; }

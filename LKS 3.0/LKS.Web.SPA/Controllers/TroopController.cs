@@ -71,7 +71,7 @@ namespace LKS.Web.Controllers
 				string troopId = User.Claims.FirstOrDefault(x => x.Type == "TroopId")?.Value;
 				if (String.IsNullOrEmpty(troopId))
 					return BadRequest("Troop number is null");
-				var troop = await _troopRepository.GetItem(troopId);
+                var troop = await _troopRepository.GetItem(troopId);
 
 				return Ok(new Troop[] { troop });
 			}
@@ -86,7 +86,7 @@ namespace LKS.Web.Controllers
 					x.CycleId,
 					prepodInitials = x.Prepod.Initials,
 					x.PrepodId,
-					x.SboriTroop
+					x.IsSboriTroop
 				}));
 			}
 		}

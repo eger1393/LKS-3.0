@@ -7,6 +7,6 @@ namespace LKS.Data.Repositories
 {
 	public interface ICycleRepository : IRepository<Cycle>
 	{
-		List<Cycle> GetItems();
+        IEnumerable<Cycle> GetItems();
 	}
 }

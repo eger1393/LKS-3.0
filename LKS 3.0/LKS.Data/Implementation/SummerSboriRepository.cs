@@ -1,41 +1,37 @@
 ﻿using LKS.Data.Models;
 using LKS.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace LKS.Data.Implementation
 {
     internal class SummerSboriRepository : ISummerSboriRepository
     {
-        public Task Create(SummerSbori item)
+        private readonly DataContext _context;
+
+        public SummerSboriRepository(DataContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task CreateRange(ICollection<SummerSbori> item)
+        public SummerSbori GetItem()
         {
-            throw new NotImplementedException();
+            return _context.Summers.FirstOrDefault();
         }
 
-        public Task Delete(SummerSbori item)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task DeleteRange(ICollection<SummerSbori> item)
+        public bool UpdateItem(SummerSbori item)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                _context.Summers.Update(item);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
 
-        public Task<SummerSbori> GetItem(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(SummerSbori item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

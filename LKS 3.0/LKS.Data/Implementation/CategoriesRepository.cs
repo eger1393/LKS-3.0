@@ -1,10 +1,7 @@
 ﻿using LKS.Data.Models;
 using LKS.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LKS.Data.Implementation
 {
@@ -17,39 +14,9 @@ namespace LKS.Data.Implementation
             _context = context;
         }
 
-        public Task Create(Category item)
+        public IEnumerable<Category> GetCategories(string parentId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task CreateRange(ICollection<Category> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Delete(Category item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteRange(ICollection<Category> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Category> GetItem(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Category> GetCategories(string parentId)
-        {
-			return _context.Categories.Where(x => x.ParentCategoryId == parentId).ToList();
-        }
-
-        public Task Update(Category item)
-        {
-            throw new NotImplementedException();
+            return _context.Categories.Where(x => x.ParentCategoryId == parentId).ToList();
         }
     }
 }

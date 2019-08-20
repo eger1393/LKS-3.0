@@ -1,12 +1,10 @@
 ﻿using LKS.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LKS.Data.Repositories
 {
-    public interface ICategoriesRepository : IRepository<Category>
+    public interface ICategoriesRepository
     {
-        List<Category> GetCategories(string parentId);
+        IEnumerable<Category> GetCategories(string parentId);
     }
 }
