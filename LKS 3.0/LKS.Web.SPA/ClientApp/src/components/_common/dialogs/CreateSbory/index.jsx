@@ -7,6 +7,7 @@ import { getTroopList, getStudentListData } from '../../../../selectors/studentL
 import SVGIcon from '../../elements/SVGIcon'
 import Button from '../../elements/Button'
 import { apiSetStudentSboryTroop } from '../../../../api/studentList'
+import { fetchGetStudentListData } from '../../../../redux/modules/studentList'
 
 import { DropDownContainerStyled, ColumnStule, ContainerStyle, ArrowButton, ArrowContainerStyled } from './styled';
 
@@ -14,8 +15,9 @@ const CreateSbory = props => {
     const [universityState, setUniversityState] = useState({ slectedTroop: [], studentList: [], selectedStudents: [] });
     const [sboriState, setSboriState] = useState({ slectedTroop: null, studentList: [], selectedStudents: [] });
     const [studentList, setStudentList] = useState(props.students || [])
-    const universityTroop = (props.troops && props.troops.filter(troop => !troop.sboriTroop)) || [];
-    const sboriTroop = props.troops && props.troops.filter(troop => troop.sboriTroop);
+    const [disabled, setDisabled] = useState(false)
+    const universityTroop = (props.troops && props.troops.filter(troop => !troop.isSboriTroop)) || [];
+    const sboriTroop = props.troops && props.troops.filter(troop => troop.isSboriTroop);
     const handleChangeUniversityTroop = data => {
         let students = studentList.filter(x => data.some(troop => x.troopId === troop.id));
         setUniversityState({ ...universityState, studentList: students, slectedTroop: data })
@@ -56,8 +58,11 @@ const CreateSbory = props => {
         setSboriState({ ...universityState, studentList: students, slectedTroop: sboriState.slectedTroop, selectedStudents: [] })
     }
     const handleSave = () => {
-        apiSetStudentSboryTroop({studentList});
-        props.onHide();
+        setDisabled(true)
+        apiSetStudentSboryTroop(studentList).then(() => {
+            props.fetchGetStudentListData();
+            props.onHide();
+        });
     }
     return (
         <ModalDialog
@@ -151,7 +156,7 @@ const CreateSbory = props => {
                 </ContainerStyle>
             </FlexBox>
             <div className="form-submit">
-                <Button onClick={handleSave} value="Сохранить" />
+                <Button disabled={disabled} onClick={handleSave} value="Сохранить" />
             </div>
         </ModalDialog>
     );
@@ -162,4 +167,4 @@ const mapStateToProps = state => ({
     students: getStudentListData(state)
 })
 
-export default connect(mapStateToProps)(CreateSbory);
+export default connect(mapStateToProps, { fetchGetStudentListData })(CreateSbory);

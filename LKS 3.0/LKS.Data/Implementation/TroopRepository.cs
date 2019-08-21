@@ -62,7 +62,8 @@ namespace LKS.Data.Implementation
 		public async Task<Troop> GetItem(string id)
 		{
 			return await _context.Troops
-				.Include(ob => ob.Students)
+				.Include(ob => ob.UniversityStudents)
+				.Include(ob => ob.SboryStudents)
 				.Include(ob => ob.Prepod)
 				.Include(ob => ob.PlatoonCommander)
 				.FirstOrDefaultAsync(ob => ob.Id == id);
@@ -73,7 +74,8 @@ namespace LKS.Data.Implementation
 			return _context.Troops
 				.Include(ob => ob.Cycle)
 				.Include(ob => ob.Prepod)
-				.Include(ob => ob.Students)
+				.Include(ob => ob.UniversityStudents)
+				.Include(ob => ob.SboryStudents)
 				.Include(ob => ob.PlatoonCommander)
 				.ToList();
 		}
@@ -81,7 +83,8 @@ namespace LKS.Data.Implementation
 		public Troop GetBuNum(string num)
 		{
 			return _context.Troops
-				.Include(ob => ob.Students)
+				.Include(ob => ob.UniversityStudents)
+				.Include(ob => ob.SboryStudents)
 				.Include(ob => ob.Prepod)
 				//.Include(ob=>ob.PlatoonCommander)
 				.FirstOrDefault(ob => ob.NumberTroop == num);

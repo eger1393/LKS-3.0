@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using LKS.Data.Models;
 using LKS.Data.Repositories;
 using LKS.Web.SPA.Models;
@@ -40,6 +42,7 @@ namespace LKS.Web.Controllers
 				ob.Position,
 				ob.Kurs,
 				ob.TroopId,
+				ob.SboryTroopId,
                 numTroop = ob.Troop?.NumberTroop,
 				ob.Collness,
 				ob.Status,//
@@ -91,5 +94,13 @@ namespace LKS.Web.Controllers
 			return Ok();
 		}
 
-    }
+		[Authorize(Roles = "Admin")]
+		[HttpPost("[action]")]
+		public async Task<IActionResult> SetStudentSboryTroop([FromBody]List<Student> students)
+		{
+			await _studentRepository.UpdateSboryTroopId(students);
+			return Ok();
+		}
+
+	}
 }

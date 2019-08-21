@@ -34,7 +34,7 @@ namespace LKS.Data
             builder.Entity<Troop>().HasIndex(x => x.NumberTroop).IsUnique();
             builder.Entity<Troop>().HasOne(x => x.PlatoonCommander);
             builder.Entity<Student>().HasOne(x => x.Troop).WithMany(x => x.UniversityStudents);
-			builder.Entity<Student>().HasOne(x => x.SboriTroop).WithMany(x => x.SboryStudents);
+			builder.Entity<Student>().HasOne(x => x.SboryTroop).WithMany(x => x.SboryStudents);
 			builder.Entity<Relative>().HasOne(x => x.Student).WithMany(x => x.Relatives).HasForeignKey(p => p.StudentId);
             builder.Entity<User>().HasIndex(x => x.TroopId).IsUnique();
             builder.Entity<Category>().HasMany(x => x.Subcategories).WithOne().HasForeignKey(x => x.ParentCategoryId);

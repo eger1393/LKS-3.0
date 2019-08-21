@@ -169,6 +169,22 @@ namespace LKS.Data.Implementation
 			await _context.SaveChangesAsync();
 		}
 
+		public async Task UpdateSboryTroopId(List<Student> students)
+		{
+			var dbStudents = _context.Students.ToList();
+			foreach (var item in dbStudents)
+			{
+				var student = students.FirstOrDefault(x => x.Id == item.Id);
+				if(student == null)
+				{
+					continue;
+				}
+				item.SboryTroopId = student.SboryTroopId;
+			}
+			_context.Students.UpdateRange(dbStudents);
+			await _context.SaveChangesAsync();
+		}
+
 		private static void FilterStudents(Dictionary<string, string> filters, ref List<Student> res)//IQueryable<Student> res)
 		{
 			foreach (var (key, value) in filters)
