@@ -1,96 +1,115 @@
 ﻿using LKS.Data.Models.Enums;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LKS.Data.Models
 {
-    public class Troop
-    {
-        [Key]
-        public string Id { get; set; }
+	public class Troop
+	{
+		[Key]
+		public string Id { get; set; }
 
-        [ForeignKey(nameof(PlatoonCommander))]
-        /// <summary>
-        /// Командир взвода
-        /// </summary>
-        public string PlatoonCommanderId { get; set; }
-        /// <summary>
-        /// Командир взвода
-        /// </summary>
-        public Student PlatoonCommander { get; set; }
+		[ForeignKey(nameof(PlatoonCommander))]
+		/// <summary>
+		/// Командир взвода
+		/// </summary>
+		public string PlatoonCommanderId { get; set; }
+		/// <summary>
+		/// Командир взвода
+		/// </summary>
+		public Student PlatoonCommander { get; set; }
 
-        [Required]
-        [ForeignKey(nameof(Cycle))]
-        /// <summary>
+		[Required]
+		[ForeignKey(nameof(Cycle))]
+		/// <summary>
 		/// Цикл обучения
 		/// </summary>
-        public string CycleId { get; set; }
-        /// <summary>
+		public string CycleId { get; set; }
+		/// <summary>
 		/// Цикл обучения
 		/// </summary>
-        public Cycle Cycle { get; set; }
+		public Cycle Cycle { get; set; }
 
-        [ForeignKey(nameof(Prepod))]
-        /// <summary>
+		[ForeignKey(nameof(Prepod))]
+		/// <summary>
 		/// Ответственный преподаватель
 		/// </summary>
 		public string PrepodId { get; set; }
-        /// <summary>
+		/// <summary>
 		/// Ответственный преподаватель
 		/// </summary>
 		public Prepod Prepod { get; set; }
 
-        /// <summary>
+		/// <summary>
 		/// Студенты
 		/// </summary>
-		public virtual List<Student> Students { get; set; }
+		[NotMapped]
+		public virtual List<Student> Students
+		{
+			get
+			{
+				return IsSboriTroop ? SboryStudents : UniversityStudents;
+			}
+			set
+			{
+				if (IsSboriTroop)
+				{
+					SboryStudents = value;
+				}
+				else
+				{
+					UniversityStudents = value;
+				}
+			}
+		}
+		public virtual List<Student> UniversityStudents { get; set; }
+		public virtual List<Student> SboryStudents { get; set; }
 
-        [Required]
-        /// <summary>
+		[Required]
+		/// <summary>
 		/// Номер взвода
 		/// </summary>
 		public string NumberTroop { get; set; }
 
-        /// <summary>
-        /// Личный состав (чел)
-        /// </summary>
-        public int StaffCount => Students?.Count ?? 0;
+		/// <summary>
+		/// Личный состав (чел)
+		/// </summary>
+		public int StaffCount => Students?.Count ?? 0;
 
-        /// <summary>
+		/// <summary>
 		/// Взвод для сборов?
 		/// </summary>
-        public bool IsSboriTroop { get; set; }
+		public bool IsSboriTroop { get; set; }
 
-        /// <summary>
-        /// День прихода
-        /// </summary>
-        [Required]
-        public ArrivalDay ArrivalDay { get; set; }
+		/// <summary>
+		/// День прихода
+		/// </summary>
+		[Required]
+		public ArrivalDay ArrivalDay { get; set; }
 
-        public string GetArrivalDayValue
-        {
-            get
-            {
-                switch (ArrivalDay)
-                {
-                    case ArrivalDay.Monday:
-                        return "Пн";
-                    case ArrivalDay.Tuesday:
-                        return "Вт";
-                    case ArrivalDay.Wednesday:
-                        return "Ср";
-                    case ArrivalDay.Thursday:
-                        return "Чт";
-                    case ArrivalDay.Friday:
-                        return "Пт";
-                    case ArrivalDay.Saturday:
-                        return "Сб";
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
-    }
+		public string GetArrivalDayValue
+		{
+			get
+			{
+				switch (ArrivalDay)
+				{
+					case ArrivalDay.Monday:
+						return "Пн";
+					case ArrivalDay.Tuesday:
+						return "Вт";
+					case ArrivalDay.Wednesday:
+						return "Ср";
+					case ArrivalDay.Thursday:
+						return "Чт";
+					case ArrivalDay.Friday:
+						return "Пт";
+					case ArrivalDay.Saturday:
+						return "Сб";
+					default:
+						return string.Empty;
+				}
+			}
+		}
+	}
 }

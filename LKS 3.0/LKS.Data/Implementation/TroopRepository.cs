@@ -42,7 +42,7 @@ namespace LKS.Data.Implementation
 
 		public async Task Delete(Troop item)
 		{
-			var troop = _context.Troops.Include(x => x.Students).FirstOrDefault(x => x.Id == item.Id);
+			var troop = _context.Troops.Include(x => x.SboryStudents).Include(x => x.UniversityStudents).FirstOrDefault(x => x.Id == item.Id);
             Guard.Argument.IsNotNull(() => troop);
 			var user = _context.Users.FirstOrDefault(x => x.TroopId == troop.Id);
 			if (user != null)
