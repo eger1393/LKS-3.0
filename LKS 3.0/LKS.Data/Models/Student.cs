@@ -1,6 +1,7 @@
 ﻿using LKS.Data.Models.Enums;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LKS.Data.Models
 {
@@ -316,22 +317,10 @@ namespace LKS.Data.Models
         public string LanguageRank
         { get; set; }
 
+		[ForeignKey(nameof(Assessment))]
+		public string AssesmentId { get; set; }
 
-
-        public int AssessmentProtocolOneTheory
-        { get; set; }
-        public int AssessmentProtocolOnePractice
-        { get; set; }
-        public int AssessmentProtocolOneFinal
-        { get; set; }
-        public int AssessmentCharacteristicMilitaryTechnicalTraining
-        { get; set; }
-        public int AssessmentCharacteristicTacticalSpecialTraining
-        { get; set; }
-        public int AssessmentCharacteristicMilitarySpeialTraining
-        { get; set; }
-        public int AssessmentCharacteristicFinal
-        { get; set; }
+		public Assessment Assessment { get; set; }
 
         public string GetPositionValue
         {

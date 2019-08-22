@@ -24,6 +24,8 @@ namespace LKS.Data.Repositories
         List<string> GetRectalList();
         List<string> GetLanguagesList();
 		Task UpdateSboryTroopId(List<Student> students);
+		List<Student> GetSboryStudentWithAssessments(string troopId);
+		void SaveAssessmetns(List<Student> students);
 
 
 	}

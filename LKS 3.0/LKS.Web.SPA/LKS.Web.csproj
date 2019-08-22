@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DataBase.sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LKS.Data\LKS.Data.csproj" />
     <ProjectReference Include="..\LKS.Infrastructure\LKS.Infrastructure.csproj" />
   </ItemGroup>

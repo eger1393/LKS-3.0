@@ -102,5 +102,27 @@ namespace LKS.Web.Controllers
 			return Ok();
 		}
 
+		[Authorize(Roles = "Admin")]
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetStudenAssessments(string troopId)
+		{
+			return Ok(_studentRepository.GetSboryStudentWithAssessments(troopId).Select(x => new {
+				x.Id,
+				x.FirstName,
+				x.LastName,
+				x.MiddleName,
+				x.Initials,
+				x.AssesmentId,
+				x.Assessment
+			}));
+		}
+		[Authorize(Roles = "Admin")]
+		[HttpPost("[action]")]
+		public async Task<IActionResult> SaveAssessments([FromBody] List<Student> students)
+		{
+			_studentRepository.SaveAssessmetns(students);
+			return Ok();
+		}
+
 	}
 }

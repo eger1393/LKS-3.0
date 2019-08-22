@@ -651,37 +651,37 @@ namespace LKS.Infrastructure.Templates
 
             if (command.ToUpper() == "ПРОТОКОЛ 1 ТЕОРЕТИЧЕСКИЕ ЗНАНИЯ")
             {
-                return ToAssessment(_selectedStudent.AssessmentProtocolOneTheory);
+                return ToAssessment(_selectedStudent.Assessment.ProtocolOneTheory);
             }
 
             if (command.ToUpper() == "ПРОТОКОЛ 1 ПРАКТИЧЕСКИЕ УМЕНИЯ")
             {
-                return ToAssessment(_selectedStudent.AssessmentProtocolOnePractice);
+                return ToAssessment(_selectedStudent.Assessment.ProtocolOnePractice);
             }
 
             if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА")
             {
-                return ToAssessment(_selectedStudent.AssessmentProtocolOneFinal);
+                return ToAssessment(_selectedStudent.Assessment.ProtocolOneFinal);
             }
 
             if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-ТЕХНИЧЕСКАЯ ПОДГОТОВКА")
             {
-                return ToAssessment(_selectedStudent.AssessmentCharacteristicMilitaryTechnicalTraining);
+                return ToAssessment(_selectedStudent.Assessment.CharacteristicMilitaryTechnicalTraining);
             }
 
             if (command.ToUpper() == "ХАРАКТЕРИСТИКА ТАКТИКО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
             {
-                return ToAssessment(_selectedStudent.AssessmentCharacteristicTacticalSpecialTraining);
+                return ToAssessment(_selectedStudent.Assessment.CharacteristicTacticalSpecialTraining);
             }
 
             if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
             {
-                return ToAssessment(_selectedStudent.AssessmentCharacteristicMilitarySpeialTraining);
+                return ToAssessment(_selectedStudent.Assessment.CharacteristicMilitarySpeialTraining);
             }
 
             if (command.ToUpper() == "ХАРАКТЕРИСТИКА ОБЩАЯ ОЦЕНКА")
             {
-                return ToAssessment(_selectedStudent.AssessmentCharacteristicFinal);
+                return ToAssessment(_selectedStudent.Assessment.CharacteristicFinal);
             }
 
             ////
@@ -887,61 +887,73 @@ namespace LKS.Infrastructure.Templates
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
-                        _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5).ToString() : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 5) != 0 ?
+                        _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 5).ToString() : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 5 %")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5) != 0 ?
-                        ((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 5))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 5) != 0 ?
+                        ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 5))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
-                        _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4).ToString() : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 4) != 0 ?
+                        _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 4).ToString() : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 4 %")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4) != 0 ?
-                        ((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 4))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 4) != 0 ?
+                        ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 4))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
-                        _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3).ToString() : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 3) != 0 ?
+                        _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 3).ToString() : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 3 %")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3) != 0 ?
-                        ((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal == 3))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 3) != 0 ?
+                        ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal == 3))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
-                        _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2).ToString() : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+                        _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2).ToString() : "-";
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА 2 %")
                 {
-                    return _selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2) != 0 ?
-                        ((double)((_selectedTroop.Students.Count(u => u.AssessmentProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+                        ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
                 }
 
-                if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н")
+				{
+					return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+						_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2).ToString() : "-";
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н %")
+				{
+					return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+						((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+				}
+
+				if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
                 {
-                    return _selectedTroop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal > 2)).ToString();
+                    return _selectedTroop.Students.Count(u => (u.Assessment.ProtocolOneFinal <= 5 && u.Assessment.ProtocolOneFinal > 2)).ToString();
                 }
 
                 if (command.ToUpper() == "ПРОТОКОЛ 1 СРЕДНИЙ БАЛЛ")
                 {
-                    return (Convert.ToDouble(_selectedTroop.Students.TakeWhile(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2)).Sum(u => u.AssessmentProtocolOneFinal)) /
-                         _selectedTroop.Students.Count(u => (u.AssessmentProtocolOneFinal <= 5 && u.AssessmentProtocolOneFinal >= 2))).ToString("#.#");
+                    return (Convert.ToDouble(_selectedTroop.Students.TakeWhile(u => (u.Assessment.ProtocolOneFinal <= 5 && u.Assessment.ProtocolOneFinal >= 2)).Sum(u => u.Assessment.ProtocolOneFinal)) /
+                         _selectedTroop.Students.Count(u => (u.Assessment.ProtocolOneFinal <= 5 && u.Assessment.ProtocolOneFinal >= 2))).ToString("#.#");
                 }
 
                 if (_selectedTroop.Prepod != null)

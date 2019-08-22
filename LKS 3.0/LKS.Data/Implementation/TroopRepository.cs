@@ -74,8 +74,8 @@ namespace LKS.Data.Implementation
 			return _context.Troops
 				.Include(ob => ob.Cycle)
 				.Include(ob => ob.Prepod)
-				.Include(ob => ob.UniversityStudents)
-				.Include(ob => ob.SboryStudents)
+				.Include(ob => ob.UniversityStudents).ThenInclude(x => x.Assessment)
+				.Include(ob => ob.SboryStudents).ThenInclude(x => x.Assessment)
 				.Include(ob => ob.PlatoonCommander)
 				.ToList();
 		}

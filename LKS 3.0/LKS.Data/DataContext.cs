@@ -21,6 +21,7 @@ namespace LKS.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<SummerSbori> Summers { get; set; }
+		public DbSet<Assessment> Assessments { get; set; }
         #endregion
 
         public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)

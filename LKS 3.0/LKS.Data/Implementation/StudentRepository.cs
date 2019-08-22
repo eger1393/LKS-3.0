@@ -98,6 +98,7 @@ namespace LKS.Data.Implementation
 			return _context.Students
 				.Include(x => x.Troop)
 				.Include(x => x.Relatives)
+				.Include(x => x.Assessment)
 				.Where(x => ids.Contains(x.Id))
 				.ToList();
 		}
@@ -322,6 +323,34 @@ namespace LKS.Data.Implementation
 			var answer = _context.Students.Select(u => u.ForeignLanguage).Distinct().ToList();
 			answer.RemoveAll(string.IsNullOrWhiteSpace);
 			return answer;
+		}
+
+		public List<Student> GetSboryStudentWithAssessments(string troopId)
+		{
+			return _context.Students.Where(x => x.SboryTroopId == troopId).Include(x => x.Assessment).ToList();
+		}
+
+		public void SaveAssessmetns(List<Student> students)
+		{
+			foreach (var student in students)
+			{
+				if(student.Assessment == null)
+				{
+					continue;
+				}
+				if (!string.IsNullOrEmpty(student.AssesmentId))
+				{
+					_context.Assessments.Update(student.Assessment);
+				}
+				else
+				{
+					_context.Assessments.Add(student.Assessment);
+					var currentStudent = _context.Students.First(x => x.Id == student.Id);
+					currentStudent.Assessment = student.Assessment;
+					_context.Students.Update(currentStudent);
+				}
+			}
+			_context.SaveChanges();
 		}
 	}
 }

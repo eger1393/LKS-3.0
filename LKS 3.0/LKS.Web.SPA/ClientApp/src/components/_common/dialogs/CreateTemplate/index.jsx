@@ -8,7 +8,7 @@ import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import { getTypeTemplateValue } from '../../../../helpers/index'
 import { apiUpdateTemplate, apiGetCategories, apiGetTypes } from '../../../../api/templates'
-import SuccessModal from "./SuccessModal";
+import SuccessModal from "../../SuccessModal";
 
 class CreateTemplate extends React.Component {
 
@@ -206,7 +206,14 @@ class CreateTemplate extends React.Component {
                         <Button value="Сохранить" onClick={(e) => this.handleSave(e)} />
                     </FlexRow>
                 </FlexBox>
-                {this.state.successModal && (<SuccessModal isOpen={this.state.successModal} isOk={this.closeModal} onHide={this.closeModal} />)}
+                {this.state.successModal &&
+                    (<SuccessModal
+                        isOpen={this.state.successModal}
+                        isOk={this.closeModal}
+                        onHide={this.closeModal}
+                    >
+                        <p>Шаблон успешно добавлен</p>
+                    </SuccessModal>)}
             </ModalDialog>
         );
     }
