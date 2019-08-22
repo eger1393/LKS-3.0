@@ -20,7 +20,7 @@ namespace LKS.Data
         public DbSet<Template> Templates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<SummerSbori> Summers { get; set; }
+        public DbSet<SummerSbory> Summers { get; set; }
 		public DbSet<Assessment> Assessments { get; set; }
         #endregion
 
