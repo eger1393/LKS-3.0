@@ -84,9 +84,10 @@ namespace LKS.Data.Implementation
 
 			var res = _context.Students
 				.Include(ob => ob.Troop)
+				.Include(ob => ob.SboryTroop)
 				.AsQueryable().ToList(); // todo delete tolist
 			if (!string.IsNullOrEmpty(selectTroop))
-				res = res.Where(ob => ob.TroopId == selectTroop).ToList();
+				res = res.Where(ob => ob.TroopId == selectTroop || ob.SboryTroopId == selectTroop).ToList();
 			if (filters.Any())
 				FilterStudents(filters, ref res);
 
@@ -97,6 +98,7 @@ namespace LKS.Data.Implementation
 		{
 			return _context.Students
 				.Include(x => x.Troop)
+				.Include(ob => ob.SboryTroop)
 				.Include(x => x.Relatives)
 				.Include(x => x.Assessment)
 				.Where(x => ids.Contains(x.Id))
@@ -107,6 +109,7 @@ namespace LKS.Data.Implementation
 		{
 			return _context.Students
 				.Include(ob => ob.Troop)
+				.Include(ob => ob.SboryTroop)
 				.Include(ob => ob.Relatives)
 				.Where(ob => ob.Status == StudentStatus.train
 					|| ob.Status == StudentStatus.trainingFees
@@ -119,6 +122,7 @@ namespace LKS.Data.Implementation
 		{
 			return _context.Students
 				.Include(ob => ob.Troop)
+				.Include(ob => ob.SboryTroop)
 				.Include(ob => ob.Relatives)
 				.Where(ob => ob.Status == StudentStatus.forDeductions).ToList();
 
@@ -128,6 +132,7 @@ namespace LKS.Data.Implementation
 		{
 			return _context.Students
 				.Include(ob => ob.Troop)
+				.Include(ob => ob.SboryTroop)
 				.Include(ob => ob.Relatives)
 				.Where(ob => ob.Status == StudentStatus.suspended).ToList();
 
@@ -146,7 +151,11 @@ namespace LKS.Data.Implementation
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		public async Task SetStudentPosition(string id, StudentPosition position)
 		{
-			var student = _context.Students.Include(x => x.Troop).ThenInclude(x => x.PlatoonCommander).FirstOrDefault(ob => ob.Id == id);
+			var student = _context.Students
+				.Include(x => x.Troop)
+				.ThenInclude(x => x.PlatoonCommander)
+				.Include(ob => ob.SboryTroop)
+				.FirstOrDefault(ob => ob.Id == id);
 			Guard.Argument.IsNotNull(() => student);
 			if (position == StudentPosition.commander)
 			{
@@ -176,7 +185,7 @@ namespace LKS.Data.Implementation
 			foreach (var item in dbStudents)
 			{
 				var student = students.FirstOrDefault(x => x.Id == item.Id);
-				if(student == null)
+				if (student == null)
 				{
 					continue;
 				}
@@ -205,7 +214,8 @@ namespace LKS.Data.Implementation
 						res = res.Where(ob => ob.Collness?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false).ToList();
 						break;
 					case "numTroop":
-						res = res.Where(ob => ob.Troop?.NumberTroop?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false).ToList();
+						res = res.Where(ob => (ob.Troop?.NumberTroop?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+							(ob.SboryTroop?.NumberTroop?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false)).ToList();
 						break;
 					case "instGroup":
 						res = res.Where(ob => ob.InstGroup?.Contains(value, StringComparison.InvariantCultureIgnoreCase) ?? false).ToList();
@@ -334,7 +344,7 @@ namespace LKS.Data.Implementation
 		{
 			foreach (var student in students)
 			{
-				if(student.Assessment == null)
+				if (student.Assessment == null)
 				{
 					continue;
 				}
