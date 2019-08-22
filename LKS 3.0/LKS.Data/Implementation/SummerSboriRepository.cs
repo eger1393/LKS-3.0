@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace LKS.Data.Implementation
 {
-    internal class SummerSboriRepository : ISummerSboriRepository
+    public class SummerSboryRepository : ISummerSboryRepository
     {
         private readonly DataContext _context;
 
-        public SummerSboriRepository(DataContext context)
+        public SummerSboryRepository(DataContext context)
         {
             _context = context;
         }
 
-        public SummerSbori GetItem()
+        public SummerSbory GetItem()
         {
             return _context.Summers.FirstOrDefault();
         }
 
 
-        public bool UpdateItem(SummerSbori item)
+        public bool UpdateItem(SummerSbory item)
         {
             try
             {

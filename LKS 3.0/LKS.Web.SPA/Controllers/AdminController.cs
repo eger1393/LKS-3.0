@@ -7,9 +7,9 @@ using System.Linq;
 namespace LKS.Web.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
-    public class AdminController : Controller
+    public class AdminController : ControllerBase
     {
         private readonly IAdminRepository _adminRepository;
 
@@ -33,10 +33,10 @@ namespace LKS.Web.Controllers
             }));
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         public IActionResult SetAdminList(SetAdminListModel model)
         {
-            _adminRepository.UpdateItems(model.Admins);
+            _adminRepository.UpdateItems(model.admins);
             return Ok();
         }
     }

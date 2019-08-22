@@ -1,28 +1,16 @@
 import React from 'react'
 import { Container } from './styled'
-type InputProps = {
-    type: string,
-    placeholder: string,
-    id: string,
-    value: string,
-    isRequired?: boolean,
-    error?: boolean,
-    onChange?: Function,
-    tabIndex: string,
-    middlewareValidator?: Function,
-    className: string,
-}
 
-class Input extends React.Component<InputProps> {
+class Input extends React.Component {
     state = { isFocus: false, value: '', type: this.props.type }
 
     Focus = event => {
-        if (this.props.date == true) this.state.type = 'date'
+        if (this.props.date == true) this.state.type = 'date';
         this.setState({ isFocus: true })
     }
 
     Blur = event => {
-        if (!this.state.value && this.props.date == true) this.state.type = 'text'
+        if (!this.state.value && this.props.date == true) this.state.type = 'text';
         if (event.target.value === '') this.setState({ isFocus: false })
         
     }
@@ -54,6 +42,7 @@ class Input extends React.Component<InputProps> {
                     min={this.min}
                     max={this.max}
                     pattern={this.pattern}
+                    disabled = {this.props.disabled}
                 />
                 <label
                     htmlFor={this.props.id}

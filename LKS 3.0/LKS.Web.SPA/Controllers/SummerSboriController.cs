@@ -1,31 +1,35 @@
 ﻿using LKS.Data.Models;
 using LKS.Data.Repositories;
 using LKS.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LKS.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     [ApiController]
-    public class SummerSboriController : ControllerBase
+    public class SummerSboryController : ControllerBase
     {
-        private readonly ISummerSboriRepository _summerSboriRepository;
+        private readonly ISummerSboryRepository _summerSboryRepository;
 
-        public SummerSboriController(ISummerSboriRepository summerSboriRepository)
+        public SummerSboryController(ISummerSboryRepository summerSboryRepository)
         {
-            _summerSboriRepository = summerSboriRepository;
+            _summerSboryRepository = summerSboryRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet("[action]")]
-        public IActionResult GetSummerSboriInfo()
+        public IActionResult GetSummerSboryInfo()
         {
-            return Ok(_summerSboriRepository.GetItem());
+            return Ok(_summerSboryRepository.GetItem());
         }
 
-        [HttpGet("[action]")]
-        public IActionResult Update(SummerSbori model)
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public IActionResult SetSummerSboryInfo([FromBody]SummerSbory model)
         {
-            _summerSboriRepository.UpdateItem(model);
+            _summerSboryRepository.UpdateItem(model);
             return Ok();
         }
     }

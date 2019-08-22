@@ -21,13 +21,13 @@ namespace LKS.Web.SPA
     public class Startup
     {
         private const string JwtKey = "bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m";
-		private IHostingEnvironment _appHost;
+        private IHostingEnvironment _appHost;
 
-		public Startup(IConfiguration configuration, IHostingEnvironment appHost)
-		{
-			_appHost = appHost;
-			Configuration = configuration;
-		}
+        public Startup(IConfiguration configuration, IHostingEnvironment appHost)
+        {
+            _appHost = appHost;
+            Configuration = configuration;
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -46,7 +46,7 @@ namespace LKS.Web.SPA
             });
             services.AddDbContext<DataContext>(options => { options.UseSqlite($"Data Source={_appHost.ContentRootPath}/DataBase.sqlite"); });
 
-			services.AddDistributedMemoryCache();
+            services.AddDistributedMemoryCache();
             services.AddSession();
 
             RegistrationInterfaces(services);
@@ -109,6 +109,7 @@ namespace LKS.Web.SPA
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<ISummerSboryRepository, SummerSboryRepository>();
             services.AddTransient<ITemplateRepository, TemplateRepository>();
             services.AddTransient<IPasswordProvider, PasswordProvider>();
         }

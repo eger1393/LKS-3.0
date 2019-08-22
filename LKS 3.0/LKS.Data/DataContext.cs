@@ -20,7 +20,7 @@ namespace LKS.Data
         public DbSet<Template> Templates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<SummerSbori> Summers { get; set; }
+        public DbSet<SummerSbory> Summers { get; set; }
         #endregion
 
         public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
@@ -49,7 +49,7 @@ namespace LKS.Data
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
             var rand = new Random();
 
-            builder.Entity<SummerSbori>().HasData(new SummerSbori
+            builder.Entity<SummerSbory>().HasData(new SummerSbory
             {
                 Id = "1",
                 NumberofOrder = "12412",
