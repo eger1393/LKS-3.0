@@ -2,7 +2,7 @@
 
 namespace LKS.Data.Models
 {
-    public class SummerSbori
+    public class SummerSbory
     {
         [Key]
         public string Id { get; set; }

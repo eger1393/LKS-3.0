@@ -1,75 +1,138 @@
 import React from "react";
-// import ReactDataGrid from "react-data-grid";
-// import { apiGetAdminList, apiSetAdminList } from '../../../../../api/sbori'
-// import Button from "../../../elements/Button";
-// //import "./styles.css";
 
-// const defaultColumnProperties = {
-//   resizable: true,
-//   width: 120
-// };
-
-// const columns = [
-//   { key: "id", name: "Id", editable: false },
-//   { key: "command", name: "Команда", editable: false },
-//   { key: "collness", name: "Должность", editable: true },
-//   { key: "middleName", name: "Фамилия", editable: true },
-//   { key: "firstName", name: "Имя", editable: true },
-//   { key: "lastName", name: "Отчество", editable: true },
-//   { key: "rank", name: "Звание", editable: true },
-// ].map(c => ({ ...c, ...defaultColumnProperties }));
+import { apiGetAdminList, apiSetAdminList } from '../../../../../api/sbory'
+import Button from "../../../elements/Button";
+import Input from "../../../elements/Input";
+import { Container } from "./styled.js";
+import SuccessModal from "../SuccessModal";
 
 
+class AdminList extends React.Component {
+  state = { 
+    rows: [],
+    successModal: false,
+   };
 
-// class AdminList extends React.Component {
-//   state = { 
-//     rows: [],
-//    };
+   closeModal = e => {
+    this.setState({
+        successModal: false,
+    });
+    this.props.onHide();
+    }
 
-//   componentDidMount() {
-//     var self = this;
-//     apiGetAdminList()
-//         .then(
-//             data => self.setState(
-//                 { rows: data }
-//             ))
+  componentDidMount() {
+    var self = this;
+    apiGetAdminList()
+        .then(
+            data => self.setState(
+                { rows: data }
+            ))
     
-// }
-//   onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
-//     this.setState(state => {
-//       const rows = state.rows.slice();
-//       for (let i = fromRow; i <= toRow; i++) {
-//         rows[i] = { ...rows[i], ...updated };
-//       }
-//       return { rows };
-//     });
-//   };
+  }
+  
+  changeField = event =>
+  {
+    let { rows } = this.state;
+    let admin = rows.filter( x => x.id === event.target.id);
+    admin[0][event.target.name] = event.target.value;
+    this.setState({...rows, admin});
+  }
 
-//   handleSave = () =>
-//   {
-//     apiSetAdminList(this.state.rows);
-//   }
+  handleSave = () =>
+  {
+    let self = this;
+    apiSetAdminList( { admins: this.state.rows })
+    .then(function () {
+      self.setState({
+          successModal: true,
+      })
+    })
+  }
 
 
-//   render() {
-//     return (
-//       <div>
-//         <ReactDataGrid
-//         columns={columns}
-//         rowGetter={i => this.state.rows[i]}
-//         rowsCount={this.state.rows.length}
-//         onGridRowsUpdated={this.onGridRowsUpdated}
-//         enableCellSelect={true}
-//       />
-//       <Button value="Сохранить" onClick={(e) => this.handleSave(e)} />
-//       </div>
-//     );
-//   }
-// }
-const AdminList = props => {
-  return (
-    <></>
-  );
+  render() {
+    return (
+      <div>
+       <Container>
+         <table>
+           <thead>
+                <tr>
+                    <th> Команда </th>
+                    <th> Должность </th>
+                    <th> Фамилия </th>
+                    <th> Имя </th>
+                    <th> Отчество </th>
+                    <th> Звание </th>
+                </tr>
+          </thead>
+          <tbody>
+                {this.state.rows.length > 0 && (
+                    this.state.rows.map(ob => {
+                        return (
+                          <tr>
+                            <td className="select-color">
+                                    {ob.command}
+                                </td>
+                            <td className="select-color">
+                                    <Input
+                                      type="text"
+                                      id={ob.id}
+                                      value={ob.collness}
+                                      name="collness"
+                                     
+                                      onChange={this.changeField}
+                                      />
+                                </td>
+                                <td className="select-color">
+                                    <Input
+                                      type="text"
+                                      id={ob.id}
+                                      value={ob.lastName}
+                                      name="lastName"
+                                      
+                                      onChange={this.changeField}
+                                      />
+                                </td>
+                                <td className="select-color">
+                                      <Input
+                                      type="text"
+                                      id={ob.id}
+                                      value={ob.firstName}
+                                      name="firstName"
+                                      
+                                      onChange={this.changeField}
+                                      />
+                                </td>
+                                <td className="select-color">
+                                      <Input
+                                      type="text"
+                                      id={ob.id}
+                                      value={ob.middleName}
+                                      name="middleName"
+                                     
+                                      onChange={this.changeField}
+                                      />
+                                </td>
+                                <td className="select-color">
+                                      <Input
+                                      type="text"
+                                      id={ob.id}
+                                      value={ob.rank}
+                                      name="rank"
+                                      
+                                      onChange={this.changeField}
+                                      />
+                                </td>
+                          </tr>
+                                )}))}
+          </tbody>
+        </table>
+            </Container>
+      <Button value="Сохранить" onClick={(e) => this.handleSave(e)} />
+      {this.state.successModal && (<SuccessModal isOpen={this.state.successModal} isOk={this.closeModal} onHide={this.closeModal} />)}
+      </div>
+    );
+  }
 }
 
 export default AdminList;

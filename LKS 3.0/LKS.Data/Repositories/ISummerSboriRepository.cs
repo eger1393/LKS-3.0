@@ -2,9 +2,9 @@
 
 namespace LKS.Data.Repositories
 {
-    public interface ISummerSboriRepository
+    public interface ISummerSboryRepository
     {
-        SummerSbori GetItem();
-        bool UpdateItem(SummerSbori item);
+        SummerSbory GetItem();
+        bool UpdateItem(SummerSbory item);
     }
 }

@@ -5,6 +5,6 @@ namespace LKS.Web.Models
 {
     public class SetAdminListModel
     {
-        public List<Admin> Admins { get; set; }
+        public List<Admin> admins { get; set; }
     }
 }

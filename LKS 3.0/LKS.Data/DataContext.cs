@@ -51,7 +51,7 @@ namespace LKS.Data
             string[] RectalList = { "Одинцовский", "Московский", "Тульский", "Красногорский" };
             var rand = new Random();
 
-            builder.Entity<SummerSbori>().HasData(new SummerSbori
+            builder.Entity<SummerSbory>().HasData(new SummerSbory
             {
                 Id = "1",
                 NumberofOrder = "12412",
