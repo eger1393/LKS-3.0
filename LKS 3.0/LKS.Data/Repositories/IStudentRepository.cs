@@ -23,6 +23,8 @@ namespace LKS.Data.Repositories
         List<string> GetSpecInstList();
         List<string> GetRectalList();
         List<string> GetLanguagesList();
+		Task UpdateSboryTroopId(List<Student> students);
 
-    }
+
+	}
 }

@@ -288,3 +288,5 @@ __pycache__/
 *.xsd.cs
 
 LKS 3\.0/LKS\.Web\.SPA/wwwroot/templates/
+
+LKS 3.0/LKS.Web.SPA/DataBase.sqlite

@@ -5,8 +5,9 @@ import { Container } from './styled'
 const Button = ({
     value,
     onClick,
+    disabled
 }) => {
-        return (<Container onClick={onClick}>
+        return (<Container disabled={disabled} onClick={onClick}>
             {value}
         </Container>);
     }

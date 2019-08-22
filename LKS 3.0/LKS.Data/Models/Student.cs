@@ -35,11 +35,11 @@ namespace LKS.Data.Models
         public Troop Troop { get; set; }
 
 
-        public string SboriTroopId { get; set; }
+        public string SboryTroopId { get; set; }
         /// <summary>
         /// Взвод
         /// </summary>
-        public Troop SboriTroop { get; set; }
+        public Troop SboryTroop { get; set; }
 
 
         /// <summary>
