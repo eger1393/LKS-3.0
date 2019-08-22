@@ -87,7 +87,7 @@ namespace LKS.Data.Implementation
 				.Include(ob => ob.SboryTroop)
 				.AsQueryable().ToList(); // todo delete tolist
 			if (!string.IsNullOrEmpty(selectTroop))
-				res = res.Where(ob => ob.TroopId == selectTroop).ToList();
+				res = res.Where(ob => ob.TroopId == selectTroop || ob.SboryTroopId == selectTroop).ToList();
 			if (filters.Any())
 				FilterStudents(filters, ref res);
 
