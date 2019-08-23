@@ -33,7 +33,7 @@ namespace LKS.Infrastructure.Templates
 		private Relative _selectedStudentFather { get; set; }  //его отец
 		private Relative _selectedRelative { get; set; }   //его родственник
         private SummerSbory summer; // информация о сборах
-        private readonly Admin[] admins
+        private readonly Admin[] admins; //администрация сборов
 
         private Troop _selectedTroop { get; set; } //выбранный взвод
 
