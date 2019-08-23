@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using LKS.Data.Models;
 using LKS.Data.Models.Enums;
+using LKS.Data.Repositories;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -20,18 +21,20 @@ namespace LKS.Infrastructure.Templates
     public class TemplateProvider
     {
         private readonly AsyncLock _mutex = new AsyncLock();
-        private List<Student> _students; // текущие выбранные студенты(урощает работу с несколькими взводами)
+        private List<Student> _students; // текущие выбранные студенты (упрощает работу с несколькими взводами)
         private Student _selectedStudent;    // выбранный студент
-
+        private SummerSbory summer; // информация о сборах
+        private readonly Admin[] admins; // список администрации на сборах
         private Relative _selectedStudentMather, //его мать
             _selectedStudentFather,  //его отец
             _selectedRelative;   //его родственник
-
         private Troop _selectedTroop; //выбранный взвод
-                                      //Summer summer; // информация о сборах
-                                      //			   //Model.Department adminInfo; // Военком и нач кафедры
-                                      //List<Admin> admins; // список администрации на сборах
-
+                                     
+        public TemplateProvider(ISummerSboryRepository summerSboryRepository, IAdminRepository adminRepository)
+        {
+            summer = summerSboryRepository.GetItem();
+            admins = adminRepository.GetItems().ToArray();
+        }
 
         public async Task<byte[]> CopyFile(string fileName)
         {
@@ -54,6 +57,7 @@ namespace LKS.Infrastructure.Templates
             {
                 troops = new List<Troop>();
             }
+
 
             if (students.Count == 0 && troops.Count != 0)
             {
@@ -292,6 +296,7 @@ namespace LKS.Infrastructure.Templates
             return file.ToArray();
             ////}
         }
+
         private void AddImageToBody(SdtElement formattedText, string relationshipId)
         {
             // скопипастил код из МДСН 
@@ -449,6 +454,7 @@ namespace LKS.Infrastructure.Templates
                 return num.ToString();
             }
         }
+
         private string FindCommand(string command)
         {
             if (command.ToUpper() == "НОВАЯ СТРОКА")
@@ -664,24 +670,80 @@ namespace LKS.Infrastructure.Templates
                 return ToAssessment(_selectedStudent.Assessment.ProtocolOneFinal);
             }
 
-            if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-ТЕХНИЧЕСКАЯ ПОДГОТОВКА")
+            string SwitchLevel(int level)
             {
-                return ToAssessment(_selectedStudent.Assessment.CharacteristicMilitaryTechnicalTraining);
+                switch (level)
+                {
+                    case 4:
+                        {
+                            return "хороший";
+                        }
+                    case 5:
+                        {
+                            return "отличный";
+                        }
+                    default:
+                        {
+                            return "удовлетворительный";
+                        }
+                }
             }
 
-            if (command.ToUpper() == "ХАРАКТЕРИСТИКА ТАКТИКО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
+            if (command == "Сборы Харак Общ Уровень")
             {
-                return ToAssessment(_selectedStudent.Assessment.CharacteristicTacticalSpecialTraining);
+                return SwitchLevel(_selectedStudent.Assessment.ProtocolOneFinal);
             }
 
-            if (command.ToUpper() == "ХАРАКТЕРИСТИКА ВОЕННО-СПЕЦИАЛЬНАЯ ПОДГОТОВКА")
+            if (command.ToUpper() == "CБОРЫ ХАРАК МЕТОД УРОВЕНЬ")
             {
-                return ToAssessment(_selectedStudent.Assessment.CharacteristicMilitarySpeialTraining);
+                switch (_selectedStudent.Assessment.MethodologicalLevel)
+                {
+                    case 4:
+                        {
+                            return "хорошем";
+                        }
+                    case 5:
+                        {
+                            return "отличном";
+                        }
+                    default:
+                        {
+                            return "удовлетворительном";
+                        }
+                }
             }
 
-            if (command.ToUpper() == "ХАРАКТЕРИСТИКА ОБЩАЯ ОЦЕНКА")
+            if (command.ToUpper() == "СБОРЫ ХАРАК ФИЗ УРОВЕНЬ")
             {
-                return ToAssessment(_selectedStudent.Assessment.CharacteristicFinal);
+                return SwitchLevel(_selectedStudent.Assessment.SportLevel);
+            }
+
+            if (command.ToUpper() == "СБОРЫ ХАРАК УСТАВ УРОВЕНЬ")
+            {
+                switch (_selectedStudent.Assessment.ProtocolOneFinal)
+                {
+                    case 5:
+                    case 4:
+                        {
+                            return "Общевоинские уставы знает и правильно руководствуется ими в повседневной жизни.";
+                        }
+                    default:
+                        {
+                            return "Общевоинские уставы знает, но не всегда правильно руководствуется ими в повседневной жизни.";
+                        }
+                }
+            }
+
+            if (command.ToUpper() == "СБОРЫ ХАРАК ДОЛЖНОСТЬ")
+            {
+                if (string.IsNullOrWhiteSpace(_selectedStudent.Position.ToString()))
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return $"Исполнял обязанности {_selectedStudent.Position.ToString()}.";
+                }
             }
 
             ////
@@ -933,19 +995,19 @@ namespace LKS.Infrastructure.Templates
                         ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
                 }
 
-				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н")
-				{
-					return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
-						_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2).ToString() : "-";
-				}
+                if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н")
+                {
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+                        _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2).ToString() : "-";
+                }
 
-				if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н %")
-				{
-					return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
-						((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
-				}
+                if (command.ToUpper() == "ПРОТОКОЛ 1 ОБЩАЯ ОЦЕНКА Н %")
+                {
+                    return _selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2) != 0 ?
+                        ((double)((_selectedTroop.Students.Count(u => u.Assessment.ProtocolOneFinal <= 2))) / _selectedTroop.Students.Count * 100).ToString("#.#") : "-";
+                }
 
-				if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
+                if (command.ToUpper() == "ПРОТОКОЛ 1 ВСЕГО СДАЛО")
                 {
                     return _selectedTroop.Students.Count(u => (u.Assessment.ProtocolOneFinal <= 5 && u.Assessment.ProtocolOneFinal > 2)).ToString();
                 }
@@ -1151,371 +1213,351 @@ namespace LKS.Infrastructure.Templates
                 }
             }
 
-            //if (summer != null)
-            //{
-            //	if (command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
-            //	{
-            //		return summer.NumberofOrder;
-            //	}
+            if (summer != null)
+            {
+                if (command.ToUpper() == "СБОРЫ НОМЕР ПРИКАЗА")
+                {
+                    return summer.NumberofOrder;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДАТА ПРИКАЗА")
-            //	{
-            //		return summer.DateOfOrder;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДАТА ПРИКАЗА")
+                {
+                    return summer.DateOfOrder;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДАТА НАЧАЛА")
-            //	{
-            //		return summer.DateBeginSbori;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДАТА НАЧАЛА")
+                {
+                    return summer.DateBeginSbori;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДАТА ОКОНЧАНИЯ")
-            //	{
-            //		return summer.DateEndSbori;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДАТА ОКОНЧАНИЯ")
+                {
+                    return summer.DateEndSbori;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
-            //	{
-            //		return summer.DatePrisyaga;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДЕНЬ МЕСЯЦ НАЧАЛА")
+                {
+                    return DateTime.Parse(summer.DateBeginSbori).ToString("dd MMMM");
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДАТА ЭКЗАМЕНА")
-            //	{
-            //		return summer.DateExamen;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДЕНЬ МЕСЯЦ ОКОНЧАНИЯ")
+                {
+                    return DateTime.Parse(summer.DateEndSbori).ToString("dd MMMM");
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НОМЕР ЧАСТИ")
-            //	{
-            //		return summer.NumberVK;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДАТА ПРИСЯГИ")
+                {
+                    return summer.DatePrisyaga;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
-            //	{
-            //		return summer.LocationVK;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДАТА ЭКЗАМЕНА")
+                {
+                    return summer.DateExamen;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ДЛИТЕЛЬНОСТЬ")
-            //	{
-            //		return (Convert.ToDateTime(summer.DateBeginSbori) - Convert.ToDateTime(summer.DateEndSbori)).ToString();
-            //	}
+                if (command.ToUpper() == "СБОРЫ НОМЕР ЧАСТИ")
+                {
+                    return summer.NumberVK;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ТЕКСТ ПРИКАЗА")
-            //	{
-            //		return summer.TittleOrder;
-            //	}
+                if (command.ToUpper() == "СБОРЫ МЕСТОНАХОЖДЕНИЕ ЧАСТИ")
+                {
+                    return summer.LocationVK;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ")
-            //	{
-            //		return summer.Bmp_kr;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ДЛИТЕЛЬНОСТЬ")
+                {
+                    return (Convert.ToDateTime(summer.DateBeginSbori) - Convert.ToDateTime(summer.DateEndSbori)).ToString();
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ ПОЛНОЕ")
-            //	{
-            //		return summer.Bmp_full;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ТЕКСТ ПРИКАЗА")
+                {
+                    return summer.TextOrder;
+                }
+
+                if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ")
+                {
+                    return summer.BmpKr;
+                }
+
+                if (command.ToUpper() == "СБОРЫ НАЗВАНИЕ БМ ПОЛНОЕ")
+                {
+                    return summer.BmpFull;
+                }
+            }
 
 
             //}
-            //if (admins != null)
-            //{
-            //	if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Initials;
-            //	}
+            if (admins != null)
+            {
+                //Начальник факультета военного обучения - 0
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ИНИЦИАЛЫ")
+                {
+                    return admins[0].Initials;
+                }
 
-            //	if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Collness;
-            //	}
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ЗВАНИЕ")
+                {
+                    return admins[0].Collness;
+                }
 
-            //	if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник факультета военного обучения").Rank;
-            //	}
+                if (command.ToUpper() == "НАЧАЛЬНИК ВК ДОЛЖНОСТЬ")
+                {
+                    return admins[0].Rank;
+                }
 
-            //	if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Военный комиссар").Initials;
-            //	}
+                //Военный коммисар - 1
+                if (command.ToUpper() == "ВОЕНКОМ ИНИЦИАЛЫ")
+                {
+                    return admins[1].Initials;
+                }
 
-            //	if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Военный комиссар").Collness;
-            //	}
+                if (command.ToUpper() == "ВОЕНКОМ ЗВАНИЕ")
+                {
+                    return admins[1].Collness;
+                }
 
-            //	if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Военный комиссар").Rank;
-            //	}
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИМЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба").FirstName;
-            //	}
+                if (command.ToUpper() == "ВОЕНКОМ ДОЛЖНОСТЬ")
+                {
+                    return admins[1].Rank;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ФАМИЛИЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба").MiddleName;
-            //	}
+                //Начальник штаба - 2
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЗВАНИЕ")
+                {
+                    return admins[2].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ОТЧЕСТВО")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба").LastName;
-            //	}
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИНИЦИАЛЫ")
+                {
+                    return admins[2].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба").Collness;
-            //	}
+                //Начальник учебных сборов - 3
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба").Initials;
-            //	}
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК УЧ СБОРОВ ИНИЦИАЛЫ")
+                {
+                    return admins[3].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИМЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").FirstName;
-            //	}
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК УЧ СБОРОВ ЗВАНИЕ")
+                {
+                    return admins[3].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ФАМИЛИЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").MiddleName;
-            //	}
+                //Начальник учебной части - 4
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК УЧ ЧАСТИ ИНИЦИАЛЫ")
+                {
+                    return admins[4].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ОТЧЕСТВО")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").LastName;
-            //	}
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК УЧ ЧАСТИ ЗВАНИЕ")
+                {
+                    return admins[4].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").Initials;
-            //	}
+                //Зам по военно-политической работе - 5
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ЧАСТИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник учебной части учебного сбора").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОЕННО-ПОЛИТ РАБОТЕ ИНИЦИАЛЫ")
+                {
+                    return admins[5].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ИМЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").FirstName;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОЕННО-ПОЛИТ РАБОТЕ ЗВАНИЕ")
+                {
+                    return admins[5].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ФАМИЛИЯ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").MiddleName;
-            //	}
+                //Зам по тыловой работе - 6
+                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
+                {
+                    return admins[6].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ОТЧЕСТВО")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").LastName;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
+                {
+                    return admins[6].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Initials;
-            //	}
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВОСПИТАТЕЛЬНОЙ РАБОТЕ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по воспитательной работе").Collness;
-            //	}
+                //Начальник мед части - 7
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ИНИЦИАЛЫ")
+                {
+                    return admins[7].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Initials;
-            //	}
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ТЫЛУ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по тылу").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ЗВАНИЕ")
+                {
+                    return admins[7].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по вооружению").Initials;
-            //	}
+                //Командир учебной батареи - 8
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР УЧ БАТАРЕИ ИНИЦИАЛЫ")
+                {
+                    return admins[8].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЗАМ ПО ВООРУЖЕНИЮ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Заместитель начальника учебного сбора по вооружению").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР УЧ БАТАРЕИ ЗВАНИЕ")
+                {
+                    return admins[8].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник медицинсокй части учебного сбора").Initials;
-            //	}
+                //Старшина учебных сборов - 9
+                if (command.ToUpper() == "СБОРЫ СТАРШИНА УЧ СБОРОВ ИНИЦИАЛЫ")
+                {
+                    return admins[9].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК МЕД ЧАСТИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник медицинсокй части учебного сбора").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ СТАРШИНА УЧ СБОРОВ ЗВАНИЕ")
+                {
+                    return admins[9].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Командир учебной батареи").Initials;
-            //	}
+                //Командир части - 10
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ИНИЦИАЛЫ")
+                {
+                    return admins[10].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР БАТАРЕИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Командир учебной батареи").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ЗВАНИЕ")
+                {
+                    return admins[10].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 1ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                //Командир уч части - 11
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР УЧ ЧАСТИ ИНИЦИАЛЫ")
+                {
+                    return admins[11].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 2ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР УЧ ЧАСТИ ЗВАНИЕ")
+                {
+                    return admins[11].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 3ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                //Председатель комиссии - 12
+                if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ИНИЦИАЛЫ")
+                {
+                    return admins[12].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 4ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ЗВАНИЕ")
+                {
+                    return admins[12].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 5ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                //Секретарь комиссии - 13
+                if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ИНИЦИАЛЫ")
+                {
+                    return admins[13].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР 6ВЗВОДА")
-            //	{
-            //		return "1";
-            //	}
+                if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ЗВАНИЕ")
+                {
+                    return admins[13].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ СТАРШИНА ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Старшина учебного взвода").Initials;
-            //	}
+                // 1 член комиссии - 14
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ИНИЦИАЛЫ")
+                {
+                    return admins[14].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ СТАРШИНА ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Старшина учебного взвода").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ЗВАНИЕ")
+                {
+                    return admins[14].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Командир войсковой части").Initials;
-            //	}
+                //2 член комиссии - 15
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ИНИЦИАЛЫ")
+                {
+                    return admins[15].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ КОМАНДИР ЧАСТИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Командир войсковой части").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ЗВАНИЕ")
+                {
+                    return admins[15].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба войсковой части").Initials;
-            //	}
+                //3 член комиссии - 16
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ИНИЦИАЛЫ")
+                {
+                    return admins[16].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ НАЧАЛЬНИК ШТАБА ЧАСТИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Начальник штаба войсковой части").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ЗВАНИЕ")
+                {
+                    return admins[16].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").Initials;
-            //	}
+                //4 член комиссии - 17 
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ИНИЦИАЛЫ")
+                {
+                    return admins[17].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ПРЕДСЕДАТЕЛЬ КОМИССИИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Председатель государственной выпускной экзаменационной комиссии").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ЗВАНИЕ")
+                {
+                    return admins[17].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").Initials;
-            //	}
+                //5 член комиссии - 18
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ИНИЦИАЛЫ")
+                {
+                    return admins[18].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ СЕКРЕТАРЬ КОМИССИИ ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Секретарь государственной выпускной экзаменационной комиссии").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ЗВАНИЕ")
+                {
+                    return admins[18].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 1").Initials;
-            //	}
+                //Командир 1 взвода - 19
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР 1ВЗВОДА ИНИЦ")
+                {
+                    return admins[19].Initials;
+                }
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР 1ВЗВОДА ЗВАНИЕ")
+                {
+                    return admins[19].Collness;
+                }
+                //Командир 2 взвода - 20
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР 2ВЗВОДА ИНИЦ")
+                {
+                    return admins[20].Initials;
+                }
+                if (command.ToUpper() == "СБОРЫ КОМАНДИР 2ВЗВОДА ЗВАНИЕ")
+                {
+                    return admins[20].Collness;
+                }
+                //Отвественный преподаватель за 1 взвод - 21
+                if (command.ToUpper() == "СБОРЫ ОТВ ПРЕПОДАВАТЕЛЬ 1 ИНИЦ")
+                {
+                    return admins[21].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 1 ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 1").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ОТВ ПРЕПОДАВАТЕЛЬ 1 ЗВАНИЕ")
+                {
+                    return admins[21].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 2").Initials;
-            //	}
+                //Отвественный преподаватель за 2 взвод - 22
+                if (command.ToUpper() == "СБОРЫ ОТВ ПРЕПОДАВАТЕЛЬ 2 ИНИЦ")
+                {
+                    return admins[22].Initials;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 2 ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 2").Collness;
-            //	}
+                if (command.ToUpper() == "СБОРЫ ОТВ ПРЕПОДАВАТЕЛЬ 2 ЗВАНИЕ")
+                {
+                    return admins[22].Collness;
+                }
 
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 3").Initials;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 3 ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 3").Collness;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 4").Initials;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 4 ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 4").Collness;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 5").Initials;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ЧЛЕН КОМИССИИ 5 ЗВАНИЕ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Член комиссии 5").Collness;
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ1")
-            //	{
-            //		return "1";
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ2")
-            //	{
-            //		return "1";
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ3")
-            //	{
-            //		return "1";
-            //	}
-
-            //	if (command.ToUpper() == "СБОРЫ ПРЕПОДАВАТЕЛЬ4")
-            //	{
-            //		return "1";
-            //	}
-
-            //	if (command.ToUpper() == "РЕКТОР ИНИЦИАЛЫ")
-            //	{
-            //		return admins.Find(u => u.Rank == "Ректор МАИ НИУ").Initials;
-            //	}
-
-            //}
+                //Ректор
+                if (command.ToUpper() == "РЕКТОР ИНИЦИАЛЫ")
+                {
+                    return admins[19].Initials;
+                }
+            }
 
             return "НЕИЗВЕСТНАЯ КОМАНДА";
         }
