@@ -27,7 +27,7 @@ namespace LKS.Data
         public DataContext(DbContextOptions options, IPasswordProvider passwordProvider) : base(options)
         {
             _passwordProvider = passwordProvider;
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
