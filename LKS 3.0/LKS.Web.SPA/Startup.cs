@@ -3,6 +3,7 @@ using LKS.Data.Implementation;
 using LKS.Data.Providers;
 using LKS.Data.Repositories;
 using LKS.Infrastructure.Authenticate;
+using LKS.Infrastructure.Templates;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -112,6 +113,7 @@ namespace LKS.Web.SPA
             services.AddTransient<ISummerSboryRepository, SummerSboryRepository>();
             services.AddTransient<ITemplateRepository, TemplateRepository>();
             services.AddTransient<IPasswordProvider, PasswordProvider>();
+			services.AddSingleton<ITemplateProvider, TemplateProvider>();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)
