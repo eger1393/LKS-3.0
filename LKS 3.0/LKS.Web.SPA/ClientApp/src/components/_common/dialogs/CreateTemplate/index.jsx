@@ -177,28 +177,24 @@ class CreateTemplate extends React.Component {
                     <FlexRow>
                         <div>
                             <Container error={!this.state.selectedCategory}>
-                                {
-                                    this.state.categories.length !== 0 && (
                                         <CreatableSelect id="listCategories" className="custom-style"
                                             options={this.state.categories}
                                             onChange={this.changeSelectCategory}
                                             onCreateOption={this.handleCreateCategory}
                                             placeholder="Основная категория"
                                             value={this.state.selectedCategory}
-                                        />)}
+                                        />
                             </Container>
                         </div>
                         <div>
                             <Container error={!this.state.selectedSubcategory}>
-                                {
-                                    this.state.categories.length !== 0 && (
                                         <CreatableSelect isClearable id="listSubcategories" className="custom-style"
                                             options={this.state.subcategories}
                                             onChange={this.changeSelectSubcategory}
                                             onCreateOption={this.handleCreateSubcategory}
                                             placeholder="Категория шаблона"
                                             value={this.state.selectedSubcategory}
-                                        />)}
+                                        />
                             </Container>
                         </div>
                     </FlexRow>

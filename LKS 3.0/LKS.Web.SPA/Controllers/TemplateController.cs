@@ -114,13 +114,15 @@ namespace LKS.Web.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public IActionResult GetCategories(string parentId)
         {
             return Ok(_categoriesRepository.GetCategories(parentId));
         }
 
-		[HttpGet("[action]")]
+        [AllowAnonymous]
+        [HttpGet("[action]")]
 		public IActionResult GetTypes()
 		{
 			return Ok(Enum.GetValues(typeof(TemplateTypes)).OfType<TemplateTypes>().ToList());

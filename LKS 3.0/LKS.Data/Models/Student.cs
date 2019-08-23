@@ -14,7 +14,6 @@ namespace LKS.Data.Models
             VO = "МВО";
             Fighting = "не участвовал";
             Collness = "Курсант";
-
         }
 
         public string Initials =>

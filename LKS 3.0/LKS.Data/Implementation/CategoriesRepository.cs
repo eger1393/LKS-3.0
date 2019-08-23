@@ -14,6 +14,7 @@ namespace LKS.Data.Implementation
             _context = context;
         }
 
+        
         public IEnumerable<Category> GetCategories(string parentId)
         {
             return _context.Categories.Where(x => x.ParentCategoryId == parentId).ToList();

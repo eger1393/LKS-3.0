@@ -95,8 +95,7 @@ namespace LKS.Web.Controllers
                 model.Student.ImagePath = await ImageHelper.SaveImageAsync(model.Photo);
             }
 
-            _studentRepository.CreateStudent(model.Student, model.Relatives);
-            //await _studentRepository.Update(model.Student);
+            _studentRepository.UpdateStudent(model.Student, model.Relatives);
             return Ok();
         }
 

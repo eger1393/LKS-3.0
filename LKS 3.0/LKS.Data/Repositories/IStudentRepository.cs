@@ -11,7 +11,7 @@ namespace LKS.Data.Repositories
 	{
 		List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop);
 		List<Student> GetStudents(List<string> ids);
-		void CreateStudent(Student student, List<Relative> relatives);
+		void UpdateStudent(Student student, List<Relative> relatives);
 
 		Student GetStudent(string id);
         List<Student> GetTrainStudents();
