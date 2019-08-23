@@ -113,7 +113,7 @@ namespace LKS.Web.SPA
             services.AddTransient<ISummerSboryRepository, SummerSboryRepository>();
             services.AddTransient<ITemplateRepository, TemplateRepository>();
             services.AddTransient<IPasswordProvider, PasswordProvider>();
-			services.AddSingleton<ITemplateProvider, TemplateProvider>();
+			services.AddTransient<ITemplateProvider, TemplateProvider>();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)

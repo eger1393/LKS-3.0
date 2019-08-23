@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import Piky from 'react-picky'
-import { getStudentListData, getTroopList } from '../../../../selectors/studentList'
+import { getTroopList } from '../../../../selectors/studentList'
 import ModalDialog from '../../ModalDialog'
 import { FlexBox } from '../../elements/StyleDialogs/styled'
 import { apiGetStudentAssessments, apiSaveAssessments } from '../../../../api/sbori'
@@ -41,6 +41,7 @@ const Assessments = props => {
     }
     const handleSaveClick = async () => {
         await apiSaveAssessments(studentList);
+        setShowSuccess(true);
     }
 
     return (
@@ -69,12 +70,11 @@ const Assessments = props => {
                             <thead>
                                 <tr>
                                     <th>ФИО</th>
-                                    <th>Оценка1</th>
-                                    <th>Оценка2</th>
-                                    <th>Оценка3</th>
-                                    <th>Оценка4</th>
-                                    <th>Оценка5</th>
-                                    <th>Оценка6</th>
+                                    <th>Теоретические знания</th>
+                                    <th>Практичесикие умения</th>
+                                    <th>Общая оценка</th>
+                                    <th>Оценка за ФИЗО</th>
+                                    <th>Методический уровень</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,7 +84,7 @@ const Assessments = props => {
                                         <td>
                                             <Input id={student.id + "protocolOneTheory"}
                                                 type="text"
-                                                placeholder="Оценка1"
+                                                placeholder="Теоретические знания"
                                                 value={student.assessment.protocolOneTheory}
                                                 onChange={handleAssessmentChange(student.id, "protocolOneTheory")}
                                             />
@@ -92,7 +92,7 @@ const Assessments = props => {
                                         <td>
                                             <Input id={student.id + "protocolOnePractice"}
                                                 type="text"
-                                                placeholder="Оценка2"
+                                                placeholder="Практичесикие умения"
                                                 value={student.assessment.protocolOnePractice}
                                                 onChange={handleAssessmentChange(student.id, "protocolOnePractice")}
                                             />
@@ -100,41 +100,25 @@ const Assessments = props => {
                                         <td>
                                             <Input id={student.id + "protocolOneFinal"}
                                                 type="text"
-                                                placeholder="Оценка3"
+                                                placeholder="Общая оценка"
                                                 value={student.assessment.protocolOneFinal}
                                                 onChange={handleAssessmentChange(student.id, "protocolOneFinal")}
                                             />
                                         </td>
                                         <td>
-                                            <Input id={student.id + "characteristicMilitaryTechnicalTraining"}
+                                            <Input id={student.id + "sportLevel"}
                                                 type="text"
-                                                placeholder="Оценка4"
-                                                value={student.assessment.characteristicMilitaryTechnicalTraining}
-                                                onChange={handleAssessmentChange(student.id, "characteristicMilitaryTechnicalTraining")}
+                                                placeholder="Оценка за ФИЗО"
+                                                value={student.assessment.sportLevel}
+                                                onChange={handleAssessmentChange(student.id, "sportLevel")}
                                             />
                                         </td>
                                         <td>
-                                            <Input id={student.id + "characteristicTacticalSpecialTraining"}
+                                            <Input id={student.id + "methodologicalLevel"}
                                                 type="text"
-                                                placeholder="Оценка5"
-                                                value={student.assessment.characteristicTacticalSpecialTraining}
-                                                onChange={handleAssessmentChange(student.id, "characteristicTacticalSpecialTraining")}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Input id={student.id + "characteristicMilitarySpeialTraining"}
-                                                type="text"
-                                                placeholder="Оценка6"
-                                                value={student.assessment.characteristicMilitarySpeialTraining}
-                                                onChange={handleAssessmentChange(student.id, "characteristicMilitarySpeialTraining")}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Input id={student.id + "characteristicFinal"}
-                                                type="text"
-                                                placeholder="Оценка7"
-                                                value={student.assessment.characteristicFinal}
-                                                onChange={handleAssessmentChange(student.id, "characteristicFinal")}
+                                                placeholder="Методический уровень"
+                                                value={student.assessment.methodologicalLevel}
+                                                onChange={handleAssessmentChange(student.id, "methodologicalLevel")}
                                             />
                                         </td>
                                     </tr>
@@ -157,7 +141,6 @@ const Assessments = props => {
 }
 
 const mapStateToProps = state => ({
-    students: getStudentListData(state).slice(0, 10),
     troops: getTroopList(state)
 })
 

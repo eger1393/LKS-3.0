@@ -19,7 +19,7 @@ const CreateSbory = props => {
     const universityTroop = (props.troops && props.troops.filter(troop => !troop.isSboriTroop)) || [];
     const sboriTroop = props.troops && props.troops.filter(troop => troop.isSboriTroop);
     const handleChangeUniversityTroop = data => {
-        let students = studentList.filter(x => data.some(troop => x.troopId === troop.id));
+        let students = studentList.filter(x => data.some(troop => x.troopId === troop.id) && !x.sboryTroopId);
         setUniversityState({ ...universityState, studentList: students, slectedTroop: data })
     }
 
