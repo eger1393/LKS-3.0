@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataBase.Models
@@ -6,7 +7,7 @@ namespace DataBase.Models
 	public class ACRISFlight
 	{
 		[Key]
-		public string ACRISFlightID { get; set; }
+		public int ACRISFlightID { get; set; }
 
 		public AircraftType aircrafType { get; set; }
 		public Arrival arrival { get; set; }
@@ -14,12 +15,15 @@ namespace DataBase.Models
 		public CodeShares codeShares { get; set; }
 		public Departure departure { get; set; }
 		public string departureAirport { get; set; }
+		[Required]
 		public FlightNumber flightNumber { get; set; }
 		// TODO сделать строковое перечисление FlightStatus
+		[Required]
 		public string flightStatus { get; set; }
+		[Required]
 		public OperatingAirline operatingAirline { get; set; }
-		public DateTime originDate { get; set; }
-		public Via via { get; set; }
+		public DateTime? originDate { get; set; }
+		public List<Via> via { get; set; }
 
 	}
 

@@ -8,8 +8,10 @@ namespace DataBase.Models
 	public class AircraftType
 	{
 		[Key]
-		public string aircraftTypeID { get; set; }
+		public int aircraftTypeID { get; set; }
 
+		[MinLength(4)]
+		[MaxLength(4)]
 		public string icaoCode{ get; set; }
 		public string modelName{ get; set; }
 		public string registration{ get; set; }

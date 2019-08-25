@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DataBase.Models
 {
 	public class ServiceDonwload
 	{
 		[Key]
-		public string serviceDonwloadID { get; set; }
-		public string value { get; set; }
+		public int serviceDonwloadID { get; set; }
+		public string type { get; set; }
+		public string format { get; set; }
+
 	}
 }

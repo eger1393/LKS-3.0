@@ -9,7 +9,7 @@ namespace DataBase.Models
 	public class ServiceElements
 	{
 		[Key]
-		public string serviceElementsID { get; set; }
+		public int serviceElementsID { get; set; }
 		public string value { get; set; }
 	}
 }

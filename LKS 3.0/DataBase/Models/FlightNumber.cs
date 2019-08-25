@@ -8,9 +8,11 @@ namespace DataBase.Models
 	public class FlightNumber
 	{
 		[Key]
-		public string flightNumberID { get; set; }
+		public int flightNumberID { get; set; }
+		[Required]
 		public string airlineCode { get; set; }
 		public string suffix { get; set; }
+		[Required]
 		public string trackNumber { get; set; }
 	}
 }

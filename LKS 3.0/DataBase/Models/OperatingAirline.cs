@@ -8,8 +8,12 @@ namespace DataBase.Models
 	public class OperatingAirline
 	{
 		[Key]
-		public string operatingAirlineID { get; set; }
+		public int operatingAirlineID { get; set; }
+		[MaxLength(3)]
+		[MinLength(2)]
 		public string iataCode { get; set; }
+		[MaxLength(3)]
+		[MinLength(2)]
 		public string icaoCode { get; set; }
 		public string name { get; set; }
 	}

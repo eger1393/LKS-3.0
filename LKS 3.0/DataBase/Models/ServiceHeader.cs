@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class ServiceHeader
 	{
 		[Key]
-		public string serviceHeaderID { get; set; }
+		public int serviceHeaderID { get; set; }
 
 		public string bookingID { get; set; }
 		public string description { get; set; } 
@@ -20,6 +20,7 @@ namespace DataBase.Models
 		//	"javaType": "java.lang.Long",
 		//	"description": "Sequential number of the service",
 		//	"required": true
+		[Required]
 		public string serviceID { get; set; }
 	}
 }

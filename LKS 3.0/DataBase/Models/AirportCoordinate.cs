@@ -8,10 +8,12 @@ namespace DataBase.Models
 	public class AirportCoordinate
 	{
 		[Key]
-		public string airportCoordinateID { get; set; }
-		public int	elevation { get; set; }
+		public int airportCoordinateID { get; set; }
+		public int?	elevation { get; set; }
 		
+		[Required]
 		public double latitude { get; set; }
+		[Required]
 		public double lonqitude { get; set; }
 	}
 }

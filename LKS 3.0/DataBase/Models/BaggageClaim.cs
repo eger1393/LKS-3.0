@@ -8,8 +8,8 @@ namespace DataBase.Models
 	public class BaggageClaim
 	{
 		[Key]
-		public string baggageClaimID { get; set; }
+		public int baggageClaimID { get; set; }
 		public string carousel { get; set; }
-		public DateTime expectedTimeOnCarousel { get; set; }
+		public DateTime? expectedTimeOnCarousel { get; set; }
 	}
 }

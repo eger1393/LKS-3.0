@@ -8,10 +8,10 @@ namespace DataBase.Models
 	public class CheckInInfo
 	{
 		[Key]
-		public string checkInInfoID { get; set; }
+		public int checkInInfoID { get; set; }
 		public string additionalInfo { get; set; }
-		public DateTime checkInBeginTime { get; set; }
-		public DateTime checkInEndTime { get; set; }
+		public DateTime? checkInBeginTime { get; set; }
+		public DateTime? checkInEndTime { get; set; }
 		public string checkInLocation { get; set; }
 	}
 }

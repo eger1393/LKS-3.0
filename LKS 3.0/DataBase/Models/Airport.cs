@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class Airport
 	{
 		[Key]
-		public string airportID { get; set; }
+		public int airportID { get; set; }
 
 		// TODO подумать надо ли разбивать на 2 таблицы
 		public AirportImageURL airportImageURL { get; set; }
@@ -21,8 +21,9 @@ namespace DataBase.Models
 		public AirportCurrentQueueTimes currentQueueTimes { get; set; }
 		public AirportForecastQueueTimes forecastQueueTimes { get; set; }
 
-		public double geofenceRadius { get; set; }
+		public double? geofenceRadius { get; set; }
 		public string iataCode { get; set; }
+		[Required]
 		public string icaoCode { get; set; }
 		
 		public AirportPostalAddress postalAddress { get; set; }

@@ -8,10 +8,10 @@ namespace DataBase.Models
 	public class AirportForecastQueueTimes
 	{
 		[Key]
-		public string airportForecastQueueTimesID { get; set; }
+		public int airportForecastQueueTimesID { get; set; }
 
-		public int forecastConfidence { get; set; }
-		public int forecastProjectedWaitTime { get; set; }
+		public int? forecastConfidence { get; set; }
+		public int? forecastProjectedWaitTime { get; set; }
 		public string currentQueueName { get; set; }
 		public string currentTime { get; set; }
 	}

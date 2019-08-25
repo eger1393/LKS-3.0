@@ -10,43 +10,43 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20190809122734_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190825123217_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DataBase.Models.ACRISFlight", b =>
                 {
-                    b.Property<string>("ACRISFlightID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ACRISFlightID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("aircrafTypeaircraftTypeID");
+                    b.Property<int?>("aircrafTypeaircraftTypeID");
 
                     b.Property<string>("arrivalAirport");
 
-                    b.Property<string>("arrivalID");
+                    b.Property<int?>("arrivalID");
 
-                    b.Property<string>("codeSharesID");
+                    b.Property<int?>("codeSharesID");
 
                     b.Property<string>("departureAirport");
 
-                    b.Property<string>("departureID");
+                    b.Property<int?>("departureID");
 
-                    b.Property<string>("flightNumberID");
+                    b.Property<int>("flightNumberID");
 
-                    b.Property<string>("flightStatus");
+                    b.Property<string>("flightStatus")
+                        .IsRequired();
 
-                    b.Property<string>("operatingAirlineID");
+                    b.Property<int>("operatingAirlineID");
 
-                    b.Property<DateTime>("originDate");
-
-                    b.Property<string>("viaID");
+                    b.Property<DateTime?>("originDate");
 
                     b.HasKey("ACRISFlightID");
 
@@ -62,17 +62,17 @@ namespace DataBase.Migrations
 
                     b.HasIndex("operatingAirlineID");
 
-                    b.HasIndex("viaID");
-
                     b.ToTable("ACRISFlights");
                 });
 
             modelBuilder.Entity("DataBase.Models.AircraftType", b =>
                 {
-                    b.Property<string>("aircraftTypeID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("aircraftTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("icaoCode");
+                    b.Property<string>("icaoCode")
+                        .HasMaxLength(4);
 
                     b.Property<string>("modelName");
 
@@ -85,12 +85,14 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Airline", b =>
                 {
-                    b.Property<string>("airlineID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airlineID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("airlineContact1");
+                    b.Property<int?>("airlineContact1");
 
-                    b.Property<string>("airlineName");
+                    b.Property<string>("airlineName")
+                        .IsRequired();
 
                     b.Property<string>("checkIn");
 
@@ -106,7 +108,8 @@ namespace DataBase.Migrations
 
                     b.Property<string>("iataCode");
 
-                    b.Property<string>("icaoCode");
+                    b.Property<string>("icaoCode")
+                        .IsRequired();
 
                     b.Property<string>("info");
 
@@ -131,22 +134,26 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirlineContact", b =>
                 {
-                    b.Property<string>("airlineContact")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airlineContact")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("country_name");
+                    b.Property<string>("country_name")
+                        .IsRequired();
 
                     b.Property<string>("country_tag");
 
                     b.Property<string>("extended_address");
 
-                    b.Property<string>("locality");
+                    b.Property<string>("locality")
+                        .IsRequired();
 
                     b.Property<string>("post_office_box");
 
                     b.Property<string>("postal_code");
 
-                    b.Property<string>("region");
+                    b.Property<string>("region")
+                        .IsRequired();
 
                     b.Property<string>("street_address");
 
@@ -157,10 +164,11 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Airport", b =>
                 {
-                    b.Property<string>("airportID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("airportImageURLID");
+                    b.Property<int?>("airportImageURLID");
 
                     b.Property<string>("airportName");
 
@@ -168,23 +176,24 @@ namespace DataBase.Migrations
 
                     b.Property<string>("cityName");
 
-                    b.Property<string>("coordinateairportCoordinateID");
+                    b.Property<int?>("coordinateairportCoordinateID");
 
-                    b.Property<string>("countryairportCountryID");
+                    b.Property<int?>("countryairportCountryID");
 
-                    b.Property<string>("currentQueueTimesairportCurrentQueueTimesID");
+                    b.Property<int?>("currentQueueTimesairportCurrentQueueTimesID");
 
-                    b.Property<string>("forecastQueueTimesairportForecastQueueTimesID");
+                    b.Property<int?>("forecastQueueTimesairportForecastQueueTimesID");
 
-                    b.Property<double>("geofenceRadius");
+                    b.Property<double?>("geofenceRadius");
 
                     b.Property<string>("iataCode");
 
-                    b.Property<string>("icaoCode");
+                    b.Property<string>("icaoCode")
+                        .IsRequired();
 
-                    b.Property<string>("postalAddressairportPostalAddressID");
+                    b.Property<int?>("postalAddressairportPostalAddressID");
 
-                    b.Property<string>("vasitorsAddressairportVisitorsAddressID");
+                    b.Property<int?>("vasitorsAddressairportVisitorsAddressID");
 
                     b.HasKey("airportID");
 
@@ -207,10 +216,11 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportCoordinate", b =>
                 {
-                    b.Property<string>("airportCoordinateID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportCoordinateID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("elevation");
+                    b.Property<int?>("elevation");
 
                     b.Property<double>("latitude");
 
@@ -223,8 +233,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportCountry", b =>
                 {
-                    b.Property<string>("airportCountryID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportCountryID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("countryName");
 
@@ -235,14 +246,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportCurrentQueueTimes", b =>
                 {
-                    b.Property<string>("airportCurrentQueueTimesID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int?>("airportCurrentQueueTimesID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("currentProjectedMaxWaitTime");
+                    b.Property<int?>("currentProjectedMaxWaitTime");
 
-                    b.Property<int>("currentProjectedMinWaitTime");
+                    b.Property<int?>("currentProjectedMinWaitTime");
 
-                    b.Property<int>("currentProjectedWaitTime");
+                    b.Property<int?>("currentProjectedWaitTime");
 
                     b.Property<string>("currentQueueName");
 
@@ -255,16 +267,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportForecastQueueTimes", b =>
                 {
-                    b.Property<string>("airportForecastQueueTimesID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportForecastQueueTimesID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("currentQueueName");
 
                     b.Property<string>("currentTime");
 
-                    b.Property<int>("forecastConfidence");
+                    b.Property<int?>("forecastConfidence");
 
-                    b.Property<int>("forecastProjectedWaitTime");
+                    b.Property<int?>("forecastProjectedWaitTime");
 
                     b.HasKey("airportForecastQueueTimesID");
 
@@ -273,8 +286,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportImageURL", b =>
                 {
-                    b.Property<string>("airportImageURLID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportImageURLID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("high");
 
@@ -291,22 +305,26 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportPostalAddress", b =>
                 {
-                    b.Property<string>("airportPostalAddressID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportPostalAddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("country_name");
+                    b.Property<string>("country_name")
+                        .IsRequired();
 
                     b.Property<string>("country_tag");
 
                     b.Property<string>("extended_address");
 
-                    b.Property<string>("locality");
+                    b.Property<string>("locality")
+                        .IsRequired();
 
                     b.Property<string>("post_office_box");
 
                     b.Property<string>("postal_code");
 
-                    b.Property<string>("region");
+                    b.Property<string>("region")
+                        .IsRequired();
 
                     b.Property<string>("street_address");
 
@@ -317,22 +335,26 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.AirportVisitorsAddress", b =>
                 {
-                    b.Property<string>("airportVisitorsAddressID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("airportVisitorsAddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("country_name");
+                    b.Property<string>("country_name")
+                        .IsRequired();
 
                     b.Property<string>("country_tag");
 
                     b.Property<string>("extended_address");
 
-                    b.Property<string>("locality");
+                    b.Property<string>("locality")
+                        .IsRequired();
 
                     b.Property<string>("post_office_box");
 
                     b.Property<string>("postal_code");
 
-                    b.Property<string>("region");
+                    b.Property<string>("region")
+                        .IsRequired();
 
                     b.Property<string>("street_address");
 
@@ -343,14 +365,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Arrival", b =>
                 {
-                    b.Property<string>("arrivalID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("arrivalID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("actual");
+                    b.Property<DateTime?>("actual");
 
-                    b.Property<string>("baggaageClaimbaggageClaimID");
+                    b.Property<int?>("baggaageClaimbaggageClaimID");
 
-                    b.Property<DateTime>("estimated");
+                    b.Property<DateTime?>("estimated");
 
                     b.Property<string>("gate");
 
@@ -369,12 +392,13 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.BaggageClaim", b =>
                 {
-                    b.Property<string>("baggageClaimID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("baggageClaimID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("carousel");
 
-                    b.Property<DateTime>("expectedTimeOnCarousel");
+                    b.Property<DateTime?>("expectedTimeOnCarousel");
 
                     b.HasKey("baggageClaimID");
 
@@ -383,24 +407,30 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.BoardingTime", b =>
                 {
-                    b.Property<string>("boardingTimeID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("boardingTimeID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("bookingClass");
 
-                    b.Property<DateTime>("time");
+                    b.Property<int?>("departureID");
+
+                    b.Property<DateTime?>("time");
 
                     b.HasKey("boardingTimeID");
+
+                    b.HasIndex("departureID");
 
                     b.ToTable("BoardingTimes");
                 });
 
             modelBuilder.Entity("DataBase.Models.BookService", b =>
                 {
-                    b.Property<string>("bookServiceID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("bookServiceID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("serviceHeaderID");
+                    b.Property<int?>("serviceHeaderID");
 
                     b.HasKey("bookServiceID");
 
@@ -411,14 +441,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.CheckInInfo", b =>
                 {
-                    b.Property<string>("checkInInfoID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("checkInInfoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("additionalInfo");
 
-                    b.Property<DateTime>("checkInBeginTime");
+                    b.Property<DateTime?>("checkInBeginTime");
 
-                    b.Property<DateTime>("checkInEndTime");
+                    b.Property<DateTime?>("checkInEndTime");
 
                     b.Property<string>("checkInLocation");
 
@@ -429,14 +460,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.CodeShares", b =>
                 {
-                    b.Property<string>("codeSharesID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("codeSharesID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("airlineCode");
+                    b.Property<string>("airlineCode")
+                        .IsRequired();
 
                     b.Property<string>("suffix");
 
-                    b.Property<string>("trackNumber");
+                    b.Property<string>("trackNumber")
+                        .IsRequired();
 
                     b.HasKey("codeSharesID");
 
@@ -445,16 +479,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Departure", b =>
                 {
-                    b.Property<string>("departureID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("departureID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("actual");
+                    b.Property<DateTime?>("actual");
 
-                    b.Property<string>("boardingTimeID");
+                    b.Property<int?>("checkInInfoID");
 
-                    b.Property<string>("checkInInfoID");
-
-                    b.Property<DateTime>("estimated");
+                    b.Property<DateTime?>("estimated");
 
                     b.Property<string>("gate");
 
@@ -464,8 +497,6 @@ namespace DataBase.Migrations
 
                     b.HasKey("departureID");
 
-                    b.HasIndex("boardingTimeID");
-
                     b.HasIndex("checkInInfoID");
 
                     b.ToTable("Departures");
@@ -473,14 +504,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.FlightNumber", b =>
                 {
-                    b.Property<string>("flightNumberID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("flightNumberID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("airlineCode");
+                    b.Property<string>("airlineCode")
+                        .IsRequired();
 
                     b.Property<string>("suffix");
 
-                    b.Property<string>("trackNumber");
+                    b.Property<string>("trackNumber")
+                        .IsRequired();
 
                     b.HasKey("flightNumberID");
 
@@ -489,8 +523,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Image", b =>
                 {
-                    b.Property<string>("imageID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("imageID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("high");
 
@@ -507,8 +542,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Logo", b =>
                 {
-                    b.Property<string>("logoID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("logoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("logo_high");
 
@@ -525,14 +561,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.OpeningHour", b =>
                 {
-                    b.Property<string>("openingHourID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("openingHourID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("column1");
+                    b.Property<string>("column1")
+                        .IsRequired();
 
-                    b.Property<string>("column2");
+                    b.Property<string>("column2")
+                        .IsRequired();
 
-                    b.Property<string>("serviceLocationsID");
+                    b.Property<int?>("serviceLocationsID");
 
                     b.HasKey("openingHourID");
 
@@ -543,12 +582,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.OperatingAirline", b =>
                 {
-                    b.Property<string>("operatingAirlineID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("operatingAirlineID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("iataCode");
+                    b.Property<string>("iataCode")
+                        .HasMaxLength(3);
 
-                    b.Property<string>("icaoCode");
+                    b.Property<string>("icaoCode")
+                        .HasMaxLength(3);
 
                     b.Property<string>("name");
 
@@ -559,18 +601,20 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Provider", b =>
                 {
-                    b.Property<string>("providerID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("providerID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("contactproviderContactID");
+                    b.Property<int?>("contactproviderContactID");
 
                     b.Property<string>("email");
 
                     b.Property<string>("fax");
 
-                    b.Property<string>("logoID");
+                    b.Property<int?>("logoID");
 
-                    b.Property<string>("name");
+                    b.Property<string>("name")
+                        .IsRequired();
 
                     b.Property<string>("phone");
 
@@ -587,22 +631,26 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ProviderContact", b =>
                 {
-                    b.Property<string>("providerContactID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("providerContactID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("country_name");
+                    b.Property<string>("country_name")
+                        .IsRequired();
 
                     b.Property<string>("country_tag");
 
                     b.Property<string>("extended_address");
 
-                    b.Property<string>("locality");
+                    b.Property<string>("locality")
+                        .IsRequired();
 
                     b.Property<string>("post_office_box");
 
                     b.Property<string>("postal_code");
 
-                    b.Property<string>("region");
+                    b.Property<string>("region")
+                        .IsRequired();
 
                     b.Property<string>("street_address");
 
@@ -613,30 +661,30 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Service", b =>
                 {
-                    b.Property<string>("serviceID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("serviceProviderproviderID");
-
-                    b.Property<string>("specialsID");
+                    b.Property<int?>("serviceProviderproviderID");
 
                     b.HasKey("serviceID");
 
                     b.HasIndex("serviceProviderproviderID");
-
-                    b.HasIndex("specialsID");
 
                     b.ToTable("Services");
                 });
 
             modelBuilder.Entity("DataBase.Models.ServiceDonwload", b =>
                 {
-                    b.Property<string>("serviceDonwloadID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceDonwloadID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("serviceID");
+                    b.Property<string>("format");
 
-                    b.Property<string>("value");
+                    b.Property<int?>("serviceID");
+
+                    b.Property<string>("type");
 
                     b.HasKey("serviceDonwloadID");
 
@@ -647,8 +695,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ServiceElements", b =>
                 {
-                    b.Property<string>("serviceElementsID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceElementsID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("value");
 
@@ -659,8 +708,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ServiceHeader", b =>
                 {
-                    b.Property<string>("serviceHeaderID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceHeaderID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("bookingID");
 
@@ -668,7 +718,8 @@ namespace DataBase.Migrations
 
                     b.Property<string>("extBookingID");
 
-                    b.Property<string>("serviceID");
+                    b.Property<string>("serviceID")
+                        .IsRequired();
 
                     b.HasKey("serviceHeaderID");
 
@@ -677,8 +728,9 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ServiceItem", b =>
                 {
-                    b.Property<string>("serviceItemID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceItemID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("description");
 
@@ -688,7 +740,8 @@ namespace DataBase.Migrations
 
                     b.Property<string>("subTitle");
 
-                    b.Property<string>("title");
+                    b.Property<string>("title")
+                        .IsRequired();
 
                     b.HasKey("serviceItemID");
 
@@ -697,16 +750,19 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ServiceLocations", b =>
                 {
-                    b.Property<string>("serviceLocationsID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("serviceLocationsID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("area");
+                    b.Property<string>("area")
+                        .IsRequired();
 
                     b.Property<string>("description");
 
-                    b.Property<string>("humanReadable");
+                    b.Property<string>("humanReadable")
+                        .IsRequired();
 
-                    b.Property<string>("mapImageimageID");
+                    b.Property<int?>("mapImageimageID");
 
                     b.Property<int>("x");
 
@@ -723,44 +779,53 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Specials", b =>
                 {
-                    b.Property<string>("specialsID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("specialsID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("begin");
+                    b.Property<DateTime?>("begin");
 
                     b.Property<string>("coupon");
 
                     b.Property<string>("description");
 
-                    b.Property<DateTime>("end");
+                    b.Property<DateTime?>("end");
 
-                    b.Property<string>("imageID");
+                    b.Property<int?>("imageID");
 
-                    b.Property<string>("name");
+                    b.Property<string>("name")
+                        .IsRequired();
 
                     b.Property<int>("numberOfAvailable");
+
+                    b.Property<int?>("serviceID");
 
                     b.HasKey("specialsID");
 
                     b.HasIndex("imageID");
+
+                    b.HasIndex("serviceID");
 
                     b.ToTable("Specials");
                 });
 
             modelBuilder.Entity("DataBase.Models.Trip", b =>
                 {
-                    b.Property<string>("tripID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("tripID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("endDate");
 
                     b.Property<string>("flights");
 
-                    b.Property<string>("name");
+                    b.Property<string>("name")
+                        .IsRequired();
 
-                    b.Property<string>("role");
+                    b.Property<string>("role")
+                        .IsRequired();
 
-                    b.Property<string>("servicestripServicesID");
+                    b.Property<int?>("servicestripServicesID");
 
                     b.Property<DateTime>("startDate");
 
@@ -773,14 +838,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.TripServices", b =>
                 {
-                    b.Property<string>("tripServicesID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("tripServicesID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("bookingID");
 
-                    b.Property<string>("serviceID");
+                    b.Property<string>("serviceID")
+                        .IsRequired();
 
-                    b.Property<string>("source");
+                    b.Property<string>("source")
+                        .IsRequired();
 
                     b.HasKey("tripServicesID");
 
@@ -789,16 +857,21 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Via", b =>
                 {
-                    b.Property<string>("viaID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("arrivalviaArrivalID");
+                    b.Property<int?>("ACRISFlightID");
 
-                    b.Property<string>("departureviaDepartureID");
+                    b.Property<int?>("arrivalviaArrivalID");
+
+                    b.Property<int?>("departureviaDepartureID");
 
                     b.Property<string>("viaAirport");
 
                     b.HasKey("viaID");
+
+                    b.HasIndex("ACRISFlightID");
 
                     b.HasIndex("arrivalviaArrivalID");
 
@@ -809,14 +882,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ViaArrival", b =>
                 {
-                    b.Property<string>("viaArrivalID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaArrivalID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("actual");
+                    b.Property<DateTime?>("actual");
 
-                    b.Property<string>("baggaageClaimviaBaggageClaimID");
+                    b.Property<int?>("baggaageClaimviaBaggageClaimID");
 
-                    b.Property<DateTime>("estimated");
+                    b.Property<DateTime?>("estimated");
 
                     b.Property<string>("gate");
 
@@ -835,12 +909,13 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ViaBaggageClaim", b =>
                 {
-                    b.Property<string>("viaBaggageClaimID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaBaggageClaimID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("carousel");
 
-                    b.Property<DateTime>("expectedTimeOnCarousel");
+                    b.Property<DateTime?>("expectedTimeOnCarousel");
 
                     b.HasKey("viaBaggageClaimID");
 
@@ -849,12 +924,13 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ViaBoardingTime", b =>
                 {
-                    b.Property<string>("viaBoardingTimeID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaBoardingTimeID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("bookingClass");
 
-                    b.Property<DateTime>("time");
+                    b.Property<DateTime?>("time");
 
                     b.HasKey("viaBoardingTimeID");
 
@@ -863,14 +939,15 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ViaCheckInInfo", b =>
                 {
-                    b.Property<string>("viaCheckInInfoID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaCheckInInfoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("additionalInfo");
 
-                    b.Property<DateTime>("checkInBeginTime");
+                    b.Property<DateTime?>("checkInBeginTime");
 
-                    b.Property<DateTime>("checkInEndTime");
+                    b.Property<DateTime?>("checkInEndTime");
 
                     b.Property<string>("checkInLocation");
 
@@ -881,16 +958,17 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.ViaDeparture", b =>
                 {
-                    b.Property<string>("viaDepartureID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("viaDepartureID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("actual");
+                    b.Property<DateTime?>("actual");
 
-                    b.Property<string>("boardingTimeviaBoardingTimeID");
+                    b.Property<int?>("boardingTimeviaBoardingTimeID");
 
-                    b.Property<string>("checkInInfoviaCheckInInfoID");
+                    b.Property<int?>("checkInInfoviaCheckInInfoID");
 
-                    b.Property<DateTime>("estimated");
+                    b.Property<DateTime?>("estimated");
 
                     b.Property<string>("gate");
 
@@ -927,15 +1005,13 @@ namespace DataBase.Migrations
 
                     b.HasOne("DataBase.Models.FlightNumber", "flightNumber")
                         .WithMany()
-                        .HasForeignKey("flightNumberID");
+                        .HasForeignKey("flightNumberID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DataBase.Models.OperatingAirline", "operatingAirline")
                         .WithMany()
-                        .HasForeignKey("operatingAirlineID");
-
-                    b.HasOne("DataBase.Models.Via", "via")
-                        .WithMany()
-                        .HasForeignKey("viaID");
+                        .HasForeignKey("operatingAirlineID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataBase.Models.Airline", b =>
@@ -983,6 +1059,13 @@ namespace DataBase.Migrations
                         .HasForeignKey("baggaageClaimbaggageClaimID");
                 });
 
+            modelBuilder.Entity("DataBase.Models.BoardingTime", b =>
+                {
+                    b.HasOne("DataBase.Models.Departure")
+                        .WithMany("boardingTime")
+                        .HasForeignKey("departureID");
+                });
+
             modelBuilder.Entity("DataBase.Models.BookService", b =>
                 {
                     b.HasOne("DataBase.Models.ServiceHeader", "serviceHeader")
@@ -992,10 +1075,6 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Departure", b =>
                 {
-                    b.HasOne("DataBase.Models.BoardingTime", "boardingTime")
-                        .WithMany()
-                        .HasForeignKey("boardingTimeID");
-
                     b.HasOne("DataBase.Models.CheckInInfo", "checkInInfo")
                         .WithMany()
                         .HasForeignKey("checkInInfoID");
@@ -1004,7 +1083,7 @@ namespace DataBase.Migrations
             modelBuilder.Entity("DataBase.Models.OpeningHour", b =>
                 {
                     b.HasOne("DataBase.Models.ServiceLocations")
-                        .WithMany("openingHource")
+                        .WithMany("openingHours")
                         .HasForeignKey("serviceLocationsID");
                 });
 
@@ -1024,10 +1103,6 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.Provider", "serviceProvider")
                         .WithMany()
                         .HasForeignKey("serviceProviderproviderID");
-
-                    b.HasOne("DataBase.Models.Specials", "specials")
-                        .WithMany()
-                        .HasForeignKey("specialsID");
                 });
 
             modelBuilder.Entity("DataBase.Models.ServiceDonwload", b =>
@@ -1049,6 +1124,10 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.Image", "image")
                         .WithMany()
                         .HasForeignKey("imageID");
+
+                    b.HasOne("DataBase.Models.Service")
+                        .WithMany("specials")
+                        .HasForeignKey("serviceID");
                 });
 
             modelBuilder.Entity("DataBase.Models.Trip", b =>
@@ -1060,6 +1139,10 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Via", b =>
                 {
+                    b.HasOne("DataBase.Models.ACRISFlight")
+                        .WithMany("via")
+                        .HasForeignKey("ACRISFlightID");
+
                     b.HasOne("DataBase.Models.ViaArrival", "arrival")
                         .WithMany()
                         .HasForeignKey("arrivalviaArrivalID");

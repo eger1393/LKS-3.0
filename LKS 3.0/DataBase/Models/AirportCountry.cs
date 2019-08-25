@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class AirportCountry
 	{
 		[Key]
-		public string airportCountryID { get; set; }
+		public int airportCountryID { get; set; }
 		public string countryName { get; set; }
 
 	}

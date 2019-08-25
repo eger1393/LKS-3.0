@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class AirportImageURL
 	{
 		[Key]
-		public string airportImageURLID { get; set; }
+		public int airportImageURLID { get; set; }
 
 		public string high { get; set; }
 		public string low { get; set; }

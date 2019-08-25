@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class Image
 	{
 		[Key]
-		public string imageID { get; set; }
+		public int imageID { get; set; }
 
 		public string high { get; set; }
 		public string low { get; set; }

@@ -9,9 +9,11 @@ namespace DataBase.Models
 	public class TripServices
 	{
 		[Key]
-		public string tripServicesID { get; set; }
+		public int tripServicesID { get; set; }
 		public string bookingID { get; set; }
+		[Required]
 		public string serviceID { get; set; }
+		[Required]
 		public string source { get; set; }
 	}
 }

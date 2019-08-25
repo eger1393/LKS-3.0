@@ -9,6 +9,11 @@ namespace DataBase
 		{
 		}
 
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.Entity<ACRISFlight>().HasMany(x => x.via);
+		}
+
 		#region Properties
 		public DbSet<ACRISFlight> ACRISFlights { get; set; }
 		public DbSet<AircraftType> AircraftTypes { get; set; }

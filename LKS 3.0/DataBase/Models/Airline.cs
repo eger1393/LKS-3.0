@@ -5,10 +5,12 @@ using System.Text;
 
 namespace DataBase.Models
 {
+	// TODO Уточнить, модель на картинке больше чем моель на схеме в гите
 	public class Airline
 	{
 		[Key]
-		public string airlineID { get; set; }
+		public int airlineID { get; set; }
+		[Required]
 		public string airlineName { get; set; }
 		public string checkIn { get; set; }
 		public string checkInTime { get; set; }
@@ -18,6 +20,7 @@ namespace DataBase.Models
 		public string flightNumberCode { get; set; }
 		public string handlingAgent { get; set; }
 		public string iataCode { get; set; }
+		[Required]
 		public string icaoCode { get; set; }
 		public string info { get; set; }
 		public string lateNightArea { get; set; }

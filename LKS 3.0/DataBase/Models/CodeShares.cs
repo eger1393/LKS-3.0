@@ -8,9 +8,11 @@ namespace DataBase.Models
 	public class CodeShares
 	{
 		[Key]
-		public string codeSharesID { get; set; }
+		public int codeSharesID { get; set; }
+		[Required]
 		public string airlineCode { get; set; }
 		public string suffix { get; set; }
+		[Required]
 		public string trackNumber { get; set; }
 	}
 }

@@ -8,7 +8,7 @@ namespace DataBase.Models
 	public class Provider
 	{
 		[Key]
-		public string providerID { get; set; }
+		public int providerID { get; set; }
 
 		public ProviderContact contact { get; set; }
 
@@ -17,6 +17,7 @@ namespace DataBase.Models
 
 		public Logo logo { get; set; }
 
+		[Required]
 		public string name { get; set; }
 		public string phone { get; set; }
 		public string website { get; set; }
