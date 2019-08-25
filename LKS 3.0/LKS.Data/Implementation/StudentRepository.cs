@@ -18,41 +18,17 @@ namespace LKS.Data.Implementation
         {
             _context = context;
         }
+
         public async Task Create(Student item)
         {
             await _context.Students.AddAsync(item);
-            await _context.Relatives.AddRangeAsync(item.Relatives);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateStudent(Student student, List<Relative> relatives)
+        public async Task Update(Student item)
         {
-            if (string.IsNullOrEmpty(student.Id))
-            {
-                _context.Students.Add(student);
-                if (relatives != null)
-                {
-                    foreach (var item in relatives)
-                    {
-                        item.StudentId = student.Id;
-                    }
-                    _context.Relatives.AddRange(relatives);
-                }
-
-            }
-            else
-            {
-                _context.Students.Update(student);
-                if (relatives != null)
-                {
-                    foreach (var item in relatives)
-                    {
-                        item.StudentId = student.Id;
-                    }
-                    _context.Relatives.UpdateRange(relatives);
-                }
-            }
-            _context.SaveChanges();
+            _context.Students.Update(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task CreateRange(ICollection<Student> item)
@@ -185,16 +161,7 @@ namespace LKS.Data.Implementation
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Student item)
-        {
-            //foreach (var i in item.Relatives)
-            //{
-            //    _context.Relatives.Update(i);
-            //}
-            //_context.Students.Update(item);
-
-            //await _context.SaveChangesAsync();
-        }
+        
 
         public async Task UpdateSboryTroopId(List<Student> students)
         {
@@ -360,7 +327,7 @@ namespace LKS.Data.Implementation
             return _context.Students.Where(x => x.SboryTroopId == troopId).Include(x => x.Assessment).ToList();
         }
 
-        public void SaveAssessmetns(List<Student> students)
+        public void SaveAssessments(List<Student> students)
         {
             foreach (var student in students)
             {

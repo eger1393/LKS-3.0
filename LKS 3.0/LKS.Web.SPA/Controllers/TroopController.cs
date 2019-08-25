@@ -64,6 +64,7 @@ namespace LKS.Web.Controllers
 				res.PrepodId
 			});
 		}
+        [AllowAnonymous]
         [HttpPost("[action]")]
 		public async Task<IActionResult> GetTroopList()
 		{

@@ -120,7 +120,7 @@ namespace LKS.Web.Controllers
 		[HttpPost("[action]")]
 		public async Task<IActionResult> SaveAssessments([FromBody] List<Student> students)
 		{
-			_studentRepository.SaveAssessmetns(students);
+			_studentRepository.SaveAssessments(students);
 			return Ok();
 		}
 

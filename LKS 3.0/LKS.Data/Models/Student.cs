@@ -12,8 +12,9 @@ namespace LKS.Data.Models
             //подумать где это должно быть
             WhoseOrder = "МО РФ";
             VO = "МВО";
-            Fighting = "не участвовал";
+            Fighting = "Годен";
             Collness = "Курсант";
+            Relatives = new List<Relative>();
         }
 
         public string Initials =>
@@ -27,7 +28,7 @@ namespace LKS.Data.Models
         /// </summary>
         public virtual List<Relative> Relatives { get; set; }
 
-
+        [ForeignKey(nameof(Troop))]
         public string TroopId { get; set; }
         /// <summary>
         /// Взвод

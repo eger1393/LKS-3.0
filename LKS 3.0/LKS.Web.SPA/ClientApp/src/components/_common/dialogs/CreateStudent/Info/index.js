@@ -2,9 +2,9 @@
 import PropTypes from 'prop-types'
 import Input from '../../../elements/Input'
 import Select from '../../../elements/Select'
-import Autocomplete from '../../../elements/Autocomplete'
+import CreatableSelect from 'react-select/creatable'
 import { connect } from 'react-redux'
-import { FlexBox, FlexRow, ModalContainer } from '../../../elements/StyleDialogs/styled'
+import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 import { apiGetInstGroupList, apiGetRectalList, apiGetSpecInstList } from '../../../../../api/addStudent'
 import { fetchSetValueForStudent } from '../../../../../redux/modules/addStudent'
 import { getAddStudentFieldsValue, getAddStudentErrorValues } from '../../../../../selectors/addStudent'
@@ -17,41 +17,32 @@ class Info extends React.Component {
         troops: [],
         instGroup: [],
         specInst: [],
-        rectals: [],
+        rectal: [],
     }
     changeSelect = event => {
-        console.log(event)
-
         var name = event.target.name ? event.target.name : event.target.id,
-            val = event.target.value;
-
-        //добавить валидацию 
+        val = event.target.value;
         var error = false;
         var tab = "infoTab";
         this.props.fetchSetValueForStudent({ name, val, error, tab });
     }
 
-
-
-    componentWillMount() {
-        if (this.isUnmounted) {
-            return;
-        }
-        var self = this;
-        apiGetInstGroupList().then(res =>
-            self.setState({ instGroup: res })
-        );
-        apiGetSpecInstList().then(res =>
-            self.setState({ specInst: res })
-        );
-        apiGetRectalList().then(res =>
-            self.setState({ rectals: res })
-        );
-        apiGetTroopList().then(res => self.setState({ troops: res }));
+    changeCreatableSelect = (id) => (value) =>
+    {
+        this.changeSelect({target: {id: id, value: value.label,}});
     }
 
-    componentWillUnmount() {
-        this.isUnmounted = true;
+    createNewOption = (id) => (value) =>
+    {
+        this.setState({...this.state, [id] : [...this.state[id], { label: value }]})
+        this.changeSelect({target: {id: id, value: value,}});
+    }
+    
+    componentDidMount() {
+        apiGetInstGroupList().then(res => this.setState({ instGroup: res }));
+        apiGetSpecInstList().then(res => this.setState({ specInst: res }));
+        apiGetRectalList().then(res => this.setState({ rectal: res }));
+        apiGetTroopList().then(res => this.setState({ troops: res }));
     }
 
     render() {
@@ -131,15 +122,14 @@ class Info extends React.Component {
                             placeholder="Должность"
                             onChange={this.changeSelect}
                         />
-
-                        {
-                            this.state.instGroup.length != 0 && (
-                                <Autocomplete id="instGroup"
-                                    data={this.state.instGroup}
-                                    onChange={this.changeSelect}
-                                    placeholder="Группа"
-                                    value={this.props.fieldsValue.instGroup}
-                                />)}
+                        <CreatableSelect id="instGroup" className="custom-style"
+                            options={this.state.instGroup}
+                            onChange={this.changeCreatableSelect("instGroup")}
+                            onCreateOption={this.createNewOption("instGroup")}
+                            placeholder="Группа"
+                            classNamePrefix="screatable-select"
+                            value={this.props.fieldsValue.instGroup ? { label: this.props.fieldsValue.instGroup } : null}
+                        />
                     </FlexRow>
                     <FlexRow>
                         <div>
@@ -174,14 +164,14 @@ class Info extends React.Component {
                         </div>
                     </FlexRow>
                     <FlexRow>
-                        {
-                            this.state.specInst.length != 0 && (
-                                <Autocomplete id="specInst"
-                                    data={this.state.specInst}
-                                    onChange={this.changeSelect}
-                                    placeholder="Специальность в ВУЗе"
-                                    value={this.props.fieldsValue.specInst}
-                                />)}
+                            
+                        <CreatableSelect id="specInst" className="custom-style"
+                            options={this.state.specInst}
+                            onChange={this.changeCreatableSelect("specInst")}
+                            onCreateOption={this.createNewOption("specInst")}
+                            placeholder="Специальность в ВУЗе"
+                            value={ this.props.fieldsValue.specInst ? { label :this.props.fieldsValue.specInst} : null }
+                        />
                         <Select id="conditionsOfEducation"
                             data={conditionsOfEducation}
                             value="id"
@@ -244,15 +234,14 @@ class Info extends React.Component {
                             value={this.props.fieldsValue['dateOfOrder']}
                             onChange={this.changeSelect}
                         />
-                        {
-                            this.state.rectals.length != 0 &&
-                            (<Autocomplete id="rectal"
-                                data={this.state.rectals}
-                                onChange={this.changeSelect}
-                                placeholder="Военкомат"
-                                value={this.props.fieldsValue.rectal}
-                            />)}
-                    </FlexRow>
+                        <CreatableSelect id="rectal" className="custom-style"
+                            options={this.state.rectal}
+                            onChange={this.changeCreatableSelect("rectal")}
+                            onCreateOption={this.createNewOption("rectal")}
+                            placeholder="Военкомат"
+                            value={this.props.fieldsValue.rectal ? { label : this.props.fieldsValue.rectal} : null}
+                        />
+                        </FlexRow>
                     <FlexRow>
                         <Select id="military"
                             data={military}

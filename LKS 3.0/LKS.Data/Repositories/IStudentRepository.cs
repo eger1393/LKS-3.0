@@ -10,9 +10,7 @@ namespace LKS.Data.Repositories
 	public interface IStudentRepository : IRepository<Student>
 	{
 		List<Student> GetStudents(Dictionary<string, string> filters, string selectTroop);
-		List<Student> GetStudents(List<string> ids);
-		void UpdateStudent(Student student, List<Relative> relatives);
-
+		List<Student> GetStudents(List<string> id);
 		Student GetStudent(string id);
         List<Student> GetTrainStudents();
 		List<Student> GetForDeductionsStudents();
@@ -25,7 +23,7 @@ namespace LKS.Data.Repositories
         List<string> GetLanguagesList();
 		Task UpdateSboryTroopId(List<Student> students);
 		List<Student> GetSboryStudentWithAssessments(string troopId);
-		void SaveAssessmetns(List<Student> students);
+		void SaveAssessments(List<Student> students);
 
 
 	}
