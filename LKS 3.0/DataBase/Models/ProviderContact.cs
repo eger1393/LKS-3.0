@@ -12,15 +12,22 @@ namespace DataBase.Models
 		public int providerContactID { get; set; }
 
 		[Required]
-		public string country_name {get; set;}
-		public string country_tag { get; set; }
-		public string extended_address { get; set; }
+        [MaxLength(255)]
+        public string country_name {get; set; }
+        [MaxLength(100)]
+        public string country_tag { get; set; }
+        public string extended_address { get; set; }
 		[Required]
-		public string locality { get; set; }
-		public string post_office_box { get; set; }
-		public string postal_code { get; set; }
+        [MaxLength(255)]
+        public string locality { get; set; }
+        [MaxLength(50)]
+        public string post_office_box { get; set; }
+        [MaxLength(50)]
+        public string postal_code { get; set; }
 		[Required]
-		public string region { get; set; }
-		public string street_address { get; set; }
+        [MaxLength(255)]
+        public string region { get; set; }
+        [MaxLength(255)]
+        public string street_address { get; set; }
 	}
 }

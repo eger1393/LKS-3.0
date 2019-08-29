@@ -12,8 +12,10 @@ namespace DataBase.Models
 
 		// TODO подумать надо ли разбивать на 2 таблицы
 		public AirportImageURL airportImageURL { get; set; }
-		public string airportName { get; set; }
-		public string cityName { get; set; }
+        [MaxLength(255)]
+        public string airportName { get; set; }
+        [MaxLength(255)]
+        public string cityName { get; set; }
 		
 		public AirportCoordinate coordinate { get; set; }
 		public AirportCountry country { get; set; }
@@ -22,12 +24,15 @@ namespace DataBase.Models
 		public AirportForecastQueueTimes forecastQueueTimes { get; set; }
 
 		public double? geofenceRadius { get; set; }
-		public string iataCode { get; set; }
+        [MaxLength(10)]
+        public string iataCode { get; set; }
 		[Required]
-		public string icaoCode { get; set; }
+        [MaxLength(10)]
+        public string icaoCode { get; set; }
 		
 		public AirportPostalAddress postalAddress { get; set; }
-		public string bmezone { get; set; }
+        [MaxLength(50)]
+        public string bmezone { get; set; }
 		
 		public AirportVisitorsAddress vasitorsAddress { get; set; }
 

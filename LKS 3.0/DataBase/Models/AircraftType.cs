@@ -10,10 +10,11 @@ namespace DataBase.Models
 		[Key]
 		public int aircraftTypeID { get; set; }
 
-		[MinLength(4)]
-		[MaxLength(4)]
+		[MaxLength(10)]
 		public string icaoCode{ get; set; }
-		public string modelName{ get; set; }
-		public string registration{ get; set; }
+        [MaxLength(255)]
+        public string modelName{ get; set; }
+        [MaxLength(50)]
+        public string registration{ get; set; }
 	}
 }

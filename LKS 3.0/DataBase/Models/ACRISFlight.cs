@@ -11,15 +11,18 @@ namespace DataBase.Models
 
 		public AircraftType aircrafType { get; set; }
 		public Arrival arrival { get; set; }
-		public string arrivalAirport { get; set; }
+        [MaxLength(255)]
+        public string arrivalAirport { get; set; }
 		public CodeShares codeShares { get; set; }
 		public Departure departure { get; set; }
-		public string departureAirport { get; set; }
+        [MaxLength(255)]
+        public string departureAirport { get; set; }
 		[Required]
 		public FlightNumber flightNumber { get; set; }
 		// TODO сделать строковое перечисление FlightStatus
 		[Required]
-		public string flightStatus { get; set; }
+        [MaxLength(100)]
+        public string flightStatus { get; set; }
 		[Required]
 		public OperatingAirline operatingAirline { get; set; }
 		public DateTime? originDate { get; set; }

@@ -12,10 +12,12 @@ namespace DataBase.Models
 		public DateTime? actual { get; set; }
 		public BaggageClaim baggaageClaim { get; set; }
 		public DateTime? estimated { get; set; }
-		public string gate { get; set; }
+        [MaxLength(10)]
+        public string gate { get; set; }
 		[Required]
 		public DateTime scheduled { get; set; }
-		public string termnal { get; set; }
+        [MaxLength(10)]
+        public string termnal { get; set; }
 		public string transferInformation { get; set; }
 
 	}

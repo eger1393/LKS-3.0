@@ -6,8 +6,10 @@ namespace DataBase.Models
 	{
 		[Key]
 		public int serviceDonwloadID { get; set; }
-		public string type { get; set; }
-		public string format { get; set; }
+        [MaxLength(255)]
+        public string type { get; set; }
+        [MaxLength(255)]
+        public string format { get; set; }
 
 	}
 }

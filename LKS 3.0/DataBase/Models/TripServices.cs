@@ -14,6 +14,7 @@ namespace DataBase.Models
 		[Required]
 		public string serviceID { get; set; }
 		[Required]
-		public string source { get; set; }
+        [MaxLength(255)]
+        public string source { get; set; }
 	}
 }

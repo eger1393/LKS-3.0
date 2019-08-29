@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBase.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20190825123217_init")]
+    [Migration("20190829151802_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("airlineContact1");
+                    b.Property<int?>("airlineContactId");
 
                     b.Property<string>("airlineName")
                         .IsRequired();
@@ -127,14 +127,14 @@ namespace DataBase.Migrations
 
                     b.HasKey("airlineID");
 
-                    b.HasIndex("airlineContact1");
+                    b.HasIndex("airlineContactId");
 
                     b.ToTable("Airlines");
                 });
 
             modelBuilder.Entity("DataBase.Models.AirlineContact", b =>
                 {
-                    b.Property<int>("airlineContact")
+                    b.Property<int>("airlineContactId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -157,7 +157,7 @@ namespace DataBase.Migrations
 
                     b.Property<string>("street_address");
 
-                    b.HasKey("airlineContact");
+                    b.HasKey("airlineContactId");
 
                     b.ToTable("AirlineContacts");
                 });
@@ -1018,7 +1018,7 @@ namespace DataBase.Migrations
                 {
                     b.HasOne("DataBase.Models.AirlineContact", "airlineContact")
                         .WithMany()
-                        .HasForeignKey("airlineContact1");
+                        .HasForeignKey("airlineContactId");
                 });
 
             modelBuilder.Entity("DataBase.Models.Airport", b =>

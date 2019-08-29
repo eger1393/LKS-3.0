@@ -10,6 +10,7 @@ namespace DataBase.Models
 	{
 		[Key]
 		public int serviceElementsID { get; set; }
-		public string value { get; set; }
+        [MaxLength(255)]
+        public string value { get; set; }
 	}
 }

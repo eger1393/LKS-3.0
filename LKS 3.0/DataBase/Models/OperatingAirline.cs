@@ -9,12 +9,11 @@ namespace DataBase.Models
 	{
 		[Key]
 		public int operatingAirlineID { get; set; }
-		[MaxLength(3)]
-		[MinLength(2)]
+		[MaxLength(10)]
 		public string iataCode { get; set; }
-		[MaxLength(3)]
-		[MinLength(2)]
+		[MaxLength(10)]
 		public string icaoCode { get; set; }
-		public string name { get; set; }
+        [MaxLength(255)]
+        public string name { get; set; }
 	}
 }

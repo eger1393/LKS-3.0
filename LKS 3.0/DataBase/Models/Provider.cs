@@ -12,14 +12,19 @@ namespace DataBase.Models
 
 		public ProviderContact contact { get; set; }
 
-		public string email { get; set; }
-		public string fax { get; set; }
+        [MaxLength(100)]
+        public string email { get; set; }
+        [MaxLength(100)]
+        public string fax { get; set; }
 
 		public Logo logo { get; set; }
 
 		[Required]
-		public string name { get; set; }
-		public string phone { get; set; }
-		public string website { get; set; }
+        [MaxLength(255)]
+        public string name { get; set; }
+        [MaxLength(50)]
+        public string phone { get; set; }
+        [MaxLength(100)]
+        public string website { get; set; }
 	}
 }

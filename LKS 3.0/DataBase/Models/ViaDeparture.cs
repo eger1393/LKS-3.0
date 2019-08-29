@@ -11,10 +11,12 @@ namespace DataBase.Models
 		public ViaBoardingTime boardingTime { get; set; }
 		public ViaCheckInInfo checkInInfo { get; set; }
 		public DateTime? estimated { get; set; }
-		public string gate { get; set; }
+        [MaxLength(10)]
+        public string gate { get; set; }
 		[Required]
 		public DateTime scheduled { get; set; }
-		public string terminal { get; set; }
+        [MaxLength(10)]
+        public string terminal { get; set; }
 
 	}
 }

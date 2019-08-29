@@ -9,7 +9,8 @@ namespace DataBase.Models
 	{
 		[Key]
 		public int airportCountryID { get; set; }
-		public string countryName { get; set; }
+        [MaxLength(255)]
+        public string countryName { get; set; }
 
 	}
 }

@@ -10,10 +10,14 @@ namespace DataBase.Models
 		[Key]
 		public int logoID { get; set; }
 
-		public string logo_high { get; set; }
-		public string logo_low { get; set; }
-		public string logo_medium { get; set; }
-		public string logo_native { get; set; }
+        [MaxLength(20)]
+        public string logo_high { get; set; }
+        [MaxLength(20)]
+        public string logo_low { get; set; }
+        [MaxLength(20)]
+        public string logo_medium { get; set; }
+        [MaxLength(20)]
+        public string logo_native { get; set; }
 
 	}
 }

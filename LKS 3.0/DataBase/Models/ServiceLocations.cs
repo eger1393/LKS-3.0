@@ -11,10 +11,12 @@ namespace DataBase.Models
 		public int serviceLocationsID { get; set; }
 
 		[Required]
-		public string area { get; set; }
+        [MaxLength(255)]
+        public string area { get; set; }
 		public string description { get; set; }
 		[Required]
-		public string humanReadable { get; set; }
+        [MaxLength(255)]
+        public string humanReadable { get; set; }
 		public Image mapImage { get; set; }
 		public List<OpeningHour> openingHours { get; set; }
 		[Required]

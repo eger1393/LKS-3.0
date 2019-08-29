@@ -11,23 +11,39 @@ namespace DataBase.Models
 		[Key]
 		public int airlineID { get; set; }
 		[Required]
-		public string airlineName { get; set; }
-		public string checkIn { get; set; }
-		public string checkInTime { get; set; }
+        [MaxLength(255)]
+        public string airlineName { get; set; }
+        [MaxLength(255)]
+        public string checkIn { get; set; }
+        [MaxLength(50)]
+        public string checkInTime { get; set; }
 		public AirlineContact airlineContact { get; set; }
-		public string email { get; set; }
-		public string faxNumber { get; set; }
-		public string flightNumberCode { get; set; }
-		public string handlingAgent { get; set; }
-		public string iataCode { get; set; }
+        [MaxLength(100)]
+        public string email { get; set; }
+        [MaxLength(50)]
+        public string faxNumber { get; set; }
+        [MaxLength(50)]
+        public string flightNumberCode { get; set; }
+        [MaxLength(100)]
+        public string handlingAgent { get; set; }
+        [MaxLength(10)]
+        public string iataCode { get; set; }
 		[Required]
-		public string icaoCode { get; set; }
-		public string info { get; set; }
-		public string lateNightArea { get; set; }
-		public string lateNightTimes { get; set; }
-		public string onlineCheckInURL { get; set; }
-		public string serviceTime { get; set; }
-		public string telephoneNumber { get; set; }
-		public string terminal { get; set; }
+        [MaxLength(10)]
+        public string icaoCode { get; set; }
+        [MaxLength(255)]
+        public string info { get; set; }
+        [MaxLength(255)]
+        public string lateNightArea { get; set; }
+        [MaxLength(255)]
+        public string lateNightTimes { get; set; }
+        [MaxLength(255)]
+        public string onlineCheckInURL { get; set; }
+        [MaxLength(50)]
+        public string serviceTime { get; set; }
+        [MaxLength(50)]
+        public string telephoneNumber { get; set; }
+        [MaxLength(255)]
+        public string terminal { get; set; }
 	}
 }

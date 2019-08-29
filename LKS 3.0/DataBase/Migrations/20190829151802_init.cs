@@ -27,7 +27,7 @@ namespace DataBase.Migrations
                 name: "AirlineContacts",
                 columns: table => new
                 {
-                    airlineContact = table.Column<int>(nullable: false)
+                    airlineContactId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     country_name = table.Column<string>(nullable: false),
                     country_tag = table.Column<string>(nullable: true),
@@ -40,7 +40,7 @@ namespace DataBase.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AirlineContacts", x => x.airlineContact);
+                    table.PrimaryKey("PK_AirlineContacts", x => x.airlineContactId);
                 });
 
             migrationBuilder.CreateTable(
@@ -401,7 +401,7 @@ namespace DataBase.Migrations
                     airlineName = table.Column<string>(nullable: false),
                     checkIn = table.Column<string>(nullable: true),
                     checkInTime = table.Column<string>(nullable: true),
-                    airlineContact1 = table.Column<int>(nullable: true),
+                    airlineContactId = table.Column<int>(nullable: true),
                     email = table.Column<string>(nullable: true),
                     faxNumber = table.Column<string>(nullable: true),
                     flightNumberCode = table.Column<string>(nullable: true),
@@ -420,10 +420,10 @@ namespace DataBase.Migrations
                 {
                     table.PrimaryKey("PK_Airlines", x => x.airlineID);
                     table.ForeignKey(
-                        name: "FK_Airlines_AirlineContacts_airlineContact1",
-                        column: x => x.airlineContact1,
+                        name: "FK_Airlines_AirlineContacts_airlineContactId",
+                        column: x => x.airlineContactId,
                         principalTable: "AirlineContacts",
-                        principalColumn: "airlineContact",
+                        principalColumn: "airlineContactId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -935,9 +935,9 @@ namespace DataBase.Migrations
                 column: "operatingAirlineID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airlines_airlineContact1",
+                name: "IX_Airlines_airlineContactId",
                 table: "Airlines",
-                column: "airlineContact1");
+                column: "airlineContactId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airports_airportImageURLID",

@@ -9,7 +9,8 @@ namespace DataBase.Models
 	{
 		[Key]
 		public int baggageClaimID { get; set; }
-		public string carousel { get; set; }
+        [MaxLength(255)]
+        public string carousel { get; set; }
 		public DateTime? expectedTimeOnCarousel { get; set; }
 	}
 }

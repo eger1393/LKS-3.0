@@ -10,9 +10,13 @@ namespace DataBase.Models
 		[Key]
 		public int imageID { get; set; }
 
-		public string high { get; set; }
-		public string low { get; set; }
-		public string medium { get; set; }
-		public string native { get; set; }
-	}
+        [MaxLength(20)]
+        public string high { get; set; }
+        [MaxLength(20)]
+        public string low { get; set; }
+        [MaxLength(20)]
+        public string medium { get; set; }
+        [MaxLength(20)]
+        public string native { get; set; }
+    }
 }

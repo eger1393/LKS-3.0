@@ -11,7 +11,8 @@ namespace DataBase.Models
 		public int viaID { get; set; }
 		public ViaArrival arrival { get; set; }
 		public ViaDeparture departure { get; set; }
-		public string viaAirport { get; set; }
+        [MaxLength(255)]
+        public string viaAirport { get; set; }
 
 	}
 }

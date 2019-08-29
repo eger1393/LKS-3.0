@@ -10,9 +10,12 @@ namespace DataBase.Models
 		[Key]
 		public int flightNumberID { get; set; }
 		[Required]
-		public string airlineCode { get; set; }
-		public string suffix { get; set; }
+        [MaxLength(50)]
+        public string airlineCode { get; set; }
+        [MaxLength(50)]
+        public string suffix { get; set; }
 		[Required]
-		public string trackNumber { get; set; }
+        [MaxLength(50)]
+        public string trackNumber { get; set; }
 	}
 }

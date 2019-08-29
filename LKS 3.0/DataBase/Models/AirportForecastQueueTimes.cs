@@ -12,7 +12,9 @@ namespace DataBase.Models
 
 		public int? forecastConfidence { get; set; }
 		public int? forecastProjectedWaitTime { get; set; }
-		public string currentQueueName { get; set; }
-		public string currentTime { get; set; }
+        [MaxLength(255)]
+        public string currentQueueName { get; set; }
+        [MaxLength(50)]
+        public string currentTime { get; set; }
 	}
 }

@@ -11,9 +11,12 @@ namespace DataBase.Models
 		public int serviceItemID { get; set; }
 		public string description { get; set; }
 		public bool isBookable { get; set; }
-		public string shortDescription { get; set; }
-		public string subTitle { get; set; }
+        [MaxLength(255)]
+        public string shortDescription { get; set; }
+        [MaxLength(255)]
+        public string subTitle { get; set; }
 		[Required]
-		public string title { get; set; }
+        [MaxLength(255)]
+        public string title { get; set; }
 	}
 }
