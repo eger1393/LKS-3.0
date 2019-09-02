@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DataBase.Models
-{
+{ 
 	public class AircraftType
 	{
 		[Key]

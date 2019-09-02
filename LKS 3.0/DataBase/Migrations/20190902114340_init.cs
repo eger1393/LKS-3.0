@@ -14,9 +14,9 @@ namespace DataBase.Migrations
                 {
                     aircraftTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    icaoCode = table.Column<string>(maxLength: 4, nullable: true),
-                    modelName = table.Column<string>(nullable: true),
-                    registration = table.Column<string>(nullable: true)
+                    icaoCode = table.Column<string>(maxLength: 10, nullable: true),
+                    modelName = table.Column<string>(maxLength: 255, nullable: true),
+                    registration = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,14 +29,14 @@ namespace DataBase.Migrations
                 {
                     airlineContactId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    country_name = table.Column<string>(nullable: false),
-                    country_tag = table.Column<string>(nullable: true),
+                    country_name = table.Column<string>(maxLength: 255, nullable: false),
+                    country_tag = table.Column<string>(maxLength: 100, nullable: true),
                     extended_address = table.Column<string>(nullable: true),
-                    locality = table.Column<string>(nullable: false),
-                    post_office_box = table.Column<string>(nullable: true),
-                    postal_code = table.Column<string>(nullable: true),
-                    region = table.Column<string>(nullable: false),
-                    street_address = table.Column<string>(nullable: true)
+                    locality = table.Column<string>(maxLength: 255, nullable: false),
+                    post_office_box = table.Column<string>(maxLength: 50, nullable: true),
+                    postal_code = table.Column<string>(maxLength: 50, nullable: true),
+                    region = table.Column<string>(maxLength: 255, nullable: false),
+                    street_address = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,19 +59,6 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AirportCountries",
-                columns: table => new
-                {
-                    airportCountryID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    countryName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AirportCountries", x => x.airportCountryID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AirportCurrentQueueTimes",
                 columns: table => new
                 {
@@ -80,8 +67,8 @@ namespace DataBase.Migrations
                     currentProjectedMaxWaitTime = table.Column<int>(nullable: true),
                     currentProjectedMinWaitTime = table.Column<int>(nullable: true),
                     currentProjectedWaitTime = table.Column<int>(nullable: true),
-                    currentQueueName = table.Column<string>(nullable: true),
-                    currentTime = table.Column<string>(nullable: true)
+                    currentQueueName = table.Column<string>(maxLength: 255, nullable: true),
+                    currentTime = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,8 +83,8 @@ namespace DataBase.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     forecastConfidence = table.Column<int>(nullable: true),
                     forecastProjectedWaitTime = table.Column<int>(nullable: true),
-                    currentQueueName = table.Column<string>(nullable: true),
-                    currentTime = table.Column<string>(nullable: true)
+                    currentQueueName = table.Column<string>(maxLength: 255, nullable: true),
+                    currentTime = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,14 +97,32 @@ namespace DataBase.Migrations
                 {
                     airportImageURLID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    high = table.Column<string>(nullable: true),
-                    low = table.Column<string>(nullable: true),
-                    medium = table.Column<string>(nullable: true),
-                    native = table.Column<string>(nullable: true)
+                    high = table.Column<string>(maxLength: 20, nullable: true),
+                    low = table.Column<string>(maxLength: 20, nullable: true),
+                    medium = table.Column<string>(maxLength: 20, nullable: true),
+                    native = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AirportImageURL", x => x.airportImageURLID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AirportInfos",
+                columns: table => new
+                {
+                    airportInfoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    valid_from = table.Column<DateTime>(nullable: true),
+                    valid_to = table.Column<DateTime>(nullable: true),
+                    created = table.Column<DateTime>(nullable: true),
+                    title = table.Column<string>(maxLength: 255, nullable: true),
+                    infoType = table.Column<string>(maxLength: 255, nullable: true),
+                    message = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirportInfos", x => x.airportInfoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,14 +131,14 @@ namespace DataBase.Migrations
                 {
                     airportPostalAddressID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    country_name = table.Column<string>(nullable: false),
-                    country_tag = table.Column<string>(nullable: true),
+                    country_name = table.Column<string>(maxLength: 255, nullable: false),
+                    country_tag = table.Column<string>(maxLength: 100, nullable: true),
                     extended_address = table.Column<string>(nullable: true),
-                    locality = table.Column<string>(nullable: false),
-                    post_office_box = table.Column<string>(nullable: true),
-                    postal_code = table.Column<string>(nullable: true),
-                    region = table.Column<string>(nullable: false),
-                    street_address = table.Column<string>(nullable: true)
+                    locality = table.Column<string>(maxLength: 255, nullable: false),
+                    post_office_box = table.Column<string>(maxLength: 50, nullable: true),
+                    postal_code = table.Column<string>(maxLength: 50, nullable: true),
+                    region = table.Column<string>(maxLength: 255, nullable: false),
+                    street_address = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -146,14 +151,14 @@ namespace DataBase.Migrations
                 {
                     airportVisitorsAddressID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    country_name = table.Column<string>(nullable: false),
-                    country_tag = table.Column<string>(nullable: true),
+                    country_name = table.Column<string>(maxLength: 255, nullable: false),
+                    country_tag = table.Column<string>(maxLength: 100, nullable: true),
                     extended_address = table.Column<string>(nullable: true),
-                    locality = table.Column<string>(nullable: false),
-                    post_office_box = table.Column<string>(nullable: true),
-                    postal_code = table.Column<string>(nullable: true),
-                    region = table.Column<string>(nullable: false),
-                    street_address = table.Column<string>(nullable: true)
+                    locality = table.Column<string>(maxLength: 255, nullable: false),
+                    post_office_box = table.Column<string>(maxLength: 50, nullable: true),
+                    postal_code = table.Column<string>(maxLength: 50, nullable: true),
+                    region = table.Column<string>(maxLength: 255, nullable: false),
+                    street_address = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -166,7 +171,7 @@ namespace DataBase.Migrations
                 {
                     baggageClaimID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    carousel = table.Column<string>(nullable: true),
+                    carousel = table.Column<string>(maxLength: 255, nullable: true),
                     expectedTimeOnCarousel = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -180,44 +185,14 @@ namespace DataBase.Migrations
                 {
                     checkInInfoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    additionalInfo = table.Column<string>(nullable: true),
+                    additionalInfo = table.Column<string>(maxLength: 300, nullable: true),
                     checkInBeginTime = table.Column<DateTime>(nullable: true),
                     checkInEndTime = table.Column<DateTime>(nullable: true),
-                    checkInLocation = table.Column<string>(nullable: true)
+                    checkInLocation = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CheckInInfos", x => x.checkInInfoID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CodeShares",
-                columns: table => new
-                {
-                    codeSharesID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    airlineCode = table.Column<string>(nullable: false),
-                    suffix = table.Column<string>(nullable: true),
-                    trackNumber = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CodeShares", x => x.codeSharesID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FlightNumbers",
-                columns: table => new
-                {
-                    flightNumberID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    airlineCode = table.Column<string>(nullable: false),
-                    suffix = table.Column<string>(nullable: true),
-                    trackNumber = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FlightNumbers", x => x.flightNumberID);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,10 +201,10 @@ namespace DataBase.Migrations
                 {
                     imageID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    high = table.Column<string>(nullable: true),
-                    low = table.Column<string>(nullable: true),
-                    medium = table.Column<string>(nullable: true),
-                    native = table.Column<string>(nullable: true)
+                    high = table.Column<string>(maxLength: 20, nullable: true),
+                    low = table.Column<string>(maxLength: 20, nullable: true),
+                    medium = table.Column<string>(maxLength: 20, nullable: true),
+                    native = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -242,10 +217,10 @@ namespace DataBase.Migrations
                 {
                     logoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    logo_high = table.Column<string>(nullable: true),
-                    logo_low = table.Column<string>(nullable: true),
-                    logo_medium = table.Column<string>(nullable: true),
-                    logo_native = table.Column<string>(nullable: true)
+                    logo_high = table.Column<string>(maxLength: 20, nullable: true),
+                    logo_low = table.Column<string>(maxLength: 20, nullable: true),
+                    logo_medium = table.Column<string>(maxLength: 20, nullable: true),
+                    logo_native = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,9 +233,9 @@ namespace DataBase.Migrations
                 {
                     operatingAirlineID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    iataCode = table.Column<string>(maxLength: 3, nullable: true),
-                    icaoCode = table.Column<string>(maxLength: 3, nullable: true),
-                    name = table.Column<string>(nullable: true)
+                    iataCode = table.Column<string>(maxLength: 10, nullable: true),
+                    icaoCode = table.Column<string>(maxLength: 10, nullable: true),
+                    name = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,31 +248,18 @@ namespace DataBase.Migrations
                 {
                     providerContactID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    country_name = table.Column<string>(nullable: false),
-                    country_tag = table.Column<string>(nullable: true),
+                    country_name = table.Column<string>(maxLength: 255, nullable: false),
+                    country_tag = table.Column<string>(maxLength: 100, nullable: true),
                     extended_address = table.Column<string>(nullable: true),
-                    locality = table.Column<string>(nullable: false),
-                    post_office_box = table.Column<string>(nullable: true),
-                    postal_code = table.Column<string>(nullable: true),
-                    region = table.Column<string>(nullable: false),
-                    street_address = table.Column<string>(nullable: true)
+                    locality = table.Column<string>(maxLength: 255, nullable: false),
+                    post_office_box = table.Column<string>(maxLength: 50, nullable: true),
+                    postal_code = table.Column<string>(maxLength: 50, nullable: true),
+                    region = table.Column<string>(maxLength: 255, nullable: false),
+                    street_address = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProviderContacts", x => x.providerContactID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiceElements",
-                columns: table => new
-                {
-                    serviceElementsID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceElements", x => x.serviceElementsID);
                 });
 
             migrationBuilder.CreateTable(
@@ -317,23 +279,6 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceItems",
-                columns: table => new
-                {
-                    serviceItemID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    description = table.Column<string>(nullable: true),
-                    isBookable = table.Column<bool>(nullable: false),
-                    shortDescription = table.Column<string>(nullable: true),
-                    subTitle = table.Column<string>(nullable: true),
-                    title = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceItems", x => x.serviceItemID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TripServices",
                 columns: table => new
                 {
@@ -341,7 +286,7 @@ namespace DataBase.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     bookingID = table.Column<string>(nullable: true),
                     serviceID = table.Column<string>(nullable: false),
-                    source = table.Column<string>(nullable: false)
+                    source = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -354,7 +299,7 @@ namespace DataBase.Migrations
                 {
                     viaBaggageClaimID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    carousel = table.Column<string>(nullable: true),
+                    carousel = table.Column<string>(maxLength: 255, nullable: true),
                     expectedTimeOnCarousel = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -368,7 +313,7 @@ namespace DataBase.Migrations
                 {
                     viaBoardingTimeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    bookingClass = table.Column<string>(nullable: true),
+                    bookingClass = table.Column<string>(maxLength: 255, nullable: true),
                     time = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -382,10 +327,10 @@ namespace DataBase.Migrations
                 {
                     viaCheckInInfoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    additionalInfo = table.Column<string>(nullable: true),
+                    additionalInfo = table.Column<string>(maxLength: 255, nullable: true),
                     checkInBeginTime = table.Column<DateTime>(nullable: true),
                     checkInEndTime = table.Column<DateTime>(nullable: true),
-                    checkInLocation = table.Column<string>(nullable: true)
+                    checkInLocation = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -398,23 +343,23 @@ namespace DataBase.Migrations
                 {
                     airlineID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    airlineName = table.Column<string>(nullable: false),
-                    checkIn = table.Column<string>(nullable: true),
-                    checkInTime = table.Column<string>(nullable: true),
+                    airlineName = table.Column<string>(maxLength: 255, nullable: false),
+                    checkIn = table.Column<string>(maxLength: 255, nullable: true),
+                    checkInTime = table.Column<string>(maxLength: 50, nullable: true),
                     airlineContactId = table.Column<int>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    faxNumber = table.Column<string>(nullable: true),
-                    flightNumberCode = table.Column<string>(nullable: true),
-                    handlingAgent = table.Column<string>(nullable: true),
-                    iataCode = table.Column<string>(nullable: true),
-                    icaoCode = table.Column<string>(nullable: false),
-                    info = table.Column<string>(nullable: true),
-                    lateNightArea = table.Column<string>(nullable: true),
-                    lateNightTimes = table.Column<string>(nullable: true),
-                    onlineCheckInURL = table.Column<string>(nullable: true),
-                    serviceTime = table.Column<string>(nullable: true),
-                    telephoneNumber = table.Column<string>(nullable: true),
-                    terminal = table.Column<string>(nullable: true)
+                    email = table.Column<string>(maxLength: 100, nullable: true),
+                    faxNumber = table.Column<string>(maxLength: 50, nullable: true),
+                    flightNumberCode = table.Column<string>(maxLength: 50, nullable: true),
+                    handlingAgent = table.Column<string>(maxLength: 100, nullable: true),
+                    iataCode = table.Column<string>(maxLength: 10, nullable: true),
+                    icaoCode = table.Column<string>(maxLength: 10, nullable: false),
+                    info = table.Column<string>(maxLength: 255, nullable: true),
+                    lateNightArea = table.Column<string>(maxLength: 255, nullable: true),
+                    lateNightTimes = table.Column<string>(maxLength: 255, nullable: true),
+                    onlineCheckInURL = table.Column<string>(maxLength: 255, nullable: true),
+                    serviceTime = table.Column<string>(maxLength: 50, nullable: true),
+                    telephoneNumber = table.Column<string>(maxLength: 50, nullable: true),
+                    terminal = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -428,24 +373,45 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AirportInfoExternalLink",
+                columns: table => new
+                {
+                    airportInfoExternalLinkId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    url = table.Column<string>(maxLength: 255, nullable: false),
+                    airportInfoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirportInfoExternalLink", x => x.airportInfoExternalLinkId);
+                    table.ForeignKey(
+                        name: "FK_AirportInfoExternalLink_AirportInfos_airportInfoId",
+                        column: x => x.airportInfoId,
+                        principalTable: "AirportInfos",
+                        principalColumn: "airportInfoId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Airports",
                 columns: table => new
                 {
                     airportID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     airportImageURLID = table.Column<int>(nullable: true),
-                    airportName = table.Column<string>(nullable: true),
-                    cityName = table.Column<string>(nullable: true),
+                    airportName = table.Column<string>(maxLength: 255, nullable: true),
+                    cityName = table.Column<string>(maxLength: 255, nullable: true),
                     coordinateairportCoordinateID = table.Column<int>(nullable: true),
-                    countryairportCountryID = table.Column<int>(nullable: true),
                     currentQueueTimesairportCurrentQueueTimesID = table.Column<int>(nullable: true),
                     forecastQueueTimesairportForecastQueueTimesID = table.Column<int>(nullable: true),
                     geofenceRadius = table.Column<double>(nullable: true),
-                    iataCode = table.Column<string>(nullable: true),
-                    icaoCode = table.Column<string>(nullable: false),
+                    iataCode = table.Column<string>(maxLength: 10, nullable: true),
+                    icaoCode = table.Column<string>(maxLength: 10, nullable: false),
                     postalAddressairportPostalAddressID = table.Column<int>(nullable: true),
-                    bmezone = table.Column<string>(nullable: true),
-                    vasitorsAddressairportVisitorsAddressID = table.Column<int>(nullable: true)
+                    timezone = table.Column<string>(maxLength: 50, nullable: true),
+                    vasitorsAddressairportVisitorsAddressID = table.Column<int>(nullable: true),
+                    telephoneNumber = table.Column<string>(maxLength: 50, nullable: true),
+                    email = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -461,12 +427,6 @@ namespace DataBase.Migrations
                         column: x => x.coordinateairportCoordinateID,
                         principalTable: "AirportCoordinates",
                         principalColumn: "airportCoordinateID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Airports_AirportCountries_countryairportCountryID",
-                        column: x => x.countryairportCountryID,
-                        principalTable: "AirportCountries",
-                        principalColumn: "airportCountryID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Airports_AirportCurrentQueueTimes_currentQueueTimesairportCurrentQueueTimesID",
@@ -503,9 +463,9 @@ namespace DataBase.Migrations
                     actual = table.Column<DateTime>(nullable: true),
                     baggaageClaimbaggageClaimID = table.Column<int>(nullable: true),
                     estimated = table.Column<DateTime>(nullable: true),
-                    gate = table.Column<string>(nullable: true),
+                    gate = table.Column<string>(maxLength: 10, nullable: true),
                     scheduled = table.Column<DateTime>(nullable: false),
-                    termnal = table.Column<string>(nullable: true),
+                    termnal = table.Column<string>(maxLength: 10, nullable: true),
                     transferInformation = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -528,9 +488,9 @@ namespace DataBase.Migrations
                     actual = table.Column<DateTime>(nullable: true),
                     checkInInfoID = table.Column<int>(nullable: true),
                     estimated = table.Column<DateTime>(nullable: true),
-                    gate = table.Column<string>(nullable: true),
+                    gate = table.Column<string>(maxLength: 10, nullable: true),
                     scheduled = table.Column<DateTime>(nullable: false),
-                    terminal = table.Column<string>(nullable: true)
+                    terminal = table.Column<string>(maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -549,9 +509,9 @@ namespace DataBase.Migrations
                 {
                     serviceLocationsID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    area = table.Column<string>(nullable: false),
+                    area = table.Column<string>(maxLength: 255, nullable: false),
                     description = table.Column<string>(nullable: true),
-                    humanReadable = table.Column<string>(nullable: false),
+                    humanReadable = table.Column<string>(maxLength: 255, nullable: false),
                     mapImageimageID = table.Column<int>(nullable: true),
                     x = table.Column<int>(nullable: false),
                     y = table.Column<int>(nullable: false),
@@ -575,12 +535,12 @@ namespace DataBase.Migrations
                     providerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     contactproviderContactID = table.Column<int>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    fax = table.Column<string>(nullable: true),
+                    email = table.Column<string>(maxLength: 100, nullable: true),
+                    fax = table.Column<string>(maxLength: 100, nullable: true),
                     logoID = table.Column<int>(nullable: true),
-                    name = table.Column<string>(nullable: false),
-                    phone = table.Column<string>(nullable: true),
-                    website = table.Column<string>(nullable: true)
+                    name = table.Column<string>(maxLength: 255, nullable: false),
+                    phone = table.Column<string>(maxLength: 50, nullable: true),
+                    website = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -625,9 +585,8 @@ namespace DataBase.Migrations
                     tripID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     endDate = table.Column<DateTime>(nullable: false),
-                    flights = table.Column<string>(nullable: true),
-                    name = table.Column<string>(nullable: false),
-                    role = table.Column<string>(nullable: false),
+                    name = table.Column<string>(maxLength: 255, nullable: false),
+                    role = table.Column<string>(maxLength: 255, nullable: false),
                     servicestripServicesID = table.Column<int>(nullable: true),
                     startDate = table.Column<DateTime>(nullable: false)
                 },
@@ -651,10 +610,10 @@ namespace DataBase.Migrations
                     actual = table.Column<DateTime>(nullable: true),
                     baggaageClaimviaBaggageClaimID = table.Column<int>(nullable: true),
                     estimated = table.Column<DateTime>(nullable: true),
-                    gate = table.Column<string>(nullable: true),
+                    gate = table.Column<string>(maxLength: 10, nullable: true),
                     scheduled = table.Column<DateTime>(nullable: false),
-                    termnal = table.Column<string>(nullable: true),
-                    transferInformation = table.Column<string>(nullable: true)
+                    termnal = table.Column<string>(maxLength: 10, nullable: true),
+                    transferInformation = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -677,9 +636,9 @@ namespace DataBase.Migrations
                     boardingTimeviaBoardingTimeID = table.Column<int>(nullable: true),
                     checkInInfoviaCheckInInfoID = table.Column<int>(nullable: true),
                     estimated = table.Column<DateTime>(nullable: true),
-                    gate = table.Column<string>(nullable: true),
+                    gate = table.Column<string>(maxLength: 10, nullable: true),
                     scheduled = table.Column<DateTime>(nullable: false),
-                    terminal = table.Column<string>(nullable: true)
+                    terminal = table.Column<string>(maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -699,61 +658,43 @@ namespace DataBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ACRISFlights",
+                name: "AirlineWebsite",
                 columns: table => new
                 {
-                    ACRISFlightID = table.Column<int>(nullable: false)
+                    airlineWebsiteId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    aircrafTypeaircraftTypeID = table.Column<int>(nullable: true),
-                    arrivalID = table.Column<int>(nullable: true),
-                    arrivalAirport = table.Column<string>(nullable: true),
-                    codeSharesID = table.Column<int>(nullable: true),
-                    departureID = table.Column<int>(nullable: true),
-                    departureAirport = table.Column<string>(nullable: true),
-                    flightNumberID = table.Column<int>(nullable: false),
-                    flightStatus = table.Column<string>(nullable: false),
-                    operatingAirlineID = table.Column<int>(nullable: false),
-                    originDate = table.Column<DateTime>(nullable: true)
+                    url = table.Column<string>(maxLength: 255, nullable: false),
+                    airlineID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ACRISFlights", x => x.ACRISFlightID);
+                    table.PrimaryKey("PK_AirlineWebsite", x => x.airlineWebsiteId);
                     table.ForeignKey(
-                        name: "FK_ACRISFlights_AircraftTypes_aircrafTypeaircraftTypeID",
-                        column: x => x.aircrafTypeaircraftTypeID,
-                        principalTable: "AircraftTypes",
-                        principalColumn: "aircraftTypeID",
+                        name: "FK_AirlineWebsite_Airlines_airlineID",
+                        column: x => x.airlineID,
+                        principalTable: "Airlines",
+                        principalColumn: "airlineID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AirportWebsite",
+                columns: table => new
+                {
+                    airportWebsiteId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    url = table.Column<string>(maxLength: 255, nullable: false),
+                    airportID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirportWebsite", x => x.airportWebsiteId);
                     table.ForeignKey(
-                        name: "FK_ACRISFlights_Arrivals_arrivalID",
-                        column: x => x.arrivalID,
-                        principalTable: "Arrivals",
-                        principalColumn: "arrivalID",
+                        name: "FK_AirportWebsite_Airports_airportID",
+                        column: x => x.airportID,
+                        principalTable: "Airports",
+                        principalColumn: "airportID",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ACRISFlights_CodeShares_codeSharesID",
-                        column: x => x.codeSharesID,
-                        principalTable: "CodeShares",
-                        principalColumn: "codeSharesID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ACRISFlights_Departures_departureID",
-                        column: x => x.departureID,
-                        principalTable: "Departures",
-                        principalColumn: "departureID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ACRISFlights_FlightNumbers_flightNumberID",
-                        column: x => x.flightNumberID,
-                        principalTable: "FlightNumbers",
-                        principalColumn: "flightNumberID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ACRISFlights_OperatingAirlines_operatingAirlineID",
-                        column: x => x.operatingAirlineID,
-                        principalTable: "OperatingAirlines",
-                        principalColumn: "operatingAirlineID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -762,7 +703,7 @@ namespace DataBase.Migrations
                 {
                     boardingTimeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    bookingClass = table.Column<string>(nullable: true),
+                    bookingClass = table.Column<string>(maxLength: 255, nullable: true),
                     time = table.Column<DateTime>(nullable: true),
                     departureID = table.Column<int>(nullable: true)
                 },
@@ -804,17 +745,307 @@ namespace DataBase.Migrations
                 {
                     serviceID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    serviceProviderproviderID = table.Column<int>(nullable: true)
+                    title = table.Column<string>(maxLength: 255, nullable: false),
+                    subTitle = table.Column<string>(maxLength: 255, nullable: true),
+                    shortDescription = table.Column<string>(maxLength: 255, nullable: true),
+                    description = table.Column<string>(nullable: true),
+                    isBookable = table.Column<bool>(nullable: false),
+                    iconimageID = table.Column<int>(nullable: true),
+                    titleImageimageID = table.Column<int>(nullable: true),
+                    titleImage_smallimageID = table.Column<int>(nullable: true),
+                    desciptionImage_verticalimageID = table.Column<int>(nullable: true),
+                    descriptionImage_horizontalimageID = table.Column<int>(nullable: true),
+                    providerID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.serviceID);
                     table.ForeignKey(
-                        name: "FK_Services_Providers_serviceProviderproviderID",
-                        column: x => x.serviceProviderproviderID,
+                        name: "FK_Services_Images_desciptionImage_verticalimageID",
+                        column: x => x.desciptionImage_verticalimageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_Images_descriptionImage_horizontalimageID",
+                        column: x => x.descriptionImage_horizontalimageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_Images_iconimageID",
+                        column: x => x.iconimageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_Providers_providerID",
+                        column: x => x.providerID,
                         principalTable: "Providers",
                         principalColumn: "providerID",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_Images_titleImage_smallimageID",
+                        column: x => x.titleImage_smallimageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Services_Images_titleImageimageID",
+                        column: x => x.titleImageimageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripFlight",
+                columns: table => new
+                {
+                    tripFlightId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    flightID = table.Column<string>(maxLength: 255, nullable: false),
+                    pnr = table.Column<string>(maxLength: 255, nullable: true),
+                    tripID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripFlight", x => x.tripFlightId);
+                    table.ForeignKey(
+                        name: "FK_TripFlight_Trips_tripID",
+                        column: x => x.tripID,
+                        principalTable: "Trips",
+                        principalColumn: "tripID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceBulletpoints",
+                columns: table => new
+                {
+                    serviceBulletpointId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    title = table.Column<string>(maxLength: 255, nullable: false),
+                    order = table.Column<int>(nullable: false),
+                    headerText = table.Column<string>(maxLength: 255, nullable: true),
+                    footerText = table.Column<string>(maxLength: 255, nullable: true),
+                    serviceID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceBulletpoints", x => x.serviceBulletpointId);
+                    table.ForeignKey(
+                        name: "FK_ServiceBulletpoints_Services_serviceID",
+                        column: x => x.serviceID,
+                        principalTable: "Services",
+                        principalColumn: "serviceID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceDonwloads",
+                columns: table => new
+                {
+                    serviceDonwloadsId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    url = table.Column<string>(maxLength: 255, nullable: false),
+                    serviceID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceDonwloads", x => x.serviceDonwloadsId);
+                    table.ForeignKey(
+                        name: "FK_ServiceDonwloads_Services_serviceID",
+                        column: x => x.serviceID,
+                        principalTable: "Services",
+                        principalColumn: "serviceID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceTables",
+                columns: table => new
+                {
+                    serviceTableId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    title = table.Column<string>(maxLength: 255, nullable: false),
+                    order = table.Column<int>(nullable: false),
+                    headerText = table.Column<string>(maxLength: 255, nullable: true),
+                    footerText = table.Column<string>(maxLength: 255, nullable: true),
+                    position = table.Column<string>(maxLength: 255, nullable: true),
+                    serviceID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceTables", x => x.serviceTableId);
+                    table.ForeignKey(
+                        name: "FK_ServiceTables_Services_serviceID",
+                        column: x => x.serviceID,
+                        principalTable: "Services",
+                        principalColumn: "serviceID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceText",
+                columns: table => new
+                {
+                    serviceTextId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    title = table.Column<string>(maxLength: 255, nullable: false),
+                    order = table.Column<int>(nullable: false),
+                    text = table.Column<string>(nullable: true),
+                    serviceID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceText", x => x.serviceTextId);
+                    table.ForeignKey(
+                        name: "FK_ServiceText_Services_serviceID",
+                        column: x => x.serviceID,
+                        principalTable: "Services",
+                        principalColumn: "serviceID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Specials",
+                columns: table => new
+                {
+                    specialsID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    name = table.Column<string>(maxLength: 255, nullable: false),
+                    description = table.Column<string>(nullable: true),
+                    numberOfAvailable = table.Column<int>(nullable: false),
+                    imageID = table.Column<int>(nullable: true),
+                    begin = table.Column<DateTime>(nullable: true),
+                    end = table.Column<DateTime>(nullable: true),
+                    coupon = table.Column<string>(maxLength: 255, nullable: true),
+                    serviceID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Specials", x => x.specialsID);
+                    table.ForeignKey(
+                        name: "FK_Specials_Images_imageID",
+                        column: x => x.imageID,
+                        principalTable: "Images",
+                        principalColumn: "imageID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Specials_Services_serviceID",
+                        column: x => x.serviceID,
+                        principalTable: "Services",
+                        principalColumn: "serviceID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceBulletpointElements",
+                columns: table => new
+                {
+                    serviceBulletpointElementsId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    value = table.Column<string>(nullable: false),
+                    serviceBulletpointId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceBulletpointElements", x => x.serviceBulletpointElementsId);
+                    table.ForeignKey(
+                        name: "FK_ServiceBulletpointElements_ServiceBulletpoints_serviceBulletpointId",
+                        column: x => x.serviceBulletpointId,
+                        principalTable: "ServiceBulletpoints",
+                        principalColumn: "serviceBulletpointId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceTableRow",
+                columns: table => new
+                {
+                    serviceTableRowId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    column1 = table.Column<string>(nullable: false),
+                    column2 = table.Column<string>(nullable: false),
+                    serviceTableId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceTableRow", x => x.serviceTableRowId);
+                    table.ForeignKey(
+                        name: "FK_ServiceTableRow_ServiceTables_serviceTableId",
+                        column: x => x.serviceTableId,
+                        principalTable: "ServiceTables",
+                        principalColumn: "serviceTableId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlightNumbers",
+                columns: table => new
+                {
+                    flightNumberID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    airlineCode = table.Column<string>(maxLength: 50, nullable: false),
+                    suffix = table.Column<string>(maxLength: 50, nullable: true),
+                    trackNumber = table.Column<string>(maxLength: 50, nullable: false),
+                    ACRISFlightID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightNumbers", x => x.flightNumberID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ACRISFlights",
+                columns: table => new
+                {
+                    ACRISFlightID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    aircrafTypeaircraftTypeID = table.Column<int>(nullable: true),
+                    arrivalID = table.Column<int>(nullable: true),
+                    arrivalAirport = table.Column<string>(maxLength: 255, nullable: true),
+                    departureID = table.Column<int>(nullable: true),
+                    departureAirport = table.Column<string>(maxLength: 255, nullable: true),
+                    flightNumberID = table.Column<int>(nullable: false),
+                    flightStatus = table.Column<string>(maxLength: 100, nullable: false),
+                    operatingAirlineID = table.Column<int>(nullable: false),
+                    originDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACRISFlights", x => x.ACRISFlightID);
+                    table.ForeignKey(
+                        name: "FK_ACRISFlights_AircraftTypes_aircrafTypeaircraftTypeID",
+                        column: x => x.aircrafTypeaircraftTypeID,
+                        principalTable: "AircraftTypes",
+                        principalColumn: "aircraftTypeID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ACRISFlights_Arrivals_arrivalID",
+                        column: x => x.arrivalID,
+                        principalTable: "Arrivals",
+                        principalColumn: "arrivalID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ACRISFlights_Departures_departureID",
+                        column: x => x.departureID,
+                        principalTable: "Departures",
+                        principalColumn: "departureID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ACRISFlights_FlightNumbers_flightNumberID",
+                        column: x => x.flightNumberID,
+                        principalTable: "FlightNumbers",
+                        principalColumn: "flightNumberID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ACRISFlights_OperatingAirlines_operatingAirlineID",
+                        column: x => x.operatingAirlineID,
+                        principalTable: "OperatingAirlines",
+                        principalColumn: "operatingAirlineID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -825,7 +1056,7 @@ namespace DataBase.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     arrivalviaArrivalID = table.Column<int>(nullable: true),
                     departureviaDepartureID = table.Column<int>(nullable: true),
-                    viaAirport = table.Column<string>(nullable: true),
+                    viaAirport = table.Column<string>(maxLength: 255, nullable: true),
                     ACRISFlightID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -851,59 +1082,6 @@ namespace DataBase.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ServiceDonwloads",
-                columns: table => new
-                {
-                    serviceDonwloadID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    type = table.Column<string>(nullable: true),
-                    format = table.Column<string>(nullable: true),
-                    serviceID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceDonwloads", x => x.serviceDonwloadID);
-                    table.ForeignKey(
-                        name: "FK_ServiceDonwloads_Services_serviceID",
-                        column: x => x.serviceID,
-                        principalTable: "Services",
-                        principalColumn: "serviceID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Specials",
-                columns: table => new
-                {
-                    specialsID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    description = table.Column<string>(nullable: true),
-                    numberOfAvailable = table.Column<int>(nullable: false),
-                    imageID = table.Column<int>(nullable: true),
-                    begin = table.Column<DateTime>(nullable: true),
-                    end = table.Column<DateTime>(nullable: true),
-                    coupon = table.Column<string>(nullable: true),
-                    serviceID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Specials", x => x.specialsID);
-                    table.ForeignKey(
-                        name: "FK_Specials_Images_imageID",
-                        column: x => x.imageID,
-                        principalTable: "Images",
-                        principalColumn: "imageID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Specials_Services_serviceID",
-                        column: x => x.serviceID,
-                        principalTable: "Services",
-                        principalColumn: "serviceID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ACRISFlights_aircrafTypeaircraftTypeID",
                 table: "ACRISFlights",
@@ -913,11 +1091,6 @@ namespace DataBase.Migrations
                 name: "IX_ACRISFlights_arrivalID",
                 table: "ACRISFlights",
                 column: "arrivalID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ACRISFlights_codeSharesID",
-                table: "ACRISFlights",
-                column: "codeSharesID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ACRISFlights_departureID",
@@ -940,6 +1113,16 @@ namespace DataBase.Migrations
                 column: "airlineContactId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AirlineWebsite_airlineID",
+                table: "AirlineWebsite",
+                column: "airlineID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AirportInfoExternalLink_airportInfoId",
+                table: "AirportInfoExternalLink",
+                column: "airportInfoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Airports_airportImageURLID",
                 table: "Airports",
                 column: "airportImageURLID");
@@ -948,11 +1131,6 @@ namespace DataBase.Migrations
                 name: "IX_Airports_coordinateairportCoordinateID",
                 table: "Airports",
                 column: "coordinateairportCoordinateID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Airports_countryairportCountryID",
-                table: "Airports",
-                column: "countryairportCountryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airports_currentQueueTimesairportCurrentQueueTimesID",
@@ -975,6 +1153,11 @@ namespace DataBase.Migrations
                 column: "vasitorsAddressairportVisitorsAddressID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AirportWebsite_airportID",
+                table: "AirportWebsite",
+                column: "airportID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Arrivals_baggaageClaimbaggageClaimID",
                 table: "Arrivals",
                 column: "baggaageClaimbaggageClaimID");
@@ -995,6 +1178,11 @@ namespace DataBase.Migrations
                 column: "checkInInfoID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FlightNumbers_ACRISFlightID",
+                table: "FlightNumbers",
+                column: "ACRISFlightID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpeningHour_serviceLocationsID",
                 table: "OpeningHour",
                 column: "serviceLocationsID");
@@ -1010,6 +1198,16 @@ namespace DataBase.Migrations
                 column: "logoID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ServiceBulletpointElements_serviceBulletpointId",
+                table: "ServiceBulletpointElements",
+                column: "serviceBulletpointId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceBulletpoints_serviceID",
+                table: "ServiceBulletpoints",
+                column: "serviceID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ServiceDonwloads_serviceID",
                 table: "ServiceDonwloads",
                 column: "serviceID");
@@ -1020,9 +1218,49 @@ namespace DataBase.Migrations
                 column: "mapImageimageID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_serviceProviderproviderID",
+                name: "IX_Services_desciptionImage_verticalimageID",
                 table: "Services",
-                column: "serviceProviderproviderID");
+                column: "desciptionImage_verticalimageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_descriptionImage_horizontalimageID",
+                table: "Services",
+                column: "descriptionImage_horizontalimageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_iconimageID",
+                table: "Services",
+                column: "iconimageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_providerID",
+                table: "Services",
+                column: "providerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_titleImage_smallimageID",
+                table: "Services",
+                column: "titleImage_smallimageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_titleImageimageID",
+                table: "Services",
+                column: "titleImageimageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceTableRow_serviceTableId",
+                table: "ServiceTableRow",
+                column: "serviceTableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceTables_serviceID",
+                table: "ServiceTables",
+                column: "serviceID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceText_serviceID",
+                table: "ServiceText",
+                column: "serviceID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Specials_imageID",
@@ -1033,6 +1271,11 @@ namespace DataBase.Migrations
                 name: "IX_Specials_serviceID",
                 table: "Specials",
                 column: "serviceID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripFlight_tripID",
+                table: "TripFlight",
+                column: "tripID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_servicestripServicesID",
@@ -1068,15 +1311,42 @@ namespace DataBase.Migrations
                 name: "IX_Vias_departureviaDepartureID",
                 table: "Vias",
                 column: "departureviaDepartureID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_FlightNumbers_ACRISFlights_ACRISFlightID",
+                table: "FlightNumbers",
+                column: "ACRISFlightID",
+                principalTable: "ACRISFlights",
+                principalColumn: "ACRISFlightID",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Airlines");
+            migrationBuilder.DropForeignKey(
+                name: "FK_ACRISFlights_AircraftTypes_aircrafTypeaircraftTypeID",
+                table: "ACRISFlights");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ACRISFlights_Arrivals_arrivalID",
+                table: "ACRISFlights");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ACRISFlights_Departures_departureID",
+                table: "ACRISFlights");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ACRISFlights_FlightNumbers_flightNumberID",
+                table: "ACRISFlights");
 
             migrationBuilder.DropTable(
-                name: "Airports");
+                name: "AirlineWebsite");
+
+            migrationBuilder.DropTable(
+                name: "AirportInfoExternalLink");
+
+            migrationBuilder.DropTable(
+                name: "AirportWebsite");
 
             migrationBuilder.DropTable(
                 name: "BoardingTimes");
@@ -1088,22 +1358,55 @@ namespace DataBase.Migrations
                 name: "OpeningHour");
 
             migrationBuilder.DropTable(
+                name: "ServiceBulletpointElements");
+
+            migrationBuilder.DropTable(
                 name: "ServiceDonwloads");
 
             migrationBuilder.DropTable(
-                name: "ServiceElements");
+                name: "ServiceTableRow");
 
             migrationBuilder.DropTable(
-                name: "ServiceItems");
+                name: "ServiceText");
 
             migrationBuilder.DropTable(
                 name: "Specials");
 
             migrationBuilder.DropTable(
-                name: "Trips");
+                name: "TripFlight");
 
             migrationBuilder.DropTable(
                 name: "Vias");
+
+            migrationBuilder.DropTable(
+                name: "Airlines");
+
+            migrationBuilder.DropTable(
+                name: "AirportInfos");
+
+            migrationBuilder.DropTable(
+                name: "Airports");
+
+            migrationBuilder.DropTable(
+                name: "ServiceHeaders");
+
+            migrationBuilder.DropTable(
+                name: "ServiceLocations");
+
+            migrationBuilder.DropTable(
+                name: "ServiceBulletpoints");
+
+            migrationBuilder.DropTable(
+                name: "ServiceTables");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
+
+            migrationBuilder.DropTable(
+                name: "ViaArrivals");
+
+            migrationBuilder.DropTable(
+                name: "ViaDepartures");
 
             migrationBuilder.DropTable(
                 name: "AirlineContacts");
@@ -1113,9 +1416,6 @@ namespace DataBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "AirportCoordinates");
-
-            migrationBuilder.DropTable(
-                name: "AirportCountries");
 
             migrationBuilder.DropTable(
                 name: "AirportCurrentQueueTimes");
@@ -1130,49 +1430,10 @@ namespace DataBase.Migrations
                 name: "AirportVisitorsAddresses");
 
             migrationBuilder.DropTable(
-                name: "ServiceHeaders");
-
-            migrationBuilder.DropTable(
-                name: "ServiceLocations");
-
-            migrationBuilder.DropTable(
                 name: "Services");
 
             migrationBuilder.DropTable(
                 name: "TripServices");
-
-            migrationBuilder.DropTable(
-                name: "ACRISFlights");
-
-            migrationBuilder.DropTable(
-                name: "ViaArrivals");
-
-            migrationBuilder.DropTable(
-                name: "ViaDepartures");
-
-            migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
-                name: "Providers");
-
-            migrationBuilder.DropTable(
-                name: "AircraftTypes");
-
-            migrationBuilder.DropTable(
-                name: "Arrivals");
-
-            migrationBuilder.DropTable(
-                name: "CodeShares");
-
-            migrationBuilder.DropTable(
-                name: "Departures");
-
-            migrationBuilder.DropTable(
-                name: "FlightNumbers");
-
-            migrationBuilder.DropTable(
-                name: "OperatingAirlines");
 
             migrationBuilder.DropTable(
                 name: "ViaBaggageClaims");
@@ -1184,16 +1445,40 @@ namespace DataBase.Migrations
                 name: "ViaCheckInInfos");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Providers");
+
+            migrationBuilder.DropTable(
                 name: "ProviderContacts");
 
             migrationBuilder.DropTable(
                 name: "Logo");
 
             migrationBuilder.DropTable(
+                name: "AircraftTypes");
+
+            migrationBuilder.DropTable(
+                name: "Arrivals");
+
+            migrationBuilder.DropTable(
                 name: "BaggageClaims");
 
             migrationBuilder.DropTable(
+                name: "Departures");
+
+            migrationBuilder.DropTable(
                 name: "CheckInInfos");
+
+            migrationBuilder.DropTable(
+                name: "FlightNumbers");
+
+            migrationBuilder.DropTable(
+                name: "ACRISFlights");
+
+            migrationBuilder.DropTable(
+                name: "OperatingAirlines");
         }
     }
 }

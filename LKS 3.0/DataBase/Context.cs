@@ -20,8 +20,9 @@ namespace DataBase
 		public DbSet<Airline> Airlines { get; set; }
 		public DbSet<AirlineContact> AirlineContacts { get; set; }
 		public DbSet<Airport> Airports { get; set; }
+		public DbSet<AirportInfo> AirportInfos {get; set;}
 		public DbSet<AirportCoordinate> AirportCoordinates { get; set; }
-		public DbSet<AirportCountry> AirportCountries { get; set; }
+		//public DbSet<AirportCountry> AirportCountries { get; set; }
 		public DbSet<AirportCurrentQueueTimes> AirportCurrentQueueTimes { get; set; }
 		public DbSet<AirportForecastQueueTimes> AirportForecastQueueTimes { get; set; }
 		public DbSet<AirportImageURL> AirportImageURL { get; set; }
@@ -32,7 +33,7 @@ namespace DataBase
 		public DbSet<BoardingTime> BoardingTimes { get; set; }
 		public DbSet<BookService> BookServices { get; set; }
 		public DbSet<CheckInInfo> CheckInInfos { get; set; }
-		public DbSet<CodeShares> CodeShares { get; set; }
+		//public DbSet<CodeShares> CodeShares { get; set; }
 		public DbSet<Departure> Departures { get; set; }
 		public DbSet<FlightNumber> FlightNumbers { get; set; }
 		public DbSet<Image> Images { get; set; }
@@ -41,10 +42,10 @@ namespace DataBase
 		public DbSet<Provider> Providers { get; set; }
 		public DbSet<ProviderContact> ProviderContacts { get; set; }
 		public DbSet<Service> Services { get; set; }
-		public DbSet<ServiceElements> ServiceElements { get; set; }
-		public DbSet<ServiceDonwload> ServiceDonwloads { get; set; }
+		//public DbSet<ServiceElements> ServiceElements { get; set; }
+		//public DbSet<ServiceDonwload> ServiceDonwloads { get; set; }
 		public DbSet<ServiceHeader> ServiceHeaders { get; set; }
-		public DbSet<ServiceItem> ServiceItems { get; set; }
+		//public DbSet<ServiceItem> ServiceItems { get; set; }
 		public DbSet<ServiceLocations> ServiceLocations { get; set; }
 		public DbSet<Specials> Specials { get; set; }
 		public DbSet<Trip> Trips { get; set; }
@@ -55,6 +56,9 @@ namespace DataBase
 		public DbSet<ViaBoardingTime> ViaBoardingTimes { get; set; }
 		public DbSet<ViaCheckInInfo> ViaCheckInInfos { get; set; }
 		public DbSet<ViaDeparture> ViaDepartures { get; set; }
+		public DbSet<ServiceBulletpoint> ServiceBulletpoints { get; set; }
+		public DbSet<ServiceBulletpointElements> ServiceBulletpointElements { get; set; }
+		public DbSet<ServiceTable> ServiceTables { get; set; }
 		#endregion
 	}
 }

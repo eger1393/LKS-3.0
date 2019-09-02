@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DataBase.Models
 {
+	// Хз откуда эта модель
 	public class CodeShares
 	{
 		[Key]

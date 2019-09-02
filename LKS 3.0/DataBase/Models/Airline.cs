@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataBase.Models
 {
-	// TODO Уточнить, модель на картинке больше чем моель на схеме в гите
+	//https://github.com/ACIWorld/ACRIS_Seamless_Travel/blob/d4818104ed5880ed306983aca1d71ebe20e14dc4/airline/model/airline.full.schema.json	
 	public class Airline
 	{
 		[Key]
@@ -45,5 +45,16 @@ namespace DataBase.Models
         public string telephoneNumber { get; set; }
         [MaxLength(255)]
         public string terminal { get; set; }
+		public List<AirlineWebsite> websites { get; set; }
+	}
+
+	public class AirlineWebsite
+	{
+		[Key]
+		public int airlineWebsiteId { get; set; }
+
+		[Required]
+		[MaxLength(255)]
+		public string url { get; set; }
 	}
 }

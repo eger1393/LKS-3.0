@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataBase.Models
 {
+	//https://github.com/ACIWorld/ACRIS_Seamless_Travel/blob/master/acrisFlight/model/ACRISFlight.schema.json
 	public class ACRISFlight
 	{
 		[Key]
@@ -13,7 +14,7 @@ namespace DataBase.Models
 		public Arrival arrival { get; set; }
         [MaxLength(255)]
         public string arrivalAirport { get; set; }
-		public CodeShares codeShares { get; set; }
+		public List<FlightNumber> codeShares { get; set; }
 		public Departure departure { get; set; }
         [MaxLength(255)]
         public string departureAirport { get; set; }

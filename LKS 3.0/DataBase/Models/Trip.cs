@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataBase.Models
@@ -10,7 +11,7 @@ namespace DataBase.Models
 		[Required]
 		public DateTime endDate { get; set; }
         [MaxLength(255)]
-        public string flights { get; set; }
+        public List<TripFlight> flights { get; set; }
 		[Required]
         [MaxLength(255)]
         public string name { get; set; }
@@ -22,5 +23,18 @@ namespace DataBase.Models
 		public TripServices services { get; set; }
 		[Required]
 		public DateTime startDate { get; set; }
+	}
+
+	public class TripFlight
+	{
+		[Key]
+		public int tripFlightId { get; set; }
+
+		[Required]
+		[MaxLength(255)]
+		public string flightID { get; set; }
+
+		[MaxLength(255)]
+		public string pnr { get; set; }
 	}
 }

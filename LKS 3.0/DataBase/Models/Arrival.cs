@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DataBase.Models
 {
+	//https://github.com/ACIWorld/ACRIS_Seamless_Travel/blob/master/acrisFlight/model/flightArrivalInformation.schema.json
 	public class Arrival
 	{
 		[Key]

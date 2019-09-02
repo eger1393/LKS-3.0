@@ -27,20 +27,21 @@ namespace DataBase.Migrations
 
                     b.Property<int?>("aircrafTypeaircraftTypeID");
 
-                    b.Property<string>("arrivalAirport");
+                    b.Property<string>("arrivalAirport")
+                        .HasMaxLength(255);
 
                     b.Property<int?>("arrivalID");
 
-                    b.Property<int?>("codeSharesID");
-
-                    b.Property<string>("departureAirport");
+                    b.Property<string>("departureAirport")
+                        .HasMaxLength(255);
 
                     b.Property<int?>("departureID");
 
                     b.Property<int>("flightNumberID");
 
                     b.Property<string>("flightStatus")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<int>("operatingAirlineID");
 
@@ -51,8 +52,6 @@ namespace DataBase.Migrations
                     b.HasIndex("aircrafTypeaircraftTypeID");
 
                     b.HasIndex("arrivalID");
-
-                    b.HasIndex("codeSharesID");
 
                     b.HasIndex("departureID");
 
@@ -70,11 +69,13 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("icaoCode")
-                        .HasMaxLength(4);
+                        .HasMaxLength(10);
 
-                    b.Property<string>("modelName");
+                    b.Property<string>("modelName")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("registration");
+                    b.Property<string>("registration")
+                        .HasMaxLength(50);
 
                     b.HasKey("aircraftTypeID");
 
@@ -90,38 +91,54 @@ namespace DataBase.Migrations
                     b.Property<int?>("airlineContactId");
 
                     b.Property<string>("airlineName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("checkIn");
+                    b.Property<string>("checkIn")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("checkInTime");
+                    b.Property<string>("checkInTime")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("email");
+                    b.Property<string>("email")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("faxNumber");
+                    b.Property<string>("faxNumber")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("flightNumberCode");
+                    b.Property<string>("flightNumberCode")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("handlingAgent");
+                    b.Property<string>("handlingAgent")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("iataCode");
+                    b.Property<string>("iataCode")
+                        .HasMaxLength(10);
 
                     b.Property<string>("icaoCode")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(10);
 
-                    b.Property<string>("info");
+                    b.Property<string>("info")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("lateNightArea");
+                    b.Property<string>("lateNightArea")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("lateNightTimes");
+                    b.Property<string>("lateNightTimes")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("onlineCheckInURL");
+                    b.Property<string>("onlineCheckInURL")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("serviceTime");
+                    b.Property<string>("serviceTime")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("telephoneNumber");
+                    b.Property<string>("telephoneNumber")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("terminal");
+                    b.Property<string>("terminal")
+                        .HasMaxLength(255);
 
                     b.HasKey("airlineID");
 
@@ -137,27 +154,53 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("country_name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("country_tag");
+                    b.Property<string>("country_tag")
+                        .HasMaxLength(100);
 
                     b.Property<string>("extended_address");
 
                     b.Property<string>("locality")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("post_office_box");
+                    b.Property<string>("post_office_box")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("postal_code");
+                    b.Property<string>("postal_code")
+                        .HasMaxLength(50);
 
                     b.Property<string>("region")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("street_address");
+                    b.Property<string>("street_address")
+                        .HasMaxLength(255);
 
                     b.HasKey("airlineContactId");
 
                     b.ToTable("AirlineContacts");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirlineWebsite", b =>
+                {
+                    b.Property<int>("airlineWebsiteId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("airlineID");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("airlineWebsiteId");
+
+                    b.HasIndex("airlineID");
+
+                    b.ToTable("AirlineWebsite");
                 });
 
             modelBuilder.Entity("DataBase.Models.Airport", b =>
@@ -168,28 +211,37 @@ namespace DataBase.Migrations
 
                     b.Property<int?>("airportImageURLID");
 
-                    b.Property<string>("airportName");
+                    b.Property<string>("airportName")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("bmezone");
-
-                    b.Property<string>("cityName");
+                    b.Property<string>("cityName")
+                        .HasMaxLength(255);
 
                     b.Property<int?>("coordinateairportCoordinateID");
 
-                    b.Property<int?>("countryairportCountryID");
-
                     b.Property<int?>("currentQueueTimesairportCurrentQueueTimesID");
+
+                    b.Property<string>("email")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("forecastQueueTimesairportForecastQueueTimesID");
 
                     b.Property<double?>("geofenceRadius");
 
-                    b.Property<string>("iataCode");
+                    b.Property<string>("iataCode")
+                        .HasMaxLength(10);
 
                     b.Property<string>("icaoCode")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<int?>("postalAddressairportPostalAddressID");
+
+                    b.Property<string>("telephoneNumber")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("timezone")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("vasitorsAddressairportVisitorsAddressID");
 
@@ -198,8 +250,6 @@ namespace DataBase.Migrations
                     b.HasIndex("airportImageURLID");
 
                     b.HasIndex("coordinateairportCoordinateID");
-
-                    b.HasIndex("countryairportCountryID");
 
                     b.HasIndex("currentQueueTimesairportCurrentQueueTimesID");
 
@@ -229,19 +279,6 @@ namespace DataBase.Migrations
                     b.ToTable("AirportCoordinates");
                 });
 
-            modelBuilder.Entity("DataBase.Models.AirportCountry", b =>
-                {
-                    b.Property<int>("airportCountryID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("countryName");
-
-                    b.HasKey("airportCountryID");
-
-                    b.ToTable("AirportCountries");
-                });
-
             modelBuilder.Entity("DataBase.Models.AirportCurrentQueueTimes", b =>
                 {
                     b.Property<int?>("airportCurrentQueueTimesID")
@@ -254,9 +291,11 @@ namespace DataBase.Migrations
 
                     b.Property<int?>("currentProjectedWaitTime");
 
-                    b.Property<string>("currentQueueName");
+                    b.Property<string>("currentQueueName")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("currentTime");
+                    b.Property<string>("currentTime")
+                        .HasMaxLength(50);
 
                     b.HasKey("airportCurrentQueueTimesID");
 
@@ -269,9 +308,11 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("currentQueueName");
+                    b.Property<string>("currentQueueName")
+                        .HasMaxLength(255);
 
-                    b.Property<string>("currentTime");
+                    b.Property<string>("currentTime")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("forecastConfidence");
 
@@ -288,17 +329,65 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("high");
+                    b.Property<string>("high")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("low");
+                    b.Property<string>("low")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("medium");
+                    b.Property<string>("medium")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("native");
+                    b.Property<string>("native")
+                        .HasMaxLength(20);
 
                     b.HasKey("airportImageURLID");
 
                     b.ToTable("AirportImageURL");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirportInfo", b =>
+                {
+                    b.Property<int>("airportInfoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("created");
+
+                    b.Property<string>("infoType")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("message");
+
+                    b.Property<string>("title")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime?>("valid_from");
+
+                    b.Property<DateTime?>("valid_to");
+
+                    b.HasKey("airportInfoId");
+
+                    b.ToTable("AirportInfos");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirportInfoExternalLink", b =>
+                {
+                    b.Property<int>("airportInfoExternalLinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("airportInfoId");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("airportInfoExternalLinkId");
+
+                    b.HasIndex("airportInfoId");
+
+                    b.ToTable("AirportInfoExternalLink");
                 });
 
             modelBuilder.Entity("DataBase.Models.AirportPostalAddress", b =>
@@ -308,23 +397,30 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("country_name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("country_tag");
+                    b.Property<string>("country_tag")
+                        .HasMaxLength(100);
 
                     b.Property<string>("extended_address");
 
                     b.Property<string>("locality")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("post_office_box");
+                    b.Property<string>("post_office_box")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("postal_code");
+                    b.Property<string>("postal_code")
+                        .HasMaxLength(50);
 
                     b.Property<string>("region")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("street_address");
+                    b.Property<string>("street_address")
+                        .HasMaxLength(255);
 
                     b.HasKey("airportPostalAddressID");
 
@@ -338,27 +434,53 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("country_name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("country_tag");
+                    b.Property<string>("country_tag")
+                        .HasMaxLength(100);
 
                     b.Property<string>("extended_address");
 
                     b.Property<string>("locality")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("post_office_box");
+                    b.Property<string>("post_office_box")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("postal_code");
+                    b.Property<string>("postal_code")
+                        .HasMaxLength(50);
 
                     b.Property<string>("region")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("street_address");
+                    b.Property<string>("street_address")
+                        .HasMaxLength(255);
 
                     b.HasKey("airportVisitorsAddressID");
 
                     b.ToTable("AirportVisitorsAddresses");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirportWebsite", b =>
+                {
+                    b.Property<int>("airportWebsiteId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("airportID");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("airportWebsiteId");
+
+                    b.HasIndex("airportID");
+
+                    b.ToTable("AirportWebsite");
                 });
 
             modelBuilder.Entity("DataBase.Models.Arrival", b =>
@@ -373,11 +495,13 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime?>("estimated");
 
-                    b.Property<string>("gate");
+                    b.Property<string>("gate")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("scheduled");
 
-                    b.Property<string>("termnal");
+                    b.Property<string>("termnal")
+                        .HasMaxLength(10);
 
                     b.Property<string>("transferInformation");
 
@@ -394,7 +518,8 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("carousel");
+                    b.Property<string>("carousel")
+                        .HasMaxLength(255);
 
                     b.Property<DateTime?>("expectedTimeOnCarousel");
 
@@ -409,7 +534,8 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("bookingClass");
+                    b.Property<string>("bookingClass")
+                        .HasMaxLength(255);
 
                     b.Property<int?>("departureID");
 
@@ -443,36 +569,19 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("additionalInfo");
+                    b.Property<string>("additionalInfo")
+                        .HasMaxLength(300);
 
                     b.Property<DateTime?>("checkInBeginTime");
 
                     b.Property<DateTime?>("checkInEndTime");
 
-                    b.Property<string>("checkInLocation");
+                    b.Property<string>("checkInLocation")
+                        .HasMaxLength(255);
 
                     b.HasKey("checkInInfoID");
 
                     b.ToTable("CheckInInfos");
-                });
-
-            modelBuilder.Entity("DataBase.Models.CodeShares", b =>
-                {
-                    b.Property<int>("codeSharesID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("airlineCode")
-                        .IsRequired();
-
-                    b.Property<string>("suffix");
-
-                    b.Property<string>("trackNumber")
-                        .IsRequired();
-
-                    b.HasKey("codeSharesID");
-
-                    b.ToTable("CodeShares");
                 });
 
             modelBuilder.Entity("DataBase.Models.Departure", b =>
@@ -487,11 +596,13 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime?>("estimated");
 
-                    b.Property<string>("gate");
+                    b.Property<string>("gate")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("scheduled");
 
-                    b.Property<string>("terminal");
+                    b.Property<string>("terminal")
+                        .HasMaxLength(10);
 
                     b.HasKey("departureID");
 
@@ -506,15 +617,22 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("airlineCode")
-                        .IsRequired();
+                    b.Property<int?>("ACRISFlightID");
 
-                    b.Property<string>("suffix");
+                    b.Property<string>("airlineCode")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("suffix")
+                        .HasMaxLength(50);
 
                     b.Property<string>("trackNumber")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("flightNumberID");
+
+                    b.HasIndex("ACRISFlightID");
 
                     b.ToTable("FlightNumbers");
                 });
@@ -525,13 +643,17 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("high");
+                    b.Property<string>("high")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("low");
+                    b.Property<string>("low")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("medium");
+                    b.Property<string>("medium")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("native");
+                    b.Property<string>("native")
+                        .HasMaxLength(20);
 
                     b.HasKey("imageID");
 
@@ -544,13 +666,17 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("logo_high");
+                    b.Property<string>("logo_high")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("logo_low");
+                    b.Property<string>("logo_low")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("logo_medium");
+                    b.Property<string>("logo_medium")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("logo_native");
+                    b.Property<string>("logo_native")
+                        .HasMaxLength(20);
 
                     b.HasKey("logoID");
 
@@ -585,12 +711,13 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("iataCode")
-                        .HasMaxLength(3);
+                        .HasMaxLength(10);
 
                     b.Property<string>("icaoCode")
-                        .HasMaxLength(3);
+                        .HasMaxLength(10);
 
-                    b.Property<string>("name");
+                    b.Property<string>("name")
+                        .HasMaxLength(255);
 
                     b.HasKey("operatingAirlineID");
 
@@ -605,18 +732,23 @@ namespace DataBase.Migrations
 
                     b.Property<int?>("contactproviderContactID");
 
-                    b.Property<string>("email");
+                    b.Property<string>("email")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("fax");
+                    b.Property<string>("fax")
+                        .HasMaxLength(100);
 
                     b.Property<int?>("logoID");
 
                     b.Property<string>("name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("phone");
+                    b.Property<string>("phone")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("website");
+                    b.Property<string>("website")
+                        .HasMaxLength(100);
 
                     b.HasKey("providerID");
 
@@ -634,23 +766,30 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("country_name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("country_tag");
+                    b.Property<string>("country_tag")
+                        .HasMaxLength(100);
 
                     b.Property<string>("extended_address");
 
                     b.Property<string>("locality")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("post_office_box");
+                    b.Property<string>("post_office_box")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("postal_code");
+                    b.Property<string>("postal_code")
+                        .HasMaxLength(50);
 
                     b.Property<string>("region")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("street_address");
+                    b.Property<string>("street_address")
+                        .HasMaxLength(255);
 
                     b.HasKey("providerContactID");
 
@@ -663,45 +802,111 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("serviceProviderproviderID");
+                    b.Property<int?>("desciptionImage_verticalimageID");
+
+                    b.Property<string>("description");
+
+                    b.Property<int?>("descriptionImage_horizontalimageID");
+
+                    b.Property<int?>("iconimageID");
+
+                    b.Property<bool>("isBookable");
+
+                    b.Property<int?>("providerID");
+
+                    b.Property<string>("shortDescription")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("subTitle")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("titleImage_smallimageID");
+
+                    b.Property<int?>("titleImageimageID");
 
                     b.HasKey("serviceID");
 
-                    b.HasIndex("serviceProviderproviderID");
+                    b.HasIndex("desciptionImage_verticalimageID");
+
+                    b.HasIndex("descriptionImage_horizontalimageID");
+
+                    b.HasIndex("iconimageID");
+
+                    b.HasIndex("providerID");
+
+                    b.HasIndex("titleImage_smallimageID");
+
+                    b.HasIndex("titleImageimageID");
 
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("DataBase.Models.ServiceDonwload", b =>
+            modelBuilder.Entity("DataBase.Models.ServiceBulletpoint", b =>
                 {
-                    b.Property<int>("serviceDonwloadID")
+                    b.Property<int>("serviceBulletpointId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("format");
+                    b.Property<string>("footerText")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("headerText")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("order");
 
                     b.Property<int?>("serviceID");
 
-                    b.Property<string>("type");
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.HasKey("serviceDonwloadID");
+                    b.HasKey("serviceBulletpointId");
+
+                    b.HasIndex("serviceID");
+
+                    b.ToTable("ServiceBulletpoints");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceBulletpointElements", b =>
+                {
+                    b.Property<int>("serviceBulletpointElementsId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("serviceBulletpointId");
+
+                    b.Property<string>("value")
+                        .IsRequired();
+
+                    b.HasKey("serviceBulletpointElementsId");
+
+                    b.HasIndex("serviceBulletpointId");
+
+                    b.ToTable("ServiceBulletpointElements");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceDonwloads", b =>
+                {
+                    b.Property<int>("serviceDonwloadsId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("serviceID");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("serviceDonwloadsId");
 
                     b.HasIndex("serviceID");
 
                     b.ToTable("ServiceDonwloads");
-                });
-
-            modelBuilder.Entity("DataBase.Models.ServiceElements", b =>
-                {
-                    b.Property<int>("serviceElementsID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("value");
-
-                    b.HasKey("serviceElementsID");
-
-                    b.ToTable("ServiceElements");
                 });
 
             modelBuilder.Entity("DataBase.Models.ServiceHeader", b =>
@@ -724,28 +929,6 @@ namespace DataBase.Migrations
                     b.ToTable("ServiceHeaders");
                 });
 
-            modelBuilder.Entity("DataBase.Models.ServiceItem", b =>
-                {
-                    b.Property<int>("serviceItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("description");
-
-                    b.Property<bool>("isBookable");
-
-                    b.Property<string>("shortDescription");
-
-                    b.Property<string>("subTitle");
-
-                    b.Property<string>("title")
-                        .IsRequired();
-
-                    b.HasKey("serviceItemID");
-
-                    b.ToTable("ServiceItems");
-                });
-
             modelBuilder.Entity("DataBase.Models.ServiceLocations", b =>
                 {
                     b.Property<int>("serviceLocationsID")
@@ -753,12 +936,14 @@ namespace DataBase.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("area")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<string>("description");
 
                     b.Property<string>("humanReadable")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<int?>("mapImageimageID");
 
@@ -775,6 +960,80 @@ namespace DataBase.Migrations
                     b.ToTable("ServiceLocations");
                 });
 
+            modelBuilder.Entity("DataBase.Models.ServiceTable", b =>
+                {
+                    b.Property<int>("serviceTableId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("footerText")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("headerText")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("order");
+
+                    b.Property<string>("position")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("serviceID");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("serviceTableId");
+
+                    b.HasIndex("serviceID");
+
+                    b.ToTable("ServiceTables");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceTableRow", b =>
+                {
+                    b.Property<int>("serviceTableRowId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("column1")
+                        .IsRequired();
+
+                    b.Property<string>("column2")
+                        .IsRequired();
+
+                    b.Property<int?>("serviceTableId");
+
+                    b.HasKey("serviceTableRowId");
+
+                    b.HasIndex("serviceTableId");
+
+                    b.ToTable("ServiceTableRow");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceText", b =>
+                {
+                    b.Property<int>("serviceTextId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("order");
+
+                    b.Property<int?>("serviceID");
+
+                    b.Property<string>("text");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("serviceTextId");
+
+                    b.HasIndex("serviceID");
+
+                    b.ToTable("ServiceText");
+                });
+
             modelBuilder.Entity("DataBase.Models.Specials", b =>
                 {
                     b.Property<int>("specialsID")
@@ -783,7 +1042,8 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime?>("begin");
 
-                    b.Property<string>("coupon");
+                    b.Property<string>("coupon")
+                        .HasMaxLength(255);
 
                     b.Property<string>("description");
 
@@ -792,7 +1052,8 @@ namespace DataBase.Migrations
                     b.Property<int?>("imageID");
 
                     b.Property<string>("name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<int>("numberOfAvailable");
 
@@ -815,13 +1076,13 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime>("endDate");
 
-                    b.Property<string>("flights");
-
                     b.Property<string>("name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<string>("role")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<int?>("servicestripServicesID");
 
@@ -832,6 +1093,28 @@ namespace DataBase.Migrations
                     b.HasIndex("servicestripServicesID");
 
                     b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("DataBase.Models.TripFlight", b =>
+                {
+                    b.Property<int>("tripFlightId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("flightID")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("pnr")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("tripID");
+
+                    b.HasKey("tripFlightId");
+
+                    b.HasIndex("tripID");
+
+                    b.ToTable("TripFlight");
                 });
 
             modelBuilder.Entity("DataBase.Models.TripServices", b =>
@@ -846,7 +1129,8 @@ namespace DataBase.Migrations
                         .IsRequired();
 
                     b.Property<string>("source")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("tripServicesID");
 
@@ -865,7 +1149,8 @@ namespace DataBase.Migrations
 
                     b.Property<int?>("departureviaDepartureID");
 
-                    b.Property<string>("viaAirport");
+                    b.Property<string>("viaAirport")
+                        .HasMaxLength(255);
 
                     b.HasKey("viaID");
 
@@ -890,13 +1175,16 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime?>("estimated");
 
-                    b.Property<string>("gate");
+                    b.Property<string>("gate")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("scheduled");
 
-                    b.Property<string>("termnal");
+                    b.Property<string>("termnal")
+                        .HasMaxLength(10);
 
-                    b.Property<string>("transferInformation");
+                    b.Property<string>("transferInformation")
+                        .HasMaxLength(255);
 
                     b.HasKey("viaArrivalID");
 
@@ -911,7 +1199,8 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("carousel");
+                    b.Property<string>("carousel")
+                        .HasMaxLength(255);
 
                     b.Property<DateTime?>("expectedTimeOnCarousel");
 
@@ -926,7 +1215,8 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("bookingClass");
+                    b.Property<string>("bookingClass")
+                        .HasMaxLength(255);
 
                     b.Property<DateTime?>("time");
 
@@ -941,13 +1231,15 @@ namespace DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("additionalInfo");
+                    b.Property<string>("additionalInfo")
+                        .HasMaxLength(255);
 
                     b.Property<DateTime?>("checkInBeginTime");
 
                     b.Property<DateTime?>("checkInEndTime");
 
-                    b.Property<string>("checkInLocation");
+                    b.Property<string>("checkInLocation")
+                        .HasMaxLength(255);
 
                     b.HasKey("viaCheckInInfoID");
 
@@ -968,11 +1260,13 @@ namespace DataBase.Migrations
 
                     b.Property<DateTime?>("estimated");
 
-                    b.Property<string>("gate");
+                    b.Property<string>("gate")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("scheduled");
 
-                    b.Property<string>("terminal");
+                    b.Property<string>("terminal")
+                        .HasMaxLength(10);
 
                     b.HasKey("viaDepartureID");
 
@@ -992,10 +1286,6 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.Arrival", "arrival")
                         .WithMany()
                         .HasForeignKey("arrivalID");
-
-                    b.HasOne("DataBase.Models.CodeShares", "codeShares")
-                        .WithMany()
-                        .HasForeignKey("codeSharesID");
 
                     b.HasOne("DataBase.Models.Departure", "departure")
                         .WithMany()
@@ -1019,6 +1309,13 @@ namespace DataBase.Migrations
                         .HasForeignKey("airlineContactId");
                 });
 
+            modelBuilder.Entity("DataBase.Models.AirlineWebsite", b =>
+                {
+                    b.HasOne("DataBase.Models.Airline")
+                        .WithMany("websites")
+                        .HasForeignKey("airlineID");
+                });
+
             modelBuilder.Entity("DataBase.Models.Airport", b =>
                 {
                     b.HasOne("DataBase.Models.AirportImageURL", "airportImageURL")
@@ -1028,10 +1325,6 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.AirportCoordinate", "coordinate")
                         .WithMany()
                         .HasForeignKey("coordinateairportCoordinateID");
-
-                    b.HasOne("DataBase.Models.AirportCountry", "country")
-                        .WithMany()
-                        .HasForeignKey("countryairportCountryID");
 
                     b.HasOne("DataBase.Models.AirportCurrentQueueTimes", "currentQueueTimes")
                         .WithMany()
@@ -1048,6 +1341,20 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.AirportVisitorsAddress", "vasitorsAddress")
                         .WithMany()
                         .HasForeignKey("vasitorsAddressairportVisitorsAddressID");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirportInfoExternalLink", b =>
+                {
+                    b.HasOne("DataBase.Models.AirportInfo")
+                        .WithMany("urls")
+                        .HasForeignKey("airportInfoId");
+                });
+
+            modelBuilder.Entity("DataBase.Models.AirportWebsite", b =>
+                {
+                    b.HasOne("DataBase.Models.Airport")
+                        .WithMany("websites")
+                        .HasForeignKey("airportID");
                 });
 
             modelBuilder.Entity("DataBase.Models.Arrival", b =>
@@ -1078,6 +1385,13 @@ namespace DataBase.Migrations
                         .HasForeignKey("checkInInfoID");
                 });
 
+            modelBuilder.Entity("DataBase.Models.FlightNumber", b =>
+                {
+                    b.HasOne("DataBase.Models.ACRISFlight")
+                        .WithMany("codeShares")
+                        .HasForeignKey("ACRISFlightID");
+                });
+
             modelBuilder.Entity("DataBase.Models.OpeningHour", b =>
                 {
                     b.HasOne("DataBase.Models.ServiceLocations")
@@ -1098,15 +1412,49 @@ namespace DataBase.Migrations
 
             modelBuilder.Entity("DataBase.Models.Service", b =>
                 {
-                    b.HasOne("DataBase.Models.Provider", "serviceProvider")
+                    b.HasOne("DataBase.Models.Image", "desciptionImage_vertical")
                         .WithMany()
-                        .HasForeignKey("serviceProviderproviderID");
+                        .HasForeignKey("desciptionImage_verticalimageID");
+
+                    b.HasOne("DataBase.Models.Image", "descriptionImage_horizontal")
+                        .WithMany()
+                        .HasForeignKey("descriptionImage_horizontalimageID");
+
+                    b.HasOne("DataBase.Models.Image", "icon")
+                        .WithMany()
+                        .HasForeignKey("iconimageID");
+
+                    b.HasOne("DataBase.Models.Provider", "provider")
+                        .WithMany()
+                        .HasForeignKey("providerID");
+
+                    b.HasOne("DataBase.Models.Image", "titleImage_small")
+                        .WithMany()
+                        .HasForeignKey("titleImage_smallimageID");
+
+                    b.HasOne("DataBase.Models.Image", "titleImage")
+                        .WithMany()
+                        .HasForeignKey("titleImageimageID");
                 });
 
-            modelBuilder.Entity("DataBase.Models.ServiceDonwload", b =>
+            modelBuilder.Entity("DataBase.Models.ServiceBulletpoint", b =>
                 {
                     b.HasOne("DataBase.Models.Service")
-                        .WithMany("serviceDonwloads")
+                        .WithMany("serviceBulletpoints")
+                        .HasForeignKey("serviceID");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceBulletpointElements", b =>
+                {
+                    b.HasOne("DataBase.Models.ServiceBulletpoint")
+                        .WithMany("elements")
+                        .HasForeignKey("serviceBulletpointId");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceDonwloads", b =>
+                {
+                    b.HasOne("DataBase.Models.Service")
+                        .WithMany("downloads")
                         .HasForeignKey("serviceID");
                 });
 
@@ -1115,6 +1463,27 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.Image", "mapImage")
                         .WithMany()
                         .HasForeignKey("mapImageimageID");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceTable", b =>
+                {
+                    b.HasOne("DataBase.Models.Service")
+                        .WithMany("serviceTables")
+                        .HasForeignKey("serviceID");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceTableRow", b =>
+                {
+                    b.HasOne("DataBase.Models.ServiceTable")
+                        .WithMany("rows")
+                        .HasForeignKey("serviceTableId");
+                });
+
+            modelBuilder.Entity("DataBase.Models.ServiceText", b =>
+                {
+                    b.HasOne("DataBase.Models.Service")
+                        .WithMany("serviceTexts")
+                        .HasForeignKey("serviceID");
                 });
 
             modelBuilder.Entity("DataBase.Models.Specials", b =>
@@ -1133,6 +1502,13 @@ namespace DataBase.Migrations
                     b.HasOne("DataBase.Models.TripServices", "services")
                         .WithMany()
                         .HasForeignKey("servicestripServicesID");
+                });
+
+            modelBuilder.Entity("DataBase.Models.TripFlight", b =>
+                {
+                    b.HasOne("DataBase.Models.Trip")
+                        .WithMany("flights")
+                        .HasForeignKey("tripID");
                 });
 
             modelBuilder.Entity("DataBase.Models.Via", b =>

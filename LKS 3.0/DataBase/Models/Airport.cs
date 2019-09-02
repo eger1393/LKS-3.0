@@ -5,12 +5,12 @@ using System.Text;
 
 namespace DataBase.Models
 {
+	//https://github.com/ACIWorld/ACRIS_Seamless_Travel/blob/master/airport/model/airport.full.schema.json
 	public class Airport
 	{
 		[Key]
 		public int airportID { get; set; }
-
-		// TODO подумать надо ли разбивать на 2 таблицы
+		
 		public AirportImageURL airportImageURL { get; set; }
         [MaxLength(255)]
         public string airportName { get; set; }
@@ -18,7 +18,7 @@ namespace DataBase.Models
         public string cityName { get; set; }
 		
 		public AirportCoordinate coordinate { get; set; }
-		public AirportCountry country { get; set; }
+		//public AirportCountry country { get; set; }
 		
 		public AirportCurrentQueueTimes currentQueueTimes { get; set; }
 		public AirportForecastQueueTimes forecastQueueTimes { get; set; }
@@ -32,10 +32,25 @@ namespace DataBase.Models
 		
 		public AirportPostalAddress postalAddress { get; set; }
         [MaxLength(50)]
-        public string bmezone { get; set; }
+        public string timezone { get; set; }
 		
 		public AirportVisitorsAddress vasitorsAddress { get; set; }
+		public List<AirportWebsite> websites { get; set; }
+		[MaxLength(50)]
+		public string telephoneNumber { get; set; }
+		[MaxLength(50)]
+		public string email { get; set; }
 
 
+	}
+
+	public class AirportWebsite
+	{
+		[Key]
+		public int airportWebsiteId { get; set; }
+
+		[Required]
+		[MaxLength(255)]
+		public string url { get; set; }
 	}
 }
