@@ -20,24 +20,12 @@ namespace LKS.Data.Implementation
             _passwordProvider = passwordProvider;
             _context = context;
         }
-        public async Task<string> Create(Prepod item, string login)
+       
+        public async Task Create(Prepod item)
         {
-            await _context.Prepods.AddAsync(item);
-            string password = _passwordProvider.GetHash(_passwordProvider.GetRandomPassword(8), login);
-            await _context.Users.AddAsync(new User
-            {
-                Login = login,
-                Role = "Admin",
-                TroopId = string.Empty,
-                Password = password
-            });
-            _context.SaveChanges();
-            return password;
-        }
-
-        public Task Create(Prepod item)
-        {
-            throw new NotImplementedException();
+           await _context.Prepods.AddAsync(item);
+            await _context.SaveChangesAsync();
+             
         }
 
         public async Task CreateRange(ICollection<Prepod> item)

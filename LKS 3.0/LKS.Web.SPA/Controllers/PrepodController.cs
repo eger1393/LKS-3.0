@@ -67,7 +67,7 @@ namespace LKS.Web.Controllers
                 LastName = model.LastName,
                 MiddleName = model.MiddleName,
                 PrepodRank = model.PrepodRank
-            }, model.Login);
+            });
 			return Ok();
 		}
 

@@ -125,7 +125,7 @@ namespace LKS.Data
             builder.Entity<Cycle>().HasData(new Cycle
 			{
 				Id = "1",
-				Number = "4",
+				Number = "3",
 				SpecialityName = "ТОР",
 				VUS = "042600"
 			});

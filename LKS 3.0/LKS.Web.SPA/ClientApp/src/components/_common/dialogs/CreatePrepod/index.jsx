@@ -51,7 +51,6 @@ class CreatePrepod extends React.Component {
             || !val.firstName
             || !val.lastName
             || !val.coolness
-            || !val.login
         ) {
             this.setState(prevSate => (
                 {
@@ -60,8 +59,7 @@ class CreatePrepod extends React.Component {
                         middleName: !prevSate.fieldValue.middleName,
                         firstName: !prevSate.fieldValue.firstName,
                         lastName: !prevSate.fieldValue.lastName,
-                        coolness: !prevSate.fieldValue.coolness,
-                        login: !prevSate.fieldValue.login,
+                        coolness: !prevSate.fieldValue.coolness, 
                     }
                 }
             ))
@@ -158,19 +156,6 @@ class CreatePrepod extends React.Component {
                                 value={this.state.fieldValue.prepodRank}
                                 onChange={this.changeSelect}
                             />
-                        </div>
-                        <div>
-                            <Input id="login"
-                                type="text"
-                                isRequired={true}
-                                placeholder="Логин"
-                                value={this.state.fieldValue.login}
-                                onChange={this.changeSelect}
-                            />
-                            {
-                                this.state.error.login
-                                && (<div className="error-message">Введите логин!</div>)
-                            }
                         </div>
                     </FlexRow>
                 </FlexBox>

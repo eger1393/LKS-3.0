@@ -6,7 +6,6 @@ namespace LKS.Data.Repositories
 {
     public interface IPrepodRepository : IRepository<Prepod>
     {
-        Task<string> Create(Prepod item, string login);
         IEnumerable<Prepod> GetItems();
     }
 }

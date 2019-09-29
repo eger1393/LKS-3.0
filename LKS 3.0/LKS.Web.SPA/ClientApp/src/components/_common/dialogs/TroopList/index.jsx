@@ -104,10 +104,6 @@ class TroopList extends React.Component {
             </tbody>
           </Table>
         </FlexBox>
-
-        <div className="form-submit">
-          <Button onClick={() => this.setState({ troopWindowIsOpen: true, editedTroopId: null })} value="Создать" />
-        </div>
         <ContextMenu id="troopMenu">
           <MenuItem onClick={this.menuClick} data={{ type: 'editTroop' }}>Редактировать взвод</MenuItem>
           <MenuItem onClick={this.menuClick} data={{ type: 'deleteTroop' }}>Удалить взвод</MenuItem>

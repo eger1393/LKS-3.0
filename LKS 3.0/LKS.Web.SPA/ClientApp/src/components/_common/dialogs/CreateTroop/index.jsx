@@ -196,7 +196,7 @@ class CreateTroop extends React.Component {
               <CheckBox
                 id="isSboriTroop"
                 value={this.state.fieldValue.isSboriTroop}
-                title="Возвод для сборов?"
+                title="Взвод для сборов?"
                 onChange={this.changeSelect}
               />
               <div />

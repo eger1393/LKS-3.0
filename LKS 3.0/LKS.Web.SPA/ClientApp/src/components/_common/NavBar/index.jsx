@@ -71,7 +71,7 @@ class NavBar extends React.Component {
                                     <PrepodList show={this.state.openModalWindow.PrepodList} onHide={() => this.click('PrepodList')} />
                                 )}
                             </NavDropdown>
-                            <NavDropdown title="Отчеты">
+                            <NavDropdown title="Документы">
                                 <MenuItem eventKey={'CreateNewTemplate'}>Добавить шаблон</MenuItem>
                                 {this.state.openModalWindow.CreateNewTemplate && (
                                     <CreateTemplate show={this.state.openModalWindow.CreateNewTemplate} onHide={() => this.click('CreateNewTemplate')} />

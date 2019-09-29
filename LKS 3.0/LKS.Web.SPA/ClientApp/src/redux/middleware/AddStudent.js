@@ -34,7 +34,8 @@ function* addStudent() {
               Object.keys(Student).map(key => {
                 if (Student[key])
                   form.append(`Student[${key}]`, Student[key])
-              });
+                });
+
               form.append('Photo', Photo);
 
               Relatives && Relatives.map((ob, i) => {

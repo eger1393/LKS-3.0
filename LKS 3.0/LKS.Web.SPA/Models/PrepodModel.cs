@@ -16,6 +16,5 @@ namespace LKS.Web.Models
         public Coolness Coolness { get; set; }
         public string PrepodRank { get; set; }
         public string AdditionalInfo { get; set; }
-        public string Login { get; set; }
     }
 }

@@ -105,9 +105,9 @@ class PrepodList extends React.Component {
           </Table>
         </FlexBox>
 
-        <div className="form-submit">
+            {/* <div className="form-submit">
           <Button onClick={() => this.setState({ troopWindowIsOpen: true, editedPrepodId: null })} value="Создать" />
-        </div>
+        </div>*/}
 
         <ContextMenu id="prepodMenu">
           <MenuItem onClick={this.menuClick} data={{ type: 'editPrepod' }}>Редактировать преподавателя</MenuItem>
