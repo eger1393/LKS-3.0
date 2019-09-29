@@ -11,10 +11,10 @@ namespace LKS.Data.Models.Enums
 		/// </summary>
 		commander,
 
-		/// <summary>
-		/// Командир 1 отделения
-		/// </summary>
-		firstSquadCommander,
+        /// <summary>
+        /// Командир 1 отделения
+        /// </summary>
+        firstSquadCommander,
 
 		/// <summary>
 		/// Командир 2 отделения
@@ -25,20 +25,35 @@ namespace LKS.Data.Models.Enums
 		/// Командир 3 отделения
 		/// </summary>
 		thirdSquadCommander,
-
-		/// <summary>
-		/// Журналист
-		/// </summary>
-		journalist,
+        
+        /// <summary>
+        /// Журналист
+        /// </summary>
+        journalist,
 
 		/// <summary>
 		/// Секретчик
 		/// </summary>
 		secretary,
 
-		/// <summary>
-		/// Нет
+        /// <summary>
+        /// Нет
+        /// </summary>
+        none,
+
+        /// <summary>
+		/// Зам. Командир взвода
 		/// </summary>
-		none,
-	}
+		deputyCommander,
+
+        /// <summary>
+        /// Зам. Журналист
+        /// </summary>
+        deputyJournalist,
+
+        /// <summary>
+        /// Завхоз
+        /// </summary>
+        supplyManager,
+    }
 }

@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getStudentListData, getStudentListFields } from '../../../../../selectors/studentList'
+import { getPositionValue } from '../../../../../helpers/index'
 
 import { ContextMenuTrigger } from 'react-contextmenu'
 
@@ -15,23 +16,7 @@ class TBody extends React.Component {
         id: props.stydentId,
     })
 
-    postionEnum = pos => {
-        switch (pos) {
-            case 0:
-                return 'Командир взвода';
-            case 1:
-                return 'Командир 1 отделения';
-            case 2:
-                return 'Командир 2 отделения';
-            case 3:
-                return 'Командир 3 отделения';
-            case 4:
-                return 'Журналист';
-            case 5:
-                return 'Секретчик';
-            default:
-        }
-    }
+   
 
     render() {
         return (
@@ -60,7 +45,7 @@ class TBody extends React.Component {
                                     this.props.selectedFields.map(field => {
                                         return (
                                             <td>
-                                                {field.name === 'position' ? this.postionEnum(ob[field.name]) : ob[field.name]}
+                                                {field.name === 'position' ? getPositionValue(ob[field.name]) : ob[field.name]}
                                             </td>
                                         )
                                     })

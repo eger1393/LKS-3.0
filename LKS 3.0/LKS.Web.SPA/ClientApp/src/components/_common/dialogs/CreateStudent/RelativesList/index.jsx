@@ -92,7 +92,7 @@ class RelativesList extends React.Component {
                 </ButtonStyle>
                 <ContextMenu id="relativeMenu">
                     <MenuItem onClick={this.menuClick} data={{ type: 'editRelative' }}>Редактировать данные</MenuItem>
-                    <MenuItem onClick={this.menuClick} data={{ type: 'deleteRelative' }}>Удалить родственника</MenuItem>
+                    {/*<MenuItem onClick={this.menuClick} data={{ type: 'deleteRelative' }}>Удалить родственника</MenuItem>*/}
                 </ContextMenu>
                 {this.state.relativesWindowIsOpen && (
                     <CreateRelative

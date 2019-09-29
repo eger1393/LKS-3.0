@@ -74,7 +74,13 @@ namespace LKS.Web.Controllers
             }
 
             var obj = _studentRepository.GetStudent(model.id);
-            return Ok(obj);
+            var res = new SaveStudentModel
+            {
+                Student = obj,
+                Relatives = obj.Relatives
+            };
+            //res.Photo = obj.ImagePath;
+            return Ok(res);
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdateStudent([FromForm]SaveStudentModel model)

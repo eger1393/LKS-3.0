@@ -22,4 +22,4 @@ export const status = [{
 }, { id: 1, val: "На отсчисление" }, { id: 2, val: "Отстранен" }, { id: 3, val: "На сборах" }, { id: 4, val: "Прошел сборы" },]
 
 export const positions = [{ id: 0, val: "КВ" }, { id: 1, val: "КО1" }, { id: 2, val: "КО2" },
-{ id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" }, { id: 6, val: "Нет" }]
+    { id: 3, val: "КО3" }, { id: 4, val: "Ж" }, { id: 5, val: "С" }, { id: 6, val: "Нет" }, { id: 7, val: "ЗКВ" }, { id: 8, val: "ЗЖ" }, { id: 9, val: "Завхоз" }]

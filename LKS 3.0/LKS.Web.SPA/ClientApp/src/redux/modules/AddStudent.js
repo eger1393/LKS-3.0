@@ -158,14 +158,15 @@ export default function reducer(currentStudentState = defaultState, action = {})
                 loading: true,
             }
         case FETCH_SET_STUDENT_SUCCESS:
+            var student = payload.student;
+            delete student.relatives;
+            var relatives = payload.relatives;
             return {
                 ...currentStudentState,
                 fieldsValue: {
-                    ...payload,
+                    ...student,
                 },
-                //relatives: {
-                //    ...payload.relatives,
-                //},
+                relatives: relatives,
                 loading: false,
             }
         case FETCH_SET_ERRORS:

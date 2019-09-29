@@ -57,11 +57,14 @@ class Menu extends React.Component {
           </SubMenu>
           <SubMenu title='Сменить должность'>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 0 }}>командир взвода</MenuItem>
+            <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 7 }}>зам. командира взвода</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 1 }}>командир 1 отделения</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 2 }}>командир 2 отделения</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 3 }}>командир 3 отделения</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 4 }}>журналист</MenuItem>
+            <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 8 }}>зам. журналиста</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 5 }}>секретчик</MenuItem>
+            <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 9 }}>завхоз</MenuItem>
             <MenuItem onClick={this.menuClick} data={{ type: 'changPosition', position: 6 }}>нет</MenuItem>
           </SubMenu>
         </ContextMenu>

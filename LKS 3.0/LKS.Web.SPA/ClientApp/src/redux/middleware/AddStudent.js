@@ -16,8 +16,8 @@ function* addStudent() {
     yield all([
         takeEvery(FETCH_SET_STUDENT, function* (data) {
             try {
-                const Student = yield call(apiGetStudent, data.payload);
-                yield put(fetchSetStudentSuccess(Student));
+                const SetStudentModel = yield call(apiGetStudent, data.payload);
+                yield put(fetchSetStudentSuccess(SetStudentModel));
             } catch{
                 //yield put(fetchGetStudentListDataFailed());
             }

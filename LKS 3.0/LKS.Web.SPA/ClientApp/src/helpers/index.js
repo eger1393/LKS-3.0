@@ -66,6 +66,15 @@ export const getPositionValue = val => {
         case "none":
         case 6:
             return 'Нет';
+        case "deputyCommander":
+        case 7:
+            return 'ЗКВ';
+        case "deputyJournalist":
+        case 8:
+            return 'ЗЖ';
+        case "supplyManager":
+        case 9:
+            return 'Завхоз';
         default:
             return '';
     }
